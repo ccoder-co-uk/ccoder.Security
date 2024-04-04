@@ -27,6 +27,23 @@
     <ProjectReference Include="..\Security.Objects\Security.Objects.csproj" />
     <ProjectReference Include="..\Security.Data.EF\Security.Data.EF.csproj" />
   </ItemGroup>
+	
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageTags>cCoder;Security;cCoder.Security;cCoder.Security.Data</PackageTags>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PrivateRepositoryUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</PrivateRepositoryUrl>
+		<ProjectUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</ProjectUrl>
+		<Description>cCoder.Security.Data</Description>
+
+		<Authors>cCoder</Authors>
+		<PackageId>cCoder.Security.Data</PackageId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 
   <ItemGroup>
     <None Remove="Brokers\Serialization\" />
