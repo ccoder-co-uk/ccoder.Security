@@ -19,5 +19,22 @@
   <ItemGroup>
     <ProjectReference Include="..\Security.Objects\Security.Objects.csproj" />
   </ItemGroup>
+	
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageTags>cCoder;Security;cCoder.Security;cCoder.Security.Data.EF</PackageTags>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PrivateRepositoryUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</PrivateRepositoryUrl>
+		<ProjectUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</ProjectUrl>
+		<Description>cCoder.Security.Data.EF</Description>
+
+		<Authors>cCoder</Authors>
+		<PackageId>cCoder.Security.Data.EF</PackageId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 
 </Project>

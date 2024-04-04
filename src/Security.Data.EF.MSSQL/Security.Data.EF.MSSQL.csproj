@@ -17,4 +17,22 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageTags>cCoder;Security;cCoder.Security;cCoder.Security.Data.EF.MSSQL</PackageTags>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PrivateRepositoryUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</PrivateRepositoryUrl>
+		<ProjectUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</ProjectUrl>
+		<Description>cCoder.Security.Data.EF.MSSQL</Description>
+
+		<Authors>cCoder</Authors>
+		<PackageId>cCoder.Security.Data.EF.MSSQL</PackageId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+	
 </Project>

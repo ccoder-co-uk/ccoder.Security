@@ -8,6 +8,23 @@
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageTags>cCoder;Security;cCoder.Security;cCoder.Security.Api</PackageTags>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PrivateRepositoryUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</PrivateRepositoryUrl>
+		<ProjectUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</ProjectUrl>
+		<Description>cCoder.Security.Api</Description>
+
+		<Authors>cCoder</Authors>
+		<PackageId>cCoder.Security.Api</PackageId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.2.4" />
     <PackageReference Include="SharedObjects" Version="7.0.0" />
