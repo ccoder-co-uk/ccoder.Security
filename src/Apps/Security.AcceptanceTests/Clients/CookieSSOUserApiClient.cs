@@ -21,7 +21,7 @@ public class CookieSSOUserApiClient
     public CookieSSOUserApiClient()
     {
         webApplicationFactory = new();
-        webApplicationFactory.EnsureSSOSetupForTesting();
+        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = true });
         api.Authenticate("TestUser", "TestPass01!").Wait();
@@ -34,7 +34,6 @@ public class CookieSSOUserApiClient
 
     public async ValueTask<Token> LoginAsync(Auth auth, string query = "", bool keepSessionCookie = false)
     {
-        api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = keepSessionCookie });
         var content = new StringContent(auth.ToJson(), Encoding.UTF8, "application/json");
         var request = await api.PostAsync("/Api/Account/Login" + query, content);
         request.EnsureSuccessStatusCode();

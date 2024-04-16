@@ -24,7 +24,7 @@ public class RegisterApiClient
     public RegisterApiClient()
     {
         webApplicationFactory = new();
-        webApplicationFactory.EnsureSSOSetupForTesting();
+        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         api = webApplicationFactory.CreateClient();
         api.Authenticate("TestUser", "TestPass01!").Wait();

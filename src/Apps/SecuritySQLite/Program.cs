@@ -1,12 +1,6 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using cCoder.Security.Api;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.SQLite;
-using System;
-using System.IO;
 
 namespace cCoder.SecuritySQLite
 {
@@ -19,6 +13,7 @@ namespace cCoder.SecuritySQLite
                 .AddEnvironmentVariables(prefix: "ENV_")
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.testing.json", optional: true, reloadOnChange: true)
                 .Build();
 
             // configure DI for stack

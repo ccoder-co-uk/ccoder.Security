@@ -12,7 +12,7 @@ namespace cCoder.Security.AcceptanceTests.Clients;
 
 public class SSOUserApiClient
 {
-    readonly WebApplicationFactory<cCoder.SecurityMSSQL.Program> webApplicationFactory;
+    readonly WebApplicationFactory<SecurityMSSQL.Program> webApplicationFactory;
     readonly HttpClient api;
 
     public SecurityDbContext Database { get; set; }
@@ -22,7 +22,7 @@ public class SSOUserApiClient
     public SSOUserApiClient()
     {
         webApplicationFactory = new();
-        webApplicationFactory.EnsureSSOSetupForTesting();
+        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         api = webApplicationFactory.CreateClient();
         api.Authenticate("TestUser", "TestPass01!").Wait();
