@@ -12,7 +12,7 @@ namespace cCoder.Security.AcceptanceTests.Clients;
 
 public class SSOUserApiClient
 {
-    readonly WebApplicationFactory<SecurityMSSQL.Program> webApplicationFactory;
+    readonly WebApplicationFactory<cCoder.SecurityMSSQL.Program> webApplicationFactory;
     readonly HttpClient api;
 
     public SecurityDbContext Database { get; set; }
