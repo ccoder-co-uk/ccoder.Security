@@ -24,10 +24,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\..\Security.Api\Security.Api.csproj" />
-    <ProjectReference Include="..\..\Security.Services\Security.Services.csproj" />
-    <ProjectReference Include="..\..\Security.Data\Security.Data.csproj" />
-	  <ProjectReference Include="..\..\Security.Data.EF.SQLite\Security.Data.EF.SQLite.csproj" />
+    <ProjectReference Include="..\..\cCoder.Security.Api\cCoder.Security.Api.csproj" />
+    <ProjectReference Include="..\..\cCoder.Security.Services\cCoder.Security.Services.csproj" />
+    <ProjectReference Include="..\..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
+	  <ProjectReference Include="..\..\cCoder.Security.Data.EF.SQLite\cCoder.Security.Data.EF.SQLite.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

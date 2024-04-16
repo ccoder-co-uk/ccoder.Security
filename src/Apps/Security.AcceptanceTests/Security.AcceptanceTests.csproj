@@ -38,7 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
     <ProjectReference Include="..\..\cCoder.Security.Objects\cCoder.Security.Objects.csproj" />
-    <ProjectReference Include="..\cCoder.SecurityMSSQL\SecurityMSSQL.csproj" />
+    <ProjectReference Include="..\SecurityMSSQL\SecurityMSSQL.csproj" />
   </ItemGroup>
 
 </Project>
