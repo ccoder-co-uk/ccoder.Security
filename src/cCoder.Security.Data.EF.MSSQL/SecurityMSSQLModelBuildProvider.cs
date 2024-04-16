@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Linq;
+using System.Reflection;
 
 namespace cCoder.Security.Data.EF.MSSQL;
 
@@ -32,7 +33,7 @@ public partial class SecurityMSSQLModelBuildProvider : ISecurityModelBuildProvid
 
     public void Configure(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("Security.Data.EF.MSSQL"));
+        optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name));
 
         if (logSQL)
             optionsBuilder.LogTo((message) =>

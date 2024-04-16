@@ -1,54 +1,51 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using cCoder.Security.Data.Brokers.Storage.Interfaces;
+﻿using cCoder.Security.Data.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace cCoder.Security.Data.Brokers.Storage
+namespace cCoder.Security.Data.Brokers.Storage;
+
+public class TokenBroker : ITokenBroker
 {
-    public class TokenBroker : ITokenBroker
+    ISecurityDbContextFactory contextFactory;
+
+    public TokenBroker(ISecurityDbContextFactory contextFactory)
+        => this.contextFactory = contextFactory;
+
+    public async ValueTask<Token> AddTokenAsync(Token token)
     {
-        ISecurityDbContextFactory contextFactory;
+        using var context = contextFactory.CreateDbContext();
 
-        public TokenBroker(ISecurityDbContextFactory contextFactory)
-            => this.contextFactory = contextFactory;
+        var entityEntry = context.Tokens.Add(token);
+        await context.SaveChangesAsync();
 
-        public async ValueTask<Token> AddTokenAsync(Token token)
-        {
-            using var context = contextFactory.CreateDbContext();
+        return entityEntry.Entity;
+    }
 
-            var entityEntry = context.Tokens.Add(token);
-            await context.SaveChangesAsync();
+    public async ValueTask<Token> UpdateTokenAsync(Token token)
+    {
+        using var context = contextFactory.CreateDbContext();
 
-            return entityEntry.Entity;
-        }
+        var entityEntry = context.Tokens.Update(token);
+        await context.SaveChangesAsync();
 
-        public async ValueTask<Token> UpdateTokenAsync(Token token)
-        {
-            using var context = contextFactory.CreateDbContext();
+        return entityEntry.Entity;
+    }
 
-            var entityEntry = context.Tokens.Update(token);
-            await context.SaveChangesAsync();
+    public async ValueTask DeleteTokenAsync(Token token)
+    {
+        using var context = contextFactory.CreateDbContext();
 
-            return entityEntry.Entity;
-        }
+        var entityEntry = context.Tokens.Remove(token);
+        await context.SaveChangesAsync();
+    }
 
-        public async ValueTask DeleteTokenAsync(Token token)
-        {
-            using var context = contextFactory.CreateDbContext();
+    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false)
+    {
+        var context = contextFactory.CreateDbContext(!ignoreFilters);
 
-            var entityEntry = context.Tokens.Remove(token);
-            await context.SaveChangesAsync();
-        }
-
-        public IQueryable<Token> GetAllTokens(bool ignoreFilters = false)
-        {
-            var context = contextFactory.CreateDbContext();
-
-            return ignoreFilters
-                ? context.Tokens.IgnoreQueryFilters()
-                : context.Tokens;
-        }
+        return ignoreFilters
+            ? context.Tokens.IgnoreQueryFilters()
+            : context.Tokens;
     }
 }

@@ -4,10 +4,27 @@ using cCoder.Security.Services.Foundation.Interfaces;
 
 namespace cCoder.Security.Services.Foundation;
 
-public class SSOUserService(ISSOUserBroker ssoUserBroker) : ISSOUserService
+public class SSOUserService(ISSOUserBroker ssoUserBroker) 
+    : ISSOUserService
 {
-    public async ValueTask<SSOUser> AddSSOUserAsync(SSOUser item) => 
-        await ssoUserBroker.AddSSOUserAsync(item);
+    public async ValueTask<SSOUser> AddSSOUserAsync(SSOUser newUser)
+    {
+        if (!ssoUserBroker.GetAllSSOUsers(ignoreFilters: true).Any())
+            newUser.Roles =
+                [
+                    new SSOUserRole
+                    {
+                        Role = new SSORole
+                        {
+                            Name = "Portal Admins",
+                            Description = "Default First User Admin Role",
+                            UsersArePortalAdmins = true
+                        }
+                    }
+                ];
+
+        return await ssoUserBroker.AddSSOUserAsync(newUser);
+    }
 
     public async ValueTask DeleteSSOUserAsync(SSOUser item) => 
         await ssoUserBroker.DeleteSSOUserAsync(item);

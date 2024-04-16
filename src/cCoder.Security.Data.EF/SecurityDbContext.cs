@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace cCoder.Security.Data.EF;
 
-public partial class SecurityDbContext(ISSOAuthInfo authInfo, ISecurityModelBuildProvider modelBuildProvider) 
-    : DbContext
+public partial class SecurityDbContext(
+    ISSOAuthInfo authInfo, 
+    ISecurityModelBuildProvider modelBuildProvider) 
+        : DbContext
 {
     public DbSet<SSOUser> Users { get; set; }
     public DbSet<SSORole> Roles { get; set; }
@@ -54,6 +56,8 @@ public partial class SecurityDbContext(ISSOAuthInfo authInfo, ISecurityModelBuil
                 currentUser = Users
                     .IgnoreQueryFilters()
                     .AsNoTracking()
+                    .Include(u => u.Roles)
+                        .ThenInclude(ur => ur.Role)
                     .FirstOrDefault(u => u.Id == userNameRequested);
 
             if (currentUser == null)

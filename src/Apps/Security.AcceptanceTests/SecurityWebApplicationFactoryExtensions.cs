@@ -1,10 +1,10 @@
-﻿using cCoder.Security.Data.Brokers.Encryption;
-using cCoder.Security.Data.EF;
+﻿using cCoder.Security.Api.Interfaces;
+using cCoder.Security.Data.Brokers.Encryption;
 using cCoder.Security.Data.EF.Interfaces;
+using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using cCoder.SecurityMSSQL;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace SSO.AcceptanceTests;
@@ -13,7 +13,7 @@ public static class SecurityWebApplicationFactoryExtensions
 {
     static bool setupComplete = false;
 
-    public static void EnsureSSOSetupForTesting(this WebApplicationFactory<Program> appFactory)
+    public static void EnsureDatabasesAreSetupForTesting(this WebApplicationFactory<Program> appFactory)
     {
         lock (appFactory)
         {
@@ -23,48 +23,41 @@ public static class SecurityWebApplicationFactoryExtensions
 
                 using var scope = appFactory.Services.CreateScope();
                 var scopedServices = scope.ServiceProvider;
-                var encryptionBroker = scopedServices.GetService<IPasswordEncryptionBroker>();
 
-                using var db = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
-                    .CreateDbContext();
-
-                db.Migrate();
-                SeedTestData(db, encryptionBroker);
+                EnsureSSOSetupForTesting(scopedServices)
+                    .AsTask()
+                    .Wait();
             }
         }
     }
 
-    static void SeedTestData(SecurityDbContext db, IPasswordEncryptionBroker encryptionBroker)
+    static async ValueTask EnsureSSOSetupForTesting(IServiceProvider scopedServices)
     {
-        SetupTestUser(db, encryptionBroker);
+        var accountManager = scopedServices.GetRequiredService<IAccountManager>();
+
+        using var db = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
+            .CreateDbContext();
+
+        db.Database.EnsureDeleted();
+        db.Migrate();
+
+        await SetupTestUser(accountManager);
+        await accountManager.LoginAsync("TestUser", "TestPass01!");
     }
 
-    static void SetupTestUser(SecurityDbContext db, IPasswordEncryptionBroker encryptionBroker)
+    static async Task SetupTestUser(IAccountManager accountManager)
     {
-        if (!db.Users.IgnoreQueryFilters().Any(u => u.Id == "TestUser"))
+        var user = new RegisterUser
         {
-            var allPrivs = db.GetPrivileges().Select(p => p.Id).ToArray();
-            var user = db.Add(CreateTestUser(encryptionBroker)).Entity;
-            var role = db.Add(CreateTestAdminsRole(allPrivs)).Entity;
-            db.SaveChanges();
-            db.Add(new SSOUserRole { UserId = user.Id, RoleId = role.Id });
-            db.SaveChanges();
-        }
-    }
+            DisplayName = "Test User",
+            Email = "TestUser@somehwere.com",
+            Password = "TestPass01!",
+            Culture = string.Empty
+        };
 
-    static SSOUser CreateTestUser(IPasswordEncryptionBroker encryptionBroker) => new()
-    {
-        Id = "TestUser",
-        DisplayName = "Test User",
-        PasswordHash = encryptionBroker.Encrypt("TestPass01!"),
-        AccessFailedCount = 0,
-        Email = "TestUser@corporatelinx.com",
-        EmailConfirmed = true,
-        PhoneNumber = string.Empty,
-        PhoneNumberConfirmed = false,
-        LockoutEnabled = false,
-        LockoutEndDateUtc = null,
-    };
+        (_, string confirmationToken) = await accountManager.RegisterAsync(user);
+        await accountManager.ConfirmRegistrationAsync(confirmationToken);
+    }
 
     static SSORole CreateTestAdminsRole(string[] allPrivs) => new()
     {

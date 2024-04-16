@@ -36,6 +36,7 @@ namespace cCoder.Security.Services.Tests.Processing;
 	static Filler<SSOUser> GetSSOUserFiller()
 	{
 		var filler = new Filler<SSOUser>();
+
 		filler.Setup()
 			.OnProperty(p => p.Roles).IgnoreIt()
 			.OnProperty(p => p.Tokens).IgnoreIt()

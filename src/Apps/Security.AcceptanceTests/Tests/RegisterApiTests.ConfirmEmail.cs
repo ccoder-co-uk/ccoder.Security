@@ -4,43 +4,40 @@ using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using Xunit;
 
-namespace cCoder.Security.AcceptanceTests.Tests
+namespace cCoder.Security.AcceptanceTests.Tests;
+
+public partial class RegisterApiTests
 {
-    public partial class RegisterApiTests
-	{
-        [Fact]
-        public async void ConfirmEmailWorksAsExpected()
+    [Fact]
+    public async void ConfirmEmailWorksAsExpected()
+    {
+        //given
+
+        RegisterUser existingRegisterUser = RandomRegisterUser();
+
+        Auth inputAuth = new Auth
         {
-            //given
+            User = existingRegisterUser.Email.Split("@")[0],
+            Pass = existingRegisterUser.Password
+        };
 
-            RegisterUser existingRegisterUser = RandomRegisterUser();
+        //when
+        RegistrationResult registrationResult = 
+            await registerApiClient.RegisterAsync(existingRegisterUser);
 
-            Auth inputAuth = new Auth
-            {
-                User = existingRegisterUser.Email.Split("@")[0],
-                Pass = existingRegisterUser.Password
-            };
+        SSOUser expectedSSOUser = registrationResult.User;
+        expectedSSOUser.EmailConfirmed = true;
 
-            //when
-            RegistrationResult registrationResult = 
-                await registerApiClient.RegisterAsync(existingRegisterUser);
+        await registerApiClient
+            .PostAsync("ConfirmRegistration?confirmationToken=" + registrationResult.Token, null);
 
-            SSOUser expectedSSOUser = registrationResult.User;
-            expectedSSOUser.EmailConfirmed = true;
-            expectedSSOUser.EmailConfirmed = true;
+        var loginToken = await accountApiClient.LoginAsync(inputAuth);
+        ssoUserApiClient.AddBearerAuthentication(loginToken.Id);
 
-            await registerApiClient
-                .PostAsync("ConfirmRegistration?confirmationToken=" + registrationResult.Token, null);
+        SSOUser actualSSOUser = await ssoUserApiClient.Me();
 
-            var loginToken = await accountApiClient.LoginAsync(inputAuth);
-            ssoUserApiClient.AddBearerAuthentication(loginToken.Id);
-
-            SSOUser actualSSOUser = await ssoUserApiClient.Me();
-
-            //then
-            actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
-            await TearDownUserAsync(actualSSOUser.Id);
-        }
+        //then
+        actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
+        await TearDownUserAsync(actualSSOUser.Id);
     }
 }
-

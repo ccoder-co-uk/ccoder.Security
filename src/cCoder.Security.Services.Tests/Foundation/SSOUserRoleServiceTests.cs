@@ -1,11 +1,9 @@
-using FizzWare.NBuilder;
-using Moq;
 using cCoder.Security.Data.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundation;
 using cCoder.Security.Services.Foundation.Interfaces;
-using System;
-using System.Linq;
+using FizzWare.NBuilder;
+using Moq;
 
 namespace cCoder.Security.Services.Tests.Foundation
 {
@@ -20,13 +18,13 @@ namespace cCoder.Security.Services.Tests.Foundation
             userRoleService = new SSOUserRoleService(userRoleBrokerMock.Object);
         }
 
-        static IQueryable<SSOUserRole> RandomUserRoles()
-            => Enumerable.Range(0, new Random().Next(100))
+        static IQueryable<SSOUserRole> RandomUserRoles() => 
+            Enumerable.Range(0, new Random().Next(100))
                 .Select(i => RandomUserRole())
                 .AsQueryable();
 
-        static SSOUserRole RandomUserRole()
-            => Builder<SSOUserRole>
+        static SSOUserRole RandomUserRole() => 
+            Builder<SSOUserRole>
                 .CreateNew()
                 .Build();
     }

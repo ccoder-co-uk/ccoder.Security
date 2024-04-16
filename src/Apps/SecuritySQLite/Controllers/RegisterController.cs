@@ -1,42 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using cCoder.Security.Api.Interfaces;
+﻿using cCoder.Security.Api.Interfaces;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
-namespace cCoder.Security.Api.Controllers
-{
-    [Route("Api/Account")]
-    public class RegisterController : Controller
+namespace cCoder.Security.Api.Controllers;
+
+[Route("Api/Account")]
+public class RegisterController : Controller
 	{
-        private readonly IAccountManager accountManager;
+    private readonly IAccountManager accountManager;
 
-        public RegisterController(IAccountManager accountManager)
+    public RegisterController(IAccountManager accountManager)
+    {
+        this.accountManager = accountManager;
+    }
+
+    [HttpPost("Register")]
+    public async ValueTask<IActionResult> Register([FromBody] RegisterUser registerForm)
+    {
+        if(!ModelState.IsValid)
+            BadRequest(ModelState);
+
+        (SSOUser user, string confirmationToken) = await accountManager.RegisterAsync(registerForm);
+        var result = new
         {
-            this.accountManager = accountManager;
-        }
+            User = user,
+            Token = confirmationToken
+        };
 
-        [HttpPost("Register")]
-        public async ValueTask<IActionResult> Register([FromBody] RegisterUser registerForm)
-        {
-            if(!ModelState.IsValid)
-                BadRequest(ModelState);
+        return Ok(result);
+    }
 
-            (SSOUser user, string confirmationToken) = await accountManager.RegisterAsync(registerForm);
-            var result = new
-            {
-                User = user,
-                Token = confirmationToken
-            };
-
-            return Ok(result);
-        }
-
-        [HttpPost("ConfirmRegistration")]
-        public async ValueTask<IActionResult> ConfirmRegistration(string confirmationToken)
-        {
-            await accountManager.ConfirmRegistrationAsync(confirmationToken);
-            return Ok();
-        }
+    [HttpPost("ConfirmRegistration")]
+    public async ValueTask<IActionResult> ConfirmRegistration(string confirmationToken)
+    {
+        await accountManager.ConfirmRegistrationAsync(confirmationToken);
+        return Ok();
     }
 }

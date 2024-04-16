@@ -1,4 +1,5 @@
 ﻿using cCoder.Security.Data.EF;
+using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -21,24 +22,19 @@ public class CookieSSOUserApiClient
     public CookieSSOUserApiClient()
     {
         webApplicationFactory = new();
-        webApplicationFactory.EnsureSSOSetupForTesting();
-
-        api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = true });
-        api.Authenticate("TestUser", "TestPass01!").Wait();
+        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         using var scope = webApplicationFactory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
 
-        Database = scopedServices.GetRequiredService<SecurityDbContext>();
+        Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
+            .CreateDbContext();
     }
 
     public async ValueTask<Token> LoginAsync(Auth auth, string query = "", bool keepSessionCookie = false)
     {
         api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = keepSessionCookie });
-        var content = new StringContent(auth.ToJson(), Encoding.UTF8, "application/json");
-        var request = await api.PostAsync("/Api/Account/Login" + query, content);
-        request.EnsureSuccessStatusCode();
-        return await request.Content.ReadAsAsync<Token>();
+        return await api.Authenticate(auth.User, auth.Pass);
     }
 
     public void AddBearerAuthentication(string bearer)
@@ -61,8 +57,8 @@ public class CookieSSOUserApiClient
         }
     }
 
-    public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "")
-        => await api.GetODataCollection<SSOUser>(Endpoint + query);
+    public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") => 
+        await api.GetODataCollection<SSOUser>(Endpoint + query);
 
     public async ValueTask<SSOUser> Me(string query = "")
     {

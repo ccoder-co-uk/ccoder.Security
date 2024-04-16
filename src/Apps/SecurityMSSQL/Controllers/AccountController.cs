@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using cCoder.Security.Api.Interfaces;
+﻿using cCoder.Security.Api.Interfaces;
 using cCoder.Security.Objects.DTOs;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Security.Api.Controllers
 {
