@@ -33,7 +33,7 @@ public class RegisterApiClient
         var scopedServices = scope.ServiceProvider;
 
         Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
-                    .CreateDbContext();
+            .CreateDbContext();
     }
 
     public async ValueTask PostAsync(string query, object content)

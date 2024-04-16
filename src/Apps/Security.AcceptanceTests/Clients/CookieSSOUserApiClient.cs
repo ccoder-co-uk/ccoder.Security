@@ -1,4 +1,5 @@
 ﻿using cCoder.Security.Data.EF;
+using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -29,7 +30,8 @@ public class CookieSSOUserApiClient
         using var scope = webApplicationFactory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
 
-        Database = scopedServices.GetRequiredService<SecurityDbContext>();
+        Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
+            .CreateDbContext();
     }
 
     public async ValueTask<Token> LoginAsync(Auth auth, string query = "", bool keepSessionCookie = false)

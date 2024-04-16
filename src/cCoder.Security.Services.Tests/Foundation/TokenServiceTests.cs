@@ -20,16 +20,16 @@ namespace cCoder.Security.Services.Tests.Foundation
             tokenService = new TokenService(tokenBrokerMock.Object, null);
         }
 
-        static string RandomString()
-            => new RandomGenerator().NextString(5, 12);
+        static string RandomString() => 
+            new RandomGenerator().NextString(5, 12);
 
-        static IQueryable<Token> RandomTokens()
-            => Enumerable.Range(0, new Random().Next(100))
+        static IQueryable<Token> RandomTokens() => 
+            Enumerable.Range(0, new Random().Next(100))
                 .Select(i => RandomToken(RandomString()))
                 .AsQueryable();
 
-        static Token RandomToken(string id)
-            => Builder<Token>
+        static Token RandomToken(string id) => 
+            Builder<Token>
                 .CreateNew()
                 .With(i => i.Id = id)
                 .Build();

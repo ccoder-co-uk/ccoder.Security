@@ -1,44 +1,41 @@
-﻿using Moq;
-using cCoder.Security.Objects.Entities;
+﻿using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundation.Interfaces;
 using cCoder.Security.Services.Processing;
 using cCoder.Security.Services.Processing.Interfaces;
-using System;
-using System.Linq;
+using Moq;
 using Tynamix.ObjectFiller;
 
-namespace cCoder.Security.Services.Tests.Processing
+namespace cCoder.Security.Services.Tests.Processing;
+
+public partial class UserEventProcessingServiceTests
 {
-    public partial class UserEventProcessingServiceTests
+    private readonly Mock<IUserEventService> userEventServiceMock;
+    private readonly IUserEventProcessingService userEventProcessingService;
+
+    public UserEventProcessingServiceTests()
     {
-        private readonly Mock<IUserEventService> userEventServiceMock;
-        private readonly IUserEventProcessingService userEventProcessingService;
+        userEventServiceMock = new Mock<IUserEventService>();
+        userEventProcessingService = new UserEventProcessingService(userEventServiceMock.Object);
+    }
 
-        public UserEventProcessingServiceTests()
-        {
-            userEventServiceMock = new Mock<IUserEventService>();
-            userEventProcessingService = new UserEventProcessingService(userEventServiceMock.Object);
-        }
+    UserEvent[] RandomUserEvents() => 
+        Enumerable.Range(1, new Random().Next(10, 20))
+            .Select(_ => RandomUserEvent())
+            .ToArray();
 
-        UserEvent[] RandomUserEvents()
-            => Enumerable.Range(1, new Random().Next(10, 20))
-                .Select(_ => RandomUserEvent())
-                .ToArray();
+    UserEvent RandomUserEvent() => 
+        GetUserEventFiller().Create();
 
-        UserEvent RandomUserEvent()
-            => GetUserEventFiller().Create();
+    Filler<UserEvent> GetUserEventFiller()
+    {
+        var filler = new Filler<UserEvent>();
 
-        Filler<UserEvent> GetUserEventFiller()
-        {
-            var filler = new Filler<UserEvent>();
+        filler.Setup()
+            .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)
+            .OnProperty(ue => ue.Session).IgnoreIt()
+            .OnProperty(ue => ue.CreatedByUser).IgnoreIt()
+            .OnProperty(ue => ue.Tenant).IgnoreIt();
 
-            filler.Setup()
-                .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)
-                .OnProperty(ue => ue.Session).IgnoreIt()
-                .OnProperty(ue => ue.CreatedByUser).IgnoreIt()
-                .OnProperty(ue => ue.Tenant).IgnoreIt();
-
-            return filler;
-        }
+        return filler;
     }
 }

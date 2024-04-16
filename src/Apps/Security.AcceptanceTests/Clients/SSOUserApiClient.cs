@@ -31,7 +31,7 @@ public class SSOUserApiClient
         var scopedServices = scope.ServiceProvider;
 
         Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
-                    .CreateDbContext();
+            .CreateDbContext();
     }
 
     public async ValueTask<Token> LoginAsync(Auth auth) =>

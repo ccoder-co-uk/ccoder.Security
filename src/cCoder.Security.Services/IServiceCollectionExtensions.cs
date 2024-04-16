@@ -25,9 +25,13 @@ public static class IServiceCollectionExtensions
         var securityConfiguration = new SecurityConfiguration();
         configAction(services, securityConfiguration);
 
-        services.AddTransient<ISecurityDbContextFactory, SecurityDbContextFactory>();
+        services.AddScoped<ISecurityDbContextFactory>(sp => 
+            new SecurityDbContextFactory(sp.GetService<ISecurityModelBuildProvider>())
+            { 
+                UserId = sp.GetService<ISessionService>().GetUser()?.Id ?? "Guest"
+            });
 
-        services.AddTransient((IServiceProvider provider) =>
+        services.AddScoped((IServiceProvider provider) =>
             provider.GetService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfo());
 
         services.AddBrokers();
@@ -40,47 +44,47 @@ public static class IServiceCollectionExtensions
 
     static void AddBrokers(this IServiceCollection services)
     {
-        services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
-        services.AddTransient<ISessionBroker, SessionBroker>();
-        services.AddTransient<ISSOPrivilegeBroker, SSOPrivilegeBroker>();
-        services.AddTransient<ISSORoleBroker, SSORoleBroker>();
-        services.AddTransient<ISSOUserBroker, SSOUserBroker>();
-        services.AddTransient<ISSOUserRoleBroker, SSOUserRoleBroker>();
-        services.AddTransient<ITenantBroker, TenantBroker>();
-        services.AddTransient<ITenantAnalysisBroker, TenantAnalysisBroker>();
-        services.AddTransient<ITokenBroker, TokenBroker>();
-        services.AddTransient<IUserEventBroker, UserEventBroker>();
+        services.AddScoped<IHttpRequestBroker, HttpRequestBroker>();
+        services.AddScoped<ISessionBroker, SessionBroker>();
+        services.AddScoped<ISSOPrivilegeBroker, SSOPrivilegeBroker>();
+        services.AddScoped<ISSORoleBroker, SSORoleBroker>();
+        services.AddScoped<ISSOUserBroker, SSOUserBroker>();
+        services.AddScoped<ISSOUserRoleBroker, SSOUserRoleBroker>();
+        services.AddScoped<ITenantBroker, TenantBroker>();
+        services.AddScoped<ITenantAnalysisBroker, TenantAnalysisBroker>();
+        services.AddScoped<ITokenBroker, TokenBroker>();
+        services.AddScoped<IUserEventBroker, UserEventBroker>();
 
-        services.AddTransient<ISerializationBroker, SerializationBroker>();
-        services.AddTransient<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
+        services.AddScoped<ISerializationBroker, SerializationBroker>();
+        services.AddScoped<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
     }
 
     static void AddFoundations(this IServiceCollection services)
     {
-        services.AddTransient<ISSOUserService, SSOUserService>();
-        services.AddTransient<ISSOPrivilegeService, SSOPrivilegeService>();
-        services.AddTransient<ISSOUserRoleService, SSOUserRoleService>();
-        services.AddTransient<ISSORoleService, SSORoleService>();
-        services.AddTransient<ITokenService, TokenService>();
-        services.AddTransient<ITenantService, TenantService>();
-        services.AddTransient<ISessionService, SessionService>();
+        services.AddScoped<ISSOUserService, SSOUserService>();
+        services.AddScoped<ISSOPrivilegeService, SSOPrivilegeService>();
+        services.AddScoped<ISSOUserRoleService, SSOUserRoleService>();
+        services.AddScoped<ISSORoleService, SSORoleService>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ITenantService, TenantService>();
+        services.AddScoped<ISessionService, SessionService>();
     }
 
     static void AddProcessings(this IServiceCollection services)
     {
-        services.AddTransient<ISSOUserProcessingService, SSOUserProcessingService>();
-        services.AddTransient<ISSOPrivilegeProcessingService, SSOPrivilegeProcessingService>();
-        services.AddTransient<ISSOUserRoleProcessingService, SSOUserRoleProcessingService>();
-        services.AddTransient<ISSORoleProcessingService, SSORoleProcessingService>();
-        services.AddTransient<ITokenProcessingService, TokenProcessingService>();
-        services.AddTransient<ITenantProcessingService, TenantProcessingService>();
-        services.AddTransient<ISessionProcessingService, SessionProcessingService>();
+        services.AddScoped<ISSOUserProcessingService, SSOUserProcessingService>();
+        services.AddScoped<ISSOPrivilegeProcessingService, SSOPrivilegeProcessingService>();
+        services.AddScoped<ISSOUserRoleProcessingService, SSOUserRoleProcessingService>();
+        services.AddScoped<ISSORoleProcessingService, SSORoleProcessingService>();
+        services.AddScoped<ITokenProcessingService, TokenProcessingService>();
+        services.AddScoped<ITenantProcessingService, TenantProcessingService>();
+        services.AddScoped<ISessionProcessingService, SessionProcessingService>();
     }
 
     static void AddOrchestrations(this IServiceCollection services)
     {
-        services.AddTransient<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
-        services.AddTransient<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
-        services.AddTransient<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
+        services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
+        services.AddScoped<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
+        services.AddScoped<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
     }
 }

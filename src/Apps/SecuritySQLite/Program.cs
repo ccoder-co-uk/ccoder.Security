@@ -2,52 +2,51 @@ using cCoder.Security.Api;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.SQLite;
 
-namespace cCoder.SecuritySQLite
+namespace cCoder.SecuritySQLite;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+        var config = new ConfigurationBuilder()
+            .AddEnvironmentVariables(prefix: "ENV_")
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile("appsettings.testing.json", optional: true, reloadOnChange: true)
+            .Build();
+
+        // configure DI for stack
+        builder.Services.AddAspNetCore();
+        builder.Services.AddMetadata();
+
+        builder.Services.AddSecurityApi((services, securityConfig) => 
         {
-            var builder = WebApplication.CreateBuilder(args);
-            var config = new ConfigurationBuilder()
-                .AddEnvironmentVariables(prefix: "ENV_")
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("appsettings.testing.json", optional: true, reloadOnChange: true)
-                .Build();
+            securityConfig.RootPath = "Api/Security";
+            securityConfig.AddEntityFramework(services);
 
-            // configure DI for stack
-            builder.Services.AddAspNetCore();
-            builder.Services.AddMetadata();
+            securityConfig.AddSQLiteModelProvider(
+                services, 
+                config.GetConnectionString("SSO"));
 
-            builder.Services.AddSecurityApi((services, securityConfig) => 
-            {
-                securityConfig.RootPath = "Api/Security";
-                securityConfig.AddEntityFramework(services);
+            securityConfig.UseSHA512PasswordEncryption(services);
+        });
 
-                securityConfig.AddSQLiteModelProvider(
-                    services, 
-                    config.GetConnectionString("SSO"));
+        builder.Services.AddHsts(options =>
+        {
+            options.Preload = true;
+            options.IncludeSubDomains = true;
+            options.MaxAge = TimeSpan.FromMinutes(60);
+        });
 
-                securityConfig.UseSHA512PasswordEncryption(services);
-            });
+        builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
-            builder.Services.AddHsts(options =>
-            {
-                options.Preload = true;
-                options.IncludeSubDomains = true;
-                options.MaxAge = TimeSpan.FromMinutes(60);
-            });
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSimpleConsole();
 
-            builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
-
-            builder.Logging.ClearProviders();
-            builder.Logging.AddSimpleConsole();
-
-            var app = builder.Build();
-            app.UseSession();
-            app.UseTheFramework();
-            app.Run();
-        }
+        var app = builder.Build();
+        app.UseSession();
+        app.UseTheFramework();
+        app.Run();
     }
 }
