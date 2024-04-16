@@ -1,42 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using cCoder.Security.Api.Interfaces;
+﻿using cCoder.Security.Api.Interfaces;
 using cCoder.Security.Objects.DTOs;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
-namespace cCoder.Security.Api.Controllers
+namespace cCoder.Security.Api.Controllers;
+
+[Route("Api/Account")]
+public class AccountController : Controller
 {
-    [Route("Api/Account")]
-    public class AccountController : Controller
+    private readonly IAccountManager accountManager;
+
+    public AccountController(IAccountManager accountManager) =>
+        this.accountManager = accountManager;
+
+    [HttpPost("Login")]
+    public async ValueTask<IActionResult> Login([FromBody] Auth auth) => 
+        ModelState.IsValid
+            ? Ok(await accountManager.LoginAsync(auth.User, auth.Pass))
+            : BadRequest(ModelState);
+
+    [HttpPost("Logout")]
+    public async ValueTask<IActionResult> Logout()
     {
-        private readonly IAccountManager accountManager;
+        await accountManager.LogoutAsync();
+        return Ok();
+    }
 
-        public AccountController(IAccountManager accountManager) =>
-            this.accountManager = accountManager;
-
-        [HttpPost("Login")]
-        public async ValueTask<IActionResult> Login([FromBody] Auth auth) => 
-            ModelState.IsValid
-                ? Ok(await accountManager.LoginAsync(auth.User, auth.Pass))
-                : BadRequest(ModelState);
-
-        [HttpPost("Logout")]
-        public async ValueTask<IActionResult> Logout()
+    [HttpPost("ForgotPassword")]
+    public async ValueTask<IActionResult> ChangePassword(string email, int appId)
+    {
+        if (ModelState.IsValid)
         {
-            await accountManager.LogoutAsync();
+            await accountManager.ForgotPasswordAsync(email);
             return Ok();
         }
-
-        [HttpPost("ForgotPassword")]
-        public async ValueTask<IActionResult> ChangePassword(string email, int appId)
-        {
-            if (ModelState.IsValid)
-            {
-                await accountManager.ForgotPasswordAsync(email);
-                return Ok();
-            }
-            
-            return BadRequest(ModelState);
-        }
-
+        
+        return BadRequest(ModelState);
     }
+
 }

@@ -12,7 +12,7 @@ namespace cCoder.Security.AcceptanceTests.Clients;
 
 public class SSOUserApiClient
 {
-    readonly WebApplicationFactory<cCoder.SecurityMSSQL.Program> webApplicationFactory;
+    readonly WebApplicationFactory<SecurityMSSQL.Program> webApplicationFactory;
     readonly HttpClient api;
 
     public SecurityDbContext Database { get; set; }
@@ -22,7 +22,7 @@ public class SSOUserApiClient
     public SSOUserApiClient()
     {
         webApplicationFactory = new();
-        webApplicationFactory.EnsureSSOSetupForTesting();
+        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         api = webApplicationFactory.CreateClient();
         api.Authenticate("TestUser", "TestPass01!").Wait();
@@ -31,7 +31,7 @@ public class SSOUserApiClient
         var scopedServices = scope.ServiceProvider;
 
         Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
-                    .CreateDbContext();
+            .CreateDbContext();
     }
 
     public async ValueTask<Token> LoginAsync(Auth auth) =>
@@ -51,9 +51,11 @@ public class SSOUserApiClient
             api.DefaultRequestHeaders.Authorization = null;
         else
         {
-            string encoded = System.Convert.ToBase64String(Encoding.UTF8.GetBytes(auth.User + ":" + auth.Pass));
+            string encoded = 
+                Convert.ToBase64String(Encoding.UTF8.GetBytes(auth.User + ":" + auth.Pass));
 
-            api.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("basic", encoded);
+            api.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("basic", encoded);
         }
     }
 

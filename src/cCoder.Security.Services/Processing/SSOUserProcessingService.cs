@@ -1,5 +1,4 @@
 ﻿using cCoder.Security.Data.Brokers.Encryption;
-using cCoder.Security.Data.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundation.Interfaces;
 using cCoder.Security.Services.Processing.Interfaces;
@@ -59,7 +58,7 @@ public partial class SSOUserProcessingService(
 
     public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser user)
     {
-        var dbUser = GetAllSSOUsers()
+        var dbUser = GetAllSSOUsers(ignoreFilters: true)
             .FirstOrDefault(u => u.Id == user.Id);
 
         if (user.PasswordHash != null && dbUser.PasswordHash != user.PasswordHash && !encryptionBroker.EncryptedAndPlainTextAreEqual(dbUser.PasswordHash, user.PasswordHash))

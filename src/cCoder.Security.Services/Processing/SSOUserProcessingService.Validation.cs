@@ -1,11 +1,9 @@
 ﻿using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Processing.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace cCoder.Security.Services.Processing
 {
-    public partial class SSOUserProcessingService : ISSOUserProcessingService
+    public partial class SSOUserProcessingService 
     {
         public void ValidateSSOUser(SSOUser user)
         {

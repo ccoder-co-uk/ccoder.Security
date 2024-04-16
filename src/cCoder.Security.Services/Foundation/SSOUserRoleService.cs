@@ -1,25 +1,22 @@
 ﻿using cCoder.Security.Data.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundation.Interfaces;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace cCoder.Security.Services.Foundation
+namespace cCoder.Security.Services.Foundation;
+
+public class SSOUserRoleService : ISSOUserRoleService
 {
-    public class SSOUserRoleService : ISSOUserRoleService
-    {
-        private readonly ISSOUserRoleBroker userRoleBroker;
+    private readonly ISSOUserRoleBroker userRoleBroker;
 
-        public SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
-            => this.userRoleBroker = userRoleBroker;
+    public SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
+        => this.userRoleBroker = userRoleBroker;
 
-        public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
-            => await userRoleBroker.AddSSOUserRoleAsync(item);
+    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
+        => await userRoleBroker.AddSSOUserRoleAsync(item);
 
-        public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item)
-            => await userRoleBroker.DeleteSSOUserRoleAsync(item);
+    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item)
+        => await userRoleBroker.DeleteSSOUserRoleAsync(item);
 
-        public IQueryable<SSOUserRole> GetAllSSOUserRoles()
-            => userRoleBroker.GetAllSSOUserRoles();
-    }
+    public IQueryable<SSOUserRole> GetAllSSOUserRoles()
+        => userRoleBroker.GetAllSSOUserRoles();
 }
