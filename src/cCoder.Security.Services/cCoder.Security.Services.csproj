@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
+    <ProjectReference Include="..\cCoder.Security.Objects\cCoder.Security.Objects.csproj" />
+  </ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageTags>cCoder;Security;cCoder.Security;cCoder.Security.Services</PackageTags>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PrivateRepositoryUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</PrivateRepositoryUrl>
+		<ProjectUrl>https://github.com/ccoder-co-uk/ccoder.Security.git</ProjectUrl>
+		<Description>cCoder.Security.Services</Description>
+
+		<Authors>cCoder</Authors>
+		<PackageId>cCoder.Security.Services</PackageId>
+	</PropertyGroup>
+	
+</Project>

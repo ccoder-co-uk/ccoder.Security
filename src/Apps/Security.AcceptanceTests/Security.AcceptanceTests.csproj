@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>disable</Nullable>
-	  <ImplicitUsings>disable</ImplicitUsings>
+    <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -21,7 +20,6 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="35.4.0" />
-    <PackageReference Include="Core.Objects" Version="2024.2.14.1" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
@@ -38,8 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Security.Data\Security.Data.csproj" />
-    <ProjectReference Include="..\SecurityMSSQL\SecurityMSSQL.csproj" />
+    <ProjectReference Include="..\..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
+    <ProjectReference Include="..\..\cCoder.Security.Objects\cCoder.Security.Objects.csproj" />
+    <ProjectReference Include="..\cCoder.SecurityMSSQL\SecurityMSSQL.csproj" />
   </ItemGroup>
 
 </Project>

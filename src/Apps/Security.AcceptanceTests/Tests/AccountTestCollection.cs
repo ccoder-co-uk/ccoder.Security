@@ -1,7 +1,7 @@
-﻿using Security.AcceptanceTests.Clients;
+﻿using cCoder.Security.AcceptanceTests.Clients;
 using Xunit;
 
-namespace Security.AcceptanceTests.Tests
+namespace cCoder.Security.AcceptanceTests.Tests
 {
     [CollectionDefinition(nameof(AccountTestCollection))]
     public class AccountTestCollection :

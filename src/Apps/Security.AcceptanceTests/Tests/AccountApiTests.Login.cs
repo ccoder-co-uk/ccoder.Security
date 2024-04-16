@@ -1,33 +1,31 @@
-﻿using FluentAssertions;
-using Security.AcceptanceTests.Tests.Models;
-using Security.Objects.DTOs;
-using Security.Objects.Entities;
-using System;
+﻿using cCoder.Security.AcceptanceTests.Tests.Models;
+using cCoder.Security.Objects.DTOs;
+using cCoder.Security.Objects.Entities;
+using FluentAssertions;
 using Xunit;
 
-namespace Security.AcceptanceTests.Tests
+namespace cCoder.Security.AcceptanceTests.Tests;
+
+public partial class AccountApiTests
 {
-    public partial class AccountApiTests
+    [Fact]
+    public async void LoginReturnsTokenAsync()
     {
-        [Fact]
-        public async void LoginReturnsTokenAsync()
-        {
-            //given
-            RegisterUser existingRegisterUser = RandomRegisterUser();
-            RegistrationResult result = await registerApiClient.RegisterAsync(existingRegisterUser);
+        //given
+        RegisterUser existingRegisterUser = RandomRegisterUser();
+        RegistrationResult result = await registerApiClient.RegisterAsync(existingRegisterUser);
 
-            Auth inputAuth = RandomAuth(existingRegisterUser);
+        Auth inputAuth = RandomAuth(existingRegisterUser);
 
-            //when
-            Token actualToken = await accountApiClient.LoginAsync(inputAuth);
+        //when
+        Token actualToken = await accountApiClient.LoginAsync(inputAuth);
 
-            //then
-            result.Token.Should().NotBeNullOrEmpty();
-            actualToken.UserName.Should().BeEquivalentTo(result.User.Id);
-            Assert.True(actualToken.Expires > DateTimeOffset.Now);
-            Assert.True(actualToken.Reason == 0);
+        //then
+        result.Token.Should().NotBeNullOrEmpty();
+        actualToken.UserName.Should().BeEquivalentTo(result.User.Id);
+        Assert.True(actualToken.Expires > DateTimeOffset.Now);
+        Assert.True(actualToken.Reason == 0);
 
-            await TearDownUserAsync(result.User.Id);
-        }
+        await TearDownUserAsync(result.User.Id);
     }
 }

@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Security.Api;
-using Security.Data.EF;
-using Security.Data.EF.SQLite;
+using cCoder.Security.Api;
+using cCoder.Security.Data.EF;
+using cCoder.Security.Data.EF.SQLite;
 using System;
 using System.IO;
 
-namespace SecuritySQLite
+namespace cCoder.SecuritySQLite
 {
     public class Program
     {

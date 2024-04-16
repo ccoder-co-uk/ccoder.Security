@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace SecuritySQLite
+namespace cCoder.SecuritySQLite
 {
     public static partial class IServiceCollectionExtensions
     {
