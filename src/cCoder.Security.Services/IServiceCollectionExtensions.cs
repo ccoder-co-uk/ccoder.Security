@@ -28,7 +28,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISecurityDbContextFactory>(sp => 
             new SecurityDbContextFactory(sp.GetService<ISecurityModelBuildProvider>())
             { 
-                UserId = sp.GetService<ISessionService>().GetUser()?.Id ?? "Guest"
+                GetAuthInfo = () => sp.GetService<ISSOAuthInfo>()
             });
 
         services.AddScoped((IServiceProvider provider) =>

@@ -34,19 +34,13 @@ public static class Extensions
     /// <returns>An authenticated HttpClient</returns>
     public static async Task<Token> Authenticate(this HttpClient client, string user, string pass)
     {
-        try
-        {
-            var auth = new { User = user, Pass = pass };
+        var auth = new { User = user, Pass = pass };
 
-            HttpResponseMessage response = await client.PostAsync("Account/Login", new StringContent(auth.ToJson(), Encoding.UTF8, "application/json"));
-            _ = response.EnsureSuccessStatusCode();
-            Token token = await response.Content.ReadAsAsync<Token>();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Id);
-            return token;
-        }
-        catch { /* if we get here the server returned a json response but it wasn't a token, it was more than likely an auth failure. */ }
-
-        return null;
+        HttpResponseMessage response = await client.PostAsync("Api/Account/Login", new StringContent(auth.ToJson(), Encoding.UTF8, "application/json"));
+        _ = response.EnsureSuccessStatusCode();
+        Token token = await response.Content.ReadAsAsync<Token>();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Id);
+        return token;
     }
 
     /// <summary>

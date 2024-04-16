@@ -13,7 +13,7 @@ public partial class SSOUserApiTests
 	{
 		//given
 		RegisterUser[] randomUsers = RandomRegisterUsers();
-            List <SSOUser> expectedSSOUsers = new List<SSOUser>();
+            List <SSOUser> expectedSSOUsers = [];
 
 		foreach (var registerUser in randomUsers)
 		{
@@ -23,15 +23,14 @@ public partial class SSOUserApiTests
                 expectedSSOUsers.Add(result.User);
 		}
 
-		//when
-		IEnumerable<SSOUser> actualSSOUsers = 
+        //when
+        IEnumerable<SSOUser> actualSSOUsers = 
 			await ssoUserApiClient.GetAllSSOUsersAsync();
 
 		//then
 		foreach (var expectedUser in expectedSSOUsers)
 		{
 			var actualUser = actualSSOUsers.FirstOrDefault(u => u.Id == expectedUser.Id);
-                actualUser.Should().NotBeNull();
 			actualUser.Should().BeEquivalentTo(expectedUser);
 		}
 

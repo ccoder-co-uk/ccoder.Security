@@ -7,12 +7,12 @@ namespace cCoder.Security.Services.Foundation;
 
 public class TokenService : ITokenService
 {
-    readonly ITokenBroker storageBroker;
+    readonly ITokenBroker tokenBroker;
     readonly int tokenTimeout = 45;
 
-    public TokenService(ITokenBroker storageBroker, IConfiguration cofiguration)
+    public TokenService(ITokenBroker tokenBroker, IConfiguration cofiguration)
     {
-        this.storageBroker = storageBroker;
+        this.tokenBroker = tokenBroker;
 
         if (int.TryParse(cofiguration?.GetSection("Settings")["TokenTimeout"], out int timeout))
             tokenTimeout = timeout;
@@ -25,7 +25,7 @@ public class TokenService : ITokenService
         if (value.StartsWith("a"))
             value = value[1..] + "a";
 
-        return await storageBroker.AddTokenAsync(new Token()
+        return await tokenBroker.AddTokenAsync(new Token()
         {
             Id = value,
             Expires = DateTimeOffset.Now.AddMinutes(tokenTimeout),
@@ -34,9 +34,9 @@ public class TokenService : ITokenService
         });
     }
 
-    public async ValueTask DeleteTokenAsync(Token item)
-        => await storageBroker.DeleteTokenAsync(item);
+    public async ValueTask DeleteTokenAsync(Token item) => 
+        await tokenBroker.DeleteTokenAsync(item);
 
-    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false)
-        => storageBroker.GetAllTokens(ignoreFilters);
+    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) => 
+        tokenBroker.GetAllTokens(ignoreFilters);
 }

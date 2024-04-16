@@ -56,6 +56,8 @@ public partial class SecurityDbContext(
                 currentUser = Users
                     .IgnoreQueryFilters()
                     .AsNoTracking()
+                    .Include(u => u.Roles)
+                        .ThenInclude(ur => ur.Role)
                     .FirstOrDefault(u => u.Id == userNameRequested);
 
             if (currentUser == null)
