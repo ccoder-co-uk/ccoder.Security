@@ -1,15 +1,11 @@
-﻿using cCoder.Security.Api;
-using cCoder.Security.Api.Interfaces;
+﻿using cCoder.Security.Api.Interfaces;
 using cCoder.Security.Data.Brokers.Encryption;
-using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using cCoder.SecurityMSSQL;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Formats.Asn1;
 
 namespace SSO.AcceptanceTests;
 

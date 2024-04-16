@@ -32,7 +32,7 @@ public class AccountApiClient
         var scopedServices = scope.ServiceProvider;
 
         Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
-                    .CreateDbContext();
+            .CreateDbContext();
     }
 
     public HttpClient UseNoCookiesApiClient() => 

@@ -1,28 +1,26 @@
 ﻿using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundation.Interfaces;
 using cCoder.Security.Services.Processing.Interfaces;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace cCoder.Security.Services.Processing
+namespace cCoder.Security.Services.Processing;
+
+public class TenantProcessingService 
+    : ITenantProcessingService
 {
-    public class TenantProcessingService : ITenantProcessingService
-    {
-        private readonly ITenantService tenantService;
+    private readonly ITenantService tenantService;
 
-        public TenantProcessingService(ITenantService tenantService) =>
-            this.tenantService = tenantService;
+    public TenantProcessingService(ITenantService tenantService) =>
+        this.tenantService = tenantService;
 
-        public ValueTask<Tenant> AddTenantAsync(Tenant item) => 
-            tenantService.AddTenantAsync(item);
+    public ValueTask<Tenant> AddTenantAsync(Tenant item) => 
+        tenantService.AddTenantAsync(item);
 
-        public ValueTask DeleteTenantAsync(Tenant item) => 
-            tenantService.DeleteTenantAsync(item);
+    public ValueTask DeleteTenantAsync(Tenant item) => 
+        tenantService.DeleteTenantAsync(item);
 
-        public IQueryable<Tenant> GetAllTenants() => 
-            tenantService.GetAllTenants();
+    public IQueryable<Tenant> GetAllTenants() => 
+        tenantService.GetAllTenants();
 
-        public ValueTask<Tenant> UpdateTenantAsync(Tenant item) => 
-            tenantService.UpdateTenantAsync(item);
-    }
+    public ValueTask<Tenant> UpdateTenantAsync(Tenant item) => 
+        tenantService.UpdateTenantAsync(item);
 }

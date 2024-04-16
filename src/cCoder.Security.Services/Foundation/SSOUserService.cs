@@ -4,7 +4,8 @@ using cCoder.Security.Services.Foundation.Interfaces;
 
 namespace cCoder.Security.Services.Foundation;
 
-public class SSOUserService(ISSOUserBroker ssoUserBroker) : ISSOUserService
+public class SSOUserService(ISSOUserBroker ssoUserBroker) 
+    : ISSOUserService
 {
     public async ValueTask<SSOUser> AddSSOUserAsync(SSOUser item) => 
         await ssoUserBroker.AddSSOUserAsync(item);

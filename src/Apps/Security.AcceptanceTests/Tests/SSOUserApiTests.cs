@@ -1,11 +1,12 @@
 ﻿using Bogus;
 using cCoder.Security.AcceptanceTests.Clients;
 using cCoder.Security.Objects.DTOs;
+using Security.AcceptanceTests;
 using Xunit;
 
 namespace cCoder.Security.AcceptanceTests.Tests;
 
-[Collection(nameof(AccountTestCollection))]
+[Collection(nameof(AllTestsCollection))]
 public partial class SSOUserApiTests
 	{
     private readonly RegisterApiClient registerApiClient;
