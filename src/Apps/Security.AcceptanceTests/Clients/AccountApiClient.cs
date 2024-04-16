@@ -23,7 +23,7 @@ public class AccountApiClient
     public AccountApiClient()
     {
         webApplicationFactory = new();
-        webApplicationFactory.EnsureSSOSetupForTesting();
+        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         api = webApplicationFactory.CreateClient();
         api.Authenticate("TestUser", "TestPass01!").Wait();

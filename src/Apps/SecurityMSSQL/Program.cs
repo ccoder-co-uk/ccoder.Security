@@ -1,12 +1,6 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using cCoder.Security.Api;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.MSSQL;
-using System;
-using System.IO;
 
 namespace cCoder.SecurityMSSQL
 {
