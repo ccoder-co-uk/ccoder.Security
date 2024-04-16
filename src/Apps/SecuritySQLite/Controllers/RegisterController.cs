@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Security.Api.Interfaces;
-using Security.Objects.DTOs;
-using Security.Objects.Entities;
+using cCoder.Security.Api.Interfaces;
+using cCoder.Security.Objects.DTOs;
+using cCoder.Security.Objects.Entities;
 using System.Threading.Tasks;
 
-namespace Security.Api.Controllers
+namespace cCoder.Security.Api.Controllers
 {
     [Route("Api/Account")]
     public class RegisterController : Controller

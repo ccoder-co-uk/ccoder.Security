@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.OData;
 using System;
 using System.Security;
 
-namespace SecuritySQLite
+namespace cCoder.SecuritySQLite
 {
     public static class IApplicationBuilderExtensions
     {

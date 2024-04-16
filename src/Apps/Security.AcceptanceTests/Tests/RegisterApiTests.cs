@@ -1,11 +1,11 @@
 ﻿using System;
 using Bogus;
-using Security.AcceptanceTests.Clients;
-using Security.Objects.DTOs;
+using cCoder.Security.AcceptanceTests.Clients;
+using cCoder.Security.Objects.DTOs;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Security.AcceptanceTests.Tests
+namespace cCoder.Security.AcceptanceTests.Tests
 {
     [Collection(nameof(AccountTestCollection))]
     public partial class RegisterApiTests
