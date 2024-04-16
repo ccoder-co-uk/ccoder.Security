@@ -59,20 +59,6 @@ public static class SecurityWebApplicationFactoryExtensions
         await accountManager.ConfirmRegistrationAsync(confirmationToken);
     }
 
-    static SSOUser CreateTestUser(IPasswordEncryptionBroker encryptionBroker) => new()
-    {
-        Id = "TestUser",
-        DisplayName = "Test User",
-        PasswordHash = encryptionBroker.Encrypt("TestPass01!"),
-        AccessFailedCount = 0,
-        Email = "TestUser@corporatelinx.com",
-        EmailConfirmed = true,
-        PhoneNumber = string.Empty,
-        PhoneNumberConfirmed = false,
-        LockoutEnabled = false,
-        LockoutEndDateUtc = null,
-    };
-
     static SSORole CreateTestAdminsRole(string[] allPrivs) => new()
     {
         Name = "Test Admins",

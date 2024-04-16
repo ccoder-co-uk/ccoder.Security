@@ -2,6 +2,7 @@
 using cCoder.Security.Objects;
 using cCoder.Security.Services.Orchestration.Interfaces;
 using cCoder.Security.Services.Processing.Interfaces;
+using System.Diagnostics;
 using System.Text;
 
 namespace cCoder.Security.Services.Orchestration;
@@ -39,9 +40,13 @@ public class SSOAuthInfoOrchestrationService
         if (string.IsNullOrEmpty(authHeaderValue))
             return null;
 
-        return authHeaderValue.ToLowerInvariant().StartsWith("bearer")
-            ? GetBearerAuthentication(authHeaderValue) 
-            : GetBasicAuthentication(authHeaderValue);
+        if (authHeaderValue.StartsWith("bearer", StringComparison.InvariantCultureIgnoreCase))
+            return GetBearerAuthentication(authHeaderValue);
+
+        if(authHeaderValue.StartsWith("basic", StringComparison.InvariantCultureIgnoreCase))
+            return GetBasicAuthentication(authHeaderValue);
+
+        return null;
     }
 
     ISSOAuthInfo GetFromSession()
@@ -61,17 +66,13 @@ public class SSOAuthInfoOrchestrationService
         if (tokenId == null)
             return null;
 
-        var token = tokenService.GetTokenById(tokenId);
+        var token = tokenService.GetAllTokens(ignoreFilters: true)
+            .FirstOrDefault(t => t.Id == tokenId);
 
         if (token == null)
             return null;
 
-        var user = userService.FindById(token.UserName);
-
-        if (user == null)
-            return null;
-
-        return new SSOAuthInfo { SSOUserId = user.Id };
+        return new SSOAuthInfo { SSOUserId = token.UserName };
     }
 
     ISSOAuthInfo GetBasicAuthentication(string authHeaderValue)

@@ -2,6 +2,6 @@
 {
     public interface ISecurityDbContextFactory
     {
-        SecurityDbContext CreateDbContext();
+        SecurityDbContext CreateDbContext(bool withAuthInfo = true);
     }
 }

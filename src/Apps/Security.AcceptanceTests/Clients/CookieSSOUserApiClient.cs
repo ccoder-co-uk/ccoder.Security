@@ -24,9 +24,6 @@ public class CookieSSOUserApiClient
         webApplicationFactory = new();
         webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
-        api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = true });
-        api.Authenticate("TestUser", "TestPass01!").Wait();
-
         using var scope = webApplicationFactory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
 
@@ -36,10 +33,8 @@ public class CookieSSOUserApiClient
 
     public async ValueTask<Token> LoginAsync(Auth auth, string query = "", bool keepSessionCookie = false)
     {
-        var content = new StringContent(auth.ToJson(), Encoding.UTF8, "application/json");
-        var request = await api.PostAsync("/Api/Account/Login" + query, content);
-        request.EnsureSuccessStatusCode();
-        return await request.Content.ReadAsAsync<Token>();
+        api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = keepSessionCookie });
+        return await api.Authenticate(auth.User, auth.Pass);
     }
 
     public void AddBearerAuthentication(string bearer)
@@ -62,8 +57,8 @@ public class CookieSSOUserApiClient
         }
     }
 
-    public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "")
-        => await api.GetODataCollection<SSOUser>(Endpoint + query);
+    public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") => 
+        await api.GetODataCollection<SSOUser>(Endpoint + query);
 
     public async ValueTask<SSOUser> Me(string query = "")
     {

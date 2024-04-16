@@ -24,6 +24,9 @@ public class TokenProcessingService
             await tokenService.DeleteTokenAsync(token);
     }
 
+    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
+        tokenService.GetAllTokens(ignoreFilters);
+
     public Token GetTokenById(string id)
     {
         var token = tokenService.GetAllTokens()

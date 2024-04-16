@@ -8,8 +8,14 @@ namespace cCoder.Security.Data.EF;
 public class SecurityDbContextFactory(ISecurityModelBuildProvider modelBuildProvider) 
     : ISecurityDbContextFactory
 {
-    public string UserId { get; set; }
+    public Func<ISSOAuthInfo> GetAuthInfo { get; set; }
 
-    public SecurityDbContext CreateDbContext() => 
-        new(new SSOAuthInfo { SSOUserId = UserId }, modelBuildProvider);
+    public SecurityDbContext CreateDbContext(bool withAuthInfo = true)
+    {
+        var authInfo = withAuthInfo
+            ? GetAuthInfo()
+            : new SSOAuthInfo { SSOUserId = "Guest" };
+
+        return new(authInfo, modelBuildProvider);
+    }
 }

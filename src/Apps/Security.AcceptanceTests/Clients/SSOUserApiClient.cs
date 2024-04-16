@@ -51,9 +51,11 @@ public class SSOUserApiClient
             api.DefaultRequestHeaders.Authorization = null;
         else
         {
-            string encoded = System.Convert.ToBase64String(Encoding.UTF8.GetBytes(auth.User + ":" + auth.Pass));
+            string encoded = 
+                Convert.ToBase64String(Encoding.UTF8.GetBytes(auth.User + ":" + auth.Pass));
 
-            api.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("basic", encoded);
+            api.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("basic", encoded);
         }
     }
 
