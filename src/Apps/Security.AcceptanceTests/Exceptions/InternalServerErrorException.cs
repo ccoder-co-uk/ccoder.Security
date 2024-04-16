@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Security.AcceptanceTests.Exceptions
+namespace cCoder.Security.AcceptanceTests.Exceptions
 {
     public class InternalServerErrorException : Exception
     {

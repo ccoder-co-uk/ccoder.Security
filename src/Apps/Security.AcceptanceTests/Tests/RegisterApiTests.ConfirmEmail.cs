@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
-using Security.AcceptanceTests.Tests.Models;
-using Security.Objects.DTOs;
-using Security.Objects.Entities;
+using cCoder.Security.AcceptanceTests.Tests.Models;
+using cCoder.Security.Objects.DTOs;
+using cCoder.Security.Objects.Entities;
 using Xunit;
 
-namespace Security.AcceptanceTests.Tests
+namespace cCoder.Security.AcceptanceTests.Tests
 {
     public partial class RegisterApiTests
 	{

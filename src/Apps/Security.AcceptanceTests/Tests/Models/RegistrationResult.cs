@@ -1,10 +1,9 @@
-﻿using Security.Objects.Entities;
+﻿using cCoder.Security.Objects.Entities;
 
-namespace Security.AcceptanceTests.Tests.Models
+namespace cCoder.Security.AcceptanceTests.Tests.Models;
+
+public class RegistrationResult
 {
-    public class RegistrationResult
-    {
-        public SSOUser User { get; set; }
-        public string Token { get; set; }
-    }
+    public SSOUser User { get; set; }
+    public string Token { get; set; }
 }
