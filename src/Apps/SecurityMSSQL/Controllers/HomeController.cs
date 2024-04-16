@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Security.Objects;
+using cCoder.Security.Objects;
 
-namespace SecurityMSSQL.Controllers
+namespace cCoder.SecurityMSSQL.Controllers
 {
     [Route("")]
     public class HomeController : Controller
