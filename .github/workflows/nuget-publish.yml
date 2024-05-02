@@ -44,13 +44,13 @@ jobs:
 
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
     - run: |
-        dotnet pack src/Security.Api --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
-        dotnet pack src/Security.Data --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
-        dotnet pack src/Security.Data.EF --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
-        dotnet pack src/Security.Data.EF.MSSQL --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
-        dotnet pack src/Security.Data.EF.SQLite --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
-        dotnet pack src/Security.Objects --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
-        dotnet pack src/Security.Services --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Security.Api --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Security.Data --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Security.Data.EF --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Security.Data.EF.MSSQL --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Security.Data.EF.SQLite --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Security.Objects --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Security.Services --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
 
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
     - uses: actions/upload-artifact@v3
