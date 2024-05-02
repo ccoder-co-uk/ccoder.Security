@@ -18,17 +18,17 @@ public partial class UserEventProcessingServiceTests
         userEventProcessingService = new UserEventProcessingService(userEventServiceMock.Object);
     }
 
-    UserEvent[] RandomUserEvents() => 
+    private UserEvent[] RandomUserEvents() => 
         Enumerable.Range(1, new Random().Next(10, 20))
             .Select(_ => RandomUserEvent())
             .ToArray();
 
-    UserEvent RandomUserEvent() => 
+    private UserEvent RandomUserEvent() => 
         GetUserEventFiller().Create();
 
-    Filler<UserEvent> GetUserEventFiller()
+    private Filler<UserEvent> GetUserEventFiller()
     {
-        var filler = new Filler<UserEvent>();
+        Filler<UserEvent> filler = new();
 
         filler.Setup()
             .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)

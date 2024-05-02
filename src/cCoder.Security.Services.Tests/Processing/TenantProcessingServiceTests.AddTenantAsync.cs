@@ -1,35 +1,34 @@
-﻿using FluentAssertions;
+﻿using cCoder.Security.Objects.Entities;
+using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
-using cCoder.Security.Objects.Entities;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Processing
+namespace cCoder.Security.Services.Tests.Processing;
+
+public partial class TenantProcessingServiceTests
 {
-    public partial class TenantProcessingServiceTests
+    [Fact]
+    public async void ShouldAddTenantAsync()
     {
-        [Fact]
-        public async void ShouldAddTenantAsync()
-        {
-            //given
-            Tenant inputTenant = RandomTenant();
-            Tenant expectedTenant = inputTenant.DeepClone();
+        //given
+        Tenant inputTenant = RandomTenant();
+        Tenant expectedTenant = inputTenant.DeepClone();
 
-            tenantServiceMock.Setup(tenantServiceMock =>
-                tenantServiceMock.AddTenantAsync(inputTenant))
-                .ReturnsAsync(expectedTenant);
+        tenantServiceMock.Setup(tenantServiceMock =>
+            tenantServiceMock.AddTenantAsync(inputTenant))
+            .ReturnsAsync(expectedTenant);
 
-            //when
-            Tenant actualTenant = await tenantProcessingService.AddTenantAsync(inputTenant);
+        //when
+        Tenant actualTenant = await tenantProcessingService.AddTenantAsync(inputTenant);
 
-            //then
-            actualTenant.Should().BeEquivalentTo(expectedTenant);
+        //then
+        actualTenant.Should().BeEquivalentTo(expectedTenant);
 
-            tenantServiceMock.Verify(tenantServiceMock =>
-                tenantServiceMock.AddTenantAsync(inputTenant),
-                Times.Once());
+        tenantServiceMock.Verify(tenantServiceMock =>
+            tenantServiceMock.AddTenantAsync(inputTenant),
+            Times.Once());
 
-            tenantServiceMock.VerifyNoOtherCalls();
-        }
+        tenantServiceMock.VerifyNoOtherCalls();
     }
 }

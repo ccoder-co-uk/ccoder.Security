@@ -9,7 +9,9 @@ public class SSOUserRoleService : ISSOUserRoleService
     private readonly ISSOUserRoleBroker userRoleBroker;
 
     public SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
-        => this.userRoleBroker = userRoleBroker;
+    {
+        this.userRoleBroker = userRoleBroker;
+    }
 
     public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
         => await userRoleBroker.AddSSOUserRoleAsync(item);

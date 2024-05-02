@@ -9,8 +9,8 @@ namespace cCoder.Security.Services.Orchestration;
 
 public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationService
 {
-    readonly ISSOUserProcessingService ssoUserProcessingService;
-    readonly ITokenProcessingService tokenProcessingService;
+    private readonly ISSOUserProcessingService ssoUserProcessingService;
+    private readonly ITokenProcessingService tokenProcessingService;
 
     public SSOUserRegistrationOrchestrationService(
         ISSOUserProcessingService ssoUserProcessingService,
@@ -24,14 +24,14 @@ public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationServ
     {
         ValidateRegisterForm(registerForm);
 
-        var mappedUser = MapToSSOUser(registerForm);
+        SSOUser mappedUser = MapToSSOUser(registerForm);
 
-        var user = await ssoUserProcessingService.RegisterSSOUserAsync(mappedUser);
-        var confirmationToken = await tokenProcessingService.GenerateConfirmationToken(user.Id);
+        SSOUser user = await ssoUserProcessingService.RegisterSSOUserAsync(mappedUser);
+        Token confirmationToken = await tokenProcessingService.GenerateConfirmationToken(user.Id);
         return (user, confirmationToken.Id);
     }
 
-    static void ValidateRegisterForm(RegisterUser registerForm)
+    private static void ValidateRegisterForm(RegisterUser registerForm)
     {
         if (!registerForm.Email.Contains('@'))
             throw new ValidationException("Invalid email provided");
@@ -44,7 +44,7 @@ public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationServ
     }
 
     private SSOUser MapToSSOUser(RegisterUser registerForm)
-        => new SSOUser
+        => new()
         {
             Id = registerForm.Email.Split("@")[0],
             DisplayName = registerForm.DisplayName,
@@ -55,12 +55,12 @@ public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationServ
 
     public async ValueTask ConfirmRegistration(string tokenId)
     {
-        var token = tokenProcessingService.GetConfirmationToken(tokenId);
+        Token token = tokenProcessingService.GetConfirmationToken(tokenId);
 
         if (token == null)
             throw new SecurityException("Access Denied!");
 
-        var user = ssoUserProcessingService.FindById(token.UserName);
+        SSOUser user = ssoUserProcessingService.FindById(token.UserName);
 
         if (user == null)
             throw new SecurityException("Access Denied!");
@@ -75,12 +75,12 @@ public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationServ
         if (!newPassword.Equals(confirmNewPassword))
             throw new SecurityException("Passwords do not match");
 
-        var token = tokenProcessingService.GetForgottenPasswordToken(tokenId);
+        Token token = tokenProcessingService.GetForgottenPasswordToken(tokenId);
 
         if (token == null || token.UserName != userId)
             throw new SecurityException("Access Denied!");
 
-        var user = ssoUserProcessingService.FindById(token.UserName);
+        SSOUser user = ssoUserProcessingService.FindById(token.UserName);
 
         if (user == null)
             throw new SecurityException("Access Denied!");
@@ -92,7 +92,7 @@ public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationServ
 
     public async ValueTask ChangePassword(string username, string oldPassword, string newPassword)
     {
-        var user = ssoUserProcessingService.FindByUserAndPassword(username, oldPassword);
+        SSOUser user = ssoUserProcessingService.FindByUserAndPassword(username, oldPassword);
 
         if (user == null)
             throw new SecurityException("Access Denied!");
@@ -106,7 +106,7 @@ public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationServ
 
     public async ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser item)
     {
-        var user = GetAllSSOUsers()
+        SSOUser user = GetAllSSOUsers()
             .FirstOrDefault(user => user.Id == username);
 
         if (user == null)

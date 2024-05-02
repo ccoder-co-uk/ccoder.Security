@@ -2,55 +2,54 @@
 using SharedObjects.Dtos.Metadata;
 using System.Linq.Expressions;
 
-namespace cCoder.Security.Api.EDM
+namespace cCoder.Security.Api.EDM;
+
+/// <summary>
+/// Base model builder class for all OData model builders
+/// </summary>
+public abstract class ODataModelBuilder
 {
+    protected ODataConventionModelBuilder Builder = new();
+
     /// <summary>
-    /// Base model builder class for all OData model builders
+    /// Derived types implement this to setup the OData Model information
     /// </summary>
-    public abstract class ODataModelBuilder
+    /// <returns></returns>
+    public abstract ODataModel Build();
+
+    protected virtual EntitySetConfiguration<T> AddSet<T, TKey>(bool enableBatchingToo = false, string setName = null) where T : class
     {
-        protected ODataConventionModelBuilder Builder = new();
+        setName ??= typeof(T).Name;
+        EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(setName);
 
-        /// <summary>
-        /// Derived types implement this to setup the OData Model information
-        /// </summary>
-        /// <returns></returns>
-        public abstract ODataModel Build();
+        // register base OData controller defined functions
+        _ = Builder.EntityType<T>().Collection.Function("GetMetadata").Returns<MetadataContainer>();
 
-        protected virtual EntitySetConfiguration<T> AddSet<T, TKey>(bool enableBatchingToo = false, string setName = null) where T : class
-        {
-            setName ??= typeof(T).Name;
-            EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(setName);
+        StructuralTypeConfiguration typeInfo = Builder.StructuralTypes.First(t => t.ClrType == typeof(T));
 
-            // register base OData controller defined functions
-            _ = Builder.EntityType<T>().Collection.Function("GetMetadata").Returns<MetadataContainer>();
+        return setConfig;
+    }
 
-            StructuralTypeConfiguration typeInfo = Builder.StructuralTypes.First(t => t.ClrType == typeof(T));
+    protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> key) where T : class
+    {
+        string setName = typeof(T).Name;
+        // register basic CRUD endpoint
+        EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(setName);
 
-            return setConfig;
-        }
+        // register base OData controller defined functions
+        _ = Builder.EntityType<T>().Collection.Function("GetMetadata").Returns<MetadataContainer>();
+        _ = Builder.EntityType<T>().HasKey(key);
 
-        protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> key) where T : class
-        {
-            string setName = typeof(T).Name;
-            // register basic CRUD endpoint
-            EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(setName);
+        return setConfig;
+    }
 
-            // register base OData controller defined functions
-            _ = Builder.EntityType<T>().Collection.Function("GetMetadata").Returns<MetadataContainer>();
-            _ = Builder.EntityType<T>().HasKey(key);
-
-            return setConfig;
-        }
-
-        /// <summary>
-        /// Used by the generic functions GetMetadata and Lookup
-        /// </summary>
-        protected virtual void AddCommonComplextypes()
-        {
-            _ = Builder.ComplexType<MetadataContainerSet>();
-            _ = Builder.ComplexType<MetadataContainer>();
-            _ = Builder.ComplexType<PropertyContainer>();
-        }
+    /// <summary>
+    /// Used by the generic functions GetMetadata and Lookup
+    /// </summary>
+    protected virtual void AddCommonComplextypes()
+    {
+        _ = Builder.ComplexType<MetadataContainerSet>();
+        _ = Builder.ComplexType<MetadataContainer>();
+        _ = Builder.ComplexType<PropertyContainer>();
     }
 }

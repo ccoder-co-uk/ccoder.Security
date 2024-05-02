@@ -9,8 +9,8 @@ namespace cCoder.Security.Services.Tests.Foundation;
 
 public partial class SSOPrivilegeServiceTests
 {
-    readonly Mock<ISSOPrivilegeBroker> privBrokerMock;
-    readonly ISSOPrivilegeService privService;
+    private readonly Mock<ISSOPrivilegeBroker> privBrokerMock;
+    private readonly ISSOPrivilegeService privService;
 
     public SSOPrivilegeServiceTests()
     {
@@ -18,12 +18,12 @@ public partial class SSOPrivilegeServiceTests
         privService = new SSOPrivilegeService(privBrokerMock.Object);
     }
 
-    static IQueryable<SSOPrivilege> RandomSSOPrivileges() => 
+    private static IQueryable<SSOPrivilege> RandomSSOPrivileges() => 
         Enumerable.Range(0, new Random().Next(100))
             .Select(i => RandomSSOPrivilege())
             .AsQueryable();
 
-    static SSOPrivilege RandomSSOPrivilege() => 
+    private static SSOPrivilege RandomSSOPrivilege() => 
         Builder<SSOPrivilege>
             .CreateNew()
             .Build();

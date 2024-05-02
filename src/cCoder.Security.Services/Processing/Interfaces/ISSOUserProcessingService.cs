@@ -1,18 +1,15 @@
 using cCoder.Security.Objects.Entities;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace cCoder.Security.Services.Processing.Interfaces
+namespace cCoder.Security.Services.Processing.Interfaces;
+
+public interface ISSOUserProcessingService
 {
-    public interface ISSOUserProcessingService
-    {
-        ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser item);
-        ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser item);
-        ValueTask DeleteSSOUserAsync(SSOUser item);
-        IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false);
-        SSOUser FindByUserAndPassword(string username, string password);
-        SSOUser FindById(string id);
-        SSOUser Me();
-        void ValidatePassword(string password);
-    }
+    ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser item);
+    ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser item);
+    ValueTask DeleteSSOUserAsync(SSOUser item);
+    IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false);
+    SSOUser FindByUserAndPassword(string username, string password);
+    SSOUser FindById(string id);
+    SSOUser Me();
+    void ValidatePassword(string password);
 }

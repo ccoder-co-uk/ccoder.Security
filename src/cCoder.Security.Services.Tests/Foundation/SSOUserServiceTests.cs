@@ -9,8 +9,8 @@ namespace cCoder.Security.Services.Tests.Foundation;
 
 public partial class SSOUserServiceTests
 {
-    readonly Mock<ISSOUserBroker> userBrokerMock;
-    readonly ISSOUserService userService;
+    private readonly Mock<ISSOUserBroker> userBrokerMock;
+    private readonly ISSOUserService userService;
 
     public SSOUserServiceTests()
     {
@@ -18,15 +18,15 @@ public partial class SSOUserServiceTests
         userService = new SSOUserService(userBrokerMock.Object);
     }
 
-    static string RandomString() => 
+    private static string RandomString() => 
         new RandomGenerator().NextString(5, 12);
 
-    static IQueryable<SSOUser> RandomUsers() => 
+    private static IQueryable<SSOUser> RandomUsers() => 
         Enumerable.Range(0, new Random().Next(100))
             .Select(i => RandomUser(RandomString()))
             .AsQueryable();
 
-    static SSOUser RandomUser(string id) => 
+    private static SSOUser RandomUser(string id) => 
         Builder<SSOUser>
             .CreateNew()
             .With(i => i.Id = id)

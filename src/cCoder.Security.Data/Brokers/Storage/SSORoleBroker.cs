@@ -1,50 +1,49 @@
-﻿using cCoder.Security.Data.EF.Interfaces;
-using cCoder.Security.Data.Brokers.Storage.Interfaces;
+﻿using cCoder.Security.Data.Brokers.Storage.Interfaces;
+using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
-using System.Threading.Tasks;
-using System.Linq;
 
-namespace cCoder.Security.Data.Brokers.Storage
+namespace cCoder.Security.Data.Brokers.Storage;
+
+public class SSORoleBroker : ISSORoleBroker
 {
-    public class SSORoleBroker : ISSORoleBroker
+    private readonly ISecurityDbContextFactory contextFactory;
+
+    public SSORoleBroker(ISecurityDbContextFactory contextFactory)
     {
-        ISecurityDbContextFactory contextFactory;
+        this.contextFactory = contextFactory;
+    }
 
-        public SSORoleBroker(ISecurityDbContextFactory contextFactory)
-            => this.contextFactory = contextFactory;
+    public async ValueTask<SSORole> AddSSORoleAsync(SSORole role)
+    {
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        public async ValueTask<SSORole> AddSSORoleAsync(SSORole role)
-        {
-            using var context = contextFactory.CreateDbContext();
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = await context.Roles.AddAsync(role);
+        await context.SaveChangesAsync();
 
-            var entityEntry = await context.Roles.AddAsync(role);
-            await context.SaveChangesAsync();
+        return entityEntry.Entity;
+    }
 
-            return entityEntry.Entity;
-        }
+    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole role)
+    {
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole role)
-        {
-            using var context = contextFactory.CreateDbContext();
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Update(role);
+        await context.SaveChangesAsync();
 
-            var entityEntry = context.Roles.Update(role);
-            await context.SaveChangesAsync();
+        return entityEntry.Entity;
+    }
 
-            return entityEntry.Entity;
-        }
+    public async ValueTask DeleteSSORoleAsync(SSORole role)
+    {
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        public async ValueTask DeleteSSORoleAsync(SSORole role)
-        {
-            using var context = contextFactory.CreateDbContext();
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Remove(role);
+        await context.SaveChangesAsync();
+    }
 
-            var entityEntry = context.Roles.Remove(role);
-            await context.SaveChangesAsync();
-        }
-
-        public IQueryable<SSORole> GetAllSSORoles()
-        {
-            var context = contextFactory.CreateDbContext();
-            return context.Roles;
-        }
+    public IQueryable<SSORole> GetAllSSORoles()
+    {
+        EF.SecurityDbContext context = contextFactory.CreateDbContext();
+        return context.Roles;
     }
 }

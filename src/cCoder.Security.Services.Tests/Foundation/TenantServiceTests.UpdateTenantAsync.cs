@@ -1,43 +1,41 @@
-﻿using FluentAssertions;
+﻿using cCoder.Security.Objects.Entities;
+using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
-using cCoder.Security.Objects.Entities;
-using System;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class TenantServiceTests
 {
-    public partial class TenantServiceTests
+    [Fact]
+    public async void UpdateTenantAsyncWorksAsExpected()
     {
-        [Fact]
-        public async void UpdateTenantAsyncWorksAsExpected()
-        {
-            //given
-            Tenant inputTenant = RandomTenant();
-            Tenant expectedTenant = inputTenant.DeepClone();
-            DateTimeOffset expectedTime = DateTimeOffset.Now;
+        //given
+        Tenant inputTenant = RandomTenant();
+        Tenant expectedTenant = inputTenant.DeepClone();
+        DateTimeOffset expectedTime = DateTimeOffset.Now;
 
-            dateTimeOffsetBrokerMock.Setup(dateTimeOffsetBrokerMock =>
-                dateTimeOffsetBrokerMock.GetCurrentTime())
-                .Returns(expectedTime);
+        dateTimeOffsetBrokerMock.Setup(dateTimeOffsetBrokerMock =>
+            dateTimeOffsetBrokerMock.GetCurrentTime())
+            .Returns(expectedTime);
 
-            tenantBrokerMock.Setup(tenantBrokerMock =>
-                tenantBrokerMock.UpdateTenantAsync(inputTenant))
-                .ReturnsAsync(inputTenant);
+        tenantBrokerMock.Setup(tenantBrokerMock =>
+            tenantBrokerMock.UpdateTenantAsync(inputTenant))
+            .ReturnsAsync(inputTenant);
 
-            expectedTenant.LastUpdated = expectedTime;
+        expectedTenant.LastUpdated = expectedTime;
 
-            //when
-            Tenant actualTenant = await tenantService.UpdateTenantAsync(inputTenant);
+        //when
+        Tenant actualTenant = await tenantService.UpdateTenantAsync(inputTenant);
 
-            //then
-            actualTenant.Should().BeEquivalentTo(expectedTenant);
+        //then
+        actualTenant.Should().BeEquivalentTo(expectedTenant);
 
-            tenantBrokerMock.Verify(tenantBrokerMock =>
-                tenantBrokerMock.UpdateTenantAsync(inputTenant), 
-                Times.Once());
+        tenantBrokerMock.Verify(tenantBrokerMock =>
+            tenantBrokerMock.UpdateTenantAsync(inputTenant), 
+            Times.Once());
 
-            tenantBrokerMock.VerifyNoOtherCalls();
-        }
+        tenantBrokerMock.VerifyNoOtherCalls();
     }
 }

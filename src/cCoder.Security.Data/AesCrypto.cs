@@ -1,55 +1,55 @@
-﻿using cCoder.Security.Data.Interfaces;
-using System;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 
-namespace cCoder.Security.Data
+namespace cCoder.Security.Data;
+
+public class AesCrypto<T> : ISymmetricCrypto<T>
 {
-    public class AesCrypto<T> : ISymmetricCrypto<T>
+    private readonly string decryptionKey;
+    private readonly AesThenHmac crypto = new();
+
+    public AesCrypto(string key)
     {
-        readonly string decryptionKey;
-        readonly AesThenHmac crypto = new();
+        decryptionKey = key;
+    }
 
-        public AesCrypto(string key) => decryptionKey = key;
+    public string Encrypt(T source, string key)
+    {
+        Encoding e = Encoding.UTF8;
+        byte[] rawData = e.GetBytes(JsonSerializer.Serialize(source));
+        byte[] cipherData = crypto.SimpleEncryptWithPassword(rawData, key, null);
+        return Convert.ToBase64String(cipherData);
+    }
 
-        public string Encrypt(T source, string key)
+    public string Encrypt(T source)
+    {
+        if (decryptionKey == null)
         {
-            Encoding e = Encoding.UTF8;
-            byte[] rawData = e.GetBytes(JsonSerializer.Serialize(source));
-            byte[] cipherData = crypto.SimpleEncryptWithPassword(rawData, key, null);
-            return Convert.ToBase64String(cipherData);
+            throw new InvalidOperationException("Decryption key not set.");
         }
 
-        public string Encrypt(T source)
-        {
-            if (decryptionKey == null)
-            {
-                throw new InvalidOperationException("Decryption key not set.");
-            }
+        Encoding e = Encoding.UTF8;
+        byte[] rawData = e.GetBytes(System.Text.Json.JsonSerializer.Serialize(source));
+        byte[] cipherData = crypto.SimpleEncryptWithPassword(rawData, decryptionKey, null);
+        return Convert.ToBase64String(cipherData);
+    }
 
-            Encoding e = Encoding.UTF8;
-            byte[] rawData = e.GetBytes(System.Text.Json.JsonSerializer.Serialize(source));
-            byte[] cipherData = crypto.SimpleEncryptWithPassword(rawData, decryptionKey, null);
-            return Convert.ToBase64String(cipherData);
+    public T Decrypt(string source, string key)
+    {
+        Encoding e = Encoding.UTF8;
+        byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(Convert.FromBase64String(source), key);
+        return JsonSerializer.Deserialize<T>(e.GetString(decryptedBytes));
+    }
+
+    public T Decrypt(string source)
+    {
+        if (decryptionKey == null)
+        {
+            throw new InvalidOperationException("Decryption key not set.");
         }
 
-        public T Decrypt(string source, string key)
-        {
-            Encoding e = Encoding.UTF8;
-            byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(Convert.FromBase64String(source), key);
-            return JsonSerializer.Deserialize<T>(e.GetString(decryptedBytes));
-        }
-
-        public T Decrypt(string source)
-        {
-            if (decryptionKey == null)
-            {
-                throw new InvalidOperationException("Decryption key not set.");
-            }
-
-            Encoding e = Encoding.UTF8;
-            byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(Convert.FromBase64String(source), decryptionKey);
-            return JsonSerializer.Deserialize<T>(e.GetString(decryptedBytes));
-        }
+        Encoding e = Encoding.UTF8;
+        byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(Convert.FromBase64String(source), decryptionKey);
+        return JsonSerializer.Deserialize<T>(e.GetString(decryptedBytes));
     }
 }

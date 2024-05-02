@@ -10,13 +10,13 @@ public class SSOUserBroker(ISecurityDbContextFactory contextFactory)
 {
     public SSOUser Me()
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
         return context.GetCurrentUser();
     }
     
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false)
     {
-        var context = contextFactory.CreateDbContext(!ignoreFilters);
+        EF.SecurityDbContext context = contextFactory.CreateDbContext(!ignoreFilters);
 
         return ignoreFilters
             ? context.Users.IgnoreQueryFilters()
@@ -25,9 +25,9 @@ public class SSOUserBroker(ISecurityDbContextFactory contextFactory)
 
     public async ValueTask<SSOUser> AddSSOUserAsync(SSOUser user)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = await context.Users.AddAsync(user);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = await context.Users.AddAsync(user);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -35,9 +35,9 @@ public class SSOUserBroker(ISecurityDbContextFactory contextFactory)
 
     public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser user)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.Users.Update(user);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = context.Users.Update(user);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -45,9 +45,9 @@ public class SSOUserBroker(ISecurityDbContextFactory contextFactory)
 
     public async ValueTask DeleteSSOUserAsync(SSOUser SSOUser)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.Users.Remove(SSOUser);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = context.Users.Remove(SSOUser);
         await context.SaveChangesAsync();
     }
 }

@@ -9,7 +9,9 @@ public class SSORoleService : ISSORoleService
     private readonly ISSORoleBroker roleBroker;
 
     public SSORoleService(ISSORoleBroker storageBroker)
-        => this.roleBroker = storageBroker;
+    {
+        this.roleBroker = storageBroker;
+    }
 
     public IQueryable<SSORole> GetAllSSORoles()
         => roleBroker.GetAllSSORoles();

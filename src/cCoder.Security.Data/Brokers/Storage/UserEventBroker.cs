@@ -6,16 +6,18 @@ namespace cCoder.Security.Data.Brokers.Storage;
 
 public class UserEventBroker : IUserEventBroker
 {
-    ISecurityDbContextFactory contextFactory;
+    private readonly ISecurityDbContextFactory contextFactory;
 
     public UserEventBroker(ISecurityDbContextFactory contextFactory)
-        => this.contextFactory = contextFactory;
+    {
+        this.contextFactory = contextFactory;
+    }
 
     public async ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = await context.UserEvents.AddAsync(userEvent);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<UserEvent> entityEntry = await context.UserEvents.AddAsync(userEvent);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -23,9 +25,9 @@ public class UserEventBroker : IUserEventBroker
 
     public async ValueTask<UserEvent> UpdateUserEventAsync(UserEvent userEvent)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.UserEvents.Update(userEvent);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<UserEvent> entityEntry = context.UserEvents.Update(userEvent);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -33,15 +35,15 @@ public class UserEventBroker : IUserEventBroker
 
     public async ValueTask DeleteUserEventAsync(UserEvent userEvent)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.UserEvents.Remove(userEvent);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<UserEvent> entityEntry = context.UserEvents.Remove(userEvent);
         await context.SaveChangesAsync();
     }
 
     public IQueryable<UserEvent> GetAllUserEvents()
     {
-        var context = contextFactory.CreateDbContext();
+        EF.SecurityDbContext context = contextFactory.CreateDbContext();
         return context.UserEvents;
     }
 }

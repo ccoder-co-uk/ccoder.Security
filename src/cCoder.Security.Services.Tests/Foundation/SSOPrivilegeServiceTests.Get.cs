@@ -1,28 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
-using cCoder.Security.Objects.Entities;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class SSOPrivilegeServiceTests
 {
-    public partial class SSOPrivilegeServiceTests
+    [Fact]
+    public void ShouldGetAllSSOPrivileges()
     {
-        [Fact]
-        public void ShouldGetAllSSOPrivileges()
-        {
-            // given
-            IQueryable<SSOPrivilege> expectedSSOPrivileges = RandomSSOPrivileges();
-            privBrokerMock.Setup(broker => broker.GetPrivileges()).Returns(expectedSSOPrivileges);
+        // given
+        IQueryable<SSOPrivilege> expectedSSOPrivileges = RandomSSOPrivileges();
+        privBrokerMock.Setup(broker => broker.GetPrivileges()).Returns(expectedSSOPrivileges);
 
-            // when
-            IEnumerable<SSOPrivilege> actualSSOPrivileges = privService.GetAllSSOPrivileges();
+        // when
+        IEnumerable<SSOPrivilege> actualSSOPrivileges = privService.GetAllSSOPrivileges();
 
-            // then
-            actualSSOPrivileges.Should().BeEquivalentTo(expectedSSOPrivileges);
-            privBrokerMock.Verify(broker => broker.GetPrivileges(), Times.Once);
-            privBrokerMock.VerifyNoOtherCalls();
-        }
+        // then
+        actualSSOPrivileges.Should().BeEquivalentTo(expectedSSOPrivileges);
+        privBrokerMock.Verify(broker => broker.GetPrivileges(), Times.Once);
+        privBrokerMock.VerifyNoOtherCalls();
     }
 }

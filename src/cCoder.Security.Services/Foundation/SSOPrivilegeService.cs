@@ -6,10 +6,12 @@ namespace cCoder.Security.Services.Foundation;
 
 public class SSOPrivilegeService : ISSOPrivilegeService
 {
-    readonly ISSOPrivilegeBroker privBroker;
+    private readonly ISSOPrivilegeBroker privBroker;
 
     public SSOPrivilegeService(ISSOPrivilegeBroker privBroker)
-        => this.privBroker = privBroker;
+    {
+        this.privBroker = privBroker;
+    }
 
     public IQueryable<SSOPrivilege> GetAllSSOPrivileges()
         => privBroker.GetPrivileges();

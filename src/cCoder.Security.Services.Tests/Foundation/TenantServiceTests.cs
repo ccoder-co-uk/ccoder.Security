@@ -21,17 +21,17 @@ public partial class TenantServiceTests
         tenantService = new TenantService(tenantBrokerMock.Object, dateTimeOffsetBrokerMock.Object);
     }
 
-    Tenant[] RandomTenants() => 
+    private Tenant[] RandomTenants() => 
         Enumerable.Range(1, new Random().Next(10, 20))
             .Select(_ => RandomTenant())
             .ToArray();
 
-    Tenant RandomTenant() => 
+    private Tenant RandomTenant() => 
         GetTenantFiller().Create();
 
-    Filler<Tenant> GetTenantFiller()
+    private Filler<Tenant> GetTenantFiller()
     {
-        var filler = new Filler<Tenant>();
+        Filler<Tenant> filler = new();
 
         filler.Setup()
             .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)

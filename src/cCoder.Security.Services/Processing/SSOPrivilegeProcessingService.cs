@@ -7,10 +7,12 @@ namespace cCoder.Security.Services.Processing;
 public class SSOPrivilegeProcessingService 
     : ISSOPrivilegeProcessingService
 {
-    readonly ISSOPrivilegeService privService;
+    private readonly ISSOPrivilegeService privService;
 
-    public SSOPrivilegeProcessingService(ISSOPrivilegeService privService) => 
+    public SSOPrivilegeProcessingService(ISSOPrivilegeService privService)
+    {
         this.privService = privService;
+    }
 
     public IQueryable<SSOPrivilege> GetAllSSOPrivileges() => 
         privService.GetAllSSOPrivileges();

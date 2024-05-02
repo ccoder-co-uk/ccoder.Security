@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace cCoder.SecurityMSSQL;
+namespace SecurityMSSQL;
 
 public static partial class IServiceCollectionExtensions
 {
