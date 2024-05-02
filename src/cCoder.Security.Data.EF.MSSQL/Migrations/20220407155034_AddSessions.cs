@@ -2,13 +2,11 @@
 
 #nullable disable
 
-namespace cCoder.Security.Data.EF.Migrations
+namespace cCoder.Security.Data.EF.Migrations;
+
+public partial class AddSessions : Migration
 {
-    public partial class AddSessions : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
+    protected override void Up(MigrationBuilder migrationBuilder) => migrationBuilder.Sql(@"
 CREATE TABLE[dbo].[Sessions]
 (
     [Id] NVARCHAR(900) NOT NULL PRIMARY KEY,
@@ -17,12 +15,9 @@ CREATE TABLE[dbo].[Sessions]
     [SlidingExpirationInSeconds] BIGINT NULL,
     [AbsoluteExpiration] DATETIMEOFFSET NULL
 )"
-            );
-        }
+        );
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
+    protected override void Down(MigrationBuilder migrationBuilder) => migrationBuilder.Sql(@"
 DROP TABLE[dbo].[Sessions]
 (
     [Id] NVARCHAR(900) NOT NULL PRIMARY KEY,
@@ -31,7 +26,5 @@ DROP TABLE[dbo].[Sessions]
     [SlidingExpirationInSeconds] BIGINT NULL,
     [AbsoluteExpiration] DATETIMEOFFSET NULL
 )"
-            );
-        }
-    }
+        );
 }

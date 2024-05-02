@@ -22,7 +22,7 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services,
         Action<IServiceCollection, SecurityConfiguration> configAction)
     {
-        var securityConfiguration = new SecurityConfiguration();
+        SecurityConfiguration securityConfiguration = new();
         configAction(services, securityConfiguration);
 
         services.AddScoped<ISecurityDbContextFactory>(sp => 
@@ -42,7 +42,7 @@ public static class IServiceCollectionExtensions
         return securityConfiguration;
     }
 
-    static void AddBrokers(this IServiceCollection services)
+    private static void AddBrokers(this IServiceCollection services)
     {
         services.AddScoped<IHttpRequestBroker, HttpRequestBroker>();
         services.AddScoped<ISessionBroker, SessionBroker>();
@@ -59,7 +59,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
     }
 
-    static void AddFoundations(this IServiceCollection services)
+    private static void AddFoundations(this IServiceCollection services)
     {
         services.AddScoped<ISSOUserService, SSOUserService>();
         services.AddScoped<ISSOPrivilegeService, SSOPrivilegeService>();
@@ -67,10 +67,11 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISSORoleService, SSORoleService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ITenantService, TenantService>();
+        services.AddScoped<ITenantAnalysisService, TenantAnalysisService>();
         services.AddScoped<ISessionService, SessionService>();
     }
 
-    static void AddProcessings(this IServiceCollection services)
+    private static void AddProcessings(this IServiceCollection services)
     {
         services.AddScoped<ISSOUserProcessingService, SSOUserProcessingService>();
         services.AddScoped<ISSOPrivilegeProcessingService, SSOPrivilegeProcessingService>();
@@ -78,10 +79,11 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISSORoleProcessingService, SSORoleProcessingService>();
         services.AddScoped<ITokenProcessingService, TokenProcessingService>();
         services.AddScoped<ITenantProcessingService, TenantProcessingService>();
+        services.AddScoped<ITenantAnalysisProcessingService, TenantAnalysisProcessingService>();
         services.AddScoped<ISessionProcessingService, SessionProcessingService>();
     }
 
-    static void AddOrchestrations(this IServiceCollection services)
+    private static void AddOrchestrations(this IServiceCollection services)
     {
         services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
         services.AddScoped<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();

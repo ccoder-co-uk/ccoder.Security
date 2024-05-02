@@ -12,7 +12,7 @@ public class SecurityDbContextFactory(ISecurityModelBuildProvider modelBuildProv
 
     public SecurityDbContext CreateDbContext(bool withAuthInfo = true)
     {
-        var authInfo = withAuthInfo
+        ISSOAuthInfo authInfo = withAuthInfo
             ? GetAuthInfo()
             : new SSOAuthInfo { SSOUserId = "Guest" };
 

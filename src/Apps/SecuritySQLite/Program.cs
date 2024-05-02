@@ -2,14 +2,14 @@ using cCoder.Security.Api;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.SQLite;
 
-namespace cCoder.SecuritySQLite;
+namespace SecuritySQLite;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
-        var config = new ConfigurationBuilder()
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        IConfigurationRoot config = new ConfigurationBuilder()
             .AddEnvironmentVariables(prefix: "ENV_")
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -20,13 +20,13 @@ public class Program
         builder.Services.AddAspNetCore();
         builder.Services.AddMetadata();
 
-        builder.Services.AddSecurityApi((services, securityConfig) => 
+        builder.Services.AddSecurityApi((services, securityConfig) =>
         {
             securityConfig.RootPath = "Api/Security";
             securityConfig.AddEntityFramework(services);
 
             securityConfig.AddSQLiteModelProvider(
-                services, 
+                services,
                 config.GetConnectionString("SSO"));
 
             securityConfig.UseSHA512PasswordEncryption(services);
@@ -44,7 +44,7 @@ public class Program
         builder.Logging.ClearProviders();
         builder.Logging.AddSimpleConsole();
 
-        var app = builder.Build();
+        WebApplication app = builder.Build();
         app.UseSession();
         app.UseTheFramework();
         app.Run();

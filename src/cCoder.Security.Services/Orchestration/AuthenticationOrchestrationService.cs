@@ -24,13 +24,13 @@ public class AuthenticationOrchestrationService
 
     public async ValueTask<Token> LoginAsync(string username, string password)
     {
-        var user = ssoUserProcessingService.FindByUserAndPassword(username, password);
+        SSOUser user = ssoUserProcessingService.FindByUserAndPassword(username, password);
 
         if (user == null)
             throw new SecurityException("Access Denied!");
 
         sessionProcessingService.SetUser(user);
-        var token = await tokenProcessingService.AddTokenForUserIdAsync(user.Id);
+        Token token = await tokenProcessingService.AddTokenForUserIdAsync(user.Id);
         return token;
     }
 
@@ -43,7 +43,7 @@ public class AuthenticationOrchestrationService
 
     public async ValueTask<Token> GenerateForgotPasswordToken(string id)
     {
-        var userId = ssoUserProcessingService.FindById(id)?.Id;
+        string userId = ssoUserProcessingService.FindById(id)?.Id;
 
         if (userId == null)
             throw new SecurityException("Access Denied!");

@@ -1,6 +1,6 @@
 ﻿using cCoder.Security.Objects.Entities;
 
-namespace cCoder.Security.AcceptanceTests.Tests.Models;
+namespace Security.AcceptanceTests.Tests.Models;
 
 public class RegistrationResult
 {

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.OData;
-using cCoder.Security.Api.EDM;
+﻿using cCoder.Security.Api.EDM;
 using cCoder.Security.Api.Interfaces;
 using cCoder.Security.Objects;
 using cCoder.Security.Services;
+using Microsoft.AspNetCore.OData;
 
 namespace cCoder.Security.Api;
 
@@ -12,7 +12,7 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services, 
         Action<IServiceCollection, SecurityConfiguration> configAction)
     {
-        var config = services.AddSecurityServices(configAction);
+        SecurityConfiguration config = services.AddSecurityServices(configAction);
 
         services.AddApi();
         services.AddAspNet();
@@ -21,12 +21,10 @@ public static class IServiceCollectionExtensions
             services.AddSecurityApiLayer(config.RootPath);
     }
 
-    static void AddApi(this IServiceCollection services)
-    {
-        services.AddTransient<IAccountManager, AccountManager>();
-    }
+    private static void AddApi(this IServiceCollection services) 
+        => services.AddTransient<IAccountManager, AccountManager>();
 
-    static void AddAspNet(this IServiceCollection services)
+    private static void AddAspNet(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
         services.AddTransient(ctx => ctx.GetService<IHttpContextAccessor>()?.HttpContext);
@@ -35,12 +33,11 @@ public static class IServiceCollectionExtensions
         services.AddSession();
     }
 
-    public static void AddSecurityApiLayer(this IServiceCollection services, string atPath)
-    {
-        services.AddControllers().AddOData(opt =>
-        {
-            opt.Expand().Count().Filter().Select().OrderBy().SetMaxTop(1000);
-            opt.AddRouteComponents(atPath, new SecurityModelBuilder().Build().EDMModel);
-        });
-    }
+    public static void AddSecurityApiLayer(this IServiceCollection services, string atPath) 
+        => services.AddControllers()
+            .AddOData(opt =>
+            {
+                opt.Expand().Count().Filter().Select().OrderBy().SetMaxTop(1000);
+                opt.AddRouteComponents(atPath, new SecurityModelBuilder().Build().EDMModel);
+            });
 }

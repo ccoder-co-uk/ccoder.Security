@@ -21,9 +21,9 @@ public partial class SecurityDbContext(
     public DbSet<Session> Sessions { get; set; }
     public DbSet<UserEvent> UserEvents { get; set; }
 
-    SSOUser currentUser;
+    private SSOUser currentUser;
 
-    bool UserIsPortalAdmin => GetCurrentUser()
+    private bool UserIsPortalAdmin => GetCurrentUser()
         .Roles
         .Any(r => r.Role.UsersArePortalAdmins);
 
@@ -37,11 +37,18 @@ public partial class SecurityDbContext(
         ApplyFilters(modelBuilder);
     }
 
-    void ApplyFilters(ModelBuilder builder)
+    private void ApplyFilters(ModelBuilder builder)
     {
         builder.Entity<SSOUser>().HasQueryFilter(u => UserIsPortalAdmin || u.Id == authInfo.SSOUserId);
         builder.Entity<SSORole>().HasQueryFilter(r => UserIsPortalAdmin || r.Users.Any());
         builder.Entity<SSOUserRole>().HasQueryFilter(ur => ur.User != null);
+
+        builder.Entity<Token>().HasQueryFilter(t => t.User != null);
+        builder.Entity<Session>().HasQueryFilter(s => s.UserEvents.Any());
+        builder.Entity<UserEvent>().HasQueryFilter(u => u.CreatedByUser != null);
+
+        builder.Entity<Tenant>().HasQueryFilter(t => t.Roles.Any(r => r.Privs.Contains("tenant_read")));
+        builder.Entity<TenantAnalysis>().HasQueryFilter(t => t.Tenant != null);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
@@ -51,7 +58,7 @@ public partial class SecurityDbContext(
     {
         if (currentUser == null || currentUser.Id != authInfo?.SSOUserId)
         {
-            var userNameRequested = authInfo?.SSOUserId ?? "Guest";
+            string userNameRequested = authInfo?.SSOUserId ?? "Guest";
             if (userNameRequested != "Guest")
                 currentUser = Users
                     .IgnoreQueryFilters()

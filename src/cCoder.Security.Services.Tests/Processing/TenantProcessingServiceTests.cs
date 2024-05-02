@@ -28,7 +28,7 @@ public partial class TenantProcessingServiceTests
 
     public Filler<Tenant> GetTenantFiller()
     {
-        var filler = new Filler<Tenant>();
+        Filler<Tenant> filler = new();
 
         filler.Setup()
             .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)

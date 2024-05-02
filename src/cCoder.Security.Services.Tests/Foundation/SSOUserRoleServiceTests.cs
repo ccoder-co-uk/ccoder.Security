@@ -5,27 +5,26 @@ using cCoder.Security.Services.Foundation.Interfaces;
 using FizzWare.NBuilder;
 using Moq;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class SSOUserRoleServiceTests
 {
-    public partial class SSOUserRoleServiceTests
+    private readonly Mock<ISSOUserRoleBroker> userRoleBrokerMock;
+    private readonly ISSOUserRoleService userRoleService;
+
+    public SSOUserRoleServiceTests()
     {
-        readonly Mock<ISSOUserRoleBroker> userRoleBrokerMock;
-        readonly ISSOUserRoleService userRoleService;
-
-        public SSOUserRoleServiceTests()
-        {
-            userRoleBrokerMock = new Mock<ISSOUserRoleBroker>();
-            userRoleService = new SSOUserRoleService(userRoleBrokerMock.Object);
-        }
-
-        static IQueryable<SSOUserRole> RandomUserRoles() => 
-            Enumerable.Range(0, new Random().Next(100))
-                .Select(i => RandomUserRole())
-                .AsQueryable();
-
-        static SSOUserRole RandomUserRole() => 
-            Builder<SSOUserRole>
-                .CreateNew()
-                .Build();
+        userRoleBrokerMock = new Mock<ISSOUserRoleBroker>();
+        userRoleService = new SSOUserRoleService(userRoleBrokerMock.Object);
     }
+
+    private static IQueryable<SSOUserRole> RandomUserRoles() => 
+        Enumerable.Range(0, new Random().Next(100))
+            .Select(i => RandomUserRole())
+            .AsQueryable();
+
+    private static SSOUserRole RandomUserRole() => 
+        Builder<SSOUserRole>
+            .CreateNew()
+            .Build();
 }

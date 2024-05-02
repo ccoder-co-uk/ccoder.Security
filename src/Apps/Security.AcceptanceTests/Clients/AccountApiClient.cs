@@ -1,24 +1,22 @@
-﻿using cCoder.Security.AcceptanceTests.Exceptions;
-using cCoder.Security.Data.EF;
+﻿using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Security.AcceptanceTests.Clients;
-using SSO.AcceptanceTests;
+using SecurityMSSQL;
 using System.Text;
 
-namespace cCoder.Security.AcceptanceTests.Clients;
+namespace Security.AcceptanceTests.Clients;
 
 public class AccountApiClient
 {
-    readonly WebApplicationFactory<SecurityMSSQL.Program> webApplicationFactory;
-    HttpClient api;
+    private readonly WebApplicationFactory<Program> webApplicationFactory;
+    private HttpClient api;
     public SecurityDbContext Database { get; set; }
 
-    const string endpoint = "Api/Account/";
+    private const string endpoint = "Api/Account/";
 
     public AccountApiClient()
     {
@@ -28,19 +26,19 @@ public class AccountApiClient
         api = webApplicationFactory.CreateClient();
         api.Authenticate("TestUser", "TestPass01!").Wait();
 
-        using var scope = webApplicationFactory.Services.CreateScope();
-        var scopedServices = scope.ServiceProvider;
+        using IServiceScope scope = webApplicationFactory.Services.CreateScope();
+        IServiceProvider scopedServices = scope.ServiceProvider;
 
         Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
             .CreateDbContext();
     }
 
-    public HttpClient UseNoCookiesApiClient() => 
+    public HttpClient UseNoCookiesApiClient() =>
         api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = false });
 
     public async ValueTask PostAsync(string query, object content)
     {
-        var request = await api.PostAsync(endpoint + query, new StringContent(content.ToJson(), Encoding.UTF8, "application/json"));
+        HttpResponseMessage request = await api.PostAsync(endpoint + query, new StringContent(content.ToJson(), Encoding.UTF8, "application/json"));
 
         if ((int)request.StatusCode == 500)
             throw new InternalServerErrorException(await request.Content.ReadAsStringAsync());
@@ -53,26 +51,26 @@ public class AccountApiClient
 
     public async ValueTask<Token> LoginAsync(Auth auth, string query = "")
     {
-        var content = new StringContent(auth.ToJson(), Encoding.UTF8, "application/json");
-        var request = await api.PostAsync(endpoint + "Login" + query, content);
+        StringContent content = new(auth.ToJson(), Encoding.UTF8, "application/json");
+        HttpResponseMessage request = await api.PostAsync(endpoint + "Login" + query, content);
         request.EnsureSuccessStatusCode();
         return await request.Content.ReadAsAsync<Token>();
     }
 
     public async Task TearDown(string ssoUserId)
     {
-        var user = Database.Users
+        SSOUser user = Database.Users
             .IgnoreQueryFilters()
             .FirstOrDefault(u => u.Id == ssoUserId);
 
         if (user != null)
         {
-            var tokens = Database.Tokens
+            List<Token> tokens = Database.Tokens
                 .IgnoreQueryFilters()
                 .Where(t => t.UserName == user.Id)
                 .ToList();
 
-            var userRoles = Database.UserRoles
+            List<SSOUserRole> userRoles = Database.UserRoles
                 .IgnoreQueryFilters()
                 .Where(r => r.UserId == user.Id)
                 .ToList();

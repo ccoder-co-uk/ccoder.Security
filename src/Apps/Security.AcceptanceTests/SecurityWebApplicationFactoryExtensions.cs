@@ -1,41 +1,38 @@
 ﻿using cCoder.Security.Api.Interfaces;
-using cCoder.Security.Data.Brokers.Encryption;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
-using cCoder.SecurityMSSQL;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using SecurityMSSQL;
 
-namespace SSO.AcceptanceTests;
+namespace Security.AcceptanceTests;
 
 public static class SecurityWebApplicationFactoryExtensions
 {
-    static bool setupComplete = false;
+    private static bool setupComplete = false;
 
     public static void EnsureDatabasesAreSetupForTesting(this WebApplicationFactory<Program> appFactory)
     {
         lock (appFactory)
-        {
             if (!setupComplete)
             {
                 setupComplete = true;
 
-                using var scope = appFactory.Services.CreateScope();
-                var scopedServices = scope.ServiceProvider;
+                using IServiceScope scope = appFactory.Services.CreateScope();
+                IServiceProvider scopedServices = scope.ServiceProvider;
 
                 EnsureSSOSetupForTesting(scopedServices)
                     .AsTask()
                     .Wait();
             }
-        }
     }
 
-    static async ValueTask EnsureSSOSetupForTesting(IServiceProvider scopedServices)
+    private static async ValueTask EnsureSSOSetupForTesting(IServiceProvider scopedServices)
     {
-        var accountManager = scopedServices.GetRequiredService<IAccountManager>();
+        IAccountManager accountManager = scopedServices.GetRequiredService<IAccountManager>();
 
-        using var db = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
+        using cCoder.Security.Data.EF.SecurityDbContext db = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
             .CreateDbContext();
 
         db.Database.EnsureDeleted();
@@ -45,9 +42,9 @@ public static class SecurityWebApplicationFactoryExtensions
         await accountManager.LoginAsync("TestUser", "TestPass01!");
     }
 
-    static async Task SetupTestUser(IAccountManager accountManager)
+    private static async Task SetupTestUser(IAccountManager accountManager)
     {
-        var user = new RegisterUser
+        RegisterUser user = new()
         {
             DisplayName = "Test User",
             Email = "TestUser@somehwere.com",
@@ -59,10 +56,10 @@ public static class SecurityWebApplicationFactoryExtensions
         await accountManager.ConfirmRegistrationAsync(confirmationToken);
     }
 
-    static SSORole CreateTestAdminsRole(string[] allPrivs) => new()
+    private static SSORole CreateTestAdminsRole(string[] allPrivs) => new()
     {
         Name = "Test Admins",
-        Privs = string.Join(",",allPrivs),
+        Privs = string.Join(",", allPrivs),
         UsersArePortalAdmins = true
     };
 }

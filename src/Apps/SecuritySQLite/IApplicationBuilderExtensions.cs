@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.OData;
 using System.Security;
 
-namespace cCoder.SecuritySQLite;
+namespace SecuritySQLite;
 
 public static class IApplicationBuilderExtensions
 {
@@ -41,7 +41,7 @@ public static class IApplicationBuilderExtensions
         return app;
     }
 
-    static IApplicationBuilder HandleExceptions(this IApplicationBuilder app)
+    private static IApplicationBuilder HandleExceptions(this IApplicationBuilder app)
         => app.UseExceptionHandler(errorApp => errorApp.Run(async (context) =>
         {
             Exception ex = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
@@ -54,9 +54,7 @@ public static class IApplicationBuilderExtensions
                 Exception innerEx = ex.InnerException;
 
                 while (innerEx != null)
-                {
                     innerEx = innerEx.InnerException;
-                }
             }
         }));
 }

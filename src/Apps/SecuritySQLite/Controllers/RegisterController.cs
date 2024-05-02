@@ -3,11 +3,11 @@ using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace cCoder.Security.Api.Controllers;
+namespace SecuritySQLite.Controllers;
 
 [Route("Api/Account")]
 public class RegisterController : Controller
-	{
+{
     private readonly IAccountManager accountManager;
 
     public RegisterController(IAccountManager accountManager)
@@ -18,7 +18,7 @@ public class RegisterController : Controller
     [HttpPost("Register")]
     public async ValueTask<IActionResult> Register([FromBody] RegisterUser registerForm)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
             BadRequest(ModelState);
 
         (SSOUser user, string confirmationToken) = await accountManager.RegisterAsync(registerForm);

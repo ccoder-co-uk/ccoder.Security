@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Linq;
 using System.Reflection;
 
 namespace cCoder.Security.Data.EF.MSSQL;
 
 public partial class SecurityMSSQLModelBuildProvider : ISecurityModelBuildProvider
 {
-    readonly string connectionString;
-    readonly bool logSQL;
+    private readonly string connectionString;
+    private readonly bool logSQL;
 
     public SecurityMSSQLModelBuildProvider(string connectionString, bool logSQL = false)
     {
@@ -23,11 +22,11 @@ public partial class SecurityMSSQLModelBuildProvider : ISecurityModelBuildProvid
     {
         ConfigureSecurityModel(modelBuilder);
 
-        var cascadingRelationships = modelBuilder.Model.GetEntityTypes()
+        IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey> cascadingRelationships = modelBuilder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())
             .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 
-        foreach (var relationship in cascadingRelationships)
+        foreach (Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey relationship in cascadingRelationships)
             relationship.DeleteBehavior = DeleteBehavior.Restrict;
     }
 

@@ -1,33 +1,32 @@
-﻿using FluentAssertions;
+﻿using cCoder.Security.Objects.Entities;
+using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
-using cCoder.Security.Objects.Entities;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class SSOUserServiceTests
 {
-    public partial class SSOUserServiceTests
+    [Fact]
+    public async void ShouldUpdateSSOUserAsync()
     {
-        [Fact]
-        public async void ShouldUpdateSSOUserAsync()
-        {
-            // given
-            SSOUser inputSSOUser = RandomUser(RandomString());
-            SSOUser expectedSSOUser = inputSSOUser.DeepClone();
+        // given
+        SSOUser inputSSOUser = RandomUser(RandomString());
+        SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
-            userBrokerMock.Setup(broker => broker.UpdateSSOUserAsync(inputSSOUser)).ReturnsAsync(expectedSSOUser);
+        userBrokerMock.Setup(broker => broker.UpdateSSOUserAsync(inputSSOUser)).ReturnsAsync(expectedSSOUser);
 
-            // when
-            SSOUser actualSSOUser = await userService.UpdateSSOUserAsync(inputSSOUser);
+        // when
+        SSOUser actualSSOUser = await userService.UpdateSSOUserAsync(inputSSOUser);
 
-            // then
-            actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
+        // then
+        actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
 
-            userBrokerMock.Verify(broker => 
-                broker.UpdateSSOUserAsync(inputSSOUser), 
-                Times.Once);
+        userBrokerMock.Verify(broker => 
+            broker.UpdateSSOUserAsync(inputSSOUser), 
+            Times.Once);
 
-            userBrokerMock.VerifyNoOtherCalls();
-        }
+        userBrokerMock.VerifyNoOtherCalls();
     }
 }

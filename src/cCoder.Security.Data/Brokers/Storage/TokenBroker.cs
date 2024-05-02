@@ -7,16 +7,18 @@ namespace cCoder.Security.Data.Brokers.Storage;
 
 public class TokenBroker : ITokenBroker
 {
-    ISecurityDbContextFactory contextFactory;
+    private readonly ISecurityDbContextFactory contextFactory;
 
     public TokenBroker(ISecurityDbContextFactory contextFactory)
-        => this.contextFactory = contextFactory;
+    {
+        this.contextFactory = contextFactory;
+    }
 
     public async ValueTask<Token> AddTokenAsync(Token token)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.Tokens.Add(token);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Token> entityEntry = context.Tokens.Add(token);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -24,9 +26,9 @@ public class TokenBroker : ITokenBroker
 
     public async ValueTask<Token> UpdateTokenAsync(Token token)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.Tokens.Update(token);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Token> entityEntry = context.Tokens.Update(token);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -34,15 +36,15 @@ public class TokenBroker : ITokenBroker
 
     public async ValueTask DeleteTokenAsync(Token token)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.Tokens.Remove(token);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Token> entityEntry = context.Tokens.Remove(token);
         await context.SaveChangesAsync();
     }
 
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false)
     {
-        var context = contextFactory.CreateDbContext(!ignoreFilters);
+        EF.SecurityDbContext context = contextFactory.CreateDbContext(!ignoreFilters);
 
         return ignoreFilters
             ? context.Tokens.IgnoreQueryFilters()

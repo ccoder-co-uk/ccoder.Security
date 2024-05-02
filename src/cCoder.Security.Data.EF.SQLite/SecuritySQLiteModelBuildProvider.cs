@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Linq;
 
 namespace cCoder.Security.Data.EF.MSSQL;
 
@@ -8,8 +7,10 @@ public partial class SecuritySQLiteModelBuildProvider : ISecurityModelBuildProvi
 {
     private readonly string connectionString;
 
-    public SecuritySQLiteModelBuildProvider(string connectionString) =>
+    public SecuritySQLiteModelBuildProvider(string connectionString)
+    {
         this.connectionString = connectionString;
+    }
 
     public void MigrateDatabase(DatabaseFacade database)
         => database.Migrate();
@@ -18,11 +19,11 @@ public partial class SecuritySQLiteModelBuildProvider : ISecurityModelBuildProvi
     {
         ConfigureSecurityModel(modelBuilder);
 
-        var cascadingRelationships = modelBuilder.Model.GetEntityTypes()
+        IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey> cascadingRelationships = modelBuilder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())
             .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 
-        foreach (var relationship in cascadingRelationships)
+        foreach (Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey relationship in cascadingRelationships)
             relationship.DeleteBehavior = DeleteBehavior.Restrict;
     }
 

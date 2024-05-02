@@ -1,13 +1,10 @@
 ﻿using cCoder.Security.Objects.Entities;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace cCoder.Security.Services.Processing.Interfaces
+namespace cCoder.Security.Services.Processing.Interfaces;
+
+public interface IUserEventProcessingService
 {
-    public interface IUserEventProcessingService
-    {
-        ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent);
-        ValueTask DeleteUserEventAsync(UserEvent userEvent);
-        IQueryable<UserEvent> GetAllUserEvents();
-    }
+    ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent);
+    ValueTask DeleteUserEventAsync(UserEvent userEvent);
+    IQueryable<UserEvent> GetAllUserEvents();
 }

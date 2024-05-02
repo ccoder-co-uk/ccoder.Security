@@ -1,7 +1,6 @@
-﻿namespace cCoder.Security.Data.EF.Interfaces
+﻿namespace cCoder.Security.Data.EF.Interfaces;
+
+public interface ISecurityDbContextFactory
 {
-    public interface ISecurityDbContextFactory
-    {
-        SecurityDbContext CreateDbContext(bool withAuthInfo = true);
-    }
+    SecurityDbContext CreateDbContext(bool withAuthInfo = true);
 }
