@@ -18,7 +18,7 @@ public partial class TenantServiceTests
     {
         tenantBrokerMock = new Mock<ITenantBroker>();
         dateTimeOffsetBrokerMock = new Mock<ISecurityDateTimeOffsetBroker>();
-        tenantService = new TenantService(tenantBrokerMock.Object, dateTimeOffsetBrokerMock.Object);
+        tenantService = new TenantService(tenantBrokerMock.Object);
     }
 
     private Tenant[] RandomTenants() => 

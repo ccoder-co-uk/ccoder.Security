@@ -5,6 +5,7 @@ using cCoder.Security.Objects.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Security.AcceptanceTests.Exceptions;
 using SecurityMSSQL;
 using System.Text;
 
