@@ -1,14 +1,13 @@
 ﻿using cCoder.Security.Objects.Entities;
 
-namespace cCoder.Security.Services.Foundation.Interfaces
+namespace cCoder.Security.Services.Foundation.Interfaces;
+
+public interface ISessionService
 {
-    public interface ISessionService
-    {
-        void SetString(string key, string value);
-        string GetString(string key);
-        SSOUser GetUser();
-        void SetUser(SSOUser user);
-        void RemoveKey(string key);
-        void Clear();
-    }
+    void SetString(string key, string value);
+    string GetString(string key);
+    SSOUser GetUser();
+    void SetUser(SSOUser user);
+    void RemoveKey(string key);
+    void Clear();
 }

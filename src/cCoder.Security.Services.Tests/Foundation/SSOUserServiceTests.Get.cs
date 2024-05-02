@@ -1,28 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
-using cCoder.Security.Objects.Entities;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class SSOUserServiceTests
 {
-    public partial class SSOUserServiceTests
+    [Fact]
+    public void ShouldGetSSOUsersAsync()
     {
-        [Fact]
-        public void ShouldGetSSOUsersAsync()
-        {
-            // given
-            IQueryable<SSOUser> expectedSSOUsers = RandomUsers();
-            userBrokerMock.Setup(broker => broker.GetAllSSOUsers(false)).Returns(expectedSSOUsers);
+        // given
+        IQueryable<SSOUser> expectedSSOUsers = RandomUsers();
+        userBrokerMock.Setup(broker => broker.GetAllSSOUsers(false)).Returns(expectedSSOUsers);
 
-            // when
-            IEnumerable<SSOUser> actualSSOUsers = userService.GetAllSSOUsers();
+        // when
+        IEnumerable<SSOUser> actualSSOUsers = userService.GetAllSSOUsers();
 
-            // then
-            actualSSOUsers.Should().BeEquivalentTo(expectedSSOUsers);
-            userBrokerMock.Verify(broker => broker.GetAllSSOUsers(false), Times.Once);
-            userBrokerMock.VerifyNoOtherCalls();
-        }
+        // then
+        actualSSOUsers.Should().BeEquivalentTo(expectedSSOUsers);
+        userBrokerMock.Verify(broker => broker.GetAllSSOUsers(false), Times.Once);
+        userBrokerMock.VerifyNoOtherCalls();
     }
 }

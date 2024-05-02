@@ -1,46 +1,43 @@
-﻿using System;
-using System.Linq;
+﻿using cCoder.Security.Objects.Entities;
 using Microsoft.EntityFrameworkCore;
-using cCoder.Security.Objects.Entities;
 
-namespace cCoder.Security.Data.EF
+namespace cCoder.Security.Data.EF;
+
+public partial class SecurityDbContext : DbContext
 {
-    public partial class SecurityDbContext : DbContext
+    public IQueryable<SSOPrivilege> GetPrivileges()
     {
-        public IQueryable<SSOPrivilege> GetPrivileges()
-        {
-            // get managed set types 
-            Type[] types = GetType()
-                .GetProperties()
-                .Where(p => p.PropertyType.IsGenericType)
-                .Select(p => p.PropertyType.GenericTypeArguments[0])
-                .ToArray();
+        // get managed set types 
+        Type[] types = GetType()
+            .GetProperties()
+            .Where(p => p.PropertyType.IsGenericType)
+            .Select(p => p.PropertyType.GenericTypeArguments[0])
+            .ToArray();
 
-            string suffix;
+        string suffix;
 
-            // compute stnadardised priv set
-            SSOPrivilege[] privs = types.SelectMany(t =>
+        // compute stnadardised priv set
+        SSOPrivilege[] privs = types.SelectMany(t =>
+            {
+                suffix = t.Name.EndsWith("s") ? "es" : "s";
+
+                // create CRUD privs for t
+                return new SSOPrivilege[]
                 {
-                    suffix = t.Name.EndsWith("s") ? "es" : "s";
+                    new() { Id = $"{t.Name}_Create", Type = t.Name, Operation = "Create", Description = $"Allows users to Create {t.Name}{suffix}." },
+                    new() { Id = $"{t.Name}_Read", Type = t.Name, Operation = "Read", Description = $"Allows users to Read {t.Name}{suffix}." },
+                    new() { Id = $"{t.Name}_Update", Type = t.Name, Operation = "Update", Description = $"Allows users to Update {t.Name}{suffix}." },
+                    new() { Id = $"{t.Name}_Delete", Type = t.Name, Operation = "Delete", Description = $"Allows users to Delete {t.Name}{suffix}." }
+                };
+            })
+            .ToArray();
 
-                    // create CRUD privs for t
-                    return new SSOPrivilege[]
-                    {
-                        new SSOPrivilege() { Id = $"{t.Name}_Create", Type = t.Name, Operation = "Create", Description = $"Allows users to Create {t.Name}{suffix}." },
-                        new SSOPrivilege() { Id = $"{t.Name}_Read", Type = t.Name, Operation = "Read", Description = $"Allows users to Read {t.Name}{suffix}." },
-                        new SSOPrivilege() { Id = $"{t.Name}_Update", Type = t.Name, Operation = "Update", Description = $"Allows users to Update {t.Name}{suffix}." },
-                        new SSOPrivilege() { Id = $"{t.Name}_Delete", Type = t.Name, Operation = "Delete", Description = $"Allows users to Delete {t.Name}{suffix}." }
-                    };
-                })
-                .ToArray();
+        // lower the keys for consistency with other contexts
+        foreach(SSOPrivilege priv in privs)
+            priv.Id = priv.Id.ToLower();
 
-            // lower the keys for consistency with other contexts
-            foreach(var priv in privs)
-                priv.Id = priv.Id.ToLower();
-
-            return privs
-                .GroupBy(p => p.Id).Select(g => g.First())
-                .AsQueryable();
-        }
+        return privs
+            .GroupBy(p => p.Id).Select(g => g.First())
+            .AsQueryable();
     }
 }

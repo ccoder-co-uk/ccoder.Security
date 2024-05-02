@@ -17,5 +17,4 @@ public class SSORole
     public Tenant Tenant { get; set; }
 
     public virtual ICollection<SSOUserRole> Users { get; set; }
-
 }

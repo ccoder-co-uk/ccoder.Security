@@ -1,6 +1,5 @@
-﻿using System;
+﻿using cCoder.Security.Objects.Entities;
 using Microsoft.EntityFrameworkCore;
-using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Data.EF.MSSQL;
 

@@ -1,4 +1,4 @@
-﻿using cCoder.Security.AcceptanceTests.Clients;
+﻿using Security.AcceptanceTests.Clients;
 using Xunit;
 
 namespace Security.AcceptanceTests;

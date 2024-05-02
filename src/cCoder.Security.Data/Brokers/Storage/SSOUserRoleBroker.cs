@@ -1,40 +1,39 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using cCoder.Security.Data.Brokers.Storage.Interfaces;
+﻿using cCoder.Security.Data.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
 
-namespace cCoder.Security.Data.Brokers.Storage
+namespace cCoder.Security.Data.Brokers.Storage;
+
+public class SSOUserRoleBroker : ISSOUserRoleBroker
 {
-    public class SSOUserRoleBroker : ISSOUserRoleBroker
+    private readonly ISecurityDbContextFactory contextFactory;
+
+    public SSOUserRoleBroker(ISecurityDbContextFactory contextFactory)
     {
-        ISecurityDbContextFactory contextFactory;
+        this.contextFactory = contextFactory;
+    }
 
-        public SSOUserRoleBroker(ISecurityDbContextFactory contextFactory)
-            => this.contextFactory = contextFactory;
+    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole)
+    {
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole)
-        {
-            using var context = contextFactory.CreateDbContext();
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUserRole> entityEntry = await context.UserRoles.AddAsync(userRole);
+        await context.SaveChangesAsync();
 
-            var entityEntry = await context.UserRoles.AddAsync(userRole);
-            await context.SaveChangesAsync();
+        return entityEntry.Entity;
+    }
 
-            return entityEntry.Entity;
-        }
+    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole)
+    {
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole)
-        {
-            using var context = contextFactory.CreateDbContext();
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUserRole> entityEntry = context.UserRoles.Remove(userRole);
+        await context.SaveChangesAsync();
+    }
 
-            var entityEntry = context.UserRoles.Remove(userRole);
-            await context.SaveChangesAsync();
-        }
-
-        public IQueryable<SSOUserRole> GetAllSSOUserRoles()
-        {
-            var context = contextFactory.CreateDbContext();
-            return context.UserRoles;
-        }
+    public IQueryable<SSOUserRole> GetAllSSOUserRoles()
+    {
+        EF.SecurityDbContext context = contextFactory.CreateDbContext();
+        return context.UserRoles;
     }
 }

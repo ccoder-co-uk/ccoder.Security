@@ -1,35 +1,33 @@
-﻿using FluentAssertions;
+﻿using cCoder.Security.Objects.Entities;
+using FluentAssertions;
 using Moq;
-using cCoder.Security.Objects.Entities;
-using System.Linq;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class TenantServiceTests
 {
-    public partial class TenantServiceTests
+    [Fact]
+    public void GetAllTenantsWorksAsExpected()
     {
-        [Fact]
-        public void GetAllTenantsWorksAsExpected()
-        {
-            //given
-            IQueryable<Tenant> expectedTenants = RandomTenants()
-                .AsQueryable();
+        //given
+        IQueryable<Tenant> expectedTenants = RandomTenants()
+            .AsQueryable();
 
-            tenantBrokerMock.Setup(tenantBrokerMock =>
-                tenantBrokerMock.GetAllTenants())
-                .Returns(expectedTenants);
+        tenantBrokerMock.Setup(tenantBrokerMock =>
+            tenantBrokerMock.GetAllTenants())
+            .Returns(expectedTenants);
 
-            //when
-            IQueryable<Tenant> actualTenants = tenantService.GetAllTenants();
+        //when
+        IQueryable<Tenant> actualTenants = tenantService.GetAllTenants();
 
-            //then
-            actualTenants.Should().BeEquivalentTo(expectedTenants);
+        //then
+        actualTenants.Should().BeEquivalentTo(expectedTenants);
 
-            tenantBrokerMock.Verify(tenantBrokerMock =>
-                tenantBrokerMock.GetAllTenants(),
-                Times.Once());
+        tenantBrokerMock.Verify(tenantBrokerMock =>
+            tenantBrokerMock.GetAllTenants(),
+            Times.Once());
 
-            tenantBrokerMock.VerifyNoOtherCalls();
-        }
+        tenantBrokerMock.VerifyNoOtherCalls();
     }
 }

@@ -1,11 +1,10 @@
-﻿namespace cCoder.Security.Data.Interfaces
-{
-    public interface ISymmetricCrypto<T>
-    {
-        string Encrypt(T source, string key);
-        string Encrypt(T source);
+﻿namespace cCoder.Security.Data;
 
-        T Decrypt(string source, string key);
-        T Decrypt(string source);
-    }
+public interface ISymmetricCrypto<T>
+{
+    string Encrypt(T source, string key);
+    string Encrypt(T source);
+
+    T Decrypt(string source, string key);
+    T Decrypt(string source);
 }

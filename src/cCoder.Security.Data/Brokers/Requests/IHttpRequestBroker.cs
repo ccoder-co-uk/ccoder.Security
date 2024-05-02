@@ -1,9 +1,7 @@
-﻿using System;
-namespace cCoder.Security.Data.Brokers.Requests
-{
-	public interface IHttpRequestBroker
+﻿namespace cCoder.Security.Data.Brokers.Requests;
+
+public interface IHttpRequestBroker
 	{
-        bool HasHeader(string headerValue);
-        string Header(string key);
-    }
+    bool HasHeader(string headerValue);
+    string Header(string key);
 }

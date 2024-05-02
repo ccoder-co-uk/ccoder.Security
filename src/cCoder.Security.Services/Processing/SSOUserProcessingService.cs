@@ -15,7 +15,7 @@ public partial class SSOUserProcessingService(
     {
         ValidateSSOUser(user);
 
-        var userIdCount = ssoUserService
+        int userIdCount = ssoUserService
             .GetAllSSOUsers(ignoreFilters: true)
             .Count(sso => sso.Id == user.Id);
 
@@ -34,7 +34,7 @@ public partial class SSOUserProcessingService(
     {
         ValidateUsername(username);
 
-        var user = FindById(username);
+        SSOUser user = FindById(username);
 
         if (user == null)
             throw new SecurityException("Access Denied!");
@@ -58,7 +58,7 @@ public partial class SSOUserProcessingService(
 
     public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser user)
     {
-        var dbUser = GetAllSSOUsers(ignoreFilters: true)
+        SSOUser dbUser = GetAllSSOUsers(ignoreFilters: true)
             .FirstOrDefault(u => u.Id == user.Id);
 
         if (user.PasswordHash != null && dbUser.PasswordHash != user.PasswordHash && !encryptionBroker.EncryptedAndPlainTextAreEqual(dbUser.PasswordHash, user.PasswordHash))

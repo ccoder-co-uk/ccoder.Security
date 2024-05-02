@@ -1,11 +1,9 @@
 using cCoder.Security.Objects.Entities;
-using System.Threading.Tasks;
 
-namespace cCoder.Security.Services.Processing.Interfaces
+namespace cCoder.Security.Services.Processing.Interfaces;
+
+public interface ISSOUserRoleProcessingService
 {
-    public interface ISSOUserRoleProcessingService
-    {
-        ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item);
-        ValueTask DeleteSSOUserRoleAsync(SSOUserRole item);
-    }
+    ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item);
+    ValueTask DeleteSSOUserRoleAsync(SSOUserRole item);
 }

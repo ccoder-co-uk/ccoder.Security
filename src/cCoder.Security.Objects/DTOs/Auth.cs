@@ -1,8 +1,7 @@
-﻿namespace cCoder.Security.Objects.DTOs
+﻿namespace cCoder.Security.Objects.DTOs;
+
+public class Auth
 {
-    public class Auth
-    {
-        public string User { get; set; }
-        public string Pass { get; set; }
-    }
+    public string User { get; set; }
+    public string Pass { get; set; }
 }

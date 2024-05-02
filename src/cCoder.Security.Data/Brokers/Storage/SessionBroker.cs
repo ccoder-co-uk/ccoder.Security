@@ -6,16 +6,18 @@ namespace cCoder.Security.Data.Brokers.Storage;
 
 public class SessionBroker : ISessionBroker
 {
-    ISecurityDbContextFactory contextFactory;
+    private readonly ISecurityDbContextFactory contextFactory;
 
     public SessionBroker(ISecurityDbContextFactory contextFactory)
-        => this.contextFactory = contextFactory;
+    {
+        this.contextFactory = contextFactory;
+    }
 
     public async ValueTask<Session> AddSessionAsync(Session Session)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = await context.Sessions.AddAsync(Session);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = await context.Sessions.AddAsync(Session);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -23,9 +25,9 @@ public class SessionBroker : ISessionBroker
 
     public async ValueTask<Session> UpdateSessionAsync(Session Session)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.Sessions.Update(Session);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Update(Session);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -33,15 +35,15 @@ public class SessionBroker : ISessionBroker
 
     public async ValueTask DeleteSessionAsync(Session Session)
     {
-        using var context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        var entityEntry = context.Sessions.Remove(Session);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Remove(Session);
         await context.SaveChangesAsync();
     }
 
     public IQueryable<Session> GetAllSessions()
     {
-        var context = contextFactory.CreateDbContext();
+        EF.SecurityDbContext context = contextFactory.CreateDbContext();
         return context.Sessions;
     }
 }

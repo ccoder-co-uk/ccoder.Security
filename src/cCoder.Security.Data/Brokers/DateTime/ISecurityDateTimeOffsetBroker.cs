@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace cCoder.Security.Data.Brokers.DateTime;
 
-namespace cCoder.Security.Data.Brokers.DateTime
+public interface ISecurityDateTimeOffsetBroker
 {
-    public interface ISecurityDateTimeOffsetBroker
-    {
-        DateTimeOffset GetCurrentTime();
-    }
+    DateTimeOffset GetCurrentTime();
 }

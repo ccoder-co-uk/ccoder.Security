@@ -1,35 +1,33 @@
-﻿using FluentAssertions;
+﻿using cCoder.Security.Objects.Entities;
+using FluentAssertions;
 using Moq;
-using cCoder.Security.Objects.Entities;
-using System.Linq;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class UserEventServiceTests
 {
-    public partial class UserEventServiceTests
+    [Fact]
+    public void GetAllUserEventsWorksAsExpected()
     {
-        [Fact]
-        public void GetAllUserEventsWorksAsExpected()
-        {
-            //given
-            IQueryable<UserEvent> expectedUserEvents = RandomUserEvents()
-                .AsQueryable();
+        //given
+        IQueryable<UserEvent> expectedUserEvents = RandomUserEvents()
+            .AsQueryable();
 
-            userEventBrokerMock.Setup(userEventBrokerMock =>
-                userEventBrokerMock.GetAllUserEvents())
-                .Returns(expectedUserEvents);
+        userEventBrokerMock.Setup(userEventBrokerMock =>
+            userEventBrokerMock.GetAllUserEvents())
+            .Returns(expectedUserEvents);
 
-            //when
-            IQueryable<UserEvent> actualUserEvents = userEventService.GetAllUserEvents();
+        //when
+        IQueryable<UserEvent> actualUserEvents = userEventService.GetAllUserEvents();
 
-            //then
-            actualUserEvents.Should().BeEquivalentTo(expectedUserEvents);
+        //then
+        actualUserEvents.Should().BeEquivalentTo(expectedUserEvents);
 
-            userEventBrokerMock.Verify(userEventBrokerMock =>
-                userEventBrokerMock.GetAllUserEvents(),
-                Times.Once());
+        userEventBrokerMock.Verify(userEventBrokerMock =>
+            userEventBrokerMock.GetAllUserEvents(),
+            Times.Once());
 
-            userEventBrokerMock.VerifyNoOtherCalls();
-        }
+        userEventBrokerMock.VerifyNoOtherCalls();
     }
 }

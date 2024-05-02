@@ -7,8 +7,8 @@ namespace cCoder.Security.Services.Foundation;
 
 public class TokenService : ITokenService
 {
-    readonly ITokenBroker tokenBroker;
-    readonly int tokenTimeout = 45;
+    private readonly ITokenBroker tokenBroker;
+    private readonly int tokenTimeout = 45;
 
     public TokenService(ITokenBroker tokenBroker, IConfiguration cofiguration)
     {

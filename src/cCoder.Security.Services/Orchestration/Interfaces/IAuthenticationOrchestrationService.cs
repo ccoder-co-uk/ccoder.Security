@@ -1,12 +1,10 @@
 ﻿using cCoder.Security.Objects.Entities;
-using System.Threading.Tasks;
 
-namespace cCoder.Security.Services.Orchestration.Interfaces
+namespace cCoder.Security.Services.Orchestration.Interfaces;
+
+public interface IAuthenticationOrchestrationService
 {
-    public interface IAuthenticationOrchestrationService
-    {
-        ValueTask<Token> LoginAsync(string username, string password);
-        ValueTask Logout(string tokenId = null);
-        ValueTask<Token> GenerateForgotPasswordToken(string userId);
-    }
+    ValueTask<Token> LoginAsync(string username, string password);
+    ValueTask Logout(string tokenId = null);
+    ValueTask<Token> GenerateForgotPasswordToken(string userId);
 }

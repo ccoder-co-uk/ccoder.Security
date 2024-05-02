@@ -10,8 +10,10 @@ public class TenantController : Controller
 {
     private readonly ITenantProcessingService tenantProcessingService;
 
-    public TenantController(ITenantProcessingService tenantProcessingService) =>
+    public TenantController(ITenantProcessingService tenantProcessingService)
+    {
         this.tenantProcessingService = tenantProcessingService;
+    }
 
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]

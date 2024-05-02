@@ -1,20 +1,17 @@
-﻿using cCoder.Security.Data.Interfaces;
+﻿namespace cCoder.Security.Data.Brokers.Encryption;
 
-namespace cCoder.Security.Data.Brokers.Encryption
+public class PasswordEncryptionBrokerAESHMAC : IPasswordEncryptionBroker
 {
-    public class PasswordEncryptionBrokerAESHMAC : IPasswordEncryptionBroker
+    private readonly ISymmetricCrypto<string> crypto;
+
+    public PasswordEncryptionBrokerAESHMAC(ISymmetricCrypto<string> crypto)
     {
-        private readonly ISymmetricCrypto<string> crypto;
-
-        public PasswordEncryptionBrokerAESHMAC(ISymmetricCrypto<string> crypto)
-        {
-            this.crypto = crypto;
-        }
-
-        public string Encrypt(string password)
-            => crypto.Encrypt(password);
-
-        public bool EncryptedAndPlainTextAreEqual(string encrypted, string plainText)
-            => crypto.Decrypt(encrypted) == plainText;
+        this.crypto = crypto;
     }
+
+    public string Encrypt(string password)
+        => crypto.Encrypt(password);
+
+    public bool EncryptedAndPlainTextAreEqual(string encrypted, string plainText)
+        => crypto.Decrypt(encrypted) == plainText;
 }

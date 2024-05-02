@@ -1,10 +1,8 @@
 using cCoder.Security.Objects.Entities;
-using System.Linq;
 
-namespace cCoder.Security.Services.Processing.Interfaces
+namespace cCoder.Security.Services.Processing.Interfaces;
+
+public interface ISSOPrivilegeProcessingService
 {
-    public interface ISSOPrivilegeProcessingService
-    {
-        public IQueryable<SSOPrivilege> GetAllSSOPrivileges();
-    }
+    public IQueryable<SSOPrivilege> GetAllSSOPrivileges();
 }

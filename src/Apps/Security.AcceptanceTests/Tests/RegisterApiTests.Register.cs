@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
-using cCoder.Security.AcceptanceTests.Tests.Models;
-using cCoder.Security.Objects.DTOs;
+﻿using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
+using FluentAssertions;
+using Security.AcceptanceTests.Tests.Models;
 using Xunit;
 
 namespace cCoder.Security.AcceptanceTests.Tests;
@@ -13,7 +13,7 @@ public partial class RegisterApiTests
     {
         //given
         RegisterUser inputRegisterUser = RandomRegisterUser();
-        SSOUser expectedSSOUser = new SSOUser()
+        SSOUser expectedSSOUser = new()
         {
             AccessFailedCount = 0,
             DisplayName = inputRegisterUser.DisplayName,

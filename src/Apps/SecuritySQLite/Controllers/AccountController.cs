@@ -2,18 +2,20 @@
 using cCoder.Security.Objects.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
-namespace cCoder.Security.Api.Controllers;
+namespace SecuritySQLite.Controllers;
 
 [Route("Api/Account")]
 public class AccountController : Controller
 {
     private readonly IAccountManager accountManager;
 
-    public AccountController(IAccountManager accountManager) =>
+    public AccountController(IAccountManager accountManager)
+    {
         this.accountManager = accountManager;
+    }
 
     [HttpPost("Login")]
-    public async ValueTask<IActionResult> Login([FromBody] Auth auth) => 
+    public async ValueTask<IActionResult> Login([FromBody] Auth auth) =>
         ModelState.IsValid
             ? Ok(await accountManager.LoginAsync(auth.User, auth.Pass))
             : BadRequest(ModelState);
@@ -33,8 +35,7 @@ public class AccountController : Controller
             await accountManager.ForgotPasswordAsync(email);
             return Ok();
         }
-        
+
         return BadRequest(ModelState);
     }
-
 }

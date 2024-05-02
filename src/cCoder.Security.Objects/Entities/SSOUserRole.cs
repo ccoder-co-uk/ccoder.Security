@@ -9,5 +9,4 @@ public class SSOUserRole
     public string UserId { get; set; }
 
     public virtual SSOUser User { get; set; }
-
 }

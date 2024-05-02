@@ -1,28 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
-using cCoder.Security.Objects.Entities;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class SSOUserRoleServiceTests
 {
-    public partial class SSOUserRoleServiceTests
+    [Fact]
+    public void ShouldGetSSOUserRolesAsync()
     {
-        [Fact]
-        public void ShouldGetSSOUserRolesAsync()
-        {
-            // given
-            IQueryable<SSOUserRole> expectedSSOUserRoles = RandomUserRoles();
-            userRoleBrokerMock.Setup(broker => broker.GetAllSSOUserRoles()).Returns(expectedSSOUserRoles);
+        // given
+        IQueryable<SSOUserRole> expectedSSOUserRoles = RandomUserRoles();
+        userRoleBrokerMock.Setup(broker => broker.GetAllSSOUserRoles()).Returns(expectedSSOUserRoles);
 
-            // when
-            IEnumerable<SSOUserRole> actualSSOUserRoles = userRoleService.GetAllSSOUserRoles();
+        // when
+        IEnumerable<SSOUserRole> actualSSOUserRoles = userRoleService.GetAllSSOUserRoles();
 
-            // then
-            actualSSOUserRoles.Should().BeEquivalentTo(expectedSSOUserRoles);
-            userRoleBrokerMock.Verify(broker => broker.GetAllSSOUserRoles(), Times.Once);
-            userRoleBrokerMock.VerifyNoOtherCalls();
-        }
+        // then
+        actualSSOUserRoles.Should().BeEquivalentTo(expectedSSOUserRoles);
+        userRoleBrokerMock.Verify(broker => broker.GetAllSSOUserRoles(), Times.Once);
+        userRoleBrokerMock.VerifyNoOtherCalls();
     }
 }

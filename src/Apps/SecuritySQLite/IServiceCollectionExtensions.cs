@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace cCoder.SecuritySQLite;
+namespace SecuritySQLite;
 
 public static partial class IServiceCollectionExtensions
 {
