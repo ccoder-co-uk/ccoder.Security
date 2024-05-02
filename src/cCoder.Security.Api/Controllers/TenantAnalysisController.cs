@@ -11,12 +11,12 @@ public class TenantAnalysisController(
         : Controller
 { 
     [HttpGet]
-    [EnableQuery(MaxExpansionDepth = 0, MaxAnyAllExpressionDepth = 0)]
+    [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get() =>
         Ok(tenantAnalysisProcessingService.GetAllTenantAnalysis());
 
     [HttpGet]
-    [EnableQuery(MaxExpansionDepth = 0, MaxAnyAllExpressionDepth = 0)]
+    [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] Guid key)
     {
         IQueryable<TenantAnalysis> result = tenantAnalysisProcessingService
