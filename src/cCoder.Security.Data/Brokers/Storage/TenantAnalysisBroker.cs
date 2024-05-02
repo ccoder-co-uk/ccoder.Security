@@ -1,50 +1,51 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using cCoder.Security.Data.Brokers.Storage.Interfaces;
+﻿using cCoder.Security.Data.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace cCoder.Security.Data.Brokers.Storage
+namespace cCoder.Security.Data.Brokers.Storage;
+
+public class TenantAnalysisBroker(
+    ISecurityDbContextFactory contextFactory) 
+        : ITenantAnalysisBroker
 {
-    public class TenantAnalysisBroker : ITenantAnalysisBroker
+    public async ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
     {
-        ISecurityDbContextFactory contextFactory;
+        using var context = contextFactory.CreateDbContext();
 
-        public TenantAnalysisBroker(ISecurityDbContextFactory contextFactory)
-            => this.contextFactory = contextFactory;
+        EntityEntry<TenantAnalysis> entityEntry = 
+            await context.TenantAnalysis.AddAsync(tenantAnalysis);
 
-        public async ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
-        {
-            using var context = contextFactory.CreateDbContext();
+        await context.SaveChangesAsync();
 
-            var entityEntry = await context.TenantAnalysis.AddAsync(tenantAnalysis);
-            await context.SaveChangesAsync();
+        return entityEntry.Entity;
+    }
 
-            return entityEntry.Entity;
-        }
+    public async ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
+    {
+        using var context = contextFactory.CreateDbContext();
 
-        public async ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
-        {
-            using var context = contextFactory.CreateDbContext();
+        EntityEntry<TenantAnalysis> entityEntry = 
+            context.TenantAnalysis.Update(tenantAnalysis);
 
-            var entityEntry = context.TenantAnalysis.Update(tenantAnalysis);
-            await context.SaveChangesAsync();
+        await context.SaveChangesAsync();
 
-            return entityEntry.Entity;
-        }
+        return entityEntry.Entity;
+    }
 
-        public async ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
-        {
-            using var context = contextFactory.CreateDbContext();
+    public async ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
+    {
+        using var context = contextFactory.CreateDbContext();
 
-            var entityEntry = context.TenantAnalysis.Remove(tenantAnalysis);
-            await context.SaveChangesAsync();
-        }
+        EntityEntry<TenantAnalysis> entityEntry = 
+            context.TenantAnalysis.Remove(tenantAnalysis);
 
-        public IQueryable<TenantAnalysis> GetAllTenantAnalysiss()
-        {
-            var context = contextFactory.CreateDbContext();
-            return context.TenantAnalysis;
-        }
+        await context.SaveChangesAsync();
+    }
+
+    public IQueryable<TenantAnalysis> GetAllTenantAnalysis()
+    {
+        var context = contextFactory.CreateDbContext();
+        return context.TenantAnalysis;
     }
 }
