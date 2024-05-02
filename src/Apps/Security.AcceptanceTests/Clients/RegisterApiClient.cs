@@ -4,6 +4,7 @@ using cCoder.Security.Objects.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Security.AcceptanceTests.Exceptions;
 using Security.AcceptanceTests.Tests.Models;
 using SecurityMSSQL;
 using System.Text;
