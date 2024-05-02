@@ -1,7 +1,7 @@
-﻿using cCoder.Security.AcceptanceTests.Tests.Models;
-using cCoder.Security.Objects.DTOs;
+﻿using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
+using Security.AcceptanceTests.Tests.Models;
 using Xunit;
 
 namespace cCoder.Security.AcceptanceTests.Tests;
@@ -15,7 +15,7 @@ public partial class SSOUserApiTests
 		RegisterUser[] randomUsers = RandomRegisterUsers();
             List <SSOUser> expectedSSOUsers = [];
 
-		foreach (var registerUser in randomUsers)
+		foreach (RegisterUser registerUser in randomUsers)
 		{
                 RegistrationResult result = await 
 				registerApiClient.RegisterAsync(registerUser);
@@ -28,13 +28,13 @@ public partial class SSOUserApiTests
 			await ssoUserApiClient.GetAllSSOUsersAsync();
 
 		//then
-		foreach (var expectedUser in expectedSSOUsers)
+		foreach (SSOUser expectedUser in expectedSSOUsers)
 		{
-			var actualUser = actualSSOUsers.FirstOrDefault(u => u.Id == expectedUser.Id);
+            SSOUser actualUser = actualSSOUsers.FirstOrDefault(u => u.Id == expectedUser.Id);
 			actualUser.Should().BeEquivalentTo(expectedUser);
 		}
 
-		foreach (var ssoUser in expectedSSOUsers)
+		foreach (SSOUser ssoUser in expectedSSOUsers)
 			await registerApiClient.TearDown(ssoUser.Id);
 	}
 }

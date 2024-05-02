@@ -2,7 +2,6 @@
 using cCoder.Security.Objects;
 using cCoder.Security.Services.Orchestration.Interfaces;
 using cCoder.Security.Services.Processing.Interfaces;
-using System.Diagnostics;
 using System.Text;
 
 namespace cCoder.Security.Services.Orchestration;
@@ -10,8 +9,8 @@ namespace cCoder.Security.Services.Orchestration;
 public class SSOAuthInfoOrchestrationService 
     : ISSOAuthInfoOrchestrationService
 {
-    readonly ISessionProcessingService sessionService;
-    readonly ISSOUserProcessingService userService;
+    private readonly ISessionProcessingService sessionService;
+    private readonly ISSOUserProcessingService userService;
     private readonly ITokenProcessingService tokenService;
     private readonly IHttpRequestBroker httpRequestBroker;
 
@@ -29,7 +28,7 @@ public class SSOAuthInfoOrchestrationService
 
     public ISSOAuthInfo GetSSOAuthInfo()
     {
-        var auth = GetFromAuthenticationHeader() ?? GetFromSession();
+        ISSOAuthInfo auth = GetFromAuthenticationHeader() ?? GetFromSession();
         return auth ?? new SSOAuthInfo { SSOUserId = "Guest" };
     }
 
@@ -49,9 +48,9 @@ public class SSOAuthInfoOrchestrationService
         return null;
     }
 
-    ISSOAuthInfo GetFromSession()
+    private ISSOAuthInfo GetFromSession()
     {
-        var user = sessionService.GetUser();
+        Objects.Entities.SSOUser user = sessionService.GetUser();
 
         if (user == null)
             return null;
@@ -59,14 +58,14 @@ public class SSOAuthInfoOrchestrationService
         return new SSOAuthInfo { SSOUserId = user.Id };
     }
 
-    ISSOAuthInfo GetBearerAuthentication(string authHeaderValue)
+    private ISSOAuthInfo GetBearerAuthentication(string authHeaderValue)
     {
-        var tokenId = GetBearerToken(authHeaderValue);
+        string tokenId = GetBearerToken(authHeaderValue);
 
         if (tokenId == null)
             return null;
 
-        var token = tokenService.GetAllTokens(ignoreFilters: true)
+        Objects.Entities.Token token = tokenService.GetAllTokens(ignoreFilters: true)
             .FirstOrDefault(t => t.Id == tokenId);
 
         if (token == null)
@@ -75,7 +74,7 @@ public class SSOAuthInfoOrchestrationService
         return new SSOAuthInfo { SSOUserId = token.UserName };
     }
 
-    ISSOAuthInfo GetBasicAuthentication(string authHeaderValue)
+    private ISSOAuthInfo GetBasicAuthentication(string authHeaderValue)
     {
         if (authHeaderValue.ToLowerInvariant().StartsWith("basic"))
             return AuthenticateBasicAuth(authHeaderValue);
@@ -83,14 +82,14 @@ public class SSOAuthInfoOrchestrationService
         return null;
     }
 
-    ISSOAuthInfo AuthenticateBasicAuth(string auth)
+    private ISSOAuthInfo AuthenticateBasicAuth(string auth)
     {
         (string username, string password) = ParseBasicAuthDetails(auth);
-        var user = userService.FindByUserAndPassword(username, password);
+        Objects.Entities.SSOUser user = userService.FindByUserAndPassword(username, password);
         return new SSOAuthInfo { SSOUserId = user.Id };
     }
 
-    static (string, string) ParseBasicAuthDetails(string auth)
+    private static (string, string) ParseBasicAuthDetails(string auth)
     {
         string base64AuthString = auth[6..];
         byte[] authBytes = Convert.FromBase64String(base64AuthString);
@@ -105,7 +104,7 @@ public class SSOAuthInfoOrchestrationService
         );
     }
 
-    static string GetBearerToken(string auth)
+    private static string GetBearerToken(string auth)
     {
         if (!auth.ToLowerInvariant().StartsWith("bearer"))
             return null;

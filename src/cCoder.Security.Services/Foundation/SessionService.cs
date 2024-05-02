@@ -33,7 +33,7 @@ public class SessionService(ISession session, ISerializationBroker serilizationB
 
     public SSOUser GetUser()
     {
-        var userJson = GetString("ssoUser");
+        string userJson = GetString("ssoUser");
 
         return !string.IsNullOrEmpty(userJson)
             ? serilizationBroker.Deserialize<SSOUser>(userJson)

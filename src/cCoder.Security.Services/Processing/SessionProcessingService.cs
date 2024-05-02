@@ -9,8 +9,10 @@ public class SessionProcessingService
 {
     private readonly ISessionService sessionService;
 
-    public SessionProcessingService(ISessionService sessionService) => 
+    public SessionProcessingService(ISessionService sessionService)
+    {
         this.sessionService = sessionService;
+    }
 
     public string GetString(string key) => 
         sessionService.GetString(key);

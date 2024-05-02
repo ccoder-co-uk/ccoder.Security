@@ -9,15 +9,17 @@ public class TokenProcessingService
 {
     private readonly ITokenService tokenService;
 
-    public TokenProcessingService(ITokenService tokenService) =>
+    public TokenProcessingService(ITokenService tokenService)
+    {
         this.tokenService = tokenService;
+    }
 
     public async ValueTask<Token> AddTokenForUserIdAsync(string userId) => 
         await tokenService.AddTokenAsync(userId);
 
     public async ValueTask DeleteTokenAsync(string tokenId)
     {
-        var token = tokenService.GetAllTokens(ignoreFilters: true)
+        Token token = tokenService.GetAllTokens(ignoreFilters: true)
             .FirstOrDefault(t => t.Id == tokenId);
 
         if (token != null)
@@ -29,7 +31,7 @@ public class TokenProcessingService
 
     public Token GetTokenById(string id)
     {
-        var token = tokenService.GetAllTokens()
+        Token token = tokenService.GetAllTokens()
             .FirstOrDefault(t => t.Id == id);
 
         if (token == null)
@@ -51,7 +53,7 @@ public class TokenProcessingService
     {
         int reasonCode = (int)TokenUse.PasswordReset;
 
-        var token = tokenService.GetAllTokens(ignoreFilters: true)
+        Token token = tokenService.GetAllTokens(ignoreFilters: true)
             .FirstOrDefault(r => r.Reason == reasonCode && r.Id == tokenId);
 
         if (token.Expires < DateTimeOffset.Now)
@@ -64,7 +66,7 @@ public class TokenProcessingService
     {
         int reasonCode = (int)TokenUse.Confirmation;
 
-        var token = tokenService.GetAllTokens(ignoreFilters: true)
+        Token token = tokenService.GetAllTokens(ignoreFilters: true)
             .FirstOrDefault(r => r.Reason == reasonCode && r.Id == tokenId);
 
         if (token.Expires < DateTimeOffset.Now)

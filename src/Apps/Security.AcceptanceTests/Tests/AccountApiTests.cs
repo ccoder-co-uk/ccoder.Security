@@ -1,7 +1,7 @@
 ﻿using Bogus;
-using cCoder.Security.AcceptanceTests.Clients;
 using cCoder.Security.Objects.DTOs;
 using Security.AcceptanceTests;
+using Security.AcceptanceTests.Clients;
 using Xunit;
 
 namespace cCoder.Security.AcceptanceTests.Tests;
@@ -23,19 +23,19 @@ public partial class AccountApiTests
         this.ssoUserApiClient = ssoUserApiClient;
     }
 
-    static Auth RandomAuth(RegisterUser user)
-        => new Auth()
+    private static Auth RandomAuth(RegisterUser user)
+        => new()
         {
             User = user.Email,
             Pass = user.Password
         };
 
-    static RegisterUser RandomRegisterUser()
+    private static RegisterUser RandomRegisterUser()
         => GetRegisterUserFiller().Generate();
 
-    static Faker<RegisterUser> GetRegisterUserFiller()
+    private static Faker<RegisterUser> GetRegisterUserFiller()
     {
-        var filler = new Faker<RegisterUser>()
+        Faker<RegisterUser> filler = new Faker<RegisterUser>()
             .RuleFor(r => r.DisplayName, f => f.Name.FullName())
             .RuleFor(r => r.Email, f => f.Internet.Email())
             .RuleFor(r => r.Password, f => f.Internet.Password() + f.Random.Number(5) + "!")
@@ -45,6 +45,6 @@ public partial class AccountApiTests
         return filler;
     }
 
-    async Task TearDownUserAsync(string userId)
+    private async Task TearDownUserAsync(string userId)
         => await accountApiClient.TearDown(userId);
 }

@@ -1,35 +1,33 @@
-﻿using FluentAssertions;
+﻿using cCoder.Security.Objects.Entities;
+using FluentAssertions;
 using Moq;
-using cCoder.Security.Objects.Entities;
-using System.Linq;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Processing
+namespace cCoder.Security.Services.Tests.Processing;
+
+public partial class UserEventProcessingServiceTests
 {
-    public partial class UserEventProcessingServiceTests
+    [Fact]
+    public void ShouldGetAllUserEvents()
     {
-        [Fact]
-        public void ShouldGetAllUserEvents()
-        {
-            //given
-            IQueryable<UserEvent> expectedUserEvents = RandomUserEvents()
-                .AsQueryable();
+        //given
+        IQueryable<UserEvent> expectedUserEvents = RandomUserEvents()
+            .AsQueryable();
 
-            userEventServiceMock.Setup(userEventServiceMock =>
-                userEventServiceMock.GetAllUserEvents())
-                .Returns(expectedUserEvents);
+        userEventServiceMock.Setup(userEventServiceMock =>
+            userEventServiceMock.GetAllUserEvents())
+            .Returns(expectedUserEvents);
 
-            //when
-            IQueryable<UserEvent> actualUserEvents = userEventProcessingService.GetAllUserEvents();
+        //when
+        IQueryable<UserEvent> actualUserEvents = userEventProcessingService.GetAllUserEvents();
 
-            //then
-            actualUserEvents.Should().BeEquivalentTo(expectedUserEvents);
+        //then
+        actualUserEvents.Should().BeEquivalentTo(expectedUserEvents);
 
-            userEventServiceMock.Verify(userEventServiceMock =>
-                userEventServiceMock.GetAllUserEvents(),
-                Times.Once());
+        userEventServiceMock.Verify(userEventServiceMock =>
+            userEventServiceMock.GetAllUserEvents(),
+            Times.Once());
 
-            userEventServiceMock.VerifyNoOtherCalls();
-        }
+        userEventServiceMock.VerifyNoOtherCalls();
     }
 }

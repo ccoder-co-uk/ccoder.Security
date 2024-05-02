@@ -2,14 +2,14 @@ using cCoder.Security.Api;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.MSSQL;
 
-namespace cCoder.SecurityMSSQL;
+namespace SecurityMSSQL;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
-        var config = new ConfigurationBuilder()
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        IConfigurationRoot config = new ConfigurationBuilder()
             .AddEnvironmentVariables(prefix: "ENV_")
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -26,7 +26,7 @@ public class Program
             securityConfig.AddEntityFramework(services);
 
             securityConfig.AddMSSQLModelProvider(
-                services, 
+                services,
                 config.GetConnectionString("SSO"));
 
             securityConfig.UseAESHMMACPasswordEncryption(
@@ -46,7 +46,7 @@ public class Program
         builder.Logging.ClearProviders();
         builder.Logging.AddSimpleConsole();
 
-        var app = builder.Build();
+        WebApplication app = builder.Build();
         app.UseSession();
         app.UseTheFramework();
         app.Run();

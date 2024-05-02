@@ -1,32 +1,30 @@
-﻿using Moq;
-using cCoder.Security.Objects.Entities;
-using System.Linq;
+﻿using cCoder.Security.Objects.Entities;
+using Moq;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Processing
+namespace cCoder.Security.Services.Tests.Processing;
+
+public partial class TenantProcessingServiceTests
 {
-    public partial class TenantProcessingServiceTests
+    [Fact]
+    public void ShouldGetTenants()
     {
-        [Fact]
-        public void ShouldGetTenants()
-        {
-            //given
-            IQueryable<Tenant> expectedTenants = RandomTenants()
-                .AsQueryable();
+        //given
+        IQueryable<Tenant> expectedTenants = RandomTenants()
+            .AsQueryable();
 
-            tenantServiceMock.Setup(tenantServiceMock =>
-                tenantServiceMock.GetAllTenants())
-                .Returns(expectedTenants);
+        tenantServiceMock.Setup(tenantServiceMock =>
+            tenantServiceMock.GetAllTenants())
+            .Returns(expectedTenants);
 
-            //when
-            IQueryable<Tenant> actualTenants = tenantProcessingService.GetAllTenants();
+        //when
+        IQueryable<Tenant> actualTenants = tenantProcessingService.GetAllTenants();
 
-            //then
-            tenantServiceMock.Verify(tenantServiceMock =>
-                tenantServiceMock.GetAllTenants(),
-                Times.Once());
+        //then
+        tenantServiceMock.Verify(tenantServiceMock =>
+            tenantServiceMock.GetAllTenants(),
+            Times.Once());
 
-            tenantServiceMock.VerifyNoOtherCalls();
-        }
+        tenantServiceMock.VerifyNoOtherCalls();
     }
 }

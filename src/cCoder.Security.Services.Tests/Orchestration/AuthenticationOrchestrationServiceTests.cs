@@ -24,6 +24,6 @@ public partial class AuthenticationOrchestrationServiceTests
             sessionProcessingServiceMock.Object);
     }
 
-    static string RandomString() => 
+    private static string RandomString() => 
         new MnemonicString().GetValue();
 }

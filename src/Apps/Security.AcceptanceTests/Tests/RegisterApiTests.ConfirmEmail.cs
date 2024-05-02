@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
-using cCoder.Security.AcceptanceTests.Tests.Models;
-using cCoder.Security.Objects.DTOs;
+﻿using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
+using FluentAssertions;
+using Security.AcceptanceTests.Tests.Models;
 using Xunit;
 
 namespace cCoder.Security.AcceptanceTests.Tests;
@@ -15,7 +15,7 @@ public partial class RegisterApiTests
 
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
-        Auth inputAuth = new Auth
+        Auth inputAuth = new()
         {
             User = existingRegisterUser.Email.Split("@")[0],
             Pass = existingRegisterUser.Password
@@ -31,7 +31,7 @@ public partial class RegisterApiTests
         await registerApiClient
             .PostAsync("ConfirmRegistration?confirmationToken=" + registrationResult.Token, null);
 
-        var loginToken = await accountApiClient.LoginAsync(inputAuth);
+        Token loginToken = await accountApiClient.LoginAsync(inputAuth);
         ssoUserApiClient.AddBearerAuthentication(loginToken.Id);
 
         SSOUser actualSSOUser = await ssoUserApiClient.Me();

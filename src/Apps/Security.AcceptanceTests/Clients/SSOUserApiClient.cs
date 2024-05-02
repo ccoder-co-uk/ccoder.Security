@@ -4,20 +4,19 @@ using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Security.AcceptanceTests.Clients;
-using SSO.AcceptanceTests;
+using SecurityMSSQL;
 using System.Text;
 
-namespace cCoder.Security.AcceptanceTests.Clients;
+namespace Security.AcceptanceTests.Clients;
 
 public class SSOUserApiClient
 {
-    readonly WebApplicationFactory<SecurityMSSQL.Program> webApplicationFactory;
-    readonly HttpClient api;
+    private readonly WebApplicationFactory<Program> webApplicationFactory;
+    private readonly HttpClient api;
 
     public SecurityDbContext Database { get; set; }
 
-    const string Endpoint = "Api/Security/SSOUser/";
+    private const string Endpoint = "Api/Security/SSOUser/";
 
     public SSOUserApiClient()
     {
@@ -27,8 +26,8 @@ public class SSOUserApiClient
         api = webApplicationFactory.CreateClient();
         api.Authenticate("TestUser", "TestPass01!").Wait();
 
-        using var scope = webApplicationFactory.Services.CreateScope();
-        var scopedServices = scope.ServiceProvider;
+        using IServiceScope scope = webApplicationFactory.Services.CreateScope();
+        IServiceProvider scopedServices = scope.ServiceProvider;
 
         Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
             .CreateDbContext();
@@ -51,20 +50,20 @@ public class SSOUserApiClient
             api.DefaultRequestHeaders.Authorization = null;
         else
         {
-            string encoded = 
+            string encoded =
                 Convert.ToBase64String(Encoding.UTF8.GetBytes(auth.User + ":" + auth.Pass));
 
-            api.DefaultRequestHeaders.Authorization = 
+            api.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("basic", encoded);
         }
     }
 
-    public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") => 
+    public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") =>
         await api.GetODataCollection<SSOUser>(Endpoint + query);
 
     public async ValueTask<SSOUser> Me(string query = "")
     {
-        var response = await api.GetAsync(Endpoint + "Me()" + query);
+        HttpResponseMessage response = await api.GetAsync(Endpoint + "Me()" + query);
         return await response.Content.ReadAsAsync<SSOUser>();
     }
 }

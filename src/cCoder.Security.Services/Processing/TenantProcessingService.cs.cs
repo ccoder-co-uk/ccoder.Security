@@ -4,14 +4,9 @@ using cCoder.Security.Services.Processing.Interfaces;
 
 namespace cCoder.Security.Services.Processing;
 
-public class TenantProcessingService 
-    : ITenantProcessingService
+public class TenantProcessingService(ITenantService tenantService)
+        : ITenantProcessingService
 {
-    private readonly ITenantService tenantService;
-
-    public TenantProcessingService(ITenantService tenantService) =>
-        this.tenantService = tenantService;
-
     public ValueTask<Tenant> AddTenantAsync(Tenant item) => 
         tenantService.AddTenantAsync(item);
 

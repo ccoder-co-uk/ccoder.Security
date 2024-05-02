@@ -1,25 +1,24 @@
-﻿using cCoder.Security.AcceptanceTests.Exceptions;
-using cCoder.Security.AcceptanceTests.Tests.Models;
-using cCoder.Security.Data.EF;
+﻿using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Security.AcceptanceTests.Clients;
-using SSO.AcceptanceTests;
+using Security.AcceptanceTests.Exceptions;
+using Security.AcceptanceTests.Tests.Models;
+using SecurityMSSQL;
 using System.Text;
 
-namespace cCoder.Security.AcceptanceTests.Clients;
+namespace Security.AcceptanceTests.Clients;
 
 public class RegisterApiClient
 {
-    readonly WebApplicationFactory<SecurityMSSQL.Program> webApplicationFactory;
-    readonly HttpClient api;
+    private readonly WebApplicationFactory<Program> webApplicationFactory;
+    private readonly HttpClient api;
 
     public SecurityDbContext Database { get; set; }
 
-    const string endpoint = "Api/Account/";
+    private const string endpoint = "Api/Account/";
 
     public RegisterApiClient()
     {
@@ -29,8 +28,8 @@ public class RegisterApiClient
         api = webApplicationFactory.CreateClient();
         api.Authenticate("TestUser", "TestPass01!").Wait();
 
-        using var scope = webApplicationFactory.Services.CreateScope();
-        var scopedServices = scope.ServiceProvider;
+        using IServiceScope scope = webApplicationFactory.Services.CreateScope();
+        IServiceProvider scopedServices = scope.ServiceProvider;
 
         Database = scopedServices.GetRequiredService<ISecurityDbContextFactory>()
             .CreateDbContext();
@@ -38,7 +37,7 @@ public class RegisterApiClient
 
     public async ValueTask PostAsync(string query, object content)
     {
-        var request = await api.PostAsync(endpoint + query, new StringContent(content.ToJson(), Encoding.UTF8, "application/json"));
+        HttpResponseMessage request = await api.PostAsync(endpoint + query, new StringContent(content.ToJson(), Encoding.UTF8, "application/json"));
 
         if ((int)request.StatusCode == 500)
             throw new InternalServerErrorException(await request.Content.ReadAsStringAsync());
@@ -51,8 +50,8 @@ public class RegisterApiClient
 
     public async ValueTask<RegistrationResult> RegisterAsync(RegisterUser registerUser, string query = "")
     {
-        var content = new StringContent(registerUser.ToJson(), Encoding.UTF8, "application/json");
-        var request = await api.PostAsync(endpoint + "Register" + query, content);
+        StringContent content = new(registerUser.ToJson(), Encoding.UTF8, "application/json");
+        HttpResponseMessage request = await api.PostAsync(endpoint + "Register" + query, content);
 
         if ((int)request.StatusCode == 500)
             throw new InternalServerErrorException(await request.Content.ReadAsStringAsync());
@@ -66,18 +65,18 @@ public class RegisterApiClient
 
     public async Task TearDown(string ssoUserId)
     {
-        var user = Database.Users
+        cCoder.Security.Objects.Entities.SSOUser user = Database.Users
             .IgnoreQueryFilters()
             .FirstOrDefault(u => u.Id == ssoUserId);
 
         if (user != null)
         {
-            var tokens = Database.Tokens
+            List<cCoder.Security.Objects.Entities.Token> tokens = Database.Tokens
                 .IgnoreQueryFilters()
                 .Where(t => t.UserName == user.Id)
                 .ToList();
 
-            var userRoles = Database.UserRoles
+            List<cCoder.Security.Objects.Entities.SSOUserRole> userRoles = Database.UserRoles
                 .IgnoreQueryFilters()
                 .Where(r => r.UserId == user.Id)
                 .ToList();

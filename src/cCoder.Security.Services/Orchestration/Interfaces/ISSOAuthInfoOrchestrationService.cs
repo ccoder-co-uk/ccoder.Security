@@ -1,9 +1,8 @@
 ﻿using cCoder.Security.Objects;
 
-namespace cCoder.Security.Services.Orchestration.Interfaces
+namespace cCoder.Security.Services.Orchestration.Interfaces;
+
+public interface ISSOAuthInfoOrchestrationService
 {
-    public interface ISSOAuthInfoOrchestrationService
-    {
-        ISSOAuthInfo GetSSOAuthInfo();
-    }
+    ISSOAuthInfo GetSSOAuthInfo();
 }

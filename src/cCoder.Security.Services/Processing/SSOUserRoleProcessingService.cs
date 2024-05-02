@@ -9,8 +9,10 @@ public class SSOUserRoleProcessingService
 {
     private readonly ISSOUserRoleService ssoUserRoleService;
 
-    public SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleService) => 
+    public SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleService)
+    {
         this.ssoUserRoleService = ssoUserRoleService;
+    }
 
     public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) => 
         await ssoUserRoleService.AddSSOUserRoleAsync(item);

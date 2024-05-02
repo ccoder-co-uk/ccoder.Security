@@ -8,7 +8,7 @@ using Tynamix.ObjectFiller;
 
 namespace cCoder.Security.Services.Tests.Processing;
 
-    public partial class SSOUserProcessingServiceTests
+public partial class SSOUserProcessingServiceTests
 {
 	private readonly Mock<IPasswordEncryptionBroker> passwordEncryptionBrokerMock;
 	private readonly Mock<ISSOUserService> ssoUserServiceMock;
@@ -22,20 +22,20 @@ namespace cCoder.Security.Services.Tests.Processing;
 			passwordEncryptionBrokerMock.Object);
 	}
 
-	static string RandomString() => 
+    private static string RandomString() => 
 		new MnemonicString().GetValue();
 
-	static SSOUser[] RandomSSOUsers() => 
+    private static SSOUser[] RandomSSOUsers() => 
 		Enumerable.Range(1, new Random().Next(10, 20))
 			.Select(_ => RandomSSOUser())
 			.ToArray();
 
-	static SSOUser RandomSSOUser() => 
+    private static SSOUser RandomSSOUser() => 
 		GetSSOUserFiller().Create();
 
-	static Filler<SSOUser> GetSSOUserFiller()
+    private static Filler<SSOUser> GetSSOUserFiller()
 	{
-		var filler = new Filler<SSOUser>();
+        Filler<SSOUser> filler = new();
 
 		filler.Setup()
 			.OnProperty(p => p.Roles).IgnoreIt()

@@ -1,26 +1,25 @@
-﻿using Moq;
-using cCoder.Security.Objects.Entities;
+﻿using cCoder.Security.Objects.Entities;
+using Moq;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class UserEventServiceTests
 {
-    public partial class UserEventServiceTests
+    [Fact]
+    public async void DeleteUserEventAsyncWorksAsExpected()
     {
-        [Fact]
-        public async void DeleteUserEventAsyncWorksAsExpected()
-        {
-            //given
-            UserEvent inputUserEvent = RandomUserEvent();
+        //given
+        UserEvent inputUserEvent = RandomUserEvent();
 
-            //when
-            await userEventService.DeleteUserEventAsync(inputUserEvent);
+        //when
+        await userEventService.DeleteUserEventAsync(inputUserEvent);
 
-            //then
-            userEventBrokerMock.Verify(userEventBrokerMock =>
-                userEventBrokerMock.DeleteUserEventAsync(inputUserEvent),
-                Times.Once());
+        //then
+        userEventBrokerMock.Verify(userEventBrokerMock =>
+            userEventBrokerMock.DeleteUserEventAsync(inputUserEvent),
+            Times.Once());
 
-            userEventBrokerMock.VerifyNoOtherCalls();
-        }
+        userEventBrokerMock.VerifyNoOtherCalls();
     }
 }

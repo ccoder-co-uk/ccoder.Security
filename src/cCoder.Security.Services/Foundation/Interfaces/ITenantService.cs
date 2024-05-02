@@ -1,14 +1,11 @@
 ﻿using cCoder.Security.Objects.Entities;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace cCoder.Security.Services.Foundation.Interfaces
+namespace cCoder.Security.Services.Foundation.Interfaces;
+
+public interface ITenantService
 {
-    public interface ITenantService
-    {
-        ValueTask<Tenant> AddTenantAsync(Tenant tenant);
-        ValueTask DeleteTenantAsync(Tenant tenant);
-        IQueryable<Tenant> GetAllTenants();
-        ValueTask<Tenant> UpdateTenantAsync(Tenant tenant);
-    }
+    ValueTask<Tenant> AddTenantAsync(Tenant tenant);
+    ValueTask DeleteTenantAsync(Tenant tenant);
+    IQueryable<Tenant> GetAllTenants();
+    ValueTask<Tenant> UpdateTenantAsync(Tenant tenant);
 }

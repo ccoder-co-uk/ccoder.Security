@@ -1,33 +1,31 @@
-﻿using System;
+﻿using cCoder.Security.Objects.Entities;
 using Moq;
-using cCoder.Security.Objects.Entities;
 using Xunit;
 
-namespace cCoder.Security.Services.Tests.Foundation
+namespace cCoder.Security.Services.Tests.Foundation;
+
+public partial class TokenServiceTests
 {
-    public partial class TokenServiceTests
+    [Fact]
+    public async void ShouldDeleteTokenAsync()
     {
-        [Fact]
-        public async void ShouldDeleteTokenAsync()
+        // given
+        Token inputToken = new()
         {
-            // given
-            Token inputToken = new()
-            {
-                Id = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", ""),
-                Expires = DateTimeOffset.Now.AddMinutes(10),
-                Reason = 0,
-                UserName = RandomString()
-            };
+            Id = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", ""),
+            Expires = DateTimeOffset.Now.AddMinutes(10),
+            Reason = 0,
+            UserName = RandomString()
+        };
 
-            // when
-            await tokenService.DeleteTokenAsync(inputToken);
+        // when
+        await tokenService.DeleteTokenAsync(inputToken);
 
-            // then
-            tokenBrokerMock.Verify(broker => 
-                broker.DeleteTokenAsync(inputToken), 
-                Times.Once);
+        // then
+        tokenBrokerMock.Verify(broker => 
+            broker.DeleteTokenAsync(inputToken), 
+            Times.Once);
 
-            tokenBrokerMock.VerifyNoOtherCalls();
-        }
+        tokenBrokerMock.VerifyNoOtherCalls();
     }
 }
