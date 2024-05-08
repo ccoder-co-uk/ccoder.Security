@@ -1,5 +1,5 @@
-﻿using Microsoft.OData.ModelBuilder;
-using SharedObjects.Dtos.Metadata;
+﻿using cCoder.Security.Api.EDM.Models;
+using Microsoft.OData.ModelBuilder;
 using System.Linq.Expressions;
 
 namespace cCoder.Security.Api.EDM;
