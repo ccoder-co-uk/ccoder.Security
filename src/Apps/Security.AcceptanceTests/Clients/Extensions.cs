@@ -1,8 +1,6 @@
 ﻿using cCoder.Security.Objects.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SharedObjects.Dtos;
-using SharedObjects.Extensions;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -68,6 +66,19 @@ public static class Extensions
         }
 
         return results;
+    }
+
+    /// <summary>
+    /// Get a string from the API
+    /// </summary>
+    /// <param name="client">HttpClient instance</param>
+    /// <param name="query">Path to API call</param>
+    /// <returns>The requested response as a T</returns>
+    public static async Task<T> GetAsync<T>(this HttpClient client, string query)
+    {
+        HttpResponseMessage result = await client.GetAsync(query);
+        _ = result.EnsureSuccessStatusCode();
+        return await result.Content.ReadAsAsync<T>();
     }
 
     public static async Task<T> ReadAsAsync<T>(this HttpContent content) =>
