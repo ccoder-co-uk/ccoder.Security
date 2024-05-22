@@ -1,4 +1,4 @@
-﻿using cCoder.Security.Api.EDM.Models;
+﻿using cCoder.Core.Objects.Dtos.Metadata;
 using Microsoft.OData.ModelBuilder;
 using System.Linq.Expressions;
 
