@@ -68,10 +68,12 @@ public class AccountManager : IAccountManager
         {
             if (ex.Message == "Email exists")
             {
-                SSOUser user = registrationService.GetAllSSOUsers()
+                SSOUser user = userService.GetAllSSOUsers(ignoreFilters: true)
                     .Where(u => u.Email == registerForm.Email)
                     .FirstOrDefault();
-                user.PasswordHash = null;
+
+                if(user is not null)
+                    user.PasswordHash = null;
 
                 return (user, null);
             }
