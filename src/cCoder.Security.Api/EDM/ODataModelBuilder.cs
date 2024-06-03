@@ -46,7 +46,7 @@ public abstract class ODataModelBuilder
     /// <summary>
     /// Used by the generic functions GetMetadata and Lookup
     /// </summary>
-    protected virtual void AddCommonComplextypes()
+    protected virtual void AddCommonComplexTypes()
     {
         _ = Builder.ComplexType<MetadataContainerSet>();
         _ = Builder.ComplexType<MetadataContainer>();
