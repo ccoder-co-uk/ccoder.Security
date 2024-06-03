@@ -17,5 +17,6 @@ public enum TokenUse
 {
     Auth,
     PasswordReset,
-    Confirmation
+    Confirmation,
+    Invitation
 }

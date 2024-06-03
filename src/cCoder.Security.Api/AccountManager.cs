@@ -9,22 +9,11 @@ using System.Security;
 
 namespace cCoder.Security.Api;
 
-public class AccountManager : IAccountManager
+public class AccountManager(
+    IAuthenticationOrchestrationService authService,
+    ISSOUserOrchestrationService registrationService,
+    ISSOUserProcessingService userService) : IAccountManager
 {
-    private readonly IAuthenticationOrchestrationService authService;
-    private readonly ISSOUserOrchestrationService registrationService;
-    private readonly ISSOUserProcessingService userService;
-
-    public AccountManager(
-        IAuthenticationOrchestrationService authService,
-        ISSOUserOrchestrationService registrationService,
-        ISSOUserProcessingService userService)
-    {
-        this.authService = authService;
-        this.registrationService = registrationService;
-        this.userService = userService;
-    }
-
     public async ValueTask ChangePasswordAsync(string username, string oldPassword, string newPassword) =>
         await registrationService.ChangePassword(username, oldPassword, newPassword);
 
@@ -72,7 +61,7 @@ public class AccountManager : IAccountManager
                     .Where(u => u.Email == registerForm.Email)
                     .FirstOrDefault();
 
-                if(user is not null)
+                if (user is not null)
                     user.PasswordHash = null;
 
                 return (user, null);
@@ -81,4 +70,33 @@ public class AccountManager : IAccountManager
                 throw;
         }
     }
+
+    public async ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser registerForm)
+    {
+        try
+        {
+            (SSOUser, string) result = await registrationService.InviteUserAsync(registerForm);
+            result.Item1.PasswordHash = null;
+            return result;
+        }
+        catch (ValidationException ex)
+        {
+            if (ex.Message == "Email exists")
+            {
+                SSOUser user = userService.GetAllSSOUsers(ignoreFilters: true)
+                    .Where(u => u.Email == registerForm.Email)
+                    .FirstOrDefault();
+
+                if (user is not null)
+                    user.PasswordHash = null;
+
+                return (user, null);
+            }
+            else
+                throw;
+        }
+    }
+
+    public async ValueTask<SSOUser> AcceptInviteAsync(RegisterUser user, string userId, string inviteToken) =>
+        await registrationService.AcceptInviteAsync(user, userId, inviteToken);
 }
