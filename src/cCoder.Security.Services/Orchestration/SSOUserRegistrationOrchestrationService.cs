@@ -7,18 +7,12 @@ using System.Security;
 
 namespace cCoder.Security.Services.Orchestration;
 
-public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationService
+public class SSOUserRegistrationOrchestrationService(
+    ISSOUserProcessingService ssoUserProcessingService,
+    ITokenProcessingService tokenProcessingService) : ISSOUserOrchestrationService
 {
-    private readonly ISSOUserProcessingService ssoUserProcessingService;
-    private readonly ITokenProcessingService tokenProcessingService;
-
-    public SSOUserRegistrationOrchestrationService(
-        ISSOUserProcessingService ssoUserProcessingService,
-        ITokenProcessingService tokenProcessingService)
-    {
-        this.ssoUserProcessingService = ssoUserProcessingService;
-        this.tokenProcessingService = tokenProcessingService;
-    }
+    public IQueryable<SSOUser> GetAllSSOUsers() =>
+        ssoUserProcessingService.GetAllSSOUsers();
 
     public async ValueTask<(SSOUser, string)> Register(RegisterUser registerForm)
     {
@@ -31,27 +25,60 @@ public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationServ
         return (user, confirmationToken.Id);
     }
 
-    private static void ValidateRegisterForm(RegisterUser registerForm)
+    public async ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser item)
     {
-        if (!registerForm.Email.Contains('@'))
-            throw new ValidationException("Invalid email provided");
+        SSOUser user = GetAllSSOUsers()
+            .FirstOrDefault(user => user.Id == username);
 
-        if (string.IsNullOrEmpty(registerForm.DisplayName))
-            throw new ValidationException("Display name cannot be empty");
+        if (user == null)
+            throw new SecurityException("Access Denied!");
 
-        if (string.IsNullOrEmpty(registerForm.Password))
-            throw new ValidationException("Password cannot be empty");
+        user.DisplayName = item.DisplayName;
+        user.PhoneNumber = item.PhoneNumber;
+        user.Email = item.Email;
+
+        return await ssoUserProcessingService.UpdateSSOUserAsync(user);
     }
 
-    private SSOUser MapToSSOUser(RegisterUser registerForm)
-        => new()
-        {
-            Id = registerForm.Email.Split("@")[0],
-            DisplayName = registerForm.DisplayName,
-            PasswordHash = registerForm.Password,
-            Email = registerForm.Email,
-            PhoneNumber = registerForm.PhoneNumber
-        };
+    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
+        ssoUserProcessingService.DeleteSSOUserAsync(item);
+
+    public async ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser registerForm)
+    {
+        ValidateRegisterForm(registerForm);
+
+        SSOUser mappedUser = MapToSSOUser(registerForm);
+
+        SSOUser user = await ssoUserProcessingService.InviteSSOUserAsync(mappedUser);
+        Token inviteToken = await tokenProcessingService.GenerateInvitationToken(user.Id);
+        return (user, inviteToken.Id);
+    }
+
+    public async ValueTask<SSOUser> AcceptInviteAsync(RegisterUser registerForm, string userId, string tokenId)
+    {
+        ValidateRegisterForm(registerForm);
+
+        SSOUser mappedUser = MapToSSOUser(registerForm);
+        mappedUser.Id = userId;
+
+        Token token = tokenProcessingService.GetInvitationToken(tokenId);
+
+        if (token == null || token.UserName != mappedUser.Id)
+            throw new SecurityException("Access Denied!");
+
+        SSOUser user = ssoUserProcessingService.FindById(token.UserName);
+
+        if (user == null)
+            throw new SecurityException("Access Denied!");
+
+        user.PasswordHash = registerForm.Password;
+        user.LockoutEnabled = false;
+        user.DisplayName = registerForm.DisplayName;
+
+        await tokenProcessingService.DeleteTokenAsync(token.Id);
+
+        return await ssoUserProcessingService.UpdateSSOUserAsync(user);
+    }
 
     public async ValueTask ConfirmRegistration(string tokenId)
     {
@@ -104,24 +131,25 @@ public class SSOUserRegistrationOrchestrationService : ISSOUserOrchestrationServ
         await ssoUserProcessingService.UpdateSSOUserAsync(user);
     }
 
-    public async ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser item)
+    private static void ValidateRegisterForm(RegisterUser registerForm)
     {
-        SSOUser user = GetAllSSOUsers()
-            .FirstOrDefault(user => user.Id == username);
+        if (!registerForm.Email.Contains('@'))
+            throw new ValidationException("Invalid email provided");
 
-        if (user == null)
-            throw new SecurityException("Access Denied!");
+        if (string.IsNullOrEmpty(registerForm.DisplayName))
+            throw new ValidationException("Display name cannot be empty");
 
-        user.DisplayName = item.DisplayName;
-        user.PhoneNumber = item.PhoneNumber;
-        user.Email = item.Email;
-
-        return await ssoUserProcessingService.UpdateSSOUserAsync(user);
+        if (string.IsNullOrEmpty(registerForm.Password))
+            throw new ValidationException("Password cannot be empty");
     }
 
-    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
-        ssoUserProcessingService.DeleteSSOUserAsync(item);
-
-    public IQueryable<SSOUser> GetAllSSOUsers() =>
-        ssoUserProcessingService.GetAllSSOUsers();
+    private SSOUser MapToSSOUser(RegisterUser registerForm)
+        => new()
+        {
+            Id = registerForm.Email.Split("@")[0],
+            DisplayName = registerForm.DisplayName,
+            PasswordHash = registerForm.Password,
+            Email = registerForm.Email,
+            PhoneNumber = registerForm.PhoneNumber
+        };
 }

@@ -18,7 +18,7 @@ public class TokenService : ITokenService
             tokenTimeout = timeout;
     }
 
-    public async ValueTask<Token> AddTokenAsync(string userId, int reasonCode = 0)
+    public async ValueTask<Token> AddTokenAsync(string userId, int reasonCode = 0, int? timeout = null)
     {
         string value = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", "");
 
@@ -28,7 +28,7 @@ public class TokenService : ITokenService
         return await tokenBroker.AddTokenAsync(new Token()
         {
             Id = value,
-            Expires = DateTimeOffset.Now.AddMinutes(tokenTimeout),
+            Expires = DateTimeOffset.Now.AddMinutes(timeout ?? tokenTimeout),
             Reason = reasonCode,
             UserName = userId
         });
