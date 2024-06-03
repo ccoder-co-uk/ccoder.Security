@@ -40,7 +40,7 @@ public class TokenProcessingService(ITokenService tokenService)
         await tokenService.AddTokenAsync(userId, (int)TokenUse.Confirmation);
 
     public async ValueTask<Token> GenerateInvitationToken(string userId) =>
-        await tokenService.AddTokenAsync(userId, (int)TokenUse.Confirmation, (7 * 24 * 60));
+        await tokenService.AddTokenAsync(userId, (int)TokenUse.Invitation, (7 * 24 * 60));
 
     public async ValueTask<Token> GenerateForgottenPasswordToken(string userId) => 
         await tokenService.AddTokenAsync(userId, (int)TokenUse.PasswordReset);
