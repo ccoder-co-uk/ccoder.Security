@@ -27,6 +27,23 @@ public partial class SSOUserProcessingService(
         return await ssoUserService.AddSSOUserAsync(user);
     }
 
+    public async ValueTask<SSOUser> InviteSSOUserAsync(SSOUser user)
+    {
+        ValidateSSOUser(user);
+
+        int userIdCount = ssoUserService
+            .GetAllSSOUsers(ignoreFilters: true)
+            .Count(sso => sso.Id == user.Id);
+
+        if (userIdCount > 0)
+            user.Id += userIdCount;
+
+        user.PasswordHash = encryptionBroker.Encrypt(user.PasswordHash);
+        user.LockoutEnabled = true;
+
+        return await ssoUserService.AddSSOUserAsync(user);
+    }
+
     public async ValueTask DeleteSSOUserAsync(SSOUser item) =>
         await ssoUserService.DeleteSSOUserAsync(item);
 

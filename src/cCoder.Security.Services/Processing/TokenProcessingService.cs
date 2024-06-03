@@ -4,16 +4,9 @@ using cCoder.Security.Services.Processing.Interfaces;
 
 namespace cCoder.Security.Services.Processing;
 
-public class TokenProcessingService 
+public class TokenProcessingService(ITokenService tokenService)
     : ITokenProcessingService
 {
-    private readonly ITokenService tokenService;
-
-    public TokenProcessingService(ITokenService tokenService)
-    {
-        this.tokenService = tokenService;
-    }
-
     public async ValueTask<Token> AddTokenForUserIdAsync(string userId) => 
         await tokenService.AddTokenAsync(userId);
 
@@ -43,8 +36,11 @@ public class TokenProcessingService
         return token;
     }
 
-    public async ValueTask<Token> GenerateConfirmationToken(string userId) => 
+    public async ValueTask<Token> GenerateConfirmationToken(string userId) =>
         await tokenService.AddTokenAsync(userId, (int)TokenUse.Confirmation);
+
+    public async ValueTask<Token> GenerateInvitationToken(string userId) =>
+        await tokenService.AddTokenAsync(userId, (int)TokenUse.Confirmation, (7 * 24 * 60));
 
     public async ValueTask<Token> GenerateForgottenPasswordToken(string userId) => 
         await tokenService.AddTokenAsync(userId, (int)TokenUse.PasswordReset);
@@ -65,6 +61,19 @@ public class TokenProcessingService
     public Token GetConfirmationToken(string tokenId)
     {
         int reasonCode = (int)TokenUse.Confirmation;
+
+        Token token = tokenService.GetAllTokens(ignoreFilters: true)
+            .FirstOrDefault(r => r.Reason == reasonCode && r.Id == tokenId);
+
+        if (token.Expires < DateTimeOffset.Now)
+            return null;
+
+        return token;
+    }
+
+    public Token GetInvitationToken(string tokenId)
+    {
+        int reasonCode = (int)TokenUse.Invitation;
 
         Token token = tokenService.GetAllTokens(ignoreFilters: true)
             .FirstOrDefault(r => r.Reason == reasonCode && r.Id == tokenId);
