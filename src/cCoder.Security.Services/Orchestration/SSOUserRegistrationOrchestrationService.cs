@@ -77,6 +77,27 @@ public class SSOUserRegistrationOrchestrationService(
         return await ssoUserProcessingService.UpdateSSOUserAsync(user);
     }
 
+    public async ValueTask<string> RegenerateUserInviteToken(string userId)
+    {
+        SSOUser user = ssoUserProcessingService
+            .FindById(userId);
+
+        if (user == null)
+            throw new SecurityException("Access Denied!");
+
+        var existingToken = tokenProcessingService
+            .GetAllTokens(ignoreFilters: true)
+            .Where(t => t.Reason == (int)TokenUse.Invitation && t.UserName == userId)
+            .FirstOrDefault();
+
+        if (existingToken == null)
+            throw new SecurityException("Access Denied!");
+
+        var newToken = await tokenProcessingService.GenerateInvitationToken(userId);
+
+        return newToken.Id;
+    }
+
     public async ValueTask ConfirmRegistration(string tokenId)
     {
         Token token = tokenProcessingService.GetConfirmationToken(tokenId);
