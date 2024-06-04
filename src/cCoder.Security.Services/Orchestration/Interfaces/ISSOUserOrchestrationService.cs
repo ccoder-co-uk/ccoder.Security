@@ -11,6 +11,8 @@ public interface ISSOUserOrchestrationService
 
     ValueTask<SSOUser> AcceptInviteAsync(RegisterUser registerForm, string userId, string tokenId);
 
+    ValueTask<string> RegenerateUserInviteToken(string userId);
+
     ValueTask ConfirmForgotPassword(string token, string userId, string newPassword, string confirmNewPassword);
 
     ValueTask ConfirmRegistration(string tokenId);
