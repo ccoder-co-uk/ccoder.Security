@@ -20,7 +20,7 @@ public class UserInviteController(
             .FirstOrDefault(i => i.Id == userId);
 
         if (user == null)
-            throw new SecurityException("Access Denied!");
+            throw new SecurityException("Access Denied! user not found controller");
 
         await accountManager.AcceptInviteAsync(inviteForm, userId, inviteToken);
 
