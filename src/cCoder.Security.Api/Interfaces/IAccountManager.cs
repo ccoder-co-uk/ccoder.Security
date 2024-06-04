@@ -24,4 +24,6 @@ public interface IAccountManager
     ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser registerForm);
 
     ValueTask<SSOUser> AcceptInviteAsync(RegisterUser user, string userId, string inviteToken);
+
+    ValueTask<string> RegenerateUserInviteToken(string userId);
 }
