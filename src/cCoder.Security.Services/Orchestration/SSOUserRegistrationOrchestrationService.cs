@@ -2,6 +2,7 @@
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestration.Interfaces;
 using cCoder.Security.Services.Processing.Interfaces;
+using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using System.Security;
 
@@ -9,7 +10,8 @@ namespace cCoder.Security.Services.Orchestration;
 
 public class SSOUserRegistrationOrchestrationService(
     ISSOUserProcessingService ssoUserProcessingService,
-    ITokenProcessingService tokenProcessingService) : ISSOUserOrchestrationService
+    ITokenProcessingService tokenProcessingService,
+    ILogger<SSOUserRegistrationOrchestrationService> log) : ISSOUserOrchestrationService
 {
     public IQueryable<SSOUser> GetAllSSOUsers() =>
         ssoUserProcessingService.GetAllSSOUsers();
@@ -31,7 +33,10 @@ public class SSOUserRegistrationOrchestrationService(
             .FirstOrDefault(user => user.Id == username);
 
         if (user == null)
+        {
+            log.LogWarning($"User not found: {username}");
             throw new SecurityException("Access Denied!");
+        }
 
         user.DisplayName = item.DisplayName;
         user.PhoneNumber = item.PhoneNumber;
@@ -61,12 +66,18 @@ public class SSOUserRegistrationOrchestrationService(
         Token token = tokenProcessingService.GetInvitationToken(tokenId);
 
         if (token == null || token.UserName != userId)
+        {
+            log.LogWarning(token == null ? "Token not found" : $"Token username does not match given user ID: {token.UserName} / {userId}");
             throw new SecurityException("Access Denied!");
+        }
 
         SSOUser user = ssoUserProcessingService.FindById(token.UserName);
 
         if (user == null)
+        {
+            log.LogWarning($"Token user not found: {token.UserName}");
             throw new SecurityException("Access Denied!");
+        }
 
         user.PasswordHash = registerForm.Password;
         user.LockoutEnabled = false;
@@ -83,15 +94,10 @@ public class SSOUserRegistrationOrchestrationService(
             .FindById(userId);
 
         if (user == null)
+        {
+            log.LogWarning($"User not found: {userId}");
             throw new SecurityException("Access Denied!");
-
-        var existingToken = tokenProcessingService
-            .GetAllTokens(ignoreFilters: true)
-            .Where(t => t.Reason == (int)TokenUse.Invitation && t.UserName == userId)
-            .FirstOrDefault();
-
-        if (existingToken == null)
-            throw new SecurityException("Access Denied!");
+        }
 
         var newToken = await tokenProcessingService.GenerateInvitationToken(userId);
 
@@ -103,12 +109,18 @@ public class SSOUserRegistrationOrchestrationService(
         Token token = tokenProcessingService.GetConfirmationToken(tokenId);
 
         if (token == null)
+        {
+            log.LogWarning($"Token not found");
             throw new SecurityException("Access Denied!");
+        }
 
         SSOUser user = ssoUserProcessingService.FindById(token.UserName);
 
         if (user == null)
+        {
+            log.LogWarning($"Token user not found: {token.UserName}");
             throw new SecurityException("Access Denied!");
+        }
 
         user.EmailConfirmed = true;
         await ssoUserProcessingService.UpdateSSOUserAsync(user);
@@ -123,12 +135,18 @@ public class SSOUserRegistrationOrchestrationService(
         Token token = tokenProcessingService.GetForgottenPasswordToken(tokenId);
 
         if (token == null || token.UserName != userId)
+        {
+            log.LogWarning(token == null ? "Token not found" : $"Token username does not match given user ID: {token.UserName} / {userId}");
             throw new SecurityException("Access Denied!");
+        }
 
         SSOUser user = ssoUserProcessingService.FindById(token.UserName);
 
         if (user == null)
+        {
+            log.LogWarning($"Token user not found: {token.UserName}");
             throw new SecurityException("Access Denied!");
+        }
 
         user.PasswordHash = newPassword;
         await ssoUserProcessingService.UpdateSSOUserAsync(user);
@@ -140,7 +158,10 @@ public class SSOUserRegistrationOrchestrationService(
         SSOUser user = ssoUserProcessingService.FindByUserAndPassword(username, oldPassword);
 
         if (user == null)
+        {
+            log.LogWarning($"User not found: {username}");
             throw new SecurityException("Access Denied!");
+        }
 
         ssoUserProcessingService.ValidatePassword(newPassword);
 
