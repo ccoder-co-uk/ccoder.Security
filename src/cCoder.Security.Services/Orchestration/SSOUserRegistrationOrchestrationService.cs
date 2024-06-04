@@ -61,12 +61,12 @@ public class SSOUserRegistrationOrchestrationService(
         Token token = tokenProcessingService.GetInvitationToken(tokenId);
 
         if (token == null || token.UserName != userId)
-            throw new SecurityException("Access Denied! token is null or token username doesnt match id");
+            throw new SecurityException("Access Denied!");
 
         SSOUser user = ssoUserProcessingService.FindById(token.UserName);
 
         if (user == null)
-            throw new SecurityException("Access Denied! find by id null");
+            throw new SecurityException("Access Denied!");
 
         user.PasswordHash = registerForm.Password;
         user.LockoutEnabled = false;

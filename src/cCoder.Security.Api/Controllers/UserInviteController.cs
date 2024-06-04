@@ -21,10 +21,8 @@ public class UserInviteController(
             .GetAllSSOUsers(ignoreFilters: true)
             .FirstOrDefault(i => i.Id == userId);
 
-        log.LogInformation($"userId: {userId} | inviteToken: {inviteToken} | inviteForm: {inviteForm.ToJson()}");
-
         if (user == null)
-            throw new SecurityException("Access Denied! user not found controller");
+            throw new SecurityException("Access Denied!");
 
         await accountManager.AcceptInviteAsync(inviteForm, userId, inviteToken);
 
