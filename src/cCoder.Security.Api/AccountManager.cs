@@ -99,4 +99,7 @@ public class AccountManager(
 
     public async ValueTask<SSOUser> AcceptInviteAsync(RegisterUser user, string userId, string inviteToken) =>
         await registrationService.AcceptInviteAsync(user, userId, inviteToken);
+
+    public async ValueTask<string> RegenerateUserInviteToken(string userId) =>
+        await registrationService.RegenerateUserInviteToken(userId);
 }
