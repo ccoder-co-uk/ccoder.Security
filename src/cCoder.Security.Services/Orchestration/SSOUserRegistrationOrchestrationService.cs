@@ -58,18 +58,15 @@ public class SSOUserRegistrationOrchestrationService(
     {
         ValidateRegisterForm(registerForm);
 
-        SSOUser mappedUser = MapToSSOUser(registerForm);
-        mappedUser.Id = userId;
-
         Token token = tokenProcessingService.GetInvitationToken(tokenId);
 
-        if (token == null || token.UserName != mappedUser.Id)
-            throw new SecurityException("Access Denied!");
+        if (token == null || token.UserName != userId)
+            throw new SecurityException("Access Denied! token is null or token username doesnt match id");
 
         SSOUser user = ssoUserProcessingService.FindById(token.UserName);
 
         if (user == null)
-            throw new SecurityException("Access Denied!");
+            throw new SecurityException("Access Denied! find by id null");
 
         user.PasswordHash = registerForm.Password;
         user.LockoutEnabled = false;
