@@ -56,11 +56,11 @@ public partial class SSOUserProcessingService(
         if (user == null)
             throw new SecurityException("Access Denied!");
 
-        if (user.LockoutEnabled)
-            throw new SecurityException("Access Denied!");
-
         if (!encryptionBroker.EncryptedAndPlainTextAreEqual(user.PasswordHash, password))
         {
+            if (user.LockoutEnabled)
+                throw new SecurityException("Account locked!");
+
             user.AccessFailedCount++;
 
             if (user.AccessFailedCount > 10)
