@@ -149,6 +149,9 @@ public class SSOUserRegistrationOrchestrationService(
         }
 
         user.PasswordHash = newPassword;
+        user.LockoutEnabled = false;
+        user.AccessFailedCount = 0;
+
         await ssoUserProcessingService.UpdateSSOUserAsync(user);
         await tokenProcessingService.DeleteTokenAsync(token.Id);
     }
