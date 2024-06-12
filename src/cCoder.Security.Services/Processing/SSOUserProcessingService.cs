@@ -57,7 +57,7 @@ public partial class SSOUserProcessingService(
             throw new SecurityException("Access Denied!");
 
         if (user.LockoutEnabled)
-            throw new SecurityException("Access Denied!");
+            throw new SecurityException("Account locked!");
 
         if (!encryptionBroker.EncryptedAndPlainTextAreEqual(user.PasswordHash, password))
         {
