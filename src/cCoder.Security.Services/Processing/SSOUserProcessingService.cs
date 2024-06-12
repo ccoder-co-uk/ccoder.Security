@@ -60,7 +60,23 @@ public partial class SSOUserProcessingService(
             throw new SecurityException("Access Denied!");
 
         if (!encryptionBroker.EncryptedAndPlainTextAreEqual(user.PasswordHash, password))
+        {
+            user.AccessFailedCount++;
+
+            if (user.AccessFailedCount > 10)
+                user.LockoutEnabled = true;
+
+            UpdateSSOUserAsync(user);
             throw new SecurityException("Access Denied!");
+        }
+        else
+        {
+            if(user.AccessFailedCount > 0)
+            {
+                user.AccessFailedCount = 0;
+                UpdateSSOUserAsync(user);
+            }
+        }
 
         return user;
     }
