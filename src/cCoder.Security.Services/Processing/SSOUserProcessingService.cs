@@ -94,7 +94,7 @@ public partial class SSOUserProcessingService(
         SSOUser dbUser = GetAllSSOUsers(ignoreFilters: true)
             .FirstOrDefault(u => u.Id == user.Id);
 
-        if (user.PasswordHash != null && dbUser.PasswordHash != user.PasswordHash && !encryptionBroker.EncryptedAndPlainTextAreEqual(dbUser.PasswordHash, user.PasswordHash))
+        if (user.PasswordHash != null && dbUser.PasswordHash != user.PasswordHash)
         {
             ValidatePassword(user.PasswordHash);
             user.PasswordHash = encryptionBroker.Encrypt(user.PasswordHash);
