@@ -8,7 +8,7 @@ namespace cCoder.Security.Api.Controllers;
 
 public class TenantAnalysisController(
     ITenantAnalysisProcessingService tenantAnalysisProcessingService) 
-        : Controller
+        : SecurityController<TenantAnalysis>
 { 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
