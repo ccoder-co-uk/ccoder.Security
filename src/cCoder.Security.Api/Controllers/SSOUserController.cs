@@ -1,4 +1,6 @@
-﻿using cCoder.Security.Api.Interfaces;
+﻿using System.Security;
+using cCoder.Security.Api.Interfaces;
+using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestration.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,18 +9,13 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Api.Controllers;
 
-public class SSOUserController : Controller
+public class SSOUserController(
+    IAccountManager ssoUserProcessingService,
+    ISSOUserOrchestrationService ssoUserOrchestrationService) : Controller
 {
-    private readonly IAccountManager accountManager;
-    private readonly ISSOUserOrchestrationService ssoUserOrchestrationService;
-
-    public SSOUserController(
-        IAccountManager ssoUserProcessingService,
-        ISSOUserOrchestrationService ssoUserOrchestrationService)
-    {
-        accountManager = ssoUserProcessingService;
-        this.ssoUserOrchestrationService = ssoUserOrchestrationService;
-    }
+    [HttpGet]
+    public IActionResult Me() =>
+        Ok(ssoUserProcessingService.Me());
 
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
@@ -59,7 +56,18 @@ public class SSOUserController : Controller
         return Ok();
     }
 
-    [HttpGet]
-    public IActionResult Me() =>
-        Ok(accountManager.Me());
+    [HttpPost("AcceptInvite")]
+    public virtual async ValueTask<IActionResult> AcceptInvite([FromQuery] string userId, [FromQuery] string inviteToken, [FromBody] RegisterUser inviteForm)
+    {
+        SSOUser user = ssoUserOrchestrationService
+            .GetAllSSOUsers()
+            .FirstOrDefault(i => i.Id == userId);
+
+        if (user == null)
+            throw new SecurityException("Access Denied!");
+
+        await ssoUserProcessingService.AcceptInviteAsync(inviteForm, userId, inviteToken);
+
+        return Ok();
+    }
 }

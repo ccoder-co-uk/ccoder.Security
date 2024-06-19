@@ -38,6 +38,10 @@ public class SecurityModelBuilder : ODataModelBuilder
             .Function("Me")
             .ReturnsFromEntitySet<SSOUser>("SSOUsers");
 
+        Builder.EntityType<SSOUser>()
+            .Collection
+            .Function("AcceptInvite");
+
         return Builder.GetEdmModel();
     }
 }
