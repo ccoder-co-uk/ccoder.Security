@@ -17,22 +17,27 @@ public class SecurityModelBuilder : ODataModelBuilder
         // common stuff
         AddCommonComplexTypes();
 
-        Builder.EntityType<SSOUser>()
-            .Ignore(u => u.PasswordHash);
+        var userSet = Builder.EntityType<SSOUser>();
+        userSet.Ignore(u => u.PasswordHash);
+        userSet.Ignore(u => u.AccessFailedCount);
+        userSet.Ignore(u => u.Tokens);
+        userSet.Ignore(u => u.LockoutEnabled);
+        userSet.Ignore(u => u.LockoutEndDateUtc);
 
         // Security
         AddSet<SSORole, string>();
         AddSet<SSOPrivilege, string>();
-        AddSet<Session, string>();
         AddSet<Tenant, string>();
         AddSet<TenantAnalysis, Guid>();
-        AddSet<Token, string>();
         AddSet<UserEvent, Guid>();
 
+        var userEventSet = Builder.EntityType<UserEvent>(); 
+        userEventSet.Ignore(u => u.Session);
 
         AddJoinSet<SSOUserRole, object>(ur => new { ur.UserId, ur.RoleId });
 
         AddSet<SSOUser, string>();
+
         Builder.EntityType<SSOUser>()
             .Collection
             .Function("Me")
