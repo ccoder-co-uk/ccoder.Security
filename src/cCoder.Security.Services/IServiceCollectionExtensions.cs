@@ -81,6 +81,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ITenantProcessingService, TenantProcessingService>();
         services.AddScoped<ITenantAnalysisProcessingService, TenantAnalysisProcessingService>();
         services.AddScoped<ISessionProcessingService, SessionProcessingService>();
+        services.AddScoped<IUserEventProcessingService, UserEventProcessingService>();
     }
 
     private static void AddOrchestrations(this IServiceCollection services)
