@@ -6,15 +6,9 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Api.Controllers;
 
-public class TenantController : Controller
+public class TenantController(ITenantProcessingService tenantProcessingService) 
+    : SecurityController<Tenant>
 {
-    private readonly ITenantProcessingService tenantProcessingService;
-
-    public TenantController(ITenantProcessingService tenantProcessingService)
-    {
-        this.tenantProcessingService = tenantProcessingService;
-    }
-
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<Tenant> queryOptions) =>
