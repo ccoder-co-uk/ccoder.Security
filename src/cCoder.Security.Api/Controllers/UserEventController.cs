@@ -6,21 +6,20 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Api.Controllers;
 
-public class SSORoleController(
-    ISSORoleProcessingService ssoRoleProcessingService) 
-        : SecurityController<SSORole>
+public class UserEventController(IUserEventProcessingService userEventProcessingService)
+    : SecurityController<UserEvent>
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
-    public virtual IActionResult Get(ODataQueryOptions<SSORole> queryOptions) =>
-        Ok(ssoRoleProcessingService.GetAllSSORoles());
+    public virtual IActionResult Get(ODataQueryOptions<UserEvent> queryOptions) =>
+        Ok(userEventProcessingService.GetAllUserEvents());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] Guid key)
     {
-        IQueryable<SSORole> result = ssoRoleProcessingService
-            .GetAllSSORoles()
+        IQueryable<UserEvent> result = userEventProcessingService
+            .GetAllUserEvents()
             .Where(i => i.Id == key);
 
         return result.Any()

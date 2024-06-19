@@ -6,21 +6,20 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Api.Controllers;
 
-public class SSORoleController(
-    ISSORoleProcessingService ssoRoleProcessingService) 
-        : SecurityController<SSORole>
+public class SSOPrivilegeController(ISSOPrivilegeProcessingService ssoPrivilegeProcessingService) 
+    : SecurityController<SSOPrivilege>
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
-    public virtual IActionResult Get(ODataQueryOptions<SSORole> queryOptions) =>
-        Ok(ssoRoleProcessingService.GetAllSSORoles());
+    public virtual IActionResult Get(ODataQueryOptions<SSOPrivilege> queryOptions) =>
+        Ok(ssoPrivilegeProcessingService.GetAllSSOPrivileges());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
-    public virtual IActionResult Get([FromRoute] Guid key)
+    public virtual IActionResult Get([FromRoute] string key)
     {
-        IQueryable<SSORole> result = ssoRoleProcessingService
-            .GetAllSSORoles()
+        IQueryable<SSOPrivilege> result = ssoPrivilegeProcessingService
+            .GetAllSSOPrivileges()
             .Where(i => i.Id == key);
 
         return result.Any()
