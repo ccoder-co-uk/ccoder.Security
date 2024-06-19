@@ -11,7 +11,8 @@ namespace cCoder.Security.Api.Controllers;
 
 public class SSOUserController(
     IAccountManager ssoUserProcessingService,
-    ISSOUserOrchestrationService ssoUserOrchestrationService) : Controller
+    ISSOUserOrchestrationService ssoUserOrchestrationService) 
+        : SecurityController<SSOUser>
 {
     [HttpGet]
     public IActionResult Me() =>
