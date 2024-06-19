@@ -4,15 +4,11 @@ using cCoder.Security.Services.Processing.Interfaces;
 
 namespace cCoder.Security.Services.Processing;
 
-public class SSOUserRoleProcessingService 
+public class SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleService)
     : ISSOUserRoleProcessingService
 {
-    private readonly ISSOUserRoleService ssoUserRoleService;
-
-    public SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleService)
-    {
-        this.ssoUserRoleService = ssoUserRoleService;
-    }
+    public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
+        ssoUserRoleService.GetAllSSOUserRoles();
 
     public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) => 
         await ssoUserRoleService.AddSSOUserRoleAsync(item);
