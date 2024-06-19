@@ -32,7 +32,7 @@ public class SecurityModelBuilder : ODataModelBuilder
 
         userType
             .Collection
-            .Function("AcceptInvite");
+            .Action("AcceptInvite");
 
         var userEventType = Builder.EntityType<UserEvent>();
         userEventType.Ignore(u => u.Session);
