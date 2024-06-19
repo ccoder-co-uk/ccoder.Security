@@ -69,6 +69,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ITenantService, TenantService>();
         services.AddScoped<ITenantAnalysisService, TenantAnalysisService>();
         services.AddScoped<ISessionService, SessionService>();
+        services.AddScoped<IUserEventService, UserEventService>();
     }
 
     private static void AddProcessings(this IServiceCollection services)
