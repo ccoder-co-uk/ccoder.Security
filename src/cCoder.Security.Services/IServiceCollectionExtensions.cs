@@ -85,8 +85,9 @@ public static class IServiceCollectionExtensions
 
     private static void AddOrchestrations(this IServiceCollection services)
     {
-        services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
         services.AddScoped<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
         services.AddScoped<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
+
+        services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
     }
 }

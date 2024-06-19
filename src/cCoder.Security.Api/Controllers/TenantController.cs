@@ -26,31 +26,4 @@ public class TenantController(ITenantProcessingService tenantProcessingService)
             ? Ok(SingleResult.Create(result))
             : NotFound();
     }
-
-    [HttpPut]
-    [EnableQuery]
-    public virtual async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] Tenant ssoUser) => 
-        ModelState.IsValid
-            ? Get((await tenantProcessingService.UpdateTenantAsync(ssoUser)).Id)
-            : BadRequest(ModelState);
-
-    [HttpPost]
-    public virtual async ValueTask<IActionResult> Post([FromBody] Tenant ssoUser) =>
-        ModelState.IsValid
-            ? Ok(await tenantProcessingService.AddTenantAsync(ssoUser))
-            : BadRequest(ModelState);
-
-    [HttpDelete]
-    public virtual async ValueTask<IActionResult> Delete([FromRoute] string key, string reference = null)
-    {
-        Tenant origentity = tenantProcessingService
-            .GetAllTenants()
-            .FirstOrDefault(i => i.Id == key);
-
-        if (origentity == null)
-            return NotFound();
-
-        await tenantProcessingService.DeleteTenantAsync(origentity);
-        return Ok();
-    }
 }
