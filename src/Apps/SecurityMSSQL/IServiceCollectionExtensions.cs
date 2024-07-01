@@ -43,4 +43,21 @@ public static partial class IServiceCollectionExtensions
             });
         });
     }
+
+    public static void ConfigureSessions(this IServiceCollection services)
+    {
+        services.Configure<CookiePolicyOptions>(options =>
+        {
+            options.Secure = CookieSecurePolicy.Always;
+            options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
+            options.MinimumSameSitePolicy = SameSiteMode.Strict;
+        });
+
+        services.AddSession(options =>
+        {
+            options.Cookie.SameSite = SameSiteMode.Strict;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            options.Cookie.HttpOnly = true;
+        });
+    }
 }
