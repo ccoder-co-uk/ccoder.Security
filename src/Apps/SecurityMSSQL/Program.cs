@@ -34,14 +34,9 @@ public class Program
                 config.GetSection("settings")["DecryptionKey"]);
         });
 
-        builder.Services.AddHsts(options =>
-        {
-            options.Preload = true;
-            options.IncludeSubDomains = true;
-            options.MaxAge = TimeSpan.FromMinutes(60);
-        });
-
         builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
+
+        builder.Services.ConfigureSessions();
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSimpleConsole();
