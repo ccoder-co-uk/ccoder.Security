@@ -14,9 +14,6 @@ public class SecurityModelBuilder : ODataModelBuilder
 
     private IEdmModel BuildModel()
     {
-        // common stuff
-        AddCommonComplexTypes();
-
         var userType = Builder.EntityType<SSOUser>();
 
         userType.Ignore(u => u.PasswordHash);
