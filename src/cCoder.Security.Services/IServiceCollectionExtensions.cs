@@ -15,6 +15,7 @@ using cCoder.Security.Services.Orchestration.Interfaces;
 using cCoder.Security.Services.Processing;
 using cCoder.Security.Services.Processing.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace cCoder.Security.Services;
 
@@ -28,7 +29,7 @@ public static class IServiceCollectionExtensions
         configAction(services, securityConfiguration);
 
         services.AddScoped<ISecurityDbContextFactory>(sp => 
-            new SecurityDbContextFactory(sp.GetService<ISecurityModelBuildProvider>())
+            new SecurityDbContextFactory(sp.GetService<ISecurityModelBuildProvider>(), sp.GetService<ILogger<SecurityDbContext>>())
             { 
                 GetAuthInfo = () => sp.GetService<ISSOAuthInfo>()
             });
