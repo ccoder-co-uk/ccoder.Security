@@ -30,7 +30,4 @@ public class SSOAuthorizationBroker(ISecurityDbContextFactory contextFactory)
         var db = contextFactory.CreateDbContext();
         db.UserIsPortalAdminWithPrivilege(privilege);
     }
-
-    IEnumerable<SSOPrivilege> ISSOAuthorizationBroker.GetAllPrivileges() => throw new NotImplementedException();
-    SSOUser ISSOAuthorizationBroker.GetCurrentUser() => throw new NotImplementedException();
 }
