@@ -1,8 +1,10 @@
-﻿using cCoder.Security.Data.Brokers.DateTime;
+﻿using B2B.Data.Brokers.Storages.Security;
+using cCoder.Security.Data.Brokers.DateTime;
 using cCoder.Security.Data.Brokers.Requests;
 using cCoder.Security.Data.Brokers.Serialization;
 using cCoder.Security.Data.Brokers.Storage;
 using cCoder.Security.Data.Brokers.Storage.Interfaces;
+using cCoder.Security.Data.Brokers.Utility.Interfaces;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects;
@@ -57,6 +59,7 @@ public static class IServiceCollectionExtensions
 
         services.AddScoped<ISerializationBroker, SerializationBroker>();
         services.AddScoped<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
+        services.AddScoped<ISSOAuthorizationBroker, SSOAuthorizationBroker>();
     }
 
     private static void AddFoundations(this IServiceCollection services)
@@ -89,6 +92,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddScoped<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
         services.AddScoped<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
+        services.AddScoped<ITenantOrchestrationService, TenantOrchestrationService>();
 
         services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
     }
