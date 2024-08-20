@@ -8,7 +8,8 @@ namespace cCoder.Security.Data.EF;
 
 public partial class SecurityDbContext(
     ISSOAuthInfo authInfo, 
-    ISecurityModelBuildProvider modelBuildProvider) 
+    ISecurityModelBuildProvider modelBuildProvider,
+    ILogger<SecurityDbContext> log)
         : DbContext
 {
     public DbSet<SSOUser> Users { get; set; }
@@ -22,7 +23,6 @@ public partial class SecurityDbContext(
 
     public DbSet<Session> Sessions { get; set; }
     public DbSet<UserEvent> UserEvents { get; set; }
-    public ILogger Logger { get; set; }
 
     private SSOUser currentUser;
 
@@ -95,7 +95,7 @@ public partial class SecurityDbContext(
         {
             SSOUser currentUser = GetCurrentUser();
 
-            Logger.LogWarning("Privilege '{Privilege}' is not granted as current user is not portal admin: '{UserId}'", privilege, currentUser.Id);
+            log.LogWarning("Privilege '{Privilege}' is not granted as current user is not portal admin: '{UserId}'", privilege, currentUser.Id);
             throw new SecurityException("Access Denied!");
         }
     }
@@ -106,7 +106,7 @@ public partial class SecurityDbContext(
 
         if (!passed)
         {
-            Logger.LogWarning("Privilege '{Privilege}' is not granted for user: {UserId}", privilege, currentUser.Id);
+            log.LogWarning("Privilege '{Privilege}' is not granted for user: {UserId}", privilege, currentUser.Id);
             throw new SecurityException("Access Denied!");
         }
     }
