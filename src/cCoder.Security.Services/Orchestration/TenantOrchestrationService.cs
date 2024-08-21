@@ -7,6 +7,8 @@ namespace cCoder.Security.Services.Orchestration;
 
 public class TenantOrchestrationService(
     ITenantProcessingService tenantProcessingService,
+    ISSORoleProcessingService roleProcessingService,
+    ISSOUserRoleProcessingService userRoleProcessingService,
     ISSOAuthorizationBroker authBroker)
         : ITenantOrchestrationService
 {
@@ -21,7 +23,26 @@ public class TenantOrchestrationService(
     {
         authBroker.UserIsPortalAdminWithPrivilege("tenant_create");
 
-        return await tenantProcessingService.AddTenantAsync(tenant);
+        var dbTenant = await tenantProcessingService.AddTenantAsync(tenant);
+
+        var role = await roleProcessingService.AddSSORoleAsync(new SSORole()
+        {
+            UsersArePortalAdmins = false,
+            Name = $"{tenant.Name} Admins",
+            Description = $"{tenant.Name} Admins",
+            Privs = "tenant_read",
+            TenantId = tenant.Id
+        });
+
+        var user = authBroker.GetCurrentUser();
+
+        await userRoleProcessingService.AddSSOUserRoleAsync(new SSOUserRole()
+        {
+            UserId = user.Id,
+            RoleId = role.Id
+        });
+
+        return tenant;
     }
 
     public async ValueTask DeleteTenantAsync(Tenant tenant)
