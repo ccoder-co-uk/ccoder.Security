@@ -30,12 +30,12 @@ public class TenantController(ITenantOrchestrationService tenantOrchestrationSer
     [HttpPost]
     public async ValueTask<IActionResult> Post([FromBody] Tenant tenant) =>
         ModelState.IsValid
-            ? Get((await tenantOrchestrationService.AddTenantAsync(tenant)).Id)
+            ? Ok(await tenantOrchestrationService.AddTenantAsync(tenant))
             : BadRequest(ModelState);
 
     [HttpPut]
     public async ValueTask<IActionResult> Put([FromRoute] Guid key, [FromBody] Tenant tenant) =>
         ModelState.IsValid
-            ? Get((await tenantOrchestrationService.UpdateTenantAsync(tenant)).Id)
+            ? Ok(await tenantOrchestrationService.UpdateTenantAsync(tenant))
             : BadRequest(ModelState);
 }
