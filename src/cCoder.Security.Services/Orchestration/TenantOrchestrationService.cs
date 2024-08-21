@@ -1,4 +1,5 @@
-﻿using cCoder.Security.Data.Brokers.Utility.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using cCoder.Security.Data.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestration.Interfaces;
 using cCoder.Security.Services.Processing.Interfaces;
@@ -23,6 +24,13 @@ public class TenantOrchestrationService(
     {
         authBroker.UserIsPortalAdminWithPrivilege("tenant_create");
 
+        var existing = tenantProcessingService
+            .GetAllTenants()
+            .FirstOrDefault(t => t.Id == tenant.Id);
+
+        if (existing != null)
+            throw new ValidationException($"Tenant '{tenant.Id}' already exists.");
+
         var dbTenant = await tenantProcessingService.AddTenantAsync(tenant);
 
         var role = await roleProcessingService.AddSSORoleAsync(new SSORole()
@@ -42,7 +50,7 @@ public class TenantOrchestrationService(
             RoleId = role.Id
         });
 
-        return tenant;
+        return dbTenant;
     }
 
     public async ValueTask DeleteTenantAsync(Tenant tenant)
