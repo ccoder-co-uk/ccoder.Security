@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using cCoder.Security.Data.EF;
 
@@ -11,9 +12,11 @@ using cCoder.Security.Data.EF;
 namespace cCoder.Security.Data.EF.Migrations
 {
     [DbContext(typeof(SecurityDbContext))]
-    partial class MembershipDataContextModelSnapshot : ModelSnapshot
+    [Migration("20241118183612_RetireOldLoggingTables")]
+    partial class RetireOldLoggingTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
