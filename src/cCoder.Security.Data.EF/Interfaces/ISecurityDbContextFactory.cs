@@ -1,6 +1,8 @@
-﻿namespace cCoder.Security.Data.EF.Interfaces;
+﻿using Microsoft.EntityFrameworkCore.Design;
 
-public interface ISecurityDbContextFactory
+namespace cCoder.Security.Data.EF.Interfaces;
+
+public interface ISecurityDbContextFactory : IDesignTimeDbContextFactory<SecurityDbContext>
 {
-    SecurityDbContext CreateDbContext(bool withAuthInfo = true);
+    SecurityDbContext CreateDbContext();
 }
