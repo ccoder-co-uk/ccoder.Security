@@ -12,7 +12,7 @@ public static class MSSQLSecurityConfigurationExtensions
         string connectionString)
     {
         services.AddScoped<ISecurityDbContextFactory>(sp => 
-            new MSSQLSecurityDbContextFactory()
+            new MSSQLSecurityDbContextFactory(connectionString)
             {
                 GetAuthInfo = () =>
                 {
