@@ -23,7 +23,6 @@ public class Program
         builder.Services.AddSecurityApi((services, securityConfig) =>
         {
             securityConfig.RootPath = "Api/Security";
-            securityConfig.AddEntityFramework(services);
 
             securityConfig.AddMSSQLModelProvider(
                 services,
