@@ -1,12 +1,10 @@
-﻿using B2B.Data.Brokers.Storages.Security;
+﻿using cCoder.Data.Brokers.Storages.Security;
 using cCoder.Security.Data.Brokers.DateTime;
 using cCoder.Security.Data.Brokers.Requests;
 using cCoder.Security.Data.Brokers.Serialization;
 using cCoder.Security.Data.Brokers.Storage;
 using cCoder.Security.Data.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.Brokers.Utility.Interfaces;
-using cCoder.Security.Data.EF;
-using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects;
 using cCoder.Security.Services.Foundation;
 using cCoder.Security.Services.Foundation.Interfaces;
@@ -15,7 +13,6 @@ using cCoder.Security.Services.Orchestration.Interfaces;
 using cCoder.Security.Services.Processing;
 using cCoder.Security.Services.Processing.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace cCoder.Security.Services;
 
@@ -27,12 +24,6 @@ public static class IServiceCollectionExtensions
     {
         SecurityConfiguration securityConfiguration = new();
         configAction(services, securityConfiguration);
-
-        services.AddScoped<ISecurityDbContextFactory>(sp => 
-            new SecurityDbContextFactory(sp.GetService<ISecurityModelBuildProvider>(), sp.GetService<ILogger<SecurityDbContext>>())
-            { 
-                GetAuthInfo = () => sp.GetService<ISSOAuthInfo>()
-            });
 
         services.AddScoped((IServiceProvider provider) =>
             provider.GetService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfo());
