@@ -1,15 +1,13 @@
-﻿using System.Security;
-using cCoder.Security.Objects;
+﻿using cCoder.Security.Objects;
 using cCoder.Security.Objects.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using System.Security;
 
 namespace cCoder.Security.Data.EF;
 
 public partial class SecurityDbContext(
     ISSOAuthInfo authInfo, 
-    ISecurityModelBuildProvider modelBuildProvider,
-    ILogger<SecurityDbContext> log)
+    ISecurityModelBuildProvider modelBuildProvider)
         : DbContext
 {
     public DbSet<SSOUser> Users { get; set; }
@@ -92,12 +90,7 @@ public partial class SecurityDbContext(
             .Any(r => userRoles.Contains(r.Id) && r.Privs.Contains(privilege) && r.UsersArePortalAdmins);
 
         if (!passed)
-        {
-            SSOUser currentUser = GetCurrentUser();
-
-            log.LogWarning("Privilege '{Privilege}' is not granted as current user is not portal admin: '{UserId}'", privilege, currentUser.Id);
-            throw new SecurityException("Access Denied!");
-        }
+            throw new SecurityException($"Privilege '{privilege}' is not granted as current user is not portal admin: '{GetCurrentUser().Id}'");
     }
     public void UserHasPrivilege(string privilege)
     {
@@ -105,10 +98,7 @@ public partial class SecurityDbContext(
         bool passed = Roles.Any(r => userRoles.Contains(r.Id) && r.Privs.Contains(privilege));
 
         if (!passed)
-        {
-            log.LogWarning("Privilege '{Privilege}' is not granted for user: {UserId}", privilege, currentUser.Id);
-            throw new SecurityException("Access Denied!");
-        }
+            throw new SecurityException($"Privilege '{privilege}' is not granted for user: {GetCurrentUser().Id}");
     }
 
     public IQueryable<UserActivity> GetUserActivity() => 
