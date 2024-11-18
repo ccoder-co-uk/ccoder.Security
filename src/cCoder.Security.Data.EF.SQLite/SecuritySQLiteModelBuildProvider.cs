@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace cCoder.Security.Data.EF.MSSQL;
+namespace cCoder.Security.Data.EF.SQLite;
 
 public partial class SecuritySQLiteModelBuildProvider : ISecurityModelBuildProvider
 {
