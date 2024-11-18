@@ -1,7 +1,6 @@
 ﻿using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Data.EF.MSSQL;
 using cCoder.Security.Objects;
-using Microsoft.Extensions.Configuration;
 
 namespace cCoder.Security.Data.EF;
 
@@ -10,18 +9,18 @@ namespace cCoder.Security.Data.EF;
 public class MSSQLSecurityDbContextFactory()
     : ISecurityDbContextFactory
 {
-    private readonly IConfiguration config;
+    private readonly string connectionString;
 
     public Func<ISSOAuthInfo> GetAuthInfo { get; set; } =
         () => new SSOAuthInfo { SSOUserId = "Guest" };
 
-    public MSSQLSecurityDbContextFactory(IConfiguration config) : this() =>
-        this.config = config;
+    public MSSQLSecurityDbContextFactory(string connectionString) : this() =>
+        this.connectionString = connectionString;
 
     public SecurityDbContext CreateDbContext()
     {
         Console.WriteLine("Using MSSQLSecurityDbContextFactory to create DbContext");
-        return new(GetAuthInfo(), new SecurityMSSQLModelBuildProvider(config?.GetConnectionString("SSO") ?? "SSO"));
+        return new(GetAuthInfo(), new SecurityMSSQLModelBuildProvider(connectionString ?? "SSO"));
     }
 
     public SecurityDbContext CreateDbContext(string[] args) =>
