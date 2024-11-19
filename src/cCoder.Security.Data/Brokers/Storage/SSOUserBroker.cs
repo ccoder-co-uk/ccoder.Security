@@ -16,7 +16,7 @@ public class SSOUserBroker(ISecurityDbContextFactory contextFactory)
     
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false)
     {
-        EF.SecurityDbContext context = contextFactory.CreateDbContext();
+        EF.SecurityDbContext context = contextFactory.CreateDbContext(ignoreFilters);
 
         return ignoreFilters
             ? context.Users.IgnoreQueryFilters()

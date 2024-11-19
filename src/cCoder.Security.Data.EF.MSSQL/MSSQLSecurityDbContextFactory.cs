@@ -11,14 +11,14 @@ public class MSSQLSecurityDbContextFactory()
 {
     private readonly string connectionString;
 
-    public Func<ISSOAuthInfo> GetAuthInfo { get; set; } =
-        () => new SSOAuthInfo { SSOUserId = "Guest" };
+    public Func<bool, ISSOAuthInfo> GetAuthInfo { get; set; } =
+        (x) => new SSOAuthInfo { SSOUserId = "Guest" };
 
     public MSSQLSecurityDbContextFactory(string connectionString) : this() =>
         this.connectionString = connectionString;
 
-    public SecurityDbContext CreateDbContext() =>
-         new(GetAuthInfo(), new SecurityMSSQLModelBuildProvider(connectionString ?? "SSO"));
+    public SecurityDbContext CreateDbContext(bool ignoreAuthInfo = false) =>
+        new (GetAuthInfo(ignoreAuthInfo), new SecurityMSSQLModelBuildProvider(connectionString ?? "SSO"));
 
     public SecurityDbContext CreateDbContext(string[] args) =>
         CreateDbContext();
