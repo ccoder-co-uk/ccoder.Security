@@ -58,9 +58,6 @@ public partial class SSOUserProcessingService(
 
         if (!encryptionBroker.EncryptedAndPlainTextAreEqual(user.PasswordHash, password))
         {
-            if (user.LockoutEnabled)
-                throw new SecurityException("Account locked!");
-
             user.AccessFailedCount++;
 
             if (user.AccessFailedCount > 10)
@@ -77,6 +74,9 @@ public partial class SSOUserProcessingService(
                 UpdateSSOUserAsync(user);
             }
         }
+
+        if (user.LockoutEnabled)
+            throw new SecurityException("Account locked!");
 
         return user;
     }
