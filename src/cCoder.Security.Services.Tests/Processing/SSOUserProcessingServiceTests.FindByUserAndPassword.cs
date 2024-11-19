@@ -38,7 +38,7 @@ public partial class SSOUserProcessingServiceTests
 
 			ssoUserServiceMock.Verify(ssoUserServiceMock =>
 				ssoUserServiceMock.GetAllSSOUsers(true),
-				Times.Once);
+				Times.Exactly(2));
 
 			passwordEncryptionBrokerMock.Verify(passwordEncryptionBrokerMock =>
 				passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword),
