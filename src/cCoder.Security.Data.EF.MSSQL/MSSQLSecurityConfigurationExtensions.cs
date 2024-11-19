@@ -27,11 +27,6 @@ public static class MSSQLSecurityConfigurationExtensions
                 }
             });
 
-        services.AddDbContextFactory<SecurityDbContext>();
-
-        services.AddSingleton<ISecurityModelBuildProvider>(
-            new SecurityMSSQLModelBuildProvider(connectionString));
-
         services.AddDistributedSqlServerCache(options =>
         {
             options.ConnectionString = connectionString;
