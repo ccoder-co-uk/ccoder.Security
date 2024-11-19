@@ -14,16 +14,11 @@ public static class MSSQLSecurityConfigurationExtensions
         services.AddScoped<ISecurityDbContextFactory>(sp => 
             new MSSQLSecurityDbContextFactory(connectionString)
             {
-                GetAuthInfo = () =>
+                GetAuthInfo = (withAuth) =>
                 {
-                    try
-                    {
-                        return sp.GetService<ISSOAuthInfo>();
-                    }
-                    catch
-                    {
-                        return new SSOAuthInfo { SSOUserId = "Guest" };
-                    }
+                    return withAuth
+                        ? new SSOAuthInfo { SSOUserId = "Guest" } 
+                        : sp.GetService<ISSOAuthInfo>();
                 }
             });
 
