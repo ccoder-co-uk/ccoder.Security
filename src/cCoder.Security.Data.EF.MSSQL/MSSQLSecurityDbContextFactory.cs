@@ -17,11 +17,8 @@ public class MSSQLSecurityDbContextFactory()
     public MSSQLSecurityDbContextFactory(string connectionString) : this() =>
         this.connectionString = connectionString;
 
-    public SecurityDbContext CreateDbContext()
-    {
-        Console.WriteLine("Using MSSQLSecurityDbContextFactory to create DbContext");
-        return new(GetAuthInfo(), new SecurityMSSQLModelBuildProvider(connectionString ?? "SSO"));
-    }
+    public SecurityDbContext CreateDbContext() =>
+         new(GetAuthInfo(), new SecurityMSSQLModelBuildProvider(connectionString ?? "SSO"));
 
     public SecurityDbContext CreateDbContext(string[] args) =>
         CreateDbContext();
