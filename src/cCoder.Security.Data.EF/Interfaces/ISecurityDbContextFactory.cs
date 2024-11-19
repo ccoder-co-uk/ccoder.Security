@@ -4,5 +4,5 @@ namespace cCoder.Security.Data.EF.Interfaces;
 
 public interface ISecurityDbContextFactory : IDesignTimeDbContextFactory<SecurityDbContext>
 {
-    SecurityDbContext CreateDbContext();
+    SecurityDbContext CreateDbContext(bool ignoreAuthInfo = false);
 }
