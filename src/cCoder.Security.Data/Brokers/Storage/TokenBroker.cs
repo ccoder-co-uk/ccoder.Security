@@ -44,7 +44,7 @@ public class TokenBroker : ITokenBroker
 
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false)
     {
-        EF.SecurityDbContext context = contextFactory.CreateDbContext();
+        EF.SecurityDbContext context = contextFactory.CreateDbContext(ignoreFilters);
 
         return ignoreFilters
             ? context.Tokens.IgnoreQueryFilters()
