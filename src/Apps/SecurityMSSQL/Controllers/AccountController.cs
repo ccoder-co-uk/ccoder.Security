@@ -38,7 +38,7 @@ public class AccountController : Controller
             }
             catch (Exception ex)
             {
-
+                // Deliberate, don't indicate any sort of problem as this could be used against us.
             }
 
             return Ok();
