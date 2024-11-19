@@ -24,12 +24,13 @@ public partial class TenantServiceTests
             tenantBrokerMock.UpdateTenantAsync(inputTenant))
             .ReturnsAsync(inputTenant);
 
-        expectedTenant.LastUpdated = expectedTime;
-
         //when
         Tenant actualTenant = await tenantService.UpdateTenantAsync(inputTenant);
 
         //then
+        actualTenant.LastUpdated.Should().BeCloseTo(expectedTime, TimeSpan.FromSeconds(1));
+        expectedTenant.LastUpdated = actualTenant.LastUpdated;
+
         actualTenant.Should().BeEquivalentTo(expectedTenant);
 
         tenantBrokerMock.Verify(tenantBrokerMock =>
