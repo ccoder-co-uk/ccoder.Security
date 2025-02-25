@@ -38,4 +38,22 @@ public class TenantController(ITenantOrchestrationService tenantOrchestrationSer
         ModelState.IsValid
             ? Ok(await tenantOrchestrationService.UpdateTenantAsync(tenant))
             : BadRequest(ModelState);
+
+    [HttpDelete]
+    public async ValueTask<IActionResult> Delete([FromRoute] string key)
+    {
+        if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var tenant = tenantOrchestrationService
+            .GetAllTenants()
+            .First(t => t.Id == key);
+
+        if (tenant is null)
+            return NotFound();
+
+        await tenantOrchestrationService.DeleteTenantAsync(tenant);
+
+        return Ok();
+    }
 }
