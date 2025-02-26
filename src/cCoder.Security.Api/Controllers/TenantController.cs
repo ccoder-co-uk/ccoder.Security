@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Api.Controllers;
 
-public class TenantController(ITenantOrchestrationService tenantOrchestrationService) 
+public class TenantController(
+    ITenantOrchestrationService tenantOrchestrationService,
+    ITenantCoordinationService tenantCoordinationService) 
     : SecurityController<Tenant>
 {
     [HttpGet()]
@@ -52,7 +54,7 @@ public class TenantController(ITenantOrchestrationService tenantOrchestrationSer
         if (tenant is null)
             return NotFound();
 
-        await tenantOrchestrationService.DeleteTenantAsync(tenant);
+        await tenantCoordinationService.DeleteTenantAsync(tenant);
 
         return Ok();
     }
