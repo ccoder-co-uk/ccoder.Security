@@ -32,6 +32,7 @@ public static class IServiceCollectionExtensions
         services.AddFoundations();
         services.AddProcessings();
         services.AddOrchestrations();
+        services.AddCoordinations();
 
         return securityConfiguration;
     }
@@ -85,7 +86,13 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
         services.AddScoped<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
         services.AddScoped<ITenantOrchestrationService, TenantOrchestrationService>();
+        services.AddScoped<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();
 
         services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
+    }
+
+    private static void AddCoordinations(this IServiceCollection services)
+    {
+        services.AddScoped<ITenantCoordinationService, TenantCoordinationService>();
     }
 }
