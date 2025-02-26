@@ -33,10 +33,6 @@ jobs:
     - name: Create version number
       id: version
       run: echo "::set-output name=version::$(date +'%Y.%m.%d.%H%M')"
-      
-    - name: Add NuGet Source
-      run: |
-        dotnet nuget add source ${{ secrets.CLX_NUGET_URL }} -n clx -u ${{ secrets.CLX_REGISTRY_USER }} -p ${{ secrets.CLX_REGISTRY_TOKEN }} --store-password-in-clear-text
 
     # Install the .NET SDK indicated in the global.json file
     - name: Setup .NET
@@ -54,18 +50,12 @@ jobs:
         dotnet pack src/cCoder.Security.Services --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
 
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: nuget
         if-no-files-found: error
         retention-days: 7
         path: ${{ env.NuGetDirectory }}/*.nupkg
-    
-    - name: Cleanup
-      if: always()
-      continue-on-error: true
-      run: |
-        dotnet nuget remove source clx
     
   validate_nuget:
     runs-on: ubuntu-latest
@@ -78,7 +68,7 @@ jobs:
             dotnet-version: 9.x
 
       # Download the NuGet package created in the previous job
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: nuget
           path: ${{ env.NuGetDirectory }}
@@ -102,7 +92,7 @@ jobs:
     needs: [ validate_nuget ]
     steps:
       # Download the NuGet package created in the previous job
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: nuget
           path: ${{ env.NuGetDirectory }}
