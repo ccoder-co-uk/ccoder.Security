@@ -57,22 +57,6 @@ public class TenantOrchestrationService(
     {
         authBroker.UserIsPortalAdminWithPrivilege("tenant_delete");
 
-        var tenantRoles = roleProcessingService
-            .GetAllSSORoles()
-            .Where(r => r.TenantId == tenant.Id)
-            .ToArray();
-
-        var userRoles = userRoleProcessingService
-            .GetAllSSOUserRoles()
-            .Where(ur => tenantRoles.Select(tr => tr.Id).Contains(ur.RoleId))
-            .ToArray();
-
-        foreach (var userRole in userRoles)
-            await userRoleProcessingService.DeleteSSOUserRoleAsync(userRole);
-
-        foreach (var role in tenantRoles)
-            await roleProcessingService.DeleteSSORoleAsync(role);
-
         await tenantProcessingService.DeleteTenantAsync(tenant);
     }
     
