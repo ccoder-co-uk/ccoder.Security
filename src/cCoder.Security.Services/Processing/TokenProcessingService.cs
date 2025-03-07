@@ -65,7 +65,7 @@ public class TokenProcessingService(ITokenService tokenService)
         Token token = tokenService.GetAllTokens(ignoreFilters: true)
             .FirstOrDefault(r => r.Reason == reasonCode && r.Id == tokenId);
 
-        if (token.Expires < DateTimeOffset.Now)
+        if (token is null || token.Expires < DateTimeOffset.Now)
             return null;
 
         return token;
