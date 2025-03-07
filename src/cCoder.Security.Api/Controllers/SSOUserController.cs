@@ -60,13 +60,6 @@ public class SSOUserController(
     [HttpPost("AcceptInvite")]
     public virtual async ValueTask<IActionResult> AcceptInvite([FromQuery] string userId, [FromQuery] string inviteToken, [FromBody] RegisterUser inviteForm)
     {
-        SSOUser user = ssoUserOrchestrationService
-            .GetAllSSOUsers()
-            .FirstOrDefault(i => i.Id == userId);
-
-        if (user == null)
-            throw new SecurityException("Access Denied!");
-
         await ssoUserProcessingService.AcceptInviteAsync(inviteForm, userId, inviteToken);
 
         return Ok();
