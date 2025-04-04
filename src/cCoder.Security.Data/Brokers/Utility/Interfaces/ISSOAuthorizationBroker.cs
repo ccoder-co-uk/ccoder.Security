@@ -8,7 +8,5 @@ public interface ISSOAuthorizationBroker
 
     IEnumerable<SSOPrivilege> GetAllPrivileges();
 
-    void UserHasPrivilege(string privilege);
-
-    void UserIsPortalAdminWithPrivilege(string privilege);
+    void UserHasPrivilege(string privilege, string tenantId = null);
 }
