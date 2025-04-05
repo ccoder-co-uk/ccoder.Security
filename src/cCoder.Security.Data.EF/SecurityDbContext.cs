@@ -92,7 +92,7 @@ public partial class SecurityDbContext(
         if (!passed)
             throw new SecurityException($"Privilege '{privilege}' is not granted as current user is not portal admin: '{GetCurrentUser().Id}'");
     }
-    public void UserHasPrivilege(string privilege)
+    public void UserHasPrivilege(string privilege, string tenantId)
     {
         Guid[] userRoles = GetCurrentUserRoles();
         bool passed = Roles.Any(r => userRoles.Contains(r.Id) && r.Privs.Contains(privilege));
