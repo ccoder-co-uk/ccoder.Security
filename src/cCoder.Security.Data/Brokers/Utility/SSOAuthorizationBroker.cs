@@ -19,7 +19,7 @@ public class SSOAuthorizationBroker(ISecurityDbContextFactory contextFactory)
         return db.GetCurrentUser();
     }
 
-    public void UserHasPrivilege(string privilege)
+    public void UserHasPrivilege(string privilege, string tenantId)
     {
         var db = contextFactory.CreateDbContext();
         db.UserHasPrivilege(privilege);
