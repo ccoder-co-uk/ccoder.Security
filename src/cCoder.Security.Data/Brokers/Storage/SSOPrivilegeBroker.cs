@@ -14,5 +14,8 @@ public class SSOPrivilegeBroker : ISSOPrivilegeBroker
     }
 
     public IQueryable<SSOPrivilege> GetPrivileges()
-        => contextFactory.CreateDbContext().GetPrivileges();
+        => contextFactory
+            .CreateDbContext()
+            .GetPrivileges()
+            .AsQueryable();
 }

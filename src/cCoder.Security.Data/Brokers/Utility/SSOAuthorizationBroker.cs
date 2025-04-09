@@ -22,7 +22,7 @@ public class SSOAuthorizationBroker(ISecurityDbContextFactory contextFactory)
     public void UserHasPrivilege(string privilege, string tenantId)
     {
         var db = contextFactory.CreateDbContext();
-        db.UserHasPrivilege(privilege);
+        db.UserHasPrivilege(privilege, tenantId);
     }
 
     public void UserIsPortalAdminWithPrivilege(string privilege)

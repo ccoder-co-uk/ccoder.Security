@@ -1,4 +1,5 @@
 using cCoder.Security.Data.Brokers.Storage.Interfaces;
+using cCoder.Security.Data.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundation;
 using cCoder.Security.Services.Foundation.Interfaces;
@@ -10,12 +11,14 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class SSORoleServiceTests
 {
     private readonly Mock<ISSORoleBroker> roleBrokerMock;
+    private readonly Mock<ISSOAuthorizationBroker> authBrokerMock;
     private readonly ISSORoleService roleService;
 
     public SSORoleServiceTests()
     {
         roleBrokerMock = new Mock<ISSORoleBroker>();
-        roleService = new SSORoleService(roleBrokerMock.Object);
+        authBrokerMock = new Mock<ISSOAuthorizationBroker>();
+        roleService = new SSORoleService(roleBrokerMock.Object, authBrokerMock.Object);
     }
 
     private static IQueryable<SSORole> RandomRoles() => 
