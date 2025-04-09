@@ -17,15 +17,13 @@ public partial class SSOUserApiTests
 
 		foreach (RegisterUser registerUser in randomUsers)
 		{
-                RegistrationResult result = await 
-				registerApiClient.RegisterAsync(registerUser);
+			RegistrationResult result = await registerApiClient.RegisterAsync(registerUser);
 
-                expectedSSOUsers.Add(result.User);
+			expectedSSOUsers.Add(result.User);
 		}
 
         //when
-        IEnumerable<SSOUser> actualSSOUsers = 
-			await ssoUserApiClient.GetAllSSOUsersAsync();
+        IEnumerable<SSOUser> actualSSOUsers = await ssoUserApiClient.GetAllSSOUsersAsync();
 
 		//then
 		foreach (SSOUser expectedUser in expectedSSOUsers)

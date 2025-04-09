@@ -7,28 +7,15 @@ namespace cCoder.Security.Services.Foundation;
 
 public class SSOUserRoleService(
     ISSOUserRoleBroker userRoleBroker,
+    ITenantBroker tenantBroker,
     ISSOAuthorizationBroker authBroker) 
         : ISSOUserRoleService
 {
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
-    {
-        var tenantId = userRoleBroker.GetAllTenants()
-            .First(t => t.Roles.Any(r => r.Id == item.RoleId))
-            .Id;
-
-        authBroker.UserHasPrivilege("tenant_admin", tenantId);
+    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) =>
         await userRoleBroker.AddSSOUserRoleAsync(item);
-    }
 
-    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item)
-    {
-        var tenantId = userRoleBroker.GetAllTenants()
-            .First(t => t.Roles.Any(r => r.Id == item.RoleId))
-            .Id;
-
-        authBroker.UserHasPrivilege("tenant_admin", tenantId);
+    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
         await userRoleBroker.DeleteSSOUserRoleAsync(item);
-    }
 
     public IQueryable<SSOUserRole> GetAllSSOUserRoles()
         => userRoleBroker.GetAllSSOUserRoles();
