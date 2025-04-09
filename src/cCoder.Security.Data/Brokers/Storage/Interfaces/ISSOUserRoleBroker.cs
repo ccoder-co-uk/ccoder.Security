@@ -8,5 +8,4 @@ public interface ISSOUserRoleBroker
     ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole);
 
     IQueryable<SSOUserRole> GetAllSSOUserRoles();
-    IQueryable<Tenant> GetAllTenants();
 }

@@ -1,4 +1,5 @@
-﻿using cCoder.Security.Objects.Entities;
+﻿using cCoder.Security.Data.Brokers.Utility.Interfaces;
+using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundation.Interfaces;
 using cCoder.Security.Services.Processing.Interfaces;
 
@@ -10,7 +11,7 @@ public class SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleService
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
         ssoUserRoleService.GetAllSSOUserRoles();
 
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) => 
+    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) =>
         await ssoUserRoleService.AddSSOUserRoleAsync(item);
 
     public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) => 
