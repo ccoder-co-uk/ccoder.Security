@@ -38,7 +38,7 @@ public class TenantOrchestrationService(
             UsersArePortalAdmins = false,
             Name = $"{tenant.Name} Admins",
             Description = $"{tenant.Name} Admins",
-            Privs = "tenant_read",
+            Privs = "tenant_admin",
             TenantId = tenant.Id
         });
 
