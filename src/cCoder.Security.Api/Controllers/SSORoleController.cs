@@ -1,5 +1,5 @@
 ﻿using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Foundation.Interfaces;
+using cCoder.Security.Services.Orchestration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.OData.Results;
 namespace cCoder.Security.Api.Controllers;
 
 public class SSORoleController(
-    ISSORoleService ssoRoleService) 
+    ISSORoleOrchestrationService ssoRoleService) 
         : SecurityController<SSORole>
 {
     [HttpGet()]
