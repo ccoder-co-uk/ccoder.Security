@@ -10,24 +10,15 @@ public class SSORoleService(
     ISSOAuthorizationBroker authBroker) 
         : ISSORoleService
 {
-    public IQueryable<SSORole> GetAllSSORoles()
-        => roleBroker.GetAllSSORoles();
+    public IQueryable<SSORole> GetAllSSORoles() =>
+        roleBroker.GetAllSSORoles();
 
-    public async ValueTask<SSORole> AddSSORoleAsync(SSORole item)
-    {
-        authBroker.UserHasPrivilege("tenant_admin", item.TenantId);
-        return await roleBroker.AddSSORoleAsync(item);
-    }
+    public async ValueTask<SSORole> AddSSORoleAsync(SSORole item) =>
+        await roleBroker.AddSSORoleAsync(item);
 
-    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole item)
-    {
-        authBroker.UserHasPrivilege("tenant_admin", item.TenantId);
-        return await roleBroker.UpdateSSORoleAsync(item);
-    }
+    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole item) =>
+        await roleBroker.UpdateSSORoleAsync(item);
 
-    public async ValueTask DeleteSSORoleAsync(SSORole item)
-    {
-        authBroker.UserHasPrivilege("tenant_admin", item.TenantId);
+    public async ValueTask DeleteSSORoleAsync(SSORole item) =>
         await roleBroker.DeleteSSORoleAsync(item);
-    }
 }
