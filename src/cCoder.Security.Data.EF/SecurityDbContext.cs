@@ -81,6 +81,13 @@ public partial class SecurityDbContext(
             .Select(r => r.RoleId)
             .ToArray();
 
+    protected Guid[] GetCurrentUserRolesForTenant(string tenantId) =>
+        GetCurrentUser()
+            .Roles
+            .Where(r => r.Role.TenantId == tenantId)
+            .Select(r => r.RoleId)
+            .ToArray();
+
     public void UserIsPortalAdminWithPrivilege(string privilege)
     {
         var userRoles = GetCurrentUserRoles();
@@ -94,7 +101,7 @@ public partial class SecurityDbContext(
     }
     public void UserHasPrivilege(string privilege, string tenantId)
     {
-        Guid[] userRoles = GetCurrentUserRoles();
+        Guid[] userRoles = GetCurrentUserRolesForTenant(tenantId);
         bool passed = Roles.Any(r => userRoles.Contains(r.Id) && r.Privs.Contains(privilege));
 
         if (!passed)
