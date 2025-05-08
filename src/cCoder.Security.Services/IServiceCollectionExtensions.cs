@@ -89,6 +89,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();
 
         services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
+        services.AddScoped<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();
     }
 
     private static void AddCoordinations(this IServiceCollection services)
