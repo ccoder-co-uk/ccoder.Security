@@ -33,4 +33,22 @@ public class SSORoleController(
 
     public virtual async ValueTask<IActionResult> Put([FromRoute] Guid key, [FromBody] SSORole role) =>
         Ok(ssoRoleService.UpdateSSORoleAsync(role));
+
+    [HttpDelete]
+    public async ValueTask<IActionResult> Delete([FromRoute] Guid key)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var role = ssoRoleService
+            .GetAllSSORoles()
+            .FirstOrDefault(r => r.Id == key);
+
+        if (role is null)
+            return NotFound();
+
+        await ssoRoleService.DeleteSSORoleAsync(role);
+
+        return Ok();
+    }
 }
