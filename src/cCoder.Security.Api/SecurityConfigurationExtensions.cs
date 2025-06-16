@@ -19,5 +19,10 @@ public static class SecurityConfigurationExtensions
         services.AddTransient<ISymmetricCrypto<string>>(_ => new AesCrypto<string>(decryptionKey));
         services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerAESHMAC>();
     }
+
+    public static void UsePasswordHasherHashing(
+        this SecurityConfiguration config,
+        IServiceCollection services) =>
+            services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerHasher>();
 }
 
