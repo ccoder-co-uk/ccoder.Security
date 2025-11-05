@@ -15,12 +15,7 @@ public partial class SSOUserProcessingService(
     {
         ValidateSSOUser(user);
 
-        int userIdCount = ssoUserService
-            .GetAllSSOUsers(ignoreFilters: true)
-            .Count(sso => sso.Id == user.Id);
-
-        if (userIdCount > 0)
-            user.Id += userIdCount;
+        user.Id = GetNextAvailableUserId(user);
 
         user.PasswordHash = encryptionBroker.Encrypt(user.PasswordHash);
 
@@ -31,12 +26,7 @@ public partial class SSOUserProcessingService(
     {
         ValidateSSOUser(user);
 
-        int userIdCount = ssoUserService
-            .GetAllSSOUsers(ignoreFilters: true)
-            .Count(sso => sso.Id == user.Id);
-
-        if (userIdCount > 0)
-            user.Id += userIdCount;
+        user.Id = GetNextAvailableUserId(user);
 
         user.PasswordHash = encryptionBroker.Encrypt(user.PasswordHash);
         user.LockoutEnabled = true;
@@ -105,4 +95,22 @@ public partial class SSOUserProcessingService(
 
     public SSOUser Me() =>
         ssoUserService.Me();
+
+    private string GetNextAvailableUserId(SSOUser user)
+    {
+        string userId = user.Id;
+        int attempts = 1;
+
+        SSOUser existing = FindById(userId);
+
+        while (existing is not null)
+        {
+            userId = user.Id + attempts;
+
+            existing = FindById(userId);
+            attempts++;
+        }
+
+        return userId;
+    }
 }
