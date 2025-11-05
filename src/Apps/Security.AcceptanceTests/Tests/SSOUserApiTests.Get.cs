@@ -13,7 +13,7 @@ public partial class SSOUserApiTests
 	{
 		//given
 		RegisterUser[] randomUsers = RandomRegisterUsers();
-            List <SSOUser> expectedSSOUsers = [];
+        List <SSOUser> expectedSSOUsers = [];
 
 		foreach (RegisterUser registerUser in randomUsers)
 		{
