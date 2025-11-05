@@ -1,6 +1,7 @@
 ﻿using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
+using Security.AcceptanceTests.Clients;
 using Security.AcceptanceTests.Tests.Models;
 using Xunit;
 
@@ -12,7 +13,10 @@ public partial class SSOUserApiTests
     public async void MeWorksAsExpectedForBearerToken()
     {
         //given
-        accountApiClient.UseNoCookiesApiClient();
+        AccountApiClient accountClient = new();
+        SSOUserApiClient ssoUserClient = new();
+
+        accountClient.UseNoCookiesApiClient();
 
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
@@ -22,11 +26,11 @@ public partial class SSOUserApiTests
         SSOUser existingSSOUser = result.User;
 
         Auth inputAuth = RandomAuth(existingRegisterUser);
-        Token token = await accountApiClient.LoginAsync(inputAuth);
+        Token token = await accountClient.LoginAsync(inputAuth);
 
         //when
-        ssoUserApiClient.AddBearerAuthentication(token.Id);
-        SSOUser actualSSOUser = await ssoUserApiClient.Me();
+        ssoUserClient.AddBearerAuthentication(token.Id);
+        SSOUser actualSSOUser = await ssoUserClient.Me();
 
         //then
         actualSSOUser.Should().BeEquivalentTo(existingSSOUser);
@@ -38,6 +42,7 @@ public partial class SSOUserApiTests
     public async void MeWorksAsExpectedForSession()
     {
         //given
+        CookieSSOUserApiClient cookieSsoUserClient = new();
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
         RegistrationResult result = await registerApiClient
@@ -46,10 +51,10 @@ public partial class SSOUserApiTests
         SSOUser existingSSOUser = result.User;  
 
         Auth inputAuth = RandomAuth(existingRegisterUser);
-        Token token = await cookieSSOUserApiClient.LoginAsync(inputAuth, keepSessionCookie: true);
+        Token token = await cookieSsoUserClient.LoginAsync(inputAuth, keepSessionCookie: true);
 
         //when
-        SSOUser actualSSOUser = await cookieSSOUserApiClient.Me();
+        SSOUser actualSSOUser = await cookieSsoUserClient.Me();
 
         //then
         actualSSOUser.Should().BeEquivalentTo(existingSSOUser);
@@ -61,7 +66,9 @@ public partial class SSOUserApiTests
     public async void MeWorksAsExpectedForBasic()
     {
         //given
-        accountApiClient.UseNoCookiesApiClient();
+        AccountApiClient accountClient = new();
+        SSOUserApiClient ssoUserClient = new();
+        accountClient.UseNoCookiesApiClient();
 
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
@@ -73,8 +80,8 @@ public partial class SSOUserApiTests
         Auth inputAuth = RandomAuth(existingRegisterUser);
 
         //when
-        ssoUserApiClient.AddBasicAuthentication(inputAuth);
-        SSOUser actualSSOUser = await ssoUserApiClient.Me();
+        ssoUserClient.AddBasicAuthentication(inputAuth);
+        SSOUser actualSSOUser = await ssoUserClient.Me();
 
         //then
         actualSSOUser.Should().BeEquivalentTo(existingSSOUser);
