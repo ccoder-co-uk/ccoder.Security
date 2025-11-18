@@ -24,13 +24,17 @@ public class AuthenticationOrchestrationService
 
     public async ValueTask<Token> LoginAsync(string username, string password)
     {
-        SSOUser user = ssoUserProcessingService.FindByUserAndPassword(username, password);
+        SSOUser user = await ssoUserProcessingService
+            .FindByUserAndPasswordAsync(username, password);
 
         if (user == null)
             throw new SecurityException("Access Denied!");
 
         sessionProcessingService.SetUser(user);
-        Token token = await tokenProcessingService.AddTokenForUserIdAsync(user.Id);
+
+        Token token = await tokenProcessingService
+            .AddTokenForUserIdAsync(user.Id);
+
         return token;
     }
 

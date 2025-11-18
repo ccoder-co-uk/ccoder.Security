@@ -1,6 +1,7 @@
 ﻿using cCoder.Security.Objects.Entities;
 
-namespace cCoder.Security.Services.Orchestration;
+namespace cCoder.Security.Services.Orchestration.Interfaces;
+
 public interface ISSOUserRoleOrchestrationService
 {
     IQueryable<SSOUserRole> GetAllSSOUserRoles();

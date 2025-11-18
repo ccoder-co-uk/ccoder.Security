@@ -9,7 +9,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class UserEventServiceTests
 {
     [Fact]
-    public async void AddUserEventAsyncWorksAsExpected()
+    public async Task AddUserEventAsyncWorksAsExpected()
     {
         //given
         UserEvent inputUserEvent = RandomUserEvent();

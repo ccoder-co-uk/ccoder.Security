@@ -7,25 +7,11 @@ using Xunit;
 namespace cCoder.Security.AcceptanceTests.Tests;
 
 [Collection(nameof(AllTestsCollection))]
-public partial class SSOUserApiTests
-	{
-    private readonly RegisterApiClient registerApiClient;
-    private readonly SSOUserApiClient ssoUserApiClient;
-    private readonly AccountApiClient accountApiClient;
-    private readonly CookieSSOUserApiClient cookieSSOUserApiClient;
-
-    public SSOUserApiTests(
-        RegisterApiClient registerApiClient, 
-        SSOUserApiClient ssoUserApiClient, 
-        AccountApiClient accountApiClient, 
-        CookieSSOUserApiClient cookieSSOUserApiClient)
-		{
-        this.registerApiClient = registerApiClient;
-        this.ssoUserApiClient = ssoUserApiClient;
-        this.accountApiClient = accountApiClient;
-        this.cookieSSOUserApiClient = cookieSSOUserApiClient;
-    }
-
+public partial class SSOUserApiTests(
+    RegisterApiClient registerApiClient,
+    SSOUserApiClient ssoUserApiClient,
+    AccountApiClient accountApiClient)
+{
     private static Auth RandomAuth(RegisterUser user)
                 => new()
                 {
@@ -33,10 +19,8 @@ public partial class SSOUserApiTests
                     Pass = user.Password
                 };
 
-    private static RegisterUser[] RandomRegisterUsers() => 
-        Enumerable.Range(1, new Random().Next(10, 20))
-            .Select(_ => RandomRegisterUser())
-            .ToArray();
+    private static RegisterUser[] RandomRegisterUsers() =>
+        [.. Enumerable.Range(1, new Random().Next(10, 20)).Select(_ => RandomRegisterUser())];
 
     private static RegisterUser RandomRegisterUser() => 
         GetRegisterUserFiller()

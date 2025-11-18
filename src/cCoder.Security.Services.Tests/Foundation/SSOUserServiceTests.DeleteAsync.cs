@@ -8,7 +8,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class SSOUserServiceTests
 {
     [Fact]
-    public async void ShouldDeleteSSOUserAsync()
+    public async Task ShouldDeleteSSOUserAsync()
     {
         // given
         SSOUser inputSSOUser = RandomUser(RandomString());

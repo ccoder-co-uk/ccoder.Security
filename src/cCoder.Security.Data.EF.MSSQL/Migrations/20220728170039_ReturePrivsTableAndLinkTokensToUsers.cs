@@ -69,7 +69,7 @@ public partial class ReturePrivsTableAndLinkTokensToUsers : Migration
 
         migrationBuilder.InsertData(
             table: "Privileges",
-            columns: new[] { "Id", "Description", "Operation", "PortalAdminsOnly", "Type" },
+            columns: ["Id", "Description", "Operation", "PortalAdminsOnly", "Type"],
             values: new object[,]
             {
                 { "logdataitem_create", "Allows users to Create LogDataItems.", "Create", false, "LogDataItem" },

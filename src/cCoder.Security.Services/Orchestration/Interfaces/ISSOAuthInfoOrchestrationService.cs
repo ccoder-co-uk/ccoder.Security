@@ -4,5 +4,5 @@ namespace cCoder.Security.Services.Orchestration.Interfaces;
 
 public interface ISSOAuthInfoOrchestrationService
 {
-    ISSOAuthInfo GetSSOAuthInfo();
+    ValueTask<ISSOAuthInfo> GetSSOAuthInfoAsync();
 }

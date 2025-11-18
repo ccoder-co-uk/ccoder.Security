@@ -8,7 +8,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class SSORoleServiceTests
 {
     [Fact]
-    public async void ShouldDeleteSSORoleAsync()
+    public async Task ShouldDeleteSSORoleAsync()
     {
         // given
         SSORole inputSSORole = RandomRole(Guid.NewGuid());

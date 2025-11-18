@@ -26,13 +26,13 @@ public class SSOAuthInfoOrchestrationService
         this.httpRequestBroker = httpRequestBroker;
     }
 
-    public ISSOAuthInfo GetSSOAuthInfo()
+    public async ValueTask<ISSOAuthInfo> GetSSOAuthInfoAsync()
     {
-        ISSOAuthInfo auth = GetFromAuthenticationHeader() ?? GetFromSession();
+        ISSOAuthInfo auth = (await GetFromAuthenticationHeaderAsync()) ?? GetFromSession();
         return auth ?? new SSOAuthInfo { SSOUserId = "Guest" };
     }
 
-    private ISSOAuthInfo GetFromAuthenticationHeader()
+    private async ValueTask<ISSOAuthInfo> GetFromAuthenticationHeaderAsync()
     {
         string authHeaderValue = httpRequestBroker.Header("Authorization");
 
@@ -43,7 +43,7 @@ public class SSOAuthInfoOrchestrationService
             return GetBearerAuthentication(authHeaderValue);
 
         if(authHeaderValue.StartsWith("basic", StringComparison.InvariantCultureIgnoreCase))
-            return GetBasicAuthentication(authHeaderValue);
+            return await GetBasicAuthenticationAsync(authHeaderValue);
 
         return null;
     }
@@ -58,7 +58,7 @@ public class SSOAuthInfoOrchestrationService
         return new SSOAuthInfo { SSOUserId = user.Id };
     }
 
-    private ISSOAuthInfo GetBearerAuthentication(string authHeaderValue)
+    ISSOAuthInfo GetBearerAuthentication(string authHeaderValue)
     {
         string tokenId = GetBearerToken(authHeaderValue);
 
@@ -74,22 +74,25 @@ public class SSOAuthInfoOrchestrationService
         return new SSOAuthInfo { SSOUserId = token.UserName };
     }
 
-    private ISSOAuthInfo GetBasicAuthentication(string authHeaderValue)
+    async ValueTask<ISSOAuthInfo> GetBasicAuthenticationAsync(string authHeaderValue)
     {
         if (authHeaderValue.ToLowerInvariant().StartsWith("basic"))
-            return AuthenticateBasicAuth(authHeaderValue);
+            return await AuthenticateBasicAuthAsync(authHeaderValue);
 
         return null;
     }
 
-    private ISSOAuthInfo AuthenticateBasicAuth(string auth)
+    async ValueTask<ISSOAuthInfo> AuthenticateBasicAuthAsync(string auth)
     {
         (string username, string password) = ParseBasicAuthDetails(auth);
-        Objects.Entities.SSOUser user = userService.FindByUserAndPassword(username, password);
+
+        Objects.Entities.SSOUser user = await userService
+            .FindByUserAndPasswordAsync(username, password);
+
         return new SSOAuthInfo { SSOUserId = user.Id };
     }
 
-    private static (string, string) ParseBasicAuthDetails(string auth)
+    static (string, string) ParseBasicAuthDetails(string auth)
     {
         string base64AuthString = auth[6..];
         byte[] authBytes = Convert.FromBase64String(base64AuthString);
@@ -104,7 +107,7 @@ public class SSOAuthInfoOrchestrationService
         );
     }
 
-    private static string GetBearerToken(string auth)
+    static string GetBearerToken(string auth)
     {
         if (!auth.ToLowerInvariant().StartsWith("bearer"))
             return null;

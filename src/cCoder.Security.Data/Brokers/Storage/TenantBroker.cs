@@ -1,23 +1,20 @@
 ﻿using cCoder.Security.Data.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace cCoder.Security.Data.Brokers.Storage;
 
-public class TenantBroker : ITenantBroker
+public class TenantBroker(ISecurityDbContextFactory contextFactory) 
+    : ITenantBroker
 {
-    private readonly ISecurityDbContextFactory contextFactory;
-
-    public TenantBroker(ISecurityDbContextFactory contextFactory)
-    {
-        this.contextFactory = contextFactory;
-    }
-
     public async ValueTask<Tenant> AddTenantAsync(Tenant tenant)
     {
         using EF.SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Tenant> entityEntry = await context.Tenants.AddAsync(tenant);
+        EntityEntry<Tenant> entityEntry = 
+            await context.Tenants.AddAsync(tenant);
+
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -25,9 +22,12 @@ public class TenantBroker : ITenantBroker
 
     public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant)
     {
-        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = 
+            contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Tenant> entityEntry = context.Tenants.Update(tenant);
+        EntityEntry<Tenant> entityEntry = 
+            context.Tenants.Update(tenant);
+
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -35,15 +35,20 @@ public class TenantBroker : ITenantBroker
 
     public async ValueTask DeleteTenantAsync(Tenant tenant)
     {
-        using EF.SecurityDbContext context = contextFactory.CreateDbContext();
+        using EF.SecurityDbContext context = 
+            contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Tenant> entityEntry = context.Tenants.Remove(tenant);
+        EntityEntry<Tenant> entityEntry = 
+            context.Tenants.Remove(tenant);
+
         await context.SaveChangesAsync();
     }
 
     public IQueryable<Tenant> GetAllTenants()
     {
-        EF.SecurityDbContext context = contextFactory.CreateDbContext();
+        EF.SecurityDbContext context = 
+            contextFactory.CreateDbContext();
+
         return context.Tenants;
     }
 }

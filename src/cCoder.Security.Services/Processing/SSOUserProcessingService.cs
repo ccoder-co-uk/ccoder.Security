@@ -37,7 +37,7 @@ public partial class SSOUserProcessingService(
     public async ValueTask DeleteSSOUserAsync(SSOUser item) =>
         await ssoUserService.DeleteSSOUserAsync(item);
 
-    public SSOUser FindByUserAndPassword(string username, string password)
+    public async ValueTask<SSOUser> FindByUserAndPasswordAsync(string username, string password)
     {
         ValidateUsername(username);
 
@@ -53,7 +53,7 @@ public partial class SSOUserProcessingService(
             if (user.AccessFailedCount > 10)
                 user.LockoutEnabled = true;
 
-            UpdateSSOUserAsync(user);
+            await UpdateSSOUserAsync(user);
             throw new SecurityException("Access Denied!");
         }
         else
@@ -61,7 +61,7 @@ public partial class SSOUserProcessingService(
             if(user.AccessFailedCount > 0)
             {
                 user.AccessFailedCount = 0;
-                UpdateSSOUserAsync(user);
+                await UpdateSSOUserAsync(user);
             }
         }
 

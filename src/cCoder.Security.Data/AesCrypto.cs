@@ -3,15 +3,9 @@ using System.Text.Json;
 
 namespace cCoder.Security.Data;
 
-public class AesCrypto<T> : ISymmetricCrypto<T>
+public class AesCrypto<T>(string decryptionKey) : ISymmetricCrypto<T>
 {
-    private readonly string decryptionKey;
     private readonly AesThenHmac crypto = new();
-
-    public AesCrypto(string key)
-    {
-        decryptionKey = key;
-    }
 
     public string Encrypt(T source, string key)
     {

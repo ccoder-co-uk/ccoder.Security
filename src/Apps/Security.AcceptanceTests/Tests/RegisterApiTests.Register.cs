@@ -9,7 +9,7 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 public partial class RegisterApiTests
 {
     [Fact]
-    public async void ShouldRegisterAccountAsync()
+    public async Task ShouldRegisterAccountAsync()
     {
         //given
         RegisterUser inputRegisterUser = RandomRegisterUser();
@@ -26,7 +26,7 @@ public partial class RegisterApiTests
         };
 
         //when
-        RegistrationResult result = await registerApiClient
+        RegistrationResult result = await userApiClient
             .RegisterAsync(inputRegisterUser);
 
         SSOUser actualSSOUser = result.User;    

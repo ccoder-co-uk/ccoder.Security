@@ -1,5 +1,5 @@
 ﻿using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestration;
+using cCoder.Security.Services.Orchestration.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
@@ -29,10 +29,10 @@ public class SSORoleController(
     }
 
     public virtual async ValueTask<IActionResult> Post([FromBody] SSORole role) =>
-        Ok(ssoRoleService.AddSSORoleAsync(role));
+        Ok(await ssoRoleService.AddSSORoleAsync(role));
 
     public virtual async ValueTask<IActionResult> Put([FromRoute] Guid key, [FromBody] SSORole role) =>
-        Ok(ssoRoleService.UpdateSSORoleAsync(role));
+        Ok(await ssoRoleService.UpdateSSORoleAsync(role));
 
     [HttpDelete]
     public async ValueTask<IActionResult> Delete([FromRoute] Guid key)

@@ -9,7 +9,7 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 public partial class AccountApiTests
 {
     [Fact]
-    public async void LoginReturnsTokenAsync()
+    public async Task LoginReturnsTokenAsync()
     {
         //given
         RegisterUser existingRegisterUser = RandomRegisterUser();
@@ -18,7 +18,7 @@ public partial class AccountApiTests
         Auth inputAuth = RandomAuth(existingRegisterUser);
 
         //when
-        Token actualToken = await accountApiClient.LoginAsync(inputAuth);
+        Token actualToken = await userApiClient.LoginAsync(inputAuth);
 
         //then
         result.Token.Should().NotBeNullOrEmpty();

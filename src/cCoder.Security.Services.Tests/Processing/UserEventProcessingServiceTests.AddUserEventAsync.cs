@@ -9,7 +9,7 @@ namespace cCoder.Security.Services.Tests.Processing;
 public partial class UserEventProcessingServiceTests
 {
     [Fact]
-    public async void AddUserEventAsyncWorksAsExpected()
+    public async Task AddUserEventAsyncWorksAsExpected()
     {
         //given
         UserEvent inputUserEvent = RandomUserEvent();

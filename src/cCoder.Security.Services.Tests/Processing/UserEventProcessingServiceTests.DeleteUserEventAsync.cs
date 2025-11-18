@@ -7,7 +7,7 @@ namespace cCoder.Security.Services.Tests.Processing;
 public partial class UserEventProcessingServiceTests
 {
     [Fact]
-    public async void ShouldDeleteUserEventAsync()
+    public async Task ShouldDeleteUserEventAsync()
     {
         //given
         UserEvent inputUserEvent = RandomUserEvent();

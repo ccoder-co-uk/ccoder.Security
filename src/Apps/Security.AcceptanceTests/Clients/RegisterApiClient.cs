@@ -71,15 +71,13 @@ public class RegisterApiClient
 
         if (user != null)
         {
-            List<cCoder.Security.Objects.Entities.Token> tokens = Database.Tokens
+            List<cCoder.Security.Objects.Entities.Token> tokens = [.. Database.Tokens
                 .IgnoreQueryFilters()
-                .Where(t => t.UserName == user.Id)
-                .ToList();
+                .Where(t => t.UserName == user.Id)];
 
-            List<cCoder.Security.Objects.Entities.SSOUserRole> userRoles = Database.UserRoles
+            List<cCoder.Security.Objects.Entities.SSOUserRole> userRoles = [.. Database.UserRoles
                 .IgnoreQueryFilters()
-                .Where(r => r.UserId == user.Id)
-                .ToList();
+                .Where(r => r.UserId == user.Id)];
 
             Database.Tokens.RemoveRange(tokens);
             Database.UserRoles.RemoveRange(userRoles);

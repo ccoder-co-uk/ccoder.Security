@@ -9,7 +9,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class SSOUserServiceTests
 {
     [Fact]
-    public async void ShouldUpdateSSOUserAsync()
+    public async Task ShouldUpdateSSOUserAsync()
     {
         // given
         SSOUser inputSSOUser = RandomUser(RandomString());
