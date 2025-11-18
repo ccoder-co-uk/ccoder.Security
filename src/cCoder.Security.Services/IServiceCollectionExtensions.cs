@@ -27,6 +27,13 @@ public static class IServiceCollectionExtensions
 
         services.AddScoped(async provider => await provider.GetService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfoAsync());
 
+        services.AddScoped(provider => 
+        {
+            var authInfoTask = provider.GetService<Task<ISSOAuthInfo>>();
+            authInfoTask.Wait();
+            return authInfoTask.Result;
+        });
+
         services.AddBrokers();
         services.AddFoundations();
         services.AddProcessings();
