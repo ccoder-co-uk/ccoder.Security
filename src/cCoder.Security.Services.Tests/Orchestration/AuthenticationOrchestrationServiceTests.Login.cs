@@ -6,7 +6,7 @@ namespace cCoder.Security.Services.Tests.Orchestration;
 public partial class AuthenticationOrchestrationServiceTests
 {
     [Fact]
-    public async void LoginThrowsSecurityExceptionIfNotValidLogin()
+    public async Task LoginThrowsSecurityExceptionIfNotValidLogin()
     {
         //given
         string username = RandomString();

@@ -4,15 +4,9 @@ using cCoder.Security.Services.Foundation.Interfaces;
 
 namespace cCoder.Security.Services.Foundation;
 
-public class SSOPrivilegeService : ISSOPrivilegeService
+public class SSOPrivilegeService(ISSOPrivilegeBroker privBroker)
+    : ISSOPrivilegeService
 {
-    private readonly ISSOPrivilegeBroker privBroker;
-
-    public SSOPrivilegeService(ISSOPrivilegeBroker privBroker)
-    {
-        this.privBroker = privBroker;
-    }
-
-    public IQueryable<SSOPrivilege> GetAllSSOPrivileges()
-        => privBroker.GetPrivileges();
+    public IQueryable<SSOPrivilege> GetAllSSOPrivileges() => 
+        privBroker.GetPrivileges();
 }

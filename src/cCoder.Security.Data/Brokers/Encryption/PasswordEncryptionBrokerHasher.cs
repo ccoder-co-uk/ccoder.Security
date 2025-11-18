@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace cCoder.Security.Data.Brokers.Encryption;
 
 public class PasswordEncryptionBrokerHasher : IPasswordEncryptionBroker
 {
-    private readonly PasswordHasher hasher;
+    private readonly PasswordHasher<object> hasher;
 
     public PasswordEncryptionBrokerHasher() =>
-        this.hasher = new PasswordHasher();
+        this.hasher = new PasswordHasher<object>();
 
     public string Encrypt(string password) =>
-        hasher.HashPassword(password);
+        hasher.HashPassword(new object(), password);
 
     public bool EncryptedAndPlainTextAreEqual(string encrypted, string plainText) =>
-        hasher.VerifyHashedPassword(encrypted, plainText) is
+        hasher.VerifyHashedPassword(new object(), encrypted, plainText) is
             PasswordVerificationResult.Success or PasswordVerificationResult.SuccessRehashNeeded;
 }
 

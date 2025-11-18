@@ -4,15 +4,8 @@ using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Data.Brokers.Storage;
 
-public class SessionBroker : ISessionBroker
+public class SessionBroker(ISecurityDbContextFactory contextFactory) : ISessionBroker
 {
-    private readonly ISecurityDbContextFactory contextFactory;
-
-    public SessionBroker(ISecurityDbContextFactory contextFactory)
-    {
-        this.contextFactory = contextFactory;
-    }
-
     public async ValueTask<Session> AddSessionAsync(Session Session)
     {
         using EF.SecurityDbContext context = contextFactory.CreateDbContext();

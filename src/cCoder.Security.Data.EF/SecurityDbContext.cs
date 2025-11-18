@@ -68,25 +68,22 @@ public partial class SecurityDbContext(
                         .ThenInclude(ur => ur.Role)
                     .FirstOrDefault(u => u.Id == userNameRequested);
 
-            if (currentUser == null)
-                currentUser = new SSOUser() { Id = "Guest", Roles = Array.Empty<SSOUserRole>() };
+            currentUser ??= new SSOUser() { Id = "Guest", Roles = Array.Empty<SSOUserRole>() };
         }
 
         return currentUser;
     }
 
     protected Guid[] GetCurrentUserRoles() =>
-        GetCurrentUser()
+        [.. GetCurrentUser()
             .Roles
-            .Select(r => r.RoleId)
-            .ToArray();
+            .Select(r => r.RoleId)];
 
     protected Guid[] GetCurrentUserRolesForTenant(string tenantId) =>
-        GetCurrentUser()
+        [.. GetCurrentUser()
             .Roles
             .Where(r => r.Role.TenantId == tenantId)
-            .Select(r => r.RoleId)
-            .ToArray();
+            .Select(r => r.RoleId)];
 
     public void UserIsPortalAdminWithPrivilege(string privilege)
     {

@@ -4,17 +4,9 @@ using System.Reflection;
 
 namespace cCoder.Security.Data.EF.MSSQL;
 
-public partial class SecurityMSSQLModelBuildProvider : ISecurityModelBuildProvider
+public partial class SecurityMSSQLModelBuildProvider(string connectionString, bool logSQL = false) 
+    : ISecurityModelBuildProvider
 {
-    private readonly string connectionString;
-    private readonly bool logSQL;
-
-    public SecurityMSSQLModelBuildProvider(string connectionString, bool logSQL = false)
-    {
-        this.connectionString = connectionString;
-        this.logSQL = logSQL;
-    }
-
     public void MigrateDatabase(DatabaseFacade database) => 
         database.Migrate();
 

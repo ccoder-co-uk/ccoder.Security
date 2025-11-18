@@ -9,7 +9,7 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 public partial class RegisterApiTests
 {
     [Fact]
-    public async void ShouldRegisterMultipleAccountsWithSameEmailLocalPartAsync()
+    public async Task ShouldRegisterMultipleAccountsWithSameEmailLocalPartAsync()
     {
         // Given.
         RegisterUser inputRegisterUser1 = RandomRegisterUser();
@@ -57,13 +57,13 @@ public partial class RegisterApiTests
         };
 
         // When.
-        RegistrationResult result1 = await registerApiClient
+        RegistrationResult result1 = await userApiClient
             .RegisterAsync(inputRegisterUser1);
 
-        RegistrationResult result2 = await registerApiClient
+        RegistrationResult result2 = await userApiClient
             .RegisterAsync(inputRegisterUser2);
 
-        RegistrationResult result3 = await registerApiClient
+        RegistrationResult result3 = await userApiClient
             .RegisterAsync(inputRegisterUser3);
 
         SSOUser actualSSOUser1 = result1.User;

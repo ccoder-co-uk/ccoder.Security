@@ -9,7 +9,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class TenantServiceTests
 {
     [Fact]
-    public async void UpdateTenantAsyncWorksAsExpected()
+    public async Task UpdateTenantAsyncWorksAsExpected()
     {
         //given
         Tenant inputTenant = RandomTenant();

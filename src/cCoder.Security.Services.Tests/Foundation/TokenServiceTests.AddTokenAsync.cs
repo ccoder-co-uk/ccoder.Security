@@ -8,7 +8,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class TokenServiceTests
 {
     [Fact]
-    public async void ShouldAddTokenAsync()
+    public async Task ShouldAddTokenAsync()
     {
         // given
         string userId = RandomString();

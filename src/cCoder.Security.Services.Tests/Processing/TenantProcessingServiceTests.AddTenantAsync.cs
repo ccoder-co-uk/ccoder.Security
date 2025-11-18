@@ -9,7 +9,7 @@ namespace cCoder.Security.Services.Tests.Processing;
 public partial class TenantProcessingServiceTests
 {
     [Fact]
-    public async void ShouldAddTenantAsync()
+    public async Task ShouldAddTenantAsync()
     {
         //given
         Tenant inputTenant = RandomTenant();

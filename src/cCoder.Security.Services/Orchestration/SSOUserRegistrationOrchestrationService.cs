@@ -158,7 +158,8 @@ public class SSOUserRegistrationOrchestrationService(
 
     public async ValueTask ChangePassword(string username, string oldPassword, string newPassword)
     {
-        SSOUser user = ssoUserProcessingService.FindByUserAndPassword(username, oldPassword);
+        SSOUser user = await ssoUserProcessingService
+            .FindByUserAndPasswordAsync(username, oldPassword);
 
         if (user == null)
         {
@@ -185,13 +186,12 @@ public class SSOUserRegistrationOrchestrationService(
             throw new ValidationException("Password cannot be empty");
     }
 
-    private SSOUser MapToSSOUser(RegisterUser registerForm)
-        => new()
-        {
-            Id = registerForm.Email.Split("@")[0],
-            DisplayName = registerForm.DisplayName,
-            PasswordHash = registerForm.Password,
-            Email = registerForm.Email,
-            PhoneNumber = registerForm.PhoneNumber
-        };
+    private static SSOUser MapToSSOUser(RegisterUser registerForm) => new()
+    {
+        Id = registerForm.Email.Split("@")[0],
+        DisplayName = registerForm.DisplayName,
+        PasswordHash = registerForm.Password,
+        Email = registerForm.Email,
+        PhoneNumber = registerForm.PhoneNumber
+    };
 }

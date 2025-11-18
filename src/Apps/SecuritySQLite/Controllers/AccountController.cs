@@ -5,15 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace SecuritySQLite.Controllers;
 
 [Route("Api/Account")]
-public class AccountController : Controller
+public class AccountController(IAccountManager accountManager) : Controller
 {
-    private readonly IAccountManager accountManager;
-
-    public AccountController(IAccountManager accountManager)
-    {
-        this.accountManager = accountManager;
-    }
-
     [HttpPost("Login")]
     public async ValueTask<IActionResult> Login([FromBody] Auth auth) =>
         ModelState.IsValid

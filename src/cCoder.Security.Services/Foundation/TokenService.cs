@@ -22,7 +22,7 @@ public class TokenService : ITokenService
     {
         string value = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", "");
 
-        if (value.StartsWith("a"))
+        if (value.StartsWith('a'))
             value = value[1..] + "a";
 
         return await tokenBroker.AddTokenAsync(new Token()

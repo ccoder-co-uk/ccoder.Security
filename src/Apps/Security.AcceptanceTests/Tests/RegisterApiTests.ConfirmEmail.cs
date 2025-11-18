@@ -9,7 +9,7 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 public partial class RegisterApiTests
 {
     [Fact]
-    public async void ConfirmEmailWorksAsExpected()
+    public async Task ConfirmEmailWorksAsExpected()
     {
         //given
 
@@ -23,12 +23,12 @@ public partial class RegisterApiTests
 
         //when
         RegistrationResult registrationResult = 
-            await registerApiClient.RegisterAsync(existingRegisterUser);
+            await userApiClient.RegisterAsync(existingRegisterUser);
 
         SSOUser expectedSSOUser = registrationResult.User;
         expectedSSOUser.EmailConfirmed = true;
 
-        await registerApiClient
+        await userApiClient
             .PostAsync("ConfirmRegistration?confirmationToken=" + registrationResult.Token, null);
 
         Token loginToken = await accountApiClient.LoginAsync(inputAuth);

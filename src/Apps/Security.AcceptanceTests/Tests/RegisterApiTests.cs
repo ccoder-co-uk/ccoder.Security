@@ -7,26 +7,11 @@ using Xunit;
 namespace cCoder.Security.AcceptanceTests.Tests;
 
 [Collection(nameof(AllTestsCollection))]
-public partial class RegisterApiTests
-	{
-    private readonly RegisterApiClient registerApiClient;
-    private readonly AccountApiClient accountApiClient;
-    private readonly SSOUserApiClient ssoUserApiClient;
-
-    public RegisterApiTests(RegisterApiClient userApiClient, AccountApiClient accountApiClient, SSOUserApiClient ssoUserApiClient)
-    {
-        this.registerApiClient = userApiClient;
-        this.accountApiClient = accountApiClient;
-        this.ssoUserApiClient = ssoUserApiClient;
-    }
-
-    private static Auth RandomAuth(RegisterUser user)
-        => new()
-        {
-            User = user.Email,
-            Pass = user.Password
-        };
-
+public partial class RegisterApiTests(
+    RegisterApiClient userApiClient, 
+    AccountApiClient accountApiClient,
+    SSOUserApiClient ssoUserApiClient)
+{
     private static RegisterUser RandomRegisterUser()
         => GetRegisterUserFiller().Generate();
 
@@ -42,7 +27,7 @@ public partial class RegisterApiTests
         return filler;
     }
 
-    private async Task TearDownUserAsync(string userId)
-        => await registerApiClient.TearDown(userId);
+    private async Task TearDownUserAsync(string userId) => 
+        await userApiClient.TearDown(userId);
 }
 
