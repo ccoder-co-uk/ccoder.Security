@@ -1,13 +1,11 @@
 ﻿using cCoder.Security.Data.Brokers.Storage.Interfaces;
-using cCoder.Security.Data.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundation.Interfaces;
 
 namespace cCoder.Security.Services.Foundation;
 
 public class SSORoleService(
-    ISSORoleBroker roleBroker,
-    ISSOAuthorizationBroker authBroker) 
+    ISSORoleBroker roleBroker) 
         : ISSORoleService
 {
     public IQueryable<SSORole> GetAllSSORoles() =>

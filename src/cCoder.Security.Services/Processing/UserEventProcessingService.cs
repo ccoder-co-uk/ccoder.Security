@@ -4,16 +4,9 @@ using cCoder.Security.Services.Processing.Interfaces;
 
 namespace cCoder.Security.Services.Processing;
 
-public class UserEventProcessingService 
-    : IUserEventProcessingService
+public class UserEventProcessingService(IUserEventService userEventService)
+        : IUserEventProcessingService
 {
-    private readonly IUserEventService userEventService;
-
-    public UserEventProcessingService(IUserEventService userEventService)
-    {
-        this.userEventService = userEventService;
-    }
-
     public ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent) => 
         userEventService.AddUserEventAsync(userEvent);
 

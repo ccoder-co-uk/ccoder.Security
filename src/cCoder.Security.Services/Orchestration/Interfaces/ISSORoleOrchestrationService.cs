@@ -1,6 +1,7 @@
 ﻿using cCoder.Security.Objects.Entities;
 
-namespace cCoder.Security.Services.Orchestration;
+namespace cCoder.Security.Services.Orchestration.Interfaces;
+
 public interface ISSORoleOrchestrationService
 {
     ValueTask<SSORole> AddSSORoleAsync(SSORole item);

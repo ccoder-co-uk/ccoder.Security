@@ -78,7 +78,7 @@ internal class AesThenHmac
 
 
         //non-secret payload optional
-        nonSecretPayload ??= Array.Empty<byte>();
+        nonSecretPayload ??= [];
 
         byte[] cipherText;
         byte[] iv;
@@ -167,7 +167,7 @@ internal class AesThenHmac
 
         //if message length is to small just return null
         if (encryptedMessage.Length < sentTag.Length + nonSecretPayloadLength + ivLength)
-            return Array.Empty<byte>();
+            return [];
 
         //Grab Sent Tag
         Array.Copy(encryptedMessage, encryptedMessage.Length - sentTag.Length, sentTag, 0, sentTag.Length);
@@ -180,7 +180,7 @@ internal class AesThenHmac
 
         //if message doesn't authenticate return null
         if (compare != 0)
-            return Array.Empty<byte>();
+            return [];
 
         using Aes aes = Aes.Create();
 
@@ -237,7 +237,7 @@ internal class AesThenHmac
 
     public byte[] SimpleEncryptWithPassword(byte[] secretMessage, string password, byte[] nonSecretPayload)
     {
-        nonSecretPayload ??= Array.Empty<byte>();
+        nonSecretPayload ??= [];
 
         //User Error Checks
         if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
@@ -309,8 +309,8 @@ internal class AesThenHmac
             throw new ArgumentException("Encrypted Message Required!", nameof(encryptedMessage));
 
         //Grab Salt from Non-Secret Payload
-        byte[] cryptSalt = encryptedMessage.Skip(nonSecretPayloadLength).Take(SaltByteSize).ToArray();
-        byte[] authSalt = encryptedMessage.Skip(nonSecretPayloadLength + cryptSalt.Length).Take(SaltByteSize).ToArray();
+        byte[] cryptSalt = [.. encryptedMessage.Skip(nonSecretPayloadLength).Take(SaltByteSize)];
+        byte[] authSalt = [.. encryptedMessage.Skip(nonSecretPayloadLength + cryptSalt.Length).Take(SaltByteSize)];
 
         // generate keys
         using Rfc2898DeriveBytes cryptGen = new(password, cryptSalt, Iterations, HashAlgorithmName.SHA1);

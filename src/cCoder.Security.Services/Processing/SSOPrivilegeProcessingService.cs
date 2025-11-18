@@ -4,16 +4,9 @@ using cCoder.Security.Services.Processing.Interfaces;
 
 namespace cCoder.Security.Services.Processing;
 
-public class SSOPrivilegeProcessingService 
-    : ISSOPrivilegeProcessingService
+public class SSOPrivilegeProcessingService(ISSOPrivilegeService privService)
+        : ISSOPrivilegeProcessingService
 {
-    private readonly ISSOPrivilegeService privService;
-
-    public SSOPrivilegeProcessingService(ISSOPrivilegeService privService)
-    {
-        this.privService = privService;
-    }
-
     public IQueryable<SSOPrivilege> GetAllSSOPrivileges() => 
         privService.GetAllSSOPrivileges();
 }

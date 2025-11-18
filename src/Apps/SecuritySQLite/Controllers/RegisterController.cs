@@ -6,15 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace SecuritySQLite.Controllers;
 
 [Route("Api/Account")]
-public class RegisterController : Controller
+public class RegisterController(IAccountManager accountManager) : Controller
 {
-    private readonly IAccountManager accountManager;
-
-    public RegisterController(IAccountManager accountManager)
-    {
-        this.accountManager = accountManager;
-    }
-
     [HttpPost("Register")]
     public async ValueTask<IActionResult> Register([FromBody] RegisterUser registerForm)
     {

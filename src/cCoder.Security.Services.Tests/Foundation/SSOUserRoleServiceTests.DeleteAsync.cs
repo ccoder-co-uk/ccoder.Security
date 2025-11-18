@@ -8,7 +8,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class SSOUserRoleServiceTests
 {
     [Fact]
-    public async void ShouldDeleteSSOUserRoleAsync()
+    public async Task ShouldDeleteSSOUserRoleAsync()
     {
         // given
         SSOUserRole inputSSOUserRole = RandomUserRole();

@@ -5,15 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace SecurityMSSQL.Controllers;
 
 [Route("Api/Account")]
-public class AccountController : Controller
+public class AccountController(IAccountManager accountManager) : Controller
 {
-    private readonly IAccountManager accountManager;
-
-    public AccountController(IAccountManager accountManager)
-    {
-        this.accountManager = accountManager;
-    }
-
     [HttpPost("Login")]
     public async ValueTask<IActionResult> Login([FromBody] Auth auth) =>
         ModelState.IsValid
@@ -36,7 +29,7 @@ public class AccountController : Controller
             {
                 await accountManager.ForgotPasswordAsync(request.Email);
             }
-            catch (Exception ex)
+            catch
             {
                 // Deliberate, don't indicate any sort of problem as this could be used against us.
             }

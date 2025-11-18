@@ -2,7 +2,7 @@
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
 
-namespace cCoder.Data.Brokers.Storages.Security;
+namespace cCoder.Security.Data.Brokers.Utility;
 
 public class SSOAuthorizationBroker(ISecurityDbContextFactory contextFactory) 
     : ISSOAuthorizationBroker

@@ -66,15 +66,13 @@ public class AccountApiClient
 
         if (user != null)
         {
-            List<Token> tokens = Database.Tokens
+            List<Token> tokens = [.. Database.Tokens
                 .IgnoreQueryFilters()
-                .Where(t => t.UserName == user.Id)
-                .ToList();
+                .Where(t => t.UserName == user.Id)];
 
-            List<SSOUserRole> userRoles = Database.UserRoles
+            List<SSOUserRole> userRoles = [.. Database.UserRoles
                 .IgnoreQueryFilters()
-                .Where(r => r.UserId == user.Id)
-                .ToList();
+                .Where(r => r.UserId == user.Id)];
 
             Database.Tokens.RemoveRange(tokens);
             Database.UserRoles.RemoveRange(userRoles);

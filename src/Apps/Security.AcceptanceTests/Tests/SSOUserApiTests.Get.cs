@@ -9,7 +9,7 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 public partial class SSOUserApiTests
 {
 	[Fact]
-	public async void ShouldGetAllSSOUsersAsync()
+	public async Task ShouldGetAllSSOUsersAsync()
 	{
 		//given
 		RegisterUser[] randomUsers = RandomRegisterUsers();

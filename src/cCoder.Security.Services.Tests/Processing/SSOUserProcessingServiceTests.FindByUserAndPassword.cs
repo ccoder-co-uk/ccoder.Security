@@ -9,7 +9,7 @@ namespace cCoder.Security.Services.Tests.Processing;
 public partial class SSOUserProcessingServiceTests
 	{
 		[Fact]
-		public void FindByUserAndPasswordWorksAsExpected()
+		public async Task FindByUserAndPasswordWorksAsExpected()
 		{
 			//given
 			string inputPassword = RandomString();
@@ -31,7 +31,8 @@ public partial class SSOUserProcessingServiceTests
 				.Returns(true);
 
 			//when
-			SSOUser actualSSOUser = ssoUserProcessingService.FindByUserAndPassword(expectedSSOUser.Id, inputPassword);
+			SSOUser actualSSOUser = await ssoUserProcessingService
+				.FindByUserAndPasswordAsync(expectedSSOUser.Id, inputPassword);
 
 			//then
 			actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
@@ -46,7 +47,7 @@ public partial class SSOUserProcessingServiceTests
 		}
 
     [Fact]
-    public void FindByUserAndPasswordNotWorksForLockoutAsExpected()
+    public async Task FindByUserAndPasswordNotWorksForLockoutAsExpected()
     {
         //given
         string inputPassword = RandomString();
@@ -67,6 +68,7 @@ public partial class SSOUserProcessingServiceTests
             .Returns(true);
 
         //when & then
-        Assert.Throws<SecurityException>(() => ssoUserProcessingService.FindByUserAndPassword(expectedSSOUser.Id, inputPassword));
+        await Assert.ThrowsAsync<SecurityException>(async () => await ssoUserProcessingService
+			.FindByUserAndPasswordAsync(expectedSSOUser.Id, inputPassword));
     }
 }
