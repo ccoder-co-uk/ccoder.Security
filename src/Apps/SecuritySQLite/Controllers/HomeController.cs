@@ -4,15 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace SecuritySQLite.Controllers;
 
 [Route("")]
-public class HomeController : Controller
+public class HomeController(ISSOAuthInfo authInfo) : Controller
 {
-    private readonly ISSOAuthInfo authInfo;
-
-    public HomeController(ISSOAuthInfo authInfo)
-    {
-        this.authInfo = authInfo;
-    }
-
     [HttpGet]
     public IActionResult Get() =>
         Ok(authInfo.SSOUserId);

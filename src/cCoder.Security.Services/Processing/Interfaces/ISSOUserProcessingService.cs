@@ -14,7 +14,7 @@ public interface ISSOUserProcessingService
 
     IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false);
 
-    SSOUser FindByUserAndPassword(string username, string password);
+    ValueTask<SSOUser> FindByUserAndPasswordAsync(string username, string password);
 
     SSOUser FindById(string id);
 

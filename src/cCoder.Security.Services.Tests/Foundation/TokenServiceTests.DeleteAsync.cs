@@ -7,7 +7,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class TokenServiceTests
 {
     [Fact]
-    public async void ShouldDeleteTokenAsync()
+    public async Task ShouldDeleteTokenAsync()
     {
         // given
         Token inputToken = new()

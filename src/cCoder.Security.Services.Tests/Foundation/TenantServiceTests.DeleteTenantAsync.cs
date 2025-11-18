@@ -7,7 +7,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class TenantServiceTests
 {
     [Fact]
-    public async void DeleteTenantAsyncWorksAsExpected()
+    public async Task DeleteTenantAsyncWorksAsExpected()
     {
         //given
         Tenant inputTenant = RandomTenant();

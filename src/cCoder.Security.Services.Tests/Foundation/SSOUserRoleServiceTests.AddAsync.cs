@@ -9,7 +9,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class SSOUserRoleServiceTests
 {
     [Fact]
-    public async void ShouldAddSSOUserRoleAsync()
+    public async Task ShouldAddSSOUserRoleAsync()
     {
         // given
         SSOUserRole inputSSOUserRole = RandomUserRole();

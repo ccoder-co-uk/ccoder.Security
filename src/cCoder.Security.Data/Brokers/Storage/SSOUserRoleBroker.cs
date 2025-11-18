@@ -4,15 +4,9 @@ using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Data.Brokers.Storage;
 
-public class SSOUserRoleBroker : ISSOUserRoleBroker
+public class SSOUserRoleBroker(ISecurityDbContextFactory contextFactory) 
+    : ISSOUserRoleBroker
 {
-    private readonly ISecurityDbContextFactory contextFactory;
-
-    public SSOUserRoleBroker(ISecurityDbContextFactory contextFactory)
-    {
-        this.contextFactory = contextFactory;
-    }
-
     public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole)
     {
         using EF.SecurityDbContext context = contextFactory.CreateDbContext();

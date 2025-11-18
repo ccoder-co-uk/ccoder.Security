@@ -4,16 +4,9 @@ using cCoder.Security.Services.Processing.Interfaces;
 
 namespace cCoder.Security.Services.Processing;
 
-public class SessionProcessingService 
-    : ISessionProcessingService
+public class SessionProcessingService(ISessionService sessionService)
+        : ISessionProcessingService
 {
-    private readonly ISessionService sessionService;
-
-    public SessionProcessingService(ISessionService sessionService)
-    {
-        this.sessionService = sessionService;
-    }
-
     public string GetString(string key) => 
         sessionService.GetString(key);
 

@@ -7,31 +7,18 @@ using Xunit;
 namespace cCoder.Security.AcceptanceTests.Tests;
 
 [Collection(nameof(AllTestsCollection))]
-public partial class AccountApiTests
+public partial class AccountApiTests(
+    AccountApiClient userApiClient,
+    RegisterApiClient registerApiClient)
 {
-    private readonly AccountApiClient accountApiClient;
-    private readonly RegisterApiClient registerApiClient;
-    private readonly SSOUserApiClient ssoUserApiClient;
-
-    public AccountApiTests(
-        AccountApiClient userApiClient, 
-        RegisterApiClient registerApiClient, 
-        SSOUserApiClient ssoUserApiClient)
+    private static Auth RandomAuth(RegisterUser user) => new()
     {
-        this.accountApiClient = userApiClient;
-        this.registerApiClient = registerApiClient;
-        this.ssoUserApiClient = ssoUserApiClient;
-    }
+        User = user.Email,
+        Pass = user.Password
+    };
 
-    private static Auth RandomAuth(RegisterUser user)
-        => new()
-        {
-            User = user.Email,
-            Pass = user.Password
-        };
-
-    private static RegisterUser RandomRegisterUser()
-        => GetRegisterUserFiller().Generate();
+    private static RegisterUser RandomRegisterUser() => 
+        GetRegisterUserFiller().Generate();
 
     private static Faker<RegisterUser> GetRegisterUserFiller()
     {
@@ -45,6 +32,6 @@ public partial class AccountApiTests
         return filler;
     }
 
-    private async Task TearDownUserAsync(string userId)
-        => await accountApiClient.TearDown(userId);
+    private async Task TearDownUserAsync(string userId) => 
+        await userApiClient.TearDown(userId);
 }

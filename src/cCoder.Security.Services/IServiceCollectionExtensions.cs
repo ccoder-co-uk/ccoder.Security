@@ -1,9 +1,9 @@
-﻿using cCoder.Data.Brokers.Storages.Security;
-using cCoder.Security.Data.Brokers.DateTime;
+﻿using cCoder.Security.Data.Brokers.DateTime;
 using cCoder.Security.Data.Brokers.Requests;
 using cCoder.Security.Data.Brokers.Serialization;
 using cCoder.Security.Data.Brokers.Storage;
 using cCoder.Security.Data.Brokers.Storage.Interfaces;
+using cCoder.Security.Data.Brokers.Utility;
 using cCoder.Security.Data.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects;
 using cCoder.Security.Services.Foundation;
@@ -25,8 +25,7 @@ public static class IServiceCollectionExtensions
         SecurityConfiguration securityConfiguration = new();
         configAction(services, securityConfiguration);
 
-        services.AddScoped((IServiceProvider provider) =>
-            provider.GetService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfo());
+        services.AddScoped(async provider => await provider.GetService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfoAsync());
 
         services.AddBrokers();
         services.AddFoundations();

@@ -9,7 +9,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class SSORoleServiceTests
 {
     [Fact]
-    public async void ShouldAddSSORoleAsync()
+    public async Task ShouldAddSSORoleAsync()
     {
         // given
         SSORole inputSSORole = RandomRole(Guid.NewGuid());
@@ -31,4 +31,3 @@ public partial class SSORoleServiceTests
         roleBrokerMock.VerifyNoOtherCalls();
     }
 }
-

@@ -1,17 +1,11 @@
 ﻿namespace cCoder.Security.Data.Brokers.Encryption;
 
-public class PasswordEncryptionBrokerAESHMAC : IPasswordEncryptionBroker
+public class PasswordEncryptionBrokerAESHMAC(ISymmetricCrypto<string> crypto) 
+    : IPasswordEncryptionBroker
 {
-    private readonly ISymmetricCrypto<string> crypto;
+    public string Encrypt(string password) => 
+        crypto.Encrypt(password);
 
-    public PasswordEncryptionBrokerAESHMAC(ISymmetricCrypto<string> crypto)
-    {
-        this.crypto = crypto;
-    }
-
-    public string Encrypt(string password)
-        => crypto.Encrypt(password);
-
-    public bool EncryptedAndPlainTextAreEqual(string encrypted, string plainText)
-        => crypto.Decrypt(encrypted) == plainText;
+    public bool EncryptedAndPlainTextAreEqual(string encrypted, string plainText) => 
+        crypto.Decrypt(encrypted) == plainText;
 }

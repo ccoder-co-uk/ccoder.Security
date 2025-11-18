@@ -7,7 +7,7 @@ namespace cCoder.Security.Services.Tests.Foundation;
 public partial class UserEventServiceTests
 {
     [Fact]
-    public async void DeleteUserEventAsyncWorksAsExpected()
+    public async Task DeleteUserEventAsyncWorksAsExpected()
     {
         //given
         UserEvent inputUserEvent = RandomUserEvent();

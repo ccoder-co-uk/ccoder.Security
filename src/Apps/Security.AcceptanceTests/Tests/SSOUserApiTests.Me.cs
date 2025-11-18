@@ -10,7 +10,7 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 public partial class SSOUserApiTests
 {
     [Fact]
-    public async void MeWorksAsExpectedForBearerToken()
+    public async Task MeWorksAsExpectedForBearerToken()
     {
         //given
         AccountApiClient accountClient = new();
@@ -39,7 +39,7 @@ public partial class SSOUserApiTests
     }
 
     [Fact]
-    public async void MeWorksAsExpectedForSession()
+    public async Task MeWorksAsExpectedForSession()
     {
         //given
         CookieSSOUserApiClient cookieSsoUserClient = new();
@@ -63,7 +63,7 @@ public partial class SSOUserApiTests
     }
 
     [Fact]
-    public async void MeWorksAsExpectedForBasic()
+    public async Task MeWorksAsExpectedForBasic()
     {
         //given
         AccountApiClient accountClient = new();

@@ -74,7 +74,7 @@ public partial class AddRolesAndPrivs : Migration
 
         migrationBuilder.InsertData(
             table: "Privileges",
-            columns: new[] { "Id", "Description", "Operation", "PortalAdminsOnly", "Type" },
+            columns: ["Id", "Description", "Operation", "PortalAdminsOnly", "Type"],
             values: new object[,]
             {
                 { "auditdataitem_create", "Allows users to Create AuditDataItems.", "Create", false, "AuditDataItem" },
