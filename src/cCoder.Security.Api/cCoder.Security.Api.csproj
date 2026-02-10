@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
@@ -22,7 +22,7 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
   </ItemGroup>
   
   <ItemGroup>
