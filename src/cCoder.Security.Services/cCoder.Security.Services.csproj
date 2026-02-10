@@ -3,18 +3,22 @@
   
   
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
+  
+  
   <ItemGroup>
-    <ProjectReference Include="..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
-    <ProjectReference Include="..\cCoder.Security.Objects\cCoder.Security.Objects.csproj" />
+    <Compile Remove="Coordination\**" />
+    <EmbeddedResource Remove="Coordination\**" />
+    <None Remove="Coordination\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Coordination\Interfaces\" />
+    <ProjectReference Include="..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
+    <ProjectReference Include="..\cCoder.Security.Objects\cCoder.Security.Objects.csproj" />
   </ItemGroup>
 
 	<PropertyGroup>
