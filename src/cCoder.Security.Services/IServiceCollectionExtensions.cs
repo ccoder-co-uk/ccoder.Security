@@ -52,6 +52,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISSOUserBroker, SSOUserBroker>();
         services.AddScoped<ISSOUserRoleBroker, SSOUserRoleBroker>();
         services.AddScoped<ITenantBroker, TenantBroker>();
+        services.AddScoped<ITenantSecretBroker, TenantSecretBroker>();
         services.AddScoped<ITenantAnalysisBroker, TenantAnalysisBroker>();
         services.AddScoped<ITokenBroker, TokenBroker>();
         services.AddScoped<IUserEventBroker, UserEventBroker>();
@@ -69,6 +70,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISSORoleService, SSORoleService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ITenantService, TenantService>();
+        services.AddScoped<ITenantSecretService, TenantSecretService>();
         services.AddScoped<ITenantAnalysisService, TenantAnalysisService>();
         services.AddScoped<ISessionService, SessionService>();
         services.AddScoped<IUserEventService, UserEventService>();
@@ -82,6 +84,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISSORoleProcessingService, SSORoleProcessingService>();
         services.AddScoped<ITokenProcessingService, TokenProcessingService>();
         services.AddScoped<ITenantProcessingService, TenantProcessingService>();
+        services.AddScoped<ITenantSecretProcessingService, TenantSecretProcessingService>();
         services.AddScoped<ITenantAnalysisProcessingService, TenantAnalysisProcessingService>();
         services.AddScoped<ISessionProcessingService, SessionProcessingService>();
         services.AddScoped<IUserEventProcessingService, UserEventProcessingService>();
@@ -92,6 +95,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
         services.AddScoped<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
         services.AddScoped<ITenantOrchestrationService, TenantOrchestrationService>();
+        services.AddScoped<ITenantSecretOrchestrationService, TenantSecretOrchestrationService>();
         services.AddScoped<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();
 
         services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
