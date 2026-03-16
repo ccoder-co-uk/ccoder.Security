@@ -33,6 +33,7 @@ public partial class TenantProcessingServiceTests
         filler.Setup()
             .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)
             .OnProperty(p => p.Analysis).IgnoreIt()
+            .OnProperty(p => p.Secrets).IgnoreIt()
             .OnProperty(p => p.UserEvents).IgnoreIt()
             .OnProperty(p => p.Roles).IgnoreIt();
 
