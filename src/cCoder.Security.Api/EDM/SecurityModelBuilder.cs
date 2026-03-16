@@ -34,11 +34,15 @@ public class SecurityModelBuilder : ODataModelBuilder
         var userEventType = Builder.EntityType<UserEvent>();
         userEventType.Ignore(u => u.Session);
 
+        var tenantSecretType = Builder.EntityType<TenantSecret>();
+        tenantSecretType.Ignore(ts => ts.Value);
+
         // Security
         AddSet<SSOUser, string>();
         AddSet<SSORole, string>();
         AddSet<SSOPrivilege, string>();
         AddSet<Tenant, string>();
+        AddSet<TenantSecret, Guid>();
         AddSet<TenantAnalysis, Guid>();
         AddSet<UserEvent, Guid>();
 

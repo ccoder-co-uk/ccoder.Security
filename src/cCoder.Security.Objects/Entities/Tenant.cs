@@ -18,4 +18,5 @@ public class Tenant
     public ICollection<SSORole> Roles { get; set; }
     public ICollection<UserEvent> UserEvents { get; set; }
     public ICollection<TenantAnalysis> Analysis { get; set; }
+    public ICollection<TenantSecret> Secrets { get; set; }
 }

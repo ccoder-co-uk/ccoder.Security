@@ -29,6 +29,9 @@ public partial class SecuritySQLiteModelBuildProvider
         modelBuilder.Entity<TenantAnalysis>()
             .ToTable("TenantAnalysis");
 
+        modelBuilder.Entity<TenantSecret>()
+            .ToTable("TenantSecrets");
+
         modelBuilder.Entity<Token>()
             .ToTable("Tokens");
 
@@ -78,6 +81,35 @@ public partial class SecuritySQLiteModelBuildProvider
 
         modelBuilder.Entity<TenantAnalysis>()
             .HasKey(ta => ta.Id);
+
+        modelBuilder.Entity<TenantSecret>()
+            .HasKey(ts => ts.Id);
+
+        modelBuilder.Entity<TenantSecret>()
+            .HasIndex(ts => new { ts.TenantId, ts.Key })
+            .IsUnique();
+
+        modelBuilder.Entity<TenantSecret>()
+            .Property(ts => ts.TenantId)
+            .HasMaxLength(50)
+            .IsRequired();
+
+        modelBuilder.Entity<TenantSecret>()
+            .Property(ts => ts.Key)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        modelBuilder.Entity<TenantSecret>()
+            .Property(ts => ts.Value)
+            .IsRequired();
+
+        modelBuilder.Entity<TenantSecret>()
+            .Property(ts => ts.CreatedBy)
+            .HasMaxLength(100);
+
+        modelBuilder.Entity<TenantSecret>()
+            .Property(ts => ts.UpdatedBy)
+            .HasMaxLength(100);
 
         modelBuilder.Entity<Token>()
             .HasKey(t => t.Id);
@@ -142,10 +174,20 @@ public partial class SecuritySQLiteModelBuildProvider
             .WithOne(analysis => analysis.Tenant)
             .HasForeignKey(analysis => analysis.TenantId);
 
+        modelBuilder.Entity<Tenant>()
+            .HasMany(t => t.Secrets)
+            .WithOne(secret => secret.Tenant)
+            .HasForeignKey(secret => secret.TenantId);
+
         modelBuilder.Entity<TenantAnalysis>()
             .HasOne(ta => ta.Tenant)
             .WithMany(t => t.Analysis)
             .HasForeignKey(ta => ta.TenantId);
+
+        modelBuilder.Entity<TenantSecret>()
+            .HasOne(ts => ts.Tenant)
+            .WithMany(t => t.Secrets)
+            .HasForeignKey(ts => ts.TenantId);
 
         modelBuilder.Entity<Token>()
             .HasOne(t => t.User)

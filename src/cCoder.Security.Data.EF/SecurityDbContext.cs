@@ -18,6 +18,7 @@ public partial class SecurityDbContext(
 
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantAnalysis> TenantAnalysis { get; set; }
+    public DbSet<TenantSecret> TenantSecrets { get; set; }
 
     public DbSet<Session> Sessions { get; set; }
     public DbSet<UserEvent> UserEvents { get; set; }
@@ -50,6 +51,7 @@ public partial class SecurityDbContext(
 
         builder.Entity<Tenant>().HasQueryFilter(t => t.Roles.Any(r => r.Privs.Contains("tenant_read")));
         builder.Entity<TenantAnalysis>().HasQueryFilter(t => t.Tenant != null);
+        builder.Entity<TenantSecret>().HasQueryFilter(t => t.Tenant != null);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
