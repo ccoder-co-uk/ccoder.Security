@@ -91,7 +91,7 @@ public partial class SecurityDbContext(
 
         bool passed = Roles
             .IgnoreQueryFilters()
-            .Any(r => userRoles.Contains(r.Id) && r.Privs.Contains(privilege) && r.UsersArePortalAdmins);
+            .Any(r => userRoles.Contains(r.Id) && (r.Privs.Contains(privilege) && r.UsersArePortalAdmins) || (r.Privs.Contains("security_admin")));
 
         if (!passed)
             throw new SecurityException($"Privilege '{privilege}' is not granted as current user is not portal admin: '{GetCurrentUser().Id}'");
@@ -99,7 +99,7 @@ public partial class SecurityDbContext(
     public void UserHasPrivilege(string privilege, string tenantId)
     {
         Guid[] userRoles = GetCurrentUserRolesForTenant(tenantId);
-        bool passed = Roles.Any(r => userRoles.Contains(r.Id) && r.Privs.Contains(privilege));
+        bool passed = Roles.Any(r => userRoles.Contains(r.Id) && (r.Privs.Contains(privilege) || r.Privs.Contains("security_admin")));
 
         if (!passed)
             throw new SecurityException($"Privilege '{privilege}' is not granted for user: {GetCurrentUser().Id}");
