@@ -29,6 +29,21 @@ internal class AesThenHmac
     public int KeyByteSize => KeyBitSize / 8;
     public int SaltByteSize => SaltBitSize / 8;
 
+    private byte[] GenerateSalt()
+    {
+        byte[] salt = new byte[SaltByteSize];
+        Random.GetBytes(salt);
+        return salt;
+    }
+
+    private byte[] DeriveKey(string password, byte[] salt, int outputLength) =>
+        Rfc2898DeriveBytes.Pbkdf2(
+            Encoding.UTF8.GetBytes(password),
+            salt,
+            Iterations,
+            HashAlgorithmName.SHA1,
+            outputLength);
+
     /// <summary>
     /// Helper that generates a random key on each call.
     /// </summary>
@@ -255,22 +270,16 @@ internal class AesThenHmac
         byte[] authKey;
 
         //Use Random Salt to prevent pre-generated weak password attacks.
-        using (Rfc2898DeriveBytes generator = new(password, SaltBitSize / 8, Iterations, HashAlgorithmName.SHA1))
-        {
-            byte[] salt = generator.Salt;
-            cryptKey = generator.GetBytes(KeyBitSize / 8);            //Generate Keys
-            Array.Copy(salt, 0, payload, payloadIndex, salt.Length);  //Create Non Secret Payload
-            payloadIndex += salt.Length;
-        }
+        byte[] cryptSalt = GenerateSalt();
+        cryptKey = DeriveKey(password, cryptSalt, KeyBitSize / 8);           //Generate Keys
+        Array.Copy(cryptSalt, 0, payload, payloadIndex, cryptSalt.Length);   //Create Non Secret Payload
+        payloadIndex += cryptSalt.Length;
 
         //Deriving separate key, might be less efficient than using HKDF, 
         //but now compatible with RNEncryptor which had a very similar wireformat and requires less code than HKDF.
-        using (Rfc2898DeriveBytes generator = new(password, SaltBitSize / 8, Iterations, HashAlgorithmName.SHA1))
-        {
-            byte[] salt = generator.Salt;
-            authKey = generator.GetBytes(KeyBitSize / 8);             //Generate Keys
-            Array.Copy(salt, 0, payload, payloadIndex, salt.Length);  //Create Rest of Non Secret Payload
-        }
+        byte[] authSalt = GenerateSalt();
+        authKey = DeriveKey(password, authSalt, KeyBitSize / 8);            //Generate Keys
+        Array.Copy(authSalt, 0, payload, payloadIndex, authSalt.Length);    //Create Rest of Non Secret Payload
 
         return SimpleEncrypt(secretMessage, cryptKey, authKey, payload);
     }
@@ -313,11 +322,8 @@ internal class AesThenHmac
         byte[] authSalt = [.. encryptedMessage.Skip(nonSecretPayloadLength + cryptSalt.Length).Take(SaltByteSize)];
 
         // generate keys
-        using Rfc2898DeriveBytes cryptGen = new(password, cryptSalt, Iterations, HashAlgorithmName.SHA1);
-        using Rfc2898DeriveBytes authGen = new(password, authSalt, Iterations, HashAlgorithmName.SHA1);
-
-        byte[] cryptKey = cryptGen.GetBytes(KeyByteSize);
-        byte[] authKey = authGen.GetBytes(KeyByteSize);
+        byte[] cryptKey = DeriveKey(password, cryptSalt, KeyByteSize);
+        byte[] authKey = DeriveKey(password, authSalt, KeyByteSize);
 
         return SimpleDecrypt(encryptedMessage, cryptKey, authKey, cryptSalt.Length + authSalt.Length + nonSecretPayloadLength);
     }
