@@ -37,14 +37,10 @@ jobs:
           "value=$(Get-Date -Format 'yyyy.M.d.HHmm')" >> $env:GITHUB_OUTPUT
 
       - name: Restore
-        run: |
-          dotnet restore src/cCoder.Security.Services.Tests/cCoder.Security.Services.Tests.csproj
-          dotnet restore src/Apps/Security.AcceptanceTests/Security.AcceptanceTests.csproj
+        run: dotnet restore src/cCoder.Security.Services.Tests/cCoder.Security.Services.Tests.csproj
 
       - name: Build
-        run: |
-          dotnet build src/cCoder.Security.Services.Tests/cCoder.Security.Services.Tests.csproj -c Release --no-restore /p:Version="${{ steps.version.outputs.value }}"
-          dotnet build src/Apps/Security.AcceptanceTests/Security.AcceptanceTests.csproj -c Release --no-restore /p:Version="${{ steps.version.outputs.value }}"
+        run: dotnet build src/cCoder.Security.Services.Tests/cCoder.Security.Services.Tests.csproj -c Release --no-restore /p:Version="${{ steps.version.outputs.value }}"
 
       - name: Test
         run: dotnet test src/cCoder.Security.Services.Tests/cCoder.Security.Services.Tests.csproj -c Release --no-build
