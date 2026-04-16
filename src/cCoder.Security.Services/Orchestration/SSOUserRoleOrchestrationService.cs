@@ -20,7 +20,8 @@ public class SSOUserRoleOrchestrationService(
 
     public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole)
     {
-        authBroker.UserIsPortalAdminWithPrivilege("userrole_create");
+        if (userRoleProcessingService.GetAllSSOUserRoles().Any())
+            authBroker.UserIsPortalAdminWithPrivilege("userrole_create");
 
         return await userRoleProcessingService.AddSSOUserRoleAsync(userRole);
     }
