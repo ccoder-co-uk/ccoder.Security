@@ -8,8 +8,8 @@ namespace cCoder.Security.Services.Orchestration;
 
 public class TenantOrchestrationService(
     ITenantProcessingService tenantProcessingService,
-    ISSORoleProcessingService roleProcessingService,
-    ISSOUserRoleProcessingService userRoleProcessingService,
+    ISSORoleOrchestrationService roleOrchestrationService,
+    ISSOUserRoleOrchestrationService userRoleOrchestrationService,
     ISSOAuthorizationBroker authBroker)
         : ITenantOrchestrationService
 {
@@ -22,7 +22,10 @@ public class TenantOrchestrationService(
 
     public async ValueTask<Tenant> AddTenantAsync(Tenant tenant)
     {
-        authBroker.UserIsPortalAdminWithPrivilege("tenant_create");
+        bool isFirstTenant = !tenantProcessingService.GetAllTenants().Any();
+
+        if (!isFirstTenant)
+            authBroker.UserIsPortalAdminWithPrivilege("tenant_create");
 
         var existing = tenantProcessingService
             .GetAllTenants()
@@ -33,22 +36,28 @@ public class TenantOrchestrationService(
 
         var dbTenant = await tenantProcessingService.AddTenantAsync(tenant);
 
-        var role = await roleProcessingService.AddSSORoleAsync(new SSORole()
+        string bootstrapUserId = ResolveBootstrapUserId(tenant, isFirstTenant);
+        string[] rolePrivileges = isFirstTenant
+            ? [.. authBroker.GetAllPrivileges().Select(privilege => privilege.Id)]
+            : ["tenant_read", "tenant_admin"];
+
+        var role = await roleOrchestrationService.AddSSORoleAsync(new SSORole()
         {
-            UsersArePortalAdmins = false,
-            Name = $"{tenant.Name} Admins",
-            Description = $"{tenant.Name} Admins",
-            Privs = "tenant_read,tenant_admin",
+            UsersArePortalAdmins = isFirstTenant,
+            Name = isFirstTenant ? "Administrators" : $"{tenant.Name} Admins",
+            Description = isFirstTenant ? "Bootstrap tenant administrators" : $"{tenant.Name} Admins",
+            Privs = string.Join(',', rolePrivileges),
             TenantId = tenant.Id
         });
 
-        var user = authBroker.GetCurrentUser();
-
-        await userRoleProcessingService.AddSSOUserRoleAsync(new SSOUserRole()
+        if (!string.IsNullOrWhiteSpace(bootstrapUserId))
         {
-            UserId = user.Id,
-            RoleId = role.Id
-        });
+            await userRoleOrchestrationService.AddSSOUserRoleAsync(new SSOUserRole()
+            {
+                UserId = bootstrapUserId,
+                RoleId = role.Id
+            });
+        }
 
         return dbTenant;
     }
@@ -65,5 +74,24 @@ public class TenantOrchestrationService(
         authBroker.UserIsPortalAdminWithPrivilege("tenant_update");
 
         return await tenantProcessingService.UpdateTenantAsync(tenant);
+    }
+
+    private string ResolveBootstrapUserId(Tenant tenant, bool isFirstTenant)
+    {
+        string currentUserId = authBroker.GetCurrentUser()?.Id;
+
+        if (!string.IsNullOrWhiteSpace(currentUserId) &&
+            !string.Equals(currentUserId, "Guest", StringComparison.OrdinalIgnoreCase))
+        {
+            return currentUserId;
+        }
+
+        if (!string.IsNullOrWhiteSpace(tenant?.CreatedBy))
+            return tenant.CreatedBy;
+
+        if (isFirstTenant)
+            throw new ValidationException("CreatedBy is required when bootstrapping the first tenant.");
+
+        return null;
     }
 }
