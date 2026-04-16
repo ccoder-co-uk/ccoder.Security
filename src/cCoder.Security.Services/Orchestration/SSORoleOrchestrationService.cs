@@ -15,7 +15,8 @@ public class SSORoleOrchestrationService(
 
     public async ValueTask<SSORole> AddSSORoleAsync(SSORole ssoRole)
     {
-        authBroker.UserIsPortalAdminWithPrivilege("tenant_admin");
+        if (roleProcessingService.GetAllSSORoles().Any())
+            authBroker.UserIsPortalAdminWithPrivilege("tenant_admin");
 
         return await roleProcessingService.AddSSORoleAsync(ssoRole);
     }
