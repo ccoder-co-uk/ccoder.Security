@@ -87,6 +87,9 @@ public partial class SecurityDbContext(
 
     public void UserIsPortalAdminWithPrivilege(string privilege)
     {
+        if (!Tenants.IgnoreQueryFilters().Any())
+            return;
+
         var userRoles = GetCurrentUserRoles();
 
         bool passed = Roles
