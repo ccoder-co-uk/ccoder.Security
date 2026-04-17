@@ -1,5 +1,3 @@
-﻿using Microsoft.OpenApi.Models;
-
 namespace SecuritySQLite;
 
 public static partial class IServiceCollectionExtensions
@@ -26,19 +24,6 @@ public static partial class IServiceCollectionExtensions
     public static void AddMetadata(this IServiceCollection services)
     {
         _ = services.AddEndpointsApiExplorer();
-
-        _ = services.AddSwaggerGen(c =>
-        {
-            c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
-            {
-                Description = @"Authorization header using the Bearer scheme. \r\n\r\n 
-                        Enter 'Bearer' [space] and then your token in the text input below.
-                        \r\n\r\nExample: 'bearer 12345abcdef'",
-                Name = "Authorization",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
-                Scheme = "bearer"
-            });
-        });
+        _ = services.AddSwaggerGen();
     }
 }

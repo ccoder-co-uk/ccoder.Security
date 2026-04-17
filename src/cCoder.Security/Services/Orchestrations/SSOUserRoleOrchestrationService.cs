@@ -1,0 +1,37 @@
+using System.ComponentModel.DataAnnotations;
+using cCoder.Security.Brokers.Utility.Interfaces;
+using cCoder.Security.Objects.Entities;
+using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Processings.Interfaces;
+
+namespace cCoder.Security.Services.Orchestrations;
+internal class SSOUserRoleOrchestrationService(
+    ISSOUserRoleProcessingService userRoleProcessingService,
+    ISSOAuthorizationBroker authBroker)
+        : ISSOUserRoleOrchestrationService
+{
+    public IQueryable<SSOUserRole> GetAllSSOUserRoles()
+    {
+        authBroker.UserHasPrivilege("userrole_read");
+
+        return userRoleProcessingService.GetAllSSOUserRoles();
+    }
+
+    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole)
+    {
+        if (userRoleProcessingService.GetAllSSOUserRoles().Any())
+            authBroker.UserIsPortalAdminWithPrivilege("userrole_create");
+
+        return await userRoleProcessingService.AddSSOUserRoleAsync(userRole);
+    }
+
+    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole)
+    {
+        authBroker.UserIsPortalAdminWithPrivilege("userrole_delete");
+
+        await userRoleProcessingService.DeleteSSOUserRoleAsync(userRole);
+    }
+}
+
+
+

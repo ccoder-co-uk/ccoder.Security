@@ -1,0 +1,86 @@
+using cCoder.Security.Objects.Entities;
+using cCoder.Security.Services.Foundations.Interfaces;
+using cCoder.Security.Services.Processings.Interfaces;
+
+namespace cCoder.Security.Services.Processings;
+internal class TokenProcessingService(ITokenService tokenService)
+    : ITokenProcessingService
+{
+    public async ValueTask<Token> AddTokenForUserIdAsync(string userId) => 
+        await tokenService.AddTokenAsync(userId);
+
+    public async ValueTask DeleteTokenAsync(string tokenId)
+    {
+        Token token = tokenService.GetAllTokens(ignoreFilters: true)
+            .FirstOrDefault(t => t.Id == tokenId);
+
+        if (token != null)
+            await tokenService.DeleteTokenAsync(token);
+    }
+
+    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
+        tokenService.GetAllTokens(ignoreFilters);
+
+    public Token GetTokenById(string id)
+    {
+        Token token = tokenService.GetAllTokens()
+            .FirstOrDefault(t => t.Id == id);
+
+        if (token == null)
+            return null;
+
+        if (token.Expires < DateTimeOffset.Now)
+            return null;
+
+        return token;
+    }
+
+    public async ValueTask<Token> GenerateConfirmationToken(string userId) =>
+        await tokenService.AddTokenAsync(userId, (int)TokenUse.Confirmation);
+
+    public async ValueTask<Token> GenerateInvitationToken(string userId) =>
+        await tokenService.AddTokenAsync(userId, (int)TokenUse.Invitation, (7 * 24 * 60));
+
+    public async ValueTask<Token> GenerateForgottenPasswordToken(string userId) => 
+        await tokenService.AddTokenAsync(userId, (int)TokenUse.PasswordReset);
+
+    public Token GetForgottenPasswordToken(string tokenId)
+    {
+        int reasonCode = (int)TokenUse.PasswordReset;
+
+        Token token = tokenService.GetAllTokens(ignoreFilters: true)
+            .FirstOrDefault(r => r.Reason == reasonCode && r.Id == tokenId);
+
+        if (token.Expires < DateTimeOffset.Now)
+            return null;
+
+        return token;
+    }
+
+    public Token GetConfirmationToken(string tokenId)
+    {
+        int reasonCode = (int)TokenUse.Confirmation;
+
+        Token token = tokenService.GetAllTokens(ignoreFilters: true)
+            .FirstOrDefault(r => r.Reason == reasonCode && r.Id == tokenId);
+
+        if (token is null || token.Expires < DateTimeOffset.Now)
+            return null;
+
+        return token;
+    }
+
+    public Token GetInvitationToken(string tokenId)
+    {
+        int reasonCode = (int)TokenUse.Invitation;
+
+        Token token = tokenService.GetAllTokens(ignoreFilters: true)
+            .FirstOrDefault(r => r.Reason == reasonCode && r.Id == tokenId);
+
+        if (token.Expires < DateTimeOffset.Now)
+            return null;
+
+        return token;
+    }
+}
+
