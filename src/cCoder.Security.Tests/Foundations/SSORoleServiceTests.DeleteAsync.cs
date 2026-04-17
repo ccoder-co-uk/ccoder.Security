@@ -1,0 +1,27 @@
+using cCoder.Security.Objects.Entities;
+using Force.DeepCloner;
+using Moq;
+using Xunit;
+
+namespace cCoder.Security.Tests.Foundations;
+
+public partial class SSORoleServiceTests
+{
+    [Fact]
+    public async Task ShouldDeleteSSORoleAsync()
+    {
+        // given
+        SSORole inputSSORole = RandomRole(Guid.NewGuid());
+        SSORole expectedSSORole = inputSSORole.DeepClone();
+
+        // when
+        await roleService.DeleteSSORoleAsync(inputSSORole);
+
+        // then
+        roleBrokerMock.Verify(broker => 
+            broker.DeleteSSORoleAsync(inputSSORole), 
+            Times.Once);
+
+        roleBrokerMock.VerifyNoOtherCalls();
+    }
+}
