@@ -8,8 +8,8 @@ public class SSORoleService(
     ISSORoleBroker roleBroker) 
         : ISSORoleService
 {
-    public IQueryable<SSORole> GetAllSSORoles() =>
-        roleBroker.GetAllSSORoles();
+    public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
+        roleBroker.GetAllSSORoles(ignoreFilters);
 
     public async ValueTask<SSORole> AddSSORoleAsync(SSORole item) =>
         await roleBroker.AddSSORoleAsync(item);

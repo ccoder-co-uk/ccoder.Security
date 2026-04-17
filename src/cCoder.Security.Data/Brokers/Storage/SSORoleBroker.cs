@@ -2,6 +2,8 @@
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace cCoder.Security.Data.Brokers.Storage;
 
 public class SSORoleBroker(ISecurityDbContextFactory contextFactory) 
@@ -35,9 +37,13 @@ public class SSORoleBroker(ISecurityDbContextFactory contextFactory)
         await context.SaveChangesAsync();
     }
 
-    public IQueryable<SSORole> GetAllSSORoles()
+    public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false)
     {
         EF.SecurityDbContext context = contextFactory.CreateDbContext();
-        return context.Roles;
+        IQueryable<SSORole> roles = context.Roles;
+
+        return ignoreFilters
+            ? roles.IgnoreQueryFilters()
+            : roles;
     }
 }
