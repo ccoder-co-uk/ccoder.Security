@@ -8,6 +8,7 @@
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'Security' " />
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
+		<PackageReference Include="Microsoft.OpenApi" Version="2.4.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.1.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.1.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.2" />
@@ -19,8 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\cCoder.Security.Api\cCoder.Security.Api.csproj" />
-    <ProjectReference Include="..\..\cCoder.Security.Services\cCoder.Security.Services.csproj" />
+	  <ProjectReference Include="..\..\cCoder.Security\cCoder.Security.csproj" />
     <ProjectReference Include="..\..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
 	  <ProjectReference Include="..\..\cCoder.Security.Data.EF.MSSQL\cCoder.Security.Data.EF.MSSQL.csproj" />
 	</ItemGroup>

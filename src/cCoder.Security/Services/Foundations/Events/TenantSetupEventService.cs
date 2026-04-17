@@ -1,0 +1,22 @@
+using cCoder.Security.Brokers.Events;
+using cCoder.Security.Data.Models;
+using cCoder.Security.Objects;
+using EventLibrary.Models;
+
+namespace cCoder.Security.Services.Foundations.Events;
+
+internal class TenantSetupEventService(
+    ITenantSetupEventBroker tenantSetupEventBroker,
+    ISSOAuthInfo authInfo) : ITenantSetupEventService
+{
+    public ValueTask RaiseSetupAsync(SetupDetails setupDetails) =>
+        tenantSetupEventBroker.RaiseTenantSetupEventAsync(
+            new EventMessage<SetupDetails>
+            {
+                AuthInfo = new EventAuthInfo
+                {
+                    SSOUserId = authInfo?.SSOUserId ?? "Guest"
+                },
+                Data = setupDetails
+            });
+}

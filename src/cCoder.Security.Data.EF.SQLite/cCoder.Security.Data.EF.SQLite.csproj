@@ -11,8 +11,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\cCoder.Security.Data.EF\cCoder.Security.Data.EF.csproj" />
-    <ProjectReference Include="..\cCoder.Security.Objects\cCoder.Security.Objects.csproj" />
+    <ProjectReference Include="..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
   </ItemGroup>
 
 	<PropertyGroup>
