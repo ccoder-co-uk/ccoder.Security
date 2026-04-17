@@ -94,7 +94,8 @@ public partial class SecurityDbContext(
 
         bool passed = Roles
             .IgnoreQueryFilters()
-            .Any(r => userRoles.Contains(r.Id) && (r.Privs.Contains(privilege) && r.UsersArePortalAdmins) || (r.Privs.Contains("security_admin")));
+            .Any(r => userRoles.Contains(r.Id) && (r.Privs.Contains(privilege) && r.UsersArePortalAdmins) || (r.Privs.Contains("security_admin"))) ||
+                !Roles.IgnoreQueryFilters().Any();
 
         if (!passed)
             throw new SecurityException($"Privilege '{privilege}' is not granted as current user is not portal admin: '{GetCurrentUser().Id}'");
