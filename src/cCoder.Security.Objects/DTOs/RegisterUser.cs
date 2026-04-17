@@ -14,4 +14,6 @@ public class RegisterUser
     public string PhoneNumber { get; set; }
 
     public int AppId { get; set; }
+
+    public string TenantId { get; set; }
 }

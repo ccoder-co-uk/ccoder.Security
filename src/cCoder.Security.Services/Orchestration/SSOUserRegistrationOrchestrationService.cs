@@ -11,6 +11,9 @@ namespace cCoder.Security.Services.Orchestration;
 public class SSOUserRegistrationOrchestrationService(
     ISSOUserProcessingService ssoUserProcessingService,
     ITokenProcessingService tokenProcessingService,
+    ISSORoleProcessingService roleProcessingService,
+    ISSOUserRoleProcessingService userRoleProcessingService,
+    ISSOUserRoleOrchestrationService userRoleOrchestrationService,
     ILogger<SSOUserRegistrationOrchestrationService> log) : ISSOUserOrchestrationService
 {
     public IQueryable<SSOUser> GetAllSSOUsers() =>
@@ -23,6 +26,7 @@ public class SSOUserRegistrationOrchestrationService(
         SSOUser mappedUser = MapToSSOUser(registerForm);
 
         SSOUser user = await ssoUserProcessingService.RegisterSSOUserAsync(mappedUser);
+        await TryAttachBootstrapTenantRoleAsync(registerForm, user);
         Token confirmationToken = await tokenProcessingService.GenerateConfirmationToken(user.Id);
         return (user, confirmationToken.Id);
     }
@@ -194,4 +198,29 @@ public class SSOUserRegistrationOrchestrationService(
         Email = registerForm.Email,
         PhoneNumber = registerForm.PhoneNumber
     };
+
+    private async ValueTask TryAttachBootstrapTenantRoleAsync(RegisterUser registerForm, SSOUser user)
+    {
+        if (string.IsNullOrWhiteSpace(registerForm.TenantId))
+            return;
+
+        if (userRoleProcessingService.GetAllSSOUserRoles().Any())
+            return;
+
+        SSORole role = roleProcessingService
+            .GetAllSSORoles()
+            .FirstOrDefault(foundRole =>
+                foundRole.TenantId == registerForm.TenantId
+                && foundRole.UsersArePortalAdmins);
+
+        if (role is null)
+            throw new ValidationException(
+                $"Bootstrap administrator role not found for tenant '{registerForm.TenantId}'.");
+
+        await userRoleOrchestrationService.AddSSOUserRoleAsync(new SSOUserRole
+        {
+            UserId = user.Id,
+            RoleId = role.Id
+        });
+    }
 }
