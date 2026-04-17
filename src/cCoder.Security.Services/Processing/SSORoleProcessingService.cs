@@ -7,8 +7,8 @@ namespace cCoder.Security.Services.Processing;
 public class SSORoleProcessingService(ISSORoleService ssoRoleService) 
     : ISSORoleProcessingService
 {
-    public IQueryable<SSORole> GetAllSSORoles() =>
-        ssoRoleService.GetAllSSORoles();
+    public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
+        ssoRoleService.GetAllSSORoles(ignoreFilters);
 
     public async ValueTask<SSORole> AddSSORoleAsync(SSORole item) =>
         await ssoRoleService.AddSSORoleAsync(item);

@@ -4,7 +4,7 @@ namespace cCoder.Security.Services.Foundation.Interfaces;
 
 public interface ISSORoleService
 {
-    IQueryable<SSORole> GetAllSSORoles();
+    IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false);
 
     ValueTask<SSORole> AddSSORoleAsync(SSORole item);
     ValueTask<SSORole> UpdateSSORoleAsync(SSORole item);

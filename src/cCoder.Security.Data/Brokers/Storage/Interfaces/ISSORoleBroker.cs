@@ -6,6 +6,6 @@ public interface ISSORoleBroker
 {
     ValueTask<SSORole> AddSSORoleAsync(SSORole SSORole);
     ValueTask DeleteSSORoleAsync(SSORole SSORole);
-    IQueryable<SSORole> GetAllSSORoles();
+    IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false);
     ValueTask<SSORole> UpdateSSORoleAsync(SSORole SSORole);
 }

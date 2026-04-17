@@ -41,7 +41,7 @@ public partial class SSOUserRegistrationOrchestrationServiceTests
             .Setup(x => x.GetAllSSOUserRoles())
             .Returns(Array.Empty<SSOUserRole>().AsQueryable());
         roleProcessingServiceMock
-            .Setup(x => x.GetAllSSORoles())
+            .Setup(x => x.GetAllSSORoles(true))
             .Returns(new[] { bootstrapRole }.AsQueryable());
         userRoleOrchestrationServiceMock
             .Setup(x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))

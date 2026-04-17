@@ -208,7 +208,7 @@ public class SSOUserRegistrationOrchestrationService(
             return;
 
         SSORole role = roleProcessingService
-            .GetAllSSORoles()
+            .GetAllSSORoles(ignoreFilters: true)
             .FirstOrDefault(foundRole =>
                 foundRole.TenantId == registerForm.TenantId
                 && foundRole.UsersArePortalAdmins);
