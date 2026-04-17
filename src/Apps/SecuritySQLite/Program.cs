@@ -1,3 +1,4 @@
+using cCoder.Security;
 using cCoder.Security.Api;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.SQLite;
@@ -45,6 +46,8 @@ public class Program
 
         WebApplication app = builder.Build();
         app.UseSession();
+        app.UseSecurityExposure();
+        app.ListenToSecurityEvents();
         app.UseTheFramework();
         app.Run();
     }

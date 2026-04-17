@@ -26,5 +26,5 @@ public partial class SecuritySQLiteModelBuildProvider(string connectionString)
     public void Configure(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseSqlite(
             connectionString, 
-            b => b.MigrationsAssembly("Security.Data.EF.SQLite"));
+            b => b.MigrationsAssembly("cCoder.Security.Data.EF.SQLite"));
 }

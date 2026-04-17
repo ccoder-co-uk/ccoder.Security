@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>SecurityMSSQL.AcceptanceTests</AssemblyName>
+    <RootNamespace>Security.AcceptanceTests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.testing.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.testing.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.6.5" />
+    <PackageReference Include="FluentAssertions" Version="8.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="Tynamix.ObjectFiller" Version="1.5.9" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
+    <ProjectReference Include="..\..\cCoder.Security\cCoder.Security.csproj" />
+    <ProjectReference Include="..\SecurityMSSQL\SecurityMSSQL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\SecuritySQLite.AcceptanceTests\**\*.cs" Exclude="..\SecuritySQLite.AcceptanceTests\AcceptanceHostAlias.cs;..\SecuritySQLite.AcceptanceTests\obj\**\*;..\SecuritySQLite.AcceptanceTests\bin\**\*" Link="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>
