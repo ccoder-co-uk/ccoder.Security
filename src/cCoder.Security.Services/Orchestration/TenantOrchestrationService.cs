@@ -8,6 +8,7 @@ namespace cCoder.Security.Services.Orchestration;
 
 public class TenantOrchestrationService(
     ITenantProcessingService tenantProcessingService,
+    ISSOUserProcessingService userProcessingService,
     ISSORoleOrchestrationService roleOrchestrationService,
     ISSOUserRoleOrchestrationService userRoleOrchestrationService,
     ISSOAuthorizationBroker authBroker)
@@ -50,7 +51,7 @@ public class TenantOrchestrationService(
             TenantId = tenant.Id
         });
 
-        if (!string.IsNullOrWhiteSpace(bootstrapUserId))
+        if (BootstrapUserExists(bootstrapUserId))
         {
             await userRoleOrchestrationService.AddSSOUserRoleAsync(new SSOUserRole()
             {
@@ -94,4 +95,7 @@ public class TenantOrchestrationService(
 
         return null;
     }
+
+    private bool BootstrapUserExists(string userId) =>
+        !string.IsNullOrWhiteSpace(userId) && userProcessingService.FindById(userId) is not null;
 }

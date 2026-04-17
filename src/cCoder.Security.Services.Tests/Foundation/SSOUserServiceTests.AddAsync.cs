@@ -23,7 +23,6 @@ public partial class SSOUserServiceTests
         // then
         actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
 
-        userBrokerMock.Verify(broker => broker.GetAllSSOUsers(true), Times.Once);
         userBrokerMock.Verify(broker => broker.AddSSOUserAsync(inputSSOUser), Times.Once);
         userBrokerMock.VerifyNoOtherCalls();
     }
