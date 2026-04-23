@@ -20,7 +20,7 @@ using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Events;
 using cCoder.Security.Services.Processings.Interfaces;
-using EventLibrary;
+using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
 
 namespace cCoder.Security;
