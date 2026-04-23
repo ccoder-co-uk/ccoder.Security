@@ -1,7 +1,7 @@
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Objects;
-using EventLibrary.Models;
+using cCoder.Eventing.Models;
 
 namespace cCoder.Security.Services.Foundations.Events;
 

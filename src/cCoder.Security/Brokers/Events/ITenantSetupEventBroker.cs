@@ -1,5 +1,5 @@
 using cCoder.Security.Data.Models;
-using EventLibrary.Models;
+using cCoder.Eventing.Models;
 
 namespace cCoder.Security.Brokers.Events;
 internal interface ITenantSetupEventBroker
