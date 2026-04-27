@@ -7,8 +7,19 @@ internal class SSOUserRoleService(
     ISSOUserRoleBroker userRoleBroker) 
         : ISSOUserRoleService
 {
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) =>
-        await userRoleBroker.AddSSOUserRoleAsync(item);
+    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
+    {
+        SSOUserRole storageUserRole = new()
+        {
+            RoleId = item.RoleId,
+            UserId = item.UserId
+        };
+
+        SSOUserRole result = await userRoleBroker.AddSSOUserRoleAsync(storageUserRole);
+        item.RoleId = result.RoleId;
+        item.UserId = result.UserId;
+        return item;
+    }
 
     public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
         await userRoleBroker.DeleteSSOUserRoleAsync(item);
