@@ -10,7 +10,26 @@ internal class TenantService(ITenantBroker broker)
     {
         tenant.LastUpdated = DateTimeOffset.UtcNow;
         tenant.CreatedOn = tenant.LastUpdated;
-        return await broker.AddTenantAsync(tenant);
+        Tenant storageTenant = new()
+        {
+            Id = tenant.Id,
+            Name = tenant.Name,
+            Description = tenant.Description,
+            CreatedBy = tenant.CreatedBy,
+            LastUpdatedBy = tenant.LastUpdatedBy,
+            CreatedOn = tenant.CreatedOn,
+            LastUpdated = tenant.LastUpdated
+        };
+
+        Tenant result = await broker.AddTenantAsync(storageTenant);
+        tenant.Id = result.Id;
+        tenant.Name = result.Name;
+        tenant.Description = result.Description;
+        tenant.CreatedBy = result.CreatedBy;
+        tenant.LastUpdatedBy = result.LastUpdatedBy;
+        tenant.CreatedOn = result.CreatedOn;
+        tenant.LastUpdated = result.LastUpdated;
+        return tenant;
     }
 
     public async ValueTask DeleteTenantAsync(Tenant tenant)
@@ -22,7 +41,26 @@ internal class TenantService(ITenantBroker broker)
     public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant)
     {
         tenant.LastUpdated = DateTimeOffset.UtcNow;
-        return await broker.UpdateTenantAsync(tenant);
+        Tenant storageTenant = new()
+        {
+            Id = tenant.Id,
+            Name = tenant.Name,
+            Description = tenant.Description,
+            CreatedBy = tenant.CreatedBy,
+            LastUpdatedBy = tenant.LastUpdatedBy,
+            CreatedOn = tenant.CreatedOn,
+            LastUpdated = tenant.LastUpdated
+        };
+
+        Tenant result = await broker.UpdateTenantAsync(storageTenant);
+        tenant.Id = result.Id;
+        tenant.Name = result.Name;
+        tenant.Description = result.Description;
+        tenant.CreatedBy = result.CreatedBy;
+        tenant.LastUpdatedBy = result.LastUpdatedBy;
+        tenant.CreatedOn = result.CreatedOn;
+        tenant.LastUpdated = result.LastUpdated;
+        return tenant;
     }
 }
 
