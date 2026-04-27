@@ -9,7 +9,24 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
     public async ValueTask<TenantAnalysis> AddTenantAnalaysisAsync(TenantAnalysis tenant)
     {
         tenant.CreatedOn = DateTimeOffset.UtcNow;
-        return await broker.AddTenantAnalysisAsync(tenant);
+        TenantAnalysis storageTenantAnalysis = new()
+        {
+            Id = tenant.Id,
+            TenantId = tenant.TenantId,
+            Key = tenant.Key,
+            Name = tenant.Name,
+            Value = tenant.Value,
+            CreatedOn = tenant.CreatedOn
+        };
+
+        TenantAnalysis result = await broker.AddTenantAnalysisAsync(storageTenantAnalysis);
+        tenant.Id = result.Id;
+        tenant.TenantId = result.TenantId;
+        tenant.Key = result.Key;
+        tenant.Name = result.Name;
+        tenant.Value = result.Value;
+        tenant.CreatedOn = result.CreatedOn;
+        return tenant;
     }
 
     public async ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenant)
@@ -19,7 +36,26 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
         => broker.GetAllTenantAnalysis();
 
     public async ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenant)
-        => await broker.UpdateTenantAnalysisAsync(tenant);
+    {
+        TenantAnalysis storageTenantAnalysis = new()
+        {
+            Id = tenant.Id,
+            TenantId = tenant.TenantId,
+            Key = tenant.Key,
+            Name = tenant.Name,
+            Value = tenant.Value,
+            CreatedOn = tenant.CreatedOn
+        };
+
+        TenantAnalysis result = await broker.UpdateTenantAnalysisAsync(storageTenantAnalysis);
+        tenant.Id = result.Id;
+        tenant.TenantId = result.TenantId;
+        tenant.Key = result.Key;
+        tenant.Name = result.Name;
+        tenant.Value = result.Value;
+        tenant.CreatedOn = result.CreatedOn;
+        return tenant;
+    }
 }
 
 

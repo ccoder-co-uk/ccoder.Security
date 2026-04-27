@@ -24,13 +24,28 @@ internal class TokenService : ITokenService
         if (value.StartsWith('a'))
             value = value[1..] + "a";
 
-        return await tokenBroker.AddTokenAsync(new Token()
+        Token token = new()
         {
             Id = value,
             Expires = DateTimeOffset.Now.AddMinutes(timeout ?? tokenTimeout),
             Reason = reasonCode,
             UserName = userId
-        });
+        };
+
+        Token storageToken = new()
+        {
+            Id = token.Id,
+            Expires = token.Expires,
+            Reason = token.Reason,
+            UserName = token.UserName
+        };
+
+        Token result = await tokenBroker.AddTokenAsync(storageToken);
+        token.Id = result.Id;
+        token.Expires = result.Expires;
+        token.Reason = result.Reason;
+        token.UserName = result.UserName;
+        return token;
     }
 
     public async ValueTask DeleteTokenAsync(Token item) => 

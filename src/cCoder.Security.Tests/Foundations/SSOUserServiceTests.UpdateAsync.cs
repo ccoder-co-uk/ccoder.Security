@@ -15,16 +15,23 @@ public partial class SSOUserServiceTests
         SSOUser inputSSOUser = RandomUser(RandomString());
         SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
-        userBrokerMock.Setup(broker => broker.UpdateSSOUserAsync(inputSSOUser)).ReturnsAsync(expectedSSOUser);
+        SSOUser submitted = null;
+        userBrokerMock
+            .Setup(broker => broker.UpdateSSOUserAsync(It.IsAny<SSOUser>()))
+            .Callback<SSOUser>(candidate => submitted = candidate)
+            .ReturnsAsync(expectedSSOUser);
 
         // when
         SSOUser actualSSOUser = await userService.UpdateSSOUserAsync(inputSSOUser);
 
         // then
+        actualSSOUser.Should().BeSameAs(inputSSOUser);
+        submitted.Should().NotBeSameAs(inputSSOUser);
+        actualSSOUser.Should().NotBeSameAs(submitted);
         actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
 
         userBrokerMock.Verify(broker => 
-            broker.UpdateSSOUserAsync(inputSSOUser), 
+            broker.UpdateSSOUserAsync(It.IsAny<SSOUser>()), 
             Times.Once);
 
         userBrokerMock.VerifyNoOtherCalls();

@@ -16,16 +16,23 @@ public partial class SSORoleServiceTests
         SSORole expectedSSORole = inputSSORole.DeepClone();
 
         roleBrokerMock.Setup(broker => broker.GetAllSSORoles()).Returns(Array.Empty<SSORole>().AsQueryable());
-        roleBrokerMock.Setup(broker => broker.AddSSORoleAsync(inputSSORole)).ReturnsAsync(expectedSSORole);
+        SSORole submitted = null;
+        roleBrokerMock
+            .Setup(broker => broker.AddSSORoleAsync(It.IsAny<SSORole>()))
+            .Callback<SSORole>(candidate => submitted = candidate)
+            .ReturnsAsync(expectedSSORole);
 
         // when
         SSORole actualSSORole = await roleService.AddSSORoleAsync(inputSSORole);
 
         // then
+        actualSSORole.Should().BeSameAs(inputSSORole);
+        submitted.Should().NotBeSameAs(inputSSORole);
+        actualSSORole.Should().NotBeSameAs(submitted);
         actualSSORole.Should().BeEquivalentTo(expectedSSORole);
 
         roleBrokerMock.Verify(broker => 
-            broker.AddSSORoleAsync(inputSSORole), 
+            broker.AddSSORoleAsync(It.IsAny<SSORole>()), 
             Times.Once);
 
         roleBrokerMock.VerifyNoOtherCalls();
