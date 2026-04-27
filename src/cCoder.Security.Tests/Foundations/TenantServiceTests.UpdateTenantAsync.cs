@@ -20,21 +20,26 @@ public partial class TenantServiceTests
             dateTimeOffsetBrokerMock.GetCurrentTime())
             .Returns(expectedTime);
 
+        Tenant submitted = null;
         tenantBrokerMock.Setup(tenantBrokerMock =>
-            tenantBrokerMock.UpdateTenantAsync(inputTenant))
+            tenantBrokerMock.UpdateTenantAsync(It.IsAny<Tenant>()))
+            .Callback<Tenant>(candidate => submitted = candidate)
             .ReturnsAsync(inputTenant);
 
         //when
         Tenant actualTenant = await tenantService.UpdateTenantAsync(inputTenant);
 
         //then
+        actualTenant.Should().BeSameAs(inputTenant);
+        submitted.Should().NotBeSameAs(inputTenant);
+        actualTenant.Should().NotBeSameAs(submitted);
         actualTenant.LastUpdated.Should().BeCloseTo(expectedTime, TimeSpan.FromSeconds(1));
         expectedTenant.LastUpdated = actualTenant.LastUpdated;
 
         actualTenant.Should().BeEquivalentTo(expectedTenant);
 
         tenantBrokerMock.Verify(tenantBrokerMock =>
-            tenantBrokerMock.UpdateTenantAsync(inputTenant), 
+            tenantBrokerMock.UpdateTenantAsync(It.IsAny<Tenant>()), 
             Times.Once());
 
         tenantBrokerMock.VerifyNoOtherCalls();

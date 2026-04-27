@@ -10,7 +10,26 @@ internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffset
     public async ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent)
     {
         userEvent.CreatedOn = dateTimeOffsetBroker.GetCurrentTime();
-        return await broker.AddUserEventAsync(userEvent);
+        UserEvent storageUserEvent = new()
+        {
+            Id = userEvent.Id,
+            EventName = userEvent.EventName,
+            Value = userEvent.Value,
+            CreatedOn = userEvent.CreatedOn,
+            SessionId = userEvent.SessionId,
+            TenantId = userEvent.TenantId,
+            CreatedBy = userEvent.CreatedBy
+        };
+
+        UserEvent result = await broker.AddUserEventAsync(storageUserEvent);
+        userEvent.Id = result.Id;
+        userEvent.EventName = result.EventName;
+        userEvent.Value = result.Value;
+        userEvent.CreatedOn = result.CreatedOn;
+        userEvent.SessionId = result.SessionId;
+        userEvent.TenantId = result.TenantId;
+        userEvent.CreatedBy = result.CreatedBy;
+        return userEvent;
     }
 
     public async ValueTask DeleteUserEventAsync(UserEvent userEvent) => 
