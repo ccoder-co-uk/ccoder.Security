@@ -15,53 +15,77 @@ public class TenantManagerSetupTests
     [Fact]
     public async Task ShouldBootstrapFirstTenantRoleUserAndMembership()
     {
-        using WebApplicationFactory<AcceptanceHost> appFactory = new();
-        using IServiceScope scope = appFactory.Services.CreateScope();
-        IServiceProvider services = scope.ServiceProvider;
+        string originalConnectionString =
+            Environment.GetEnvironmentVariable("ENV_ConnectionStrings__SSO");
 
-        ISecurityDbContextFactory dbContextFactory =
-            services.GetRequiredService<ISecurityDbContextFactory>();
+        Environment.SetEnvironmentVariable(
+            "ENV_ConnectionStrings__SSO",
+            CreateIsolatedAcceptanceConnectionString());
 
-        using (cCoder.Security.Data.EF.SecurityDbContext db = dbContextFactory.CreateDbContext())
+        try
         {
-            db.Database.EnsureDeleted();
-            db.Migrate();
-        }
+            using WebApplicationFactory<AcceptanceHost> appFactory = new();
+            using IServiceScope scope = appFactory.Services.CreateScope();
+            IServiceProvider services = scope.ServiceProvider;
 
-        ITenantManager tenantManager = services.GetRequiredService<ITenantManager>();
+            ISecurityDbContextFactory dbContextFactory =
+                services.GetRequiredService<ISecurityDbContextFactory>();
 
-        await tenantManager.SetupAsync(new SetupDetails
-        {
-            Tenant = new Tenant
+            using (cCoder.Security.Data.EF.SecurityDbContext db = dbContextFactory.CreateDbContext())
             {
-                Id = "default",
-                Name = "Default"
-            },
-            User = new SSOUser
-            {
-                Id = "admin",
-                DisplayName = "Admin User",
-                Email = "admin@example.com",
-                PasswordHash = "TestPass01!"
+                db.Database.EnsureDeleted();
+                db.Migrate();
             }
-        });
 
-        using cCoder.Security.Data.EF.SecurityDbContext assertDb = dbContextFactory.CreateDbContext();
+            ITenantManager tenantManager = services.GetRequiredService<ITenantManager>();
 
-        Tenant tenant = assertDb.Tenants.IgnoreQueryFilters().Single();
-        SSORole role = assertDb.Roles.IgnoreQueryFilters().Single();
-        SSOUser user = assertDb.Users.IgnoreQueryFilters().Single();
-        SSOUserRole userRole = assertDb.UserRoles.IgnoreQueryFilters().Single();
+            await tenantManager.SetupAsync(new SetupDetails
+            {
+                Tenant = new Tenant
+                {
+                    Id = "default",
+                    Name = "Default"
+                },
+                User = new SSOUser
+                {
+                    Id = "admin",
+                    DisplayName = "Admin User",
+                    Email = "admin@example.com",
+                    PasswordHash = "TestPass01!"
+                }
+            });
 
-        tenant.Id.Should().Be("default");
-        role.Name.Should().Be("Administrators");
-        role.TenantId.Should().Be("default");
-        role.UsersArePortalAdmins.Should().BeTrue();
-        user.Id.Should().Be("admin");
-        user.EmailConfirmed.Should().BeTrue();
-        userRole.UserId.Should().Be("admin");
-        userRole.RoleId.Should().Be(role.Id);
-        assertDb.Roles.IgnoreQueryFilters().Should().OnlyContain(foundRole => foundRole.TenantId == "default");
+            using cCoder.Security.Data.EF.SecurityDbContext assertDb = dbContextFactory.CreateDbContext();
+
+            Tenant tenant = assertDb.Tenants.IgnoreQueryFilters().Single();
+            SSORole role = assertDb.Roles.IgnoreQueryFilters().Single();
+            SSOUser user = assertDb.Users.IgnoreQueryFilters().Single();
+            SSOUserRole userRole = assertDb.UserRoles.IgnoreQueryFilters().Single();
+
+            tenant.Id.Should().Be("default");
+            role.Name.Should().Be("Administrators");
+            role.TenantId.Should().Be("default");
+            role.UsersArePortalAdmins.Should().BeTrue();
+            user.Id.Should().Be("admin");
+            user.EmailConfirmed.Should().BeTrue();
+            userRole.UserId.Should().Be("admin");
+            userRole.RoleId.Should().Be(role.Id);
+            assertDb.Roles.IgnoreQueryFilters()
+                .Should().OnlyContain(foundRole => foundRole.TenantId == "default");
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable("ENV_ConnectionStrings__SSO", originalConnectionString);
+        }
+    }
+
+    private static string CreateIsolatedAcceptanceConnectionString()
+    {
+        string uniqueSuffix = $"{Environment.ProcessId}_{Guid.NewGuid():N}";
+
+        return typeof(AcceptanceHost).Namespace == "SecurityMSSQL"
+            ? $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SSOAcceptanceTenantSetup_{uniqueSuffix};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true"
+            : $"Data Source=SSOAcceptanceTenantSetup_{uniqueSuffix}.test.db";
     }
 }
 

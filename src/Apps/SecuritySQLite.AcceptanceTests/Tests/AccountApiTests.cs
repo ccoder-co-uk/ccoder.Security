@@ -25,7 +25,7 @@ public partial class AccountApiTests(
         Faker<RegisterUser> filler = new Faker<RegisterUser>()
             .RuleFor(r => r.DisplayName, f => f.Name.FullName())
             .RuleFor(r => r.Email, f => f.Internet.Email())
-            .RuleFor(r => r.Password, f => f.Internet.Password() + f.Random.Number(5) + "!")
+            .RuleFor(r => r.Password, f => f.Internet.Password(prefix: "Cc123!"))
             .RuleFor(r => r.Culture, f => f.Locale)
             .RuleFor(r => r.PhoneNumber, f => f.Phone.PhoneNumber());
 
