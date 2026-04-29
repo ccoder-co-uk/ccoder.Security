@@ -11,10 +11,10 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
         IConfigurationRoot config = new ConfigurationBuilder()
-            .AddEnvironmentVariables(prefix: "ENV_")
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile("appsettings.testing.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables(prefix: "ENV_")
             .Build();
 
         // configure DI for stack
