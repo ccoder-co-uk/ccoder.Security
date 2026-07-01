@@ -19,7 +19,7 @@ internal interface ITokenProcessingService
 
     ValueTask<Token> GenerateInvitationToken(string userId);
 
-    ValueTask<Token> AddTokenForUserIdAsync(string userId);
+    ValueTask<Token> AddTokenForUserIdAsync(string userId, TokenUse tokenUse);
 
     ValueTask DeleteTokenAsync(string tokenId);
 }

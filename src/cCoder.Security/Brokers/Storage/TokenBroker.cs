@@ -46,6 +46,20 @@ internal class TokenBroker(ISecurityDbContextFactory contextFactory)
         await context.SaveChangesAsync();
     }
 
+    public async ValueTask<int> DeleteExpiredAsync(
+        DateTimeOffset expiresBefore,
+        CancellationToken cancellationToken = default)
+    {
+        using SecurityDbContext context = contextFactory.CreateDbContext(ignoreAuthInfo: true);
+
+        int deletedCount = await context.Tokens
+            .IgnoreQueryFilters()
+            .Where(token => token.Expires < expiresBefore)
+            .ExecuteDeleteAsync(cancellationToken);
+
+        return deletedCount;
+    }
+
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false)
     {
         SecurityDbContext context = 
@@ -56,7 +70,3 @@ internal class TokenBroker(ISecurityDbContextFactory contextFactory)
             : context.Tokens;
     }
 }
-
-
-
-

@@ -5,7 +5,7 @@ namespace cCoder.Security.Services.Processings;
 
 internal partial class SSOUserProcessingService
 {
-    public void ValidateSSOUser(SSOUser user)
+    public void ValidateSSOUser(SSOUser user, bool validatePassword = true)
     {
         if (!user.Email.Contains('@'))
             throw new ValidationException("Invalid email provided");
@@ -13,7 +13,7 @@ internal partial class SSOUserProcessingService
         if (string.IsNullOrEmpty(user.DisplayName))
             throw new ValidationException("Display name cannot be empty");
 
-        if (string.IsNullOrEmpty(user.PasswordHash))
+        if (validatePassword && string.IsNullOrEmpty(user.PasswordHash))
             throw new ValidationException("Password cannot be empty");
 
         bool emailInSystem = ssoUserService
@@ -23,7 +23,8 @@ internal partial class SSOUserProcessingService
         if (emailInSystem)
             throw new ValidationException("Email exists");
 
-        ValidatePassword(user.PasswordHash);
+        if (validatePassword)
+            ValidatePassword(user.PasswordHash);
     }
 
     public void ValidatePassword(string password)

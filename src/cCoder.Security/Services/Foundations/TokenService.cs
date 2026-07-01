@@ -4,21 +4,13 @@ using cCoder.Security.Services.Foundations.Interfaces;
 using Microsoft.Extensions.Configuration;
 
 namespace cCoder.Security.Services.Foundations;
-internal class TokenService : ITokenService
+
+internal class TokenService(ITokenBroker tokenBroker, IConfiguration configuration)
+    : ITokenService
 {
-    private readonly ITokenBroker tokenBroker;
-    private readonly int tokenTimeout = 45;
-
-    public TokenService(ITokenBroker tokenBroker, IConfiguration cofiguration)
+    public async ValueTask<Token> AddTokenAsync(string userId, TokenUse tokenUse, int? timeout = null)
     {
-        this.tokenBroker = tokenBroker;
-
-        if (int.TryParse(cofiguration?.GetSection("Settings")["TokenTimeout"], out int timeout))
-            tokenTimeout = timeout;
-    }
-
-    public async ValueTask<Token> AddTokenAsync(string userId, int reasonCode = 0, int? timeout = null)
-    {
+        int tokenTimeout = GetTokenTimeout();
         string value = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", "");
 
         if (value.StartsWith('a'))
@@ -28,7 +20,7 @@ internal class TokenService : ITokenService
         {
             Id = value,
             Expires = DateTimeOffset.Now.AddMinutes(timeout ?? tokenTimeout),
-            Reason = reasonCode,
+            Reason = (int)tokenUse,
             UserName = userId
         };
 
@@ -51,8 +43,17 @@ internal class TokenService : ITokenService
     public async ValueTask DeleteTokenAsync(Token item) => 
         await tokenBroker.DeleteTokenAsync(item);
 
+    public async ValueTask<int> DeleteExpiredAsync(CancellationToken cancellationToken = default) =>
+        await tokenBroker.DeleteExpiredAsync(DateTimeOffset.UtcNow, cancellationToken);
+
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) => 
         tokenBroker.GetAllTokens(ignoreFilters);
+
+    private int GetTokenTimeout()
+    {
+        if (int.TryParse(configuration?.GetSection("Settings")["TokenTimeout"], out int timeout))
+            return timeout;
+
+        return 45;
+    }
 }
-
-

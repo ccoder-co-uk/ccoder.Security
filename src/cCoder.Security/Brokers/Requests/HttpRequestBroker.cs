@@ -11,5 +11,15 @@ internal class HttpRequestBroker(HttpRequest request)
         request?.Headers.ContainsKey(key) ?? false
             ? request?.Headers[key].ToString()
             : null;
+
+    public string GetRequestDomain()
+    {
+        string forwardedHost = Header("X-Forwarded-Host");
+
+        if (!string.IsNullOrWhiteSpace(forwardedHost))
+            return forwardedHost;
+
+        return request?.Host.Host;
+    }
 }
 
