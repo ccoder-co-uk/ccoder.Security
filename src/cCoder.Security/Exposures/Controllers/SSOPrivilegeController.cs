@@ -3,26 +3,22 @@ using cCoder.Security.Services.Processings.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSOPrivilegeController(IServiceProvider serviceProvider)
+public class SSOPrivilegeController(ISSOPrivilegeProcessingService privilegeProcessingService)
     : SecurityController<SSOPrivilege>
 {
-    private ISSOPrivilegeProcessingService SsoPrivilegeProcessingService =>
-        serviceProvider.GetRequiredService<ISSOPrivilegeProcessingService>();
-
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<SSOPrivilege> queryOptions) =>
-        Ok(SsoPrivilegeProcessingService.GetAllSSOPrivileges());
+        Ok(privilegeProcessingService.GetAllSSOPrivileges());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] string key)
     {
-        IQueryable<SSOPrivilege> result = SsoPrivilegeProcessingService
+        IQueryable<SSOPrivilege> result = privilegeProcessingService
             .GetAllSSOPrivileges()
             .Where(i => i.Id == key);
 
@@ -31,4 +27,3 @@ public class SSOPrivilegeController(IServiceProvider serviceProvider)
             : NotFound();
     }
 }
-

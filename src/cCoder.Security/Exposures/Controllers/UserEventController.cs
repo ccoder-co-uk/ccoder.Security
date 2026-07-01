@@ -3,26 +3,22 @@ using cCoder.Security.Services.Processings.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class UserEventController(IServiceProvider serviceProvider)
+public class UserEventController(IUserEventProcessingService userEventProcessingService)
     : SecurityController<UserEvent>
 {
-    private IUserEventProcessingService UserEventProcessingService =>
-        serviceProvider.GetRequiredService<IUserEventProcessingService>();
-
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<UserEvent> queryOptions) =>
-        Ok(UserEventProcessingService.GetAllUserEvents());
+        Ok(userEventProcessingService.GetAllUserEvents());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] Guid key)
     {
-        IQueryable<UserEvent> result = UserEventProcessingService
+        IQueryable<UserEvent> result = userEventProcessingService
             .GetAllUserEvents()
             .Where(i => i.Id == key);
 
@@ -31,4 +27,3 @@ public class UserEventController(IServiceProvider serviceProvider)
             : NotFound();
     }
 }
-
