@@ -12,6 +12,7 @@ on:
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   DOTNET_NOLOGO: true
+  DOTNET_CLI_DISABLE_PERSISTENT_MSBUILD_SERVER: true
   NUGET_DIRECTORY: ${{ github.workspace }}/artifacts/nuget
 
 defaults:
@@ -20,16 +21,14 @@ defaults:
 
 jobs:
   build-test-pack:
-    runs-on: windows-latest
+    runs-on: self-hosted
+    defaults:
+      run:
+        shell: powershell
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 10.x
 
       - name: Create version number
         id: version
@@ -48,8 +47,8 @@ jobs:
       - name: Pack
         run: |
           New-Item -ItemType Directory -Path "${{ env.NUGET_DIRECTORY }}" -Force | Out-Null
-          dotnet pack src/cCoder.Security/cCoder.Security.csproj -c Release --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
-          dotnet pack src/cCoder.Security.Data/cCoder.Security.Data.csproj -c Release --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
+          dotnet pack src/cCoder.Security/cCoder.Security.csproj -c Release --no-build --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
+          dotnet pack src/cCoder.Security.Data/cCoder.Security.Data.csproj -c Release --no-build --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v4
