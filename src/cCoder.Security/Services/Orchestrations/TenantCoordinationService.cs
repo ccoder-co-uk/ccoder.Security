@@ -9,6 +9,15 @@ internal class TenantCoordinationService(
     ISSOAuthorizationBroker authBroker)
         : ITenantCoordinationService
 {
+    public IQueryable<Tenant> GetAllTenants() =>
+        tenantOrchestrationService.GetAllTenants();
+
+    public async ValueTask<Tenant> AddTenantAsync(Tenant tenant) =>
+        await tenantOrchestrationService.AddTenantAsync(tenant);
+
+    public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant) =>
+        await tenantOrchestrationService.UpdateTenantAsync(tenant);
+
     public async ValueTask DeleteTenantAsync(Tenant tenant)
     {
         authBroker.UserIsPortalAdminWithPrivilege("tenant_delete");
@@ -17,5 +26,3 @@ internal class TenantCoordinationService(
         await tenantOrchestrationService.DeleteTenantAsync(tenant);
     }
 }
-
-

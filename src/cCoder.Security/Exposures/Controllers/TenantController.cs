@@ -3,29 +3,22 @@ using cCoder.Security.Services.Orchestrations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class TenantController(IServiceProvider serviceProvider)
+public class TenantController(ITenantCoordinationService tenantCoordinationService)
     : SecurityController<Tenant>
 {
-    private ITenantOrchestrationService TenantOrchestrationService =>
-        serviceProvider.GetRequiredService<ITenantOrchestrationService>();
-
-    private ITenantCoordinationService TenantCoordinationService =>
-        serviceProvider.GetRequiredService<ITenantCoordinationService>();
-
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<Tenant> queryOptions) =>
-        Ok(TenantOrchestrationService.GetAllTenants());
+        Ok(tenantCoordinationService.GetAllTenants());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] string key)
     {
-        IQueryable<Tenant> result = TenantOrchestrationService
+        IQueryable<Tenant> result = tenantCoordinationService
             .GetAllTenants()
             .Where(i => i.Id == key);
 
@@ -37,13 +30,13 @@ public class TenantController(IServiceProvider serviceProvider)
     [HttpPost]
     public async ValueTask<IActionResult> Post([FromBody] Tenant tenant) =>
         ModelState.IsValid
-            ? Ok(await TenantOrchestrationService.AddTenantAsync(tenant))
+            ? Ok(await tenantCoordinationService.AddTenantAsync(tenant))
             : BadRequest(ModelState);
 
     [HttpPut]
     public async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] Tenant tenant) =>
         ModelState.IsValid
-            ? Ok(await TenantOrchestrationService.UpdateTenantAsync(tenant))
+            ? Ok(await tenantCoordinationService.UpdateTenantAsync(tenant))
             : BadRequest(ModelState);
 
     [HttpDelete]
@@ -52,16 +45,15 @@ public class TenantController(IServiceProvider serviceProvider)
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var tenant = TenantOrchestrationService
+        var tenant = tenantCoordinationService
             .GetAllTenants()
             .First(t => t.Id == key);
 
         if (tenant is null)
             return NotFound();
 
-        await TenantCoordinationService.DeleteTenantAsync(tenant);
+        await tenantCoordinationService.DeleteTenantAsync(tenant);
 
         return Ok();
     }
 }
-

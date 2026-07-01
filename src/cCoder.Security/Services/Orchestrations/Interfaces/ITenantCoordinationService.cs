@@ -1,8 +1,13 @@
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Orchestrations.Interfaces;
-internal interface ITenantCoordinationService
+public interface ITenantCoordinationService
 {
+    IQueryable<Tenant> GetAllTenants();
+
+    ValueTask<Tenant> AddTenantAsync(Tenant item);
+
+    ValueTask<Tenant> UpdateTenantAsync(Tenant item);
+
     ValueTask DeleteTenantAsync(Tenant item);
 }
-

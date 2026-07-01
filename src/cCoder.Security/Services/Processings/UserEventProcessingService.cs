@@ -15,5 +15,3 @@ internal class UserEventProcessingService(IUserEventService userEventService)
     public IQueryable<UserEvent> GetAllUserEvents() => 
         userEventService.GetAllUserEvents();
 }
-
-
