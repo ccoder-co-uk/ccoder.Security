@@ -50,8 +50,6 @@ jobs:
           New-Item -ItemType Directory -Path "${{ env.NUGET_DIRECTORY }}" -Force | Out-Null
           dotnet pack src/cCoder.Security/cCoder.Security.csproj -c Release --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
           dotnet pack src/cCoder.Security.Data/cCoder.Security.Data.csproj -c Release --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
-          dotnet pack src/cCoder.Security.Data.EF.MSSQL/cCoder.Security.Data.EF.MSSQL.csproj -c Release --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
-          dotnet pack src/cCoder.Security.Data.EF.SQLite/cCoder.Security.Data.EF.SQLite.csproj -c Release --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v4
