@@ -6,21 +6,19 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class TenantController(
-    ITenantCoordinationService tenantCoordinationService,
-    ITenantOrchestrationService tenantOrchestrationService)
+public class TenantController(ITenantCoordinationService tenantCoordinationService)
     : SecurityController<Tenant>
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<Tenant> queryOptions) =>
-        Ok(tenantOrchestrationService.GetAllTenants());
+        Ok(tenantCoordinationService.GetAllTenants());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] string key)
     {
-        IQueryable<Tenant> result = tenantOrchestrationService
+        IQueryable<Tenant> result = tenantCoordinationService
             .GetAllTenants()
             .Where(i => i.Id == key);
 
@@ -32,13 +30,13 @@ public class TenantController(
     [HttpPost]
     public async ValueTask<IActionResult> Post([FromBody] Tenant tenant) =>
         ModelState.IsValid
-            ? Ok(await tenantOrchestrationService.AddTenantAsync(tenant))
+            ? Ok(await tenantCoordinationService.AddTenantAsync(tenant))
             : BadRequest(ModelState);
 
     [HttpPut]
     public async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] Tenant tenant) =>
         ModelState.IsValid
-            ? Ok(await tenantOrchestrationService.UpdateTenantAsync(tenant))
+            ? Ok(await tenantCoordinationService.UpdateTenantAsync(tenant))
             : BadRequest(ModelState);
 
     [HttpDelete]
@@ -47,7 +45,7 @@ public class TenantController(
         if(!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var tenant = tenantOrchestrationService
+        var tenant = tenantCoordinationService
             .GetAllTenants()
             .First(t => t.Id == key);
 
