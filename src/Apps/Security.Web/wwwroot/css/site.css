@@ -1,0 +1,99 @@
+html {
+  font-size: 14px;
+  min-height: 100%;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  background: #f7f8fa;
+  color: #1f2933;
+  margin-bottom: 48px;
+}
+
+.app-shell {
+  max-width: 1320px;
+}
+
+.section-panel {
+  background: #fff;
+  border: 1px solid #d9dee7;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 6%);
+  margin-bottom: 1rem;
+}
+
+.section-panel header {
+  align-items: center;
+  border-bottom: 1px solid #e5e8ef;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+}
+
+.section-panel header h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.section-panel .panel-body {
+  padding: 1rem;
+}
+
+.result-box {
+  background: #111827;
+  border-radius: 4px;
+  color: #d1fae5;
+  font-family: Consolas, monospace;
+  font-size: 0.8rem;
+  min-height: 2.5rem;
+  overflow: auto;
+  padding: 0.75rem;
+  white-space: pre-wrap;
+}
+
+.token-chip {
+  display: inline-block;
+  font-family: Consolas, monospace;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table-sm td,
+.table-sm th {
+  vertical-align: middle;
+}
+
+.selectable-row {
+  cursor: pointer;
+}
+
+.selectable-row:hover {
+  background: #eef4ff;
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.muted-note {
+  color: #65758b;
+  font-size: 0.875rem;
+}

@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Security.HostedServices": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "launchUrl": "",
+      "applicationUrl": "https://localhost:65309;http://localhost:65310",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

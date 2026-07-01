@@ -6,8 +6,8 @@ namespace cCoder.Security.Services.Processings;
 internal class TokenProcessingService(ITokenService tokenService)
     : ITokenProcessingService
 {
-    public async ValueTask<Token> AddTokenForUserIdAsync(string userId) => 
-        await tokenService.AddTokenAsync(userId);
+    public async ValueTask<Token> AddTokenForUserIdAsync(string userId, TokenUse tokenUse) =>
+        await tokenService.AddTokenAsync(userId, tokenUse);
 
     public async ValueTask DeleteTokenAsync(string tokenId)
     {
@@ -36,13 +36,13 @@ internal class TokenProcessingService(ITokenService tokenService)
     }
 
     public async ValueTask<Token> GenerateConfirmationToken(string userId) =>
-        await tokenService.AddTokenAsync(userId, (int)TokenUse.Confirmation);
+        await tokenService.AddTokenAsync(userId, TokenUse.Confirmation);
 
     public async ValueTask<Token> GenerateInvitationToken(string userId) =>
-        await tokenService.AddTokenAsync(userId, (int)TokenUse.Invitation, (7 * 24 * 60));
+        await tokenService.AddTokenAsync(userId, TokenUse.Invitation, (7 * 24 * 60));
 
     public async ValueTask<Token> GenerateForgottenPasswordToken(string userId) => 
-        await tokenService.AddTokenAsync(userId, (int)TokenUse.PasswordReset);
+        await tokenService.AddTokenAsync(userId, TokenUse.PasswordReset);
 
     public Token GetForgottenPasswordToken(string tokenId)
     {

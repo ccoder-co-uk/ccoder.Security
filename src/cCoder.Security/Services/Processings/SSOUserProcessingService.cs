@@ -24,9 +24,12 @@ internal partial class SSOUserProcessingService(
 
     public async ValueTask<SSOUser> InviteSSOUserAsync(SSOUser user)
     {
-        ValidateSSOUser(user);
+        ValidateSSOUser(user, validatePassword: false);
 
         user.Id = GetNextAvailableUserId(user);
+
+        if (string.IsNullOrWhiteSpace(user.PasswordHash))
+            user.PasswordHash = Guid.NewGuid().ToString("N") + "Aa1!";
 
         user.PasswordHash = encryptionBroker.Encrypt(user.PasswordHash);
         user.LockoutEnabled = true;

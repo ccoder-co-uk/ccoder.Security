@@ -1,5 +1,4 @@
-using cCoder.Security.Api.EDM;
-using cCoder.Security.Api;
+using cCoder.Security.Exposures.EDM;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Requests;
@@ -11,7 +10,9 @@ using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.EventHandlers;
+using cCoder.Security.Exposures.HostedServices;
 using cCoder.Security.Objects;
+using cCoder.Security.Objects.Events;
 using cCoder.Security.Services.Foundations;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Foundations.Events;
@@ -30,7 +31,22 @@ public static class IServiceCollectionExtensions
     public static void AddSecurityApi(
         this IServiceCollection services,
         Action<IServiceCollection, SecurityConfiguration> configAction) =>
+        services.AddSecurityWeb(configAction);
+
+    public static SecurityConfiguration AddSecurityWeb(
+        this IServiceCollection services,
+        Action<IServiceCollection, SecurityConfiguration> configAction) =>
         services.AddSecurity(configAction);
+
+    public static SecurityConfiguration AddSecurityHostedServices(
+        this IServiceCollection services,
+        Action<IServiceCollection, SecurityConfiguration> configAction)
+    {
+        SecurityConfiguration securityConfiguration = services.AddSecurity(configAction);
+        services.AddSecurityHostedServiceExposures();
+
+        return securityConfiguration;
+    }
 
     public static SecurityConfiguration AddSecurity(
         this IServiceCollection services,
@@ -55,87 +71,99 @@ public static class IServiceCollectionExtensions
         return securityConfiguration;
     }
 
-    private static void AddEventingTypes(this IServiceCollection services) =>
+    private static void AddEventingTypes(this IServiceCollection services)
+    {
         services.AddEventingForType<SetupDetails>();
+        services.AddEventingForType<SecurityAccountEvent>();
+    }
 
     private static void AddBrokers(this IServiceCollection services)
     {
-        services.AddScoped<IHttpRequestBroker, HttpRequestBroker>();
-        services.AddScoped<ISessionBroker, SessionBroker>();
-        services.AddScoped<ISSOPrivilegeBroker, SSOPrivilegeBroker>();
-        services.AddScoped<ISSORoleBroker, SSORoleBroker>();
-        services.AddScoped<ISSOUserBroker, SSOUserBroker>();
-        services.AddScoped<ISSOUserRoleBroker, SSOUserRoleBroker>();
-        services.AddScoped<ITenantBroker, TenantBroker>();
-        services.AddScoped<ITenantAnalysisBroker, TenantAnalysisBroker>();
-        services.AddScoped<ITokenBroker, TokenBroker>();
-        services.AddScoped<IUserEventBroker, UserEventBroker>();
-        services.AddScoped<ISerializationBroker, SerializationBroker>();
-        services.AddScoped<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
-        services.AddScoped<ISSOAuthorizationBroker, SSOAuthorizationBroker>();
+        services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
+        services.AddTransient<ISessionBroker, SessionBroker>();
+        services.AddTransient<ISSOPrivilegeBroker, SSOPrivilegeBroker>();
+        services.AddTransient<ISSORoleBroker, SSORoleBroker>();
+        services.AddTransient<ISSOUserBroker, SSOUserBroker>();
+        services.AddTransient<ISSOUserRoleBroker, SSOUserRoleBroker>();
+        services.AddTransient<ITenantBroker, TenantBroker>();
+        services.AddTransient<ITenantAnalysisBroker, TenantAnalysisBroker>();
+        services.AddTransient<ITokenBroker, TokenBroker>();
+        services.AddTransient<IUserEventBroker, UserEventBroker>();
+        services.AddTransient<ISerializationBroker, SerializationBroker>();
+        services.AddTransient<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
+        services.AddTransient<ISSOAuthorizationBroker, SSOAuthorizationBroker>();
 
         services.AddTransient<IEventHubBroker, EventHubBroker>();
+        services.AddTransient<IAccountEventBroker, AccountEventBroker>();
         services.AddTransient<ITenantSetupEventBroker, TenantSetupEventBroker>();
     }
 
     private static void AddFoundations(this IServiceCollection services)
     {
-        services.AddScoped(async provider =>
+        services.AddTransient(async provider =>
             await provider.GetRequiredService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfoAsync());
 
-        services.AddScoped(provider =>
+        services.AddTransient(provider =>
         {
             Task<ISSOAuthInfo> authInfoTask = provider.GetRequiredService<Task<ISSOAuthInfo>>();
             authInfoTask.Wait();
             return authInfoTask.Result;
         });
 
-        services.AddScoped<ISSOUserService, SSOUserService>();
-        services.AddScoped<ISSOPrivilegeService, SSOPrivilegeService>();
-        services.AddScoped<ISSOUserRoleService, SSOUserRoleService>();
-        services.AddScoped<ISSORoleService, SSORoleService>();
-        services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<ITenantService, TenantService>();
-        services.AddScoped<ITenantAnalysisService, TenantAnalysisService>();
-        services.AddScoped<ISessionService, SessionService>();
-        services.AddScoped<IUserEventService, UserEventService>();
+        services.AddTransient<ISSOUserService, SSOUserService>();
+        services.AddTransient<ISSOPrivilegeService, SSOPrivilegeService>();
+        services.AddTransient<ISSOUserRoleService, SSOUserRoleService>();
+        services.AddTransient<ISSORoleService, SSORoleService>();
+        services.AddTransient<ITokenService, TokenService>();
+        services.AddTransient<ITenantService, TenantService>();
+        services.AddTransient<ITenantAnalysisService, TenantAnalysisService>();
+        services.AddTransient<ISessionService, SessionService>();
+        services.AddTransient<IUserEventService, UserEventService>();
 
         services.AddTransient<IEventHandlerService, EventHandlerService>();
+        services.AddTransient<IAccountEventService, AccountEventService>();
         services.AddTransient<ITenantSetupEventService, TenantSetupEventService>();
     }
 
     private static void AddProcessings(this IServiceCollection services)
     {
-        services.AddScoped<ISSOUserProcessingService, SSOUserProcessingService>();
-        services.AddScoped<ISSOPrivilegeProcessingService, SSOPrivilegeProcessingService>();
-        services.AddScoped<ISSOUserRoleProcessingService, SSOUserRoleProcessingService>();
-        services.AddScoped<ISSORoleProcessingService, SSORoleProcessingService>();
-        services.AddScoped<ITokenProcessingService, TokenProcessingService>();
-        services.AddScoped<ITenantProcessingService, TenantProcessingService>();
-        services.AddScoped<ITenantAnalysisProcessingService, TenantAnalysisProcessingService>();
-        services.AddScoped<ISessionProcessingService, SessionProcessingService>();
-        services.AddScoped<IUserEventProcessingService, UserEventProcessingService>();
+        services.AddTransient<ISSOUserProcessingService, SSOUserProcessingService>();
+        services.AddTransient<ISSOPrivilegeProcessingService, SSOPrivilegeProcessingService>();
+        services.AddTransient<ISSOUserRoleProcessingService, SSOUserRoleProcessingService>();
+        services.AddTransient<ISSORoleProcessingService, SSORoleProcessingService>();
+        services.AddTransient<ITokenProcessingService, TokenProcessingService>();
+        services.AddTransient<ITenantProcessingService, TenantProcessingService>();
+        services.AddTransient<ITenantAnalysisProcessingService, TenantAnalysisProcessingService>();
+        services.AddTransient<ISessionProcessingService, SessionProcessingService>();
+        services.AddTransient<IUserEventProcessingService, UserEventProcessingService>();
 
         services.AddTransient<ITenantSetupEventProcessingService, TenantSetupEventProcessingService>();
     }
 
     private static void AddOrchestrations(this IServiceCollection services)
     {
-        services.AddScoped<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
-        services.AddScoped<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
-        services.AddScoped<ITenantOrchestrationService, TenantOrchestrationService>();
-        services.AddScoped<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();
-        services.AddScoped<ITenantSetupOrchestrationService, TenantSetupOrchestrationService>();
-        services.AddScoped<ITenantCoordinationService, TenantCoordinationService>();
-        services.AddScoped<ISSOUserOrchestrationService, SSOUserRegistrationOrchestrationService>();
-        services.AddScoped<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();
-        services.AddScoped<ISSORoleOrchestrationService, SSORoleOrchestrationService>();
+        services.AddTransient<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
+        services.AddTransient<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
+        services.AddTransient<ITenantOrchestrationService, TenantOrchestrationService>();
+        services.AddTransient<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();
+        services.AddTransient<ITenantSetupOrchestrationService, TenantSetupOrchestrationService>();
+        services.AddTransient<ITenantCoordinationService, TenantCoordinationService>();
+        services.AddTransient<ISSOUserOrchestrationService, SSOUserOrchestrationService>();
+        services.AddTransient<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();
+        services.AddTransient<ISSORoleOrchestrationService, SSORoleOrchestrationService>();
     }
 
     private static void AddExposures(this IServiceCollection services)
     {
-        services.AddTransient<IAccountManager, AccountManager>();
+        services.AddTransient<ITokenManager, TokenManager>();
         services.AddTransient<ITenantManager, TenantManager>();
+    }
+
+    private static void AddSecurityHostedServiceExposures(this IServiceCollection services)
+    {
+        services.AddSingleton<ITokenCleaner, TokenCleaner>();
+        services.AddSingleton<IHostedService>(serviceProvider =>
+            serviceProvider.GetRequiredService<ITokenCleaner>());
     }
 
     private static void AddEventHandlers(this IServiceCollection services) =>
