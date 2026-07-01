@@ -3,26 +3,22 @@ using cCoder.Security.Services.Processings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class TenantAnalysisController(IServiceProvider serviceProvider)
+public class TenantAnalysisController(ITenantAnalysisProcessingService tenantAnalysisProcessingService)
     : SecurityController<TenantAnalysis>
 {
-    private ITenantAnalysisProcessingService TenantAnalysisProcessingService =>
-        serviceProvider.GetRequiredService<ITenantAnalysisProcessingService>();
-
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get() =>
-        Ok(TenantAnalysisProcessingService.GetAllTenantAnalysis());
+        Ok(tenantAnalysisProcessingService.GetAllTenantAnalysis());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] Guid key)
     {
-        IQueryable<TenantAnalysis> result = TenantAnalysisProcessingService
+        IQueryable<TenantAnalysis> result = tenantAnalysisProcessingService
             .GetAllTenantAnalysis()
             .Where(i => i.Id == key);
 
@@ -31,4 +27,3 @@ public class TenantAnalysisController(IServiceProvider serviceProvider)
             : NotFound();
     }
 }
-

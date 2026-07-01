@@ -3,26 +3,22 @@ using cCoder.Security.Services.Orchestrations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSORoleController(IServiceProvider serviceProvider)
+public class SSORoleController(ISSORoleOrchestrationService roleOrchestrationService)
     : SecurityController<SSORole>
 {
-    private ISSORoleOrchestrationService SsoRoleService =>
-        serviceProvider.GetRequiredService<ISSORoleOrchestrationService>();
-
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<SSORole> queryOptions) =>
-        Ok(SsoRoleService.GetAllSSORoles());
+        Ok(roleOrchestrationService.GetAllSSORoles());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] Guid key)
     {
-        IQueryable<SSORole> result = SsoRoleService
+        IQueryable<SSORole> result = roleOrchestrationService
             .GetAllSSORoles()
             .Where(i => i.Id == key);
 
@@ -33,11 +29,11 @@ public class SSORoleController(IServiceProvider serviceProvider)
 
     [HttpPost]
     public virtual async ValueTask<IActionResult> Post([FromBody] SSORole role) =>
-        Ok(await SsoRoleService.AddSSORoleAsync(role));
+        Ok(await roleOrchestrationService.AddSSORoleAsync(role));
 
     [HttpPut]
     public virtual async ValueTask<IActionResult> Put([FromRoute] Guid key, [FromBody] SSORole role) =>
-        Ok(await SsoRoleService.UpdateSSORoleAsync(role));
+        Ok(await roleOrchestrationService.UpdateSSORoleAsync(role));
 
     [HttpDelete]
     public async ValueTask<IActionResult> Delete([FromRoute] Guid key)
@@ -45,16 +41,15 @@ public class SSORoleController(IServiceProvider serviceProvider)
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var role = SsoRoleService
+        var role = roleOrchestrationService
             .GetAllSSORoles()
             .FirstOrDefault(r => r.Id == key);
 
         if (role is null)
             return NotFound();
 
-        await SsoRoleService.DeleteSSORoleAsync(role);
+        await roleOrchestrationService.DeleteSSORoleAsync(role);
 
         return Ok();
     }
 }
-

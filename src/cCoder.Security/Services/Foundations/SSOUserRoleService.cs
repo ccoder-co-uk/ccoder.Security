@@ -3,9 +3,8 @@ using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
-internal class SSOUserRoleService(
-    ISSOUserRoleBroker userRoleBroker) 
-        : ISSOUserRoleService
+internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker) 
+    : ISSOUserRoleService
 {
     public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
     {
@@ -27,5 +26,3 @@ internal class SSOUserRoleService(
     public IQueryable<SSOUserRole> GetAllSSOUserRoles()  =>
         userRoleBroker.GetAllSSOUserRoles();
 }
-
-
