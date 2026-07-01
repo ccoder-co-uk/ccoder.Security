@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Identity;
 namespace cCoder.Security.Brokers.Encryption;
 internal class PasswordEncryptionBrokerHasher : IPasswordEncryptionBroker
 {
-    private readonly PasswordHasher<object> hasher;
-
-    public PasswordEncryptionBrokerHasher() =>
-        this.hasher = new PasswordHasher<object>();
+    private readonly PasswordHasher<object> hasher = new();
 
     public string Encrypt(string password) =>
         hasher.HashPassword(new object(), password);

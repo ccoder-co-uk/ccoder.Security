@@ -4,6 +4,12 @@ namespace cCoder.Security;
 
 public static class WebApplicationExtensions
 {
+    public static WebApplication StartSecurityWeb(this WebApplication app, ILogger log = null) =>
+        app.UseSecurityExposure(log);
+
+    public static WebApplication StartSecurityHostedServices(this WebApplication app) =>
+        app.ListenToSecurityEvents();
+
     public static WebApplication UseSecurityExposure(this WebApplication app, ILogger log = null)
     {
         log?.LogInformation("Initialising Security");

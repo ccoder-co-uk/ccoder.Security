@@ -1,11 +1,20 @@
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Orchestrations.Interfaces;
-internal interface IAuthenticationOrchestrationService
+public interface IAuthenticationOrchestrationService
 {
-    ValueTask<Token> IssueTokenAsync(string userId);
+    SSOUser Me();
+
+    ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse);
+
     ValueTask<Token> LoginAsync(string username, string password);
-    ValueTask Logout(string tokenId = null);
-    ValueTask<Token> GenerateForgotPasswordToken(string userId);
+
+    ValueTask LogoutAsync();
+
+    ValueTask ChangePasswordAsync(string username, string oldPassword, string newPassword);
+
+    ValueTask<Token> ForgotPasswordAsync(string email);
+
+    ValueTask ConfirmForgotPasswordAsync(string tokenId, string userId, string newPassword, string confirmNewPassword);
 }
 

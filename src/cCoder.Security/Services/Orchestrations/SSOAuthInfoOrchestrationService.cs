@@ -5,26 +5,13 @@ using cCoder.Security.Services.Processings.Interfaces;
 using System.Text;
 
 namespace cCoder.Security.Services.Orchestrations;
-internal class SSOAuthInfoOrchestrationService 
+internal class SSOAuthInfoOrchestrationService(
+    ISessionProcessingService sessionService,
+    ISSOUserProcessingService userService,
+    ITokenProcessingService tokenService,
+    IHttpRequestBroker httpRequestBroker)
     : ISSOAuthInfoOrchestrationService
 {
-    private readonly ISessionProcessingService sessionService;
-    private readonly ISSOUserProcessingService userService;
-    private readonly ITokenProcessingService tokenService;
-    private readonly IHttpRequestBroker httpRequestBroker;
-
-    public SSOAuthInfoOrchestrationService(
-        ISessionProcessingService sessionService,
-        ISSOUserProcessingService userService,
-        ITokenProcessingService tokenService,
-        IHttpRequestBroker httpRequestBroker)
-    {
-        this.sessionService = sessionService;
-        this.userService = userService;
-        this.tokenService = tokenService;
-        this.httpRequestBroker = httpRequestBroker;
-    }
-
     public async ValueTask<ISSOAuthInfo> GetSSOAuthInfoAsync()
     {
         ISSOAuthInfo auth = (await GetFromAuthenticationHeaderAsync()) ?? GetFromSession();
