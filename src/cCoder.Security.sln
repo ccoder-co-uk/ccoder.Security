@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.HostedServices", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.HostedServices.AcceptanceTests", "Apps\Security.HostedServices.AcceptanceTests\Security.HostedServices.AcceptanceTests.csproj", "{C2DF5E8C-7482-440F-9264-C9A0EAECAC59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Security.IntegrationTests", "cCoder.Security.IntegrationTests\cCoder.Security.IntegrationTests.csproj", "{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,18 @@ Global
 		{C2DF5E8C-7482-440F-9264-C9A0EAECAC59}.Release|x64.Build.0 = Release|Any CPU
 		{C2DF5E8C-7482-440F-9264-C9A0EAECAC59}.Release|x86.ActiveCfg = Release|Any CPU
 		{C2DF5E8C-7482-440F-9264-C9A0EAECAC59}.Release|x86.Build.0 = Release|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Debug|x64.Build.0 = Debug|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Debug|x86.Build.0 = Debug|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Release|x64.ActiveCfg = Release|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Release|x64.Build.0 = Release|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Release|x86.ActiveCfg = Release|Any CPU
+		{E177942A-CA7C-4EFC-BAF8-437C6B12BF04}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
