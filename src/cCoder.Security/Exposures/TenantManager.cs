@@ -1,10 +1,10 @@
 using cCoder.Security.Data.Models;
-using cCoder.Security.Services.Foundations.Events;
+using cCoder.Security.Services.Processings.Events;
 
 namespace cCoder.Security.Exposures;
 
-internal class TenantManager(ITenantSetupEventService tenantSetupEventService) : ITenantManager
+internal class TenantManager(ITenantSetupEventProcessingService tenantSetupEventProcessingService) : ITenantManager
 {
     public ValueTask SetupAsync(SetupDetails setupDetails) =>
-        tenantSetupEventService.RaiseSetupAsync(setupDetails);
+        tenantSetupEventProcessingService.SetupAsync(setupDetails);
 }

@@ -16,14 +16,14 @@ public partial class TokenServiceTests
         {
             Id = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", ""),
             Expires = DateTimeOffset.Now.AddMinutes(10),
-            Reason = 0,
+            Reason = (int)TokenUse.WorkflowExecution,
             UserName = userId
         };
 
         tokenBrokerMock.Setup(broker => broker.AddTokenAsync(It.IsAny<Token>())).ReturnsAsync(expectedToken);
 
         // when
-        Token actualToken = await tokenService.AddTokenAsync(userId);
+        Token actualToken = await tokenService.AddTokenAsync(userId, TokenUse.WorkflowExecution);
         expectedToken.Expires = actualToken.Expires;
 
         // then

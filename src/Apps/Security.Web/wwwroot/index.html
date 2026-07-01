@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cCoder.Security</title>
+  <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid app-shell">
+      <span class="navbar-brand">cCoder.Security</span>
+      <span class="navbar-text" id="current-user">Guest</span>
+    </div>
+  </nav>
+
+  <main class="container-fluid app-shell py-3">
+    <ul class="nav nav-tabs mb-3" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#account-tab" type="button">Account</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#registration-tab" type="button">Registration</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-tab" type="button">Admin</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <section class="tab-pane fade show active" id="account-tab">
+        <div class="row g-3">
+          <div class="col-lg-5">
+            <div class="section-panel">
+              <header>
+                <h2>Login</h2>
+                <button class="btn btn-sm btn-outline-secondary" id="account-refresh">Refresh</button>
+              </header>
+              <div class="panel-body">
+                <form id="login-form">
+                  <div class="form-grid">
+                    <div>
+                      <label class="form-label" for="login-user">User</label>
+                      <input class="form-control" id="login-user" autocomplete="username">
+                    </div>
+                    <div>
+                      <label class="form-label" for="login-password">Password</label>
+                      <input class="form-control" id="login-password" type="password" autocomplete="current-password">
+                    </div>
+                  </div>
+                  <div class="actions-row mt-3">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                    <button class="btn btn-outline-secondary" id="logout-button" type="button">Logout</button>
+                    <button class="btn btn-outline-primary" id="me-button" type="button">Me</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="section-panel">
+              <header>
+                <h2>Account Result</h2>
+              </header>
+              <div class="panel-body">
+                <pre class="result-box" id="account-result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-pane fade" id="registration-tab">
+        <div class="row g-3">
+          <div class="col-xl-6">
+            <div class="section-panel">
+              <header>
+                <h2>Register</h2>
+              </header>
+              <div class="panel-body">
+                <form id="register-form">
+                  <div class="form-grid">
+                    <div>
+                      <label class="form-label" for="register-email">Email</label>
+                      <input class="form-control" id="register-email" type="email">
+                    </div>
+                    <div>
+                      <label class="form-label" for="register-display-name">Display name</label>
+                      <input class="form-control" id="register-display-name">
+                    </div>
+                    <div>
+                      <label class="form-label" for="register-password">Password</label>
+                      <input class="form-control" id="register-password" type="password">
+                    </div>
+                    <div>
+                      <label class="form-label" for="register-phone">Phone</label>
+                      <input class="form-control" id="register-phone">
+                    </div>
+                    <div>
+                      <label class="form-label" for="register-tenant">Tenant id</label>
+                      <input class="form-control" id="register-tenant">
+                    </div>
+                    <div>
+                      <label class="form-label" for="register-culture">Culture</label>
+                      <input class="form-control" id="register-culture" value="en-GB">
+                    </div>
+                  </div>
+                  <div class="actions-row mt-3">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                    <button class="btn btn-outline-primary" id="confirm-registration-button" type="button">Confirm stored token</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="section-panel">
+              <header>
+                <h2>Invite</h2>
+              </header>
+              <div class="panel-body">
+                <form id="invite-form">
+                  <div class="form-grid">
+                    <div>
+                      <label class="form-label" for="invite-email">Email</label>
+                      <input class="form-control" id="invite-email" type="email">
+                    </div>
+                    <div>
+                      <label class="form-label" for="invite-display-name">Display name</label>
+                      <input class="form-control" id="invite-display-name">
+                    </div>
+                    <div>
+                      <label class="form-label" for="invite-phone">Phone</label>
+                      <input class="form-control" id="invite-phone">
+                    </div>
+                    <div>
+                      <label class="form-label" for="invite-culture">Culture</label>
+                      <input class="form-control" id="invite-culture" value="en-GB">
+                    </div>
+                    <div>
+                      <label class="form-label" for="accept-password">Accepted password</label>
+                      <input class="form-control" id="accept-password" type="password">
+                    </div>
+                    <div>
+                      <label class="form-label" for="resend-user-id">Resend user id</label>
+                      <input class="form-control" id="resend-user-id">
+                    </div>
+                  </div>
+                  <div class="actions-row mt-3">
+                    <button class="btn btn-primary" type="submit">Invite</button>
+                    <button class="btn btn-outline-primary" id="accept-invite-button" type="button">Accept stored invite</button>
+                    <button class="btn btn-outline-secondary" id="resend-invite-button" type="button">Resend invite</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="section-panel">
+              <header>
+                <h2>Password Reset</h2>
+              </header>
+              <div class="panel-body">
+                <form id="forgot-password-form">
+                  <div class="form-grid">
+                    <div>
+                      <label class="form-label" for="forgot-email">Email</label>
+                      <input class="form-control" id="forgot-email" type="email">
+                    </div>
+                    <div>
+                      <label class="form-label" for="forgot-user-id">User id</label>
+                      <input class="form-control" id="forgot-user-id">
+                    </div>
+                    <div>
+                      <label class="form-label" for="forgot-token">Token</label>
+                      <input class="form-control" id="forgot-token">
+                    </div>
+                    <div>
+                      <label class="form-label" for="forgot-new-password">New password</label>
+                      <input class="form-control" id="forgot-new-password" type="password">
+                    </div>
+                  </div>
+                  <div class="actions-row mt-3">
+                    <button class="btn btn-primary" type="submit">Request reset</button>
+                    <button class="btn btn-outline-primary" id="confirm-forgot-password-button" type="button">Confirm reset</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="section-panel">
+              <header>
+                <h2>Lifecycle Result</h2>
+              </header>
+              <div class="panel-body">
+                <p class="muted-note mb-2" id="stored-token-summary"></p>
+                <pre class="result-box" id="registration-result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-pane fade" id="admin-tab">
+        <div class="section-panel">
+          <header>
+            <h2>Admin Data</h2>
+            <div class="actions-row">
+              <button class="btn btn-sm btn-outline-primary" data-admin-refresh="users">Users</button>
+              <button class="btn btn-sm btn-outline-primary" data-admin-refresh="tenants">Tenants</button>
+              <button class="btn btn-sm btn-outline-primary" data-admin-refresh="roles">Roles</button>
+              <button class="btn btn-sm btn-outline-primary" data-admin-refresh="privileges">Privileges</button>
+              <button class="btn btn-sm btn-outline-primary" data-admin-refresh="userRoles">User roles</button>
+              <button class="btn btn-sm btn-outline-primary" data-admin-refresh="tenantAnalysis">Tenant analysis</button>
+              <button class="btn btn-sm btn-outline-primary" data-admin-refresh="userEvents">User events</button>
+            </div>
+          </header>
+          <div class="panel-body">
+            <div class="row g-3">
+              <div class="col-xl-3 col-lg-6">
+                <form id="user-form">
+                  <h3 class="h6">User</h3>
+                  <input class="form-control mb-2" id="user-id" placeholder="Id">
+                  <input class="form-control mb-2" id="user-display-name" placeholder="Display name">
+                  <input class="form-control mb-2" id="user-email" placeholder="Email">
+                  <input class="form-control mb-2" id="user-phone" placeholder="Phone">
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" id="user-email-confirmed" type="checkbox">
+                    <label class="form-check-label" for="user-email-confirmed">Email confirmed</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" id="user-phone-confirmed" type="checkbox">
+                    <label class="form-check-label" for="user-phone-confirmed">Phone confirmed</label>
+                  </div>
+                  <div class="actions-row">
+                    <button class="btn btn-outline-secondary btn-sm" id="user-get-button" type="button">Get</button>
+                    <button class="btn btn-primary btn-sm" type="submit">Update</button>
+                    <button class="btn btn-outline-danger btn-sm" id="user-delete-button" type="button">Delete</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="col-xl-3 col-lg-6">
+                <form id="tenant-form">
+                  <h3 class="h6">Tenant</h3>
+                  <input class="form-control mb-2" id="tenant-id" placeholder="Id">
+                  <input class="form-control mb-2" id="tenant-name" placeholder="Name">
+                  <input class="form-control mb-2" id="tenant-description" placeholder="Description">
+                  <input class="form-control mb-2" id="tenant-created-by" placeholder="Bootstrap user id">
+                  <div class="actions-row">
+                    <button class="btn btn-outline-secondary btn-sm" id="tenant-get-button" type="button">Get</button>
+                    <button class="btn btn-primary btn-sm" type="submit">Add</button>
+                    <button class="btn btn-outline-primary btn-sm" id="tenant-update-button" type="button">Update</button>
+                    <button class="btn btn-outline-danger btn-sm" id="tenant-delete-button" type="button">Delete</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="col-xl-3 col-lg-6">
+                <form id="role-form">
+                  <h3 class="h6">Role</h3>
+                  <input class="form-control mb-2" id="role-id" placeholder="Role id for updates">
+                  <input class="form-control mb-2" id="role-name" placeholder="Name">
+                  <input class="form-control mb-2" id="role-tenant-id" placeholder="Tenant id">
+                  <input class="form-control mb-2" id="role-privs" placeholder="Privileges CSV">
+                  <input class="form-control mb-2" id="role-description" placeholder="Description">
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" id="role-portal-admins" type="checkbox">
+                    <label class="form-check-label" for="role-portal-admins">Portal admins</label>
+                  </div>
+                  <div class="actions-row">
+                    <button class="btn btn-outline-secondary btn-sm" id="role-get-button" type="button">Get</button>
+                    <button class="btn btn-primary btn-sm" type="submit">Add</button>
+                    <button class="btn btn-outline-primary btn-sm" id="role-update-button" type="button">Update</button>
+                    <button class="btn btn-outline-danger btn-sm" id="role-delete-button" type="button">Delete</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="col-xl-3 col-lg-6">
+                <form id="user-role-form">
+                  <h3 class="h6">User Role</h3>
+                  <input class="form-control mb-2" id="user-role-user-id" placeholder="User id">
+                  <input class="form-control mb-2" id="user-role-role-id" placeholder="Role id">
+                  <div class="actions-row">
+                    <button class="btn btn-primary btn-sm" type="submit">Attach</button>
+                    <button class="btn btn-outline-danger btn-sm" id="user-role-delete-button" type="button">Remove</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <p class="muted-note mt-3 mb-2" id="admin-list-context">Select a list to inspect current data. Click a table row to copy values into the matching form.</p>
+            <div class="table-responsive mt-3">
+              <table class="table table-sm table-striped" id="admin-table"></table>
+            </div>
+            <pre class="result-box" id="admin-result"></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/lib/jquery/dist/jquery.min.js"></script>
+  <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/account.js"></script>
+  <script src="/js/registration.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/site.js"></script>
+</body>
+</html>

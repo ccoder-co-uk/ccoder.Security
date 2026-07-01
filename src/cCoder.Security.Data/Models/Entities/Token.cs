@@ -16,6 +16,7 @@ public class Token
 public enum TokenUse
 {
     Auth,
+    WorkflowExecution,
     PasswordReset,
     Confirmation,
     Invitation

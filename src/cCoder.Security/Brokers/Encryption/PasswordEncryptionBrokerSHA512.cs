@@ -3,11 +3,7 @@ using System.Text;
 
 namespace cCoder.Security.Brokers.Encryption;
 internal class PasswordEncryptionBrokerSHA512 : IPasswordEncryptionBroker
-	{
-		public PasswordEncryptionBrokerSHA512()
-		{
-		}
-
+{
     public string Encrypt(string password)
     {
         byte[] inputBytes = Encoding.UTF8.GetBytes(password);
@@ -23,6 +19,3 @@ internal class PasswordEncryptionBrokerSHA512 : IPasswordEncryptionBroker
         return hashedString == encrypted;
     }
 }
-
-
-
