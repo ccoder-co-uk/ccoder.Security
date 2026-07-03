@@ -54,6 +54,7 @@ public static class IServiceCollectionExtensions
     {
         SecurityConfiguration securityConfiguration = new();
         configAction(services, securityConfiguration);
+        services.AddSingleton(securityConfiguration);
 
         services.AddEventing();
         services.AddEventingTypes();

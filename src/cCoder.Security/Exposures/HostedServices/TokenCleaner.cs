@@ -1,14 +1,17 @@
+using cCoder.Security.Objects;
 using cCoder.Security.Services.Foundations.Interfaces;
 using Microsoft.Extensions.Hosting;
 
 namespace cCoder.Security.Exposures.HostedServices;
 
-internal sealed class TokenCleaner(ITokenService tokenService)
+internal sealed class TokenCleaner(
+    ITokenService tokenService,
+    SecurityConfiguration securityConfiguration)
     : BackgroundService, ITokenCleaner
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        if (int.TryParse(Environment.GetEnvironmentVariable("MIGRATING"), out int result) && result == 1)
+        if (securityConfiguration.IsMigrating)
             return;
 
         await tokenService.DeleteExpiredAsync(stoppingToken);

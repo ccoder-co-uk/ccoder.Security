@@ -23,6 +23,10 @@ public class Program
             securityConfig.UseAESHMMACPasswordEncryption(
                 services,
                 config.GetSection("settings")["DecryptionKey"]);
+
+            securityConfig.IsMigrating =
+                config.GetValue<int?>("MIGRATING") == 1
+                || config.GetValue<bool?>("Security:IsMigrating") == true;
         });
 
         builder.Logging.ClearProviders();
