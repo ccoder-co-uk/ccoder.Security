@@ -1,0 +1,20 @@
+using System.Net;
+using System.Text.Json;
+using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
+
+namespace Security.AcceptanceTests.Tests;
+
+public sealed partial class BaselineTests
+{
+    private async Task<JsonElement> GetBaselineAsync()
+    {
+        using WebApplicationFactory<AcceptanceHost> factory = new();
+        using HttpClient client = factory.CreateClient();
+        using HttpResponseMessage response = await client.GetAsync("/Api/Security/Baseline");
+        string content = await response.Content.ReadAsStringAsync();
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK, content);
+        return JsonDocument.Parse(content).RootElement.Clone();
+    }
+}
