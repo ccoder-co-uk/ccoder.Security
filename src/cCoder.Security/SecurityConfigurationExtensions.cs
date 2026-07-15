@@ -2,6 +2,7 @@ using cCoder.Security.Data;
 using cCoder.Security.Brokers.Encryption;
 using cCoder.Security.Objects;
 using System.Security.Cryptography;
+using System.ComponentModel.DataAnnotations;
 
 namespace cCoder.Security;
 
@@ -18,24 +19,12 @@ public static class SecurityConfigurationExtensions
         string decryptionKey)
     {
         if (string.IsNullOrEmpty(decryptionKey))
-        {
-            decryptionKey = GenerateHexKey(32);
-        }
+            throw new ValidationException("Decryption key cannot be empty");
 
         services.AddTransient<ISymmetricCrypto<string>>(_ => new AesCrypto<string>(decryptionKey));
         services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerAESHMAC>();
     }
-
-    private static string GenerateHexKey(int bytes)
-    {
-        using var rng = RandomNumberGenerator.Create();
-        var data = new byte[bytes];
-        rng.GetBytes(data);
-
-        return BitConverter.ToString(data)
-            .Replace("-", "");
-    }
-
+    
     public static void UsePasswordHasherHashing(
         this SecurityConfiguration config,
         IServiceCollection services) =>
