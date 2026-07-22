@@ -102,7 +102,10 @@ public partial class SecurityDbContext(
     }
     public void UserHasPrivilege(string privilege, string tenantId)
     {
-        Guid[] userRoles = GetCurrentUserRolesForTenant(tenantId);
+        Guid[] userRoles = string.IsNullOrWhiteSpace(tenantId)
+            ? GetCurrentUserRoles()
+            : GetCurrentUserRolesForTenant(tenantId);
+
         bool passed = Roles.Any(r => userRoles.Contains(r.Id) && (r.Privs.Contains(privilege) || r.Privs.Contains("security_admin")));
 
         if (!passed)
