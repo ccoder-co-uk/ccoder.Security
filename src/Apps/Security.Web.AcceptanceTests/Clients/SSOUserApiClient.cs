@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Security.AcceptanceTests.Clients;
 
-public class SSOUserApiClient
+public class SSOUserApiClient : IDisposable
 {
     private readonly WebApplicationFactory<AcceptanceHost> webApplicationFactory;
     private readonly HttpClient api;
@@ -33,5 +33,13 @@ public class SSOUserApiClient
 
     public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") =>
         await api.GetODataCollection<SSOUser>(Endpoint + query);
+
+    public void Dispose()
+    {
+        Database?.Dispose();
+        api?.Dispose();
+        webApplicationFactory?.Dispose();
+        SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting();
+    }
 }
 

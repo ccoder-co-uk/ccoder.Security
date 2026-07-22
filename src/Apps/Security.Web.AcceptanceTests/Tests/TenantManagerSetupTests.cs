@@ -17,10 +17,11 @@ public class TenantManagerSetupTests
     {
         string originalConnectionString =
             Environment.GetEnvironmentVariable("ENV_ConnectionStrings__SSO");
+        string acceptanceConnectionString = CreateIsolatedAcceptanceConnectionString();
 
         Environment.SetEnvironmentVariable(
             "ENV_ConnectionStrings__SSO",
-            CreateIsolatedAcceptanceConnectionString());
+            acceptanceConnectionString);
 
         try
         {
@@ -75,6 +76,8 @@ public class TenantManagerSetupTests
         }
         finally
         {
+            global::Security.AcceptanceTests.SecurityWebApplicationFactoryExtensions
+                .DropDatabaseForTesting(acceptanceConnectionString);
             Environment.SetEnvironmentVariable("ENV_ConnectionStrings__SSO", originalConnectionString);
         }
     }
