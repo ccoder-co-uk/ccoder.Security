@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Security.AcceptanceTests.Clients;
 
-public class RegisterApiClient
+public class RegisterApiClient : IDisposable
 {
     private readonly WebApplicationFactory<AcceptanceHost> webApplicationFactory;
     private readonly HttpClient api;
@@ -83,6 +83,14 @@ public class RegisterApiClient
             Database.Users.Remove(user);
             await Database.SaveChangesAsync();
         }
+    }
+
+    public void Dispose()
+    {
+        Database?.Dispose();
+        api?.Dispose();
+        webApplicationFactory?.Dispose();
+        SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting();
     }
 }
 

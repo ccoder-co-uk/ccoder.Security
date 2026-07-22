@@ -13,7 +13,7 @@ public partial class AccountApiTests
     public async Task MeWorksAsExpectedForBearerToken()
     {
         //given
-        AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
+        using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
 
         accountClient.UseNoCookiesApiClient();
 
@@ -41,7 +41,7 @@ public partial class AccountApiTests
     public async Task MeWorksAsExpectedForSession()
     {
         //given
-        AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
+        using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
         RegistrationResult result = await registerApiClient
@@ -66,7 +66,7 @@ public partial class AccountApiTests
     public async Task MeWorksAsExpectedForBasic()
     {
         //given
-        AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
+        using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
         accountClient.UseNoCookiesApiClient();
 
         RegisterUser existingRegisterUser = RandomRegisterUser();

@@ -10,21 +10,25 @@ using System.Text;
 
 namespace Security.AcceptanceTests.Clients;
 
-public class AccountApiClient
+public class AccountApiClient : IDisposable
 {
     private readonly WebApplicationFactory<AcceptanceHost> webApplicationFactory;
+    private readonly bool dropAcceptanceDatabaseOnDispose;
     private HttpClient api;
     public SecurityDbContext Database { get; set; }
 
     private const string endpoint = "Api/Account/";
 
     public AccountApiClient()
-        : this(authenticate: true)
+        : this(authenticate: true, dropAcceptanceDatabaseOnDispose: true)
     {
     }
 
-    private AccountApiClient(bool authenticate)
+    private AccountApiClient(
+        bool authenticate,
+        bool dropAcceptanceDatabaseOnDispose)
     {
+        this.dropAcceptanceDatabaseOnDispose = dropAcceptanceDatabaseOnDispose;
         webApplicationFactory = new();
         webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
@@ -41,7 +45,7 @@ public class AccountApiClient
     }
 
     public static AccountApiClient CreateUnauthenticated() =>
-        new(authenticate: false);
+        new(authenticate: false, dropAcceptanceDatabaseOnDispose: false);
 
     public HttpClient UseNoCookiesApiClient() =>
         api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = false });
@@ -117,6 +121,16 @@ public class AccountApiClient
             Database.Users.Remove(user);
             await Database.SaveChangesAsync();
         }
+    }
+
+    public void Dispose()
+    {
+        Database?.Dispose();
+        api?.Dispose();
+        webApplicationFactory?.Dispose();
+
+        if (dropAcceptanceDatabaseOnDispose)
+            SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting();
     }
 }
 
