@@ -3,12 +3,13 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Data.Models;
-using cCoder.Security.Services.Processings.Events;
+using cCoder.Security.Services.Coordinations.Interfaces;
 
 namespace cCoder.Security.Exposures;
 
-internal class TenantManager(ITenantSetupEventProcessingService tenantSetupEventProcessingService) : ITenantManager
+internal class TenantManager(ITenantSetupCoordinationService tenantSetupCoordinationService)
+    : ITenantManager
 {
     public ValueTask SetupAsync(SetupDetails setupDetails) =>
-        tenantSetupEventProcessingService.SetupDetailsAsync(setupDetails: setupDetails);
+        tenantSetupCoordinationService.SetupDetailsAsync(setupDetails: setupDetails);
 }

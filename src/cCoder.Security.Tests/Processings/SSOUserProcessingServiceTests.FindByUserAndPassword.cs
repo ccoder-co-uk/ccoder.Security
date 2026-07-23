@@ -3,9 +3,9 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Exceptions;
 using FluentAssertions;
 using Moq;
-using System.Security;
 using Xunit;
 
 namespace cCoder.Security.Tests.Processings;
@@ -72,7 +72,14 @@ times: Times.Once);
             .Returns(value: true);
 
         //when & then
-        await Assert.ThrowsAsync<SecurityException>(testCode: async () => await ssoUserProcessingService
-            .FindByUserAndPasswordAsync(username: expectedSSOUser.Id, password: inputPassword));
+        SecurityProcessingServiceException actualException =
+            await Assert.ThrowsAsync<SecurityProcessingServiceException>(
+                testCode: async () =>
+                    await ssoUserProcessingService.FindByUserAndPasswordAsync(
+                        username: expectedSSOUser.Id,
+                        password: inputPassword));
+
+        actualException.InnerException.Should()
+            .BeOfType<System.Security.SecurityException>();
     }
 }

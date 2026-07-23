@@ -4,9 +4,9 @@
 
 using cCoder.Security.Data.Models;
 
-namespace cCoder.Security.Services.Processings.Events;
+namespace cCoder.Security.Services.Coordinations.Interfaces;
 
-internal interface ITenantSetupEventProcessingService
+internal interface ITenantSetupCoordinationService
 {
     ValueTask SetupDetailsAsync(SetupDetails setupDetails);
 }

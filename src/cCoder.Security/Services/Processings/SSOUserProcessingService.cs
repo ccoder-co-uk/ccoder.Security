@@ -2,126 +2,183 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Security;
 using cCoder.Security.Brokers.Encryption;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
-using System.Security;
 
 namespace cCoder.Security.Services.Processings;
 
-internal partial class SSOUserProcessingService(
+internal sealed partial class SSOUserProcessingService(
     ISSOUserService ssoUserService,
     IPasswordEncryptionBroker encryptionBroker)
         : ISSOUserProcessingService
 {
-    public async ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser user)
-    {
-        ValidateSSOUser(user: user);
-
-        user.Id = GetNextAvailableUserId(user: user);
-
-        user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
-
-        return await ssoUserService.AddSSOUserAsync(item: user);
-    }
-
-    public async ValueTask<SSOUser> InviteSSOUserAsync(SSOUser user)
-    {
-        ValidateSSOUser(user: user, validatePassword: false);
-
-        user.Id = GetNextAvailableUserId(user: user);
-
-        if (string.IsNullOrWhiteSpace(value: user.PasswordHash))
+    public ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser user) =>
+        TryCatch<SSOUser>(operation: async () =>
         {
-            user.PasswordHash = Guid
-                .NewGuid()
-                .ToString(format: "N") + "Aa1!";
-        }
+            ValidateSSOUserOnRegister(user: user);
 
-        user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
-        user.LockoutEnabled = true;
+            user.Id = GetNextAvailableUserId(user: user);
+            user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
 
-        return await ssoUserService.AddSSOUserAsync(item: user);
-    }
+            return await ssoUserService.AddSSOUserAsync(item: user);
+        });
+
+    public ValueTask<SSOUser> InviteSSOUserAsync(SSOUser user) =>
+        TryCatch<SSOUser>(operation: async () =>
+        {
+            ValidateSSOUserOnInvite(user: user);
+
+            user.Id = GetNextAvailableUserId(user: user);
+
+            if (string.IsNullOrWhiteSpace(value: user.PasswordHash))
+            {
+                user.PasswordHash = Guid
+                    .NewGuid()
+                    .ToString(format: "N") + "Aa1!";
+            }
+
+            user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
+            user.LockoutEnabled = true;
+
+            return await ssoUserService.AddSSOUserAsync(item: user);
+        });
 
     public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>
-        ssoUserService.DeleteSSOUserAsync(item: deletedSSOUser);
-
-    public async ValueTask<SSOUser> FindByUserAndPasswordAsync(string username, string password)
-    {
-        ValidateUsername(username: username);
-
-        SSOUser user = FindById(ssoUserId: username);
-
-        if (user == null)
-        { throw new SecurityException("Access Denied!"); }
-
-        if (!encryptionBroker.EncryptedAndPlainTextAreEqual(encrypted: user.PasswordHash, plainText: password))
+        TryCatch(operation: async () =>
         {
-            user.AccessFailedCount++;
+            ValidateSSOUserOnDelete(deletedSSOUser: deletedSSOUser);
 
-            if (user.AccessFailedCount > 10)
-            { user.LockoutEnabled = true; }
+            await ssoUserService.DeleteSSOUserAsync(item: deletedSSOUser);
+        });
 
-            await UpdateSSOUserAsync(updatedSSOUser: user);
-            throw new SecurityException("Access Denied!");
-        }
-        else
+    public ValueTask<SSOUser> FindByUserAndPasswordAsync(
+        string username,
+        string password) =>
+        TryCatch<SSOUser>(operation: async () =>
         {
-            if (user.AccessFailedCount > 0)
-            {
-                user.AccessFailedCount = 0;
-                await UpdateSSOUserAsync(updatedSSOUser: user);
-            }
-        }
+                ValidateCredentialsOnFind(username: username, password: password);
 
-        if (user.LockoutEnabled)
-        { throw new SecurityException("Account locked!"); }
+                SSOUser user = FindSSOUserById(ssoUserId: username);
 
-        return user;
-    }
+                if (user is null)
+                {
+                    throw new SecurityException("Access Denied!");
+                }
+
+                bool passwordMatches = encryptionBroker.EncryptedAndPlainTextAreEqual(
+                    encrypted: user.PasswordHash,
+                    plainText: password);
+
+                if (!passwordMatches)
+                {
+                    user.AccessFailedCount++;
+
+                    if (user.AccessFailedCount > 10)
+                    {
+                        user.LockoutEnabled = true;
+                    }
+
+                    await UpdateSSOUserCoreAsync(updatedSSOUser: user);
+                    throw new SecurityException("Access Denied!");
+                }
+
+                if (user.AccessFailedCount > 0)
+                {
+                    user.AccessFailedCount = 0;
+                    await UpdateSSOUserCoreAsync(updatedSSOUser: user);
+                }
+
+                if (user.LockoutEnabled)
+                {
+                    throw new SecurityException("Account locked!");
+                }
+
+                return user;
+        });
 
     public SSOUser FindById(string ssoUserId) =>
-        ssoUserService
-            .GetAllSSOUsers(ignoreFilters: true)
-            .FirstOrDefault(predicate: u => u.Id == ssoUserId || u.Email == ssoUserId);
+        TryCatch(operation: () =>
+        {
+            ValidateSSOUserOnFind(ssoUserId: ssoUserId);
+
+            return FindSSOUserById(ssoUserId: ssoUserId);
+        });
 
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>
-        ssoUserService.GetAllSSOUsers(ignoreFilters: ignoreFilters);
-
-    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser updatedSSOUser)
-    {
-        SSOUser dbUser = GetAllSSOUsers(ignoreFilters: true)
-            .FirstOrDefault(predicate: u => u.Id == updatedSSOUser.Id);
-
-        if (updatedSSOUser.PasswordHash != null && dbUser.PasswordHash != updatedSSOUser.PasswordHash)
+        TryCatch(operation: () =>
         {
-            ValidatePassword(password: updatedSSOUser.PasswordHash);
-            updatedSSOUser.PasswordHash = encryptionBroker.Encrypt(password: updatedSSOUser.PasswordHash);
-        }
+            ValidateSSOUsersOnGet(ignoreFilters: ignoreFilters);
 
-        return await ssoUserService.UpdateSSOUserAsync(item: updatedSSOUser);
-    }
+            return ssoUserService.GetAllSSOUsers(ignoreFilters: ignoreFilters);
+        });
+
+    public ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser updatedSSOUser) =>
+        TryCatch<SSOUser>(operation: async () =>
+        {
+            ValidateSSOUserOnUpdate(updatedSSOUser: updatedSSOUser);
+
+            return await UpdateSSOUserCoreAsync(updatedSSOUser: updatedSSOUser);
+        });
 
     public SSOUser Me() =>
-        ssoUserService.Me();
+        TryCatch(operation: () =>
+        {
+            ValidateSSOUserOnGetCurrent();
+
+            return ssoUserService.Me();
+        });
+
+    public void ValidatePassword(string password) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePasswordInput(password: password);
+            EnsurePasswordIsValid(password: password);
+        });
+
+    private SSOUser FindSSOUserById(string ssoUserId) =>
+        ssoUserService
+            .GetAllSSOUsers(ignoreFilters: true)
+            .FirstOrDefault(predicate: user =>
+                user.Id == ssoUserId ||
+                user.Email == ssoUserId);
 
     private string GetNextAvailableUserId(SSOUser user)
     {
         string userId = user.Id;
         int attempts = 1;
+        SSOUser existingUser = FindSSOUserById(ssoUserId: userId);
 
-        SSOUser existing = FindById(ssoUserId: userId);
-
-        while (existing is not null)
+        while (existingUser is not null)
         {
             userId = user.Id + attempts;
-
-            existing = FindById(ssoUserId: userId);
+            existingUser = FindSSOUserById(ssoUserId: userId);
             attempts++;
         }
 
         return userId;
+    }
+
+    private async ValueTask<SSOUser> UpdateSSOUserCoreAsync(SSOUser updatedSSOUser)
+    {
+        SSOUser storedUser = ssoUserService
+            .GetAllSSOUsers(ignoreFilters: true)
+            .FirstOrDefault(predicate: user => user.Id == updatedSSOUser.Id);
+
+        bool passwordChanged =
+            updatedSSOUser.PasswordHash is not null &&
+            storedUser.PasswordHash != updatedSSOUser.PasswordHash;
+
+        if (passwordChanged)
+        {
+            EnsurePasswordIsValid(password: updatedSSOUser.PasswordHash);
+
+            updatedSSOUser.PasswordHash = encryptionBroker.Encrypt(
+                password: updatedSSOUser.PasswordHash);
+        }
+
+        return await ssoUserService.UpdateSSOUserAsync(item: updatedSSOUser);
     }
 }

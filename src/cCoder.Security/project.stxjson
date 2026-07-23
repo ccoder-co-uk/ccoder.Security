@@ -1430,6 +1430,23 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService",
+      "StandardElementType": "CoordinationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "SetupDetailsAsync",
+          "Inputs": [
+            {
+              "Name": "setupDetails",
+              "Type": "cCoder.Security.Data.Models.SetupDetails"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Services.Foundations.Events.AccountEventService",
       "StandardElementType": "FoundationService",
       "Properties": [],
@@ -2227,40 +2244,6 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "StandardElementType": "OrchestrationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "SetupDetailsAsync",
-          "Inputs": [
-            {
-              "Name": "setupDetails",
-              "Type": "cCoder.Security.Data.Models.SetupDetails"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "StandardElementType": "ProcessingService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "SetupDetailsAsync",
-          "Inputs": [
-            {
-              "Name": "setupDetails",
-              "Type": "cCoder.Security.Data.Models.SetupDetails"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
       "StandardElementType": "ProcessingService",
       "Properties": [],
@@ -2409,20 +2392,6 @@
             {
               "Name": "password",
               "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "ValidateSSOUser",
-          "Inputs": [
-            {
-              "Name": "user",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
-            },
-            {
-              "Name": "validatePassword",
-              "Type": "System.Boolean"
             }
           ],
           "ReturnType": "System.Void"
@@ -2860,11 +2829,19 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.TenantManager",
-      "ToType": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService"
+      "ToType": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.TokenManager",
       "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService",
+      "ToType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService",
+      "ToType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService"
     },
     {
       "FromType": "cCoder.Security.Services.Foundations.Events.AccountEventService",
@@ -3063,18 +3040,6 @@
       "ToType": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService"
     },
     {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "ToType": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService"
-    },
-    {
       "FromType": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.SSOPrivilegeService"
     },
@@ -3138,7 +3103,7 @@
       "Description": "Configuration objects should be registered as singletons.",
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 90
+      "LineNumber": 91
     },
     {
       "Code": "STXSTRUCT001",
@@ -3636,279 +3601,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
       "LineNumber": 14
-    },
-    {
-      "Code": "STX0004",
-      "Description": "A service must not depend on another service at the same layer.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STXP001",
-      "Description": "A processing service may use only one foundation service and no higher-level service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0015",
-      "Description": "Every public service method must be declared by its local interface.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 20
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 55
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 67
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 75
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 95
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 100
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 11
     }
   ]
 }

@@ -26,7 +26,8 @@ using cCoder.Security.Services.Foundations.Events;
 using cCoder.Security.Services.Orchestrations;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings;
-using cCoder.Security.Services.Processings.Events;
+using cCoder.Security.Services.Coordinations;
+using cCoder.Security.Services.Coordinations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
@@ -150,7 +151,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISessionProcessingService, SessionProcessingService>();
         services.AddTransient<IUserEventProcessingService, UserEventProcessingService>();
 
-        services.AddTransient<ITenantSetupEventProcessingService, TenantSetupEventProcessingService>();
+        services.AddTransient<ITenantSetupCoordinationService, TenantSetupCoordinationService>();
     }
 
     private static void AddOrchestrations(this IServiceCollection services)
@@ -159,7 +160,6 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
         services.AddTransient<ITenantOrchestrationService, TenantOrchestrationService>();
         services.AddTransient<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();
-        services.AddTransient<ITenantSetupOrchestrationService, TenantSetupOrchestrationService>();
         services.AddTransient<ITenantCoordinationService, TenantCoordinationService>();
         services.AddTransient<ISSOUserOrchestrationService, SSOUserOrchestrationService>();
         services.AddTransient<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();

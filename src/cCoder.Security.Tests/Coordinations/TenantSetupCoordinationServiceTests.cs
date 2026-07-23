@@ -2,29 +2,26 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Data.Models;
-using cCoder.Security.Objects.DTOs;
-using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestrations;
+using cCoder.Security.Services.Coordinations;
+using cCoder.Security.Services.Coordinations.Interfaces;
 using cCoder.Security.Services.Orchestrations.Interfaces;
-using cCoder.Security.Services.Processings.Interfaces;
 using Moq;
 
-namespace cCoder.Security.Tests.Orchestrations;
+namespace cCoder.Security.Tests.Coordinations;
 
-public partial class TenantSetupOrchestrationServiceTests
+public partial class TenantSetupCoordinationServiceTests
 {
     private readonly Mock<ITenantOrchestrationService> tenantOrchestrationServiceMock;
     private readonly Mock<ISSOUserOrchestrationService> ssoUserOrchestrationServiceMock;
-    private readonly ITenantSetupOrchestrationService tenantSetupOrchestrationService;
+    private readonly ITenantSetupCoordinationService tenantSetupCoordinationService;
 
-    public TenantSetupOrchestrationServiceTests()
+    public TenantSetupCoordinationServiceTests()
     {
         tenantOrchestrationServiceMock = new Mock<ITenantOrchestrationService>(MockBehavior.Strict);
         ssoUserOrchestrationServiceMock = new Mock<ISSOUserOrchestrationService>(MockBehavior.Strict);
 
-        tenantSetupOrchestrationService = new TenantSetupOrchestrationService(
-            tenantOrchestrationServiceMock.Object,
-            ssoUserOrchestrationServiceMock.Object);
+        tenantSetupCoordinationService = new TenantSetupCoordinationService(
+            tenantOrchestrationService: tenantOrchestrationServiceMock.Object,
+            ssoUserOrchestrationService: ssoUserOrchestrationServiceMock.Object);
     }
 }

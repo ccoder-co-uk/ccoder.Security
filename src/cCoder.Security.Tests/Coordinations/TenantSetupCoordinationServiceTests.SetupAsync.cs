@@ -9,9 +9,9 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace cCoder.Security.Tests.Orchestrations;
+namespace cCoder.Security.Tests.Coordinations;
 
-public partial class TenantSetupOrchestrationServiceTests
+public partial class TenantSetupCoordinationServiceTests
 {
     [Fact]
     public async Task ShouldCreateTenantThenRegisterBootstrapUserForSetup()
@@ -53,7 +53,7 @@ public partial class TenantSetupOrchestrationServiceTests
             .Setup(expression: service => service.ConfirmRegistration("token"))
             .Returns(value: ValueTask.CompletedTask);
 
-        await tenantSetupOrchestrationService.SetupDetailsAsync(setupDetails: setupDetails);
+        await tenantSetupCoordinationService.SetupDetailsAsync(setupDetails: setupDetails);
 
         setupDetails.User.Id.Should().Be(expected: "admin");
         tenantOrchestrationServiceMock.VerifyAll();
