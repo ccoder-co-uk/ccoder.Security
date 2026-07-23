@@ -25,7 +25,7 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
             CreatedOn = tenant.CreatedOn
         };
 
-        TenantAnalysis result = await broker.AddTenantAnalysisAsync(tenantAnalysis: storageTenantAnalysis);
+        TenantAnalysis result = await broker.InsertTenantAnalysisAsync(tenantAnalysis: storageTenantAnalysis);
         tenant.Id = result.Id;
         tenant.TenantId = result.TenantId;
         tenant.Key = result.Key;
@@ -41,7 +41,7 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
 
     public IQueryable<TenantAnalysis> GetAllTenantAnalysis()
         =>
-        broker.GetAllTenantAnalysis();
+        broker.SelectAllTenantAnalysis();
 
     public async ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenant)
     {

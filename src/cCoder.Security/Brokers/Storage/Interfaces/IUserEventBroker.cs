@@ -8,8 +8,8 @@ namespace cCoder.Security.Brokers.Storage.Interfaces;
 
 internal interface IUserEventBroker
 {
-    ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent);
+    ValueTask<UserEvent> InsertUserEventAsync(UserEvent userEvent);
     ValueTask DeleteUserEventAsync(UserEvent userEvent);
-    IQueryable<UserEvent> GetAllUserEvents();
+    IQueryable<UserEvent> SelectAllUserEvents();
     ValueTask<UserEvent> UpdateUserEventAsync(UserEvent userEvent);
 }

@@ -19,7 +19,7 @@ public partial class UserEventServiceTests
             .AsQueryable();
 
         userEventBrokerMock.Setup(expression: userEventBrokerMock =>
-            userEventBrokerMock.GetAllUserEvents())
+            userEventBrokerMock.SelectAllUserEvents())
             .Returns(value: expectedUserEvents);
 
         //when
@@ -29,7 +29,7 @@ public partial class UserEventServiceTests
         actualUserEvents.Should().BeEquivalentTo(expectation: expectedUserEvents);
 
         userEventBrokerMock.Verify(expression: userEventBrokerMock =>
-            userEventBrokerMock.GetAllUserEvents(),
+            userEventBrokerMock.SelectAllUserEvents(),
 times: Times.Once());
 
         userEventBrokerMock.VerifyNoOtherCalls();

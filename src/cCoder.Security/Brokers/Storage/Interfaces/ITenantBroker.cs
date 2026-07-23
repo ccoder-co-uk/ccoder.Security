@@ -8,8 +8,8 @@ namespace cCoder.Security.Brokers.Storage.Interfaces;
 
 internal interface ITenantBroker
 {
-    ValueTask<Tenant> AddTenantAsync(Tenant tenant);
+    ValueTask<Tenant> InsertTenantAsync(Tenant tenant);
     ValueTask DeleteTenantAsync(Tenant tenant);
-    IQueryable<Tenant> GetAllTenants();
+    IQueryable<Tenant> SelectAllTenants();
     ValueTask<Tenant> UpdateTenantAsync(Tenant tenant);
 }

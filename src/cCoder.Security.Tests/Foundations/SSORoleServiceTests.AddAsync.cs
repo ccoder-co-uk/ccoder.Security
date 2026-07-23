@@ -19,11 +19,11 @@ public partial class SSORoleServiceTests
         SSORole inputSSORole = RandomRole(id: Guid.NewGuid());
         SSORole expectedSSORole = inputSSORole.DeepClone();
 
-        roleBrokerMock.Setup(expression: broker => broker.GetAllSSORoles()).Returns(value: Array.Empty<SSORole>().AsQueryable());
+        roleBrokerMock.Setup(expression: broker => broker.SelectAllSSORoles()).Returns(value: Array.Empty<SSORole>().AsQueryable());
         SSORole submitted = null;
 
         roleBrokerMock
-            .Setup(broker => broker.AddSSORoleAsync(It.IsAny<SSORole>()))
+            .Setup(broker => broker.InsertSSORoleAsync(It.IsAny<SSORole>()))
             .Callback<SSORole>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSORole);
 
@@ -37,7 +37,7 @@ public partial class SSORoleServiceTests
         actualSSORole.Should().BeEquivalentTo(expectation: expectedSSORole);
 
         roleBrokerMock.Verify(expression: broker =>
-            broker.AddSSORoleAsync(SSORole: It.IsAny<SSORole>()),
+            broker.InsertSSORoleAsync(SSORole: It.IsAny<SSORole>()),
 times: Times.Once);
 
         roleBrokerMock.VerifyNoOtherCalls();

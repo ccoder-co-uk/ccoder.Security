@@ -36,7 +36,7 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
             UserName = token.UserName
         };
 
-        Token result = await tokenBroker.AddTokenAsync(token: storageToken);
+        Token result = await tokenBroker.InsertTokenAsync(token: storageToken);
         token.Id = result.Id;
         token.Expires = result.Expires;
         token.Reason = result.Reason;
@@ -51,7 +51,7 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
         tokenBroker.DeleteExpiredAsync(expiresBefore: DateTimeOffset.UtcNow, cancellationToken: cancellationToken);
 
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
-        tokenBroker.GetAllTokens(ignoreFilters: ignoreFilters);
+        tokenBroker.SelectAllTokens(ignoreFilters: ignoreFilters);
 
     private int GetTokenTimeout()
     {

@@ -27,7 +27,7 @@ public partial class TenantServiceTests
         Tenant submitted = null;
 
         tenantBrokerMock.Setup(tenantBrokerMock =>
-            tenantBrokerMock.AddTenantAsync(It.IsAny<Tenant>()))
+            tenantBrokerMock.InsertTenantAsync(It.IsAny<Tenant>()))
             .Callback<Tenant>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: inputTenant);
 
@@ -47,7 +47,7 @@ public partial class TenantServiceTests
         actualTenant.Should().BeEquivalentTo(expectation: expectedTenant);
 
         tenantBrokerMock.Verify(expression: tenantBrokerMock =>
-            tenantBrokerMock.AddTenantAsync(tenant: It.IsAny<Tenant>()), times: Times.Once());
+            tenantBrokerMock.InsertTenantAsync(tenant: It.IsAny<Tenant>()), times: Times.Once());
 
         tenantBrokerMock.VerifyNoOtherCalls();
     }

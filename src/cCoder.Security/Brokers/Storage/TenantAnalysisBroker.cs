@@ -13,7 +13,7 @@ internal class TenantAnalysisBroker(
     ISecurityDbContextFactory contextFactory)
         : ITenantAnalysisBroker
 {
-    public async ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
+    public async ValueTask<TenantAnalysis> InsertTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
     {
         using var context = contextFactory.CreateDbContext();
 
@@ -47,7 +47,7 @@ internal class TenantAnalysisBroker(
         await context.SaveChangesAsync();
     }
 
-    public IQueryable<TenantAnalysis> GetAllTenantAnalysis()
+    public IQueryable<TenantAnalysis> SelectAllTenantAnalysis()
     {
         var context = contextFactory.CreateDbContext();
         return context.TenantAnalysis;

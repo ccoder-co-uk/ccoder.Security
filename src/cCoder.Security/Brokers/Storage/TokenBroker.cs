@@ -14,7 +14,7 @@ namespace cCoder.Security.Brokers.Storage;
 internal class TokenBroker(ISecurityDbContextFactory contextFactory)
     : ITokenBroker
 {
-    public async ValueTask<Token> AddTokenAsync(Token token)
+    public async ValueTask<Token> InsertTokenAsync(Token token)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
@@ -65,7 +65,7 @@ internal class TokenBroker(ISecurityDbContextFactory contextFactory)
         return deletedCount;
     }
 
-    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false)
+    public IQueryable<Token> SelectAllTokens(bool ignoreFilters = false)
     {
         SecurityDbContext context =
             contextFactory.CreateDbContext(ignoreAuthInfo: ignoreFilters);

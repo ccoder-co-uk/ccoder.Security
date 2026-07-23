@@ -27,7 +27,7 @@ internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffset
             CreatedBy = userEvent.CreatedBy
         };
 
-        UserEvent result = await broker.AddUserEventAsync(userEvent: storageUserEvent);
+        UserEvent result = await broker.InsertUserEventAsync(userEvent: storageUserEvent);
         userEvent.Id = result.Id;
         userEvent.EventName = result.EventName;
         userEvent.Value = result.Value;
@@ -42,5 +42,5 @@ internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffset
         broker.DeleteUserEventAsync(userEvent: userEvent);
 
     public IQueryable<UserEvent> GetAllUserEvents() =>
-        broker.GetAllUserEvents();
+        broker.SelectAllUserEvents();
 }

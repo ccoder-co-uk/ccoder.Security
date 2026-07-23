@@ -11,7 +11,7 @@ namespace cCoder.Security.Brokers.Storage;
 internal class SSOPrivilegeBroker(ISecurityDbContextFactory contextFactory)
     : ISSOPrivilegeBroker
 {
-    public IQueryable<SSOPrivilege> GetPrivileges() =>
+    public IQueryable<SSOPrivilege> SelectPrivileges() =>
         contextFactory
             .CreateDbContext()
             .GetPrivileges()

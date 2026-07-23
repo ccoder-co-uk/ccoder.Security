@@ -13,7 +13,7 @@ internal class SSORoleService(
         : ISSORoleService
 {
     public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
-        roleBroker.GetAllSSORoles(ignoreFilters: ignoreFilters);
+        roleBroker.SelectAllSSORoles(ignoreFilters: ignoreFilters);
 
     public async ValueTask<SSORole> AddSSORoleAsync(SSORole item)
     {
@@ -27,7 +27,7 @@ internal class SSORoleService(
             TenantId = item.TenantId
         };
 
-        SSORole result = await roleBroker.AddSSORoleAsync(SSORole: storageRole);
+        SSORole result = await roleBroker.InsertSSORoleAsync(SSORole: storageRole);
         item.Id = result.Id;
         item.UsersArePortalAdmins = result.UsersArePortalAdmins;
         item.Name = result.Name;

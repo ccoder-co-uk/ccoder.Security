@@ -16,14 +16,14 @@ public partial class SSOPrivilegeServiceTests
     {
         // given
         IQueryable<SSOPrivilege> expectedSSOPrivileges = RandomSSOPrivileges();
-        privBrokerMock.Setup(expression: broker => broker.GetPrivileges()).Returns(value: expectedSSOPrivileges);
+        privBrokerMock.Setup(expression: broker => broker.SelectPrivileges()).Returns(value: expectedSSOPrivileges);
 
         // when
         IEnumerable<SSOPrivilege> actualSSOPrivileges = privService.GetAllSSOPrivileges();
 
         // then
         actualSSOPrivileges.Should().BeEquivalentTo(expectation: expectedSSOPrivileges);
-        privBrokerMock.Verify(expression: broker => broker.GetPrivileges(), times: Times.Once);
+        privBrokerMock.Verify(expression: broker => broker.SelectPrivileges(), times: Times.Once);
         privBrokerMock.VerifyNoOtherCalls();
     }
 }

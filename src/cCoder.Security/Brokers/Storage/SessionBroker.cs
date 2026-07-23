@@ -11,7 +11,7 @@ namespace cCoder.Security.Brokers.Storage;
 
 internal class SessionBroker(ISecurityDbContextFactory contextFactory) : ISessionBroker
 {
-    public async ValueTask<Session> AddSessionAsync(Session Session)
+    public async ValueTask<Session> InsertSessionAsync(Session Session)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
@@ -39,7 +39,7 @@ internal class SessionBroker(ISecurityDbContextFactory contextFactory) : ISessio
         await context.SaveChangesAsync();
     }
 
-    public IQueryable<Session> GetAllSessions()
+    public IQueryable<Session> SelectAllSessions()
     {
         SecurityDbContext context = contextFactory.CreateDbContext();
         return context.Sessions;

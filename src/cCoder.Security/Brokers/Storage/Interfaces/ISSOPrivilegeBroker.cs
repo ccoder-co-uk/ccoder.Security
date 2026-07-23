@@ -8,5 +8,5 @@ namespace cCoder.Security.Brokers.Storage.Interfaces;
 
 internal interface ISSOPrivilegeBroker
 {
-    IQueryable<SSOPrivilege> GetPrivileges();
+    IQueryable<SSOPrivilege> SelectPrivileges();
 }

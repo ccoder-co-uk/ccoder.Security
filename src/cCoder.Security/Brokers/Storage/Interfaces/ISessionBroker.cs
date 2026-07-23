@@ -8,8 +8,8 @@ namespace cCoder.Security.Brokers.Storage.Interfaces;
 
 internal interface ISessionBroker
 {
-    ValueTask<Session> AddSessionAsync(Session Session);
+    ValueTask<Session> InsertSessionAsync(Session Session);
     ValueTask DeleteSessionAsync(Session Session);
-    IQueryable<Session> GetAllSessions();
+    IQueryable<Session> SelectAllSessions();
     ValueTask<Session> UpdateSessionAsync(Session Session);
 }

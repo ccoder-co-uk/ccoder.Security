@@ -13,13 +13,13 @@ namespace cCoder.Security.Brokers.Storage;
 internal class SSOUserBroker(ISecurityDbContextFactory contextFactory)
     : ISSOUserBroker
 {
-    public SSOUser Me()
+    public SSOUser SelectCurrentSSOUser()
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
         return context.GetCurrentUser();
     }
 
-    public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false)
+    public IQueryable<SSOUser> SelectAllSSOUsers(bool ignoreFilters = false)
     {
         SecurityDbContext context = contextFactory.CreateDbContext(ignoreAuthInfo: ignoreFilters);
 
@@ -28,7 +28,7 @@ internal class SSOUserBroker(ISecurityDbContextFactory contextFactory)
             : context.Users;
     }
 
-    public async ValueTask<SSOUser> AddSSOUserAsync(SSOUser user)
+    public async ValueTask<SSOUser> InsertSSOUserAsync(SSOUser user)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 

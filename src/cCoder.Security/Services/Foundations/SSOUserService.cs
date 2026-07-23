@@ -27,7 +27,7 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
             PhoneNumberConfirmed = newUser.PhoneNumberConfirmed
         };
 
-        SSOUser result = await ssoUserBroker.AddSSOUserAsync(user: storageUser);
+        SSOUser result = await ssoUserBroker.InsertSSOUserAsync(user: storageUser);
         newUser.Id = result.Id;
         newUser.DisplayName = result.DisplayName;
         newUser.Email = result.Email;
@@ -75,8 +75,8 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
     }
 
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>
-        ssoUserBroker.GetAllSSOUsers(ignoreFilters: ignoreFilters);
+        ssoUserBroker.SelectAllSSOUsers(ignoreFilters: ignoreFilters);
 
     public SSOUser Me() =>
-        ssoUserBroker.Me();
+        ssoUserBroker.SelectCurrentSSOUser();
 }

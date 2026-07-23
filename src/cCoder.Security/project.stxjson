@@ -229,7 +229,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "GetPrivileges",
+          "Name": "SelectPrivileges",
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
         }
@@ -241,16 +241,6 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddSSORoleAsync",
-          "Inputs": [
-            {
-              "Name": "role",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
-        },
-        {
           "Name": "DeleteSSORoleAsync",
           "Inputs": [
             {
@@ -261,7 +251,17 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "GetAllSSORoles",
+          "Name": "InsertSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "role",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "SelectAllSSORoles",
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -288,16 +288,6 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddSSOUserAsync",
-          "Inputs": [
-            {
-              "Name": "user",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
-        },
-        {
           "Name": "DeleteSSOUserAsync",
           "Inputs": [
             {
@@ -308,7 +298,17 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "GetAllSSOUsers",
+          "Name": "InsertSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "user",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "SelectAllSSOUsers",
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -318,7 +318,7 @@
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
         },
         {
-          "Name": "Me",
+          "Name": "SelectCurrentSSOUser",
           "Inputs": [],
           "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
         },
@@ -340,16 +340,6 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddSSOUserRoleAsync",
-          "Inputs": [
-            {
-              "Name": "userRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
-        },
-        {
           "Name": "DeleteSSOUserRoleAsync",
           "Inputs": [
             {
@@ -360,7 +350,17 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "GetAllSSOUserRoles",
+          "Name": "InsertSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "userRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        },
+        {
+          "Name": "SelectAllSSOUserRoles",
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
         }
@@ -372,16 +372,6 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddSessionAsync",
-          "Inputs": [
-            {
-              "Name": "Session",
-              "Type": "cCoder.Security.Objects.Entities.Session"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Session\u003E"
-        },
-        {
           "Name": "DeleteSessionAsync",
           "Inputs": [
             {
@@ -392,7 +382,17 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "GetAllSessions",
+          "Name": "InsertSessionAsync",
+          "Inputs": [
+            {
+              "Name": "Session",
+              "Type": "cCoder.Security.Objects.Entities.Session"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Session\u003E"
+        },
+        {
+          "Name": "SelectAllSessions",
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Session\u003E"
         },
@@ -414,16 +414,6 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddTenantAnalysisAsync",
-          "Inputs": [
-            {
-              "Name": "tenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
-        },
-        {
           "Name": "DeleteTenantAnalysisAsync",
           "Inputs": [
             {
@@ -434,7 +424,17 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "GetAllTenantAnalysis",
+          "Name": "InsertTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "tenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "SelectAllTenantAnalysis",
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
         },
@@ -456,16 +456,6 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddTenantAsync",
-          "Inputs": [
-            {
-              "Name": "tenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
-        },
-        {
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
@@ -476,7 +466,17 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "GetAllTenants",
+          "Name": "InsertTenantAsync",
+          "Inputs": [
+            {
+              "Name": "tenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "SelectAllTenants",
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
         },
@@ -497,16 +497,6 @@
       "StandardElementType": "Broker",
       "Properties": [],
       "Methods": [
-        {
-          "Name": "AddTokenAsync",
-          "Inputs": [
-            {
-              "Name": "token",
-              "Type": "cCoder.Security.Objects.Entities.Token"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
-        },
         {
           "Name": "DeleteExpiredAsync",
           "Inputs": [
@@ -532,7 +522,17 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "GetAllTokens",
+          "Name": "InsertTokenAsync",
+          "Inputs": [
+            {
+              "Name": "token",
+              "Type": "cCoder.Security.Objects.Entities.Token"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "SelectAllTokens",
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -559,16 +559,6 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddUserEventAsync",
-          "Inputs": [
-            {
-              "Name": "userEvent",
-              "Type": "cCoder.Security.Objects.Entities.UserEvent"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
-        },
-        {
           "Name": "DeleteUserEventAsync",
           "Inputs": [
             {
@@ -579,7 +569,17 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "GetAllUserEvents",
+          "Name": "InsertUserEventAsync",
+          "Inputs": [
+            {
+              "Name": "userEvent",
+              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        },
+        {
+          "Name": "SelectAllUserEvents",
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
         },
@@ -3029,22 +3029,8 @@
       "LineNumber": 24
     },
     {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOPrivilegeBroker",
-      "LineNumber": 14
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
       "LineNumber": 17
@@ -3064,32 +3050,11 @@
       "LineNumber": 37
     },
     {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 45
-    },
-    {
       "Code": "STXB002",
       "Description": "A broker must not contain branching logic.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
       "LineNumber": 50
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 22
     },
     {
       "Code": "STXB002",
@@ -3101,13 +3066,6 @@
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
       "LineNumber": 31
@@ -3134,13 +3092,6 @@
       "LineNumber": 15
     },
     {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
-      "LineNumber": 15
-    },
-    {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
@@ -3148,22 +3099,8 @@
       "LineNumber": 25
     },
     {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
-      "LineNumber": 33
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
       "LineNumber": 14
@@ -3183,22 +3120,8 @@
       "LineNumber": 34
     },
     {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 42
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
       "LineNumber": 16
@@ -3218,22 +3141,8 @@
       "LineNumber": 40
     },
     {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 50
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
       "LineNumber": 16
@@ -3253,22 +3162,8 @@
       "LineNumber": 41
     },
     {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 52
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
       "LineNumber": 17
@@ -3288,13 +3183,6 @@
       "LineNumber": 43
     },
     {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 68
-    },
-    {
       "Code": "STXB002",
       "Description": "A broker must not contain branching logic.",
       "Severity": "Warning",
@@ -3304,13 +3192,6 @@
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
       "LineNumber": 16
@@ -3328,13 +3209,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
       "LineNumber": 42
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
-      "LineNumber": 53
     },
     {
       "Code": "STXAPI002",

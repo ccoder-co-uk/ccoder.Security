@@ -12,7 +12,7 @@ namespace cCoder.Security.Brokers.Storage;
 internal class SSOUserRoleBroker(ISecurityDbContextFactory contextFactory)
     : ISSOUserRoleBroker
 {
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole)
+    public async ValueTask<SSOUserRole> InsertSSOUserRoleAsync(SSOUserRole userRole)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
@@ -30,7 +30,7 @@ internal class SSOUserRoleBroker(ISecurityDbContextFactory contextFactory)
         await context.SaveChangesAsync();
     }
 
-    public IQueryable<SSOUserRole> GetAllSSOUserRoles()
+    public IQueryable<SSOUserRole> SelectAllSSOUserRoles()
     {
         SecurityDbContext context = contextFactory.CreateDbContext();
         return context.UserRoles;

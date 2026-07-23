@@ -19,7 +19,7 @@ public partial class TenantServiceTests
             .AsQueryable();
 
         tenantBrokerMock.Setup(expression: tenantBrokerMock =>
-            tenantBrokerMock.GetAllTenants())
+            tenantBrokerMock.SelectAllTenants())
             .Returns(value: expectedTenants);
 
         //when
@@ -29,7 +29,7 @@ public partial class TenantServiceTests
         actualTenants.Should().BeEquivalentTo(expectation: expectedTenants);
 
         tenantBrokerMock.Verify(expression: tenantBrokerMock =>
-            tenantBrokerMock.GetAllTenants(),
+            tenantBrokerMock.SelectAllTenants(),
 times: Times.Once());
 
         tenantBrokerMock.VerifyNoOtherCalls();

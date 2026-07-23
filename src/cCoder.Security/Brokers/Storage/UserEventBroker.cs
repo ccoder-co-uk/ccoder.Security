@@ -13,7 +13,7 @@ namespace cCoder.Security.Brokers.Storage;
 internal class UserEventBroker(ISecurityDbContextFactory contextFactory)
     : IUserEventBroker
 {
-    public async ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent)
+    public async ValueTask<UserEvent> InsertUserEventAsync(UserEvent userEvent)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
@@ -50,7 +50,7 @@ internal class UserEventBroker(ISecurityDbContextFactory contextFactory)
         await context.SaveChangesAsync();
     }
 
-    public IQueryable<UserEvent> GetAllUserEvents()
+    public IQueryable<UserEvent> SelectAllUserEvents()
     {
         SecurityDbContext context =
             contextFactory.CreateDbContext();

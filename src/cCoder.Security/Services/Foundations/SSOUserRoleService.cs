@@ -19,7 +19,7 @@ internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
             UserId = item.UserId
         };
 
-        SSOUserRole result = await userRoleBroker.AddSSOUserRoleAsync(userRole: storageUserRole);
+        SSOUserRole result = await userRoleBroker.InsertSSOUserRoleAsync(userRole: storageUserRole);
         item.RoleId = result.RoleId;
         item.UserId = result.UserId;
         return item;
@@ -29,5 +29,5 @@ internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
         userRoleBroker.DeleteSSOUserRoleAsync(userRole: item);
 
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
-        userRoleBroker.GetAllSSOUserRoles();
+        userRoleBroker.SelectAllSSOUserRoles();
 }

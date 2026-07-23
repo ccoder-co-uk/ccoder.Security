@@ -13,7 +13,7 @@ namespace cCoder.Security.Brokers.Storage;
 internal class TenantBroker(ISecurityDbContextFactory contextFactory)
     : ITenantBroker
 {
-    public async ValueTask<Tenant> AddTenantAsync(Tenant tenant)
+    public async ValueTask<Tenant> InsertTenantAsync(Tenant tenant)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
@@ -49,7 +49,7 @@ internal class TenantBroker(ISecurityDbContextFactory contextFactory)
         await context.SaveChangesAsync();
     }
 
-    public IQueryable<Tenant> GetAllTenants()
+    public IQueryable<Tenant> SelectAllTenants()
     {
         SecurityDbContext context =
             contextFactory.CreateDbContext();

@@ -27,7 +27,7 @@ internal class TenantService(ITenantBroker broker)
             LastUpdated = tenant.LastUpdated
         };
 
-        Tenant result = await broker.AddTenantAsync(tenant: storageTenant);
+        Tenant result = await broker.InsertTenantAsync(tenant: storageTenant);
         tenant.Id = result.Id;
         tenant.Name = result.Name;
         tenant.Description = result.Description;
@@ -44,7 +44,7 @@ internal class TenantService(ITenantBroker broker)
 
     public IQueryable<Tenant> GetAllTenants()
         =>
-        broker.GetAllTenants();
+        broker.SelectAllTenants();
 
     public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant)
     {

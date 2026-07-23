@@ -12,5 +12,5 @@ internal class SSOPrivilegeService(ISSOPrivilegeBroker privBroker)
     : ISSOPrivilegeService
 {
     public IQueryable<SSOPrivilege> GetAllSSOPrivileges() =>
-        privBroker.GetPrivileges();
+        privBroker.SelectPrivileges();
 }

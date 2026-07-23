@@ -16,14 +16,14 @@ public partial class SSOUserRoleServiceTests
     {
         // given
         IQueryable<SSOUserRole> expectedSSOUserRoles = RandomUserRoles();
-        userRoleBrokerMock.Setup(expression: broker => broker.GetAllSSOUserRoles()).Returns(value: expectedSSOUserRoles);
+        userRoleBrokerMock.Setup(expression: broker => broker.SelectAllSSOUserRoles()).Returns(value: expectedSSOUserRoles);
 
         // when
         IEnumerable<SSOUserRole> actualSSOUserRoles = userRoleService.GetAllSSOUserRoles();
 
         // then
         actualSSOUserRoles.Should().BeEquivalentTo(expectation: expectedSSOUserRoles);
-        userRoleBrokerMock.Verify(expression: broker => broker.GetAllSSOUserRoles(), times: Times.Once);
+        userRoleBrokerMock.Verify(expression: broker => broker.SelectAllSSOUserRoles(), times: Times.Once);
         userRoleBrokerMock.VerifyNoOtherCalls();
     }
 }
