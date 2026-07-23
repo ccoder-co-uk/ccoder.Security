@@ -12,34 +12,34 @@ namespace cCoder.Security.Services.Foundations;
 internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffsetBroker dateTimeOffsetBroker)
     : IUserEventService
 {
-    public async ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent)
+    public async ValueTask<UserEvent> AddUserEventAsync(UserEvent newUserEvent)
     {
-        userEvent.CreatedOn = dateTimeOffsetBroker.GetCurrentTime();
+        newUserEvent.CreatedOn = dateTimeOffsetBroker.GetCurrentTime();
 
         UserEvent storageUserEvent = new()
         {
-            Id = userEvent.Id,
-            EventName = userEvent.EventName,
-            Value = userEvent.Value,
-            CreatedOn = userEvent.CreatedOn,
-            SessionId = userEvent.SessionId,
-            TenantId = userEvent.TenantId,
-            CreatedBy = userEvent.CreatedBy
+            Id = newUserEvent.Id,
+            EventName = newUserEvent.EventName,
+            Value = newUserEvent.Value,
+            CreatedOn = newUserEvent.CreatedOn,
+            SessionId = newUserEvent.SessionId,
+            TenantId = newUserEvent.TenantId,
+            CreatedBy = newUserEvent.CreatedBy
         };
 
         UserEvent result = await broker.InsertUserEventAsync(userEvent: storageUserEvent);
-        userEvent.Id = result.Id;
-        userEvent.EventName = result.EventName;
-        userEvent.Value = result.Value;
-        userEvent.CreatedOn = result.CreatedOn;
-        userEvent.SessionId = result.SessionId;
-        userEvent.TenantId = result.TenantId;
-        userEvent.CreatedBy = result.CreatedBy;
-        return userEvent;
+        newUserEvent.Id = result.Id;
+        newUserEvent.EventName = result.EventName;
+        newUserEvent.Value = result.Value;
+        newUserEvent.CreatedOn = result.CreatedOn;
+        newUserEvent.SessionId = result.SessionId;
+        newUserEvent.TenantId = result.TenantId;
+        newUserEvent.CreatedBy = result.CreatedBy;
+        return newUserEvent;
     }
 
-    public ValueTask DeleteUserEventAsync(UserEvent userEvent) =>
-        broker.DeleteUserEventAsync(userEvent: userEvent);
+    public ValueTask DeleteUserEventAsync(UserEvent deletedUserEvent) =>
+        broker.DeleteUserEventAsync(userEvent: deletedUserEvent);
 
     public IQueryable<UserEvent> GetAllUserEvents() =>
         broker.SelectAllUserEvents();

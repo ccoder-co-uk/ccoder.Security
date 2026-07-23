@@ -32,12 +32,14 @@ public class SSORoleController(ISSORoleOrchestrationService roleOrchestrationSer
     }
 
     [HttpPost]
-    public virtual async ValueTask<IActionResult> Post([FromBody] SSORole role) =>
-        Ok(value: await roleOrchestrationService.AddSSORoleAsync(item: role));
+    public virtual async ValueTask<IActionResult> Post([FromBody] SSORole newSSORole) =>
+        Ok(value: await roleOrchestrationService.AddSSORoleAsync(item: newSSORole));
 
     [HttpPut]
-    public virtual async ValueTask<IActionResult> Put([FromRoute] Guid key, [FromBody] SSORole role) =>
-        Ok(value: await roleOrchestrationService.UpdateSSORoleAsync(item: role));
+    public virtual async ValueTask<IActionResult> Put(
+        [FromRoute] Guid key,
+        [FromBody] SSORole updatedSSORole) =>
+        Ok(value: await roleOrchestrationService.UpdateSSORoleAsync(item: updatedSSORole));
 
     [HttpDelete]
     public async ValueTask<IActionResult> Delete([FromRoute] Guid key)

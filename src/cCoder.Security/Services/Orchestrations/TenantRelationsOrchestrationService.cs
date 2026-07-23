@@ -18,13 +18,13 @@ internal class TenantRelationsOrchestrationService(
     ISSOAuthorizationBroker authBroker)
         : ITenantRelationsOrchestrationService
 {
-    public async ValueTask DeleteTenantRelationsAsync(Tenant tenant)
+    public async ValueTask DeleteTenantRelationsAsync(Tenant deletedTenant)
     {
         authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_delete");
 
         var tenantRoles = roleProcessingService
             .GetAllSSORoles()
-            .Where(predicate: r => r.TenantId == tenant.Id)
+            .Where(predicate: r => r.TenantId == deletedTenant.Id)
             .ToArray();
 
         var userRoles = userRoleProcessingService
@@ -36,7 +36,7 @@ internal class TenantRelationsOrchestrationService(
 
         var tenantAnalysis = tenantAnalysisProcessingService
             .GetAllTenantAnalysis()
-            .Where(predicate: ta => ta.TenantId == tenant.Id)
+            .Where(predicate: ta => ta.TenantId == deletedTenant.Id)
             .ToArray();
 
         foreach (var analysis in tenantAnalysis)

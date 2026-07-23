@@ -2,7 +2,7 @@
   "Classes": [
     {
       "Name": "Security.HostedServices.Program",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -21,32 +21,11 @@
   "Links": [],
   "AnalysisItems": [
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
+      "Code": "STXAPP005",
+      "Description": "Program.cs must compose the app through IServiceCollection using SDK namespaces and one local composition namespace only.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 26
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 43
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 51
+      "LineNumber": 10
     }
   ]
 }

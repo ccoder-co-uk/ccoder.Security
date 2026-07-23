@@ -42,7 +42,7 @@ internal class SSOUserOrchestrationService(
         return (Sanitize(user: user), confirmationToken.Id);
     }
 
-    public async ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser item)
+    public async ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser updatedSSOUser)
     {
         SSOUser user = GetAllSSOUsers()
             .FirstOrDefault(predicate: user => user.Id == username);
@@ -53,15 +53,15 @@ internal class SSOUserOrchestrationService(
             throw new SecurityException("Access Denied!");
         }
 
-        user.DisplayName = item.DisplayName;
-        user.PhoneNumber = item.PhoneNumber;
-        user.Email = item.Email;
+        user.DisplayName = updatedSSOUser.DisplayName;
+        user.PhoneNumber = updatedSSOUser.PhoneNumber;
+        user.Email = updatedSSOUser.Email;
 
         return await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
     }
 
-    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
-        ssoUserProcessingService.DeleteSSOUserAsync(item: item);
+    public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>
+        ssoUserProcessingService.DeleteSSOUserAsync(item: deletedSSOUser);
 
     public async ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser registerForm)
     {

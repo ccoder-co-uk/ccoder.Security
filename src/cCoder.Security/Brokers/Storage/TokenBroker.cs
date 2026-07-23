@@ -14,39 +14,39 @@ namespace cCoder.Security.Brokers.Storage;
 internal class TokenBroker(ISecurityDbContextFactory contextFactory)
     : ITokenBroker
 {
-    public async ValueTask<Token> InsertTokenAsync(Token token)
+    public async ValueTask<Token> InsertTokenAsync(Token newToken)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Token> entityEntry =
-            context.Tokens.Add(entity: token);
+            context.Tokens.Add(entity: newToken);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<Token> UpdateTokenAsync(Token token)
+    public async ValueTask<Token> UpdateTokenAsync(Token updatedToken)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Token> entityEntry =
-            context.Tokens.Update(entity: token);
+            context.Tokens.Update(entity: updatedToken);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteTokenAsync(Token token)
+    public async ValueTask DeleteTokenAsync(Token deletedToken)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Token> entityEntry =
-            context.Tokens.Remove(entity: token);
+            context.Tokens.Remove(entity: deletedToken);
 
         await context.SaveChangesAsync();
     }

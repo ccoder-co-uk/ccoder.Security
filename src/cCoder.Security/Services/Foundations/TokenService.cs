@@ -52,8 +52,8 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
         return token;
     }
 
-    public ValueTask DeleteTokenAsync(Token item) =>
-        tokenBroker.DeleteTokenAsync(token: item);
+    public ValueTask DeleteTokenAsync(Token deletedToken) =>
+        tokenBroker.DeleteTokenAsync(token: deletedToken);
 
     public ValueTask<int> DeleteExpiredAsync(CancellationToken cancellationToken = default) =>
         tokenBroker.DeleteExpiredAsync(expiresBefore: DateTimeOffset.UtcNow, cancellationToken: cancellationToken);

@@ -33,9 +33,13 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
 
     [HttpPut]
     [EnableQuery]
-    public virtual async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] SSOUser ssoUser) =>
+    public virtual async ValueTask<IActionResult> Put(
+        [FromRoute] string key,
+        [FromBody] SSOUser updatedSSOUser) =>
         ModelState.IsValid
-            ? Get(key: (await ssoUserOrchestrationService.UpdateSSOUserAsync(username: key, item: ssoUser)).Id)
+            ? Get(key: (await ssoUserOrchestrationService.UpdateSSOUserAsync(
+                username: key,
+                item: updatedSSOUser)).Id)
             : BadRequest(modelState: ModelState);
 
     [HttpDelete]

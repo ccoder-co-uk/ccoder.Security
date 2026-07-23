@@ -244,7 +244,7 @@
           "Name": "DeleteSSORoleAsync",
           "Inputs": [
             {
-              "Name": "role",
+              "Name": "deletedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -254,7 +254,7 @@
           "Name": "InsertSSORoleAsync",
           "Inputs": [
             {
-              "Name": "role",
+              "Name": "newSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -274,7 +274,7 @@
           "Name": "UpdateSSORoleAsync",
           "Inputs": [
             {
-              "Name": "role",
+              "Name": "updatedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -291,7 +291,7 @@
           "Name": "DeleteSSOUserAsync",
           "Inputs": [
             {
-              "Name": "SSOUser",
+              "Name": "deletedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -301,7 +301,7 @@
           "Name": "InsertSSOUserAsync",
           "Inputs": [
             {
-              "Name": "user",
+              "Name": "newSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -326,7 +326,7 @@
           "Name": "UpdateSSOUserAsync",
           "Inputs": [
             {
-              "Name": "user",
+              "Name": "updatedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -343,7 +343,7 @@
           "Name": "DeleteSSOUserRoleAsync",
           "Inputs": [
             {
-              "Name": "userRole",
+              "Name": "deletedSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -353,7 +353,7 @@
           "Name": "InsertSSOUserRoleAsync",
           "Inputs": [
             {
-              "Name": "userRole",
+              "Name": "newSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -375,7 +375,7 @@
           "Name": "DeleteSessionAsync",
           "Inputs": [
             {
-              "Name": "Session",
+              "Name": "deletedSession",
               "Type": "cCoder.Security.Objects.Entities.Session"
             }
           ],
@@ -385,7 +385,7 @@
           "Name": "InsertSessionAsync",
           "Inputs": [
             {
-              "Name": "Session",
+              "Name": "newSession",
               "Type": "cCoder.Security.Objects.Entities.Session"
             }
           ],
@@ -400,7 +400,7 @@
           "Name": "UpdateSessionAsync",
           "Inputs": [
             {
-              "Name": "Session",
+              "Name": "updatedSession",
               "Type": "cCoder.Security.Objects.Entities.Session"
             }
           ],
@@ -417,7 +417,7 @@
           "Name": "DeleteTenantAnalysisAsync",
           "Inputs": [
             {
-              "Name": "tenantAnalysis",
+              "Name": "deletedTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -427,7 +427,7 @@
           "Name": "InsertTenantAnalysisAsync",
           "Inputs": [
             {
-              "Name": "tenantAnalysis",
+              "Name": "newTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -442,7 +442,7 @@
           "Name": "UpdateTenantAnalysisAsync",
           "Inputs": [
             {
-              "Name": "tenantAnalysis",
+              "Name": "updatedTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -459,7 +459,7 @@
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "deletedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -469,7 +469,7 @@
           "Name": "InsertTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "newTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -484,7 +484,7 @@
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "updatedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -515,7 +515,7 @@
           "Name": "DeleteTokenAsync",
           "Inputs": [
             {
-              "Name": "token",
+              "Name": "deletedToken",
               "Type": "cCoder.Security.Objects.Entities.Token"
             }
           ],
@@ -525,7 +525,7 @@
           "Name": "InsertTokenAsync",
           "Inputs": [
             {
-              "Name": "token",
+              "Name": "newToken",
               "Type": "cCoder.Security.Objects.Entities.Token"
             }
           ],
@@ -545,7 +545,7 @@
           "Name": "UpdateTokenAsync",
           "Inputs": [
             {
-              "Name": "token",
+              "Name": "updatedToken",
               "Type": "cCoder.Security.Objects.Entities.Token"
             }
           ],
@@ -562,7 +562,7 @@
           "Name": "DeleteUserEventAsync",
           "Inputs": [
             {
-              "Name": "userEvent",
+              "Name": "deletedUserEvent",
               "Type": "cCoder.Security.Objects.Entities.UserEvent"
             }
           ],
@@ -572,7 +572,7 @@
           "Name": "InsertUserEventAsync",
           "Inputs": [
             {
-              "Name": "userEvent",
+              "Name": "newUserEvent",
               "Type": "cCoder.Security.Objects.Entities.UserEvent"
             }
           ],
@@ -587,7 +587,7 @@
           "Name": "UpdateUserEventAsync",
           "Inputs": [
             {
-              "Name": "userEvent",
+              "Name": "updatedUserEvent",
               "Type": "cCoder.Security.Objects.Entities.UserEvent"
             }
           ],
@@ -650,7 +650,7 @@
           "Name": "PostConfirmForgotPassword",
           "Inputs": [
             {
-              "Name": "request",
+              "Name": "newConfirmForgotPasswordRequest",
               "Type": "cCoder.Security.Objects.DTOs.ConfirmForgotPasswordRequest"
             }
           ],
@@ -660,7 +660,7 @@
           "Name": "PostForgotPassword",
           "Inputs": [
             {
-              "Name": "request",
+              "Name": "newForgotPasswordRequest",
               "Type": "cCoder.Security.Objects.DTOs.ForgotPasswordRequest"
             }
           ],
@@ -670,7 +670,7 @@
           "Name": "PostLogin",
           "Inputs": [
             {
-              "Name": "auth",
+              "Name": "newAuth",
               "Type": "cCoder.Security.Objects.DTOs.Auth"
             }
           ],
@@ -700,7 +700,7 @@
               "Type": "System.String"
             },
             {
-              "Name": "inviteForm",
+              "Name": "newRegisterUser",
               "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
             }
           ],
@@ -720,7 +720,7 @@
           "Name": "PostInvite",
           "Inputs": [
             {
-              "Name": "inviteForm",
+              "Name": "newRegisterUser",
               "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
             }
           ],
@@ -730,7 +730,7 @@
           "Name": "PostRegister",
           "Inputs": [
             {
-              "Name": "registerForm",
+              "Name": "newRegisterUser",
               "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
             }
           ],
@@ -814,7 +814,7 @@
           "Name": "Post",
           "Inputs": [
             {
-              "Name": "role",
+              "Name": "newSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -828,7 +828,7 @@
               "Type": "System.Guid"
             },
             {
-              "Name": "role",
+              "Name": "updatedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -883,7 +883,7 @@
               "Type": "System.String"
             },
             {
-              "Name": "ssoUser",
+              "Name": "updatedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -924,7 +924,7 @@
           "Name": "Post",
           "Inputs": [
             {
-              "Name": "userRole",
+              "Name": "newSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -999,7 +999,7 @@
           "Name": "Post",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "newTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -1013,7 +1013,7 @@
               "Type": "System.String"
             },
             {
-              "Name": "tenant",
+              "Name": "updatedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -1136,7 +1136,7 @@
     },
     {
       "Name": "cCoder.Security.IServiceCollectionExtensions",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -1422,7 +1422,7 @@
           "Name": "AddSSORoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "newSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -1432,7 +1432,7 @@
           "Name": "DeleteSSORoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -1452,7 +1452,7 @@
           "Name": "UpdateSSORoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "updatedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -1469,7 +1469,7 @@
           "Name": "AddSSOUserRoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "newSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -1479,7 +1479,7 @@
           "Name": "DeleteSSOUserRoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -1511,7 +1511,7 @@
           "Name": "DeleteSSOUserAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -1536,7 +1536,7 @@
           "Name": "UpdateSSOUserAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "updatedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -1614,7 +1614,7 @@
           "Name": "AddTenantAnalaysisAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "newTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -1624,7 +1624,7 @@
           "Name": "DeleteTenantAnalysisAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "deletedTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -1639,7 +1639,7 @@
           "Name": "UpdateTenantAnalysisAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "updatedTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -1656,7 +1656,7 @@
           "Name": "AddTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "newTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -1666,7 +1666,7 @@
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "deletedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -1681,7 +1681,7 @@
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "updatedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -1726,7 +1726,7 @@
           "Name": "DeleteTokenAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedToken",
               "Type": "cCoder.Security.Objects.Entities.Token"
             }
           ],
@@ -1753,7 +1753,7 @@
           "Name": "AddUserEventAsync",
           "Inputs": [
             {
-              "Name": "userEvent",
+              "Name": "newUserEvent",
               "Type": "cCoder.Security.Objects.Entities.UserEvent"
             }
           ],
@@ -1763,7 +1763,7 @@
           "Name": "DeleteUserEventAsync",
           "Inputs": [
             {
-              "Name": "userEvent",
+              "Name": "deletedUserEvent",
               "Type": "cCoder.Security.Objects.Entities.UserEvent"
             }
           ],
@@ -1892,7 +1892,7 @@
           "Name": "AddSSORoleAsync",
           "Inputs": [
             {
-              "Name": "ssoRole",
+              "Name": "newSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -1902,7 +1902,7 @@
           "Name": "DeleteSSORoleAsync",
           "Inputs": [
             {
-              "Name": "ssoRole",
+              "Name": "deletedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -1917,7 +1917,7 @@
           "Name": "UpdateSSORoleAsync",
           "Inputs": [
             {
-              "Name": "ssoRole",
+              "Name": "updatedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -1962,7 +1962,7 @@
           "Name": "DeleteSSOUserAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -2011,7 +2011,7 @@
               "Type": "System.String"
             },
             {
-              "Name": "item",
+              "Name": "updatedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -2028,7 +2028,7 @@
           "Name": "AddSSOUserRoleAsync",
           "Inputs": [
             {
-              "Name": "userRole",
+              "Name": "newSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -2038,7 +2038,7 @@
           "Name": "DeleteSSOUserRoleAsync",
           "Inputs": [
             {
-              "Name": "userRole",
+              "Name": "deletedSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -2060,7 +2060,7 @@
           "Name": "AddTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "newTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2070,7 +2070,7 @@
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "deletedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2085,7 +2085,7 @@
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "updatedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2102,7 +2102,7 @@
           "Name": "AddTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "newTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2112,7 +2112,7 @@
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "deletedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2127,7 +2127,7 @@
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "updatedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2144,7 +2144,7 @@
           "Name": "DeleteTenantRelationsAsync",
           "Inputs": [
             {
-              "Name": "tenant",
+              "Name": "deletedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2207,7 +2207,7 @@
           "Name": "AddSSORoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "newSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -2217,7 +2217,7 @@
           "Name": "DeleteSSORoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -2237,7 +2237,7 @@
           "Name": "UpdateSSORoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "updatedSSORole",
               "Type": "cCoder.Security.Objects.Entities.SSORole"
             }
           ],
@@ -2254,7 +2254,7 @@
           "Name": "DeleteSSOUserAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -2323,7 +2323,7 @@
           "Name": "UpdateSSOUserAsync",
           "Inputs": [
             {
-              "Name": "user",
+              "Name": "updatedSSOUser",
               "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
@@ -2364,7 +2364,7 @@
           "Name": "AddSSOUserRoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "newSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -2374,7 +2374,7 @@
           "Name": "DeleteSSOUserRoleAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedSSOUserRole",
               "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
             }
           ],
@@ -2457,7 +2457,7 @@
           "Name": "AddTenantAnalysisAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "newTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -2467,7 +2467,7 @@
           "Name": "DeleteTenantAnalysisAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -2482,7 +2482,7 @@
           "Name": "UpdateTenantAnalysisAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "updatedTenantAnalysis",
               "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
             }
           ],
@@ -2499,7 +2499,7 @@
           "Name": "AddTenantAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "newTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2509,7 +2509,7 @@
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "deletedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2524,7 +2524,7 @@
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
-              "Name": "item",
+              "Name": "updatedTenant",
               "Type": "cCoder.Security.Objects.Entities.Tenant"
             }
           ],
@@ -2652,7 +2652,7 @@
           "Name": "AddUserEventAsync",
           "Inputs": [
             {
-              "Name": "userEvent",
+              "Name": "newUserEvent",
               "Type": "cCoder.Security.Objects.Entities.UserEvent"
             }
           ],
@@ -2662,7 +2662,7 @@
           "Name": "DeleteUserEventAsync",
           "Inputs": [
             {
-              "Name": "userEvent",
+              "Name": "deletedUserEvent",
               "Type": "cCoder.Security.Objects.Entities.UserEvent"
             }
           ],
@@ -2677,7 +2677,7 @@
     },
     {
       "Name": "cCoder.Security.WebApplicationExtensions",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": [
         {
@@ -3029,27 +3029,6 @@
       "LineNumber": 24
     },
     {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 27
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 37
-    },
-    {
       "Code": "STXB002",
       "Description": "A broker must not contain branching logic.",
       "Severity": "Warning",
@@ -3064,151 +3043,11 @@
       "LineNumber": 26
     },
     {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 41
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 51
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
-      "LineNumber": 25
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 24
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 34
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 28
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 28
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 41
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 43
-    },
-    {
       "Code": "STXB002",
       "Description": "A broker must not contain branching logic.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
       "LineNumber": 73
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
-      "LineNumber": 29
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
-      "LineNumber": 42
     },
     {
       "Code": "STXAPI002",
@@ -3218,74 +3057,11 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 32
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 50
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 64
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
+      "Code": "STXFORMAT002",
+      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 35
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 36
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
-      "LineNumber": 21
+      "LineNumber": 41
     },
     {
       "Code": "STXAPI001",
@@ -3300,20 +3076,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SecurityController\u003CT\u003E",
       "LineNumber": 9
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 35
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 41
     },
     {
       "Code": "STXE005",
@@ -3337,88 +3099,11 @@
       "LineNumber": 21
     },
     {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
+      "Code": "STXAPP001",
+      "Description": "Program.cs, IServiceCollectionExtensions.cs, and WebApplicationExtensions.cs must live at the project root.",
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 45
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 55
-    },
-    {
-      "Code": "STXE001",
-      "Description": "An exposure must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 73
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 79
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 85
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 106
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 135
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 150
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 163
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 169
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 180
-    },
-    {
-      "Code": "STXFORMAT001",
-      "Description": "Source files must not contain newline characters after the final code token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 207
+      "LineNumber": 33
     },
     {
       "Code": "STX0007",
@@ -3456,13 +3141,6 @@
       "LineNumber": 16
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 16
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -3485,7 +3163,7 @@
     },
     {
       "Code": "STXF002",
-      "Description": "A foundation service may only depend on brokers, boundary dependencies, or nothing.",
+      "Description": "A foundation service may only depend on brokers, exposures, or nothing.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
       "LineNumber": 16
@@ -3547,13 +3225,6 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
-      "LineNumber": 11
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -3603,13 +3274,6 @@
       "LineNumber": 12
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
-      "LineNumber": 12
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -3626,6 +3290,13 @@
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
+      "LineNumber": 12
+    },
+    {
+      "Code": "STXF002",
+      "Description": "A foundation service may only depend on brokers, exposures, or nothing.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
       "LineNumber": 12
@@ -3666,13 +3337,6 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 11
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -3723,7 +3387,14 @@
     },
     {
       "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
+      "Description": "Business-operation validation methods must evaluate their rules through a validation collector.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.SSORoleService",
+      "LineNumber": 11
+    },
+    {
+      "Code": "STX0023",
+      "Description": "Each business operation must call its operation-specific validation method.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
       "LineNumber": 11
@@ -3748,27 +3419,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 18
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 62
     },
     {
       "Code": "STX0008",
@@ -3800,7 +3450,14 @@
     },
     {
       "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
+      "Description": "Business-operation validation methods must evaluate their rules through a validation collector.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
+      "LineNumber": 11
+    },
+    {
+      "Code": "STX0023",
+      "Description": "Each business operation must call its operation-specific validation method.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
       "LineNumber": 11
@@ -3825,20 +3482,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 28
     },
     {
       "Code": "STX0008",
@@ -3870,7 +3513,14 @@
     },
     {
       "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
+      "Description": "Business-operation validation methods must evaluate their rules through a validation collector.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.SSOUserService",
+      "LineNumber": 11
+    },
+    {
+      "Code": "STX0023",
+      "Description": "Each business operation must call its operation-specific validation method.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
       "LineNumber": 11
@@ -3895,20 +3545,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 44
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 47
     },
     {
       "Code": "STX0008",
@@ -3940,7 +3576,14 @@
     },
     {
       "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
+      "Description": "Business-operation validation methods must evaluate their rules through a validation collector.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.SessionService",
+      "LineNumber": 12
+    },
+    {
+      "Code": "STX0023",
+      "Description": "Each business operation must call its operation-specific validation method.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
       "LineNumber": 12
@@ -3962,6 +3605,13 @@
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.SessionService",
+      "LineNumber": 12
+    },
+    {
+      "Code": "STXF002",
+      "Description": "A foundation service may only depend on brokers, exposures, or nothing.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
       "LineNumber": 12
@@ -4017,7 +3667,14 @@
     },
     {
       "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
+      "Description": "Business-operation validation methods must evaluate their rules through a validation collector.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
+      "LineNumber": 11
+    },
+    {
+      "Code": "STX0023",
+      "Description": "Each business operation must call its operation-specific validation method.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
       "LineNumber": 11
@@ -4051,27 +3708,6 @@
       "LineNumber": 14
     },
     {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 38
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 46
-    },
-    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
@@ -4101,7 +3737,14 @@
     },
     {
       "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
+      "Description": "Business-operation validation methods must evaluate their rules through a validation collector.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.TenantService",
+      "LineNumber": 11
+    },
+    {
+      "Code": "STX0023",
+      "Description": "Each business operation must call its operation-specific validation method.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
       "LineNumber": 11
@@ -4126,27 +3769,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 41
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 49
     },
     {
       "Code": "STX0008",
@@ -4178,7 +3800,14 @@
     },
     {
       "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
+      "Description": "Business-operation validation methods must evaluate their rules through a validation collector.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.TokenService",
+      "LineNumber": 12
+    },
+    {
+      "Code": "STX0023",
+      "Description": "Each business operation must call its operation-specific validation method.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TokenService",
       "LineNumber": 12
@@ -4205,11 +3834,11 @@
       "LineNumber": 12
     },
     {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
+      "Code": "STXF002",
+      "Description": "A foundation service may only depend on brokers, exposures, or nothing.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TokenService",
-      "LineNumber": 55
+      "LineNumber": 12
     },
     {
       "Code": "STX0008",
@@ -4241,7 +3870,14 @@
     },
     {
       "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
+      "Description": "Business-operation validation methods must evaluate their rules through a validation collector.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Foundations.UserEventService",
+      "LineNumber": 12
+    },
+    {
+      "Code": "STX0023",
+      "Description": "Each business operation must call its operation-specific validation method.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
       "LineNumber": 12
@@ -4266,20 +3902,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
       "LineNumber": 12
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 41
     },
     {
       "Code": "STX0007",
@@ -4317,13 +3939,6 @@
       "LineNumber": 13
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 13
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -4368,13 +3983,6 @@
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
       "LineNumber": 13
@@ -4436,13 +4044,6 @@
       "LineNumber": 12
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 12
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -4469,27 +4070,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
       "LineNumber": 12
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 20
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 37
     },
     {
       "Code": "STX0004",
@@ -4534,13 +4114,6 @@
       "LineNumber": 16
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 16
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -4576,25 +4149,11 @@
       "LineNumber": 28
     },
     {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 45
-    },
-    {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
       "LineNumber": 47
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 63
     },
     {
       "Code": "STX0018",
@@ -4639,13 +4198,6 @@
       "LineNumber": 12
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 12
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -4672,20 +4224,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
       "LineNumber": 12
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 24
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 34
     },
     {
       "Code": "STX0004",
@@ -4718,13 +4256,6 @@
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
       "LineNumber": 11
@@ -4765,27 +4296,6 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 20
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 23
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 26
-    },
-    {
       "Code": "STX0004",
       "Description": "A service must not depend on another service at the same layer.",
       "Severity": "Warning",
@@ -4821,13 +4331,6 @@
       "LineNumber": 13
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -4854,27 +4357,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
       "LineNumber": 13
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 28
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 75
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 82
     },
     {
       "Code": "STX0008",
@@ -4905,13 +4387,6 @@
       "LineNumber": 14
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -4938,13 +4413,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
       "LineNumber": 14
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 21
     },
     {
       "Code": "STX0004",
@@ -4977,13 +4445,6 @@
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
       "LineNumber": 13
@@ -5040,13 +4501,6 @@
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
       "LineNumber": 12
@@ -5115,13 +4569,6 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 11
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -5178,13 +4625,6 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 11
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -5204,27 +4644,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 20
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 23
     },
     {
       "Code": "STX0008",
@@ -5250,13 +4669,6 @@
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "LineNumber": 13
@@ -5311,13 +4723,6 @@
       "LineNumber": 31
     },
     {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 48
-    },
-    {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
@@ -5344,13 +4749,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "LineNumber": 85
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 93
     },
     {
       "Code": "STX0005",
@@ -5402,13 +4800,6 @@
       "LineNumber": 12
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 12
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -5428,20 +4819,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
       "LineNumber": 12
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 18
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 21
     },
     {
       "Code": "STX0008",
@@ -5467,13 +4844,6 @@
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
       "LineNumber": 11
@@ -5542,13 +4912,6 @@
       "LineNumber": 10
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 10
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -5568,27 +4931,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
       "LineNumber": 10
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 23
     },
     {
       "Code": "STX0003",
@@ -5626,13 +4968,6 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 11
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -5652,27 +4987,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 23
     },
     {
       "Code": "STX0008",
@@ -5698,13 +5012,6 @@
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
       "LineNumber": 11
@@ -5773,13 +5080,6 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0012",
-      "Description": "Service validations must be evaluated through a rules engine.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 11
-    },
-    {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
@@ -5799,41 +5099,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.WebApplicationExtensions",
-      "LineNumber": 23
-    },
-    {
-      "Code": "STXE002",
-      "Description": "An exposure must not contain loops.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.WebApplicationExtensions",
-      "LineNumber": 28
-    },
-    {
-      "Code": "STXFORMAT001",
-      "Description": "Source files must not contain newline characters after the final code token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.WebApplicationExtensions",
-      "LineNumber": 33
     }
   ]
 }

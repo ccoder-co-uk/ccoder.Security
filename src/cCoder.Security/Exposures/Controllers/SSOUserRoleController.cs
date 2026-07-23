@@ -18,9 +18,10 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
         Ok(value: userRoleOrchestrationService.GetAllSSOUserRoles());
 
     [HttpPost]
-    public async ValueTask<IActionResult> Post([FromBody] SSOUserRole userRole) =>
+    public async ValueTask<IActionResult> Post([FromBody] SSOUserRole newSSOUserRole) =>
         ModelState.IsValid
-            ? Ok(value: await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: userRole))
+            ? Ok(value: await userRoleOrchestrationService.AddSSOUserRoleAsync(
+                userRole: newSSOUserRole))
             : BadRequest(modelState: ModelState);
 
     [HttpDelete]

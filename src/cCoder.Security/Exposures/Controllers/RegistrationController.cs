@@ -14,12 +14,13 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
     : Controller
 {
     [HttpPost("Register")]
-    public async ValueTask<IActionResult> PostRegister([FromBody] RegisterUser registerForm)
+    public async ValueTask<IActionResult> PostRegister([FromBody] RegisterUser newRegisterUser)
     {
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string confirmationToken) = await ssoUserOrchestrationService.Register(registerForm: registerForm);
+        (SSOUser user, string confirmationToken) = await ssoUserOrchestrationService.Register(
+            registerForm: newRegisterUser);
 
         return Ok(value: new
         {
@@ -36,12 +37,13 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
     }
 
     [HttpPost("Invite")]
-    public async ValueTask<IActionResult> PostInvite([FromBody] RegisterUser inviteForm)
+    public async ValueTask<IActionResult> PostInvite([FromBody] RegisterUser newRegisterUser)
     {
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string invitationToken) = await ssoUserOrchestrationService.InviteUserAsync(registerForm: inviteForm);
+        (SSOUser user, string invitationToken) = await ssoUserOrchestrationService.InviteUserAsync(
+            registerForm: newRegisterUser);
 
         return Ok(value: new
         {
@@ -61,12 +63,15 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
     public async ValueTask<IActionResult> PostAcceptInvite(
         [FromQuery] string userId,
         [FromQuery] string inviteToken,
-        [FromBody] RegisterUser inviteForm)
+        [FromBody] RegisterUser newRegisterUser)
     {
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        await ssoUserOrchestrationService.AcceptInviteAsync(registerForm: inviteForm, userId: userId, tokenId: inviteToken);
+        await ssoUserOrchestrationService.AcceptInviteAsync(
+            registerForm: newRegisterUser,
+            userId: userId,
+            tokenId: inviteToken);
 
         return Ok();
     }

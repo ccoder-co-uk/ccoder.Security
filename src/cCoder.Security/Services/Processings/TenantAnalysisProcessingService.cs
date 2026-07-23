@@ -11,15 +11,15 @@ internal class TenantAnalysisProcessingService(ITenantAnalysisService tenantAnal
     : ITenantAnalysisProcessingService
 
 {
-    public ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis item) =>
-        tenantAnalysisService.AddTenantAnalaysisAsync(tenant: item);
+    public ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis newTenantAnalysis) =>
+        tenantAnalysisService.AddTenantAnalaysisAsync(tenant: newTenantAnalysis);
 
-    public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis item) =>
-        tenantAnalysisService.DeleteTenantAnalysisAsync(tenant: item);
+    public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis) =>
+        tenantAnalysisService.DeleteTenantAnalysisAsync(tenant: deletedTenantAnalysis);
 
     public IQueryable<TenantAnalysis> GetAllTenantAnalysis() =>
         tenantAnalysisService.GetAllTenantAnalysis();
 
-    public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis item) =>
-        tenantAnalysisService.UpdateTenantAnalysisAsync(tenant: item);
+    public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis) =>
+        tenantAnalysisService.UpdateTenantAnalysisAsync(tenant: updatedTenantAnalysis);
 }

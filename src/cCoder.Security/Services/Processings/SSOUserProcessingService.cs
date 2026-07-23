@@ -45,8 +45,8 @@ internal partial class SSOUserProcessingService(
         return await ssoUserService.AddSSOUserAsync(item: user);
     }
 
-    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
-        ssoUserService.DeleteSSOUserAsync(item: item);
+    public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>
+        ssoUserService.DeleteSSOUserAsync(item: deletedSSOUser);
 
     public async ValueTask<SSOUser> FindByUserAndPasswordAsync(string username, string password)
     {
@@ -64,7 +64,7 @@ internal partial class SSOUserProcessingService(
             if (user.AccessFailedCount > 10)
             { user.LockoutEnabled = true; }
 
-            await UpdateSSOUserAsync(user: user);
+            await UpdateSSOUserAsync(updatedSSOUser: user);
             throw new SecurityException("Access Denied!");
         }
         else
@@ -72,7 +72,7 @@ internal partial class SSOUserProcessingService(
             if (user.AccessFailedCount > 0)
             {
                 user.AccessFailedCount = 0;
-                await UpdateSSOUserAsync(user: user);
+                await UpdateSSOUserAsync(updatedSSOUser: user);
             }
         }
 
@@ -90,18 +90,18 @@ internal partial class SSOUserProcessingService(
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>
         ssoUserService.GetAllSSOUsers(ignoreFilters: ignoreFilters);
 
-    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser user)
+    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser updatedSSOUser)
     {
         SSOUser dbUser = GetAllSSOUsers(ignoreFilters: true)
-            .FirstOrDefault(predicate: u => u.Id == user.Id);
+            .FirstOrDefault(predicate: u => u.Id == updatedSSOUser.Id);
 
-        if (user.PasswordHash != null && dbUser.PasswordHash != user.PasswordHash)
+        if (updatedSSOUser.PasswordHash != null && dbUser.PasswordHash != updatedSSOUser.PasswordHash)
         {
-            ValidatePassword(password: user.PasswordHash);
-            user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
+            ValidatePassword(password: updatedSSOUser.PasswordHash);
+            updatedSSOUser.PasswordHash = encryptionBroker.Encrypt(password: updatedSSOUser.PasswordHash);
         }
 
-        return await ssoUserService.UpdateSSOUserAsync(item: user);
+        return await ssoUserService.UpdateSSOUserAsync(item: updatedSSOUser);
     }
 
     public SSOUser Me() =>

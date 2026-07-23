@@ -12,9 +12,11 @@ namespace cCoder.Security.Exposures.Controllers;
 public class AuthenticationController(IAuthenticationOrchestrationService authenticationOrchestrationService) : Controller
 {
     [HttpPost("Login")]
-    public async ValueTask<IActionResult> PostLogin([FromBody] Auth auth) =>
+    public async ValueTask<IActionResult> PostLogin([FromBody] Auth newAuth) =>
         ModelState.IsValid
-            ? Ok(value: await authenticationOrchestrationService.LoginAsync(username: auth.User, password: auth.Pass))
+            ? Ok(value: await authenticationOrchestrationService.LoginAsync(
+                username: newAuth.User,
+                password: newAuth.Pass))
             : BadRequest(modelState: ModelState);
 
     [HttpPost("Logout")]
@@ -29,14 +31,16 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
         Ok(value: authenticationOrchestrationService.Me());
 
     [HttpPost("ForgotPassword")]
-    public async ValueTask<IActionResult> PostForgotPassword([FromBody] ForgotPasswordRequest request)
+    public async ValueTask<IActionResult> PostForgotPassword(
+        [FromBody] ForgotPasswordRequest newForgotPasswordRequest)
     {
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
         try
         {
-            await authenticationOrchestrationService.ForgotPasswordAsync(email: request.Email);
+            await authenticationOrchestrationService.ForgotPasswordAsync(
+                email: newForgotPasswordRequest.Email);
         }
         catch
         {
@@ -47,16 +51,16 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
 
     [HttpPost("ConfirmForgotPassword")]
     public async ValueTask<IActionResult> PostConfirmForgotPassword(
-        [FromBody] ConfirmForgotPasswordRequest request)
+        [FromBody] ConfirmForgotPasswordRequest newConfirmForgotPasswordRequest)
     {
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
         await authenticationOrchestrationService.ConfirmForgotPasswordAsync(
-            tokenId: request.Token,
-            userId: request.UserId,
-            newPassword: request.NewPassword,
-            confirmNewPassword: request.ConfirmPassword);
+            tokenId: newConfirmForgotPasswordRequest.Token,
+            userId: newConfirmForgotPasswordRequest.UserId,
+            newPassword: newConfirmForgotPasswordRequest.NewPassword,
+            confirmNewPassword: newConfirmForgotPasswordRequest.ConfirmPassword);
 
         return Ok();
     }

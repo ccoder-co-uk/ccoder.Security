@@ -17,17 +17,17 @@ internal class TenantCoordinationService(
     public IQueryable<Tenant> GetAllTenants() =>
         tenantOrchestrationService.GetAllTenants();
 
-    public ValueTask<Tenant> AddTenantAsync(Tenant tenant) =>
-        tenantOrchestrationService.AddTenantAsync(item: tenant);
+    public ValueTask<Tenant> AddTenantAsync(Tenant newTenant) =>
+        tenantOrchestrationService.AddTenantAsync(item: newTenant);
 
-    public ValueTask<Tenant> UpdateTenantAsync(Tenant tenant) =>
-        tenantOrchestrationService.UpdateTenantAsync(item: tenant);
+    public ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant) =>
+        tenantOrchestrationService.UpdateTenantAsync(item: updatedTenant);
 
-    public async ValueTask DeleteTenantAsync(Tenant tenant)
+    public async ValueTask DeleteTenantAsync(Tenant deletedTenant)
     {
         authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_delete");
 
-        await tenantRelationsOrchestrationService.DeleteTenantRelationsAsync(item: tenant);
-        await tenantOrchestrationService.DeleteTenantAsync(item: tenant);
+        await tenantRelationsOrchestrationService.DeleteTenantRelationsAsync(item: deletedTenant);
+        await tenantOrchestrationService.DeleteTenantAsync(item: deletedTenant);
     }
 }

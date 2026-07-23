@@ -69,7 +69,7 @@
     },
     {
       "Name": "Security.Web.IServiceCollectionExtensions",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -106,7 +106,7 @@
     },
     {
       "Name": "Security.Web.Program",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -146,53 +146,11 @@
       "LineNumber": 10
     },
     {
-      "Code": "STXSTRUCT001",
-      "Description": "The source file must live in the standard folder for its element type.",
+      "Code": "STXAPP005",
+      "Description": "Program.cs must compose the app through IServiceCollection using SDK namespaces and one local composition namespace only.",
       "Severity": "Warning",
-      "Type": "Security.Web.IServiceCollectionExtensions",
-      "LineNumber": 7
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "Security.Web.IServiceCollectionExtensions",
+      "Type": "Security.Web.Program",
       "LineNumber": 11
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.IServiceCollectionExtensions",
-      "LineNumber": 26
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "Security.Web.IServiceCollectionExtensions",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "Security.Web.IServiceCollectionExtensions",
-      "LineNumber": 37
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Program",
-      "LineNumber": 32
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Program",
-      "LineNumber": 36
     }
   ]
 }

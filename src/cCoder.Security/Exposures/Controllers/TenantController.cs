@@ -32,15 +32,17 @@ public class TenantController(ITenantCoordinationService tenantCoordinationServi
     }
 
     [HttpPost]
-    public async ValueTask<IActionResult> Post([FromBody] Tenant tenant) =>
+    public async ValueTask<IActionResult> Post([FromBody] Tenant newTenant) =>
         ModelState.IsValid
-            ? Ok(value: await tenantCoordinationService.AddTenantAsync(item: tenant))
+            ? Ok(value: await tenantCoordinationService.AddTenantAsync(item: newTenant))
             : BadRequest(modelState: ModelState);
 
     [HttpPut]
-    public async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] Tenant tenant) =>
+    public async ValueTask<IActionResult> Put(
+        [FromRoute] string key,
+        [FromBody] Tenant updatedTenant) =>
         ModelState.IsValid
-            ? Ok(value: await tenantCoordinationService.UpdateTenantAsync(item: tenant))
+            ? Ok(value: await tenantCoordinationService.UpdateTenantAsync(item: updatedTenant))
             : BadRequest(modelState: ModelState);
 
     [HttpDelete]
