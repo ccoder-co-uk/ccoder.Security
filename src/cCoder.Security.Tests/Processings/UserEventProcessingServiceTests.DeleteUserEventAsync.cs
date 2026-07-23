@@ -13,13 +13,13 @@ public partial class UserEventProcessingServiceTests
     [Fact]
     public async Task ShouldDeleteUserEventAsync()
     {
-        //given
+        // Given
         UserEvent inputUserEvent = RandomUserEvent();
 
-        //when
+        // When
         await userEventProcessingService.DeleteUserEventAsync(userEvent: inputUserEvent);
 
-        //then
+        // Then
         userEventServiceMock.Verify(expression: userEventServiceMock =>
             userEventServiceMock.DeleteUserEventAsync(userEvent: inputUserEvent),
 times: Times.Once());

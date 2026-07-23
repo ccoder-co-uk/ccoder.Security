@@ -16,6 +16,7 @@ public partial class RegisterApiTests
     public async Task ShouldRegisterMultipleAccountsWithSameEmailLocalPartAsync()
     {
         // Given.
+        // Given
         RegisterUser inputRegisterUser1 = RandomRegisterUser();
 
         SSOUser expectedSSOUser1 = new()
@@ -79,12 +80,19 @@ public partial class RegisterApiTests
 
         expectedSSOUser1.PasswordHash = actualSSOUser1.PasswordHash;
         expectedSSOUser2.PasswordHash = actualSSOUser2.PasswordHash;
+        // When
         expectedSSOUser3.PasswordHash = actualSSOUser3.PasswordHash;
 
         // Then.
-        actualSSOUser1.Should().BeEquivalentTo(expectation: expectedSSOUser1);
-        actualSSOUser2.Should().BeEquivalentTo(expectation: expectedSSOUser2);
-        actualSSOUser3.Should().BeEquivalentTo(expectation: expectedSSOUser3);
+        // Then
+        actualSSOUser1.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser1);
+
+        actualSSOUser2.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser2);
+
+        actualSSOUser3.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser3);
 
         await TearDownUserAsync(userId: actualSSOUser1.Id);
         await TearDownUserAsync(userId: actualSSOUser2.Id);

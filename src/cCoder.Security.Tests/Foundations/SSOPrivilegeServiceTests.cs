@@ -23,7 +23,7 @@ public partial class SSOPrivilegeServiceTests
     }
 
     private static IQueryable<SSOPrivilege> RandomSSOPrivileges() =>
-        Enumerable.Range(start: 0, count: new Random().Next(100))
+        Enumerable.Range(start: 0, count: new Random().Next(maxValue:100))
             .Select(selector: i => RandomSSOPrivilege())
             .AsQueryable();
 

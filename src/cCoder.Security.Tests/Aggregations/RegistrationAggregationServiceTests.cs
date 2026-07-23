@@ -30,6 +30,7 @@ public partial class RegistrationAggregationServiceTests
         tokenProcessingServiceMock = new Mock<ITokenProcessingService>(MockBehavior.Strict);
         roleProcessingServiceMock = new Mock<ISSORoleProcessingService>(MockBehavior.Strict);
         userRoleProcessingServiceMock = new Mock<ISSOUserRoleProcessingService>(MockBehavior.Strict);
+
         accountEventProcessingServiceMock =
             new Mock<IAccountEventProcessingService>(MockBehavior.Strict);
 
@@ -50,7 +51,7 @@ public partial class RegistrationAggregationServiceTests
     private void SetupRegistrationCreatedEvent(SSOUser user, RegisterUser registerForm, string token) =>
         accountEventProcessingServiceMock
             .Setup(expression: service => service.RaiseSecurityAccountEventRequestAsync(
-                It.Is<SecurityAccountEventRequest>(request =>
+accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:request =>
                     request.Kind == SecurityAccountEventKind.RegistrationCreated
                     && request.User == user
                     && request.RegisterForm == registerForm

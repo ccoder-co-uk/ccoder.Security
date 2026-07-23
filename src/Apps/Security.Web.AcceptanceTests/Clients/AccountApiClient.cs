@@ -39,7 +39,8 @@ public class AccountApiClient : IDisposable
         api = webApplicationFactory.CreateClient();
 
         if (authenticate)
-        { api.Authenticate(user: "TestUser", pass: "TestPass01!").Wait(); }
+        { api.Authenticate(user: "TestUser", pass: "TestPass01!")
+              .Wait(); }
 
         using IServiceScope scope = webApplicationFactory.Services.CreateScope();
         IServiceProvider scopedServices = scope.ServiceProvider;
@@ -97,13 +98,13 @@ public class AccountApiClient : IDisposable
         StringContent content = new(auth.ToJson(), Encoding.UTF8, "application/json");
         HttpResponseMessage request = await api.PostAsync(requestUri: endpoint + "Login" + query, content: content);
         request.EnsureSuccessStatusCode();
-        return await request.Content.ReadAsAsync<Token>();
+        return await request.Content.ReadTokenAsync();
     }
 
     public async ValueTask<SSOUser> Me(string query = "")
     {
         HttpResponseMessage response = await api.GetAsync(requestUri: endpoint + "Me" + query);
-        return await response.Content.ReadAsAsync<SSOUser>();
+        return await response.Content.ReadSSOUserAsync();
     }
 
     public async Task TearDown(string ssoUserId)

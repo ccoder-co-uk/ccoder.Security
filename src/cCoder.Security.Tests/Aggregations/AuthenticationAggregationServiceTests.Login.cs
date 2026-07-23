@@ -12,11 +12,12 @@ public partial class AuthenticationAggregationServiceTests
     [Fact]
     public async Task LoginThrowsSecurityExceptionIfNotValidLogin()
     {
-        //given
+        // Given
         string username = RandomString();
         string password = RandomString();
 
-        //when & then
+        // When
+        // Then
         await Assert.ThrowsAsync<SecurityAggregationServiceException>(
             testCode: async () =>
                 await authenticationAggregationService.LoginAsync(

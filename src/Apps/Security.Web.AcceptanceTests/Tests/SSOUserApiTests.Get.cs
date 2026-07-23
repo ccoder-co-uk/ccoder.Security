@@ -15,7 +15,7 @@ public partial class SSOUserApiTests
     [Fact]
     public async Task ShouldGetAllSSOUsersAsync()
     {
-        //given
+        // Given
         RegisterUser[] randomUsers = RandomRegisterUsers();
         List<SSOUser> expectedSSOUsers = [];
 
@@ -26,14 +26,16 @@ public partial class SSOUserApiTests
             expectedSSOUsers.Add(item: result.User);
         }
 
-        //when
+        // When
         IEnumerable<SSOUser> actualSSOUsers = await ssoUserApiClient.GetAllSSOUsersAsync();
 
-        //then
+        // Then
         foreach (SSOUser expectedUser in expectedSSOUsers)
         {
             SSOUser actualUser = actualSSOUsers.FirstOrDefault(predicate: u => u.Id == expectedUser.Id);
-            actualUser.Should().BeEquivalentTo(expectation: expectedUser);
+
+            actualUser.Should()
+                .BeEquivalentTo(expectation: expectedUser);
         }
 
         foreach (SSOUser ssoUser in expectedSSOUsers)

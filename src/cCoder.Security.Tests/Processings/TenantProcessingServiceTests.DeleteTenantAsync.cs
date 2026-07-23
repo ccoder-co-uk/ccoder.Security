@@ -13,13 +13,13 @@ public partial class TenantProcessingServiceTests
     [Fact]
     public async Task ShouldDeleteTenantAsync()
     {
-        //given
+        // Given
         Tenant inputTenant = RandomTenant();
 
-        //when
+        // When
         await tenantProcessingService.DeleteTenantAsync(item: inputTenant);
 
-        //then
+        // Then
         tenantServiceMock.Verify(expression: tenantServiceMock =>
             tenantServiceMock.DeleteTenantAsync(tenant: inputTenant),
 times: Times.Once());

@@ -15,19 +15,20 @@ public partial class UserEventProcessingServiceTests
     [Fact]
     public async Task AddUserEventAsyncWorksAsExpected()
     {
-        //given
+        // Given
         UserEvent inputUserEvent = RandomUserEvent();
         UserEvent expectedUserEvent = inputUserEvent.DeepClone();
 
         userEventServiceMock.Setup(expression: userEventServiceMock =>
-            userEventServiceMock.AddUserEventAsync(inputUserEvent))
+            userEventServiceMock.AddUserEventAsync(userEvent:inputUserEvent))
             .ReturnsAsync(value: expectedUserEvent);
 
-        //when
+        // When
         UserEvent actualUserEvent = await userEventProcessingService.AddUserEventAsync(userEvent: inputUserEvent);
 
-        //then
-        actualUserEvent.Should().BeEquivalentTo(expectation: expectedUserEvent);
+        // Then
+        actualUserEvent.Should()
+            .BeEquivalentTo(expectation: expectedUserEvent);
 
         userEventServiceMock.Verify(expression: userEventServiceMock =>
             userEventServiceMock.AddUserEventAsync(userEvent: inputUserEvent),

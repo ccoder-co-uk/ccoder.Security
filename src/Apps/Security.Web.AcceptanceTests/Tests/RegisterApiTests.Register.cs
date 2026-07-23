@@ -15,7 +15,7 @@ public partial class RegisterApiTests
     [Fact]
     public async Task ShouldRegisterAccountAsync()
     {
-        //given
+        // Given
         RegisterUser inputRegisterUser = RandomRegisterUser();
 
         SSOUser expectedSSOUser = new()
@@ -30,7 +30,7 @@ public partial class RegisterApiTests
             PhoneNumberConfirmed = false,
         };
 
-        //when
+        // When
         RegistrationResult result = await userApiClient
             .RegisterAsync(registerUser: inputRegisterUser);
 
@@ -39,8 +39,10 @@ public partial class RegisterApiTests
         expectedSSOUser.Id = actualSSOUser.Id;
         expectedSSOUser.PasswordHash = actualSSOUser.PasswordHash;
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser);
+
         await TearDownUserAsync(userId: actualSSOUser.Id);
     }
 }

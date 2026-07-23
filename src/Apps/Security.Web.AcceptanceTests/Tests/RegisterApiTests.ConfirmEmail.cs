@@ -15,7 +15,7 @@ public partial class RegisterApiTests
     [Fact]
     public async Task ConfirmEmailWorksAsExpected()
     {
-        //given
+        // Given
 
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
@@ -25,7 +25,7 @@ public partial class RegisterApiTests
             Pass = existingRegisterUser.Password
         };
 
-        //when
+        // When
         RegistrationResult registrationResult =
             await userApiClient.RegisterAsync(registerUser: existingRegisterUser);
 
@@ -40,8 +40,10 @@ public partial class RegisterApiTests
 
         SSOUser actualSSOUser = await accountApiClient.Me();
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser);
+
         await TearDownUserAsync(userId: actualSSOUser.Id);
     }
 }

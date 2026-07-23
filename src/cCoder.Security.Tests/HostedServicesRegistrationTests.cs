@@ -9,15 +9,18 @@ using Xunit;
 
 namespace cCoder.Security.Tests;
 
-public class HostedServicesRegistrationTests
+public partial class HostedServicesRegistrationTests
 {
     [Fact]
     public void AddSecurityHostedServicesRegistersTokenCleaner()
     {
+        // Given
         IServiceCollection services = new ServiceCollection();
 
+        // When
         services.AddSecurityHostedServices(configAction: (_, _) => { });
 
+        // Then
         Assert.Contains(
 collection: services,
 filter: descriptor => descriptor.ServiceType == typeof(ITokenCleaner)

@@ -18,7 +18,10 @@ public sealed partial class BaselineTests
         using HttpResponseMessage response = await client.GetAsync(requestUri: "/Api/Security/Baseline");
         string content = await response.Content.ReadAsStringAsync();
 
-        response.StatusCode.Should().Be(expected: HttpStatusCode.OK, because: content);
-        return JsonDocument.Parse(json: content).RootElement.Clone();
+        response.StatusCode.Should()
+            .Be(expected: HttpStatusCode.OK, because: content);
+
+        return JsonDocument.Parse(json: content)
+                   .RootElement.Clone();
     }
 }

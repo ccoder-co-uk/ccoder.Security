@@ -14,11 +14,11 @@ public partial class AccountLifecycleTests
     [Fact]
     public async Task ShouldInviteAcceptAndLoginAsync()
     {
-        // given
+        // Given
         RegisterUser user = CreateRegisterUser(name: "accepted-invite");
         user.Password = null;
 
-        // when
+        // When
         (SSOUser invitedUser, string inviteToken) = await InviteAsync(user: user);
 
         user.Password = DefaultPassword;
@@ -26,8 +26,12 @@ public partial class AccountLifecycleTests
         await AcceptInviteAsync(userId: invitedUser.Id, token: inviteToken, user: user);
         Token token = await LoginAsync(auth: CreateAuth(user: user));
 
-        // then
-        token.UserName.Should().Be(expected: invitedUser.Id);
-        FindUser(userId: invitedUser.Id).LockoutEnabled.Should().BeFalse();
+        // Then
+        token.UserName.Should()
+            .Be(expected: invitedUser.Id);
+
+        FindUser(userId: invitedUser.Id)
+            .LockoutEnabled.Should()
+            .BeFalse();
     }
 }

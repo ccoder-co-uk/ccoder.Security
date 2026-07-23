@@ -14,7 +14,7 @@ public partial class UserEventServiceTests
     [Fact]
     public void GetAllUserEventsWorksAsExpected()
     {
-        //given
+        // Given
         IQueryable<UserEvent> expectedUserEvents = RandomUserEvents()
             .AsQueryable();
 
@@ -22,11 +22,12 @@ public partial class UserEventServiceTests
             userEventBrokerMock.SelectAllUserEvents())
             .Returns(value: expectedUserEvents);
 
-        //when
+        // When
         IQueryable<UserEvent> actualUserEvents = userEventService.GetAllUserEvents();
 
-        //then
-        actualUserEvents.Should().BeEquivalentTo(expectation: expectedUserEvents);
+        // Then
+        actualUserEvents.Should()
+            .BeEquivalentTo(expectation: expectedUserEvents);
 
         userEventBrokerMock.Verify(expression: userEventBrokerMock =>
             userEventBrokerMock.SelectAllUserEvents(),

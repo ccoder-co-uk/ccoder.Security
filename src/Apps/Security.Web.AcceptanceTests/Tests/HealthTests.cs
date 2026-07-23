@@ -9,47 +9,60 @@ using Xunit;
 
 namespace Security.AcceptanceTests.Tests;
 
-public class HealthTests
+public partial class HealthTests
 {
     [Fact]
     public async Task ShouldReturnHealthyForGetHealth()
     {
+        // Given
         using WebApplicationFactory<AcceptanceHost> factory = new();
         using HttpClient client = factory.CreateClient();
 
         HttpResponseMessage response = await client.GetAsync(requestUri: "/Health");
 
         response.EnsureSuccessStatusCode();
+        // When
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Be(expected: "Healthy");
+
+        // Then
+        content.Should()
+            .Be(expected: "Healthy");
     }
 
     [Fact]
     public async Task ShouldServeSecurityUiForGetRoot()
     {
+        // Given
         using WebApplicationFactory<AcceptanceHost> factory = new();
         using HttpClient client = factory.CreateClient();
 
         HttpResponseMessage response = await client.GetAsync(requestUri: "/");
 
         response.EnsureSuccessStatusCode();
+        // When
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain(expected: "cCoder.Security");
+
+        // Then
+        content.Should()
+            .Contain(expected: "cCoder.Security");
     }
 
     [Fact]
     public async Task ShouldInitialiseDatabaseBackedSessionCacheForCurrentUser()
     {
+        // Given
         string previousConnectionString = Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
         string databaseName = $"SSOAcceptanceStartupCacheTests_{Environment.ProcessId}_{Guid.NewGuid():N}";
 
         string acceptanceConnectionString =
             $"Data Source=.;Initial Catalog={databaseName};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
 
+        // When
         Environment.SetEnvironmentVariable(
 variable: "ENV_ConnectionStrings__SSO",
 value: acceptanceConnectionString);
 
+        // Then
         try
         {
             using WebApplicationFactory<AcceptanceHost> factory = new();
@@ -59,7 +72,9 @@ value: acceptanceConnectionString);
 
             response.EnsureSuccessStatusCode();
             string content = await response.Content.ReadAsStringAsync();
-            content.Should().Be(expected: "Guest");
+
+            content.Should()
+                .Be(expected: "Guest");
         }
         finally
         {

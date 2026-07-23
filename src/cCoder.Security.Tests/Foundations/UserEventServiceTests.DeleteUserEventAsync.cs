@@ -13,13 +13,13 @@ public partial class UserEventServiceTests
     [Fact]
     public async Task DeleteUserEventAsyncWorksAsExpected()
     {
-        //given
+        // Given
         UserEvent inputUserEvent = RandomUserEvent();
 
-        //when
+        // When
         await userEventService.DeleteUserEventAsync(userEvent: inputUserEvent);
 
-        //then
+        // Then
         userEventBrokerMock.Verify(expression: userEventBrokerMock =>
             userEventBrokerMock.DeleteUserEventAsync(userEvent: inputUserEvent),
 times: Times.Once());

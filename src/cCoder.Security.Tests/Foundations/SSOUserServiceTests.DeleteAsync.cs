@@ -14,14 +14,14 @@ public partial class SSOUserServiceTests
     [Fact]
     public async Task ShouldDeleteSSOUserAsync()
     {
-        // given
+        // Given
         SSOUser inputSSOUser = RandomUser(id: RandomString());
         SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
-        // when
+        // When
         await userService.DeleteSSOUserAsync(item: inputSSOUser);
 
-        // then
+        // Then
         userBrokerMock.Verify(expression: broker =>
             broker.DeleteSSOUserAsync(SSOUser: inputSSOUser),
 times: Times.Once);

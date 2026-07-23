@@ -15,25 +15,32 @@ public partial class SSOUserServiceTests
     [Fact]
     public async Task ShouldUpdateSSOUserAsync()
     {
-        // given
+        // Given
         SSOUser inputSSOUser = RandomUser(id: RandomString());
         SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
         SSOUser submitted = null;
 
         userBrokerMock
-            .Setup(broker => broker.UpdateSSOUserAsync(It.IsAny<SSOUser>()))
+            .Setup(expression:broker => broker.UpdateSSOUserAsync(user:It.IsAny<SSOUser>()))
             .Callback<SSOUser>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSOUser);
 
-        // when
+        // When
         SSOUser actualSSOUser = await userService.UpdateSSOUserAsync(item: inputSSOUser);
 
-        // then
-        actualSSOUser.Should().BeSameAs(expected: inputSSOUser);
-        submitted.Should().NotBeSameAs(unexpected: inputSSOUser);
-        actualSSOUser.Should().NotBeSameAs(unexpected: submitted);
-        actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeSameAs(expected: inputSSOUser);
+
+        submitted.Should()
+            .NotBeSameAs(unexpected: inputSSOUser);
+
+        actualSSOUser.Should()
+            .NotBeSameAs(unexpected: submitted);
+
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser);
 
         userBrokerMock.Verify(expression: broker =>
             broker.UpdateSSOUserAsync(user: It.IsAny<SSOUser>()),

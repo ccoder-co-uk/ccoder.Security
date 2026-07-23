@@ -14,6 +14,7 @@ public partial class SSOUserRoleOrchestrationServiceTests
     [Fact]
     public async Task ShouldAllowBootstrappingFirstUserRoleWithoutPortalAdminCheck()
     {
+        // Given
         SSOUserRole inputUserRole = new()
         {
             UserId = "setup-admin"
@@ -21,15 +22,19 @@ public partial class SSOUserRoleOrchestrationServiceTests
 
         userRoleProcessingServiceMock
             .Setup(expression: x => x.GetAllSSOUserRoles())
-            .Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
+            .Returns(value: Array.Empty<SSOUserRole>()
+                                .AsQueryable());
 
         userRoleProcessingServiceMock
-            .Setup(expression: x => x.AddSSOUserRoleAsync(inputUserRole))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(item:inputUserRole))
             .ReturnsAsync(value: inputUserRole);
 
+        // When
         SSOUserRole actualUserRole = await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
 
-        actualUserRole.Should().BeSameAs(expected: inputUserRole);
+        // Then
+        actualUserRole.Should()
+            .BeSameAs(expected: inputUserRole);
 
         authorizationProcessingServiceMock.Verify(
 expression: service => service.EnsureUserIsPortalAdminWithPrivilege(privilege: It.IsAny<string>()),
@@ -39,6 +44,7 @@ times: Times.Never);
     [Fact]
     public async Task ShouldRequirePortalAdminCheckAfterBootstrapUserRoleExists()
     {
+        // Given
         SSOUserRole inputUserRole = new()
         {
             UserId = "other-admin"
@@ -54,11 +60,13 @@ times: Times.Never);
                     privilege: "userrole_create"));
 
         userRoleProcessingServiceMock
-            .Setup(expression: x => x.AddSSOUserRoleAsync(inputUserRole))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(item:inputUserRole))
             .ReturnsAsync(value: inputUserRole);
 
+        // When
         await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
 
+        // Then
         authorizationProcessingServiceMock.Verify(
 expression: service => service.EnsureUserIsPortalAdminWithPrivilege(privilege: "userrole_create"),
 times: Times.Once);

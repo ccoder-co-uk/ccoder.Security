@@ -29,7 +29,9 @@ public class RegisterApiClient : IDisposable
         webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         api = webApplicationFactory.CreateClient();
-        api.Authenticate(user: "TestUser", pass: "TestPass01!").Wait();
+
+        api.Authenticate(user: "TestUser", pass: "TestPass01!")
+            .Wait();
 
         using IServiceScope scope = webApplicationFactory.Services.CreateScope();
         IServiceProvider scopedServices = scope.ServiceProvider;
@@ -63,7 +65,7 @@ public class RegisterApiClient : IDisposable
         { throw new BadRequestException(await request.Content.ReadAsStringAsync()); }
 
         request.EnsureSuccessStatusCode();
-        return await request.Content.ReadAsAsync<RegistrationResult>();
+        return await request.Content.ReadRegistrationResultAsync();
     }
 
     public async Task TearDown(string ssoUserId)

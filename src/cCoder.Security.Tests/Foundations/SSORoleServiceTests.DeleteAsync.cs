@@ -14,14 +14,14 @@ public partial class SSORoleServiceTests
     [Fact]
     public async Task ShouldDeleteSSORoleAsync()
     {
-        // given
+        // Given
         SSORole inputSSORole = RandomRole(id: Guid.NewGuid());
         SSORole expectedSSORole = inputSSORole.DeepClone();
 
-        // when
+        // When
         await roleService.DeleteSSORoleAsync(item: inputSSORole);
 
-        // then
+        // Then
         roleBrokerMock.Verify(expression: broker =>
             broker.DeleteSSORoleAsync(SSORole: inputSSORole),
 times: Times.Once);

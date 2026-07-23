@@ -17,6 +17,7 @@ public partial class RegistrationAggregationServiceTests
     [Fact]
     public async Task ShouldReturnExistingUserWithoutTokenWhenInviteEmailAlreadyExists()
     {
+        // Given
         RegisterUser input = new()
         {
             DisplayName = "Existing User",
@@ -33,20 +34,27 @@ public partial class RegistrationAggregationServiceTests
         };
 
         ssoUserProcessingServiceMock
-            .Setup(expression: service => service.InviteSSOUserAsync(It.IsAny<SSOUser>()))
+            .Setup(expression: service => service.InviteSSOUserAsync(user:It.IsAny<SSOUser>()))
             .ThrowsAsync(exception: new ValidationException("Email exists"));
 
         ssoUserProcessingServiceMock
-            .Setup(expression: service => service.GetAllSSOUsers(true))
+            .Setup(expression: service => service.GetAllSSOUsers(ignoreFilters:true))
             .Returns(value: new[] { existingUser }.AsQueryable());
 
+        // When
         RegisterUser registration =
             await registrationAggregationService.InviteRegisterUserAsync(
                 registerForm: input);
 
-        registration.User.Should().BeSameAs(expected: existingUser);
-        registration.User.PasswordHash.Should().BeNull();
-        registration.Token.Should().BeNull();
+        // Then
+        registration.User.Should()
+            .BeSameAs(expected: existingUser);
+
+        registration.User.PasswordHash.Should()
+            .BeNull();
+
+        registration.Token.Should()
+            .BeNull();
 
         tokenProcessingServiceMock.Verify(
 expression: service => service.GenerateInvitationToken(userId: It.IsAny<string>()),
@@ -54,7 +62,7 @@ times: Times.Never);
 
         accountEventProcessingServiceMock.Verify(
             expression: service => service.RaiseSecurityAccountEventRequestAsync(
-                It.IsAny<SecurityAccountEventRequest>()),
+accountEventRequest:                It.IsAny<SecurityAccountEventRequest>()),
             times: Times.Never);
     }
 }

@@ -15,18 +15,22 @@ public partial class AccountApiTests
     [Fact]
     public async Task LoginReturnsTokenAsync()
     {
-        //given
+        // Given
         RegisterUser existingRegisterUser = RandomRegisterUser();
         RegistrationResult result = await registerApiClient.RegisterAsync(registerUser: existingRegisterUser);
 
         Auth inputAuth = RandomAuth(user: existingRegisterUser);
 
-        //when
+        // When
         Token actualToken = await userApiClient.LoginAsync(auth: inputAuth);
 
-        //then
-        result.Token.Should().NotBeNullOrEmpty();
-        actualToken.UserName.Should().BeEquivalentTo(expected: result.User.Id);
+        // Then
+        result.Token.Should()
+            .NotBeNullOrEmpty();
+
+        actualToken.UserName.Should()
+            .BeEquivalentTo(expected: result.User.Id);
+
         Assert.True(condition: actualToken.Expires > DateTimeOffset.Now);
         Assert.True(condition: actualToken.Reason == 0);
 

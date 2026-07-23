@@ -14,19 +14,22 @@ public partial class AccountLifecycleTests
     [Fact]
     public async Task ShouldRejectValidLoginAfterFailedAttemptsTriggerLockoutAsync()
     {
-        // given
+        // Given
         RegisterUser user = CreateRegisterUser(name: "lockout");
         (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user: user);
         await ConfirmRegistrationAsync(token: confirmationToken);
 
         Auth invalidAuth = CreateAuth(user: user, password: "WrongPass01!");
 
-        // when
+        // When
         for (int attempt = 0; attempt < 11; attempt++)
         { await AssertLoginRejectedAsync(auth: invalidAuth); }
 
-        // then
-        FindUser(userId: registeredUser.Id).LockoutEnabled.Should().BeTrue();
+        // Then
+        FindUser(userId: registeredUser.Id)
+            .LockoutEnabled.Should()
+            .BeTrue();
+
         await AssertLoginRejectedAsync(auth: CreateAuth(user: user));
     }
 }

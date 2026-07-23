@@ -30,7 +30,9 @@ public static class IApplicationBuilderExtensions
     public static IApplicationBuilder InitialiseSecurityDatabase(this IApplicationBuilder app)
     {
         using IServiceScope scope = app.ApplicationServices.CreateScope();
-        using var db = scope.ServiceProvider.GetRequiredService<ISecurityDbContextFactory>().CreateDbContext();
+        using var db = scope.ServiceProvider
+            .GetRequiredService<ISecurityDbContextFactory>()
+            .CreateDbContext(ignoreAuthInfo: true);
         db.Migrate();
 
         return app;

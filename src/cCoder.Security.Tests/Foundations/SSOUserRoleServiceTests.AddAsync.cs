@@ -15,26 +15,36 @@ public partial class SSOUserRoleServiceTests
     [Fact]
     public async Task ShouldAddSSOUserRoleAsync()
     {
-        // given
+        // Given
         SSOUserRole inputSSOUserRole = RandomUserRole();
         SSOUserRole expectedSSOUserRole = inputSSOUserRole.DeepClone();
 
-        userRoleBrokerMock.Setup(expression: broker => broker.SelectAllSSOUserRoles()).Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
+        userRoleBrokerMock.Setup(expression: broker => broker.SelectAllSSOUserRoles())
+            .Returns(value: Array.Empty<SSOUserRole>()
+                                                                                                          .AsQueryable());
+
         SSOUserRole submitted = null;
 
         userRoleBrokerMock
-            .Setup(broker => broker.InsertSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
+            .Setup(expression:broker => broker.InsertSSOUserRoleAsync(userRole:It.IsAny<SSOUserRole>()))
             .Callback<SSOUserRole>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSOUserRole);
 
-        // when
+        // When
         SSOUserRole actualSSOUserRole = await userRoleService.AddSSOUserRoleAsync(item: inputSSOUserRole);
 
-        // then
-        actualSSOUserRole.Should().BeSameAs(expected: inputSSOUserRole);
-        submitted.Should().NotBeSameAs(unexpected: inputSSOUserRole);
-        actualSSOUserRole.Should().NotBeSameAs(unexpected: submitted);
-        actualSSOUserRole.Should().BeEquivalentTo(expectation: expectedSSOUserRole);
+        // Then
+        actualSSOUserRole.Should()
+            .BeSameAs(expected: inputSSOUserRole);
+
+        submitted.Should()
+            .NotBeSameAs(unexpected: inputSSOUserRole);
+
+        actualSSOUserRole.Should()
+            .NotBeSameAs(unexpected: submitted);
+
+        actualSSOUserRole.Should()
+            .BeEquivalentTo(expectation: expectedSSOUserRole);
 
         userRoleBrokerMock.Verify(expression: broker =>
             broker.InsertSSOUserRoleAsync(userRole: It.IsAny<SSOUserRole>()),

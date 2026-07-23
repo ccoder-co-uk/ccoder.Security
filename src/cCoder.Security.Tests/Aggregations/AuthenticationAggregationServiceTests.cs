@@ -24,6 +24,7 @@ public partial class AuthenticationAggregationServiceTests
         sessionProcessingServiceMock = new Mock<ISessionProcessingService>();
         tokenProcessingServiceMock = new Mock<ITokenProcessingService>();
         ssoUserProcessingServiceMock = new Mock<ISSOUserProcessingService>();
+
         accountEventProcessingServiceMock =
             new Mock<IAccountEventProcessingService>();
 

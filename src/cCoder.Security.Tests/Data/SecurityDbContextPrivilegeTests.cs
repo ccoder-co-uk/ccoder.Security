@@ -12,12 +12,12 @@ using Xunit;
 
 namespace cCoder.Security.Tests.Data;
 
-public class SecurityDbContextPrivilegeTests
+public partial class SecurityDbContextPrivilegeTests
 {
     [Fact]
     public void ShouldExposeCompleteSerializableSecurityPrivilegeCatalogue()
     {
-        // given
+        // Given
         SecurityDbContext context = new(
             Mock.Of<ISSOAuthInfo>(),
             new DbContextOptionsBuilder<SecurityDbContext>().Options);
@@ -39,14 +39,16 @@ public class SecurityDbContextPrivilegeTests
             "userrole_delete"
         ];
 
-        // when
+        // When
         SSOPrivilege[] privileges = [.. context.GetPrivileges()];
 
-        // then
+        // Then
         privileges.Select(selector: privilege => privilege.Id)
-            .Should().BeEquivalentTo(expectation: expectedPrivilegeIds);
+            .Should()
+            .BeEquivalentTo(expectation: expectedPrivilegeIds);
 
-        privileges.Should().OnlyContain(predicate: privilege =>
+        privileges.Should()
+            .OnlyContain(predicate: privilege =>
             !string.IsNullOrWhiteSpace(value: privilege.Id)
             && !string.IsNullOrWhiteSpace(value: privilege.Type)
             && !string.IsNullOrWhiteSpace(value: privilege.Operation)

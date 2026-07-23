@@ -26,7 +26,9 @@ public class SSOUserApiClient : IDisposable
         webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         api = webApplicationFactory.CreateClient();
-        api.Authenticate(user: "TestUser", pass: "TestPass01!").Wait();
+
+        api.Authenticate(user: "TestUser", pass: "TestPass01!")
+            .Wait();
 
         using IServiceScope scope = webApplicationFactory.Services.CreateScope();
         IServiceProvider scopedServices = scope.ServiceProvider;
@@ -36,7 +38,7 @@ public class SSOUserApiClient : IDisposable
     }
 
     public ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") =>
-        new(api.GetODataCollection<SSOUser>(query: Endpoint + query));
+        new(api.GetSSOUsersAsync(query: Endpoint + query));
 
     public void Dispose()
     {

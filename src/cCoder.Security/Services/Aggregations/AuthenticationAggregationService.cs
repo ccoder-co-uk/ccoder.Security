@@ -106,6 +106,10 @@ internal sealed partial class AuthenticationAggregationService(
         Token token = await tokenProcessingService
             .AddTokenForUserIdAsync(userId: user.Id, tokenUse: TokenUse.Auth);
 
+        sessionProcessingService.SetString(
+            key: "token",
+            value: token.Id);
+
         return token;
     }
 

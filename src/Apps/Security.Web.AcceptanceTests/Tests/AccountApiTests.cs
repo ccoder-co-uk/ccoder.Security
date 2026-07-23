@@ -23,14 +23,15 @@ public partial class AccountApiTests(
         };
 
     private static RegisterUser RandomRegisterUser() =>
-        GetRegisterUserFiller().Generate();
+        GetRegisterUserFiller()
+            .Generate();
 
     private static Faker<RegisterUser> GetRegisterUserFiller()
     {
         Faker<RegisterUser> filler = new Faker<RegisterUser>()
-            .RuleFor(r => r.DisplayName, f => f.Name.FullName())
-            .RuleFor(r => r.Email, f => f.Internet.Email())
-            .RuleFor(r => r.Password, f => f.Internet.Password(prefix: "Cc123!"))
+            .RuleFor(property:r => r.DisplayName, setter:f => f.Name.FullName())
+            .RuleFor(property:r => r.Email, setter:f => f.Internet.Email())
+            .RuleFor(property:r => r.Password, setter:f => f.Internet.Password(prefix: "Cc123!"))
             .RuleFor(property: r => r.Culture, setter: f => f.Locale)
             .RuleFor(property: r => r.PhoneNumber, setter: f => f.Phone.PhoneNumber());
 

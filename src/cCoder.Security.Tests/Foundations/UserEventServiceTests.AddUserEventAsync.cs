@@ -15,7 +15,7 @@ public partial class UserEventServiceTests
     [Fact]
     public async Task AddUserEventAsyncWorksAsExpected()
     {
-        //given
+        // Given
         UserEvent inputUserEvent = RandomUserEvent();
         UserEvent expectedUserEvent = inputUserEvent.DeepClone();
         DateTimeOffset expectedTime = DateTimeOffset.Now;
@@ -24,8 +24,8 @@ public partial class UserEventServiceTests
 
         UserEvent submitted = null;
 
-        userEventBrokerMock.Setup(userEventBrokerMock =>
-            userEventBrokerMock.InsertUserEventAsync(It.IsAny<UserEvent>()))
+        userEventBrokerMock.Setup(expression:userEventBrokerMock =>
+            userEventBrokerMock.InsertUserEventAsync(userEvent:It.IsAny<UserEvent>()))
             .Callback<UserEvent>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: inputUserEvent);
 
@@ -33,14 +33,21 @@ public partial class UserEventServiceTests
             dateTimeOffsetBrokerMock.GetCurrentTime())
             .Returns(value: expectedTime);
 
-        //when
+        // When
         UserEvent actualUserEvent = await userEventService.AddUserEventAsync(userEvent: inputUserEvent);
 
-        //then
-        actualUserEvent.Should().BeSameAs(expected: inputUserEvent);
-        submitted.Should().NotBeSameAs(unexpected: inputUserEvent);
-        actualUserEvent.Should().NotBeSameAs(unexpected: submitted);
-        actualUserEvent.Should().BeEquivalentTo(expectation: expectedUserEvent);
+        // Then
+        actualUserEvent.Should()
+            .BeSameAs(expected: inputUserEvent);
+
+        submitted.Should()
+            .NotBeSameAs(unexpected: inputUserEvent);
+
+        actualUserEvent.Should()
+            .NotBeSameAs(unexpected: submitted);
+
+        actualUserEvent.Should()
+            .BeEquivalentTo(expectation: expectedUserEvent);
 
         userEventBrokerMock.Verify(expression: userEventBrokerMock =>
             userEventBrokerMock.InsertUserEventAsync(userEvent: It.IsAny<UserEvent>()),

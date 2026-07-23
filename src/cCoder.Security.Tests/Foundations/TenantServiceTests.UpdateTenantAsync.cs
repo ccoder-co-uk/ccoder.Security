@@ -15,7 +15,7 @@ public partial class TenantServiceTests
     [Fact]
     public async Task UpdateTenantAsyncWorksAsExpected()
     {
-        //given
+        // Given
         Tenant inputTenant = RandomTenant();
         Tenant expectedTenant = inputTenant.DeepClone();
         DateTimeOffset expectedTime = DateTimeOffset.Now;
@@ -26,22 +26,31 @@ public partial class TenantServiceTests
 
         Tenant submitted = null;
 
-        tenantBrokerMock.Setup(tenantBrokerMock =>
-            tenantBrokerMock.UpdateTenantAsync(It.IsAny<Tenant>()))
+        tenantBrokerMock.Setup(expression:tenantBrokerMock =>
+            tenantBrokerMock.UpdateTenantAsync(tenant:It.IsAny<Tenant>()))
             .Callback<Tenant>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: inputTenant);
 
-        //when
+        // When
         Tenant actualTenant = await tenantService.UpdateTenantAsync(tenant: inputTenant);
 
-        //then
-        actualTenant.Should().BeSameAs(expected: inputTenant);
-        submitted.Should().NotBeSameAs(unexpected: inputTenant);
-        actualTenant.Should().NotBeSameAs(unexpected: submitted);
-        actualTenant.LastUpdated.Should().BeCloseTo(nearbyTime: expectedTime, precision: TimeSpan.FromSeconds(seconds: 1));
+        // Then
+        actualTenant.Should()
+            .BeSameAs(expected: inputTenant);
+
+        submitted.Should()
+            .NotBeSameAs(unexpected: inputTenant);
+
+        actualTenant.Should()
+            .NotBeSameAs(unexpected: submitted);
+
+        actualTenant.LastUpdated.Should()
+            .BeCloseTo(nearbyTime: expectedTime, precision: TimeSpan.FromSeconds(seconds: 1));
+
         expectedTenant.LastUpdated = actualTenant.LastUpdated;
 
-        actualTenant.Should().BeEquivalentTo(expectation: expectedTenant);
+        actualTenant.Should()
+            .BeEquivalentTo(expectation: expectedTenant);
 
         tenantBrokerMock.Verify(expression: tenantBrokerMock =>
             tenantBrokerMock.UpdateTenantAsync(tenant: It.IsAny<Tenant>()),

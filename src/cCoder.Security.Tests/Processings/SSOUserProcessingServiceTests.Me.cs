@@ -13,17 +13,17 @@ public partial class SSOUserProcessingServiceTests
     [Fact]
     public void MeShouldWorkAsExpected()
     {
-        //given
+        // Given
         SSOUser expectedSSOUser = RandomSSOUser();
 
         ssoUserServiceMock.Setup(expression: identityBrokerMock =>
         identityBrokerMock.Me())
         .Returns(value: expectedSSOUser);
 
-        //when
+        // When
         SSOUser actualSSOUser = ssoUserProcessingService.Me();
 
-        //then
+        // Then
         ssoUserServiceMock.Verify(expression: identityBrokerMock =>
         identityBrokerMock.Me(),
 times: Times.Once());

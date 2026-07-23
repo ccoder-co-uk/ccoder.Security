@@ -12,12 +12,12 @@ using Xunit;
 
 namespace cCoder.Security.Tests.Aggregations;
 
-public class CurrentUserAggregationServiceTests
+public partial class CurrentUserAggregationServiceTests
 {
     [Fact]
     public void MeReturnsCurrentUserWithoutProtectedFields()
     {
-        //given
+        // Given
         SSOUser storedUser = new()
         {
             Id = "existing.user",
@@ -45,11 +45,12 @@ public class CurrentUserAggregationServiceTests
             .Setup(expression: service => service.Me())
             .Returns(value: storedUser);
 
-        //when
+        // When
         SSOUser actualUser = currentUserAggregationService.GetCurrentUser();
 
-        //then
-        actualUser.Should().BeEquivalentTo(expectation: new SSOUser
+        // Then
+        actualUser.Should()
+            .BeEquivalentTo(expectation: new SSOUser
         {
             Id = storedUser.Id,
             DisplayName = storedUser.DisplayName,

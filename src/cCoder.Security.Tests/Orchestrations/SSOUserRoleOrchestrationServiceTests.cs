@@ -18,6 +18,7 @@ public partial class SSOUserRoleOrchestrationServiceTests
     public SSOUserRoleOrchestrationServiceTests()
     {
         userRoleProcessingServiceMock = new Mock<ISSOUserRoleProcessingService>(MockBehavior.Strict);
+
         authorizationProcessingServiceMock =
             new Mock<IAuthorizationProcessingService>(MockBehavior.Strict);
 

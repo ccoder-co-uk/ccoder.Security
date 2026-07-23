@@ -25,11 +25,13 @@ public partial class TenantAggregationServiceTests
     {
         tenantProcessingServiceMock = new Mock<ITenantProcessingService>(MockBehavior.Strict);
         userProcessingServiceMock = new Mock<ISSOUserProcessingService>(MockBehavior.Strict);
+
         roleProcessingServiceMock =
             new Mock<ISSORoleProcessingService>(MockBehavior.Strict);
 
         userRoleProcessingServiceMock =
             new Mock<ISSOUserRoleProcessingService>(MockBehavior.Strict);
+
         authorizationProcessingServiceMock =
             new Mock<IAuthorizationProcessingService>(MockBehavior.Strict);
 

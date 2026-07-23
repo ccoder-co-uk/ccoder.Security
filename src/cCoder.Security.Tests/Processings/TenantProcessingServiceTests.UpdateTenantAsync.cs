@@ -15,19 +15,20 @@ public partial class TenantProcessingServiceTests
     [Fact]
     public async Task ShouldUpdateTenantAsync()
     {
-        //given
+        // Given
         Tenant inputTenant = RandomTenant();
         Tenant expectedTenant = inputTenant.DeepClone();
 
         tenantServiceMock.Setup(expression: tenantServiceMock =>
-            tenantServiceMock.UpdateTenantAsync(inputTenant))
+            tenantServiceMock.UpdateTenantAsync(tenant:inputTenant))
             .ReturnsAsync(value: expectedTenant);
 
-        //when
+        // When
         Tenant actualTenant = await tenantProcessingService.UpdateTenantAsync(item: inputTenant);
 
-        //then
-        actualTenant.Should().BeEquivalentTo(expectation: expectedTenant);
+        // Then
+        actualTenant.Should()
+            .BeEquivalentTo(expectation: expectedTenant);
 
         tenantServiceMock.Verify(expression: tenantServiceMock =>
             tenantServiceMock.UpdateTenantAsync(tenant: inputTenant),

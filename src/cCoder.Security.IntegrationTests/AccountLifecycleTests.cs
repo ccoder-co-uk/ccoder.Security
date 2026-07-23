@@ -125,7 +125,8 @@ requestUri: $"/Api/Account/ResendInvite?userId={WebUtility.UrlEncode(value: user
 
         using JsonDocument document = JsonDocument.Parse(json: await response.Content.ReadAsStringAsync());
 
-        return document.RootElement.GetProperty(propertyName: "token").GetString();
+        return document.RootElement.GetProperty(propertyName: "token")
+                   .GetString();
     }
 
     private async ValueTask ConfirmRegistrationAsync(string token)
@@ -193,7 +194,8 @@ value: request);
     {
         HttpResponseMessage response = await TryLoginAsync(auth: auth);
 
-        response.IsSuccessStatusCode.Should().BeFalse();
+        response.IsSuccessStatusCode.Should()
+            .BeFalse();
     }
 
     private Token FindToken(string userId, TokenUse tokenUse)
@@ -224,10 +226,12 @@ value: request);
         using JsonDocument document = JsonDocument.Parse(json: await response.Content.ReadAsStringAsync());
 
         SSOUser user = JsonSerializer.Deserialize<SSOUser>(
-json: document.RootElement.GetProperty(propertyName: "user").GetRawText(),
+json: document.RootElement.GetProperty(propertyName: "user")
+          .GetRawText(),
 options: JsonOptions);
 
-        string token = document.RootElement.GetProperty(propertyName: "token").GetString();
+        string token = document.RootElement.GetProperty(propertyName: "token")
+                           .GetString();
 
         return (user, token);
     }

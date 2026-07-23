@@ -14,7 +14,7 @@ public partial class TenantServiceTests
     [Fact]
     public void GetAllTenantsWorksAsExpected()
     {
-        //given
+        // Given
         IQueryable<Tenant> expectedTenants = RandomTenants()
             .AsQueryable();
 
@@ -22,11 +22,12 @@ public partial class TenantServiceTests
             tenantBrokerMock.SelectAllTenants())
             .Returns(value: expectedTenants);
 
-        //when
+        // When
         IQueryable<Tenant> actualTenants = tenantService.GetAllTenants();
 
-        //then
-        actualTenants.Should().BeEquivalentTo(expectation: expectedTenants);
+        // Then
+        actualTenants.Should()
+            .BeEquivalentTo(expectation: expectedTenants);
 
         tenantBrokerMock.Verify(expression: tenantBrokerMock =>
             tenantBrokerMock.SelectAllTenants(),

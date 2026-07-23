@@ -22,6 +22,7 @@ public partial class SSOUserProcessingServiceTests
     {
         passwordEncryptionBrokerMock = new Mock<IPasswordEncryptionBroker>();
         ssoUserServiceMock = new Mock<ISSOUserService>();
+
         ssoUserProcessingService = new SSOUserProcessingService(ssoUserServiceMock.Object,
             passwordEncryptionBrokerMock.Object);
     }
@@ -30,21 +31,25 @@ public partial class SSOUserProcessingServiceTests
         new MnemonicString().GetValue();
 
     private static SSOUser[] RandomSSOUsers() =>
-        Enumerable.Range(start: 1, count: new Random().Next(10, 20))
+        Enumerable.Range(start: 1, count: new Random().Next(minValue:10, maxValue:20))
             .Select(selector: _ => RandomSSOUser())
             .ToArray();
 
     private static SSOUser RandomSSOUser() =>
-        GetSSOUserFiller().Create();
+        GetSSOUserFiller()
+            .Create();
 
     private static Filler<SSOUser> GetSSOUserFiller()
     {
         Filler<SSOUser> filler = new();
 
         filler.Setup()
-            .OnProperty(p => p.Roles).IgnoreIt()
-            .OnProperty(property: p => p.Tokens).IgnoreIt()
-            .OnProperty(property: p => p.UserEvents).IgnoreIt();
+            .OnProperty(property:p => p.Roles)
+            .IgnoreIt()
+            .OnProperty(property: p => p.Tokens)
+            .IgnoreIt()
+            .OnProperty(property: p => p.UserEvents)
+            .IgnoreIt();
 
         return filler;
     }

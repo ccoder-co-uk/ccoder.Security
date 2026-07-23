@@ -15,25 +15,32 @@ public partial class SSORoleServiceTests
     [Fact]
     public async Task ShouldUpdateSSORoleAsync()
     {
-        // given
+        // Given
         SSORole inputSSORole = RandomRole(id: Guid.NewGuid());
         SSORole expectedSSORole = inputSSORole.DeepClone();
 
         SSORole submitted = null;
 
         roleBrokerMock
-            .Setup(broker => broker.UpdateSSORoleAsync(It.IsAny<SSORole>()))
+            .Setup(expression:broker => broker.UpdateSSORoleAsync(SSORole:It.IsAny<SSORole>()))
             .Callback<SSORole>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSORole);
 
-        // when
+        // When
         SSORole actualSSORole = await roleService.UpdateSSORoleAsync(item: inputSSORole);
 
-        // then
-        actualSSORole.Should().BeSameAs(expected: inputSSORole);
-        submitted.Should().NotBeSameAs(unexpected: inputSSORole);
-        actualSSORole.Should().NotBeSameAs(unexpected: submitted);
-        actualSSORole.Should().BeEquivalentTo(expectation: expectedSSORole);
+        // Then
+        actualSSORole.Should()
+            .BeSameAs(expected: inputSSORole);
+
+        submitted.Should()
+            .NotBeSameAs(unexpected: inputSSORole);
+
+        actualSSORole.Should()
+            .NotBeSameAs(unexpected: submitted);
+
+        actualSSORole.Should()
+            .BeEquivalentTo(expectation: expectedSSORole);
 
         roleBrokerMock.Verify(expression: broker =>
             broker.UpdateSSORoleAsync(SSORole: It.IsAny<SSORole>()),

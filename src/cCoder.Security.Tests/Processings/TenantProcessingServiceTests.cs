@@ -23,22 +23,27 @@ public partial class TenantProcessingServiceTests
     }
 
     public Tenant[] RandomTenants() =>
-        Enumerable.Range(start: 1, count: new Random().Next(1, 20))
+        Enumerable.Range(start: 1, count: new Random().Next(minValue:1, maxValue:20))
             .Select(selector: _ => RandomTenant())
             .ToArray();
 
     public Tenant RandomTenant() =>
-        GetTenantFiller().Create();
+        GetTenantFiller()
+            .Create();
 
     public Filler<Tenant> GetTenantFiller()
     {
         Filler<Tenant> filler = new();
 
         filler.Setup()
-            .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)
-            .OnProperty(p => p.Analysis).IgnoreIt()
-            .OnProperty(property: p => p.UserEvents).IgnoreIt()
-            .OnProperty(property: p => p.Roles).IgnoreIt();
+            .OnType<DateTimeOffset>()
+            .Use(valueToUse:DateTimeOffset.Now)
+            .OnProperty(property:p => p.Analysis)
+            .IgnoreIt()
+            .OnProperty(property: p => p.UserEvents)
+            .IgnoreIt()
+            .OnProperty(property: p => p.Roles)
+            .IgnoreIt();
 
         return filler;
     }

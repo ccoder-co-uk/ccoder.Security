@@ -15,6 +15,7 @@ public partial class AuthenticationAggregationServiceTests
     [Fact]
     public async Task ShouldGenerateForgotPasswordTokenAndRaisePasswordResetRequestedEvent()
     {
+        // Given
         SSOUser user = new()
         {
             Id = "existing.user",
@@ -28,30 +29,33 @@ public partial class AuthenticationAggregationServiceTests
         };
 
         ssoUserProcessingServiceMock
-            .Setup(expression: service => service.GetAllSSOUsers(true))
+            .Setup(expression: service => service.GetAllSSOUsers(ignoreFilters:true))
             .Returns(value: new[] { user }.AsQueryable());
 
         tokenProcessingServiceMock
-            .Setup(expression: service => service.GenerateForgottenPasswordToken(user.Id))
+            .Setup(expression: service => service.GenerateForgottenPasswordToken(userId:user.Id))
             .ReturnsAsync(value: token);
 
         accountEventProcessingServiceMock
             .Setup(expression: service => service.RaiseSecurityAccountEventRequestAsync(
-                It.Is<SecurityAccountEventRequest>(request =>
+accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:request =>
                     request.Kind == SecurityAccountEventKind.PasswordResetRequested
                     && request.User == user
                     && request.Token == token.Id)))
             .Returns(value: ValueTask.CompletedTask);
 
+        // When
         Token actualToken =
             await authenticationAggregationService.ForgotPasswordAsync(
                 email: user.Email);
 
-        actualToken.Should().BeSameAs(expected: token);
+        // Then
+        actualToken.Should()
+            .BeSameAs(expected: token);
 
         accountEventProcessingServiceMock.Verify(
             expression: service => service.RaiseSecurityAccountEventRequestAsync(
-                It.Is<SecurityAccountEventRequest>(request =>
+accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:request =>
                     request.Kind == SecurityAccountEventKind.PasswordResetRequested
                     && request.User == user
                     && request.Token == token.Id)),

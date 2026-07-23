@@ -4,6 +4,7 @@
 
 using cCoder.Security.Brokers.Authentication;
 using cCoder.Security.Dependencies.EDM;
+using cCoder.Security.Dependencies.Sessions;
 using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
@@ -196,7 +197,9 @@ public static class IServiceCollectionExtensions
         services.AddHttpContextAccessor();
         services.AddTransient(implementationFactory: ctx => ctx.GetService<IHttpContextAccessor>()?.HttpContext);
         services.AddTransient(implementationFactory: ctx => ctx.GetService<HttpContext>()?.Request);
-        services.AddTransient(implementationFactory: ctx => ctx.GetService<HttpContext>()?.Session);
+        services.AddTransient<ISession>(implementationFactory: context =>
+            context.GetService<HttpContext>()?.Session ??
+            new NullSession());
         services.AddSession();
     }
 

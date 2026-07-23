@@ -13,7 +13,7 @@ public partial class TenantProcessingServiceTests
     [Fact]
     public void ShouldGetTenants()
     {
-        //given
+        // Given
         IQueryable<Tenant> expectedTenants = RandomTenants()
             .AsQueryable();
 
@@ -21,10 +21,10 @@ public partial class TenantProcessingServiceTests
             tenantServiceMock.GetAllTenants())
             .Returns(value: expectedTenants);
 
-        //when
+        // When
         IQueryable<Tenant> actualTenants = tenantProcessingService.GetAllTenants();
 
-        //then
+        // Then
         tenantServiceMock.Verify(expression: tenantServiceMock =>
             tenantServiceMock.GetAllTenants(),
 times: Times.Once());

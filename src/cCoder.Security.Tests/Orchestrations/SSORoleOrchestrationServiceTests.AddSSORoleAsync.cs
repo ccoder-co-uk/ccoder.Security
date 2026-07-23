@@ -14,6 +14,7 @@ public partial class SSORoleOrchestrationServiceTests
     [Fact]
     public async Task ShouldAllowBootstrappingFirstRoleWithoutPortalAdminCheck()
     {
+        // Given
         SSORole inputRole = new()
         {
             Name = "Administrators",
@@ -22,15 +23,19 @@ public partial class SSORoleOrchestrationServiceTests
 
         roleProcessingServiceMock
             .Setup(expression: x => x.GetAllSSORoles())
-            .Returns(value: Array.Empty<SSORole>().AsQueryable());
+            .Returns(value: Array.Empty<SSORole>()
+                                .AsQueryable());
 
         roleProcessingServiceMock
-            .Setup(expression: x => x.AddSSORoleAsync(inputRole))
+            .Setup(expression: x => x.AddSSORoleAsync(item:inputRole))
             .ReturnsAsync(value: inputRole);
 
+        // When
         SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
 
-        actualRole.Should().BeSameAs(expected: inputRole);
+        // Then
+        actualRole.Should()
+            .BeSameAs(expected: inputRole);
 
         authorizationProcessingServiceMock.Verify(
 expression: service => service.EnsureUserIsPortalAdminWithPrivilege(privilege: It.IsAny<string>()),
@@ -40,6 +45,7 @@ times: Times.Never);
     [Fact]
     public async Task ShouldRequirePortalAdminCheckAfterBootstrapRoleExists()
     {
+        // Given
         SSORole inputRole = new()
         {
             Name = "Editors",
@@ -56,11 +62,13 @@ times: Times.Never);
                     privilege: "tenant_admin"));
 
         roleProcessingServiceMock
-            .Setup(expression: x => x.AddSSORoleAsync(inputRole))
+            .Setup(expression: x => x.AddSSORoleAsync(item:inputRole))
             .ReturnsAsync(value: inputRole);
 
+        // When
         await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
 
+        // Then
         authorizationProcessingServiceMock.Verify(
 expression: service => service.EnsureUserIsPortalAdminWithPrivilege(privilege: "tenant_admin"),
 times: Times.Once);

@@ -757,6 +757,89 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Dependencies.Sessions.NullSession",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "IsAvailable",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "Keys",
+          "Type": "System.Collections.Generic.IEnumerable\u003CSystem.String\u003E"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "Clear",
+          "Inputs": [],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "CommitAsync",
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task"
+        },
+        {
+          "Name": "LoadAsync",
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task"
+        },
+        {
+          "Name": "Remove",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "Set",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "TryGetValue",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "StandardElementType": "Exposure",
       "Properties": [],

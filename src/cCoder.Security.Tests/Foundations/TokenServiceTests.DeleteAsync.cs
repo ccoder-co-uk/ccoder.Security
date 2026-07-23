@@ -13,19 +13,23 @@ public partial class TokenServiceTests
     [Fact]
     public async Task ShouldDeleteTokenAsync()
     {
-        // given
+        // Given
         Token inputToken = new()
         {
-            Id = Guid.NewGuid().ToString().Replace(oldValue: "-", newValue: "") + Guid.NewGuid().ToString().Replace(oldValue: "-", newValue: ""),
+            Id = Guid.NewGuid()
+                     .ToString()
+                     .Replace(oldValue: "-", newValue: "") + Guid.NewGuid()
+                                                                                      .ToString()
+                                                                                      .Replace(oldValue: "-", newValue: ""),
             Expires = DateTimeOffset.Now.AddMinutes(minutes: 10),
             Reason = 0,
             UserName = RandomString()
         };
 
-        // when
+        // When
         await tokenService.DeleteTokenAsync(item: inputToken);
 
-        // then
+        // Then
         tokenBrokerMock.Verify(expression: broker =>
             broker.DeleteTokenAsync(token: inputToken),
 times: Times.Once);

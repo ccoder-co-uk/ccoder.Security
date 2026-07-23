@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.Entities;
+using Security.AcceptanceTests.Tests.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
@@ -28,64 +29,70 @@ public static class Extensions
     public static string ToJson(this object o) =>
         JsonConvert.SerializeObject(value: o, formatting: Formatting.None, settings: GetJsonSettings());
 
-    /// <summary>
-    /// Adds authorization information to the client by making an auth call with the given credentials
-    /// </summary>
-    /// <param name="client">The HttpClient to attach the authorization information to</param>
-    /// <param name="user">The username to use for authentication</param>
-    /// <param name="pass">The password to use for authentication</param>
-    /// <returns>An authenticated HttpClient</returns>
     public static async Task<Token> Authenticate(this HttpClient client, string user, string pass)
     {
         var auth = new { User = user, Pass = pass };
 
         HttpResponseMessage response = await client.PostAsync(requestUri: "Api/Account/Login", content: new StringContent(auth.ToJson(), Encoding.UTF8, "application/json"));
         _ = response.EnsureSuccessStatusCode();
-        Token token = await response.Content.ReadAsAsync<Token>();
+        Token token = await response.Content.ReadTokenAsync();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Id);
         return token;
     }
 
-    /// <summary>
-    /// Fetches a collection of data items of type T from the API
-    /// </summary>
-    /// <typeparam name="TResult">Expected result type</typeparam>
-    /// <param name="client">HttpClient instance</param>
-    /// <param name="query">Path to API call</param>
-    /// <returns>Task that resolves our Result set as an ODataCollection&gt;T&lt;</returns>
-    public static async Task<IEnumerable<T>> GetODataCollection<T>(this HttpClient client, string query)
+    public static async Task<IEnumerable<SSOUser>> GetSSOUsersAsync(
+        this HttpClient client,
+        string query)
     {
-        List<T> results = [];
+        List<SSOUser> results = [];
         int page = 0;
         int batchSize = 1000;
         string fullQuery = query + (query.Contains(value: '?') ? $"&$skip={page * batchSize}&$top={batchSize}" : $"?$skip={page * batchSize}&$top={batchSize}");
 
-        ODataCollection<T> batch = await client.GetAsync<ODataCollection<T>>(query: fullQuery);
+        ODataCollection<SSOUser> batch =
+            await client.GetSSOUserCollectionAsync(query: fullQuery);
 
         while (batch?.Value?.Any() ?? false)
         {
             results.AddRange(collection: batch.Value);
             page++;
             fullQuery = query + (query.Contains(value: '?') ? $"&$skip={page * batchSize}&$top={batchSize}" : $"?$skip={page * batchSize}&$top={batchSize}");
-            batch = await client.GetAsync<ODataCollection<T>>(query: fullQuery);
+
+            batch = await client.GetSSOUserCollectionAsync(
+                query: fullQuery);
         }
 
         return results;
     }
 
-    /// <summary>
-    /// Get a string from the API
-    /// </summary>
-    /// <param name="client">HttpClient instance</param>
-    /// <param name="query">Path to API call</param>
-    /// <returns>The requested response as a T</returns>
-    public static async Task<T> GetAsync<T>(this HttpClient client, string query)
+    private static async Task<ODataCollection<SSOUser>>
+        GetSSOUserCollectionAsync(
+            this HttpClient client,
+            string query)
     {
         HttpResponseMessage result = await client.GetAsync(requestUri: query);
         _ = result.EnsureSuccessStatusCode();
-        return await result.Content.ReadAsAsync<T>();
+
+        return JsonConvert.DeserializeObject<ODataCollection<SSOUser>>(
+            value: await result.Content.ReadAsStringAsync(),
+            settings: GetJsonSettings());
     }
 
-    public static async Task<T> ReadAsAsync<T>(this HttpContent content) =>
-        JsonConvert.DeserializeObject<T>(value: await content.ReadAsStringAsync(), settings: GetJsonSettings());
+    public static async Task<Token> ReadTokenAsync(
+        this HttpContent content) =>
+        JsonConvert.DeserializeObject<Token>(
+            value: await content.ReadAsStringAsync(),
+            settings: GetJsonSettings());
+
+    public static async Task<SSOUser> ReadSSOUserAsync(
+        this HttpContent content) =>
+        JsonConvert.DeserializeObject<SSOUser>(
+            value: await content.ReadAsStringAsync(),
+            settings: GetJsonSettings());
+
+    public static async Task<RegistrationResult> ReadRegistrationResultAsync(
+        this HttpContent content) =>
+        JsonConvert.DeserializeObject<RegistrationResult>(
+            value: await content.ReadAsStringAsync(),
+            settings: GetJsonSettings());
 }

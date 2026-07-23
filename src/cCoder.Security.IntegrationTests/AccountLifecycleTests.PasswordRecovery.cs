@@ -14,7 +14,7 @@ public partial class AccountLifecycleTests
     [Fact]
     public async Task ShouldRecoverLockedAccountAndAllowLoginAsync()
     {
-        // given
+        // Given
         RegisterUser user = CreateRegisterUser(name: "recovery");
         (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user: user);
         await ConfirmRegistrationAsync(token: confirmationToken);
@@ -24,9 +24,11 @@ public partial class AccountLifecycleTests
         for (int attempt = 0; attempt < 11; attempt++)
         { await AssertLoginRejectedAsync(auth: invalidAuth); }
 
-        FindUser(userId: registeredUser.Id).LockoutEnabled.Should().BeTrue();
+        FindUser(userId: registeredUser.Id)
+            .LockoutEnabled.Should()
+            .BeTrue();
 
-        // when
+        // When
         await RequestPasswordResetAsync(email: user.Email);
 
         Token resetToken = FindToken(userId: registeredUser.Id, tokenUse: TokenUse.PasswordReset);
@@ -34,10 +36,16 @@ public partial class AccountLifecycleTests
         await ConfirmForgotPasswordAsync(token: resetToken.Id, userId: registeredUser.Id, password: UpdatedPassword);
         Token loginToken = await LoginAsync(auth: CreateAuth(user: user, password: UpdatedPassword));
 
-        // then
+        // Then
         SSOUser recoveredUser = FindUser(userId: registeredUser.Id);
-        recoveredUser.LockoutEnabled.Should().BeFalse();
-        recoveredUser.AccessFailedCount.Should().Be(expected: 0);
-        loginToken.UserName.Should().Be(expected: registeredUser.Id);
+
+        recoveredUser.LockoutEnabled.Should()
+            .BeFalse();
+
+        recoveredUser.AccessFailedCount.Should()
+            .Be(expected: 0);
+
+        loginToken.UserName.Should()
+            .Be(expected: registeredUser.Id);
     }
 }

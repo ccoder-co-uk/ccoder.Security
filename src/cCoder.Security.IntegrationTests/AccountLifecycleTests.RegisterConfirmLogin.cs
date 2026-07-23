@@ -14,18 +14,24 @@ public partial class AccountLifecycleTests
     [Fact]
     public async Task ShouldRegisterConfirmAndLoginAsync()
     {
-        // given
+        // Given
         RegisterUser user = CreateRegisterUser(name: "registration");
 
-        // when
+        // When
         (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user: user);
         await ConfirmRegistrationAsync(token: confirmationToken);
         Token token = await LoginAsync(auth: CreateAuth(user: user));
         await LogoutAsync();
 
-        // then
-        registeredUser.Email.Should().Be(expected: user.Email);
-        token.UserName.Should().Be(expected: registeredUser.Id);
-        FindUser(userId: registeredUser.Id).EmailConfirmed.Should().BeTrue();
+        // Then
+        registeredUser.Email.Should()
+            .Be(expected: user.Email);
+
+        token.UserName.Should()
+            .Be(expected: registeredUser.Id);
+
+        FindUser(userId: registeredUser.Id)
+            .EmailConfirmed.Should()
+            .BeTrue();
     }
 }

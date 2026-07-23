@@ -16,7 +16,7 @@ public partial class AccountApiTests
     [Fact]
     public async Task MeWorksAsExpectedForBearerToken()
     {
-        //given
+        // Given
         using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
 
         accountClient.UseNoCookiesApiClient();
@@ -31,12 +31,13 @@ public partial class AccountApiTests
         Auth inputAuth = RandomAuth(user: existingRegisterUser);
         Token token = await accountClient.LoginAsync(auth: inputAuth);
 
-        //when
+        // When
         accountClient.AddBearerAuthentication(bearer: token.Id);
         SSOUser actualSSOUser = await accountClient.Me();
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(expectation: existingSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: existingSSOUser);
 
         await TearDownUserAsync(userId: existingSSOUser.Id);
     }
@@ -44,7 +45,7 @@ public partial class AccountApiTests
     [Fact]
     public async Task MeWorksAsExpectedForSession()
     {
-        //given
+        // Given
         using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
@@ -56,12 +57,13 @@ public partial class AccountApiTests
         Auth inputAuth = RandomAuth(user: existingRegisterUser);
         Token token = await accountClient.LoginAsync(auth: inputAuth);
 
-        //when
+        // When
         accountClient.AddBearerAuthentication(bearer: token.Id);
         SSOUser actualSSOUser = await accountClient.Me();
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(expectation: existingSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: existingSSOUser);
 
         await TearDownUserAsync(userId: existingSSOUser.Id);
     }
@@ -69,7 +71,7 @@ public partial class AccountApiTests
     [Fact]
     public async Task MeWorksAsExpectedForBasic()
     {
-        //given
+        // Given
         using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
         accountClient.UseNoCookiesApiClient();
 
@@ -82,12 +84,13 @@ public partial class AccountApiTests
 
         Auth inputAuth = RandomAuth(user: existingRegisterUser);
 
-        //when
+        // When
         accountClient.AddBasicAuthentication(auth: inputAuth);
         SSOUser actualSSOUser = await accountClient.Me();
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(expectation: existingSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: existingSSOUser);
 
         await TearDownUserAsync(userId: existingSSOUser.Id);
     }

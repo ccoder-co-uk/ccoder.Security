@@ -14,18 +14,23 @@ public partial class TokenServiceTests
     [Fact]
     public async Task ShouldAddTokenAsync()
     {
-        // given
+        // Given
         string userId = RandomString();
 
         Token expectedToken = new()
         {
-            Id = Guid.NewGuid().ToString().Replace(oldValue: "-", newValue: "") + Guid.NewGuid().ToString().Replace(oldValue: "-", newValue: ""),
+            Id = Guid.NewGuid()
+                     .ToString()
+                     .Replace(oldValue: "-", newValue: "") + Guid.NewGuid()
+                                                                                      .ToString()
+                                                                                      .Replace(oldValue: "-", newValue: ""),
             Expires = DateTimeOffset.Now.AddMinutes(minutes: 10),
             Reason = (int)TokenUse.WorkflowExecution,
             UserName = userId
         };
 
-        tokenBrokerMock.Setup(expression: broker => broker.InsertTokenAsync(It.IsAny<Token>())).ReturnsAsync(value: expectedToken);
+        tokenBrokerMock.Setup(expression: broker => broker.InsertTokenAsync(token:It.IsAny<Token>()))
+            .ReturnsAsync(value: expectedToken);
 
         configurationBrokerMock
             .Setup(expression: broker => broker.GetValue(
@@ -33,13 +38,16 @@ public partial class TokenServiceTests
                 key: "TokenTimeout"))
             .Returns(value: null);
 
-        // when
         Token actualToken = await tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.WorkflowExecution);
+        // When
         expectedToken.Expires = actualToken.Expires;
 
-        // then
-        actualToken.Should().BeEquivalentTo(expectation: expectedToken);
+        // Then
+        actualToken.Should()
+            .BeEquivalentTo(expectation: expectedToken);
+
         tokenBrokerMock.Verify(expression: broker => broker.InsertTokenAsync(token: It.IsAny<Token>()), times: Times.Once);
+
         configurationBrokerMock.Verify(
             expression: broker => broker.GetValue(
                 section: "Settings",

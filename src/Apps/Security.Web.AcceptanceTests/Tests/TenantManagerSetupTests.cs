@@ -14,20 +14,23 @@ using Xunit;
 
 namespace cCoder.Security.AcceptanceTests.Tests;
 
-public class TenantManagerSetupTests
+public partial class TenantManagerSetupTests
 {
     [Fact]
     public async Task ShouldBootstrapFirstTenantRoleUserAndMembership()
     {
+        // Given
         string originalConnectionString =
             Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
 
         string acceptanceConnectionString = CreateIsolatedAcceptanceConnectionString();
 
+        // When
         Environment.SetEnvironmentVariable(
 variable: "ENV_ConnectionStrings__SSO",
 value: acceptanceConnectionString);
 
+        // Then
         try
         {
             using WebApplicationFactory<AcceptanceHost> appFactory = new();
@@ -63,22 +66,45 @@ value: acceptanceConnectionString);
 
             using cCoder.Security.Data.EF.SecurityDbContext assertDb = dbContextFactory.CreateDbContext();
 
-            Tenant tenant = assertDb.Tenants.IgnoreQueryFilters().Single();
-            SSORole role = assertDb.Roles.IgnoreQueryFilters().Single();
-            SSOUser user = assertDb.Users.IgnoreQueryFilters().Single();
-            SSOUserRole userRole = assertDb.UserRoles.IgnoreQueryFilters().Single();
+            Tenant tenant = assertDb.Tenants.IgnoreQueryFilters()
+                                .Single();
 
-            tenant.Id.Should().Be(expected: "default");
-            role.Name.Should().Be(expected: "Administrators");
-            role.TenantId.Should().Be(expected: "default");
-            role.UsersArePortalAdmins.Should().BeTrue();
-            user.Id.Should().Be(expected: "admin");
-            user.EmailConfirmed.Should().BeTrue();
-            userRole.UserId.Should().Be(expected: "admin");
-            userRole.RoleId.Should().Be(expected: role.Id);
+            SSORole role = assertDb.Roles.IgnoreQueryFilters()
+                               .Single();
+
+            SSOUser user = assertDb.Users.IgnoreQueryFilters()
+                               .Single();
+
+            SSOUserRole userRole = assertDb.UserRoles.IgnoreQueryFilters()
+                                       .Single();
+
+            tenant.Id.Should()
+                .Be(expected: "default");
+
+            role.Name.Should()
+                .Be(expected: "Administrators");
+
+            role.TenantId.Should()
+                .Be(expected: "default");
+
+            role.UsersArePortalAdmins.Should()
+                .BeTrue();
+
+            user.Id.Should()
+                .Be(expected: "admin");
+
+            user.EmailConfirmed.Should()
+                .BeTrue();
+
+            userRole.UserId.Should()
+                .Be(expected: "admin");
+
+            userRole.RoleId.Should()
+                .Be(expected: role.Id);
 
             assertDb.Roles.IgnoreQueryFilters()
-                .Should().OnlyContain(predicate: foundRole => foundRole.TenantId == "default");
+                .Should()
+                .OnlyContain(predicate: foundRole => foundRole.TenantId == "default");
         }
         finally
         {

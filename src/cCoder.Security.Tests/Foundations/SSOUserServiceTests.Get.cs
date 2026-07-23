@@ -14,20 +14,24 @@ public partial class SSOUserServiceTests
     [Fact]
     public void ShouldGetSSOUsersAsync()
     {
-        // given
+        // Given
         IQueryable<SSOUser> expectedSSOUsers = RandomUsers();
+
         userBrokerMock
             .Setup(expression: broker => broker.SelectAllSSOUsers())
             .Returns(value: expectedSSOUsers);
 
-        // when
+        // When
         IEnumerable<SSOUser> actualSSOUsers = userService.GetAllSSOUsers();
 
-        // then
-        actualSSOUsers.Should().BeEquivalentTo(expectation: expectedSSOUsers);
+        // Then
+        actualSSOUsers.Should()
+            .BeEquivalentTo(expectation: expectedSSOUsers);
+
         userBrokerMock.Verify(
             expression: broker => broker.SelectAllSSOUsers(),
             times: Times.Once);
+
         userBrokerMock.VerifyNoOtherCalls();
     }
 }

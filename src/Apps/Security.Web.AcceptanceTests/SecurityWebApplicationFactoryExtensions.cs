@@ -6,7 +6,7 @@ using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +33,11 @@ public static class SecurityWebApplicationFactoryExtensions
 
             using IServiceScope scope = appFactory.Services.CreateScope();
             IServiceProvider scopedServices = scope.ServiceProvider;
-            EnsureSSOSetupForTesting(scopedServices: scopedServices).AsTask().Wait();
+
+            EnsureSSOSetupForTesting(scopedServices: scopedServices)
+                .AsTask()
+                .Wait();
+
             setupComplete = true;
         }
     }
@@ -45,24 +49,31 @@ public static class SecurityWebApplicationFactoryExtensions
 
         if (typeof(AcceptanceHost).Namespace == "Security.Web")
         {
-            acceptanceConnectionString = Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
+            acceptanceConnectionString = Environment.GetEnvironmentVariable(
+                variable: "ConnectionStrings__SSO");
 
             if (!string.IsNullOrWhiteSpace(value: acceptanceConnectionString))
             {
+                SqlConnectionStringBuilder connectionStringBuilder =
+                    new(connectionString: acceptanceConnectionString);
+
+                connectionStringBuilder.InitialCatalog =
+                    $"{connectionStringBuilder.InitialCatalog}-AcceptanceTests-{Environment.ProcessId}";
+
+                acceptanceConnectionString =
+                    connectionStringBuilder.ConnectionString;
+
+                Environment.SetEnvironmentVariable(
+                    variable: "ENV_ConnectionStrings__SSO",
+                    value: acceptanceConnectionString);
+
                 acceptanceEnvironmentConfigured = true;
+                ownsAcceptanceDatabase = true;
                 return;
             }
 
-            string databaseName = $"SSOAcceptanceTests_{Environment.ProcessId}";
-
-            acceptanceConnectionString =
-                $"Data Source=.;Initial Catalog={databaseName};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
-
-            Environment.SetEnvironmentVariable(
-variable: "ENV_ConnectionStrings__SSO",
-value: acceptanceConnectionString);
-
-            ownsAcceptanceDatabase = true;
+            throw new InvalidOperationException(
+                "ConnectionStrings__SSO must be configured for acceptance tests.");
         }
 
         acceptanceEnvironmentConfigured = true;
@@ -70,13 +81,14 @@ value: acceptanceConnectionString);
 
     private static async ValueTask EnsureSSOSetupForTesting(IServiceProvider scopedServices)
     {
-        IAuthenticationOrchestrationService authenticationOrchestrationService =
-            scopedServices.GetRequiredService<IAuthenticationOrchestrationService>();
+        IAuthenticationAggregationService authenticationAggregationService =
+            scopedServices.GetRequiredService<IAuthenticationAggregationService>();
 
         ITenantManager tenantManager = scopedServices.GetRequiredService<ITenantManager>();
 
         using cCoder.Security.Data.EF.SecurityDbContext db =
-            scopedServices.GetRequiredService<ISecurityDbContextFactory>().CreateDbContext();
+            scopedServices.GetRequiredService<ISecurityDbContextFactory>()
+                .CreateDbContext(ignoreAuthInfo: true);
 
         if (db.Database.ProviderName?.Contains(value: "SqlServer", comparisonType: StringComparison.OrdinalIgnoreCase) == true)
         { DropDatabaseForTesting(connectionString: db.Database.GetConnectionString()); }
@@ -86,12 +98,15 @@ value: acceptanceConnectionString);
         db.Migrate();
 
         await SetupTestUser(tenantManager: tenantManager);
-        await authenticationOrchestrationService.LoginAsync(username: "TestUser", password: "TestPass01!");
+
+        await authenticationAggregationService.LoginAsync(
+            username: "TestUser",
+            password: "TestPass01!");
     }
 
     private static async Task SetupTestUser(ITenantManager tenantManager)
     {
-        await tenantManager.SetupAsync(setupDetails: new SetupDetails
+        SetupDetails setupDetails = new()
         {
             Tenant = new Tenant
             {
@@ -106,7 +121,10 @@ value: acceptanceConnectionString);
                 Email = "TestUser@somehwere.com",
                 PasswordHash = "TestPass01!"
             }
-        });
+        };
+
+        await tenantManager.SetupAsync(
+            setupDetails: setupDetails);
     }
 
     public static void DropAcceptanceDatabaseForTesting()

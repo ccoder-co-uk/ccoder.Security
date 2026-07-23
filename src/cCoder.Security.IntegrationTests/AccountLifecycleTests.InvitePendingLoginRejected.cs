@@ -14,20 +14,26 @@ public partial class AccountLifecycleTests
     [Fact]
     public async Task ShouldRejectLoginForInviteThatHasNotBeenAcceptedAsync()
     {
-        // given
+        // Given
         RegisterUser user = CreateRegisterUser(name: "pending-invite");
         user.Password = null;
 
-        // when
+        // When
         (SSOUser invitedUser, string inviteToken) = await InviteAsync(user: user);
         string resentInviteToken = await ResendInviteAsync(userId: invitedUser.Id);
 
         user.Password = DefaultPassword;
 
-        // then
-        inviteToken.Should().NotBeNullOrWhiteSpace();
-        resentInviteToken.Should().NotBeNullOrWhiteSpace();
-        FindUser(userId: invitedUser.Id).LockoutEnabled.Should().BeTrue();
+        // Then
+        inviteToken.Should()
+            .NotBeNullOrWhiteSpace();
+
+        resentInviteToken.Should()
+            .NotBeNullOrWhiteSpace();
+
+        FindUser(userId: invitedUser.Id)
+            .LockoutEnabled.Should()
+            .BeTrue();
 
         await AssertLoginRejectedAsync(auth: CreateAuth(user: user));
     }

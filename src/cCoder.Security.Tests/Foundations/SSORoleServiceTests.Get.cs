@@ -14,15 +14,19 @@ public partial class SSORoleServiceTests
     [Fact]
     public void ShouldGetSSORolesAsync()
     {
-        // given
+        // Given
         IQueryable<SSORole> expectedSSORoles = RandomRoles();
-        roleBrokerMock.Setup(expression: broker => broker.SelectAllSSORoles()).Returns(value: expectedSSORoles);
 
-        // when
+        roleBrokerMock.Setup(expression: broker => broker.SelectAllSSORoles())
+            .Returns(value: expectedSSORoles);
+
+        // When
         IEnumerable<SSORole> actualSSORoles = roleService.GetAllSSORoles();
 
-        // then
-        actualSSORoles.Should().BeEquivalentTo(expectation: expectedSSORoles);
+        // Then
+        actualSSORoles.Should()
+            .BeEquivalentTo(expectation: expectedSSORoles);
+
         roleBrokerMock.Verify(expression: broker => broker.SelectAllSSORoles(), times: Times.Once);
         roleBrokerMock.VerifyNoOtherCalls();
     }

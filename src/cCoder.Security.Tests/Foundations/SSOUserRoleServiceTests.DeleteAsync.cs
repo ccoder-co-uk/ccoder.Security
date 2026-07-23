@@ -14,14 +14,14 @@ public partial class SSOUserRoleServiceTests
     [Fact]
     public async Task ShouldDeleteSSOUserRoleAsync()
     {
-        // given
+        // Given
         SSOUserRole inputSSOUserRole = RandomUserRole();
         SSOUserRole expectedSSOUserRole = inputSSOUserRole.DeepClone();
 
-        // when
+        // When
         await userRoleService.DeleteSSOUserRoleAsync(item: inputSSOUserRole);
 
-        // then
+        // Then
         userRoleBrokerMock.Verify(expression: broker =>
             broker.DeleteSSOUserRoleAsync(userRole: inputSSOUserRole),
 times: Times.Once);
