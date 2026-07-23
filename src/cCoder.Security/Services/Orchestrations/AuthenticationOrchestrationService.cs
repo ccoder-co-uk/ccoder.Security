@@ -21,8 +21,8 @@ internal class AuthenticationOrchestrationService(
     public SSOUser Me() =>
         Sanitize(user: ssoUserProcessingService.Me());
 
-    public async ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse) =>
-        await tokenProcessingService.AddTokenForUserIdAsync(userId: userId, tokenUse: tokenUse);
+    public ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse) =>
+        tokenProcessingService.AddTokenForUserIdAsync(userId: userId, tokenUse: tokenUse);
 
     public async ValueTask<Token> LoginAsync(string username, string password)
     {
@@ -30,7 +30,7 @@ internal class AuthenticationOrchestrationService(
             .FindByUserAndPasswordAsync(username: username, password: password);
 
         if (user == null)
-            throw new SecurityException("Access Denied!");
+        { throw new SecurityException("Access Denied!"); }
 
         sessionProcessingService.SetUser(user: user);
 
@@ -72,7 +72,7 @@ internal class AuthenticationOrchestrationService(
             .FirstOrDefault(predicate: user => user.Email == email);
 
         if (user == null)
-            throw new SecurityException("User not found");
+        { throw new SecurityException("User not found"); }
 
         Token token = await tokenProcessingService.GenerateForgottenPasswordToken(userId: user.Id);
         await accountEventService.RaisePasswordResetRequestedEventAsync(user: user, token: token.Id);
@@ -86,7 +86,7 @@ internal class AuthenticationOrchestrationService(
         string confirmNewPassword)
     {
         if (!newPassword.Equals(value: confirmNewPassword))
-            throw new SecurityException("Passwords do not match");
+        { throw new SecurityException("Passwords do not match"); }
 
         Token token = tokenProcessingService.GetForgottenPasswordToken(tokenId: tokenId);
 

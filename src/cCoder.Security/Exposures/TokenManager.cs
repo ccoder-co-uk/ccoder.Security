@@ -10,6 +10,6 @@ namespace cCoder.Security.Exposures;
 internal class TokenManager(IAuthenticationOrchestrationService authenticationOrchestrationService)
     : ITokenManager
 {
-    public async ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse) =>
-        await authenticationOrchestrationService.IssueTokenAsync(userId: userId, tokenUse: tokenUse);
+    public ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse) =>
+        authenticationOrchestrationService.IssueTokenAsync(userId: userId, tokenUse: tokenUse);
 }

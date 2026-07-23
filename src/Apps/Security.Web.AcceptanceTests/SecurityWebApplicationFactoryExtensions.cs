@@ -27,7 +27,7 @@ public static class SecurityWebApplicationFactoryExtensions
         lock (SetupLock)
         {
             if (setupComplete)
-                return;
+            { return; }
 
             ConfigureAcceptanceEnvironment();
 
@@ -41,7 +41,7 @@ public static class SecurityWebApplicationFactoryExtensions
     private static void ConfigureAcceptanceEnvironment()
     {
         if (acceptanceEnvironmentConfigured)
-            return;
+        { return; }
 
         if (typeof(AcceptanceHost).Namespace == "Security.Web")
         {
@@ -54,12 +54,14 @@ public static class SecurityWebApplicationFactoryExtensions
             }
 
             string databaseName = $"SSOAcceptanceTests_{Environment.ProcessId}";
+
             acceptanceConnectionString =
                 $"Data Source=.;Initial Catalog={databaseName};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
 
             Environment.SetEnvironmentVariable(
 variable: "ENV_ConnectionStrings__SSO",
 value: acceptanceConnectionString);
+
             ownsAcceptanceDatabase = true;
         }
 
@@ -70,15 +72,16 @@ value: acceptanceConnectionString);
     {
         IAuthenticationOrchestrationService authenticationOrchestrationService =
             scopedServices.GetRequiredService<IAuthenticationOrchestrationService>();
+
         ITenantManager tenantManager = scopedServices.GetRequiredService<ITenantManager>();
 
         using cCoder.Security.Data.EF.SecurityDbContext db =
             scopedServices.GetRequiredService<ISecurityDbContextFactory>().CreateDbContext();
 
         if (db.Database.ProviderName?.Contains(value: "SqlServer", comparisonType: StringComparison.OrdinalIgnoreCase) == true)
-            DropDatabaseForTesting(connectionString: db.Database.GetConnectionString());
+        { DropDatabaseForTesting(connectionString: db.Database.GetConnectionString()); }
         else
-            db.Database.EnsureDeleted();
+        { db.Database.EnsureDeleted(); }
 
         db.Migrate();
 
@@ -109,7 +112,7 @@ value: acceptanceConnectionString);
     public static void DropAcceptanceDatabaseForTesting()
     {
         if (!ownsAcceptanceDatabase)
-            return;
+        { return; }
 
         DropDatabaseForTesting(connectionString: acceptanceConnectionString);
     }
@@ -117,22 +120,25 @@ value: acceptanceConnectionString);
     internal static void DropDatabaseForTesting(string connectionString)
     {
         if (string.IsNullOrWhiteSpace(value: connectionString))
-            return;
+        { return; }
 
         SqlConnectionStringBuilder builder = new(connectionString)
         {
             Encrypt = true,
             TrustServerCertificate = true,
         };
+
         string databaseName = builder.InitialCatalog ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(value: databaseName))
-            return;
+        { return; }
 
         if (!databaseName.Contains(value: "accept", comparisonType: StringComparison.OrdinalIgnoreCase)
             && !databaseName.Contains(value: "integrationtest", comparisonType: StringComparison.OrdinalIgnoreCase))
+        {
             throw new InvalidOperationException(
-                $"Refusing to drop non-acceptance test database '{databaseName}'.");
+            $"Refusing to drop non-acceptance test database '{databaseName}'.");
+        }
 
         builder.InitialCatalog = "master";
 
@@ -140,6 +146,7 @@ value: acceptanceConnectionString);
         connection.Open();
 
         using SqlCommand command = connection.CreateCommand();
+
         command.CommandText = @"
 IF DB_ID(@databaseName) IS NOT NULL
 BEGIN
@@ -148,6 +155,7 @@ BEGIN
         + N'DROP DATABASE [' + REPLACE(@databaseName, ']', ']]') + N']';
     EXEC(@sql);
 END";
+
         _ = command.Parameters.AddWithValue(parameterName: "@databaseName", value: databaseName);
         command.ExecuteNonQuery();
     }

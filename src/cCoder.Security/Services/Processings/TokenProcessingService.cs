@@ -11,8 +11,8 @@ namespace cCoder.Security.Services.Processings;
 internal class TokenProcessingService(ITokenService tokenService)
     : ITokenProcessingService
 {
-    public async ValueTask<Token> AddTokenForUserIdAsync(string userId, TokenUse tokenUse) =>
-        await tokenService.AddTokenAsync(userId: userId, tokenUse: tokenUse);
+    public ValueTask<Token> AddTokenForUserIdAsync(string userId, TokenUse tokenUse) =>
+        tokenService.AddTokenAsync(userId: userId, tokenUse: tokenUse);
 
     public async ValueTask DeleteTokenAsync(string tokenId)
     {
@@ -20,7 +20,7 @@ internal class TokenProcessingService(ITokenService tokenService)
             .FirstOrDefault(predicate: t => t.Id == tokenId);
 
         if (token != null)
-            await tokenService.DeleteTokenAsync(item: token);
+        { await tokenService.DeleteTokenAsync(item: token); }
     }
 
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
@@ -32,22 +32,22 @@ internal class TokenProcessingService(ITokenService tokenService)
             .FirstOrDefault(predicate: t => t.Id == id);
 
         if (token == null)
-            return null;
+        { return null; }
 
         if (token.Expires < DateTimeOffset.Now)
-            return null;
+        { return null; }
 
         return token;
     }
 
-    public async ValueTask<Token> GenerateConfirmationToken(string userId) =>
-        await tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.Confirmation);
+    public ValueTask<Token> GenerateConfirmationToken(string userId) =>
+        tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.Confirmation);
 
-    public async ValueTask<Token> GenerateInvitationToken(string userId) =>
-        await tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.Invitation, timeout: (7 * 24 * 60));
+    public ValueTask<Token> GenerateInvitationToken(string userId) =>
+        tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.Invitation, timeout: (7 * 24 * 60));
 
-    public async ValueTask<Token> GenerateForgottenPasswordToken(string userId) =>
-        await tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.PasswordReset);
+    public ValueTask<Token> GenerateForgottenPasswordToken(string userId) =>
+        tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.PasswordReset);
 
     public Token GetForgottenPasswordToken(string tokenId)
     {
@@ -57,7 +57,7 @@ internal class TokenProcessingService(ITokenService tokenService)
             .FirstOrDefault(predicate: r => r.Reason == reasonCode && r.Id == tokenId);
 
         if (token.Expires < DateTimeOffset.Now)
-            return null;
+        { return null; }
 
         return token;
     }
@@ -70,7 +70,7 @@ internal class TokenProcessingService(ITokenService tokenService)
             .FirstOrDefault(predicate: r => r.Reason == reasonCode && r.Id == tokenId);
 
         if (token is null || token.Expires < DateTimeOffset.Now)
-            return null;
+        { return null; }
 
         return token;
     }
@@ -83,7 +83,7 @@ internal class TokenProcessingService(ITokenService tokenService)
             .FirstOrDefault(predicate: r => r.Reason == reasonCode && r.Id == tokenId);
 
         if (token.Expires < DateTimeOffset.Now)
-            return null;
+        { return null; }
 
         return token;
     }

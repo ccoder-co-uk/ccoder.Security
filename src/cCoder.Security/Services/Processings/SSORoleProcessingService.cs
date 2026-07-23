@@ -14,12 +14,12 @@ internal class SSORoleProcessingService(ISSORoleService ssoRoleService)
     public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
         ssoRoleService.GetAllSSORoles(ignoreFilters: ignoreFilters);
 
-    public async ValueTask<SSORole> AddSSORoleAsync(SSORole item) =>
-        await ssoRoleService.AddSSORoleAsync(item: item);
+    public ValueTask<SSORole> AddSSORoleAsync(SSORole item) =>
+        ssoRoleService.AddSSORoleAsync(item: item);
 
-    public async ValueTask DeleteSSORoleAsync(SSORole item) =>
-        await ssoRoleService.DeleteSSORoleAsync(item: item);
+    public ValueTask DeleteSSORoleAsync(SSORole item) =>
+        ssoRoleService.DeleteSSORoleAsync(item: item);
 
-    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole item) =>
-        await ssoRoleService.UpdateSSORoleAsync(item: item);
+    public ValueTask<SSORole> UpdateSSORoleAsync(SSORole item) =>
+        ssoRoleService.UpdateSSORoleAsync(item: item);
 }

@@ -41,8 +41,8 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
         return newUser;
     }
 
-    public async ValueTask DeleteSSOUserAsync(SSOUser item) =>
-        await ssoUserBroker.DeleteSSOUserAsync(SSOUser: item);
+    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
+        ssoUserBroker.DeleteSSOUserAsync(SSOUser: item);
 
     public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser item)
     {

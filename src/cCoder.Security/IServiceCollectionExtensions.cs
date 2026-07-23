@@ -71,7 +71,7 @@ public static class IServiceCollectionExtensions
         services.AddEventHandlers();
 
         if (!string.IsNullOrWhiteSpace(value: securityConfiguration.RootPath))
-            services.AddSecurityApiLayer(atPath: securityConfiguration.RootPath);
+        { services.AddSecurityApiLayer(atPath: securityConfiguration.RootPath); }
 
         return securityConfiguration;
     }
@@ -167,6 +167,7 @@ public static class IServiceCollectionExtensions
     private static void AddSecurityHostedServiceExposures(this IServiceCollection services)
     {
         services.AddSingleton<ITokenCleaner, TokenCleaner>();
+
         services.AddSingleton<IHostedService>(implementationFactory: serviceProvider =>
             serviceProvider.GetRequiredService<ITokenCleaner>());
     }

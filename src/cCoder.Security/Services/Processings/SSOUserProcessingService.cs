@@ -33,7 +33,7 @@ internal partial class SSOUserProcessingService(
         user.Id = GetNextAvailableUserId(user: user);
 
         if (string.IsNullOrWhiteSpace(value: user.PasswordHash))
-            user.PasswordHash = Guid.NewGuid().ToString(format: "N") + "Aa1!";
+        { user.PasswordHash = Guid.NewGuid().ToString(format: "N") + "Aa1!"; }
 
         user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
         user.LockoutEnabled = true;
@@ -41,8 +41,8 @@ internal partial class SSOUserProcessingService(
         return await ssoUserService.AddSSOUserAsync(item: user);
     }
 
-    public async ValueTask DeleteSSOUserAsync(SSOUser item) =>
-        await ssoUserService.DeleteSSOUserAsync(item: item);
+    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
+        ssoUserService.DeleteSSOUserAsync(item: item);
 
     public async ValueTask<SSOUser> FindByUserAndPasswordAsync(string username, string password)
     {
@@ -51,26 +51,29 @@ internal partial class SSOUserProcessingService(
         SSOUser user = FindById(id: username);
 
         if (user == null)
-            throw new SecurityException("Access Denied!");
+        { throw new SecurityException("Access Denied!"); }
 
         if (!encryptionBroker.EncryptedAndPlainTextAreEqual(encrypted: user.PasswordHash, plainText: password))
         {
             user.AccessFailedCount++;
 
             if (user.AccessFailedCount > 10)
-                user.LockoutEnabled = true;
+            { user.LockoutEnabled = true; }
 
             await UpdateSSOUserAsync(user: user);
             throw new SecurityException("Access Denied!");
         }
-        else if (user.AccessFailedCount > 0)
+        else
         {
-            user.AccessFailedCount = 0;
-            await UpdateSSOUserAsync(user: user);
+            if (user.AccessFailedCount > 0)
+            {
+                user.AccessFailedCount = 0;
+                await UpdateSSOUserAsync(user: user);
+            }
         }
 
         if (user.LockoutEnabled)
-            throw new SecurityException("Account locked!");
+        { throw new SecurityException("Account locked!"); }
 
         return user;
     }

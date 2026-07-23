@@ -23,7 +23,7 @@ public partial class SecurityMSSQLModelBuildProvider(string connectionString, bo
             .Where(predicate: fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 
         foreach (Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey relationship in cascadingRelationships)
-            relationship.DeleteBehavior = DeleteBehavior.Restrict;
+        { relationship.DeleteBehavior = DeleteBehavior.Restrict; }
     }
 
     public void Configure(DbContextOptionsBuilder optionsBuilder)
@@ -31,10 +31,12 @@ public partial class SecurityMSSQLModelBuildProvider(string connectionString, bo
         optionsBuilder.UseSqlServer(connectionString: connectionString, sqlServerOptionsAction: b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name));
 
         if (logSQL)
+        {
             optionsBuilder.LogTo(action: (message) =>
-            {
-                if (message.Contains("Executing") || message.Contains("transaction"))
-                    System.Diagnostics.Debug.WriteLine(message);
-            });
+        {
+            if (message.Contains("Executing") || message.Contains("transaction"))
+            { System.Diagnostics.Debug.WriteLine(message); }
+        });
+        }
     }
 }

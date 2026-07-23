@@ -25,7 +25,8 @@ public partial class SecurityDbContext : DbContext
         Privilege(id:"userrole_delete", type:"UserRole", operation:"Delete", description:"Allows portal administrators to remove users from security roles.", portalAdminsOnly:true)
     ];
 
-    public IEnumerable<SSOPrivilege> GetPrivileges() => privileges;
+    public IEnumerable<SSOPrivilege> GetPrivileges() =>
+        privileges;
 
     private static SSOPrivilege Privilege(
         string id,

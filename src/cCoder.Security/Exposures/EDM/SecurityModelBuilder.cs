@@ -9,12 +9,13 @@ namespace cCoder.Security.Exposures.EDM;
 
 public class SecurityModelBuilder : ODataModelBuilder
 {
-    public override ODataModel Build() => new()
-    {
-        Context = "SSO",
-        Description = "SSO Endpoints for the Platform.",
-        EDMModel = BuildModel()
-    };
+    public override ODataModel Build() =>
+        new()
+        {
+            Context = "SSO",
+            Description = "SSO Endpoints for the Platform.",
+            EDMModel = BuildModel()
+        };
 
     private IEdmModel BuildModel()
     {

@@ -20,6 +20,7 @@ public partial class SSORoleServiceTests
         SSORole expectedSSORole = inputSSORole.DeepClone();
 
         SSORole submitted = null;
+
         roleBrokerMock
             .Setup(broker => broker.UpdateSSORoleAsync(It.IsAny<SSORole>()))
             .Callback<SSORole>(candidate => submitted = candidate)

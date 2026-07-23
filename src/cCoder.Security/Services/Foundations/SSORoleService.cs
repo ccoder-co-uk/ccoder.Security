@@ -59,6 +59,6 @@ internal class SSORoleService(
         return item;
     }
 
-    public async ValueTask DeleteSSORoleAsync(SSORole item) =>
-        await roleBroker.DeleteSSORoleAsync(SSORole: item);
+    public ValueTask DeleteSSORoleAsync(SSORole item) =>
+        roleBroker.DeleteSSORoleAsync(SSORole: item);
 }

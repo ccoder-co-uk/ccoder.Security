@@ -38,12 +38,12 @@ internal class TenantRelationsOrchestrationService(
             .ToArray();
 
         foreach (var analysis in tenantAnalysis)
-            await tenantAnalysisProcessingService.DeleteTenantAnalysisAsync(item: analysis);
+        { await tenantAnalysisProcessingService.DeleteTenantAnalysisAsync(item: analysis); }
 
         foreach (var userRole in userRoles)
-            await userRoleProcessingService.DeleteSSOUserRoleAsync(item: userRole);
+        { await userRoleProcessingService.DeleteSSOUserRoleAsync(item: userRole); }
 
         foreach (var role in tenantRoles)
-            await roleProcessingService.DeleteSSORoleAsync(item: role);
+        { await roleProcessingService.DeleteSSORoleAsync(item: role); }
     }
 }

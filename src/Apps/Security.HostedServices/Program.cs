@@ -12,6 +12,7 @@ public class Program
     public static void Main(string[] args)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
+
         IConfigurationRoot config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
@@ -37,8 +38,10 @@ public class Program
         builder.Logging.AddSimpleConsole();
 
         WebApplication app = builder.Build();
+
         app.MapGet(pattern: "/", handler: (IHostEnvironment environment) =>
             Results.Text(BuildHostedServicesReport(environment), "text/plain"));
+
         app.MapGet(pattern: "/Health", handler: () => Results.Text("Healthy"));
         app.StartSecurityHostedServices();
         app.Run();

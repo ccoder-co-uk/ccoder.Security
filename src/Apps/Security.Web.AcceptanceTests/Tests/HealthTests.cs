@@ -42,6 +42,7 @@ public class HealthTests
     {
         string previousConnectionString = Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
         string databaseName = $"SSOAcceptanceStartupCacheTests_{Environment.ProcessId}_{Guid.NewGuid():N}";
+
         string acceptanceConnectionString =
             $"Data Source=.;Initial Catalog={databaseName};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
 

@@ -27,14 +27,14 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
     public async ValueTask<IActionResult> Delete([FromQuery] string userId, [FromQuery] Guid roleId)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState: ModelState);
+        { return BadRequest(modelState: ModelState); }
 
         var userRole = userRoleOrchestrationService
             .GetAllSSOUserRoles()
             .FirstOrDefault(predicate: ur => ur.UserId == userId && ur.RoleId == roleId);
 
         if (userRole is null)
-            return NotFound();
+        { return NotFound(); }
 
         await userRoleOrchestrationService.DeleteSSOUserRoleAsync(userRole: userRole);
 

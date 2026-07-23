@@ -37,6 +37,6 @@ public partial class SSOUserApiTests
         }
 
         foreach (SSOUser ssoUser in expectedSSOUsers)
-            await registerApiClient.TearDown(ssoUserId: ssoUser.Id);
+        { await registerApiClient.TearDown(ssoUserId: ssoUser.Id); }
     }
 }

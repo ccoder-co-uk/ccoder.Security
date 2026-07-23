@@ -28,13 +28,13 @@ internal class SSOAuthInfoOrchestrationService(
         string authHeaderValue = httpRequestBroker.Header(key: "Authorization");
 
         if (string.IsNullOrEmpty(value: authHeaderValue))
-            return null;
+        { return null; }
 
         if (authHeaderValue.StartsWith(value: "bearer", comparisonType: StringComparison.InvariantCultureIgnoreCase))
-            return GetBearerAuthentication(authHeaderValue: authHeaderValue);
+        { return GetBearerAuthentication(authHeaderValue: authHeaderValue); }
 
         if (authHeaderValue.StartsWith(value: "basic", comparisonType: StringComparison.InvariantCultureIgnoreCase))
-            return await GetBasicAuthenticationAsync(authHeaderValue: authHeaderValue);
+        { return await GetBasicAuthenticationAsync(authHeaderValue: authHeaderValue); }
 
         return null;
     }
@@ -44,7 +44,7 @@ internal class SSOAuthInfoOrchestrationService(
         Objects.Entities.SSOUser user = sessionService.GetUser();
 
         if (user == null)
-            return null;
+        { return null; }
 
         return new SSOAuthInfo { SSOUserId = user.Id };
     }
@@ -54,13 +54,13 @@ internal class SSOAuthInfoOrchestrationService(
         string tokenId = GetBearerToken(auth: authHeaderValue);
 
         if (tokenId == null)
-            return null;
+        { return null; }
 
         Objects.Entities.Token token = tokenService.GetAllTokens(ignoreFilters: true)
             .FirstOrDefault(predicate: t => t.Id == tokenId);
 
         if (token == null)
-            return null;
+        { return null; }
 
         return new SSOAuthInfo { SSOUserId = token.UserName };
     }
@@ -68,7 +68,7 @@ internal class SSOAuthInfoOrchestrationService(
     async ValueTask<ISSOAuthInfo> GetBasicAuthenticationAsync(string authHeaderValue)
     {
         if (authHeaderValue.ToLowerInvariant().StartsWith(value: "basic"))
-            return await AuthenticateBasicAuthAsync(auth: authHeaderValue);
+        { return await AuthenticateBasicAuthAsync(auth: authHeaderValue); }
 
         return null;
     }
@@ -88,6 +88,7 @@ internal class SSOAuthInfoOrchestrationService(
         string base64AuthString = auth[6..];
         byte[] authBytes = Convert.FromBase64String(s: base64AuthString);
         string authString = Encoding.UTF8.GetString(bytes: authBytes);
+
         return (
             (authString.Contains('&')
                 ? authString.Split("&")[0]
@@ -101,7 +102,7 @@ internal class SSOAuthInfoOrchestrationService(
     static string GetBearerToken(string auth)
     {
         if (!auth.ToLowerInvariant().StartsWith(value: "bearer"))
-            return null;
+        { return null; }
 
         return auth.Split(separator: " ").LastOrDefault();
     }

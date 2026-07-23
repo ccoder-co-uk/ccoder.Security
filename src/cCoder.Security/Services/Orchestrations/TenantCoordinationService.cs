@@ -17,11 +17,11 @@ internal class TenantCoordinationService(
     public IQueryable<Tenant> GetAllTenants() =>
         tenantOrchestrationService.GetAllTenants();
 
-    public async ValueTask<Tenant> AddTenantAsync(Tenant tenant) =>
-        await tenantOrchestrationService.AddTenantAsync(item: tenant);
+    public ValueTask<Tenant> AddTenantAsync(Tenant tenant) =>
+        tenantOrchestrationService.AddTenantAsync(item: tenant);
 
-    public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant) =>
-        await tenantOrchestrationService.UpdateTenantAsync(item: tenant);
+    public ValueTask<Tenant> UpdateTenantAsync(Tenant tenant) =>
+        tenantOrchestrationService.UpdateTenantAsync(item: tenant);
 
     public async ValueTask DeleteTenantAsync(Tenant tenant)
     {

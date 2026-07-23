@@ -25,8 +25,8 @@ internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
         return item;
     }
 
-    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
-        await userRoleBroker.DeleteSSOUserRoleAsync(userRole: item);
+    public ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
+        userRoleBroker.DeleteSSOUserRoleAsync(userRole: item);
 
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
         userRoleBroker.GetAllSSOUserRoles();

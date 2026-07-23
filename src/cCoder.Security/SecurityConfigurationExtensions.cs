@@ -14,7 +14,7 @@ public static class SecurityConfigurationExtensions
     public static void UseSHA512PasswordEncryption(
         this SecurityConfiguration config,
         IServiceCollection services) =>
-            services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerSHA512>();
+        services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerSHA512>();
 
     public static void UseAESHMMACPasswordEncryption(
         this SecurityConfiguration config,
@@ -28,5 +28,5 @@ public static class SecurityConfigurationExtensions
     public static void UsePasswordHasherHashing(
         this SecurityConfiguration config,
         IServiceCollection services) =>
-            services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerHasher>();
+        services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerHasher>();
 }

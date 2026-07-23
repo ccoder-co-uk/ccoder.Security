@@ -47,14 +47,14 @@ public class TenantController(ITenantCoordinationService tenantCoordinationServi
     public async ValueTask<IActionResult> Delete([FromRoute] string key)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState: ModelState);
+        { return BadRequest(modelState: ModelState); }
 
         var tenant = tenantCoordinationService
             .GetAllTenants()
             .First(predicate: t => t.Id == key);
 
         if (tenant is null)
-            return NotFound();
+        { return NotFound(); }
 
         await tenantCoordinationService.DeleteTenantAsync(item: tenant);
 

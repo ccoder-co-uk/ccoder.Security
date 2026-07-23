@@ -16,13 +16,13 @@ internal sealed class TokenCleaner(
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         if (securityConfiguration.IsMigrating)
-            return;
+        { return; }
 
         await tokenService.DeleteExpiredAsync(cancellationToken: stoppingToken);
 
         using PeriodicTimer timer = new(TimeSpan.FromMinutes(minutes: 1));
 
         while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(cancellationToken: stoppingToken))
-            await tokenService.DeleteExpiredAsync(cancellationToken: stoppingToken);
+        { await tokenService.DeleteExpiredAsync(cancellationToken: stoppingToken); }
     }
 }

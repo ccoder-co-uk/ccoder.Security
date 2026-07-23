@@ -11,6 +11,7 @@ public static partial class IServiceCollectionExtensions
     public static void AddAspNetCore(this IServiceCollection services)
     {
         _ = services.AddResponseCompression();
+
         _ = services.AddMvcCore(options =>
         {
             options.MaxIAsyncEnumerableBufferLimit = int.MaxValue;

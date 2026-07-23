@@ -25,6 +25,7 @@ public partial class TenantServiceTests
             .Returns(value: expectedTime);
 
         Tenant submitted = null;
+
         tenantBrokerMock.Setup(tenantBrokerMock =>
             tenantBrokerMock.UpdateTenantAsync(It.IsAny<Tenant>()))
             .Callback<Tenant>(candidate => submitted = candidate)

@@ -21,6 +21,7 @@ public partial class SSORoleServiceTests
 
         roleBrokerMock.Setup(broker => broker.GetAllSSORoles()).Returns(value: Array.Empty<SSORole>().AsQueryable());
         SSORole submitted = null;
+
         roleBrokerMock
             .Setup(broker => broker.AddSSORoleAsync(It.IsAny<SSORole>()))
             .Callback<SSORole>(candidate => submitted = candidate)

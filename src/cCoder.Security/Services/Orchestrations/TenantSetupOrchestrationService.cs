@@ -17,19 +17,22 @@ internal class TenantSetupOrchestrationService(
     public async ValueTask SetupAsync(SetupDetails setupDetails)
     {
         await tenantOrchestrationService.AddTenantAsync(item: setupDetails.Tenant);
+
         (SSOUser _, string confirmationToken) =
             await ssoUserOrchestrationService.Register(registerForm: MapRegisterUser(setupDetails));
+
         await ssoUserOrchestrationService.ConfirmRegistration(tokenId: confirmationToken);
     }
 
-    private static RegisterUser MapRegisterUser(SetupDetails setupDetails) => new()
-    {
-        DisplayName = setupDetails.User.DisplayName,
-        Email = setupDetails.User.Email,
-        Password = setupDetails.User.PasswordHash,
-        PhoneNumber = setupDetails.User.PhoneNumber,
-        Culture = string.Empty,
-        AppId = 0,
-        TenantId = setupDetails.Tenant.Id
-    };
+    private static RegisterUser MapRegisterUser(SetupDetails setupDetails) =>
+        new()
+        {
+            DisplayName = setupDetails.User.DisplayName,
+            Email = setupDetails.User.Email,
+            Password = setupDetails.User.PasswordHash,
+            PhoneNumber = setupDetails.User.PhoneNumber,
+            Culture = string.Empty,
+            AppId = 0,
+            TenantId = setupDetails.Tenant.Id
+        };
 }

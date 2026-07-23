@@ -3015,361 +3015,333 @@
   ],
   "AnalysisItems": [
     {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.DateTime.SecurityDateTimeOffsetBroker",
-      "LineNumber": 9
-    },
-    {
       "Code": "STXB002",
       "Description": "A broker must not contain branching logic.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Requests.HttpRequestBroker",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STXB002",
       "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Requests.HttpRequestBroker",
-      "LineNumber": 23
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Requests.HttpRequestBroker",
       "LineNumber": 24
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Serialization.SerializationBroker",
-      "LineNumber": 23
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Serialization.SerializationBroker",
-      "LineNumber": 26
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSOPrivilegeBroker",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 16
+      "LineNumber": 17
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 16
+      "LineNumber": 17
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 26
+      "LineNumber": 27
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 36
+      "LineNumber": 37
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 44
+      "LineNumber": 45
     },
     {
       "Code": "STXB002",
       "Description": "A broker must not contain branching logic.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 49
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 21
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 25
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
       "LineNumber": 50
     },
     {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
-      "LineNumber": 14
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
+      "LineNumber": 16
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
-      "LineNumber": 14
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
+      "LineNumber": 22
     },
     {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
+      "Code": "STXB002",
+      "Description": "A broker must not contain branching logic.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
-      "LineNumber": 24
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
-      "LineNumber": 32
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
+      "LineNumber": 26
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 13
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
+      "LineNumber": 31
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 13
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
+      "LineNumber": 31
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 23
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
-      "LineNumber": 33
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
       "LineNumber": 41
     },
     {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 27
-    },
-    {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
-      "LineNumber": 49
-    },
-    {
-      "Code": "STX0019",
-      "Description": "create model parameters must use the new prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 27
-    },
-    {
-      "Code": "STX0021",
-      "Description": "delete model parameters must use the deleted prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STXB007",
-      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
       "LineNumber": 51
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 16
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
+      "LineNumber": 15
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STX0020",
-      "Description": "update model parameters must use the updated prefix.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 29
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
+      "LineNumber": 15
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 42
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 59
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
+      "LineNumber": 25
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 67
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 72
+      "Type": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
+      "LineNumber": 33
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
-      "LineNumber": 15
+      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
+      "LineNumber": 14
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
-      "LineNumber": 15
+      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
+      "LineNumber": 14
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
+      "LineNumber": 24
+    },
+    {
+      "Code": "STX0021",
+      "Description": "delete model parameters must use the deleted prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
+      "LineNumber": 34
+    },
+    {
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.SessionBroker",
+      "LineNumber": 42
+    },
+    {
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STX0020",
+      "Description": "update model parameters must use the updated prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
       "LineNumber": 28
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
+      "LineNumber": 40
+    },
+    {
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
+      "LineNumber": 50
+    },
+    {
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STX0020",
+      "Description": "update model parameters must use the updated prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
+      "LineNumber": 28
+    },
+    {
+      "Code": "STX0021",
+      "Description": "delete model parameters must use the deleted prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
       "LineNumber": 41
     },
     {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "Type": "cCoder.Security.Brokers.Storage.TenantBroker",
       "LineNumber": 52
+    },
+    {
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "LineNumber": 17
+    },
+    {
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "LineNumber": 17
+    },
+    {
+      "Code": "STX0020",
+      "Description": "update model parameters must use the updated prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "LineNumber": 30
+    },
+    {
+      "Code": "STX0021",
+      "Description": "delete model parameters must use the deleted prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "LineNumber": 43
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "LineNumber": 60
+    },
+    {
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "LineNumber": 68
+    },
+    {
+      "Code": "STXB002",
+      "Description": "A broker must not contain branching logic.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "LineNumber": 73
+    },
+    {
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STX0020",
+      "Description": "update model parameters must use the updated prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "LineNumber": 29
+    },
+    {
+      "Code": "STX0021",
+      "Description": "delete model parameters must use the deleted prefix.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "LineNumber": 42
+    },
+    {
+      "Code": "STXB007",
+      "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "LineNumber": 53
     },
     {
       "Code": "STXAPI002",
@@ -3414,13 +3386,6 @@
       "LineNumber": 31
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 35
-    },
-    {
       "Code": "STXFORMAT010",
       "Description": "Production code must not contain non-documentation comments.",
       "Severity": "Warning",
@@ -3435,25 +3400,11 @@
       "LineNumber": 49
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 54
-    },
-    {
       "Code": "STXAPI004",
       "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
       "LineNumber": 16
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 20
     },
     {
       "Code": "STXAPI004",
@@ -3470,13 +3421,6 @@
       "LineNumber": 38
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 42
-    },
-    {
       "Code": "STXAPI004",
       "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
       "Severity": "Warning",
@@ -3489,13 +3433,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
       "LineNumber": 60
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 67
     },
     {
       "Code": "STXFORMAT005",
@@ -3540,20 +3477,6 @@
       "LineNumber": 40
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 46
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 53
-    },
-    {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
@@ -3575,13 +3498,6 @@
       "LineNumber": 38
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 49
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
@@ -3594,20 +3510,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
       "LineNumber": 23
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
-      "LineNumber": 37
     },
     {
       "Code": "STXAPI001",
@@ -3664,20 +3566,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
       "LineNumber": 43
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 50
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 57
     },
     {
       "Code": "STXFORMAT005",
@@ -3750,39 +3638,18 @@
       "LineNumber": 43
     },
     {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
-      "LineNumber": 12
-    },
-    {
       "Code": "STXE005",
       "Description": "An exposure must not sequence multiple routine calls.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
-      "LineNumber": 19
+      "LineNumber": 20
     },
     {
       "Code": "STXFORMAT010",
       "Description": "Production code must not contain non-documentation comments.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
-      "LineNumber": 32
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EventHandlers.SecurityEventHandlers",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.TokenManager",
-      "LineNumber": 13
+      "LineNumber": 33
     },
     {
       "Code": "STXSTRUCT001",
@@ -3811,13 +3678,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
       "LineNumber": 73
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 74
     },
     {
       "Code": "STXE005",
@@ -3876,60 +3736,11 @@
       "LineNumber": 167
     },
     {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 170
-    },
-    {
       "Code": "STXE005",
       "Description": "An exposure must not sequence multiple routine calls.",
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 177
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 190
-    },
-    {
-      "Code": "STXFORMAT009",
-      "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 190
-    },
-    {
-      "Code": "STXFORMAT009",
-      "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 190
-    },
-    {
-      "Code": "STXFORMAT009",
-      "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 190
-    },
-    {
-      "Code": "STXFORMAT009",
-      "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 190
-    },
-    {
-      "Code": "STXFORMAT009",
-      "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 190
+      "LineNumber": 178
     },
     {
       "Code": "STXFORMAT005",
@@ -3937,6 +3748,48 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
       "LineNumber": 191
+    },
+    {
+      "Code": "STXFORMAT009",
+      "Description": "Every method chained from an invocation result must begin on a new line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.IServiceCollectionExtensions",
+      "LineNumber": 191
+    },
+    {
+      "Code": "STXFORMAT009",
+      "Description": "Every method chained from an invocation result must begin on a new line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.IServiceCollectionExtensions",
+      "LineNumber": 191
+    },
+    {
+      "Code": "STXFORMAT009",
+      "Description": "Every method chained from an invocation result must begin on a new line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.IServiceCollectionExtensions",
+      "LineNumber": 191
+    },
+    {
+      "Code": "STXFORMAT009",
+      "Description": "Every method chained from an invocation result must begin on a new line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.IServiceCollectionExtensions",
+      "LineNumber": 191
+    },
+    {
+      "Code": "STXFORMAT009",
+      "Description": "Every method chained from an invocation result must begin on a new line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.IServiceCollectionExtensions",
+      "LineNumber": 191
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.IServiceCollectionExtensions",
+      "LineNumber": 192
     },
     {
       "Code": "STX0007",
@@ -4216,630 +4069,518 @@
       "Description": "A service containing only pass-through methods is redundant and should be retired.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 17
+      "LineNumber": 18
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 39
+      "LineNumber": 40
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 61
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSORoleService",
-      "LineNumber": 61
+      "LineNumber": 62
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 27
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSOUserRoleService",
-      "LineNumber": 27
+      "LineNumber": 28
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 43
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 43
+      "LineNumber": 44
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SSOUserService",
-      "LineNumber": 46
+      "LineNumber": 47
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 39
+      "LineNumber": 40
     },
     {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 46
+      "LineNumber": 47
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 49
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 49
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 51
+      "LineNumber": 50
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 16
+      "LineNumber": 14
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 36
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 36
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 37
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 40
+      "LineNumber": 38
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 42
+      "LineNumber": 46
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 17
+      "LineNumber": 14
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 43
+      "LineNumber": 41
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 45
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantService",
-      "LineNumber": 48
+      "LineNumber": 49
     },
     {
       "Code": "STX0008",
@@ -4926,32 +4667,11 @@
       "LineNumber": 18
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TokenService",
-      "LineNumber": 21
-    },
-    {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TokenService",
       "LineNumber": 47
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TokenService",
-      "LineNumber": 47
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TokenService",
-      "LineNumber": 50
     },
     {
       "Code": "STXFORMAT005",
@@ -4961,95 +4681,74 @@
       "LineNumber": 58
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TokenService",
-      "LineNumber": 59
-    },
-    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 17
+      "LineNumber": 15
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.UserEventService",
-      "LineNumber": 39
+      "LineNumber": 41
     },
     {
       "Code": "STX0007",
@@ -5122,165 +4821,67 @@
       "LineNumber": 13
     },
     {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 24
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 33
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 75
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 89
-    },
-    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 33
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 36
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 46
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 56
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 62
+      "LineNumber": 13
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 69
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
       "LineNumber": 70
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 90
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 91
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 92
     },
     {
       "Code": "STXFORMAT005",
@@ -5311,106 +4912,106 @@
       "LineNumber": 96
     },
     {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
+      "LineNumber": 97
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
+      "LineNumber": 98
+    },
+    {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 102
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 103
+      "LineNumber": 104
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 105
+      "LineNumber": 107
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 19
+      "LineNumber": 20
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 21
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
       "LineNumber": 22
@@ -5420,291 +5021,214 @@
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 27
+      "LineNumber": 28
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
-      "LineNumber": 34
+      "LineNumber": 35
     },
     {
       "Code": "STX0004",
       "Description": "A service must not depend on another service at the same layer.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STX0007",
       "Description": "A service public API must use one model contract or primitive types.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 27
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 36
+      "LineNumber": 28
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 44
+      "LineNumber": 45
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 46
+      "LineNumber": 47
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 62
+      "LineNumber": 63
     },
     {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 65
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 74
+      "LineNumber": 66
     },
     {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 81
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 156
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 159
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 162
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 165
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 210
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 218
+      "LineNumber": 82
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 220
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 221
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 230
+      "LineNumber": 222
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 23
+      "LineNumber": 24
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 25
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
       "LineNumber": 26
@@ -5714,378 +5238,308 @@
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 31
+      "LineNumber": 32
     },
     {
       "Code": "STX0004",
       "Description": "A service must not depend on another service at the same layer.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXO002",
       "Description": "An orchestration service name must contain the Orchestration identifier.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 19
+      "LineNumber": 20
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 22
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 22
+      "LineNumber": 23
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 25
+      "LineNumber": 26
     },
     {
       "Code": "STX0004",
       "Description": "A service must not depend on another service at the same layer.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "LineNumber": 13
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 27
+      "LineNumber": 28
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 29
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 32
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 44
+      "LineNumber": 30
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 45
+      "LineNumber": 47
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 53
+      "LineNumber": 55
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 69
+      "LineNumber": 71
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 76
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 94
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 97
+      "LineNumber": 78
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 20
+      "LineNumber": 21
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 31
+      "LineNumber": 32
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 31
+      "LineNumber": 32
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 43
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 46
+      "LineNumber": 32
     },
     {
       "Code": "STX0004",
@@ -6165,25 +5619,11 @@
       "LineNumber": 17
     },
     {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 20
-    },
-    {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 21
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 25
+      "LineNumber": 22
     },
     {
       "Code": "STX0008",
@@ -6249,263 +5689,158 @@
       "LineNumber": 15
     },
     {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 26
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 29
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 32
-    },
-    {
       "Code": "STXFORMAT003",
       "Description": "Control-flow blocks must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 37
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 38
-    },
-    {
-      "Code": "STXFORMAT003",
-      "Description": "Control-flow blocks must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
       "LineNumber": 40
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
+      "Code": "STXFORMAT003",
+      "Description": "Control-flow blocks must be separated from adjacent method statements by an empty line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 46
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 49
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 61
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 64
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 67
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 70
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 73
+      "LineNumber": 42
     },
     {
       "Code": "STX0003",
       "Description": "A service containing only pass-through methods is redundant and should be retired.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0003",
       "Description": "A service containing only pass-through methods is redundant and should be retired.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 16
+      "LineNumber": 17
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 19
+      "LineNumber": 20
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 22
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSORoleProcessingService",
-      "LineNumber": 22
+      "LineNumber": 23
     },
     {
       "Code": "STX0008",
@@ -6571,32 +5906,11 @@
       "LineNumber": 13
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 18
-    },
-    {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "LineNumber": 20
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 21
     },
     {
       "Code": "STXFORMAT005",
@@ -6606,13 +5920,6 @@
       "LineNumber": 23
     },
     {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 28
-    },
-    {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
@@ -6625,20 +5932,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "LineNumber": 31
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 36
     },
     {
       "Code": "STXFORMAT009",
@@ -6646,13 +5939,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "LineNumber": 36
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 37
     },
     {
       "Code": "STXFORMAT005",
@@ -6690,53 +5976,11 @@
       "LineNumber": 44
     },
     {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 44
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 45
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 48
-    },
-    {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "LineNumber": 51
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 54
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 54
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 61
     },
     {
       "Code": "STX0005",
@@ -6750,581 +5994,483 @@
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 69
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 73
+      "LineNumber": 71
     },
     {
       "Code": "STX0017",
       "Description": "Identifier parameters must be named for their type, for example studentId.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 78
+      "LineNumber": 81
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 86
+      "LineNumber": 89
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 88
+      "LineNumber": 91
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 93
+      "LineNumber": 96
     },
     {
       "Code": "STX0003",
       "Description": "A service containing only pass-through methods is redundant and should be retired.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 11
+      "LineNumber": 12
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 17
+      "LineNumber": 18
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 20
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
-      "LineNumber": 20
+      "LineNumber": 21
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 22
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 25
+      "LineNumber": 23
     },
     {
       "Code": "STX0003",
       "Description": "A service containing only pass-through methods is redundant and should be retired.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 9
+      "LineNumber": 10
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 16
+      "LineNumber": 17
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
-      "LineNumber": 22
+      "LineNumber": 23
     },
     {
       "Code": "STX0003",
       "Description": "A service containing only pass-through methods is redundant and should be retired.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 16
+      "LineNumber": 17
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TenantProcessingService",
-      "LineNumber": 22
+      "LineNumber": 23
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 10
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 22
+      "LineNumber": 11
     },
     {
       "Code": "STX0017",
       "Description": "Identifier parameters must be named for their type, for example studentId.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 28
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 34
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 37
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 42
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 45
-    },
-    {
-      "Code": "STXFORMAT012",
-      "Description": "Expression-bodied methods must return awaitable calls directly instead of adding redundant async and await keywords.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 48
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 59
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 72
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 85
+      "LineNumber": 29
     },
     {
       "Code": "STX0003",
       "Description": "A service containing only pass-through methods is redundant and should be retired.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0012",
       "Description": "Service validations must be evaluated through a rules engine.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 10
+      "LineNumber": 11
     },
     {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 13
+      "LineNumber": 14
     },
     {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.UserEventProcessingService",
-      "LineNumber": 16
+      "LineNumber": 17
     },
     {
       "Code": "STXSTRUCT001",
@@ -7346,13 +6492,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.WebApplicationExtensions",
       "LineNumber": 28
-    },
-    {
-      "Code": "STXFORMAT007",
-      "Description": "Control-flow statement bodies must always be enclosed in scope braces.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.WebApplicationExtensions",
-      "LineNumber": 29
     }
   ]
 }

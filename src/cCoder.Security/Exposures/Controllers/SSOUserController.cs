@@ -46,7 +46,7 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
             .FirstOrDefault(predicate: i => i.Id == key);
 
         if (origentity == null)
-            return NotFound();
+        { return NotFound(); }
 
         await ssoUserOrchestrationService.DeleteSSOUserAsync(item: origentity);
         return Ok();

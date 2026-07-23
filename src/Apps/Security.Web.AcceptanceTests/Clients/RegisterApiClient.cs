@@ -43,10 +43,10 @@ public class RegisterApiClient : IDisposable
         HttpResponseMessage request = await api.PostAsync(requestUri: endpoint + query, content: new StringContent(content.ToJson(), Encoding.UTF8, "application/json"));
 
         if ((int)request.StatusCode == 500)
-            throw new InternalServerErrorException(await request.Content.ReadAsStringAsync());
+        { throw new InternalServerErrorException(await request.Content.ReadAsStringAsync()); }
 
         if ((int)request.StatusCode == 400)
-            throw new BadRequestException(await request.Content.ReadAsStringAsync());
+        { throw new BadRequestException(await request.Content.ReadAsStringAsync()); }
 
         request.EnsureSuccessStatusCode();
     }
@@ -57,10 +57,10 @@ public class RegisterApiClient : IDisposable
         HttpResponseMessage request = await api.PostAsync(requestUri: endpoint + "Register" + query, content: content);
 
         if ((int)request.StatusCode == 500)
-            throw new InternalServerErrorException(await request.Content.ReadAsStringAsync());
+        { throw new InternalServerErrorException(await request.Content.ReadAsStringAsync()); }
 
         if ((int)request.StatusCode == 400)
-            throw new BadRequestException(await request.Content.ReadAsStringAsync());
+        { throw new BadRequestException(await request.Content.ReadAsStringAsync()); }
 
         request.EnsureSuccessStatusCode();
         return await request.Content.ReadAsAsync<RegistrationResult>();

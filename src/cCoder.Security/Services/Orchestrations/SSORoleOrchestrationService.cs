@@ -20,7 +20,7 @@ internal class SSORoleOrchestrationService(
     public async ValueTask<SSORole> AddSSORoleAsync(SSORole ssoRole)
     {
         if (roleProcessingService.GetAllSSORoles().Any())
-            authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_admin");
+        { authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_admin"); }
 
         return await roleProcessingService.AddSSORoleAsync(item: ssoRole);
     }

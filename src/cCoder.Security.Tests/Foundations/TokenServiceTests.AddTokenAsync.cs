@@ -16,6 +16,7 @@ public partial class TokenServiceTests
     {
         // given
         string userId = RandomString();
+
         Token expectedToken = new()
         {
             Id = Guid.NewGuid().ToString().Replace(oldValue: "-", newValue: "") + Guid.NewGuid().ToString().Replace(oldValue: "-", newValue: ""),

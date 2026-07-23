@@ -186,8 +186,8 @@ value: request);
         response.EnsureSuccessStatusCode();
     }
 
-    private async ValueTask<HttpResponseMessage> TryLoginAsync(Auth auth) =>
-        await api.PostAsJsonAsync(requestUri: "/Api/Account/Login", value: auth);
+    private ValueTask<HttpResponseMessage> TryLoginAsync(Auth auth) =>
+        new(api.PostAsJsonAsync(requestUri: "/Api/Account/Login", value: auth));
 
     private async ValueTask AssertLoginRejectedAsync(Auth auth)
     {

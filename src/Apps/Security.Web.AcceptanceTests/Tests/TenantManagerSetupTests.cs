@@ -21,6 +21,7 @@ public class TenantManagerSetupTests
     {
         string originalConnectionString =
             Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
+
         string acceptanceConnectionString = CreateIsolatedAcceptanceConnectionString();
 
         Environment.SetEnvironmentVariable(
@@ -75,6 +76,7 @@ value: acceptanceConnectionString);
             user.EmailConfirmed.Should().BeTrue();
             userRole.UserId.Should().Be(expected: "admin");
             userRole.RoleId.Should().Be(expected: role.Id);
+
             assertDb.Roles.IgnoreQueryFilters()
                 .Should().OnlyContain(predicate: foundRole => foundRole.TenantId == "default");
         }
@@ -82,6 +84,7 @@ value: acceptanceConnectionString);
         {
             global::Security.AcceptanceTests.SecurityWebApplicationFactoryExtensions
                 .DropDatabaseForTesting(connectionString: acceptanceConnectionString);
+
             Environment.SetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO", value: originalConnectionString);
         }
     }

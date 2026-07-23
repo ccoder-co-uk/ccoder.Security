@@ -26,7 +26,7 @@ public static class WebApplicationExtensions
         IServiceProvider services = serviceScope.ServiceProvider;
 
         foreach (ISecurityEventHandlers handlers in services.GetServices<ISecurityEventHandlers>())
-            handlers.ListenToAllEvents();
+        { handlers.ListenToAllEvents(); }
 
         return app;
     }

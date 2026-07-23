@@ -25,5 +25,5 @@ internal class SerializationBroker : ISerializationBroker
         JsonConvert.DeserializeObject<T>(value: input);
 
     public string Serialize(object input) =>
-    JsonConvert.SerializeObject(value: input, formatting: Formatting.None, settings: ODataJsonSettings);
+        JsonConvert.SerializeObject(value: input, formatting: Formatting.None, settings: ODataJsonSettings);
 }

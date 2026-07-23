@@ -34,7 +34,7 @@ internal class SSOUserOrchestrationService(
         (SSOUser user, bool created) = await RegisterOrReturnExistingUserAsync(registerForm: registerForm, mappedUser: mappedUser);
 
         if (!created)
-            return (Sanitize(user: user), null);
+        { return (Sanitize(user: user), null); }
 
         await TryAttachBootstrapTenantRoleAsync(registerForm: registerForm, user: user);
         Token confirmationToken = await tokenProcessingService.GenerateConfirmationToken(userId: user.Id);
@@ -72,7 +72,7 @@ internal class SSOUserOrchestrationService(
         (SSOUser user, bool created) = await InviteOrReturnExistingUserAsync(registerForm: registerForm, mappedUser: mappedUser);
 
         if (!created)
-            return (Sanitize(user: user), null);
+        { return (Sanitize(user: user), null); }
 
         Token inviteToken = await tokenProcessingService.GenerateInvitationToken(userId: user.Id);
         await accountEventService.RaiseInvitationCreatedEventAsync(user: user, registerForm: registerForm, token: inviteToken.Id);
@@ -154,23 +154,24 @@ internal class SSOUserOrchestrationService(
     private static void ValidateRegisterForm(RegisterUser registerForm, bool requirePassword = true)
     {
         if (!registerForm.Email.Contains(value: '@'))
-            throw new ValidationException("Invalid email provided");
+        { throw new ValidationException("Invalid email provided"); }
 
         if (string.IsNullOrEmpty(value: registerForm.DisplayName))
-            throw new ValidationException("Display name cannot be empty");
+        { throw new ValidationException("Display name cannot be empty"); }
 
         if (requirePassword && string.IsNullOrEmpty(value: registerForm.Password))
-            throw new ValidationException("Password cannot be empty");
+        { throw new ValidationException("Password cannot be empty"); }
     }
 
-    private static SSOUser MapToSSOUser(RegisterUser registerForm) => new()
-    {
-        Id = registerForm.Email.Split(separator: "@")[0],
-        DisplayName = registerForm.DisplayName,
-        PasswordHash = registerForm.Password,
-        Email = registerForm.Email,
-        PhoneNumber = registerForm.PhoneNumber
-    };
+    private static SSOUser MapToSSOUser(RegisterUser registerForm) =>
+        new()
+        {
+            Id = registerForm.Email.Split(separator: "@")[0],
+            DisplayName = registerForm.DisplayName,
+            PasswordHash = registerForm.Password,
+            Email = registerForm.Email,
+            PhoneNumber = registerForm.PhoneNumber
+        };
 
     private async ValueTask<(SSOUser User, bool Created)> RegisterOrReturnExistingUserAsync(
         RegisterUser registerForm,
@@ -208,7 +209,7 @@ internal class SSOUserOrchestrationService(
     private static SSOUser Sanitize(SSOUser user)
     {
         if (user is not null)
-            user.PasswordHash = null;
+        { user.PasswordHash = null; }
 
         return user;
     }
@@ -216,10 +217,10 @@ internal class SSOUserOrchestrationService(
     private async ValueTask TryAttachBootstrapTenantRoleAsync(RegisterUser registerForm, SSOUser user)
     {
         if (string.IsNullOrWhiteSpace(value: registerForm.TenantId))
-            return;
+        { return; }
 
         if (userRoleProcessingService.GetAllSSOUserRoles().Any())
-            return;
+        { return; }
 
         SSORole role = roleProcessingService
             .GetAllSSORoles(ignoreFilters: true)
@@ -228,8 +229,10 @@ internal class SSOUserOrchestrationService(
                 && foundRole.UsersArePortalAdmins);
 
         if (role is null)
+        {
             throw new ValidationException(
-                $"Bootstrap administrator role not found for tenant '{registerForm.TenantId}'.");
+            $"Bootstrap administrator role not found for tenant '{registerForm.TenantId}'.");
+        }
 
         await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: new SSOUserRole
         {

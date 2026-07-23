@@ -17,6 +17,7 @@ public partial class RegisterApiTests
     {
         // Given.
         RegisterUser inputRegisterUser1 = RandomRegisterUser();
+
         SSOUser expectedSSOUser1 = new()
         {
             AccessFailedCount = 0,
@@ -32,6 +33,7 @@ public partial class RegisterApiTests
 
         RegisterUser inputRegisterUser2 = RandomRegisterUser();
         inputRegisterUser2.Email = inputRegisterUser1.Email + ".uk";
+
         SSOUser expectedSSOUser2 = new()
         {
             AccessFailedCount = 0,
@@ -47,6 +49,7 @@ public partial class RegisterApiTests
 
         RegisterUser inputRegisterUser3 = RandomRegisterUser();
         inputRegisterUser3.Email = inputRegisterUser1.Email + ".com";
+
         SSOUser expectedSSOUser3 = new()
         {
             AccessFailedCount = 0,

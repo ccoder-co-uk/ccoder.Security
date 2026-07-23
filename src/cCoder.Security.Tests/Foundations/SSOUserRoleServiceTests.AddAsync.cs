@@ -21,6 +21,7 @@ public partial class SSOUserRoleServiceTests
 
         userRoleBrokerMock.Setup(broker => broker.GetAllSSOUserRoles()).Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
         SSOUserRole submitted = null;
+
         userRoleBrokerMock
             .Setup(broker => broker.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
             .Callback<SSOUserRole>(candidate => submitted = candidate)

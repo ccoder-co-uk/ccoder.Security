@@ -22,7 +22,7 @@ public partial class AccountLifecycleTests
         Auth invalidAuth = CreateAuth(user: user, password: "WrongPass01!");
 
         for (int attempt = 0; attempt < 11; attempt++)
-            await AssertLoginRejectedAsync(auth: invalidAuth);
+        { await AssertLoginRejectedAsync(auth: invalidAuth); }
 
         FindUser(userId: registeredUser.Id).LockoutEnabled.Should().BeTrue();
 

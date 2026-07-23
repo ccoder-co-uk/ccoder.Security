@@ -20,6 +20,7 @@ public partial class SSOUserServiceTests
         SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
         SSOUser submitted = null;
+
         userBrokerMock
             .Setup(broker => broker.AddSSOUserAsync(It.IsAny<SSOUser>()))
             .Callback<SSOUser>(candidate => submitted = candidate)

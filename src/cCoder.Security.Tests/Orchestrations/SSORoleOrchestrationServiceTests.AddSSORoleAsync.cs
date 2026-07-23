@@ -23,6 +23,7 @@ public partial class SSORoleOrchestrationServiceTests
         roleProcessingServiceMock
             .Setup(x => x.GetAllSSORoles())
             .Returns(value: Array.Empty<SSORole>().AsQueryable());
+
         roleProcessingServiceMock
             .Setup(x => x.AddSSORoleAsync(inputRole))
             .ReturnsAsync(value: inputRole);
@@ -30,6 +31,7 @@ public partial class SSORoleOrchestrationServiceTests
         SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
 
         actualRole.Should().BeSameAs(expected: inputRole);
+
         authorizationBrokerMock.Verify(
 expression: x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
 times: Times.Never);
@@ -47,8 +49,10 @@ times: Times.Never);
         roleProcessingServiceMock
             .Setup(x => x.GetAllSSORoles())
             .Returns(value: new[] { new SSORole { Name = "Administrators", TenantId = "tenant-1" } }.AsQueryable());
+
         authorizationBrokerMock
             .Setup(expression: x => x.UserIsPortalAdminWithPrivilege("tenant_admin"));
+
         roleProcessingServiceMock
             .Setup(x => x.AddSSORoleAsync(inputRole))
             .ReturnsAsync(value: inputRole);

@@ -39,7 +39,7 @@ public class AccountApiClient : IDisposable
         api = webApplicationFactory.CreateClient();
 
         if (authenticate)
-            api.Authenticate(user: "TestUser", pass: "TestPass01!").Wait();
+        { api.Authenticate(user: "TestUser", pass: "TestPass01!").Wait(); }
 
         using IServiceScope scope = webApplicationFactory.Services.CreateScope();
         IServiceProvider scopedServices = scope.ServiceProvider;
@@ -57,16 +57,18 @@ public class AccountApiClient : IDisposable
     public void AddBearerAuthentication(string bearer)
     {
         if (bearer == null)
-            api.DefaultRequestHeaders.Authorization = null;
+        { api.DefaultRequestHeaders.Authorization = null; }
         else
+        {
             api.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", bearer);
+            new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", bearer);
+        }
     }
 
     public void AddBasicAuthentication(Auth auth)
     {
         if (auth == null)
-            api.DefaultRequestHeaders.Authorization = null;
+        { api.DefaultRequestHeaders.Authorization = null; }
         else
         {
             string encoded =
@@ -82,10 +84,10 @@ public class AccountApiClient : IDisposable
         HttpResponseMessage request = await api.PostAsync(requestUri: endpoint + query, content: new StringContent(content.ToJson(), Encoding.UTF8, "application/json"));
 
         if ((int)request.StatusCode == 500)
-            throw new InternalServerErrorException(await request.Content.ReadAsStringAsync());
+        { throw new InternalServerErrorException(await request.Content.ReadAsStringAsync()); }
 
         if ((int)request.StatusCode == 400)
-            throw new BadRequestException(await request.Content.ReadAsStringAsync());
+        { throw new BadRequestException(await request.Content.ReadAsStringAsync()); }
 
         request.EnsureSuccessStatusCode();
     }
@@ -134,6 +136,6 @@ public class AccountApiClient : IDisposable
         webApplicationFactory?.Dispose();
 
         if (dropAcceptanceDatabaseOnDispose)
-            SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting();
+        { SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting(); }
     }
 }

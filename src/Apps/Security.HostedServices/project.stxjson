@@ -25,49 +25,35 @@
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 15
+      "LineNumber": 16
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 23
+      "LineNumber": 24
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 25
+      "LineNumber": 26
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 27
+      "LineNumber": 28
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 29
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 32
+      "LineNumber": 30
     },
     {
       "Code": "STXFORMAT005",
@@ -77,39 +63,39 @@
       "LineNumber": 33
     },
     {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 40
+      "LineNumber": 34
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 41
+      "LineNumber": 43
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 41
+      "LineNumber": 43
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 42
+      "LineNumber": 45
     },
     {
       "Code": "STXFORMAT005",
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 48
+      "LineNumber": 51
     }
   ]
 }

@@ -22,7 +22,7 @@ public partial class SSOUserProcessingServiceTests
             .AsQueryable();
 
         foreach (SSOUser user in ssoUsersInService)
-            user.LockoutEnabled = false;
+        { user.LockoutEnabled = false; }
 
         ssoUserServiceMock.Setup(ssoUserServiceMock =>
             ssoUserServiceMock.GetAllSSOUsers(true))

@@ -23,7 +23,7 @@ internal class SessionProcessingService(ISessionService sessionService)
     public void SetUser(SSOUser user)
     {
         if (sessionService.GetString(key: "ssoUser") != null)
-            sessionService.RemoveKey(key: "ssoUser");
+        { sessionService.RemoveKey(key: "ssoUser"); }
 
         sessionService.SetUser(user: user);
     }

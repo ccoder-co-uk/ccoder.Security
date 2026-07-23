@@ -30,18 +30,19 @@ internal class TenantOrchestrationService(
         bool isFirstTenant = !tenantProcessingService.GetAllTenants().Any();
 
         if (!isFirstTenant)
-            authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_create");
+        { authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_create"); }
 
         var existing = tenantProcessingService
             .GetAllTenants()
             .FirstOrDefault(predicate: t => t.Id == tenant.Id);
 
         if (existing != null)
-            throw new ValidationException($"Tenant '{tenant.Id}' already exists.");
+        { throw new ValidationException($"Tenant '{tenant.Id}' already exists."); }
 
         var dbTenant = await tenantProcessingService.AddTenantAsync(item: tenant);
 
         string bootstrapUserId = ResolveBootstrapUserId(tenant: tenant, isFirstTenant: isFirstTenant);
+
         string[] rolePrivileges = isFirstTenant
             ? [.. authBroker.GetAllPrivileges().Select(selector: privilege => privilege.Id)]
             : ["tenant_read", "tenant_admin"];
@@ -92,10 +93,10 @@ internal class TenantOrchestrationService(
         }
 
         if (!string.IsNullOrWhiteSpace(value: tenant?.CreatedBy))
-            return tenant.CreatedBy;
+        { return tenant.CreatedBy; }
 
         if (isFirstTenant)
-            throw new ValidationException("CreatedBy is required when bootstrapping the first tenant.");
+        { throw new ValidationException("CreatedBy is required when bootstrapping the first tenant."); }
 
         return null;
     }

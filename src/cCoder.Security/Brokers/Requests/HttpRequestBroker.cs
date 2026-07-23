@@ -22,7 +22,7 @@ internal class HttpRequestBroker(HttpRequest request)
         string forwardedHost = Header(key: "X-Forwarded-Host");
 
         if (!string.IsNullOrWhiteSpace(value: forwardedHost))
-            return forwardedHost;
+        { return forwardedHost; }
 
         return request?.Host.Host;
     }

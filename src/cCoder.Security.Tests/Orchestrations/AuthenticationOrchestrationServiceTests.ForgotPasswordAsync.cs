@@ -29,9 +29,11 @@ public partial class AuthenticationOrchestrationServiceTests
         ssoUserProcessingServiceMock
             .Setup(service => service.GetAllSSOUsers(true))
             .Returns(value: new[] { user }.AsQueryable());
+
         tokenProcessingServiceMock
             .Setup(service => service.GenerateForgottenPasswordToken(user.Id))
             .ReturnsAsync(value: token);
+
         accountEventServiceMock
             .Setup(service => service.RaisePasswordResetRequestedEventAsync(user, token.Id))
             .Returns(value: ValueTask.CompletedTask);
@@ -40,6 +42,7 @@ public partial class AuthenticationOrchestrationServiceTests
             await authenticationOrchestrationService.ForgotPasswordAsync(email: user.Email);
 
         actualToken.Should().BeSameAs(expected: token);
+
         accountEventServiceMock.Verify(
 expression: service => service.RaisePasswordResetRequestedEventAsync(user, token.Id),
 times: Times.Once);

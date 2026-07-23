@@ -34,6 +34,7 @@ public partial class SSOUserOrchestrationServiceTests
         ssoUserProcessingServiceMock
             .Setup(service => service.InviteSSOUserAsync(It.IsAny<SSOUser>()))
             .ThrowsAsync(exception: new ValidationException("Email exists"));
+
         ssoUserProcessingServiceMock
             .Setup(service => service.GetAllSSOUsers(true))
             .Returns(value: new[] { existingUser }.AsQueryable());
@@ -44,9 +45,11 @@ public partial class SSOUserOrchestrationServiceTests
         actualUser.Should().BeSameAs(expected: existingUser);
         actualUser.PasswordHash.Should().BeNull();
         token.Should().BeNull();
+
         tokenProcessingServiceMock.Verify(
 expression: service => service.GenerateInvitationToken(It.IsAny<string>()),
 times: Times.Never);
+
         accountEventServiceMock.Verify(
 expression: service => service.RaiseInvitationCreatedEventAsync(
                 It.IsAny<SSOUser>(),

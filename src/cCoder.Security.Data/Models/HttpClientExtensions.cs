@@ -35,17 +35,19 @@ public static class HttpClientExtensions
     }
 
     public static async Task<T> ReadAsAsync<T>(HttpContent content)
-        => JsonConvert.DeserializeObject<T>(value: await content.ReadAsStringAsync());
+        =>
+        JsonConvert.DeserializeObject<T>(value: await content.ReadAsStringAsync());
 
-    static string Json(object source) => JsonConvert.SerializeObject(value: source, settings: new JsonSerializerSettings
-    {
-        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-        TypeNameHandling = TypeNameHandling.None,
-        Formatting = Formatting.None,
-        DateFormatHandling = DateFormatHandling.IsoDateFormat,
-        NullValueHandling = NullValueHandling.Ignore,
-        DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-        ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = true },
-        MaxDepth = 4
-    });
+    static string Json(object source) =>
+        JsonConvert.SerializeObject(value: source, settings: new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            TypeNameHandling = TypeNameHandling.None,
+            Formatting = Formatting.None,
+            DateFormatHandling = DateFormatHandling.IsoDateFormat,
+            NullValueHandling = NullValueHandling.Ignore,
+            DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+            ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = true },
+            MaxDepth = 4
+        });
 }

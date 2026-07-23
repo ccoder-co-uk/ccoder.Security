@@ -15,11 +15,12 @@ public partial class AccountApiTests(
     AccountApiClient userApiClient,
     RegisterApiClient registerApiClient)
 {
-    private static Auth RandomAuth(RegisterUser user) => new()
-    {
-        User = user.Email,
-        Pass = user.Password
-    };
+    private static Auth RandomAuth(RegisterUser user) =>
+        new()
+        {
+            User = user.Email,
+            Pass = user.Password
+        };
 
     private static RegisterUser RandomRegisterUser() =>
         GetRegisterUserFiller().Generate();
@@ -36,6 +37,6 @@ public partial class AccountApiTests(
         return filler;
     }
 
-    private async Task TearDownUserAsync(string userId) =>
-        await userApiClient.TearDown(ssoUserId: userId);
+    private Task TearDownUserAsync(string userId) =>
+        userApiClient.TearDown(ssoUserId: userId);
 }

@@ -22,6 +22,7 @@ public partial class SSOUserRoleOrchestrationServiceTests
         userRoleProcessingServiceMock
             .Setup(x => x.GetAllSSOUserRoles())
             .Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
+
         userRoleProcessingServiceMock
             .Setup(x => x.AddSSOUserRoleAsync(inputUserRole))
             .ReturnsAsync(value: inputUserRole);
@@ -29,6 +30,7 @@ public partial class SSOUserRoleOrchestrationServiceTests
         SSOUserRole actualUserRole = await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
 
         actualUserRole.Should().BeSameAs(expected: inputUserRole);
+
         authorizationBrokerMock.Verify(
 expression: x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
 times: Times.Never);
@@ -45,8 +47,10 @@ times: Times.Never);
         userRoleProcessingServiceMock
             .Setup(x => x.GetAllSSOUserRoles())
             .Returns(value: new[] { new SSOUserRole { UserId = "setup-admin" } }.AsQueryable());
+
         authorizationBrokerMock
             .Setup(expression: x => x.UserIsPortalAdminWithPrivilege("userrole_create"));
+
         userRoleProcessingServiceMock
             .Setup(x => x.AddSSOUserRoleAsync(inputUserRole))
             .ReturnsAsync(value: inputUserRole);

@@ -15,6 +15,7 @@ internal class TenantService(ITenantBroker broker)
     {
         tenant.LastUpdated = DateTimeOffset.UtcNow;
         tenant.CreatedOn = tenant.LastUpdated;
+
         Tenant storageTenant = new()
         {
             Id = tenant.Id,
@@ -37,15 +38,18 @@ internal class TenantService(ITenantBroker broker)
         return tenant;
     }
 
-    public async ValueTask DeleteTenantAsync(Tenant tenant)
-        => await broker.DeleteTenantAsync(tenant: tenant);
+    public ValueTask DeleteTenantAsync(Tenant tenant)
+        =>
+        broker.DeleteTenantAsync(tenant: tenant);
 
     public IQueryable<Tenant> GetAllTenants()
-        => broker.GetAllTenants();
+        =>
+        broker.GetAllTenants();
 
     public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant)
     {
         tenant.LastUpdated = DateTimeOffset.UtcNow;
+
         Tenant storageTenant = new()
         {
             Id = tenant.Id,

@@ -16,7 +16,8 @@ public partial class RegisterApiTests(
     AccountApiClient accountApiClient)
 {
     private static RegisterUser RandomRegisterUser()
-        => GetRegisterUserFiller().Generate();
+        =>
+        GetRegisterUserFiller().Generate();
 
     private static Faker<RegisterUser> GetRegisterUserFiller()
     {
@@ -30,6 +31,6 @@ public partial class RegisterApiTests(
         return filler;
     }
 
-    private async Task TearDownUserAsync(string userId) =>
-        await userApiClient.TearDown(ssoUserId: userId);
+    private Task TearDownUserAsync(string userId) =>
+        userApiClient.TearDown(ssoUserId: userId);
 }

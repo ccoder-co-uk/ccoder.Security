@@ -15,9 +15,9 @@ internal class SessionService(ISession session, ISerializationBroker serilizatio
     public void SetString(string key, string value)
     {
         if (value is null)
-            RemoveKey(key: key);
+        { RemoveKey(key: key); }
         else
-            session.SetString(key: key, value: value);
+        { session.SetString(key: key, value: value); }
     }
 
     public void Clear() =>
@@ -47,9 +47,9 @@ internal class SessionService(ISession session, ISerializationBroker serilizatio
     public void SetUser(SSOUser user)
     {
         if (user != null)
-            session?.SetString(key: "ssoUser", value: System.Text.Json.JsonSerializer.Serialize(user));
+        { session?.SetString(key: "ssoUser", value: System.Text.Json.JsonSerializer.Serialize(user)); }
         else
-            session?.Remove(key: "ssoUser");
+        { session?.Remove(key: "ssoUser"); }
     }
 
     public void RemoveKey(string key) =>

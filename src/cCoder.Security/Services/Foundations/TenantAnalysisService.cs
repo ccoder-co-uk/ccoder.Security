@@ -14,6 +14,7 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
     public async ValueTask<TenantAnalysis> AddTenantAnalaysisAsync(TenantAnalysis tenant)
     {
         tenant.CreatedOn = DateTimeOffset.UtcNow;
+
         TenantAnalysis storageTenantAnalysis = new()
         {
             Id = tenant.Id,
@@ -34,11 +35,13 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
         return tenant;
     }
 
-    public async ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenant)
-        => await broker.DeleteTenantAnalysisAsync(tenantAnalysis: tenant);
+    public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenant)
+        =>
+        broker.DeleteTenantAnalysisAsync(tenantAnalysis: tenant);
 
     public IQueryable<TenantAnalysis> GetAllTenantAnalysis()
-        => broker.GetAllTenantAnalysis();
+        =>
+        broker.GetAllTenantAnalysis();
 
     public async ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenant)
     {

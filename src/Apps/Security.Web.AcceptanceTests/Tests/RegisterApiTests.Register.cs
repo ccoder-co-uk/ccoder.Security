@@ -17,6 +17,7 @@ public partial class RegisterApiTests
     {
         //given
         RegisterUser inputRegisterUser = RandomRegisterUser();
+
         SSOUser expectedSSOUser = new()
         {
             AccessFailedCount = 0,

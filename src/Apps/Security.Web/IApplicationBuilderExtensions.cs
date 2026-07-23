@@ -53,9 +53,11 @@ public static class IApplicationBuilderExtensions
         app.UseEndpoints(configure: endpoints =>
         {
             endpoints.MapControllers();
+
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Get}/{id?}");
+
             endpoints.MapControllerRoute(
                 name: "api",
                 pattern: "api/{controller}/{action}");
@@ -65,7 +67,8 @@ public static class IApplicationBuilderExtensions
     }
 
     private static IApplicationBuilder HandleExceptions(this IApplicationBuilder app)
-        => app.UseExceptionHandler(configure: errorApp => errorApp.Run(async (context) =>
+        =>
+        app.UseExceptionHandler(configure: errorApp => errorApp.Run(async (context) =>
         {
             Exception ex = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
             context.Response.StatusCode = ex?.GetType() == typeof(SecurityException) ? 401 : 500;
@@ -77,7 +80,7 @@ public static class IApplicationBuilderExtensions
                 Exception innerEx = ex.InnerException;
 
                 while (innerEx != null)
-                    innerEx = innerEx.InnerException;
+                { innerEx = innerEx.InnerException; }
             }
         }));
 }

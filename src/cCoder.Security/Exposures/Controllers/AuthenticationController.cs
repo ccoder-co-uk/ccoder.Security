@@ -32,7 +32,7 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
     public async ValueTask<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState: ModelState);
+        { return BadRequest(modelState: ModelState); }
 
         try
         {
@@ -51,7 +51,7 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
         [FromBody] ConfirmForgotPasswordRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState: ModelState);
+        { return BadRequest(modelState: ModelState); }
 
         await authenticationOrchestrationService.ConfirmForgotPasswordAsync(
 tokenId: request.Token,

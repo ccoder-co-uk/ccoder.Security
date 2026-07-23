@@ -23,6 +23,7 @@ public partial class UserEventServiceTests
         expectedUserEvent.CreatedOn = expectedTime;
 
         UserEvent submitted = null;
+
         userEventBrokerMock.Setup(userEventBrokerMock =>
             userEventBrokerMock.AddUserEventAsync(It.IsAny<UserEvent>()))
             .Callback<UserEvent>(candidate => submitted = candidate)

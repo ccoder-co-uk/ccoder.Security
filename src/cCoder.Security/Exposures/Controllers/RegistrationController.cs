@@ -17,7 +17,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
     public async ValueTask<IActionResult> Register([FromBody] RegisterUser registerForm)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState: ModelState);
+        { return BadRequest(modelState: ModelState); }
 
         (SSOUser user, string confirmationToken) = await ssoUserOrchestrationService.Register(registerForm: registerForm);
 
@@ -39,7 +39,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
     public async ValueTask<IActionResult> Invite([FromBody] RegisterUser inviteForm)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState: ModelState);
+        { return BadRequest(modelState: ModelState); }
 
         (SSOUser user, string invitationToken) = await ssoUserOrchestrationService.InviteUserAsync(registerForm: inviteForm);
 
@@ -64,7 +64,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
         [FromBody] RegisterUser inviteForm)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState: ModelState);
+        { return BadRequest(modelState: ModelState); }
 
         await ssoUserOrchestrationService.AcceptInviteAsync(registerForm: inviteForm, userId: userId, tokenId: inviteToken);
 

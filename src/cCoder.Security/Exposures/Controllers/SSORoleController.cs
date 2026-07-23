@@ -43,14 +43,14 @@ public class SSORoleController(ISSORoleOrchestrationService roleOrchestrationSer
     public async ValueTask<IActionResult> Delete([FromRoute] Guid key)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState: ModelState);
+        { return BadRequest(modelState: ModelState); }
 
         var role = roleOrchestrationService
             .GetAllSSORoles()
             .FirstOrDefault(predicate: r => r.Id == key);
 
         if (role is null)
-            return NotFound();
+        { return NotFound(); }
 
         await roleOrchestrationService.DeleteSSORoleAsync(item: role);
 

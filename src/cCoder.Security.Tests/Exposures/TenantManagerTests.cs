@@ -36,19 +36,20 @@ public class TenantManagerTests
         tenantSetupEventProcessingServiceMock.Verify(expression: service => service.SetupAsync(setupDetails), times: Times.Once);
     }
 
-    private static SetupDetails CreateSetupDetails() => new()
-    {
-        Tenant = new Tenant
+    private static SetupDetails CreateSetupDetails() =>
+        new()
         {
-            Id = "default",
-            Name = "Default"
-        },
-        User = new SSOUser
-        {
-            Id = "admin",
-            DisplayName = "Admin User",
-            Email = "admin@example.com",
-            PasswordHash = "TestPass01!"
-        }
-    };
+            Tenant = new Tenant
+            {
+                Id = "default",
+                Name = "Default"
+            },
+            User = new SSOUser
+            {
+                Id = "admin",
+                DisplayName = "Admin User",
+                Email = "admin@example.com",
+                PasswordHash = "TestPass01!"
+            }
+        };
 }

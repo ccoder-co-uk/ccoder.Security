@@ -23,7 +23,7 @@ public partial class AccountLifecycleTests
 
         // when
         for (int attempt = 0; attempt < 11; attempt++)
-            await AssertLoginRejectedAsync(auth: invalidAuth);
+        { await AssertLoginRejectedAsync(auth: invalidAuth); }
 
         // then
         FindUser(userId: registeredUser.Id).LockoutEnabled.Should().BeTrue();

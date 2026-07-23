@@ -65,12 +65,14 @@ public partial class SecurityDbContext(
         {
             string userNameRequested = authInfo?.SSOUserId ?? "Guest";
             if (userNameRequested != "Guest")
+            {
                 currentUser = Users
-                    .IgnoreQueryFilters()
-                    .AsNoTracking()
-                    .Include(u => u.Roles)
-                        .ThenInclude(ur => ur.Role)
-                    .FirstOrDefault(predicate: u => u.Id == userNameRequested);
+                .IgnoreQueryFilters()
+                .AsNoTracking()
+                .Include(u => u.Roles)
+                    .ThenInclude(ur => ur.Role)
+                .FirstOrDefault(predicate: u => u.Id == userNameRequested);
+            }
 
             currentUser ??= new SSOUser() { Id = "Guest", Roles = Array.Empty<SSOUserRole>() };
         }
@@ -92,7 +94,7 @@ public partial class SecurityDbContext(
     public void UserIsPortalAdminWithPrivilege(string privilege)
     {
         if (!Tenants.IgnoreQueryFilters().Any())
-            return;
+        { return; }
 
         var userRoles = GetCurrentUserRoles();
 
@@ -102,7 +104,7 @@ public partial class SecurityDbContext(
                 !Roles.IgnoreQueryFilters().Any();
 
         if (!passed)
-            throw new SecurityException($"Privilege '{privilege}' is not granted as current user is not portal admin: '{GetCurrentUser().Id}'");
+        { throw new SecurityException($"Privilege '{privilege}' is not granted as current user is not portal admin: '{GetCurrentUser().Id}'"); }
     }
     public void UserHasPrivilege(string privilege, string tenantId)
     {
@@ -113,7 +115,7 @@ public partial class SecurityDbContext(
         bool passed = Roles.Any(predicate: r => userRoles.Contains(r.Id) && (r.Privs.Contains(privilege) || r.Privs.Contains("security_admin")));
 
         if (!passed)
-            throw new SecurityException($"Privilege '{privilege}' is not granted for user: {GetCurrentUser().Id}");
+        { throw new SecurityException($"Privilege '{privilege}' is not granted for user: {GetCurrentUser().Id}"); }
     }
 
     public IQueryable<UserActivity> GetUserActivity() =>

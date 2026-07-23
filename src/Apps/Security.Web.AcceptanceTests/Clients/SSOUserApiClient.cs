@@ -35,8 +35,8 @@ public class SSOUserApiClient : IDisposable
             .CreateDbContext();
     }
 
-    public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") =>
-        await api.GetODataCollection<SSOUser>(query: Endpoint + query);
+    public ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") =>
+        new(api.GetODataCollection<SSOUser>(query: Endpoint + query));
 
     public void Dispose()
     {
