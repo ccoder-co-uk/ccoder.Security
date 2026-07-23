@@ -8,60 +8,80 @@ using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
 
-internal class TenantAnalysisService(ITenantAnalysisBroker broker)
+internal sealed partial class TenantAnalysisService(ITenantAnalysisBroker broker)
     : ITenantAnalysisService
 {
-    public async ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis newTenantAnalysis)
-    {
-        newTenantAnalysis.CreatedOn = DateTimeOffset.UtcNow;
-
-        TenantAnalysis storageTenantAnalysis = new()
+    public ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis newTenantAnalysis) =>
+        TryCatch<TenantAnalysis>(operation: async () =>
         {
-            Id = newTenantAnalysis.Id,
-            TenantId = newTenantAnalysis.TenantId,
-            Key = newTenantAnalysis.Key,
-            Name = newTenantAnalysis.Name,
-            Value = newTenantAnalysis.Value,
-            CreatedOn = newTenantAnalysis.CreatedOn
-        };
+            ValidateTenantAnalysisOnAdd(newTenantAnalysis: newTenantAnalysis);
+            newTenantAnalysis.CreatedOn = DateTimeOffset.UtcNow;
 
-        TenantAnalysis result = await broker.InsertTenantAnalysisAsync(tenantAnalysis: storageTenantAnalysis);
-        newTenantAnalysis.Id = result.Id;
-        newTenantAnalysis.TenantId = result.TenantId;
-        newTenantAnalysis.Key = result.Key;
-        newTenantAnalysis.Name = result.Name;
-        newTenantAnalysis.Value = result.Value;
-        newTenantAnalysis.CreatedOn = result.CreatedOn;
-        return newTenantAnalysis;
-    }
+            TenantAnalysis storageTenantAnalysis = new()
+            {
+                Id = newTenantAnalysis.Id,
+                TenantId = newTenantAnalysis.TenantId,
+                Key = newTenantAnalysis.Key,
+                Name = newTenantAnalysis.Name,
+                Value = newTenantAnalysis.Value,
+                CreatedOn = newTenantAnalysis.CreatedOn
+            };
 
-    public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis)
-        =>
-        broker.DeleteTenantAnalysisAsync(tenantAnalysis: deletedTenantAnalysis);
+            TenantAnalysis result = await broker.InsertTenantAnalysisAsync(
+                tenantAnalysis: storageTenantAnalysis);
 
-    public IQueryable<TenantAnalysis> GetAllTenantAnalysis()
-        =>
-        broker.SelectAllTenantAnalysis();
+            CopyTenantAnalysis(
+                sourceTenantAnalysis: result,
+                targetTenantAnalysis: newTenantAnalysis);
 
-    public async ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis)
-    {
-        TenantAnalysis storageTenantAnalysis = new()
+            return newTenantAnalysis;
+        });
+
+    public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis) =>
+        TryCatch(operation: async () =>
         {
-            Id = updatedTenantAnalysis.Id,
-            TenantId = updatedTenantAnalysis.TenantId,
-            Key = updatedTenantAnalysis.Key,
-            Name = updatedTenantAnalysis.Name,
-            Value = updatedTenantAnalysis.Value,
-            CreatedOn = updatedTenantAnalysis.CreatedOn
-        };
+            ValidateTenantAnalysisOnDelete(deletedTenantAnalysis: deletedTenantAnalysis);
 
-        TenantAnalysis result = await broker.UpdateTenantAnalysisAsync(tenantAnalysis: storageTenantAnalysis);
-        updatedTenantAnalysis.Id = result.Id;
-        updatedTenantAnalysis.TenantId = result.TenantId;
-        updatedTenantAnalysis.Key = result.Key;
-        updatedTenantAnalysis.Name = result.Name;
-        updatedTenantAnalysis.Value = result.Value;
-        updatedTenantAnalysis.CreatedOn = result.CreatedOn;
-        return updatedTenantAnalysis;
+            await broker.DeleteTenantAnalysisAsync(tenantAnalysis: deletedTenantAnalysis);
+        });
+
+    public IQueryable<TenantAnalysis> GetAllTenantAnalysis() =>
+        TryCatch(operation: () => broker.SelectAllTenantAnalysis());
+
+    public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis) =>
+        TryCatch<TenantAnalysis>(operation: async () =>
+        {
+            ValidateTenantAnalysisOnUpdate(updatedTenantAnalysis: updatedTenantAnalysis);
+
+            TenantAnalysis storageTenantAnalysis = new()
+            {
+                Id = updatedTenantAnalysis.Id,
+                TenantId = updatedTenantAnalysis.TenantId,
+                Key = updatedTenantAnalysis.Key,
+                Name = updatedTenantAnalysis.Name,
+                Value = updatedTenantAnalysis.Value,
+                CreatedOn = updatedTenantAnalysis.CreatedOn
+            };
+
+            TenantAnalysis result = await broker.UpdateTenantAnalysisAsync(
+                tenantAnalysis: storageTenantAnalysis);
+
+            CopyTenantAnalysis(
+                sourceTenantAnalysis: result,
+                targetTenantAnalysis: updatedTenantAnalysis);
+
+            return updatedTenantAnalysis;
+        });
+
+    private static void CopyTenantAnalysis(
+        TenantAnalysis sourceTenantAnalysis,
+        TenantAnalysis targetTenantAnalysis)
+    {
+        targetTenantAnalysis.Id = sourceTenantAnalysis.Id;
+        targetTenantAnalysis.TenantId = sourceTenantAnalysis.TenantId;
+        targetTenantAnalysis.Key = sourceTenantAnalysis.Key;
+        targetTenantAnalysis.Name = sourceTenantAnalysis.Name;
+        targetTenantAnalysis.Value = sourceTenantAnalysis.Value;
+        targetTenantAnalysis.CreatedOn = sourceTenantAnalysis.CreatedOn;
     }
 }
