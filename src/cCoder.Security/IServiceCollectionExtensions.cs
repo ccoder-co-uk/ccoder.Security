@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Exposures.EDM;
+using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Requests;
@@ -84,6 +85,7 @@ public static class IServiceCollectionExtensions
 
     private static void AddBrokers(this IServiceCollection services)
     {
+        services.AddTransient<ISecurityConfigurationBroker, SecurityConfigurationBroker>();
         services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
         services.AddTransient<ISessionBroker, SessionBroker>();
         services.AddTransient<ISSOPrivilegeBroker, SSOPrivilegeBroker>();

@@ -27,6 +27,12 @@ public partial class TokenServiceTests
 
         tokenBrokerMock.Setup(expression: broker => broker.InsertTokenAsync(It.IsAny<Token>())).ReturnsAsync(value: expectedToken);
 
+        configurationBrokerMock
+            .Setup(expression: broker => broker.GetValue(
+                section: "Settings",
+                key: "TokenTimeout"))
+            .Returns(value: null);
+
         // when
         Token actualToken = await tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.WorkflowExecution);
         expectedToken.Expires = actualToken.Expires;
@@ -34,6 +40,13 @@ public partial class TokenServiceTests
         // then
         actualToken.Should().BeEquivalentTo(expectation: expectedToken);
         tokenBrokerMock.Verify(expression: broker => broker.InsertTokenAsync(token: It.IsAny<Token>()), times: Times.Once);
+        configurationBrokerMock.Verify(
+            expression: broker => broker.GetValue(
+                section: "Settings",
+                key: "TokenTimeout"),
+            times: Times.Once);
+
         tokenBrokerMock.VerifyNoOtherCalls();
+        configurationBrokerMock.VerifyNoOtherCalls();
     }
 }

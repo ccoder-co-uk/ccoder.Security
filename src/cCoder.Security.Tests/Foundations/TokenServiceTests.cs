@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations;
@@ -14,12 +15,17 @@ namespace cCoder.Security.Tests.Foundations;
 public partial class TokenServiceTests
 {
     private readonly Mock<ITokenBroker> tokenBrokerMock;
+    private readonly Mock<ISecurityConfigurationBroker> configurationBrokerMock;
     private readonly ITokenService tokenService;
 
     public TokenServiceTests()
     {
         tokenBrokerMock = new Mock<ITokenBroker>();
-        tokenService = new TokenService(tokenBrokerMock.Object, null);
+        configurationBrokerMock = new Mock<ISecurityConfigurationBroker>();
+
+        tokenService = new TokenService(
+            tokenBroker: tokenBrokerMock.Object,
+            configurationBroker: configurationBrokerMock.Object);
     }
 
     private static string RandomString() =>
