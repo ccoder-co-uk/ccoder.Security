@@ -15,6 +15,7 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
     public async ValueTask<Token> AddTokenAsync(string userId, TokenUse tokenUse, int? timeout = null)
     {
         int tokenTimeout = GetTokenTimeout();
+
         string value = Guid
             .NewGuid()
             .ToString()

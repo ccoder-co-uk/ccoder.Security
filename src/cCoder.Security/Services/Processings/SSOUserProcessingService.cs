@@ -33,7 +33,11 @@ internal partial class SSOUserProcessingService(
         user.Id = GetNextAvailableUserId(user: user);
 
         if (string.IsNullOrWhiteSpace(value: user.PasswordHash))
-        { user.PasswordHash = Guid.NewGuid().ToString(format: "N") + "Aa1!"; }
+        {
+            user.PasswordHash = Guid
+                .NewGuid()
+                .ToString(format: "N") + "Aa1!";
+        }
 
         user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
         user.LockoutEnabled = true;

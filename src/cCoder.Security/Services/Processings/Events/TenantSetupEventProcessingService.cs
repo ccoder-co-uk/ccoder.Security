@@ -37,8 +37,10 @@ internal class TenantSetupEventProcessingService(
             : setupDetails.Tenant.Description;
 
         DateTimeOffset now = DateTimeOffset.UtcNow;
+
         if (setupDetails.Tenant.CreatedOn == default)
         { setupDetails.Tenant.CreatedOn = now; }
+
         if (setupDetails.Tenant.LastUpdated == default)
         { setupDetails.Tenant.LastUpdated = now; }
     }

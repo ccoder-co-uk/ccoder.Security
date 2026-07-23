@@ -90,11 +90,13 @@ internal class SSOAuthInfoOrchestrationService(
         string base64AuthString = auth[6..];
         byte[] authBytes = Convert.FromBase64String(s: base64AuthString);
         string authString = Encoding.UTF8.GetString(bytes: authBytes);
+
         string separator = authString.Contains(value: '&')
             ? "&"
             : ":";
 
         string[] authParts = authString.Split(separator: separator);
+
         string username = authParts[0]
             .Replace(oldValue: "username=", newValue: "");
 
