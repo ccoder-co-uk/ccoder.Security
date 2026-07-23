@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects;
 using cCoder.Security.Services.Foundations.Interfaces;
 using Microsoft.Extensions.Hosting;
@@ -12,13 +16,13 @@ internal sealed class TokenCleaner(
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         if (securityConfiguration.IsMigrating)
-            return;
+        { return; }
 
-        await tokenService.DeleteExpiredAsync(stoppingToken);
+        await tokenService.DeleteExpiredAsync(cancellationToken: stoppingToken);
 
-        using PeriodicTimer timer = new(TimeSpan.FromMinutes(1));
+        using PeriodicTimer timer = new(TimeSpan.FromMinutes(minutes: 1));
 
-        while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken))
-            await tokenService.DeleteExpiredAsync(stoppingToken);
+        while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(cancellationToken: stoppingToken))
+        { await tokenService.DeleteExpiredAsync(cancellationToken: stoppingToken); }
     }
 }

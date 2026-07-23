@@ -1,21 +1,26 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF;
 using cCoder.Security.Objects;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
 namespace cCoder.Security.Tests.Data;
 
-public class SecurityDbContextPrivilegeTests
+public partial class SecurityDbContextPrivilegeTests
 {
     [Fact]
     public void ShouldExposeCompleteSerializableSecurityPrivilegeCatalogue()
     {
-        // given
+        // Given
         SecurityDbContext context = new(
             Mock.Of<ISSOAuthInfo>(),
-            Mock.Of<ISecurityModelBuildProvider>());
+            new DbContextOptionsBuilder<SecurityDbContext>().Options);
 
         string[] expectedPrivilegeIds =
         [
@@ -34,17 +39,19 @@ public class SecurityDbContextPrivilegeTests
             "userrole_delete"
         ];
 
-        // when
+        // When
         SSOPrivilege[] privileges = [.. context.GetPrivileges()];
 
-        // then
-        privileges.Select(privilege => privilege.Id)
-            .Should().BeEquivalentTo(expectedPrivilegeIds);
+        // Then
+        privileges.Select(selector: privilege => privilege.Id)
+            .Should()
+            .BeEquivalentTo(expectation: expectedPrivilegeIds);
 
-        privileges.Should().OnlyContain(privilege =>
-            !string.IsNullOrWhiteSpace(privilege.Id)
-            && !string.IsNullOrWhiteSpace(privilege.Type)
-            && !string.IsNullOrWhiteSpace(privilege.Operation)
-            && !string.IsNullOrWhiteSpace(privilege.Description));
+        privileges.Should()
+            .OnlyContain(predicate: privilege =>
+            !string.IsNullOrWhiteSpace(value: privilege.Id)
+            && !string.IsNullOrWhiteSpace(value: privilege.Type)
+            && !string.IsNullOrWhiteSpace(value: privilege.Operation)
+            && !string.IsNullOrWhiteSpace(value: privilege.Description));
     }
 }

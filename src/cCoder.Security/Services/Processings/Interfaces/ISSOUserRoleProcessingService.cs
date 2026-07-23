@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Processings.Interfaces;
+
 internal interface ISSOUserRoleProcessingService
 {
     IQueryable<SSOUserRole> GetAllSSOUserRoles();
@@ -9,4 +14,3 @@ internal interface ISSOUserRoleProcessingService
 
     ValueTask DeleteSSOUserRoleAsync(SSOUserRole item);
 }
-

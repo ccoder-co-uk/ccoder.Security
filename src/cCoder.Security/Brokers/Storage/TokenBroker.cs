@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
@@ -6,42 +10,43 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace cCoder.Security.Brokers.Storage;
-internal class TokenBroker(ISecurityDbContextFactory contextFactory) 
+
+internal class TokenBroker(ISecurityDbContextFactory contextFactory)
     : ITokenBroker
 {
-    public async ValueTask<Token> AddTokenAsync(Token token)
+    public async ValueTask<Token> InsertTokenAsync(Token newToken)
     {
-        using SecurityDbContext context = 
+        using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Token> entityEntry =
-            context.Tokens.Add(token);
+            context.Tokens.Add(entity: newToken);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<Token> UpdateTokenAsync(Token token)
+    public async ValueTask<Token> UpdateTokenAsync(Token updatedToken)
     {
-        using SecurityDbContext context = 
+        using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
-        EntityEntry<Token> entityEntry = 
-            context.Tokens.Update(token);
+        EntityEntry<Token> entityEntry =
+            context.Tokens.Update(entity: updatedToken);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteTokenAsync(Token token)
+    public async ValueTask DeleteTokenAsync(Token deletedToken)
     {
-        using SecurityDbContext context = 
+        using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
-        EntityEntry<Token> entityEntry = 
-            context.Tokens.Remove(token);
+        EntityEntry<Token> entityEntry =
+            context.Tokens.Remove(entity: deletedToken);
 
         await context.SaveChangesAsync();
     }
@@ -54,19 +59,20 @@ internal class TokenBroker(ISecurityDbContextFactory contextFactory)
 
         int deletedCount = await context.Tokens
             .IgnoreQueryFilters()
-            .Where(token => token.Expires < expiresBefore)
-            .ExecuteDeleteAsync(cancellationToken);
+            .Where(predicate: token => token.Expires < expiresBefore)
+            .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
         return deletedCount;
     }
 
-    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false)
-    {
-        SecurityDbContext context = 
-            contextFactory.CreateDbContext(ignoreFilters);
+    public IQueryable<Token> SelectAllTokens() =>
+        contextFactory
+            .CreateDbContext()
+            .Tokens;
 
-        return ignoreFilters
-            ? context.Tokens.IgnoreQueryFilters()
-            : context.Tokens;
-    }
+    public IQueryable<Token> SelectAllTokensIgnoringFilters() =>
+        contextFactory
+            .CreateDbContext(ignoreAuthInfo: true)
+            .Tokens
+            .IgnoreQueryFilters();
 }

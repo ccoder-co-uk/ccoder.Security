@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Processings;
 using Microsoft.AspNetCore.Mvc;
@@ -7,12 +11,12 @@ using Microsoft.AspNetCore.OData.Results;
 namespace cCoder.Security.Exposures.Controllers;
 
 public class TenantAnalysisController(ITenantAnalysisProcessingService tenantAnalysisProcessingService)
-    : SecurityController<TenantAnalysis>
+    : Controller
 {
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get() =>
-        Ok(tenantAnalysisProcessingService.GetAllTenantAnalysis());
+        Ok(value: tenantAnalysisProcessingService.GetAllTenantAnalysis());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
@@ -20,10 +24,10 @@ public class TenantAnalysisController(ITenantAnalysisProcessingService tenantAna
     {
         IQueryable<TenantAnalysis> result = tenantAnalysisProcessingService
             .GetAllTenantAnalysis()
-            .Where(i => i.Id == key);
+            .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(queryable: result))
             : NotFound();
     }
 }

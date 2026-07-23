@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -11,21 +15,25 @@ public partial class AccountApiTests
     [Fact]
     public async Task LoginReturnsTokenAsync()
     {
-        //given
+        // Given
         RegisterUser existingRegisterUser = RandomRegisterUser();
-        RegistrationResult result = await registerApiClient.RegisterAsync(existingRegisterUser);
+        RegistrationResult result = await registerApiClient.RegisterAsync(registerUser: existingRegisterUser);
 
-        Auth inputAuth = RandomAuth(existingRegisterUser);
+        Auth inputAuth = RandomAuth(user: existingRegisterUser);
 
-        //when
-        Token actualToken = await userApiClient.LoginAsync(inputAuth);
+        // When
+        Token actualToken = await userApiClient.LoginAsync(auth: inputAuth);
 
-        //then
-        result.Token.Should().NotBeNullOrEmpty();
-        actualToken.UserName.Should().BeEquivalentTo(result.User.Id);
-        Assert.True(actualToken.Expires > DateTimeOffset.Now);
-        Assert.True(actualToken.Reason == 0);
+        // Then
+        result.Token.Should()
+            .NotBeNullOrEmpty();
 
-        await TearDownUserAsync(result.User.Id);
+        actualToken.UserName.Should()
+            .BeEquivalentTo(expected: result.User.Id);
+
+        Assert.True(condition: actualToken.Expires > DateTimeOffset.Now);
+        Assert.True(condition: actualToken.Reason == 0);
+
+        await TearDownUserAsync(userId: result.User.Id);
     }
 }

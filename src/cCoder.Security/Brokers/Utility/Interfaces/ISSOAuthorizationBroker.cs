@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Brokers.Utility.Interfaces;
+
 internal interface ISSOAuthorizationBroker
 {
     SSOUser GetCurrentUser();
@@ -11,4 +16,3 @@ internal interface ISSOAuthorizationBroker
 
     void UserIsPortalAdminWithPrivilege(string privilege);
 }
-

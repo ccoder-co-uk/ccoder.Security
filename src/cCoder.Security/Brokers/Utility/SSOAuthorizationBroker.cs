@@ -1,9 +1,14 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Brokers.Utility;
-internal class SSOAuthorizationBroker(ISecurityDbContextFactory contextFactory) 
+
+internal class SSOAuthorizationBroker(ISecurityDbContextFactory contextFactory)
     : ISSOAuthorizationBroker
 {
     public IEnumerable<SSOPrivilege> GetAllPrivileges()
@@ -21,13 +26,12 @@ internal class SSOAuthorizationBroker(ISecurityDbContextFactory contextFactory)
     public void UserHasPrivilege(string privilege, string tenantId)
     {
         var db = contextFactory.CreateDbContext();
-        db.UserHasPrivilege(privilege, tenantId);
+        db.UserHasPrivilege(privilege: privilege, tenantId: tenantId);
     }
 
     public void UserIsPortalAdminWithPrivilege(string privilege)
     {
         var db = contextFactory.CreateDbContext();
-        db.UserIsPortalAdminWithPrivilege(privilege);
+        db.UserIsPortalAdminWithPrivilege(privilege: privilege);
     }
 }
-

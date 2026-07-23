@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Bogus;
 using cCoder.Security.Objects.DTOs;
 using Security.AcceptanceTests;
@@ -11,28 +15,29 @@ public partial class AccountApiTests(
     AccountApiClient userApiClient,
     RegisterApiClient registerApiClient)
 {
-    private static Auth RandomAuth(RegisterUser user) => new()
-    {
-        User = user.Email,
-        Pass = user.Password
-    };
+    private static Auth RandomAuth(RegisterUser user) =>
+        new()
+        {
+            User = user.Email,
+            Pass = user.Password
+        };
 
-    private static RegisterUser RandomRegisterUser() => 
-        GetRegisterUserFiller().Generate();
+    private static RegisterUser RandomRegisterUser() =>
+        GetRegisterUserFiller()
+            .Generate();
 
     private static Faker<RegisterUser> GetRegisterUserFiller()
     {
         Faker<RegisterUser> filler = new Faker<RegisterUser>()
-            .RuleFor(r => r.DisplayName, f => f.Name.FullName())
-            .RuleFor(r => r.Email, f => f.Internet.Email())
-            .RuleFor(r => r.Password, f => f.Internet.Password(prefix: "Cc123!"))
-            .RuleFor(r => r.Culture, f => f.Locale)
-            .RuleFor(r => r.PhoneNumber, f => f.Phone.PhoneNumber());
+            .RuleFor(property:r => r.DisplayName, setter:f => f.Name.FullName())
+            .RuleFor(property:r => r.Email, setter:f => f.Internet.Email())
+            .RuleFor(property:r => r.Password, setter:f => f.Internet.Password(prefix: "Cc123!"))
+            .RuleFor(property: r => r.Culture, setter: f => f.Locale)
+            .RuleFor(property: r => r.PhoneNumber, setter: f => f.Phone.PhoneNumber());
 
         return filler;
     }
 
-    private async Task TearDownUserAsync(string userId) => 
-        await userApiClient.TearDown(userId);
+    private Task TearDownUserAsync(string userId) =>
+        userApiClient.TearDown(ssoUserId: userId);
 }
-

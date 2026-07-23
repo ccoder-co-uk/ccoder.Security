@@ -1,0 +1,3381 @@
+{
+  "Classes": [
+    {
+      "Name": "cCoder.Security.Brokers.Authentication.AuthenticationContextBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetSSOUserId",
+          "Inputs": [],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Configuration.SecurityConfigurationBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetValue",
+          "Inputs": [
+            {
+              "Name": "section",
+              "Type": "System.String"
+            },
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.DateTime.SecurityDateTimeOffsetBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetCurrentTime",
+          "Inputs": [],
+          "ReturnType": "System.DateTimeOffset"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerAESHMAC",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Encrypt",
+          "Inputs": [
+            {
+              "Name": "password",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "EncryptedAndPlainTextAreEqual",
+          "Inputs": [
+            {
+              "Name": "encrypted",
+              "Type": "System.String"
+            },
+            {
+              "Name": "plainText",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerHasher",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Encrypt",
+          "Inputs": [
+            {
+              "Name": "password",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "EncryptedAndPlainTextAreEqual",
+          "Inputs": [
+            {
+              "Name": "encrypted",
+              "Type": "System.String"
+            },
+            {
+              "Name": "plainText",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerSHA512",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Encrypt",
+          "Inputs": [
+            {
+              "Name": "password",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "EncryptedAndPlainTextAreEqual",
+          "Inputs": [
+            {
+              "Name": "encrypted",
+              "Type": "System.String"
+            },
+            {
+              "Name": "plainText",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Events.AccountEventBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaiseAccountEventAsync",
+          "Inputs": [
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003CcCoder.Security.Objects.Events.SecurityAccountEvent\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Events.EventHubBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Events.TenantSetupEventBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaiseTenantSetupEventAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003CcCoder.Security.Data.Models.SetupDetails\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Logging.LoggingBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "LogWarning",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Requests.HttpRequestBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "HasHeader",
+          "Inputs": [
+            {
+              "Name": "headerValue",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        },
+        {
+          "Name": "Header",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "RequestHost",
+          "Inputs": [],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Serialization.SerializationBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Deserialize",
+          "Inputs": [
+            {
+              "Name": "input",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "T"
+        },
+        {
+          "Name": "Serialize",
+          "Inputs": [
+            {
+              "Name": "input",
+              "Type": "System.Object"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Sessions.WebSessionBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Clear",
+          "Inputs": [],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "GetString",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "Remove",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "SetString",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.SSOPrivilegeBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "SelectPrivileges",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.SSORoleBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InsertSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "newSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "SelectAllSSORoles",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "SelectAllSSORolesIgnoringFilters",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "UpdateSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "updatedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.SSOUserBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InsertSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "newSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "SelectAllSSOUsers",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "SelectAllSSOUsersIgnoringFilters",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "SelectCurrentSSOUser",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "UpdateSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "updatedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InsertSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "newSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        },
+        {
+          "Name": "SelectAllSSOUserRoles",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.SessionBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteSessionAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSession",
+              "Type": "cCoder.Security.Objects.Entities.Session"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InsertSessionAsync",
+          "Inputs": [
+            {
+              "Name": "newSession",
+              "Type": "cCoder.Security.Objects.Entities.Session"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Session\u003E"
+        },
+        {
+          "Name": "SelectAllSessions",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Session\u003E"
+        },
+        {
+          "Name": "UpdateSessionAsync",
+          "Inputs": [
+            {
+              "Name": "updatedSession",
+              "Type": "cCoder.Security.Objects.Entities.Session"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Session\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "deletedTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InsertTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "newTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "SelectAllTenantAnalysis",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "UpdateTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "updatedTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.TenantBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteTenantAsync",
+          "Inputs": [
+            {
+              "Name": "deletedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InsertTenantAsync",
+          "Inputs": [
+            {
+              "Name": "newTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "SelectAllTenants",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "UpdateTenantAsync",
+          "Inputs": [
+            {
+              "Name": "updatedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteExpiredAsync",
+          "Inputs": [
+            {
+              "Name": "expiresBefore",
+              "Type": "System.DateTimeOffset"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Int32\u003E"
+        },
+        {
+          "Name": "DeleteTokenAsync",
+          "Inputs": [
+            {
+              "Name": "deletedToken",
+              "Type": "cCoder.Security.Objects.Entities.Token"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InsertTokenAsync",
+          "Inputs": [
+            {
+              "Name": "newToken",
+              "Type": "cCoder.Security.Objects.Entities.Token"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "SelectAllTokens",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "SelectAllTokensIgnoringFilters",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "UpdateTokenAsync",
+          "Inputs": [
+            {
+              "Name": "updatedToken",
+              "Type": "cCoder.Security.Objects.Entities.Token"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteUserEventAsync",
+          "Inputs": [
+            {
+              "Name": "deletedUserEvent",
+              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InsertUserEventAsync",
+          "Inputs": [
+            {
+              "Name": "newUserEvent",
+              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        },
+        {
+          "Name": "SelectAllUserEvents",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        },
+        {
+          "Name": "UpdateUserEventAsync",
+          "Inputs": [
+            {
+              "Name": "updatedUserEvent",
+              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Utility.SSOAuthorizationBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetAllPrivileges",
+          "Inputs": [],
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+        },
+        {
+          "Name": "GetCurrentUser",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "UserHasPrivilege",
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tenantId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "UserIsPortalAdminWithPrivilege",
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Build",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Models.ODataModel"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Dependencies.EDM.SecurityModelBuilder",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Build",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Models.ODataModel"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Dependencies.Sessions.NullSession",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "IsAvailable",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "Keys",
+          "Type": "System.Collections.Generic.IEnumerable\u003CSystem.String\u003E"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "Clear",
+          "Inputs": [],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "CommitAsync",
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task"
+        },
+        {
+          "Name": "LoadAsync",
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task"
+        },
+        {
+          "Name": "Remove",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "Set",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "TryGetValue",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "PostLogin",
+          "Inputs": [
+            {
+              "Name": "newAuth",
+              "Type": "cCoder.Security.Objects.DTOs.Auth"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PostLogout",
+          "Inputs": [],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "PostConfirmForgotPassword",
+          "Inputs": [
+            {
+              "Name": "newConfirmForgotPasswordRequest",
+              "Type": "cCoder.Security.Objects.DTOs.ConfirmForgotPasswordRequest"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.CurrentUserController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetMe",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "PostForgotPassword",
+          "Inputs": [
+            {
+              "Name": "newForgotPasswordRequest",
+              "Type": "cCoder.Security.Objects.DTOs.ForgotPasswordRequest"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.RegistrationController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "PostAcceptInvite",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "inviteToken",
+              "Type": "System.String"
+            },
+            {
+              "Name": "newRegisterUser",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PostConfirmRegistration",
+          "Inputs": [
+            {
+              "Name": "confirmationToken",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PostInvite",
+          "Inputs": [
+            {
+              "Name": "newRegisterUser",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PostRegister",
+          "Inputs": [
+            {
+              "Name": "newRegisterUser",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PostResendInvite",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "queryOptions",
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.SSORoleController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Delete",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "queryOptions",
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Post",
+          "Inputs": [
+            {
+              "Name": "newSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Put",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            },
+            {
+              "Name": "updatedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Delete",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "reference",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "queryOptions",
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Put",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "updatedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Delete",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "roleId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "queryOptions",
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Post",
+          "Inputs": [
+            {
+              "Name": "newSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Get",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.TenantController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Delete",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "queryOptions",
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Post",
+          "Inputs": [
+            {
+              "Name": "newTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Put",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "updatedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.UserEventController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "queryOptions",
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.SecurityEventHandlers",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToAllEvents",
+          "Inputs": [],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.HostedServices.TokenCleaner",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Exposures.SecurityApiModelBuilderExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Exposures.TenantManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "SetupAsync",
+          "Inputs": [
+            {
+              "Name": "setupDetails",
+              "Type": "cCoder.Security.Data.Models.SetupDetails"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.TokenManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "IssueTokenAsync",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenUse",
+              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.IServiceCollectionExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSecurity",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configAction",
+              "Type": "System.Action\u003CIServiceCollection, cCoder.Security.Objects.SecurityConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Objects.SecurityConfiguration"
+        },
+        {
+          "Name": "AddSecurityApi",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configAction",
+              "Type": "System.Action\u003CIServiceCollection, cCoder.Security.Objects.SecurityConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddSecurityApiLayer",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "atPath",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddSecurityHostedServices",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configAction",
+              "Type": "System.Action\u003CIServiceCollection, cCoder.Security.Objects.SecurityConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Objects.SecurityConfiguration"
+        },
+        {
+          "Name": "AddSecurityWeb",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configAction",
+              "Type": "System.Action\u003CIServiceCollection, cCoder.Security.Objects.SecurityConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Objects.SecurityConfiguration"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Models.ODataModel",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Context",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Description",
+          "Type": "System.String"
+        },
+        {
+          "Name": "EDMModel",
+          "Type": "IEdmModel"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Events.SecurityAccountEventRequest",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Kind",
+          "Type": "cCoder.Security.Objects.Events.SecurityAccountEventKind"
+        },
+        {
+          "Name": "RegisterForm",
+          "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+        },
+        {
+          "Name": "Token",
+          "Type": "System.String"
+        },
+        {
+          "Name": "User",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityOrchestrationDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityOrchestrationServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityOrchestrationValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityProcessingDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityProcessingServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityProcessingValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Models.AuthorizationContext",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "CurrentUser",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "Privileges",
+          "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.SecurityConfigurationExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "UseAESHMMACPasswordEncryption",
+          "Inputs": [
+            {
+              "Name": "config",
+              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+            },
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "decryptionKey",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "UsePasswordHasherHashing",
+          "Inputs": [
+            {
+              "Name": "config",
+              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+            },
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "UseSHA512PasswordEncryption",
+          "Inputs": [
+            {
+              "Name": "config",
+              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+            },
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ChangePasswordAsync",
+          "Inputs": [
+            {
+              "Name": "username",
+              "Type": "System.String"
+            },
+            {
+              "Name": "oldPassword",
+              "Type": "System.String"
+            },
+            {
+              "Name": "newPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "ConfirmForgotPasswordAsync",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "newPassword",
+              "Type": "System.String"
+            },
+            {
+              "Name": "confirmNewPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "ForgotPasswordAsync",
+          "Inputs": [
+            {
+              "Name": "email",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "IssueTokenAsync",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenUse",
+              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "LoginAsync",
+          "Inputs": [
+            {
+              "Name": "username",
+              "Type": "System.String"
+            },
+            {
+              "Name": "password",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "LogoutAsync",
+          "Inputs": [],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetCurrentUser",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AcceptRegisterUserInviteAsync",
+          "Inputs": [
+            {
+              "Name": "registerForm",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            },
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
+        },
+        {
+          "Name": "ConfirmRegistration",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "InviteRegisterUserAsync",
+          "Inputs": [
+            {
+              "Name": "registerForm",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
+        },
+        {
+          "Name": "RegenerateUserInviteToken",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.String\u003E"
+        },
+        {
+          "Name": "RegisterUserAsync",
+          "Inputs": [
+            {
+              "Name": "registerForm",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
+        },
+        {
+          "Name": "SetupRegisterUserAsync",
+          "Inputs": [
+            {
+              "Name": "newRegisterUser",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetSSOAuthInfoAsync",
+          "Inputs": [],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.ISSOAuthInfo\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSOUsers",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "UpdateSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "username",
+              "Type": "System.String"
+            },
+            {
+              "Name": "updatedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddTenantAsync",
+          "Inputs": [
+            {
+              "Name": "newTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "DeleteTenantAsync",
+          "Inputs": [
+            {
+              "Name": "deletedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllTenants",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "UpdateTenantAsync",
+          "Inputs": [
+            {
+              "Name": "updatedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.AuthorizationService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "EnsureUserHasPrivilege",
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tenantId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "EnsureUserIsPortalAdminWithPrivilege",
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "GetAuthorizationContext",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Models.AuthorizationContext"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.Events.AccountEventService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaiseSecurityAccountEventRequestAsync",
+          "Inputs": [
+            {
+              "Name": "accountEventRequest",
+              "Type": "cCoder.Security.Objects.Events.SecurityAccountEventRequest"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToAllEvents",
+          "Inputs": [],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaiseSetupDetailsAsync",
+          "Inputs": [
+            {
+              "Name": "setupDetails",
+              "Type": "cCoder.Security.Data.Models.SetupDetails"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.LoggingService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "LogWarning",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.RequestService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetHeader",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetAllSSOPrivileges",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.SSORoleService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "newSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "DeleteSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSORoles",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "UpdateSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "updatedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.SSOUserRoleService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "newSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        },
+        {
+          "Name": "DeleteSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSOUserRoles",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.SSOUserService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "newUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "DeleteSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSOUsers",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "Me",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "UpdateSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "updatedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.SessionService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Clear",
+          "Inputs": [],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "GetString",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "GetUser",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "RemoveKey",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "SetSSOUser",
+          "Inputs": [
+            {
+              "Name": "user",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "SetString",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.TenantAnalysisService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "newTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "DeleteTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "deletedTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllTenantAnalysis",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "UpdateTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "updatedTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.TenantService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddTenantAsync",
+          "Inputs": [
+            {
+              "Name": "newTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "DeleteTenantAsync",
+          "Inputs": [
+            {
+              "Name": "deletedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllTenants",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "UpdateTenantAsync",
+          "Inputs": [
+            {
+              "Name": "updatedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.TokenService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddTokenAsync",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenUse",
+              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+            },
+            {
+              "Name": "timeout",
+              "Type": "System.Int32?"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "DeleteExpiredAsync",
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Int32\u003E"
+        },
+        {
+          "Name": "DeleteTokenAsync",
+          "Inputs": [
+            {
+              "Name": "deletedToken",
+              "Type": "cCoder.Security.Objects.Entities.Token"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllTokens",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.UserEventService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddUserEventAsync",
+          "Inputs": [
+            {
+              "Name": "newUserEvent",
+              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        },
+        {
+          "Name": "DeleteUserEventAsync",
+          "Inputs": [
+            {
+              "Name": "deletedUserEvent",
+              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllUserEvents",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
+      "StandardElementType": "OrchestrationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "newSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "DeleteSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSORoles",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "UpdateSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "updatedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
+      "StandardElementType": "OrchestrationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "newSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        },
+        {
+          "Name": "DeleteSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSOUserRoles",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.AccountEventProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaiseSecurityAccountEventRequestAsync",
+          "Inputs": [
+            {
+              "Name": "accountEventRequest",
+              "Type": "cCoder.Security.Objects.Events.SecurityAccountEventRequest"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.AuthorizationProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "EnsureUserHasPrivilege",
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tenantId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "EnsureUserIsPortalAdminWithPrivilege",
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "GetAuthorizationContext",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Models.AuthorizationContext"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.LoggingProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "LogWarning",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.RequestProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetHeader",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetAllSSOPrivileges",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.SSORoleProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "newSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "DeleteSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSORoles",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "UpdateSSORoleAsync",
+          "Inputs": [
+            {
+              "Name": "updatedSSORole",
+              "Type": "cCoder.Security.Objects.Entities.SSORole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.SSOUserProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "FindById",
+          "Inputs": [
+            {
+              "Name": "ssoUserId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "FindByUserAndPasswordAsync",
+          "Inputs": [
+            {
+              "Name": "username",
+              "Type": "System.String"
+            },
+            {
+              "Name": "password",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "GetAllSSOUsers",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "InviteSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "user",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "Me",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "RegisterSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "user",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "UpdateSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "updatedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "ValidatePassword",
+          "Inputs": [
+            {
+              "Name": "password",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "newSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        },
+        {
+          "Name": "DeleteSSOUserRoleAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUserRole",
+              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSOUserRoles",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.SessionProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Clear",
+          "Inputs": [],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "GetString",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "GetUser",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "Remove",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "SetSSOUser",
+          "Inputs": [
+            {
+              "Name": "user",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "SetString",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "newTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "DeleteTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "deletedTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllTenantAnalysis",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "UpdateTenantAnalysisAsync",
+          "Inputs": [
+            {
+              "Name": "updatedTenantAnalysis",
+              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.TenantProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddTenantAsync",
+          "Inputs": [
+            {
+              "Name": "newTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "DeleteTenantAsync",
+          "Inputs": [
+            {
+              "Name": "deletedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllTenants",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "UpdateTenantAsync",
+          "Inputs": [
+            {
+              "Name": "updatedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.TokenProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddTokenForUserIdAsync",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenUse",
+              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "DeleteTokenAsync",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GenerateConfirmationToken",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "GenerateForgottenPasswordToken",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "GenerateInvitationToken",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "GetAllTokens",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "GetConfirmationToken",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Objects.Entities.Token"
+        },
+        {
+          "Name": "GetForgottenPasswordToken",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Objects.Entities.Token"
+        },
+        {
+          "Name": "GetInvitationToken",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Objects.Entities.Token"
+        },
+        {
+          "Name": "GetTokenById",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Objects.Entities.Token"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.UserEventProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddUserEventAsync",
+          "Inputs": [
+            {
+              "Name": "newUserEvent",
+              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        },
+        {
+          "Name": "DeleteUserEventAsync",
+          "Inputs": [
+            {
+              "Name": "deletedUserEvent",
+              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllUserEvents",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.WebApplicationExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToSecurityEvents",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        },
+        {
+          "Name": "StartSecurityHostedServices",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        },
+        {
+          "Name": "StartSecurityWeb",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            },
+            {
+              "Name": "log",
+              "Type": "ILogger"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        },
+        {
+          "Name": "UseSecurityExposure",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            },
+            {
+              "Name": "log",
+              "Type": "ILogger"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        }
+      ]
+    }
+  ],
+  "Links": [
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
+      "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.CurrentUserController",
+      "ToType": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
+      "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.RegistrationController",
+      "ToType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
+      "ToType": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SSORoleController",
+      "ToType": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "ToType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
+      "ToType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
+      "ToType": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.TenantController",
+      "ToType": "cCoder.Security.Services.Aggregations.TenantAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.UserEventController",
+      "ToType": "cCoder.Security.Services.Processings.UserEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.SecurityEventHandlers",
+      "ToType": "cCoder.Security.Services.Foundations.Events.EventHandlerService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.HostedServices.TokenCleaner",
+      "ToType": "cCoder.Security.Services.Foundations.TokenService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.TenantManager",
+      "ToType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.TokenManager",
+      "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.AccountEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.LoggingProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SessionProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.AccountEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.LoggingProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TenantProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.RequestProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SessionProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.LoggingProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TenantProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.AuthorizationService",
+      "ToType": "cCoder.Security.Brokers.Utility.SSOAuthorizationBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.Events.AccountEventService",
+      "ToType": "cCoder.Security.Brokers.Authentication.AuthenticationContextBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.Events.AccountEventService",
+      "ToType": "cCoder.Security.Brokers.Events.AccountEventBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.Events.AccountEventService",
+      "ToType": "cCoder.Security.Brokers.Requests.HttpRequestBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.Events.AccountEventService",
+      "ToType": "cCoder.Security.Brokers.Storage.TenantBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
+      "ToType": "cCoder.Security.Brokers.Authentication.AuthenticationContextBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
+      "ToType": "cCoder.Security.Brokers.Events.TenantSetupEventBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.LoggingService",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.RequestService",
+      "ToType": "cCoder.Security.Brokers.Requests.HttpRequestBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
+      "ToType": "cCoder.Security.Brokers.Storage.SSOPrivilegeBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.SSORoleService",
+      "ToType": "cCoder.Security.Brokers.Storage.SSORoleBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.SSOUserRoleService",
+      "ToType": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.SSOUserService",
+      "ToType": "cCoder.Security.Brokers.Storage.SSOUserBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.SessionService",
+      "ToType": "cCoder.Security.Brokers.Serialization.SerializationBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.SessionService",
+      "ToType": "cCoder.Security.Brokers.Sessions.WebSessionBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.TenantAnalysisService",
+      "ToType": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.TenantService",
+      "ToType": "cCoder.Security.Brokers.Storage.TenantBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.TokenService",
+      "ToType": "cCoder.Security.Brokers.Configuration.SecurityConfigurationBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.TokenService",
+      "ToType": "cCoder.Security.Brokers.Storage.TokenBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.UserEventService",
+      "ToType": "cCoder.Security.Brokers.DateTime.SecurityDateTimeOffsetBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.UserEventService",
+      "ToType": "cCoder.Security.Brokers.Storage.UserEventBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
+      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
+      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
+      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.AccountEventProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.Events.AccountEventService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.AuthorizationProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.AuthorizationService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.LoggingProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.LoggingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.RequestProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.RequestService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.SSOPrivilegeService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SSORoleProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.SSORoleService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SSOUserProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.SSOUserService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.SSOUserRoleService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SessionProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.SessionService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.TenantAnalysisService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.TenantProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.TenantService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.TokenProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.TokenService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.UserEventProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.UserEventService"
+    }
+  ],
+  "AnalysisItems": []
+}

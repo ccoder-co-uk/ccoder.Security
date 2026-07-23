@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
@@ -10,19 +14,23 @@ using Xunit;
 
 namespace cCoder.Security.AcceptanceTests.Tests;
 
-public class TenantManagerSetupTests
+public partial class TenantManagerSetupTests
 {
     [Fact]
     public async Task ShouldBootstrapFirstTenantRoleUserAndMembership()
     {
+        // Given
         string originalConnectionString =
-            Environment.GetEnvironmentVariable("ENV_ConnectionStrings__SSO");
+            Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
+
         string acceptanceConnectionString = CreateIsolatedAcceptanceConnectionString();
 
+        // When
         Environment.SetEnvironmentVariable(
-            "ENV_ConnectionStrings__SSO",
-            acceptanceConnectionString);
+variable: "ENV_ConnectionStrings__SSO",
+value: acceptanceConnectionString);
 
+        // Then
         try
         {
             using WebApplicationFactory<AcceptanceHost> appFactory = new();
@@ -40,7 +48,7 @@ public class TenantManagerSetupTests
 
             ITenantManager tenantManager = services.GetRequiredService<ITenantManager>();
 
-            await tenantManager.SetupAsync(new SetupDetails
+            await tenantManager.SetupAsync(setupDetails: new SetupDetails
             {
                 Tenant = new Tenant
                 {
@@ -58,27 +66,52 @@ public class TenantManagerSetupTests
 
             using cCoder.Security.Data.EF.SecurityDbContext assertDb = dbContextFactory.CreateDbContext();
 
-            Tenant tenant = assertDb.Tenants.IgnoreQueryFilters().Single();
-            SSORole role = assertDb.Roles.IgnoreQueryFilters().Single();
-            SSOUser user = assertDb.Users.IgnoreQueryFilters().Single();
-            SSOUserRole userRole = assertDb.UserRoles.IgnoreQueryFilters().Single();
+            Tenant tenant = assertDb.Tenants.IgnoreQueryFilters()
+                                .Single();
 
-            tenant.Id.Should().Be("default");
-            role.Name.Should().Be("Administrators");
-            role.TenantId.Should().Be("default");
-            role.UsersArePortalAdmins.Should().BeTrue();
-            user.Id.Should().Be("admin");
-            user.EmailConfirmed.Should().BeTrue();
-            userRole.UserId.Should().Be("admin");
-            userRole.RoleId.Should().Be(role.Id);
+            SSORole role = assertDb.Roles.IgnoreQueryFilters()
+                               .Single();
+
+            SSOUser user = assertDb.Users.IgnoreQueryFilters()
+                               .Single();
+
+            SSOUserRole userRole = assertDb.UserRoles.IgnoreQueryFilters()
+                                       .Single();
+
+            tenant.Id.Should()
+                .Be(expected: "default");
+
+            role.Name.Should()
+                .Be(expected: "Administrators");
+
+            role.TenantId.Should()
+                .Be(expected: "default");
+
+            role.UsersArePortalAdmins.Should()
+                .BeTrue();
+
+            user.Id.Should()
+                .Be(expected: "admin");
+
+            user.EmailConfirmed.Should()
+                .BeTrue();
+
+            userRole.UserId.Should()
+                .Be(expected: "admin");
+
+            userRole.RoleId.Should()
+                .Be(expected: role.Id);
+
             assertDb.Roles.IgnoreQueryFilters()
-                .Should().OnlyContain(foundRole => foundRole.TenantId == "default");
+                .Should()
+                .OnlyContain(predicate: foundRole => foundRole.TenantId == "default");
         }
         finally
         {
             global::Security.AcceptanceTests.SecurityWebApplicationFactoryExtensions
-                .DropDatabaseForTesting(acceptanceConnectionString);
-            Environment.SetEnvironmentVariable("ENV_ConnectionStrings__SSO", originalConnectionString);
+                .DropDatabaseForTesting(connectionString: acceptanceConnectionString);
+
+            Environment.SetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO", value: originalConnectionString);
         }
     }
 
@@ -89,4 +122,3 @@ public class TenantManagerSetupTests
         return $"Data Source=.;Initial Catalog=SSOAcceptanceTenantSetup_{uniqueSuffix};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
     }
 }
-

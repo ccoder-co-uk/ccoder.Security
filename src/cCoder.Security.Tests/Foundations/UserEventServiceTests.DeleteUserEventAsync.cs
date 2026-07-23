@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Moq;
 using Xunit;
@@ -9,18 +13,17 @@ public partial class UserEventServiceTests
     [Fact]
     public async Task DeleteUserEventAsyncWorksAsExpected()
     {
-        //given
+        // Given
         UserEvent inputUserEvent = RandomUserEvent();
 
-        //when
-        await userEventService.DeleteUserEventAsync(inputUserEvent);
+        // When
+        await userEventService.DeleteUserEventAsync(userEvent: inputUserEvent);
 
-        //then
-        userEventBrokerMock.Verify(userEventBrokerMock =>
-            userEventBrokerMock.DeleteUserEventAsync(inputUserEvent),
-            Times.Once());
+        // Then
+        userEventBrokerMock.Verify(expression: userEventBrokerMock =>
+            userEventBrokerMock.DeleteUserEventAsync(userEvent: inputUserEvent),
+times: Times.Once());
 
         userEventBrokerMock.VerifyNoOtherCalls();
     }
 }
-

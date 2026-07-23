@@ -1,62 +1,84 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
-internal class SSORoleService(
-    ISSORoleBroker roleBroker) 
+
+internal sealed partial class SSORoleService(
+    ISSORoleBroker roleBroker)
         : ISSORoleService
 {
     public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
-        roleBroker.GetAllSSORoles(ignoreFilters);
-
-    public async ValueTask<SSORole> AddSSORoleAsync(SSORole item)
-    {
-        SSORole storageRole = new()
+        TryCatch(operation: () =>
         {
-            Id = item.Id,
-            UsersArePortalAdmins = item.UsersArePortalAdmins,
-            Name = item.Name,
-            Description = item.Description,
-            Privs = item.Privs,
-            TenantId = item.TenantId
-        };
+            ValidateAllSSORolesOnGet(ignoreFilters: ignoreFilters);
 
-        SSORole result = await roleBroker.AddSSORoleAsync(storageRole);
-        item.Id = result.Id;
-        item.UsersArePortalAdmins = result.UsersArePortalAdmins;
-        item.Name = result.Name;
-        item.Description = result.Description;
-        item.Privs = result.Privs;
-        item.TenantId = result.TenantId;
-        return item;
-    }
+            return ignoreFilters
+                ? roleBroker.SelectAllSSORolesIgnoringFilters()
+                : roleBroker.SelectAllSSORoles();
+        });
 
-    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole item)
-    {
-        SSORole storageRole = new()
+    public ValueTask<SSORole> AddSSORoleAsync(SSORole newSSORole) =>
+        TryCatch<SSORole>(operation: async () =>
         {
-            Id = item.Id,
-            UsersArePortalAdmins = item.UsersArePortalAdmins,
-            Name = item.Name,
-            Description = item.Description,
-            Privs = item.Privs,
-            TenantId = item.TenantId
-        };
+            ValidateSSORoleOnAdd(newSSORole: newSSORole);
 
-        SSORole result = await roleBroker.UpdateSSORoleAsync(storageRole);
-        item.Id = result.Id;
-        item.UsersArePortalAdmins = result.UsersArePortalAdmins;
-        item.Name = result.Name;
-        item.Description = result.Description;
-        item.Privs = result.Privs;
-        item.TenantId = result.TenantId;
-        return item;
-    }
+            SSORole storageRole = new()
+            {
+                Id = newSSORole.Id,
+                UsersArePortalAdmins = newSSORole.UsersArePortalAdmins,
+                Name = newSSORole.Name,
+                Description = newSSORole.Description,
+                Privs = newSSORole.Privs,
+                TenantId = newSSORole.TenantId
+            };
 
-    public async ValueTask DeleteSSORoleAsync(SSORole item) =>
-        await roleBroker.DeleteSSORoleAsync(item);
+            SSORole result = await roleBroker.InsertSSORoleAsync(SSORole: storageRole);
+            newSSORole.Id = result.Id;
+            newSSORole.UsersArePortalAdmins = result.UsersArePortalAdmins;
+            newSSORole.Name = result.Name;
+            newSSORole.Description = result.Description;
+            newSSORole.Privs = result.Privs;
+            newSSORole.TenantId = result.TenantId;
+
+            return newSSORole;
+        });
+
+    public ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole) =>
+        TryCatch<SSORole>(operation: async () =>
+        {
+            ValidateSSORoleOnUpdate(updatedSSORole: updatedSSORole);
+
+            SSORole storageRole = new()
+            {
+                Id = updatedSSORole.Id,
+                UsersArePortalAdmins = updatedSSORole.UsersArePortalAdmins,
+                Name = updatedSSORole.Name,
+                Description = updatedSSORole.Description,
+                Privs = updatedSSORole.Privs,
+                TenantId = updatedSSORole.TenantId
+            };
+
+            SSORole result = await roleBroker.UpdateSSORoleAsync(SSORole: storageRole);
+            updatedSSORole.Id = result.Id;
+            updatedSSORole.UsersArePortalAdmins = result.UsersArePortalAdmins;
+            updatedSSORole.Name = result.Name;
+            updatedSSORole.Description = result.Description;
+            updatedSSORole.Privs = result.Privs;
+            updatedSSORole.TenantId = result.TenantId;
+
+            return updatedSSORole;
+        });
+
+    public ValueTask DeleteSSORoleAsync(SSORole deletedSSORole) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateSSORoleOnDelete(deletedSSORole: deletedSSORole);
+
+            await roleBroker.DeleteSSORoleAsync(SSORole: deletedSSORole);
+        });
 }
-
-
-

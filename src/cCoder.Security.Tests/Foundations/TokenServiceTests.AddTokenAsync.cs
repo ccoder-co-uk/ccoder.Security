@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -10,25 +14,47 @@ public partial class TokenServiceTests
     [Fact]
     public async Task ShouldAddTokenAsync()
     {
-        // given
+        // Given
         string userId = RandomString();
+
         Token expectedToken = new()
         {
-            Id = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", ""),
-            Expires = DateTimeOffset.Now.AddMinutes(10),
+            Id = Guid.NewGuid()
+                     .ToString()
+                     .Replace(oldValue: "-", newValue: "") + Guid.NewGuid()
+                                                                                      .ToString()
+                                                                                      .Replace(oldValue: "-", newValue: ""),
+            Expires = DateTimeOffset.Now.AddMinutes(minutes: 10),
             Reason = (int)TokenUse.WorkflowExecution,
             UserName = userId
         };
 
-        tokenBrokerMock.Setup(broker => broker.AddTokenAsync(It.IsAny<Token>())).ReturnsAsync(expectedToken);
+        tokenBrokerMock.Setup(expression: broker => broker.InsertTokenAsync(token:It.IsAny<Token>()))
+            .ReturnsAsync(value: expectedToken);
 
-        // when
-        Token actualToken = await tokenService.AddTokenAsync(userId, TokenUse.WorkflowExecution);
+        configurationBrokerMock
+            .Setup(expression: broker => broker.GetValue(
+                section: "Settings",
+                key: "TokenTimeout"))
+            .Returns(value: null);
+
+        Token actualToken = await tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.WorkflowExecution);
+        // When
         expectedToken.Expires = actualToken.Expires;
 
-        // then
-        actualToken.Should().BeEquivalentTo(expectedToken);
-        tokenBrokerMock.Verify(broker => broker.AddTokenAsync(It.IsAny<Token>()), Times.Once);
+        // Then
+        actualToken.Should()
+            .BeEquivalentTo(expectation: expectedToken);
+
+        tokenBrokerMock.Verify(expression: broker => broker.InsertTokenAsync(token: It.IsAny<Token>()), times: Times.Once);
+
+        configurationBrokerMock.Verify(
+            expression: broker => broker.GetValue(
+                section: "Settings",
+                key: "TokenTimeout"),
+            times: Times.Once);
+
         tokenBrokerMock.VerifyNoOtherCalls();
+        configurationBrokerMock.VerifyNoOtherCalls();
     }
 }

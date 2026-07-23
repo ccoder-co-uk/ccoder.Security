@@ -1,20 +1,37 @@
-using cCoder.Security.Brokers.Utility.Interfaces;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Processings;
-internal class SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleService)
+
+internal sealed partial class SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleService)
     : ISSOUserRoleProcessingService
 {
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
-        ssoUserRoleService.GetAllSSOUserRoles();
+        TryCatch(operation: () =>
+        {
+            ValidateSSOUserRolesOnGet();
 
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) =>
-        await ssoUserRoleService.AddSSOUserRoleAsync(item);
+            return ssoUserRoleService.GetAllSSOUserRoles();
+        });
 
-    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) => 
-        await ssoUserRoleService.DeleteSSOUserRoleAsync(item);
+    public ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole) =>
+        TryCatch<SSOUserRole>(operation: async () =>
+        {
+            ValidateSSOUserRoleOnAdd(newSSOUserRole: newSSOUserRole);
+
+            return await ssoUserRoleService.AddSSOUserRoleAsync(item: newSSOUserRole);
+        });
+
+    public ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateSSOUserRoleOnDelete(deletedSSOUserRole: deletedSSOUserRole);
+
+            await ssoUserRoleService.DeleteSSOUserRoleAsync(item: deletedSSOUserRole);
+        });
 }
-
-

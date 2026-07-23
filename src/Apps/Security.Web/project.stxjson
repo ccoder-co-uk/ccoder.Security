@@ -1,0 +1,207 @@
+{
+  "Classes": [
+    {
+      "Name": "Security.Web.Controllers.CurrentUserController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Get",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Controllers.HomeController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Get",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Exposures.Controllers.BaselineController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Get",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Exposures.CurrentUserManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetCurrentUserId",
+          "Inputs": [],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Exposures.HomeManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetIndexPath",
+          "Inputs": [],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Exposures.Setup.UIBaseline",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Packages",
+          "Type": "cCoder.Data.Models.Packaging.Package[]"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "Security.Web.Exposures.UIBaselineManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetPackages",
+          "Inputs": [],
+          "ReturnType": "System.Object"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.IApplicationBuilderExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "InitialiseSecurityDatabase",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "IApplicationBuilder"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
+        },
+        {
+          "Name": "UseSecurityWebApplication",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
+        },
+        {
+          "Name": "UseTheFramework",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "IApplicationBuilder"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.IServiceCollectionExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddAspNetCore",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddMetadata",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddSecurityWebApplication",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "IConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSessions",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Program",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Main",
+          "Inputs": [
+            {
+              "Name": "args",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    }
+  ],
+  "Links": [
+    {
+      "FromType": "Security.Web.Controllers.CurrentUserController",
+      "ToType": "Security.Web.Exposures.CurrentUserManager"
+    },
+    {
+      "FromType": "Security.Web.Controllers.HomeController",
+      "ToType": "Security.Web.Exposures.HomeManager"
+    },
+    {
+      "FromType": "Security.Web.Exposures.Controllers.BaselineController",
+      "ToType": "Security.Web.Exposures.UIBaselineManager"
+    }
+  ],
+  "AnalysisItems": []
+}

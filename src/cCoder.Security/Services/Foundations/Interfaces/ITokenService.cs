@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Foundations.Interfaces;
+
 internal interface ITokenService
 {
     ValueTask<Token> AddTokenAsync(string userId, TokenUse tokenUse, int? timeout = null);
@@ -11,4 +16,3 @@ internal interface ITokenService
 
     IQueryable<Token> GetAllTokens(bool ignoreFilters = false);
 }
-

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Moq;
 using Xunit;
@@ -9,18 +13,17 @@ public partial class TenantProcessingServiceTests
     [Fact]
     public async Task ShouldDeleteTenantAsync()
     {
-        //given
+        // Given
         Tenant inputTenant = RandomTenant();
 
-        //when
-        await tenantProcessingService.DeleteTenantAsync(inputTenant);
+        // When
+        await tenantProcessingService.DeleteTenantAsync(item: inputTenant);
 
-        //then
-        tenantServiceMock.Verify(tenantServiceMock =>
-            tenantServiceMock.DeleteTenantAsync(inputTenant),
-            Times.Once());
+        // Then
+        tenantServiceMock.Verify(expression: tenantServiceMock =>
+            tenantServiceMock.DeleteTenantAsync(tenant: inputTenant),
+times: Times.Once());
 
         tenantServiceMock.VerifyNoOtherCalls();
     }
 }
-

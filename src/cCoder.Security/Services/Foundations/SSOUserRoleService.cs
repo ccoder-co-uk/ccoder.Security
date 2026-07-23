@@ -1,28 +1,44 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
-internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker) 
+
+internal sealed partial class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
     : ISSOUserRoleService
 {
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
-    {
-        SSOUserRole storageUserRole = new()
+    public ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole) =>
+        TryCatch<SSOUserRole>(operation: async () =>
         {
-            RoleId = item.RoleId,
-            UserId = item.UserId
-        };
+            ValidateSSOUserRoleOnAdd(newSSOUserRole: newSSOUserRole);
 
-        SSOUserRole result = await userRoleBroker.AddSSOUserRoleAsync(storageUserRole);
-        item.RoleId = result.RoleId;
-        item.UserId = result.UserId;
-        return item;
-    }
+            SSOUserRole storageUserRole = new()
+            {
+                RoleId = newSSOUserRole.RoleId,
+                UserId = newSSOUserRole.UserId
+            };
 
-    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
-        await userRoleBroker.DeleteSSOUserRoleAsync(item);
+            SSOUserRole result = await userRoleBroker.InsertSSOUserRoleAsync(
+                userRole: storageUserRole);
 
-    public IQueryable<SSOUserRole> GetAllSSOUserRoles()  =>
-        userRoleBroker.GetAllSSOUserRoles();
+            newSSOUserRole.RoleId = result.RoleId;
+            newSSOUserRole.UserId = result.UserId;
+
+            return newSSOUserRole;
+        });
+
+    public ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateSSOUserRoleOnDelete(deletedSSOUserRole: deletedSSOUserRole);
+
+            await userRoleBroker.DeleteSSOUserRoleAsync(userRole: deletedSSOUserRole);
+        });
+
+    public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
+        TryCatch(operation: () => userRoleBroker.SelectAllSSOUserRoles());
 }

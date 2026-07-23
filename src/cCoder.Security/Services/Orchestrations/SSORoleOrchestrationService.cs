@@ -1,38 +1,67 @@
-using cCoder.Security.Brokers.Utility.Interfaces;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Orchestrations;
-internal class SSORoleOrchestrationService(
+
+internal sealed partial class SSORoleOrchestrationService(
     ISSORoleProcessingService roleProcessingService,
-    ISSOAuthorizationBroker authBroker)
+    IAuthorizationProcessingService authorizationProcessingService)
         : ISSORoleOrchestrationService
 {
     public IQueryable<SSORole> GetAllSSORoles() =>
-        roleProcessingService.GetAllSSORoles();
+        TryCatch(operation: () =>
+        {
+            ValidateSSORolesOnGet();
 
-    public async ValueTask<SSORole> AddSSORoleAsync(SSORole ssoRole)
-    {
-        if (roleProcessingService.GetAllSSORoles().Any())
-            authBroker.UserIsPortalAdminWithPrivilege("tenant_admin");
+            return roleProcessingService.GetAllSSORoles();
+        });
 
-        return await roleProcessingService.AddSSORoleAsync(ssoRole);
-    }
+    public ValueTask<SSORole> AddSSORoleAsync(SSORole newSSORole) =>
+        TryCatch<SSORole>(operation: async () =>
+        {
+            ValidateSSORoleOnAdd(newSSORole: newSSORole);
 
-    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole ssoRole)
-    {
-        authBroker.UserIsPortalAdminWithPrivilege("tenant_admin");
+            if (roleProcessingService
+                .GetAllSSORoles()
+                .Any())
+            {
+                authorizationProcessingService
+                    .EnsureUserIsPortalAdminWithPrivilege(
+                        privilege: "tenant_admin");
+            }
 
-        return await roleProcessingService.UpdateSSORoleAsync(ssoRole);
-    }
+            return await roleProcessingService.AddSSORoleAsync(
+                item: newSSORole);
+        });
 
-    public async ValueTask DeleteSSORoleAsync(SSORole ssoRole)
-    {
-        authBroker.UserIsPortalAdminWithPrivilege("tenant_admin");
+    public ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole) =>
+        TryCatch<SSORole>(operation: async () =>
+        {
+            ValidateSSORoleOnUpdate(updatedSSORole: updatedSSORole);
 
-        await roleProcessingService.DeleteSSORoleAsync(ssoRole);
-    }
+            authorizationProcessingService
+                .EnsureUserIsPortalAdminWithPrivilege(
+                    privilege: "tenant_admin");
+
+            return await roleProcessingService.UpdateSSORoleAsync(
+                item: updatedSSORole);
+        });
+
+    public ValueTask DeleteSSORoleAsync(SSORole deletedSSORole) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateSSORoleOnDelete(deletedSSORole: deletedSSORole);
+
+            authorizationProcessingService
+                .EnsureUserIsPortalAdminWithPrivilege(
+                    privilege: "tenant_admin");
+
+            await roleProcessingService.DeleteSSORoleAsync(
+                item: deletedSSORole);
+        });
 }
-
-

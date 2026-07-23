@@ -1,4 +1,9 @@
-﻿using cCoder.Security.Data.EF.Interfaces;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Security.Data.EF.Interfaces;
+using cCoder.Security.Data.EF.Dependencies;
 using cCoder.Security.Objects;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,18 +16,18 @@ public static class MSSQLSecurityConfigurationExtensions
         IServiceCollection services,
         string connectionString)
     {
-        services.AddTransient<ISecurityDbContextFactory>(sp => 
+        services.AddTransient<ISecurityDbContextFactory>(implementationFactory: sp =>
             new MSSQLSecurityDbContextFactory(connectionString)
             {
                 GetAuthInfo = (withAuth) =>
                 {
                     return withAuth
-                        ? new SSOAuthInfo { SSOUserId = "Guest" } 
+                        ? new SSOAuthInfo { SSOUserId = "Guest" }
                         : sp.GetService<ISSOAuthInfo>();
                 }
             });
 
-        services.AddDistributedSqlServerCache(options =>
+        services.AddDistributedSqlServerCache(setupAction: options =>
         {
             options.ConnectionString = connectionString;
             options.SchemaName = "dbo";

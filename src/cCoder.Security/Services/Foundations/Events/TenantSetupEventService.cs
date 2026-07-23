@@ -1,22 +1,33 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Security.Brokers.Authentication;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Data.Models;
-using cCoder.Security.Objects;
 using cCoder.Eventing.Models;
 
 namespace cCoder.Security.Services.Foundations.Events;
 
-internal class TenantSetupEventService(
+internal sealed partial class TenantSetupEventService(
     ITenantSetupEventBroker tenantSetupEventBroker,
-    ISSOAuthInfo authInfo) : ITenantSetupEventService
+    IAuthenticationContextBroker authenticationContextBroker)
+        : ITenantSetupEventService
 {
-    public ValueTask RaiseSetupAsync(SetupDetails setupDetails) =>
-        tenantSetupEventBroker.RaiseTenantSetupEventAsync(
-            new EventMessage<SetupDetails>
+    public ValueTask RaiseSetupDetailsAsync(SetupDetails setupDetails) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateSetupDetailsOnRaise(setupDetails: setupDetails);
+
+            EventMessage<SetupDetails> message = new()
             {
                 AuthInfo = new EventAuthInfo
                 {
-                    SSOUserId = authInfo?.SSOUserId ?? "Guest"
+                    SSOUserId = authenticationContextBroker.GetSSOUserId()
                 },
                 Data = setupDetails
-            });
+            };
+
+            await tenantSetupEventBroker.RaiseTenantSetupEventAsync(message: message);
+        });
 }

@@ -1,4 +1,8 @@
-﻿namespace cCoder.Security.Objects.DTOs;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+namespace cCoder.Security.Objects.DTOs;
 
 public class ChangePasswordRequest
 {

@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Foundations.Interfaces;
+
 internal interface ISSOUserService
 {
     SSOUser Me();
@@ -10,4 +15,3 @@ internal interface ISSOUserService
     ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser item);
     ValueTask DeleteSSOUserAsync(SSOUser item);
 }
-

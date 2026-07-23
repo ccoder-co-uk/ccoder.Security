@@ -1,58 +1,109 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
-using Microsoft.Extensions.Configuration;
 
 namespace cCoder.Security.Services.Foundations;
 
-internal class TokenService(ITokenBroker tokenBroker, IConfiguration configuration)
+internal sealed partial class TokenService(
+    ITokenBroker tokenBroker,
+    ISecurityConfigurationBroker configurationBroker)
     : ITokenService
 {
-    public async ValueTask<Token> AddTokenAsync(string userId, TokenUse tokenUse, int? timeout = null)
-    {
-        int tokenTimeout = GetTokenTimeout();
-        string value = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", "");
-
-        if (value.StartsWith('a'))
-            value = value[1..] + "a";
-
-        Token token = new()
+    public ValueTask<Token> AddTokenAsync(
+        string userId,
+        TokenUse tokenUse,
+        int? timeout = null) =>
+        TryCatch<Token>(operation: async () =>
         {
-            Id = value,
-            Expires = DateTimeOffset.Now.AddMinutes(timeout ?? tokenTimeout),
-            Reason = (int)tokenUse,
-            UserName = userId
-        };
+            ValidateTokenOnAdd(
+                userId: userId,
+                tokenUse: tokenUse,
+                timeout: timeout);
 
-        Token storageToken = new()
+            int tokenTimeout = GetTokenTimeout();
+
+            string value = Guid
+                .NewGuid()
+                .ToString()
+                .Replace(oldValue: "-", newValue: "")
+                + Guid
+                    .NewGuid()
+                    .ToString()
+                    .Replace(oldValue: "-", newValue: "");
+
+            if (value.StartsWith(value: 'a'))
+            {
+                value = value[1..] + "a";
+            }
+
+            Token token = new()
+            {
+                Id = value,
+                Expires = DateTimeOffset.Now.AddMinutes(minutes: timeout ?? tokenTimeout),
+                Reason = (int)tokenUse,
+                UserName = userId
+            };
+
+            Token storageToken = new()
+            {
+                Id = token.Id,
+                Expires = token.Expires,
+                Reason = token.Reason,
+                UserName = token.UserName
+            };
+
+            Token result = await tokenBroker.InsertTokenAsync(token: storageToken);
+            token.Id = result.Id;
+            token.Expires = result.Expires;
+            token.Reason = result.Reason;
+            token.UserName = result.UserName;
+
+            return token;
+        });
+
+    public ValueTask DeleteTokenAsync(Token deletedToken) =>
+        TryCatch(operation: async () =>
         {
-            Id = token.Id,
-            Expires = token.Expires,
-            Reason = token.Reason,
-            UserName = token.UserName
-        };
+            ValidateTokenOnDelete(deletedToken: deletedToken);
 
-        Token result = await tokenBroker.AddTokenAsync(storageToken);
-        token.Id = result.Id;
-        token.Expires = result.Expires;
-        token.Reason = result.Reason;
-        token.UserName = result.UserName;
-        return token;
-    }
+            await tokenBroker.DeleteTokenAsync(token: deletedToken);
+        });
 
-    public async ValueTask DeleteTokenAsync(Token item) => 
-        await tokenBroker.DeleteTokenAsync(item);
+    public ValueTask<int> DeleteExpiredAsync(CancellationToken cancellationToken = default) =>
+        TryCatch<int>(operation: async () =>
+        {
+            ValidateExpiredOnDelete(cancellationToken: cancellationToken);
 
-    public async ValueTask<int> DeleteExpiredAsync(CancellationToken cancellationToken = default) =>
-        await tokenBroker.DeleteExpiredAsync(DateTimeOffset.UtcNow, cancellationToken);
+            return await tokenBroker.DeleteExpiredAsync(
+                expiresBefore: DateTimeOffset.UtcNow,
+                cancellationToken: cancellationToken);
+        });
 
-    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) => 
-        tokenBroker.GetAllTokens(ignoreFilters);
+    public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
+        TryCatch(operation: () =>
+        {
+            ValidateAllTokensOnGet(ignoreFilters: ignoreFilters);
+
+            return ignoreFilters
+                ? tokenBroker.SelectAllTokensIgnoringFilters()
+                : tokenBroker.SelectAllTokens();
+        });
 
     private int GetTokenTimeout()
     {
-        if (int.TryParse(configuration?.GetSection("Settings")["TokenTimeout"], out int timeout))
+        string configuredTimeout = configurationBroker.GetValue(
+            section: "Settings",
+            key: "TokenTimeout");
+
+        if (int.TryParse(s: configuredTimeout, result: out int timeout))
+        {
             return timeout;
+        }
 
         return 45;
     }

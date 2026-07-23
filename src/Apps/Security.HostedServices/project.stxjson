@@ -1,0 +1,61 @@
+{
+  "Classes": [
+    {
+      "Name": "Security.HostedServices.IApplicationBuilderExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "UseSecurityHostedServicesApplication",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
+        }
+      ]
+    },
+    {
+      "Name": "Security.HostedServices.IServiceCollectionExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSecurityHostedServicesApplication",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "IConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "Security.HostedServices.Program",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Main",
+          "Inputs": [
+            {
+              "Name": "args",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    }
+  ],
+  "Links": [],
+  "AnalysisItems": []
+}

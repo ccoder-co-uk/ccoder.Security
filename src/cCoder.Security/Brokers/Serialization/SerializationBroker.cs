@@ -1,9 +1,14 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace cCoder.Security.Brokers.Serialization;
+
 internal class SerializationBroker : ISerializationBroker
-	{
+{
     public static readonly JsonSerializerSettings ODataJsonSettings = new()
     {
         ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
@@ -16,10 +21,9 @@ internal class SerializationBroker : ISerializationBroker
         MaxDepth = 4
     };
 
-		public T Deserialize<T>(string input) => 
-			JsonConvert.DeserializeObject<T>(input);
+    public T Deserialize<T>(string input) =>
+        JsonConvert.DeserializeObject<T>(value: input);
 
-		public string Serialize(object input) =>
-        JsonConvert.SerializeObject(input, Formatting.None, ODataJsonSettings);
+    public string Serialize(object input) =>
+        JsonConvert.SerializeObject(value: input, formatting: Formatting.None, settings: ODataJsonSettings);
 }
-

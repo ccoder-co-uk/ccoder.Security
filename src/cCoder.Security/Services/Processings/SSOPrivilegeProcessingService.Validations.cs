@@ -1,0 +1,16 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Security.Dependencies;
+
+namespace cCoder.Security.Services.Processings;
+
+internal sealed partial class SSOPrivilegeProcessingService
+{
+    private static void Validate(params object[] inputs) =>
+        ValidationRulesEngine.Validate(inputs: inputs);
+
+    private static void ValidateSSOPrivilegesOnGet() =>
+        Validate(inputs: []);
+}

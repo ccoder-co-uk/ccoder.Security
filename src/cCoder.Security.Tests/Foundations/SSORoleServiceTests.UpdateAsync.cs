@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -11,28 +15,36 @@ public partial class SSORoleServiceTests
     [Fact]
     public async Task ShouldUpdateSSORoleAsync()
     {
-        // given
-        SSORole inputSSORole = RandomRole(Guid.NewGuid());
+        // Given
+        SSORole inputSSORole = RandomRole(id: Guid.NewGuid());
         SSORole expectedSSORole = inputSSORole.DeepClone();
 
         SSORole submitted = null;
+
         roleBrokerMock
-            .Setup(broker => broker.UpdateSSORoleAsync(It.IsAny<SSORole>()))
-            .Callback<SSORole>(candidate => submitted = candidate)
-            .ReturnsAsync(expectedSSORole);
+            .Setup(expression:broker => broker.UpdateSSORoleAsync(SSORole:It.IsAny<SSORole>()))
+            .Callback<SSORole>(action: candidate => submitted = candidate)
+            .ReturnsAsync(value: expectedSSORole);
 
-        // when
-        SSORole actualSSORole = await roleService.UpdateSSORoleAsync(inputSSORole);
+        // When
+        SSORole actualSSORole = await roleService.UpdateSSORoleAsync(item: inputSSORole);
 
-        // then
-        actualSSORole.Should().BeSameAs(inputSSORole);
-        submitted.Should().NotBeSameAs(inputSSORole);
-        actualSSORole.Should().NotBeSameAs(submitted);
-        actualSSORole.Should().BeEquivalentTo(expectedSSORole);
+        // Then
+        actualSSORole.Should()
+            .BeSameAs(expected: inputSSORole);
 
-        roleBrokerMock.Verify(broker => 
-            broker.UpdateSSORoleAsync(It.IsAny<SSORole>()), 
-            Times.Once);
+        submitted.Should()
+            .NotBeSameAs(unexpected: inputSSORole);
+
+        actualSSORole.Should()
+            .NotBeSameAs(unexpected: submitted);
+
+        actualSSORole.Should()
+            .BeEquivalentTo(expectation: expectedSSORole);
+
+        roleBrokerMock.Verify(expression: broker =>
+            broker.UpdateSSORoleAsync(SSORole: It.IsAny<SSORole>()),
+times: Times.Once);
 
         roleBrokerMock.VerifyNoOtherCalls();
     }

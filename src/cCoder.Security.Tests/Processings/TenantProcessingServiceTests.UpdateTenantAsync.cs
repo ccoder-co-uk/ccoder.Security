@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -11,25 +15,25 @@ public partial class TenantProcessingServiceTests
     [Fact]
     public async Task ShouldUpdateTenantAsync()
     {
-        //given
+        // Given
         Tenant inputTenant = RandomTenant();
         Tenant expectedTenant = inputTenant.DeepClone();
 
-        tenantServiceMock.Setup(tenantServiceMock =>
-            tenantServiceMock.UpdateTenantAsync(inputTenant))
-            .ReturnsAsync(expectedTenant);
+        tenantServiceMock.Setup(expression: tenantServiceMock =>
+            tenantServiceMock.UpdateTenantAsync(tenant:inputTenant))
+            .ReturnsAsync(value: expectedTenant);
 
-        //when
-        Tenant actualTenant = await tenantProcessingService.UpdateTenantAsync(inputTenant);
+        // When
+        Tenant actualTenant = await tenantProcessingService.UpdateTenantAsync(item: inputTenant);
 
-        //then
-        actualTenant.Should().BeEquivalentTo(expectedTenant);
+        // Then
+        actualTenant.Should()
+            .BeEquivalentTo(expectation: expectedTenant);
 
-        tenantServiceMock.Verify(tenantServiceMock =>
-            tenantServiceMock.UpdateTenantAsync(inputTenant),
-            Times.Once);
+        tenantServiceMock.Verify(expression: tenantServiceMock =>
+            tenantServiceMock.UpdateTenantAsync(tenant: inputTenant),
+times: Times.Once);
 
         tenantServiceMock.VerifyNoOtherCalls();
     }
 }
-

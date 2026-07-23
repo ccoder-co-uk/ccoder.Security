@@ -1,58 +1,64 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class TenantController(ITenantCoordinationService tenantCoordinationService)
-    : SecurityController<Tenant>
+public class TenantController(ITenantAggregationService tenantAggregationService)
+    : Controller
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<Tenant> queryOptions) =>
-        Ok(tenantCoordinationService.GetAllTenants());
+        Ok(value: tenantAggregationService.GetAllTenants());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] string key)
     {
-        IQueryable<Tenant> result = tenantCoordinationService
+        IQueryable<Tenant> result = tenantAggregationService
             .GetAllTenants()
-            .Where(i => i.Id == key);
+            .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(queryable: result))
             : NotFound();
     }
 
     [HttpPost]
-    public async ValueTask<IActionResult> Post([FromBody] Tenant tenant) =>
+    public async ValueTask<IActionResult> Post([FromBody] Tenant newTenant) =>
         ModelState.IsValid
-            ? Ok(await tenantCoordinationService.AddTenantAsync(tenant))
-            : BadRequest(ModelState);
+            ? Ok(value: await tenantAggregationService.AddTenantAsync(item: newTenant))
+            : BadRequest(modelState: ModelState);
 
     [HttpPut]
-    public async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] Tenant tenant) =>
+    public async ValueTask<IActionResult> Put(
+        [FromRoute] string key,
+        [FromBody] Tenant updatedTenant) =>
         ModelState.IsValid
-            ? Ok(await tenantCoordinationService.UpdateTenantAsync(tenant))
-            : BadRequest(ModelState);
+            ? Ok(value: await tenantAggregationService.UpdateTenantAsync(item: updatedTenant))
+            : BadRequest(modelState: ModelState);
 
     [HttpDelete]
     public async ValueTask<IActionResult> Delete([FromRoute] string key)
     {
-        if(!ModelState.IsValid)
-            return BadRequest(ModelState);
+        if (!ModelState.IsValid)
+        { return BadRequest(modelState: ModelState); }
 
-        var tenant = tenantCoordinationService
+        var tenant = tenantAggregationService
             .GetAllTenants()
-            .First(t => t.Id == key);
+            .First(predicate: t => t.Id == key);
 
         if (tenant is null)
-            return NotFound();
+        { return NotFound(); }
 
-        await tenantCoordinationService.DeleteTenantAsync(tenant);
+        await tenantAggregationService.DeleteTenantAsync(item: tenant);
 
         return Ok();
     }

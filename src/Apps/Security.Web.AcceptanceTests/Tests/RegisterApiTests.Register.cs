@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -11,8 +15,9 @@ public partial class RegisterApiTests
     [Fact]
     public async Task ShouldRegisterAccountAsync()
     {
-        //given
+        // Given
         RegisterUser inputRegisterUser = RandomRegisterUser();
+
         SSOUser expectedSSOUser = new()
         {
             AccessFailedCount = 0,
@@ -25,18 +30,19 @@ public partial class RegisterApiTests
             PhoneNumberConfirmed = false,
         };
 
-        //when
+        // When
         RegistrationResult result = await userApiClient
-            .RegisterAsync(inputRegisterUser);
+            .RegisterAsync(registerUser: inputRegisterUser);
 
-        SSOUser actualSSOUser = result.User;    
+        SSOUser actualSSOUser = result.User;
 
         expectedSSOUser.Id = actualSSOUser.Id;
         expectedSSOUser.PasswordHash = actualSSOUser.PasswordHash;
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
-        await TearDownUserAsync(actualSSOUser.Id);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser);
+
+        await TearDownUserAsync(userId: actualSSOUser.Id);
     }
 }
-
