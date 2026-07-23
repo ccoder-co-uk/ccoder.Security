@@ -647,26 +647,6 @@
           "ReturnType": "IActionResult"
         },
         {
-          "Name": "PostConfirmForgotPassword",
-          "Inputs": [
-            {
-              "Name": "newConfirmForgotPasswordRequest",
-              "Type": "cCoder.Security.Objects.DTOs.ConfirmForgotPasswordRequest"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
-        },
-        {
-          "Name": "PostForgotPassword",
-          "Inputs": [
-            {
-              "Name": "newForgotPasswordRequest",
-              "Type": "cCoder.Security.Objects.DTOs.ForgotPasswordRequest"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
-        },
-        {
           "Name": "PostLogin",
           "Inputs": [
             {
@@ -679,6 +659,40 @@
         {
           "Name": "PostLogout",
           "Inputs": [],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "PostConfirmForgotPassword",
+          "Inputs": [
+            {
+              "Name": "newConfirmForgotPasswordRequest",
+              "Type": "cCoder.Security.Objects.DTOs.ConfirmForgotPasswordRequest"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "PostForgotPassword",
+          "Inputs": [
+            {
+              "Name": "newForgotPasswordRequest",
+              "Type": "cCoder.Security.Objects.DTOs.ForgotPasswordRequest"
+            }
+          ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         }
       ]
@@ -931,12 +945,6 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         }
       ]
-    },
-    {
-      "Name": "cCoder.Security.Exposures.Controllers.SecurityController\u003CT\u003E",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": []
     },
     {
       "Name": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
@@ -1289,7 +1297,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "RaiseInvitationAcceptedEventAsync",
+          "Name": "RaiseInvitationAcceptedSSOUserRegisterUserEventAsync",
           "Inputs": [
             {
               "Name": "user",
@@ -1307,7 +1315,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "RaiseInvitationCreatedEventAsync",
+          "Name": "RaiseInvitationCreatedSSOUserRegisterUserEventAsync",
           "Inputs": [
             {
               "Name": "user",
@@ -1325,7 +1333,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "RaisePasswordResetRequestedEventAsync",
+          "Name": "RaisePasswordResetRequestedSSOUserEventAsync",
           "Inputs": [
             {
               "Name": "user",
@@ -1339,7 +1347,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "RaiseRegistrationConfirmedEventAsync",
+          "Name": "RaiseRegistrationConfirmedSSOUserEventAsync",
           "Inputs": [
             {
               "Name": "user",
@@ -1353,7 +1361,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "RaiseRegistrationCreatedEventAsync",
+          "Name": "RaiseRegistrationCreatedSSOUserRegisterUserEventAsync",
           "Inputs": [
             {
               "Name": "user",
@@ -1390,7 +1398,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "RaiseSetupAsync",
+          "Name": "RaiseSetupDetailsAsync",
           "Inputs": [
             {
               "Name": "setupDetails",
@@ -1580,6 +1588,16 @@
           "ReturnType": "System.Void"
         },
         {
+          "Name": "SetSSOUser",
+          "Inputs": [
+            {
+              "Name": "user",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
           "Name": "SetString",
           "Inputs": [
             {
@@ -1592,16 +1610,6 @@
             }
           ],
           "ReturnType": "System.Void"
-        },
-        {
-          "Name": "SetUser",
-          "Inputs": [
-            {
-              "Name": "user",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
-            }
-          ],
-          "ReturnType": "System.Void"
         }
       ]
     },
@@ -1611,7 +1619,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddTenantAnalaysisAsync",
+          "Name": "AddTenantAnalysisAsync",
           "Inputs": [
             {
               "Name": "newTenantAnalysis",
@@ -1931,7 +1939,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AcceptInviteAsync",
+          "Name": "AcceptRegisterUserInviteAsync",
           "Inputs": [
             {
               "Name": "registerForm",
@@ -1974,7 +1982,7 @@
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
         },
         {
-          "Name": "InviteUserAsync",
+          "Name": "InviteRegisterUserAsync",
           "Inputs": [
             {
               "Name": "registerForm",
@@ -1994,7 +2002,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.String\u003E"
         },
         {
-          "Name": "Register",
+          "Name": "RegisterUserAsync",
           "Inputs": [
             {
               "Name": "registerForm",
@@ -2158,7 +2166,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "SetupAsync",
+          "Name": "SetupDetailsAsync",
           "Inputs": [
             {
               "Name": "setupDetails",
@@ -2175,7 +2183,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "SetupAsync",
+          "Name": "SetupDetailsAsync",
           "Inputs": [
             {
               "Name": "setupDetails",
@@ -2264,7 +2272,7 @@
           "Name": "FindById",
           "Inputs": [
             {
-              "Name": "id",
+              "Name": "ssoUserId",
               "Type": "System.String"
             }
           ],
@@ -2423,6 +2431,16 @@
           "ReturnType": "System.Void"
         },
         {
+          "Name": "SetSSOUser",
+          "Inputs": [
+            {
+              "Name": "user",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
           "Name": "SetString",
           "Inputs": [
             {
@@ -2432,16 +2450,6 @@
             {
               "Name": "value",
               "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "SetUser",
-          "Inputs": [
-            {
-              "Name": "user",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
             }
           ],
           "ReturnType": "System.Void"
@@ -2635,7 +2643,7 @@
           "Name": "GetTokenById",
           "Inputs": [
             {
-              "Name": "id",
+              "Name": "tokenId",
               "Type": "System.String"
             }
           ],
@@ -2734,6 +2742,14 @@
   "Links": [
     {
       "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
+      "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
       "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
     },
     {
@@ -3015,25 +3031,18 @@
   ],
   "AnalysisItems": [
     {
-      "Code": "STXAPI002",
-      "Description": "An API controller must expose a single model contract.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 11
+      "Type": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
+      "LineNumber": 31
     },
     {
-      "Code": "STXAPI001",
-      "Description": "An API controller must have exactly one business dependency.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SecurityController\u003CT\u003E",
-      "LineNumber": 9
-    },
-    {
-      "Code": "STXAPI003",
-      "Description": "An API controller class name must end with Controller.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SecurityController\u003CT\u003E",
-      "LineNumber": 9
+      "Type": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
+      "LineNumber": 34
     },
     {
       "Code": "STXE005",
@@ -3055,13 +3064,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
       "LineNumber": 21
-    },
-    {
-      "Code": "STXAPP001",
-      "Description": "Program.cs, IServiceCollectionExtensions.cs, and WebApplicationExtensions.cs must live at the project root.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 33
     },
     {
       "Code": "STX0007",
@@ -3127,41 +3129,6 @@
       "LineNumber": 16
     },
     {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 22
-    },
-    {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 49
-    },
-    {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 58
-    },
-    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
@@ -3258,13 +3225,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
       "LineNumber": 12
-    },
-    {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
-      "LineNumber": 16
     },
     {
       "Code": "STX0003",
@@ -3589,13 +3549,6 @@
       "LineNumber": 40
     },
     {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 47
-    },
-    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
@@ -3657,13 +3610,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TenantAnalysisService",
-      "LineNumber": 14
     },
     {
       "Code": "STX0008",
@@ -3925,6 +3871,13 @@
       "LineNumber": 13
     },
     {
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 78
+    },
+    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
@@ -4100,32 +4053,46 @@
       "LineNumber": 16
     },
     {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 28
+      "LineNumber": 41
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 47
+      "LineNumber": 50
     },
     {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 66
+      "LineNumber": 81
     },
     {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 82
+      "LineNumber": 118
+    },
+    {
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
+      "LineNumber": 137
+    },
+    {
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
+      "LineNumber": 166
     },
     {
       "Code": "STX0008",
@@ -4436,13 +4403,6 @@
       "LineNumber": 13
     },
     {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 17
-    },
-    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
@@ -4490,13 +4450,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
       "LineNumber": 12
-    },
-    {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 15
     },
     {
       "Code": "STX0003",
@@ -4702,13 +4655,6 @@
       "LineNumber": 75
     },
     {
-      "Code": "STX0017",
-      "Description": "Identifier parameters must be named for their type, for example studentId.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 85
-    },
-    {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
@@ -4828,13 +4774,6 @@
       "LineNumber": 11
     },
     {
-      "Code": "STX0018",
-      "Description": "Service method names must include each model type they operate on.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SessionProcessingService",
-      "LineNumber": 23
-    },
-    {
       "Code": "STX0003",
       "Description": "A service containing only pass-through methods is redundant and should be retired.",
       "Severity": "Warning",
@@ -4994,13 +4933,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STX0017",
-      "Description": "Identifier parameters must be named for their type, for example studentId.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 29
     },
     {
       "Code": "STX0003",

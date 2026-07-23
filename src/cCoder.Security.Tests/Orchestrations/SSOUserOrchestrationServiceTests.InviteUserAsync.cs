@@ -40,7 +40,7 @@ public partial class SSOUserOrchestrationServiceTests
             .Returns(value: new[] { existingUser }.AsQueryable());
 
         (SSOUser actualUser, string token) =
-            await ssoUserOrchestrationService.InviteUserAsync(registerForm: input);
+            await ssoUserOrchestrationService.InviteRegisterUserAsync(registerForm: input);
 
         actualUser.Should().BeSameAs(expected: existingUser);
         actualUser.PasswordHash.Should().BeNull();
@@ -51,7 +51,7 @@ expression: service => service.GenerateInvitationToken(userId: It.IsAny<string>(
 times: Times.Never);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaiseInvitationCreatedEventAsync(
+expression: service => service.RaiseInvitationCreatedSSOUserRegisterUserEventAsync(
 user: It.IsAny<SSOUser>(),
 registerForm: It.IsAny<RegisterUser>(),
 token: It.IsAny<string>()),

@@ -52,7 +52,7 @@ internal partial class SSOUserProcessingService(
     {
         ValidateUsername(username: username);
 
-        SSOUser user = FindById(id: username);
+        SSOUser user = FindById(ssoUserId: username);
 
         if (user == null)
         { throw new SecurityException("Access Denied!"); }
@@ -82,10 +82,10 @@ internal partial class SSOUserProcessingService(
         return user;
     }
 
-    public SSOUser FindById(string id) =>
+    public SSOUser FindById(string ssoUserId) =>
         ssoUserService
             .GetAllSSOUsers(ignoreFilters: true)
-            .FirstOrDefault(predicate: u => u.Id == id || u.Email == id);
+            .FirstOrDefault(predicate: u => u.Id == ssoUserId || u.Email == ssoUserId);
 
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>
         ssoUserService.GetAllSSOUsers(ignoreFilters: ignoreFilters);
@@ -112,13 +112,13 @@ internal partial class SSOUserProcessingService(
         string userId = user.Id;
         int attempts = 1;
 
-        SSOUser existing = FindById(id: userId);
+        SSOUser existing = FindById(ssoUserId: userId);
 
         while (existing is not null)
         {
             userId = user.Id + attempts;
 
-            existing = FindById(id: userId);
+            existing = FindById(ssoUserId: userId);
             attempts++;
         }
 

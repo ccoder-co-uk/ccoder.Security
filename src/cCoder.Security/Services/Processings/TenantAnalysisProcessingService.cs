@@ -12,7 +12,7 @@ internal class TenantAnalysisProcessingService(ITenantAnalysisService tenantAnal
 
 {
     public ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis newTenantAnalysis) =>
-        tenantAnalysisService.AddTenantAnalaysisAsync(tenant: newTenantAnalysis);
+        tenantAnalysisService.AddTenantAnalysisAsync(tenant: newTenantAnalysis);
 
     public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis) =>
         tenantAnalysisService.DeleteTenantAnalysisAsync(tenant: deletedTenantAnalysis);

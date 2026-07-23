@@ -19,7 +19,10 @@ internal class AccountEventService(
     IHttpRequestBroker requestBroker,
     ISSOAuthInfo authInfo) : IAccountEventService
 {
-    public ValueTask RaiseRegistrationCreatedEventAsync(SSOUser user, RegisterUser registerForm, string token) =>
+    public ValueTask RaiseRegistrationCreatedSSOUserRegisterUserEventAsync(
+        SSOUser user,
+        RegisterUser registerForm,
+        string token) =>
         RaiseAsync(
 eventName: SecurityAccountEventNames.RegistrationCreated,
 kind: SecurityAccountEventKind.RegistrationCreated,
@@ -28,7 +31,7 @@ tenant: ResolveTenant(tenantId: registerForm?.TenantId),
 token: token,
 culture: registerForm?.Culture);
 
-    public ValueTask RaiseRegistrationConfirmedEventAsync(SSOUser user, string token) =>
+    public ValueTask RaiseRegistrationConfirmedSSOUserEventAsync(SSOUser user, string token) =>
         RaiseAsync(
 eventName: SecurityAccountEventNames.RegistrationConfirmed,
 kind: SecurityAccountEventKind.RegistrationConfirmed,
@@ -37,7 +40,10 @@ tenant: ResolveTenant(user: user),
 token: token,
 culture: null);
 
-    public ValueTask RaiseInvitationCreatedEventAsync(SSOUser user, RegisterUser registerForm, string token) =>
+    public ValueTask RaiseInvitationCreatedSSOUserRegisterUserEventAsync(
+        SSOUser user,
+        RegisterUser registerForm,
+        string token) =>
         RaiseAsync(
 eventName: SecurityAccountEventNames.InvitationCreated,
 kind: SecurityAccountEventKind.InvitationCreated,
@@ -46,7 +52,10 @@ tenant: ResolveTenant(tenantId: registerForm?.TenantId),
 token: token,
 culture: registerForm?.Culture);
 
-    public ValueTask RaiseInvitationAcceptedEventAsync(SSOUser user, RegisterUser registerForm, string token) =>
+    public ValueTask RaiseInvitationAcceptedSSOUserRegisterUserEventAsync(
+        SSOUser user,
+        RegisterUser registerForm,
+        string token) =>
         RaiseAsync(
 eventName: SecurityAccountEventNames.InvitationAccepted,
 kind: SecurityAccountEventKind.InvitationAccepted,
@@ -55,7 +64,7 @@ tenant: ResolveTenant(tenantId: registerForm?.TenantId) ?? ResolveTenant(user: u
 token: token,
 culture: registerForm?.Culture);
 
-    public ValueTask RaisePasswordResetRequestedEventAsync(SSOUser user, string token) =>
+    public ValueTask RaisePasswordResetRequestedSSOUserEventAsync(SSOUser user, string token) =>
         RaiseAsync(
 eventName: SecurityAccountEventNames.PasswordResetRequested,
 kind: SecurityAccountEventKind.PasswordResetRequested,

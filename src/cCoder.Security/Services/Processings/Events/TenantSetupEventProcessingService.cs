@@ -12,12 +12,12 @@ namespace cCoder.Security.Services.Processings.Events;
 internal class TenantSetupEventProcessingService(
     ITenantSetupOrchestrationService tenantSetupOrchestrationService) : ITenantSetupEventProcessingService
 {
-    public ValueTask SetupAsync(SetupDetails setupDetails)
+    public ValueTask SetupDetailsAsync(SetupDetails setupDetails)
     {
         Validate(setupDetails: setupDetails);
         NormalizeSetupDetails(setupDetails: setupDetails);
 
-        return tenantSetupOrchestrationService.SetupAsync(setupDetails: setupDetails);
+        return tenantSetupOrchestrationService.SetupDetailsAsync(setupDetails: setupDetails);
     }
 
     private static void NormalizeSetupDetails(SetupDetails setupDetails)

@@ -20,7 +20,7 @@ internal interface ISSOUserProcessingService
 
     ValueTask<SSOUser> FindByUserAndPasswordAsync(string username, string password);
 
-    SSOUser FindById(string id);
+    SSOUser FindById(string ssoUserId);
 
     SSOUser Me();
 

@@ -30,38 +30,4 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
     public IActionResult GetMe() =>
         Ok(value: authenticationOrchestrationService.Me());
 
-    [HttpPost("ForgotPassword")]
-    public async ValueTask<IActionResult> PostForgotPassword(
-        [FromBody] ForgotPasswordRequest newForgotPasswordRequest)
-    {
-        if (!ModelState.IsValid)
-        { return BadRequest(modelState: ModelState); }
-
-        try
-        {
-            await authenticationOrchestrationService.ForgotPasswordAsync(
-                email: newForgotPasswordRequest.Email);
-        }
-        catch
-        {
-        }
-
-        return Ok();
-    }
-
-    [HttpPost("ConfirmForgotPassword")]
-    public async ValueTask<IActionResult> PostConfirmForgotPassword(
-        [FromBody] ConfirmForgotPasswordRequest newConfirmForgotPasswordRequest)
-    {
-        if (!ModelState.IsValid)
-        { return BadRequest(modelState: ModelState); }
-
-        await authenticationOrchestrationService.ConfirmForgotPasswordAsync(
-            tokenId: newConfirmForgotPasswordRequest.Token,
-            userId: newConfirmForgotPasswordRequest.UserId,
-            newPassword: newConfirmForgotPasswordRequest.NewPassword,
-            confirmNewPassword: newConfirmForgotPasswordRequest.ConfirmPassword);
-
-        return Ok();
-    }
 }

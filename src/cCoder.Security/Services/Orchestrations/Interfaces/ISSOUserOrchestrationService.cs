@@ -9,11 +9,14 @@ namespace cCoder.Security.Services.Orchestrations.Interfaces;
 
 public interface ISSOUserOrchestrationService
 {
-    ValueTask<(SSOUser, string)> Register(RegisterUser registerForm);
+    ValueTask<(SSOUser, string)> RegisterUserAsync(RegisterUser registerForm);
 
-    ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser registerForm);
+    ValueTask<(SSOUser, string)> InviteRegisterUserAsync(RegisterUser registerForm);
 
-    ValueTask<SSOUser> AcceptInviteAsync(RegisterUser registerForm, string userId, string tokenId);
+    ValueTask<SSOUser> AcceptRegisterUserInviteAsync(
+        RegisterUser registerForm,
+        string userId,
+        string tokenId);
 
     ValueTask<string> RegenerateUserInviteToken(string userId);
 

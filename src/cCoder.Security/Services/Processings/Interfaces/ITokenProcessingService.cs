@@ -10,7 +10,7 @@ internal interface ITokenProcessingService
 {
     IQueryable<Token> GetAllTokens(bool ignoreFilters = false);
 
-    Token GetTokenById(string id);
+    Token GetTokenById(string tokenId);
 
     Token GetForgottenPasswordToken(string tokenId);
 

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.OData.Results;
 namespace cCoder.Security.Exposures.Controllers;
 
 public class TenantController(ITenantCoordinationService tenantCoordinationService)
-    : SecurityController<Tenant>
+    : Controller
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]

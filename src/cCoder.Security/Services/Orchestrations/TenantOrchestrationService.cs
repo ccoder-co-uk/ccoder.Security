@@ -106,5 +106,6 @@ internal class TenantOrchestrationService(
     }
 
     private bool BootstrapUserExists(string userId) =>
-        !string.IsNullOrWhiteSpace(value: userId) && userProcessingService.FindById(id: userId) is not null;
+        !string.IsNullOrWhiteSpace(value: userId)
+        && userProcessingService.FindById(ssoUserId: userId) is not null;
 }

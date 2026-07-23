@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.OData.Results;
 namespace cCoder.Security.Exposures.Controllers;
 
 public class UserEventController(IUserEventProcessingService userEventProcessingService)
-    : SecurityController<UserEvent>
+    : Controller
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]

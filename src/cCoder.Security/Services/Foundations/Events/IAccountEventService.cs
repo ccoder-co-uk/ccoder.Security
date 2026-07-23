@@ -9,13 +9,22 @@ namespace cCoder.Security.Services.Foundations.Events;
 
 internal interface IAccountEventService
 {
-    ValueTask RaiseRegistrationCreatedEventAsync(SSOUser user, RegisterUser registerForm, string token);
+    ValueTask RaiseRegistrationCreatedSSOUserRegisterUserEventAsync(
+        SSOUser user,
+        RegisterUser registerForm,
+        string token);
 
-    ValueTask RaiseRegistrationConfirmedEventAsync(SSOUser user, string token);
+    ValueTask RaiseRegistrationConfirmedSSOUserEventAsync(SSOUser user, string token);
 
-    ValueTask RaiseInvitationCreatedEventAsync(SSOUser user, RegisterUser registerForm, string token);
+    ValueTask RaiseInvitationCreatedSSOUserRegisterUserEventAsync(
+        SSOUser user,
+        RegisterUser registerForm,
+        string token);
 
-    ValueTask RaiseInvitationAcceptedEventAsync(SSOUser user, RegisterUser registerForm, string token);
+    ValueTask RaiseInvitationAcceptedSSOUserRegisterUserEventAsync(
+        SSOUser user,
+        RegisterUser registerForm,
+        string token);
 
-    ValueTask RaisePasswordResetRequestedEventAsync(SSOUser user, string token);
+    ValueTask RaisePasswordResetRequestedSSOUserEventAsync(SSOUser user, string token);
 }

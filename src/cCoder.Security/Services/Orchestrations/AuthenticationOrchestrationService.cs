@@ -32,7 +32,7 @@ internal class AuthenticationOrchestrationService(
         if (user == null)
         { throw new SecurityException("Access Denied!"); }
 
-        sessionProcessingService.SetUser(user: user);
+        sessionProcessingService.SetSSOUser(user: user);
 
         Token token = await tokenProcessingService
             .AddTokenForUserIdAsync(userId: user.Id, tokenUse: TokenUse.Auth);
@@ -75,7 +75,11 @@ internal class AuthenticationOrchestrationService(
         { throw new SecurityException("User not found"); }
 
         Token token = await tokenProcessingService.GenerateForgottenPasswordToken(userId: user.Id);
-        await accountEventService.RaisePasswordResetRequestedEventAsync(user: user, token: token.Id);
+
+        await accountEventService.RaisePasswordResetRequestedSSOUserEventAsync(
+            user: user,
+            token: token.Id);
+
         return token;
     }
 
@@ -96,7 +100,7 @@ internal class AuthenticationOrchestrationService(
             throw new SecurityException("Access Denied!");
         }
 
-        SSOUser user = ssoUserProcessingService.FindById(id: token.UserName);
+        SSOUser user = ssoUserProcessingService.FindById(ssoUserId: token.UserName);
 
         if (user == null)
         {

@@ -8,5 +8,5 @@ namespace cCoder.Security.Services.Foundations.Events;
 
 internal interface ITenantSetupEventService
 {
-    ValueTask RaiseSetupAsync(SetupDetails setupDetails);
+    ValueTask RaiseSetupDetailsAsync(SetupDetails setupDetails);
 }

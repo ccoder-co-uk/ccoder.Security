@@ -19,7 +19,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string confirmationToken) = await ssoUserOrchestrationService.Register(
+        (SSOUser user, string confirmationToken) = await ssoUserOrchestrationService.RegisterUserAsync(
             registerForm: newRegisterUser);
 
         return Ok(value: new
@@ -42,7 +42,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string invitationToken) = await ssoUserOrchestrationService.InviteUserAsync(
+        (SSOUser user, string invitationToken) = await ssoUserOrchestrationService.InviteRegisterUserAsync(
             registerForm: newRegisterUser);
 
         return Ok(value: new
@@ -68,7 +68,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        await ssoUserOrchestrationService.AcceptInviteAsync(
+        await ssoUserOrchestrationService.AcceptRegisterUserInviteAsync(
             registerForm: newRegisterUser,
             userId: userId,
             tokenId: inviteToken);

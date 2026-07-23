@@ -13,7 +13,7 @@ internal class TenantSetupEventService(
     ITenantSetupEventBroker tenantSetupEventBroker,
     ISSOAuthInfo authInfo) : ITenantSetupEventService
 {
-    public ValueTask RaiseSetupAsync(SetupDetails setupDetails) =>
+    public ValueTask RaiseSetupDetailsAsync(SetupDetails setupDetails) =>
         tenantSetupEventBroker.RaiseTenantSetupEventAsync(
 message: new EventMessage<SetupDetails>
 {

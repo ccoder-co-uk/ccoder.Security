@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.OData.Query;
 namespace cCoder.Security.Exposures.Controllers;
 
 public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrchestrationService)
-        : SecurityController<SSOUserRole>
+        : Controller
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]

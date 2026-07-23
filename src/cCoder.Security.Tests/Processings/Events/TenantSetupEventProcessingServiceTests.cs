@@ -43,7 +43,7 @@ public class TenantSetupEventProcessingServiceTests
         };
 
         tenantSetupOrchestrationServiceMock
-            .Setup(expression: service => service.SetupAsync(It.Is<SetupDetails>(details =>
+            .Setup(expression: service => service.SetupDetailsAsync(It.Is<SetupDetails>(details =>
                 details.User.Id == "admin"
                 && details.Tenant.CreatedBy == "admin"
                 && details.Tenant.LastUpdatedBy == "admin"
@@ -52,7 +52,7 @@ public class TenantSetupEventProcessingServiceTests
                 && details.Tenant.LastUpdated != default)))
             .Returns(value: ValueTask.CompletedTask);
 
-        await tenantSetupEventProcessingService.SetupAsync(setupDetails: setupDetails);
+        await tenantSetupEventProcessingService.SetupDetailsAsync(setupDetails: setupDetails);
 
         tenantSetupOrchestrationServiceMock.VerifyAll();
     }
@@ -71,7 +71,7 @@ public class TenantSetupEventProcessingServiceTests
             }
         };
 
-        Func<Task> act = async () => await tenantSetupEventProcessingService.SetupAsync(setupDetails: missingTenantId);
+        Func<Task> act = async () => await tenantSetupEventProcessingService.SetupDetailsAsync(setupDetails: missingTenantId);
 
         await act.Should().ThrowAsync<ValidationException>()
             .WithMessage(expectedWildcardPattern: "Tenant ID is required.");

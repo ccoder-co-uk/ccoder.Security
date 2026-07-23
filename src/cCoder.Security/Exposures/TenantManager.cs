@@ -10,5 +10,5 @@ namespace cCoder.Security.Exposures;
 internal class TenantManager(ITenantSetupEventProcessingService tenantSetupEventProcessingService) : ITenantManager
 {
     public ValueTask SetupAsync(SetupDetails setupDetails) =>
-        tenantSetupEventProcessingService.SetupAsync(setupDetails: setupDetails);
+        tenantSetupEventProcessingService.SetupDetailsAsync(setupDetails: setupDetails);
 }

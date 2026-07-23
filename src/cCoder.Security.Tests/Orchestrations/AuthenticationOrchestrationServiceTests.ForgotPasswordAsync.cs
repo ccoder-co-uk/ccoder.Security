@@ -35,7 +35,7 @@ public partial class AuthenticationOrchestrationServiceTests
             .ReturnsAsync(value: token);
 
         accountEventServiceMock
-            .Setup(expression: service => service.RaisePasswordResetRequestedEventAsync(user, token.Id))
+            .Setup(expression: service => service.RaisePasswordResetRequestedSSOUserEventAsync(user, token.Id))
             .Returns(value: ValueTask.CompletedTask);
 
         Token actualToken =
@@ -44,7 +44,7 @@ public partial class AuthenticationOrchestrationServiceTests
         actualToken.Should().BeSameAs(expected: token);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaisePasswordResetRequestedEventAsync(user: user, token: token.Id),
+expression: service => service.RaisePasswordResetRequestedSSOUserEventAsync(user: user, token: token.Id),
 times: Times.Once);
     }
 }

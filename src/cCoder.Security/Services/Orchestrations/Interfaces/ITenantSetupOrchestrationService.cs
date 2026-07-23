@@ -8,5 +8,5 @@ namespace cCoder.Security.Services.Orchestrations.Interfaces;
 
 internal interface ITenantSetupOrchestrationService
 {
-    ValueTask SetupAsync(SetupDetails setupDetails);
+    ValueTask SetupDetailsAsync(SetupDetails setupDetails);
 }

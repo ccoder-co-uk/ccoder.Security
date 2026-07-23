@@ -25,7 +25,7 @@ internal class SSOUserOrchestrationService(
     public IQueryable<SSOUser> GetAllSSOUsers() =>
         ssoUserProcessingService.GetAllSSOUsers();
 
-    public async ValueTask<(SSOUser, string)> Register(RegisterUser registerForm)
+    public async ValueTask<(SSOUser, string)> RegisterUserAsync(RegisterUser registerForm)
     {
         ValidateRegisterForm(registerForm: registerForm);
 
@@ -38,7 +38,12 @@ internal class SSOUserOrchestrationService(
 
         await TryAttachBootstrapTenantRoleAsync(registerForm: registerForm, user: user);
         Token confirmationToken = await tokenProcessingService.GenerateConfirmationToken(userId: user.Id);
-        await accountEventService.RaiseRegistrationCreatedEventAsync(user: user, registerForm: registerForm, token: confirmationToken.Id);
+
+        await accountEventService.RaiseRegistrationCreatedSSOUserRegisterUserEventAsync(
+            user: user,
+            registerForm: registerForm,
+            token: confirmationToken.Id);
+
         return (Sanitize(user: user), confirmationToken.Id);
     }
 
@@ -63,7 +68,7 @@ internal class SSOUserOrchestrationService(
     public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>
         ssoUserProcessingService.DeleteSSOUserAsync(item: deletedSSOUser);
 
-    public async ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser registerForm)
+    public async ValueTask<(SSOUser, string)> InviteRegisterUserAsync(RegisterUser registerForm)
     {
         ValidateRegisterForm(registerForm: registerForm, requirePassword: false);
 
@@ -75,11 +80,19 @@ internal class SSOUserOrchestrationService(
         { return (Sanitize(user: user), null); }
 
         Token inviteToken = await tokenProcessingService.GenerateInvitationToken(userId: user.Id);
-        await accountEventService.RaiseInvitationCreatedEventAsync(user: user, registerForm: registerForm, token: inviteToken.Id);
+
+        await accountEventService.RaiseInvitationCreatedSSOUserRegisterUserEventAsync(
+            user: user,
+            registerForm: registerForm,
+            token: inviteToken.Id);
+
         return (Sanitize(user: user), inviteToken.Id);
     }
 
-    public async ValueTask<SSOUser> AcceptInviteAsync(RegisterUser registerForm, string userId, string tokenId)
+    public async ValueTask<SSOUser> AcceptRegisterUserInviteAsync(
+        RegisterUser registerForm,
+        string userId,
+        string tokenId)
     {
         ValidateRegisterForm(registerForm: registerForm);
 
@@ -91,7 +104,7 @@ internal class SSOUserOrchestrationService(
             throw new SecurityException("Access Denied!");
         }
 
-        SSOUser user = ssoUserProcessingService.FindById(id: token.UserName);
+        SSOUser user = ssoUserProcessingService.FindById(ssoUserId: token.UserName);
 
         if (user == null)
         {
@@ -106,14 +119,19 @@ internal class SSOUserOrchestrationService(
         await tokenProcessingService.DeleteTokenAsync(tokenId: token.Id);
 
         SSOUser updatedUser = await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
-        await accountEventService.RaiseInvitationAcceptedEventAsync(user: updatedUser, registerForm: registerForm, token: tokenId);
+
+        await accountEventService.RaiseInvitationAcceptedSSOUserRegisterUserEventAsync(
+            user: updatedUser,
+            registerForm: registerForm,
+            token: tokenId);
+
         return updatedUser;
     }
 
     public async ValueTask<string> RegenerateUserInviteToken(string userId)
     {
         SSOUser user = ssoUserProcessingService
-            .FindById(id: userId);
+            .FindById(ssoUserId: userId);
 
         if (user == null)
         {
@@ -122,7 +140,11 @@ internal class SSOUserOrchestrationService(
         }
 
         var newToken = await tokenProcessingService.GenerateInvitationToken(userId: userId);
-        await accountEventService.RaiseInvitationCreatedEventAsync(user: user, registerForm: null, token: newToken.Id);
+
+        await accountEventService.RaiseInvitationCreatedSSOUserRegisterUserEventAsync(
+            user: user,
+            registerForm: null,
+            token: newToken.Id);
 
         return newToken.Id;
     }
@@ -137,7 +159,7 @@ internal class SSOUserOrchestrationService(
             throw new SecurityException("Access Denied!");
         }
 
-        SSOUser user = ssoUserProcessingService.FindById(id: token.UserName);
+        SSOUser user = ssoUserProcessingService.FindById(ssoUserId: token.UserName);
 
         if (user == null)
         {
@@ -148,7 +170,10 @@ internal class SSOUserOrchestrationService(
         user.EmailConfirmed = true;
         await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
         await tokenProcessingService.DeleteTokenAsync(tokenId: token.Id);
-        await accountEventService.RaiseRegistrationConfirmedEventAsync(user: user, token: tokenId);
+
+        await accountEventService.RaiseRegistrationConfirmedSSOUserEventAsync(
+            user: user,
+            token: tokenId);
     }
 
     private static void ValidateRegisterForm(RegisterUser registerForm, bool requirePassword = true)

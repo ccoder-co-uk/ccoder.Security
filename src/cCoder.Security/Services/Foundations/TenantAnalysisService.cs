@@ -11,7 +11,7 @@ namespace cCoder.Security.Services.Foundations;
 internal class TenantAnalysisService(ITenantAnalysisBroker broker)
     : ITenantAnalysisService
 {
-    public async ValueTask<TenantAnalysis> AddTenantAnalaysisAsync(TenantAnalysis newTenantAnalysis)
+    public async ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis newTenantAnalysis)
     {
         newTenantAnalysis.CreatedOn = DateTimeOffset.UtcNow;
 

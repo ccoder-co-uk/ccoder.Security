@@ -20,12 +20,12 @@ internal class SessionProcessingService(ISessionService sessionService)
     public void SetString(string key, string value) =>
         sessionService.SetString(key: key, value: value);
 
-    public void SetUser(SSOUser user)
+    public void SetSSOUser(SSOUser user)
     {
         if (sessionService.GetString(key: "ssoUser") != null)
         { sessionService.RemoveKey(key: "ssoUser"); }
 
-        sessionService.SetUser(user: user);
+        sessionService.SetSSOUser(user: user);
     }
 
     public void Remove(string key) =>

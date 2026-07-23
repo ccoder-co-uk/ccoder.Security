@@ -14,12 +14,13 @@ internal class TenantSetupOrchestrationService(
     ITenantOrchestrationService tenantOrchestrationService,
     ISSOUserOrchestrationService ssoUserOrchestrationService) : ITenantSetupOrchestrationService
 {
-    public async ValueTask SetupAsync(SetupDetails setupDetails)
+    public async ValueTask SetupDetailsAsync(SetupDetails setupDetails)
     {
         await tenantOrchestrationService.AddTenantAsync(item: setupDetails.Tenant);
 
         (SSOUser _, string confirmationToken) =
-            await ssoUserOrchestrationService.Register(registerForm: MapRegisterUser(setupDetails: setupDetails));
+            await ssoUserOrchestrationService.RegisterUserAsync(
+                registerForm: MapRegisterUser(setupDetails: setupDetails));
 
         await ssoUserOrchestrationService.ConfirmRegistration(tokenId: confirmationToken);
     }

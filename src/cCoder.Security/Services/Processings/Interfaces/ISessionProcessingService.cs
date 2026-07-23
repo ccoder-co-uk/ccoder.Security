@@ -11,7 +11,7 @@ internal interface ISessionProcessingService
     void SetString(string key, string value);
     string GetString(string key);
     SSOUser GetUser();
-    void SetUser(SSOUser user);
+    void SetSSOUser(SSOUser user);
     void Clear();
     void Remove(string key);
 }

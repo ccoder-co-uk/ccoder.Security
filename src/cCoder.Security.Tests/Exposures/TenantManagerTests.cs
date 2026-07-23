@@ -28,12 +28,12 @@ public class TenantManagerTests
         SetupDetails setupDetails = CreateSetupDetails();
 
         tenantSetupEventProcessingServiceMock
-            .Setup(expression: service => service.SetupAsync(setupDetails))
+            .Setup(expression: service => service.SetupDetailsAsync(setupDetails))
             .Returns(value: ValueTask.CompletedTask);
 
         await tenantManager.SetupAsync(setupDetails: setupDetails);
 
-        tenantSetupEventProcessingServiceMock.Verify(expression: service => service.SetupAsync(setupDetails: setupDetails), times: Times.Once);
+        tenantSetupEventProcessingServiceMock.Verify(expression: service => service.SetupDetailsAsync(setupDetails: setupDetails), times: Times.Once);
     }
 
     private static SetupDetails CreateSetupDetails() =>

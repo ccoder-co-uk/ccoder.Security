@@ -26,10 +26,10 @@ internal class TokenProcessingService(ITokenService tokenService)
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
         tokenService.GetAllTokens(ignoreFilters: ignoreFilters);
 
-    public Token GetTokenById(string id)
+    public Token GetTokenById(string tokenId)
     {
         Token token = tokenService.GetAllTokens()
-            .FirstOrDefault(predicate: t => t.Id == id);
+            .FirstOrDefault(predicate: t => t.Id == tokenId);
 
         if (token == null)
         { return null; }
