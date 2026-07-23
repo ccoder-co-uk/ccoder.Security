@@ -8,26 +8,37 @@ using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
 
-internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
+internal sealed partial class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
     : ISSOUserRoleService
 {
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole)
-    {
-        SSOUserRole storageUserRole = new()
+    public ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole) =>
+        TryCatch<SSOUserRole>(operation: async () =>
         {
-            RoleId = newSSOUserRole.RoleId,
-            UserId = newSSOUserRole.UserId
-        };
+            ValidateSSOUserRoleOnAdd(newSSOUserRole: newSSOUserRole);
 
-        SSOUserRole result = await userRoleBroker.InsertSSOUserRoleAsync(userRole: storageUserRole);
-        newSSOUserRole.RoleId = result.RoleId;
-        newSSOUserRole.UserId = result.UserId;
-        return newSSOUserRole;
-    }
+            SSOUserRole storageUserRole = new()
+            {
+                RoleId = newSSOUserRole.RoleId,
+                UserId = newSSOUserRole.UserId
+            };
+
+            SSOUserRole result = await userRoleBroker.InsertSSOUserRoleAsync(
+                userRole: storageUserRole);
+
+            newSSOUserRole.RoleId = result.RoleId;
+            newSSOUserRole.UserId = result.UserId;
+
+            return newSSOUserRole;
+        });
 
     public ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole) =>
-        userRoleBroker.DeleteSSOUserRoleAsync(userRole: deletedSSOUserRole);
+        TryCatch(operation: async () =>
+        {
+            ValidateSSOUserRoleOnDelete(deletedSSOUserRole: deletedSSOUserRole);
+
+            await userRoleBroker.DeleteSSOUserRoleAsync(userRole: deletedSSOUserRole);
+        });
 
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
-        userRoleBroker.SelectAllSSOUserRoles();
+        TryCatch(operation: () => userRoleBroker.SelectAllSSOUserRoles());
 }
