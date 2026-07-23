@@ -2,30 +2,36 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Brokers.Requests;
 using cCoder.Security.Objects;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 using System.Text;
 
-namespace cCoder.Security.Services.Orchestrations;
+namespace cCoder.Security.Services.Aggregations;
 
-internal class SSOAuthInfoOrchestrationService(
+internal sealed partial class SSOAuthInfoAggregationService(
     ISessionProcessingService sessionService,
     ISSOUserProcessingService userService,
     ITokenProcessingService tokenService,
-    IHttpRequestBroker httpRequestBroker)
-    : ISSOAuthInfoOrchestrationService
+    IRequestProcessingService requestProcessingService)
+        : ISSOAuthInfoAggregationService
 {
-    public async ValueTask<ISSOAuthInfo> GetSSOAuthInfoAsync()
-    {
-        ISSOAuthInfo auth = (await GetFromAuthenticationHeaderAsync()) ?? GetFromSession();
-        return auth ?? new SSOAuthInfo { SSOUserId = "Guest" };
-    }
+    public ValueTask<ISSOAuthInfo> GetSSOAuthInfoAsync() =>
+        TryCatch<ISSOAuthInfo>(operation: async () =>
+        {
+            ValidateSSOAuthInfoOnGet();
+
+            ISSOAuthInfo authInfo =
+                await GetFromAuthenticationHeaderAsync() ??
+                GetFromSession();
+
+            return authInfo ?? new SSOAuthInfo { SSOUserId = "Guest" };
+        });
 
     private async ValueTask<ISSOAuthInfo> GetFromAuthenticationHeaderAsync()
     {
-        string authHeaderValue = httpRequestBroker.Header(key: "Authorization");
+        string authHeaderValue = requestProcessingService.GetHeader(
+            key: "Authorization");
 
         if (string.IsNullOrEmpty(value: authHeaderValue))
         { return null; }

@@ -1341,6 +1341,24 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.Objects.Exceptions.SecurityDependencyException",
       "StandardElementType": "Dependency",
       "Properties": [],
@@ -1463,6 +1481,18 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetSSOAuthInfoAsync",
+          "Inputs": [],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.ISSOAuthInfo\u003E"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService",
       "StandardElementType": "CoordinationService",
       "Properties": [],
@@ -1558,6 +1588,23 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.RequestService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetHeader",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
         }
       ]
     },
@@ -2032,18 +2079,6 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "StandardElementType": "OrchestrationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "GetSSOAuthInfoAsync",
-          "Inputs": [],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.ISSOAuthInfo\u003E"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
       "StandardElementType": "OrchestrationService",
       "Properties": [],
@@ -2345,6 +2380,23 @@
           "Name": "GetAuthorizationContext",
           "Inputs": [],
           "ReturnType": "cCoder.Security.Objects.Models.AuthorizationContext"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.RequestProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetHeader",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
         }
       ]
     },
@@ -2941,6 +2993,22 @@
       "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
     },
     {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.RequestProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SessionProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
+    },
+    {
       "FromType": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService",
       "ToType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService"
     },
@@ -2979,6 +3047,10 @@
     {
       "FromType": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
       "ToType": "cCoder.Security.Brokers.Events.TenantSetupEventBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.RequestService",
+      "ToType": "cCoder.Security.Brokers.Requests.HttpRequestBroker"
     },
     {
       "FromType": "cCoder.Security.Services.Foundations.SSOPrivilegeService",
@@ -3042,22 +3114,6 @@
     },
     {
       "FromType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "ToType": "cCoder.Security.Brokers.Requests.HttpRequestBroker"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SessionProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
       "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
     },
     {
@@ -3149,6 +3205,10 @@
       "ToType": "cCoder.Security.Services.Foundations.AuthorizationService"
     },
     {
+      "FromType": "cCoder.Security.Services.Processings.RequestProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.RequestService"
+    },
+    {
       "FromType": "cCoder.Security.Services.Processings.SSOPrivilegeProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.SSOPrivilegeService"
     },
@@ -3212,7 +3272,7 @@
       "Description": "Configuration objects should be registered as singletons.",
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 91
+      "LineNumber": 93
     },
     {
       "Code": "STXSTRUCT001",
@@ -3283,55 +3343,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
       "LineNumber": 14
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 13
     },
     {
       "Code": "STX0004",

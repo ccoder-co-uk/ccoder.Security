@@ -29,6 +29,8 @@ using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Coordinations;
 using cCoder.Security.Services.Coordinations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
+using cCoder.Security.Services.Aggregations;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
 
@@ -106,6 +108,8 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISSOAuthorizationBroker, SSOAuthorizationBroker>();
         services.AddTransient<IAuthorizationService, AuthorizationService>();
         services.AddTransient<IAuthorizationProcessingService, AuthorizationProcessingService>();
+        services.AddTransient<IRequestService, RequestService>();
+        services.AddTransient<IRequestProcessingService, RequestProcessingService>();
 
         services.AddTransient<IEventHubBroker, EventHubBroker>();
         services.AddTransient<IAccountEventBroker, AccountEventBroker>();
@@ -116,7 +120,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddTransient(implementationFactory: async provider =>
             await provider
-                .GetRequiredService<ISSOAuthInfoOrchestrationService>()
+                .GetRequiredService<ISSOAuthInfoAggregationService>()
                 .GetSSOAuthInfoAsync());
 
         services.AddTransient(implementationFactory: provider =>
@@ -158,7 +162,7 @@ public static class IServiceCollectionExtensions
 
     private static void AddOrchestrations(this IServiceCollection services)
     {
-        services.AddTransient<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
+        services.AddTransient<ISSOAuthInfoAggregationService, SSOAuthInfoAggregationService>();
         services.AddTransient<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
         services.AddTransient<ITenantOrchestrationService, TenantOrchestrationService>();
         services.AddTransient<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();

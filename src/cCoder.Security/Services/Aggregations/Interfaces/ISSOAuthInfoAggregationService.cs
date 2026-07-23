@@ -4,9 +4,9 @@
 
 using cCoder.Security.Objects;
 
-namespace cCoder.Security.Services.Orchestrations.Interfaces;
+namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-internal interface ISSOAuthInfoOrchestrationService
+internal interface ISSOAuthInfoAggregationService
 {
     ValueTask<ISSOAuthInfo> GetSSOAuthInfoAsync();
 }
