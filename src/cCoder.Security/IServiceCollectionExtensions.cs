@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Security.Brokers.Authentication;
 using cCoder.Security.Exposures.EDM;
 using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Events;
@@ -87,6 +88,7 @@ public static class IServiceCollectionExtensions
     private static void AddBrokers(this IServiceCollection services)
     {
         services.AddTransient<ISecurityConfigurationBroker, SecurityConfigurationBroker>();
+        services.AddTransient<IAuthenticationContextBroker, AuthenticationContextBroker>();
         services.AddTransient<IWebSessionBroker, WebSessionBroker>();
         services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
         services.AddTransient<ISessionBroker, SessionBroker>();
