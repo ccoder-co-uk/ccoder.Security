@@ -11,8 +11,8 @@ namespace cCoder.Security.Data.EF;
 
 public partial class SecurityDbContext(
     ISSOAuthInfo authInfo,
-    ISecurityModelBuildProvider modelBuildProvider)
-        : DbContext
+    DbContextOptions<SecurityDbContext> options)
+        : DbContext(options)
 {
     public DbSet<SSOUser> Users { get; set; }
     public DbSet<SSORole> Roles { get; set; }
@@ -33,12 +33,24 @@ public partial class SecurityDbContext(
         .Any(predicate: r => r.Role.UsersArePortalAdmins);
 
     public void Migrate() =>
-        modelBuildProvider.MigrateDatabase(database: Database);
+        Database.Migrate();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder: modelBuilder);
-        modelBuildProvider.Create(modelBuilder: modelBuilder);
+        ConfigureSecurityModel(modelBuilder: modelBuilder);
+
+        IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey> cascadingRelationships =
+            modelBuilder.Model
+                .GetEntityTypes()
+                .SelectMany(selector: entityType => entityType.GetForeignKeys())
+                .Where(predicate: foreignKey =>
+                    !foreignKey.IsOwnership
+                    && foreignKey.DeleteBehavior == DeleteBehavior.Cascade);
+
+        foreach (Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey relationship in cascadingRelationships)
+        { relationship.DeleteBehavior = DeleteBehavior.Restrict; }
+
         ApplyFilters(builder: modelBuilder);
     }
 
@@ -55,9 +67,6 @@ public partial class SecurityDbContext(
         builder.Entity<Tenant>().HasQueryFilter(filter: t => t.Roles.Any(predicate: r => r.Privs.Contains("tenant_read")));
         builder.Entity<TenantAnalysis>().HasQueryFilter(filter: t => t.Tenant != null);
     }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-        modelBuildProvider.Configure(optionsBuilder: optionsBuilder);
 
     public SSOUser GetCurrentUser()
     {

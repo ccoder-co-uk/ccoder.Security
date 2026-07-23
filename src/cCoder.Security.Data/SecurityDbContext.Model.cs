@@ -5,9 +5,9 @@
 using cCoder.Security.Objects.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace cCoder.Security.Data.EF.Dependencies;
+namespace cCoder.Security.Data.EF;
 
-public partial class SecurityMSSQLModelBuildProvider
+public partial class SecurityDbContext
 {
     public static void ConfigureSecurityModel(ModelBuilder modelBuilder)
     {

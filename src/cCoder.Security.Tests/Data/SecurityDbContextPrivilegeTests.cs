@@ -6,6 +6,7 @@ using cCoder.Security.Data.EF;
 using cCoder.Security.Objects;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
@@ -19,7 +20,7 @@ public class SecurityDbContextPrivilegeTests
         // given
         SecurityDbContext context = new(
             Mock.Of<ISSOAuthInfo>(),
-            Mock.Of<ISecurityModelBuildProvider>());
+            new DbContextOptionsBuilder<SecurityDbContext>().Options);
 
         string[] expectedPrivilegeIds =
         [

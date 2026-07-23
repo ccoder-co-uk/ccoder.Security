@@ -289,83 +289,6 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Data.EF.Dependencies.SecurityMSSQLModelBuildProvider",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "Configure",
-          "Inputs": [
-            {
-              "Name": "optionsBuilder",
-              "Type": "DbContextOptionsBuilder"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "ConfigureSecurityColumns",
-          "Inputs": [
-            {
-              "Name": "modelBuilder",
-              "Type": "ModelBuilder"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "ConfigureSecurityForeignKeys",
-          "Inputs": [
-            {
-              "Name": "modelBuilder",
-              "Type": "ModelBuilder"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "ConfigureSecurityModel",
-          "Inputs": [
-            {
-              "Name": "modelBuilder",
-              "Type": "ModelBuilder"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "ConfigureSecurityTables",
-          "Inputs": [
-            {
-              "Name": "modelBuilder",
-              "Type": "ModelBuilder"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "Create",
-          "Inputs": [
-            {
-              "Name": "modelBuilder",
-              "Type": "ModelBuilder"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "MigrateDatabase",
-          "Inputs": [
-            {
-              "Name": "database",
-              "Type": "DatabaseFacade"
-            }
-          ],
-          "ReturnType": "System.Void"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Security.Data.EF.MSSQLSecurityConfigurationExtensions",
       "StandardElementType": "Dependency",
       "Properties": [],
@@ -494,6 +417,46 @@
         }
       ],
       "Methods": [
+        {
+          "Name": "ConfigureSecurityColumns",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSecurityForeignKeys",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSecurityModel",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSecurityTables",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
         {
           "Name": "GetCurrentUser",
           "Inputs": [],
@@ -1176,10 +1139,6 @@
     }
   ],
   "Links": [
-    {
-      "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
-      "ToType": "cCoder.Security.Data.EF.Dependencies.SecurityMSSQLModelBuildProvider"
-    },
     {
       "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
       "ToType": "cCoder.Security.Objects.SSOAuthInfo"
