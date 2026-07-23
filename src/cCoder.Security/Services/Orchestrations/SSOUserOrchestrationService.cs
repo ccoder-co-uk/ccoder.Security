@@ -219,7 +219,9 @@ internal class SSOUserOrchestrationService(
         if (string.IsNullOrWhiteSpace(value: registerForm.TenantId))
         { return; }
 
-        if (userRoleProcessingService.GetAllSSOUserRoles().Any())
+        if (userRoleProcessingService
+            .GetAllSSOUserRoles()
+            .Any())
         { return; }
 
         SSORole role = roleProcessingService

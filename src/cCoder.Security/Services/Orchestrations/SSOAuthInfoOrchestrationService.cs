@@ -67,7 +67,9 @@ internal class SSOAuthInfoOrchestrationService(
 
     async ValueTask<ISSOAuthInfo> GetBasicAuthenticationAsync(string authHeaderValue)
     {
-        if (authHeaderValue.ToLowerInvariant().StartsWith(value: "basic"))
+        if (authHeaderValue
+            .ToLowerInvariant()
+            .StartsWith(value: "basic"))
         { return await AuthenticateBasicAuthAsync(auth: authHeaderValue); }
 
         return null;
@@ -88,22 +90,29 @@ internal class SSOAuthInfoOrchestrationService(
         string base64AuthString = auth[6..];
         byte[] authBytes = Convert.FromBase64String(s: base64AuthString);
         string authString = Encoding.UTF8.GetString(bytes: authBytes);
+        string separator = authString.Contains(value: '&')
+            ? "&"
+            : ":";
 
-        return (
-            (authString.Contains(value: '&')
-                ? authString.Split(separator: "&")[0]
-                : authString.Split(separator: ":")[0]).Replace(oldValue: "username=", newValue: ""),
-            (authString.Contains(value: '&')
-                ? authString.Split(separator: "&")[1]
-                : authString.Split(separator: ":")[1]).Replace(oldValue: "password=", newValue: "")
-        );
+        string[] authParts = authString.Split(separator: separator);
+        string username = authParts[0]
+            .Replace(oldValue: "username=", newValue: "");
+
+        string password = authParts[1]
+            .Replace(oldValue: "password=", newValue: "");
+
+        return (username, password);
     }
 
     static string GetBearerToken(string auth)
     {
-        if (!auth.ToLowerInvariant().StartsWith(value: "bearer"))
+        if (!auth
+            .ToLowerInvariant()
+            .StartsWith(value: "bearer"))
         { return null; }
 
-        return auth.Split(separator: " ").LastOrDefault();
+        return auth
+            .Split(separator: " ")
+            .LastOrDefault();
     }
 }

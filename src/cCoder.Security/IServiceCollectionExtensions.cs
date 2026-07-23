@@ -106,7 +106,9 @@ public static class IServiceCollectionExtensions
     private static void AddFoundations(this IServiceCollection services)
     {
         services.AddTransient(implementationFactory: async provider =>
-            await provider.GetRequiredService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfoAsync());
+            await provider
+                .GetRequiredService<ISSOAuthInfoOrchestrationService>()
+                .GetSSOAuthInfoAsync());
 
         services.AddTransient(implementationFactory: provider =>
         {
@@ -188,7 +190,18 @@ public static class IServiceCollectionExtensions
         services.AddControllers()
             .AddOData(setupAction: options =>
             {
-                options.Expand().Count().Filter().Select().OrderBy().SetMaxTop(maxTopValue: 1000);
-                options.AddRouteComponents(routePrefix: atPath, model: new SecurityModelBuilder().Build().EDMModel);
+                options
+                    .Expand()
+                    .Count()
+                    .Filter()
+                    .Select()
+                    .OrderBy()
+                    .SetMaxTop(maxTopValue: 1000);
+
+                options.AddRouteComponents(
+                    routePrefix: atPath,
+                    model: new SecurityModelBuilder()
+                        .Build()
+                        .EDMModel);
             });
 }

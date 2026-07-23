@@ -27,7 +27,9 @@ internal class TenantOrchestrationService(
 
     public async ValueTask<Tenant> AddTenantAsync(Tenant tenant)
     {
-        bool isFirstTenant = !tenantProcessingService.GetAllTenants().Any();
+        bool isFirstTenant = !tenantProcessingService
+            .GetAllTenants()
+            .Any();
 
         if (!isFirstTenant)
         { authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_create"); }
@@ -44,7 +46,9 @@ internal class TenantOrchestrationService(
         string bootstrapUserId = ResolveBootstrapUserId(tenant: tenant, isFirstTenant: isFirstTenant);
 
         string[] rolePrivileges = isFirstTenant
-            ? [.. authBroker.GetAllPrivileges().Select(selector: privilege => privilege.Id)]
+            ? [.. authBroker
+                .GetAllPrivileges()
+                .Select(selector: privilege => privilege.Id)]
             : ["tenant_read", "tenant_admin"];
 
         var role = await roleOrchestrationService.AddSSORoleAsync(item: new SSORole()
