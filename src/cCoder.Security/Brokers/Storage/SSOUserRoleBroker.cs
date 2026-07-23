@@ -12,21 +12,21 @@ namespace cCoder.Security.Brokers.Storage;
 internal class SSOUserRoleBroker(ISecurityDbContextFactory contextFactory)
     : ISSOUserRoleBroker
 {
-    public async ValueTask<SSOUserRole> InsertSSOUserRoleAsync(SSOUserRole newSSOUserRole)
+    public async ValueTask<SSOUserRole> InsertSSOUserRoleAsync(SSOUserRole userRole)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUserRole> entityEntry = await context.UserRoles.AddAsync(entity: newSSOUserRole);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUserRole> entityEntry = await context.UserRoles.AddAsync(entity: userRole);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole)
+    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUserRole> entityEntry = context.UserRoles.Remove(entity: deletedSSOUserRole);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUserRole> entityEntry = context.UserRoles.Remove(entity: userRole);
         await context.SaveChangesAsync();
     }
 

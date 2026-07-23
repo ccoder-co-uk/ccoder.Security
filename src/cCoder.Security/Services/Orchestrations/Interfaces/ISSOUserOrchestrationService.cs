@@ -9,9 +9,9 @@ namespace cCoder.Security.Services.Orchestrations.Interfaces;
 
 public interface ISSOUserOrchestrationService
 {
-    ValueTask<(SSOUser, string)> Register(RegisterUser newRegisterUser);
+    ValueTask<(SSOUser, string)> Register(RegisterUser registerForm);
 
-    ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser newRegisterUser);
+    ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser registerForm);
 
     ValueTask<SSOUser> AcceptInviteAsync(RegisterUser registerForm, string userId, string tokenId);
 
@@ -19,9 +19,9 @@ public interface ISSOUserOrchestrationService
 
     ValueTask ConfirmRegistration(string tokenId);
 
-    ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser updatedSSOUser);
+    ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser item);
 
-    ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser);
+    ValueTask DeleteSSOUserAsync(SSOUser item);
 
     IQueryable<SSOUser> GetAllSSOUsers();
 }

@@ -32,7 +32,7 @@ public partial class TenantServiceTests
             .ReturnsAsync(value: inputTenant);
 
         //when
-        Tenant actualTenant = await tenantService.UpdateTenantAsync(updatedTenant: inputTenant);
+        Tenant actualTenant = await tenantService.UpdateTenantAsync(tenant: inputTenant);
 
         //then
         actualTenant.Should().BeSameAs(expected: inputTenant);
@@ -44,7 +44,7 @@ public partial class TenantServiceTests
         actualTenant.Should().BeEquivalentTo(expectation: expectedTenant);
 
         tenantBrokerMock.Verify(expression: tenantBrokerMock =>
-            tenantBrokerMock.UpdateTenantAsync(updatedTenant: It.IsAny<Tenant>()),
+            tenantBrokerMock.UpdateTenantAsync(tenant: It.IsAny<Tenant>()),
 times: Times.Once());
 
         tenantBrokerMock.VerifyNoOtherCalls();

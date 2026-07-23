@@ -38,7 +38,7 @@ public class SecurityModelBuilder : ODataModelBuilder
         AddSet<TenantAnalysis, Guid>();
         AddSet<UserEvent, Guid>();
 
-        AddJoinSet<SSOUserRole, object>(newExpression: ur => new { ur.UserId, ur.RoleId });
+        AddJoinSet<SSOUserRole, object>(key: ur => new { ur.UserId, ur.RoleId });
 
         return Builder.GetEdmModel();
     }

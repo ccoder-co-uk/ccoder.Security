@@ -33,9 +33,9 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
 
     [HttpPut]
     [EnableQuery]
-    public virtual async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] SSOUser updatedSSOUser) =>
+    public virtual async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] SSOUser ssoUser) =>
         ModelState.IsValid
-            ? Get(key: (await ssoUserOrchestrationService.UpdateSSOUserAsync(username: key, updatedSSOUser: updatedSSOUser)).Id)
+            ? Get(key: (await ssoUserOrchestrationService.UpdateSSOUserAsync(username: key, item: ssoUser)).Id)
             : BadRequest(modelState: ModelState);
 
     [HttpDelete]
@@ -48,7 +48,7 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
         if (origentity == null)
         { return NotFound(); }
 
-        await ssoUserOrchestrationService.DeleteSSOUserAsync(deletedSSOUser: origentity);
+        await ssoUserOrchestrationService.DeleteSSOUserAsync(item: origentity);
         return Ok();
     }
 }

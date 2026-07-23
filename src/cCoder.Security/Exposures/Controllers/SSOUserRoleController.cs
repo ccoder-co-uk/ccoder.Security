@@ -18,25 +18,25 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
         Ok(value: userRoleOrchestrationService.GetAllSSOUserRoles());
 
     [HttpPost]
-    public async ValueTask<IActionResult> Post([FromBody] SSOUserRole newSSOUserRole) =>
+    public async ValueTask<IActionResult> Post([FromBody] SSOUserRole userRole) =>
         ModelState.IsValid
-            ? Ok(value: await userRoleOrchestrationService.AddSSOUserRoleAsync(newSSOUserRole: newSSOUserRole))
+            ? Ok(value: await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: userRole))
             : BadRequest(modelState: ModelState);
 
     [HttpDelete]
-    public async ValueTask<IActionResult> Delete([FromQuery] string userId, [FromQuery] Guid deletedGuid)
+    public async ValueTask<IActionResult> Delete([FromQuery] string userId, [FromQuery] Guid roleId)
     {
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
         var userRole = userRoleOrchestrationService
             .GetAllSSOUserRoles()
-            .FirstOrDefault(predicate: ur => ur.UserId == userId && ur.RoleId == deletedGuid);
+            .FirstOrDefault(predicate: ur => ur.UserId == userId && ur.RoleId == roleId);
 
         if (userRole is null)
         { return NotFound(); }
 
-        await userRoleOrchestrationService.DeleteSSOUserRoleAsync(deletedSSOUserRole: userRole);
+        await userRoleOrchestrationService.DeleteSSOUserRoleAsync(userRole: userRole);
 
         return Ok();
     }

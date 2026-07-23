@@ -17,27 +17,27 @@ internal class SSORoleOrchestrationService(
     public IQueryable<SSORole> GetAllSSORoles() =>
         roleProcessingService.GetAllSSORoles();
 
-    public async ValueTask<SSORole> AddSSORoleAsync(SSORole newSSORole)
+    public async ValueTask<SSORole> AddSSORoleAsync(SSORole ssoRole)
     {
         if (roleProcessingService
             .GetAllSSORoles()
             .Any())
         { authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_admin"); }
 
-        return await roleProcessingService.AddSSORoleAsync(newSSORole: newSSORole);
+        return await roleProcessingService.AddSSORoleAsync(item: ssoRole);
     }
 
-    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole)
+    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole ssoRole)
     {
         authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_admin");
 
-        return await roleProcessingService.UpdateSSORoleAsync(updatedSSORole: updatedSSORole);
+        return await roleProcessingService.UpdateSSORoleAsync(item: ssoRole);
     }
 
-    public async ValueTask DeleteSSORoleAsync(SSORole deletedSSORole)
+    public async ValueTask DeleteSSORoleAsync(SSORole ssoRole)
     {
         authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_admin");
 
-        await roleProcessingService.DeleteSSORoleAsync(deletedSSORole: deletedSSORole);
+        await roleProcessingService.DeleteSSORoleAsync(item: ssoRole);
     }
 }

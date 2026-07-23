@@ -28,31 +28,31 @@ internal class SSOUserBroker(ISecurityDbContextFactory contextFactory)
             : context.Users;
     }
 
-    public async ValueTask<SSOUser> InsertSSOUserAsync(SSOUser newSSOUser)
+    public async ValueTask<SSOUser> InsertSSOUserAsync(SSOUser user)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = await context.Users.AddAsync(entity: newSSOUser);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = await context.Users.AddAsync(entity: user);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser updatedSSOUser)
+    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser user)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = context.Users.Update(entity: updatedSSOUser);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = context.Users.Update(entity: user);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser)
+    public async ValueTask DeleteSSOUserAsync(SSOUser SSOUser)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = context.Users.Remove(entity: deletedSSOUser);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSOUser> entityEntry = context.Users.Remove(entity: SSOUser);
         await context.SaveChangesAsync();
     }
 }

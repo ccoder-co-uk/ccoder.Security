@@ -11,8 +11,8 @@ internal interface ISSOUserBroker
     SSOUser SelectCurrentSSOUser();
     IQueryable<SSOUser> SelectAllSSOUsers(bool ignoreFilters = false);
 
-    ValueTask<SSOUser> InsertSSOUserAsync(SSOUser newSSOUser);
-    ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser updatedSSOUser);
-    ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser);
+    ValueTask<SSOUser> InsertSSOUserAsync(SSOUser user);
+    ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser user);
+    ValueTask DeleteSSOUserAsync(SSOUser SSOUser);
 
 }

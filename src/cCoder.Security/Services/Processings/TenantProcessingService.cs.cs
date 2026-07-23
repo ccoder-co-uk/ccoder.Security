@@ -11,15 +11,15 @@ namespace cCoder.Security.Services.Processings;
 internal class TenantProcessingService(ITenantService tenantService)
         : ITenantProcessingService
 {
-    public ValueTask<Tenant> AddTenantAsync(Tenant newTenant) =>
-        tenantService.AddTenantAsync(newTenant: newTenant);
+    public ValueTask<Tenant> AddTenantAsync(Tenant item) =>
+        tenantService.AddTenantAsync(tenant: item);
 
-    public ValueTask DeleteTenantAsync(Tenant deletedTenant) =>
-        tenantService.DeleteTenantAsync(deletedTenant: deletedTenant);
+    public ValueTask DeleteTenantAsync(Tenant item) =>
+        tenantService.DeleteTenantAsync(tenant: item);
 
     public IQueryable<Tenant> GetAllTenants() =>
         tenantService.GetAllTenants();
 
-    public ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant) =>
-        tenantService.UpdateTenantAsync(updatedTenant: updatedTenant);
+    public ValueTask<Tenant> UpdateTenantAsync(Tenant item) =>
+        tenantService.UpdateTenantAsync(tenant: item);
 }

@@ -14,53 +14,53 @@ namespace cCoder.Security.Brokers.Storage;
 internal class TokenBroker(ISecurityDbContextFactory contextFactory)
     : ITokenBroker
 {
-    public async ValueTask<Token> InsertTokenAsync(Token newToken)
+    public async ValueTask<Token> InsertTokenAsync(Token token)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Token> entityEntry =
-            context.Tokens.Add(entity: newToken);
+            context.Tokens.Add(entity: token);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<Token> UpdateTokenAsync(Token updatedToken)
+    public async ValueTask<Token> UpdateTokenAsync(Token token)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Token> entityEntry =
-            context.Tokens.Update(entity: updatedToken);
+            context.Tokens.Update(entity: token);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteTokenAsync(Token deletedToken)
+    public async ValueTask DeleteTokenAsync(Token token)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Token> entityEntry =
-            context.Tokens.Remove(entity: deletedToken);
+            context.Tokens.Remove(entity: token);
 
         await context.SaveChangesAsync();
     }
 
     public async ValueTask<int> DeleteExpiredAsync(
-        DateTimeOffset deletedDateTimeOffset,
-        CancellationToken deletedCancellationToken = default)
+        DateTimeOffset expiresBefore,
+        CancellationToken cancellationToken = default)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext(ignoreAuthInfo: true);
 
         int deletedCount = await context.Tokens
             .IgnoreQueryFilters()
-            .Where(predicate: token => token.Expires < deletedDateTimeOffset)
-            .ExecuteDeleteAsync(cancellationToken: deletedCancellationToken);
+            .Where(predicate: token => token.Expires < expiresBefore)
+            .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
         return deletedCount;
     }

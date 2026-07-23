@@ -14,31 +14,31 @@ namespace cCoder.Security.Brokers.Storage;
 internal class SSORoleBroker(ISecurityDbContextFactory contextFactory)
     : ISSORoleBroker
 {
-    public async ValueTask<SSORole> InsertSSORoleAsync(SSORole newSSORole)
+    public async ValueTask<SSORole> InsertSSORoleAsync(SSORole role)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = await context.Roles.AddAsync(entity: newSSORole);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = await context.Roles.AddAsync(entity: role);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole)
+    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole role)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Update(entity: updatedSSORole);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Update(entity: role);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteSSORoleAsync(SSORole deletedSSORole)
+    public async ValueTask DeleteSSORoleAsync(SSORole role)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Remove(entity: deletedSSORole);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Remove(entity: role);
         await context.SaveChangesAsync();
     }
 

@@ -16,10 +16,10 @@ internal class TenantSetupOrchestrationService(
 {
     public async ValueTask SetupAsync(SetupDetails setupDetails)
     {
-        await tenantOrchestrationService.AddTenantAsync(newTenant: setupDetails.Tenant);
+        await tenantOrchestrationService.AddTenantAsync(item: setupDetails.Tenant);
 
         (SSOUser _, string confirmationToken) =
-            await ssoUserOrchestrationService.Register(newRegisterUser: MapRegisterUser(setupDetails: setupDetails));
+            await ssoUserOrchestrationService.Register(registerForm: MapRegisterUser(setupDetails: setupDetails));
 
         await ssoUserOrchestrationService.ConfirmRegistration(tokenId: confirmationToken);
     }

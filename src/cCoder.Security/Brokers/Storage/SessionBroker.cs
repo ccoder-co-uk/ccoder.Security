@@ -11,31 +11,31 @@ namespace cCoder.Security.Brokers.Storage;
 
 internal class SessionBroker(ISecurityDbContextFactory contextFactory) : ISessionBroker
 {
-    public async ValueTask<Session> InsertSessionAsync(Session newSession)
+    public async ValueTask<Session> InsertSessionAsync(Session Session)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = await context.Sessions.AddAsync(entity: newSession);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = await context.Sessions.AddAsync(entity: Session);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<Session> UpdateSessionAsync(Session updatedSession)
+    public async ValueTask<Session> UpdateSessionAsync(Session Session)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Update(entity: updatedSession);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Update(entity: Session);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteSessionAsync(Session deletedSession)
+    public async ValueTask DeleteSessionAsync(Session Session)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Remove(entity: deletedSession);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Remove(entity: Session);
         await context.SaveChangesAsync();
     }
 

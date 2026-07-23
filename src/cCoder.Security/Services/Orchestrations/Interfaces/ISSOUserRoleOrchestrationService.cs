@@ -10,7 +10,7 @@ public interface ISSOUserRoleOrchestrationService
 {
     IQueryable<SSOUserRole> GetAllSSOUserRoles();
 
-    ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole);
+    ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole);
 
-    ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole);
+    ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole);
 }

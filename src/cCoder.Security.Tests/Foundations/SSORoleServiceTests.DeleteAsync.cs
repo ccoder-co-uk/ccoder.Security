@@ -19,11 +19,11 @@ public partial class SSORoleServiceTests
         SSORole expectedSSORole = inputSSORole.DeepClone();
 
         // when
-        await roleService.DeleteSSORoleAsync(deletedSSORole: inputSSORole);
+        await roleService.DeleteSSORoleAsync(item: inputSSORole);
 
         // then
         roleBrokerMock.Verify(expression: broker =>
-            broker.DeleteSSORoleAsync(deletedSSORole: inputSSORole),
+            broker.DeleteSSORoleAsync(SSORole: inputSSORole),
 times: Times.Once);
 
         roleBrokerMock.VerifyNoOtherCalls();

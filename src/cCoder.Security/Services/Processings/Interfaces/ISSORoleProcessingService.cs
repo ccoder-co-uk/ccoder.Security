@@ -10,9 +10,9 @@ internal interface ISSORoleProcessingService
 {
     IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false);
 
-    ValueTask<SSORole> AddSSORoleAsync(SSORole newSSORole);
+    ValueTask<SSORole> AddSSORoleAsync(SSORole item);
 
-    ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole);
+    ValueTask<SSORole> UpdateSSORoleAsync(SSORole item);
 
-    ValueTask DeleteSSORoleAsync(SSORole deletedSSORole);
+    ValueTask DeleteSSORoleAsync(SSORole item);
 }

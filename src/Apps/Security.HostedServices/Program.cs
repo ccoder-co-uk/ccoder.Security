@@ -22,7 +22,7 @@ public class Program
         builder.Services.AddSecurityHostedServices(configAction: (services, securityConfig) =>
         {
             securityConfig.AddMSSQLModelProvider(
-newIServiceCollection: services,
+services: services,
 connectionString: config.GetConnectionString("SSO"));
 
             securityConfig.UseAESHMMACPasswordEncryption(

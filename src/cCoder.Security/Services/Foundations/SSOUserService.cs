@@ -27,7 +27,7 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
             PhoneNumberConfirmed = newUser.PhoneNumberConfirmed
         };
 
-        SSOUser result = await ssoUserBroker.InsertSSOUserAsync(newSSOUser: storageUser);
+        SSOUser result = await ssoUserBroker.InsertSSOUserAsync(user: storageUser);
         newUser.Id = result.Id;
         newUser.DisplayName = result.DisplayName;
         newUser.Email = result.Email;
@@ -41,37 +41,37 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
         return newUser;
     }
 
-    public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>
-        ssoUserBroker.DeleteSSOUserAsync(deletedSSOUser: deletedSSOUser);
+    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
+        ssoUserBroker.DeleteSSOUserAsync(SSOUser: item);
 
-    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser updatedSSOUser)
+    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser item)
     {
         SSOUser storageUser = new()
         {
-            Id = updatedSSOUser.Id,
-            DisplayName = updatedSSOUser.DisplayName,
-            Email = updatedSSOUser.Email,
-            PhoneNumber = updatedSSOUser.PhoneNumber,
-            PasswordHash = updatedSSOUser.PasswordHash,
-            AccessFailedCount = updatedSSOUser.AccessFailedCount,
-            EmailConfirmed = updatedSSOUser.EmailConfirmed,
-            LockoutEnabled = updatedSSOUser.LockoutEnabled,
-            LockoutEndDateUtc = updatedSSOUser.LockoutEndDateUtc,
-            PhoneNumberConfirmed = updatedSSOUser.PhoneNumberConfirmed
+            Id = item.Id,
+            DisplayName = item.DisplayName,
+            Email = item.Email,
+            PhoneNumber = item.PhoneNumber,
+            PasswordHash = item.PasswordHash,
+            AccessFailedCount = item.AccessFailedCount,
+            EmailConfirmed = item.EmailConfirmed,
+            LockoutEnabled = item.LockoutEnabled,
+            LockoutEndDateUtc = item.LockoutEndDateUtc,
+            PhoneNumberConfirmed = item.PhoneNumberConfirmed
         };
 
-        SSOUser result = await ssoUserBroker.UpdateSSOUserAsync(updatedSSOUser: storageUser);
-        updatedSSOUser.Id = result.Id;
-        updatedSSOUser.DisplayName = result.DisplayName;
-        updatedSSOUser.Email = result.Email;
-        updatedSSOUser.PhoneNumber = result.PhoneNumber;
-        updatedSSOUser.PasswordHash = result.PasswordHash;
-        updatedSSOUser.AccessFailedCount = result.AccessFailedCount;
-        updatedSSOUser.EmailConfirmed = result.EmailConfirmed;
-        updatedSSOUser.LockoutEnabled = result.LockoutEnabled;
-        updatedSSOUser.LockoutEndDateUtc = result.LockoutEndDateUtc;
-        updatedSSOUser.PhoneNumberConfirmed = result.PhoneNumberConfirmed;
-        return updatedSSOUser;
+        SSOUser result = await ssoUserBroker.UpdateSSOUserAsync(user: storageUser);
+        item.Id = result.Id;
+        item.DisplayName = result.DisplayName;
+        item.Email = result.Email;
+        item.PhoneNumber = result.PhoneNumber;
+        item.PasswordHash = result.PasswordHash;
+        item.AccessFailedCount = result.AccessFailedCount;
+        item.EmailConfirmed = result.EmailConfirmed;
+        item.LockoutEnabled = result.LockoutEnabled;
+        item.LockoutEndDateUtc = result.LockoutEndDateUtc;
+        item.PhoneNumberConfirmed = result.PhoneNumberConfirmed;
+        return item;
     }
 
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>

@@ -10,9 +10,9 @@ public interface ITenantCoordinationService
 {
     IQueryable<Tenant> GetAllTenants();
 
-    ValueTask<Tenant> AddTenantAsync(Tenant newTenant);
+    ValueTask<Tenant> AddTenantAsync(Tenant item);
 
-    ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant);
+    ValueTask<Tenant> UpdateTenantAsync(Tenant item);
 
-    ValueTask DeleteTenantAsync(Tenant deletedTenant);
+    ValueTask DeleteTenantAsync(Tenant item);
 }

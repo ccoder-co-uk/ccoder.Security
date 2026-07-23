@@ -24,13 +24,13 @@ public partial class TenantProcessingServiceTests
             .ReturnsAsync(value: expectedTenant);
 
         //when
-        Tenant actualTenant = await tenantProcessingService.AddTenantAsync(newTenant: inputTenant);
+        Tenant actualTenant = await tenantProcessingService.AddTenantAsync(item: inputTenant);
 
         //then
         actualTenant.Should().BeEquivalentTo(expectation: expectedTenant);
 
         tenantServiceMock.Verify(expression: tenantServiceMock =>
-            tenantServiceMock.AddTenantAsync(newTenant: inputTenant),
+            tenantServiceMock.AddTenantAsync(tenant: inputTenant),
 times: Times.Once());
 
         tenantServiceMock.VerifyNoOtherCalls();

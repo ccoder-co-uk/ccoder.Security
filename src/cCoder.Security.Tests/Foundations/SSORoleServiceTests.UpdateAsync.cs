@@ -27,7 +27,7 @@ public partial class SSORoleServiceTests
             .ReturnsAsync(value: expectedSSORole);
 
         // when
-        SSORole actualSSORole = await roleService.UpdateSSORoleAsync(updatedSSORole: inputSSORole);
+        SSORole actualSSORole = await roleService.UpdateSSORoleAsync(item: inputSSORole);
 
         // then
         actualSSORole.Should().BeSameAs(expected: inputSSORole);
@@ -36,7 +36,7 @@ public partial class SSORoleServiceTests
         actualSSORole.Should().BeEquivalentTo(expectation: expectedSSORole);
 
         roleBrokerMock.Verify(expression: broker =>
-            broker.UpdateSSORoleAsync(updatedSSORole: It.IsAny<SSORole>()),
+            broker.UpdateSSORoleAsync(SSORole: It.IsAny<SSORole>()),
 times: Times.Once);
 
         roleBrokerMock.VerifyNoOtherCalls();

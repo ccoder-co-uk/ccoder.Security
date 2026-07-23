@@ -27,7 +27,7 @@ public partial class SSOUserRoleOrchestrationServiceTests
             .Setup(expression: x => x.AddSSOUserRoleAsync(inputUserRole))
             .ReturnsAsync(value: inputUserRole);
 
-        SSOUserRole actualUserRole = await userRoleOrchestrationService.AddSSOUserRoleAsync(newSSOUserRole: inputUserRole);
+        SSOUserRole actualUserRole = await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
 
         actualUserRole.Should().BeSameAs(expected: inputUserRole);
 
@@ -55,7 +55,7 @@ times: Times.Never);
             .Setup(expression: x => x.AddSSOUserRoleAsync(inputUserRole))
             .ReturnsAsync(value: inputUserRole);
 
-        await userRoleOrchestrationService.AddSSOUserRoleAsync(newSSOUserRole: inputUserRole);
+        await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
 
         authorizationBrokerMock.Verify(
 expression: x => x.UserIsPortalAdminWithPrivilege(privilege: "userrole_create"),

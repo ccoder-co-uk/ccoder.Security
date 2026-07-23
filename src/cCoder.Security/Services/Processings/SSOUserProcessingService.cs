@@ -15,38 +15,38 @@ internal partial class SSOUserProcessingService(
     IPasswordEncryptionBroker encryptionBroker)
         : ISSOUserProcessingService
 {
-    public async ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser newSSOUser)
+    public async ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser user)
     {
-        ValidateSSOUser(user: newSSOUser);
+        ValidateSSOUser(user: user);
 
-        newSSOUser.Id = GetNextAvailableUserId(user: newSSOUser);
+        user.Id = GetNextAvailableUserId(user: user);
 
-        newSSOUser.PasswordHash = encryptionBroker.Encrypt(password: newSSOUser.PasswordHash);
+        user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
 
-        return await ssoUserService.AddSSOUserAsync(newSSOUser: newSSOUser);
+        return await ssoUserService.AddSSOUserAsync(item: user);
     }
 
-    public async ValueTask<SSOUser> InviteSSOUserAsync(SSOUser newSSOUser)
+    public async ValueTask<SSOUser> InviteSSOUserAsync(SSOUser user)
     {
-        ValidateSSOUser(user: newSSOUser, validatePassword: false);
+        ValidateSSOUser(user: user, validatePassword: false);
 
-        newSSOUser.Id = GetNextAvailableUserId(user: newSSOUser);
+        user.Id = GetNextAvailableUserId(user: user);
 
-        if (string.IsNullOrWhiteSpace(value: newSSOUser.PasswordHash))
+        if (string.IsNullOrWhiteSpace(value: user.PasswordHash))
         {
-            newSSOUser.PasswordHash = Guid
+            user.PasswordHash = Guid
                 .NewGuid()
                 .ToString(format: "N") + "Aa1!";
         }
 
-        newSSOUser.PasswordHash = encryptionBroker.Encrypt(password: newSSOUser.PasswordHash);
-        newSSOUser.LockoutEnabled = true;
+        user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
+        user.LockoutEnabled = true;
 
-        return await ssoUserService.AddSSOUserAsync(newSSOUser: newSSOUser);
+        return await ssoUserService.AddSSOUserAsync(item: user);
     }
 
-    public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>
-        ssoUserService.DeleteSSOUserAsync(deletedSSOUser: deletedSSOUser);
+    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
+        ssoUserService.DeleteSSOUserAsync(item: item);
 
     public async ValueTask<SSOUser> FindByUserAndPasswordAsync(string username, string password)
     {
@@ -64,7 +64,7 @@ internal partial class SSOUserProcessingService(
             if (user.AccessFailedCount > 10)
             { user.LockoutEnabled = true; }
 
-            await UpdateSSOUserAsync(updatedSSOUser: user);
+            await UpdateSSOUserAsync(user: user);
             throw new SecurityException("Access Denied!");
         }
         else
@@ -72,7 +72,7 @@ internal partial class SSOUserProcessingService(
             if (user.AccessFailedCount > 0)
             {
                 user.AccessFailedCount = 0;
-                await UpdateSSOUserAsync(updatedSSOUser: user);
+                await UpdateSSOUserAsync(user: user);
             }
         }
 
@@ -90,18 +90,18 @@ internal partial class SSOUserProcessingService(
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>
         ssoUserService.GetAllSSOUsers(ignoreFilters: ignoreFilters);
 
-    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser updatedSSOUser)
+    public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser user)
     {
         SSOUser dbUser = GetAllSSOUsers(ignoreFilters: true)
-            .FirstOrDefault(predicate: u => u.Id == updatedSSOUser.Id);
+            .FirstOrDefault(predicate: u => u.Id == user.Id);
 
-        if (updatedSSOUser.PasswordHash != null && dbUser.PasswordHash != updatedSSOUser.PasswordHash)
+        if (user.PasswordHash != null && dbUser.PasswordHash != user.PasswordHash)
         {
-            ValidatePassword(password: updatedSSOUser.PasswordHash);
-            updatedSSOUser.PasswordHash = encryptionBroker.Encrypt(password: updatedSSOUser.PasswordHash);
+            ValidatePassword(password: user.PasswordHash);
+            user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
         }
 
-        return await ssoUserService.UpdateSSOUserAsync(updatedSSOUser: updatedSSOUser);
+        return await ssoUserService.UpdateSSOUserAsync(item: user);
     }
 
     public SSOUser Me() =>

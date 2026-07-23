@@ -18,13 +18,13 @@ internal class TenantRelationsOrchestrationService(
     ISSOAuthorizationBroker authBroker)
         : ITenantRelationsOrchestrationService
 {
-    public async ValueTask DeleteTenantRelationsAsync(Tenant deletedTenant)
+    public async ValueTask DeleteTenantRelationsAsync(Tenant tenant)
     {
         authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_delete");
 
         var tenantRoles = roleProcessingService
             .GetAllSSORoles()
-            .Where(predicate: r => r.TenantId == deletedTenant.Id)
+            .Where(predicate: r => r.TenantId == tenant.Id)
             .ToArray();
 
         var userRoles = userRoleProcessingService
@@ -36,16 +36,16 @@ internal class TenantRelationsOrchestrationService(
 
         var tenantAnalysis = tenantAnalysisProcessingService
             .GetAllTenantAnalysis()
-            .Where(predicate: ta => ta.TenantId == deletedTenant.Id)
+            .Where(predicate: ta => ta.TenantId == tenant.Id)
             .ToArray();
 
         foreach (var analysis in tenantAnalysis)
-        { await tenantAnalysisProcessingService.DeleteTenantAnalysisAsync(deletedTenantAnalysis: analysis); }
+        { await tenantAnalysisProcessingService.DeleteTenantAnalysisAsync(item: analysis); }
 
         foreach (var userRole in userRoles)
-        { await userRoleProcessingService.DeleteSSOUserRoleAsync(deletedSSOUserRole: userRole); }
+        { await userRoleProcessingService.DeleteSSOUserRoleAsync(item: userRole); }
 
         foreach (var role in tenantRoles)
-        { await roleProcessingService.DeleteSSORoleAsync(deletedSSORole: role); }
+        { await roleProcessingService.DeleteSSORoleAsync(item: role); }
     }
 }

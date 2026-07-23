@@ -34,7 +34,7 @@ public partial class UserEventServiceTests
             .Returns(value: expectedTime);
 
         //when
-        UserEvent actualUserEvent = await userEventService.AddUserEventAsync(newUserEvent: inputUserEvent);
+        UserEvent actualUserEvent = await userEventService.AddUserEventAsync(userEvent: inputUserEvent);
 
         //then
         actualUserEvent.Should().BeSameAs(expected: inputUserEvent);
@@ -43,7 +43,7 @@ public partial class UserEventServiceTests
         actualUserEvent.Should().BeEquivalentTo(expectation: expectedUserEvent);
 
         userEventBrokerMock.Verify(expression: userEventBrokerMock =>
-            userEventBrokerMock.InsertUserEventAsync(newUserEvent: It.IsAny<UserEvent>()),
+            userEventBrokerMock.InsertUserEventAsync(userEvent: It.IsAny<UserEvent>()),
 times: Times.Once());
 
         userEventBrokerMock.VerifyNoOtherCalls();

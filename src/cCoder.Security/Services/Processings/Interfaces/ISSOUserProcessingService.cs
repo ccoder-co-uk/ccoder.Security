@@ -8,13 +8,13 @@ namespace cCoder.Security.Services.Processings.Interfaces;
 
 internal interface ISSOUserProcessingService
 {
-    ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser newSSOUser);
+    ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser item);
 
-    ValueTask<SSOUser> InviteSSOUserAsync(SSOUser newSSOUser);
+    ValueTask<SSOUser> InviteSSOUserAsync(SSOUser user);
 
-    ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser updatedSSOUser);
+    ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser item);
 
-    ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser);
+    ValueTask DeleteSSOUserAsync(SSOUser item);
 
     IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false);
 

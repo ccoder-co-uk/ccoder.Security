@@ -8,11 +8,11 @@ namespace cCoder.Security.Services.Processings;
 
 public interface ITenantAnalysisProcessingService
 {
-    ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis newTenantAnalysis);
+    ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis item);
 
-    ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis);
+    ValueTask DeleteTenantAnalysisAsync(TenantAnalysis item);
 
     IQueryable<TenantAnalysis> GetAllTenantAnalysis();
 
-    ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis);
+    ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis item);
 }

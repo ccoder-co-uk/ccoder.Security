@@ -14,11 +14,11 @@ public partial class SecurityMSSQLModelBuildProvider(string connectionString, bo
     public void MigrateDatabase(DatabaseFacade database) =>
         database.Migrate();
 
-    public void Create(ModelBuilder newModelBuilder)
+    public void Create(ModelBuilder modelBuilder)
     {
-        ConfigureSecurityModel(modelBuilder: newModelBuilder);
+        ConfigureSecurityModel(modelBuilder: modelBuilder);
 
-        IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey> cascadingRelationships = newModelBuilder.Model.GetEntityTypes()
+        IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey> cascadingRelationships = modelBuilder.Model.GetEntityTypes()
             .SelectMany(selector: t => t.GetForeignKeys())
             .Where(predicate: fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 

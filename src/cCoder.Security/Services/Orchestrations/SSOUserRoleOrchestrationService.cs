@@ -21,20 +21,20 @@ internal class SSOUserRoleOrchestrationService(
         return userRoleProcessingService.GetAllSSOUserRoles();
     }
 
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole)
+    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole)
     {
         if (userRoleProcessingService
             .GetAllSSOUserRoles()
             .Any())
         { authBroker.UserIsPortalAdminWithPrivilege(privilege: "userrole_create"); }
 
-        return await userRoleProcessingService.AddSSOUserRoleAsync(newSSOUserRole: newSSOUserRole);
+        return await userRoleProcessingService.AddSSOUserRoleAsync(item: userRole);
     }
 
-    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole)
+    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole)
     {
         authBroker.UserIsPortalAdminWithPrivilege(privilege: "userrole_delete");
 
-        await userRoleProcessingService.DeleteSSOUserRoleAsync(deletedSSOUserRole: deletedSSOUserRole);
+        await userRoleProcessingService.DeleteSSOUserRoleAsync(item: userRole);
     }
 }

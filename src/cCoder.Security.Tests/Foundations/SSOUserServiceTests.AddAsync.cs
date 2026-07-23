@@ -27,7 +27,7 @@ public partial class SSOUserServiceTests
             .ReturnsAsync(value: expectedSSOUser);
 
         // when
-        SSOUser actualSSOUser = await userService.AddSSOUserAsync(newSSOUser: inputSSOUser);
+        SSOUser actualSSOUser = await userService.AddSSOUserAsync(item: inputSSOUser);
 
         // then
         actualSSOUser.Should().BeSameAs(expected: inputSSOUser);
@@ -35,7 +35,7 @@ public partial class SSOUserServiceTests
         actualSSOUser.Should().NotBeSameAs(unexpected: submitted);
         actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
 
-        userBrokerMock.Verify(expression: broker => broker.InsertSSOUserAsync(newSSOUser: It.IsAny<SSOUser>()), times: Times.Once);
+        userBrokerMock.Verify(expression: broker => broker.InsertSSOUserAsync(user: It.IsAny<SSOUser>()), times: Times.Once);
         userBrokerMock.VerifyNoOtherCalls();
     }
 }

@@ -25,7 +25,7 @@ internal class TenantOrchestrationService(
         return tenantProcessingService.GetAllTenants();
     }
 
-    public async ValueTask<Tenant> AddTenantAsync(Tenant newTenant)
+    public async ValueTask<Tenant> AddTenantAsync(Tenant tenant)
     {
         bool isFirstTenant = !tenantProcessingService
             .GetAllTenants()
@@ -36,14 +36,14 @@ internal class TenantOrchestrationService(
 
         var existing = tenantProcessingService
             .GetAllTenants()
-            .FirstOrDefault(predicate: t => t.Id == newTenant.Id);
+            .FirstOrDefault(predicate: t => t.Id == tenant.Id);
 
         if (existing != null)
-        { throw new ValidationException($"Tenant '{newTenant.Id}' already exists."); }
+        { throw new ValidationException($"Tenant '{tenant.Id}' already exists."); }
 
-        var dbTenant = await tenantProcessingService.AddTenantAsync(newTenant: newTenant);
+        var dbTenant = await tenantProcessingService.AddTenantAsync(item: tenant);
 
-        string bootstrapUserId = ResolveBootstrapUserId(tenant: newTenant, isFirstTenant: isFirstTenant);
+        string bootstrapUserId = ResolveBootstrapUserId(tenant: tenant, isFirstTenant: isFirstTenant);
 
         string[] rolePrivileges = isFirstTenant
             ? [.. authBroker
@@ -51,18 +51,18 @@ internal class TenantOrchestrationService(
                 .Select(selector: privilege => privilege.Id)]
             : ["tenant_read", "tenant_admin"];
 
-        var role = await roleOrchestrationService.AddSSORoleAsync(newSSORole: new SSORole()
+        var role = await roleOrchestrationService.AddSSORoleAsync(item: new SSORole()
         {
             UsersArePortalAdmins = isFirstTenant,
-            Name = isFirstTenant ? "Administrators" : $"{newTenant.Name} Admins",
-            Description = isFirstTenant ? "Bootstrap tenant administrators" : $"{newTenant.Name} Admins",
+            Name = isFirstTenant ? "Administrators" : $"{tenant.Name} Admins",
+            Description = isFirstTenant ? "Bootstrap tenant administrators" : $"{tenant.Name} Admins",
             Privs = string.Join(separator: ',', value: rolePrivileges),
-            TenantId = newTenant.Id
+            TenantId = tenant.Id
         });
 
         if (BootstrapUserExists(userId: bootstrapUserId))
         {
-            await userRoleOrchestrationService.AddSSOUserRoleAsync(newSSOUserRole: new SSOUserRole()
+            await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: new SSOUserRole()
             {
                 UserId = bootstrapUserId,
                 RoleId = role.Id
@@ -72,18 +72,18 @@ internal class TenantOrchestrationService(
         return dbTenant;
     }
 
-    public async ValueTask DeleteTenantAsync(Tenant deletedTenant)
+    public async ValueTask DeleteTenantAsync(Tenant tenant)
     {
         authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_delete");
 
-        await tenantProcessingService.DeleteTenantAsync(deletedTenant: deletedTenant);
+        await tenantProcessingService.DeleteTenantAsync(item: tenant);
     }
 
-    public async ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant)
+    public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant)
     {
         authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_update");
 
-        return await tenantProcessingService.UpdateTenantAsync(updatedTenant: updatedTenant);
+        return await tenantProcessingService.UpdateTenantAsync(item: tenant);
     }
 
     private string ResolveBootstrapUserId(Tenant tenant, bool isFirstTenant)

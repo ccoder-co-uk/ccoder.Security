@@ -11,22 +11,22 @@ namespace cCoder.Security.Services.Foundations;
 internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
     : ISSOUserRoleService
 {
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole)
+    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
     {
         SSOUserRole storageUserRole = new()
         {
-            RoleId = newSSOUserRole.RoleId,
-            UserId = newSSOUserRole.UserId
+            RoleId = item.RoleId,
+            UserId = item.UserId
         };
 
-        SSOUserRole result = await userRoleBroker.InsertSSOUserRoleAsync(newSSOUserRole: storageUserRole);
-        newSSOUserRole.RoleId = result.RoleId;
-        newSSOUserRole.UserId = result.UserId;
-        return newSSOUserRole;
+        SSOUserRole result = await userRoleBroker.InsertSSOUserRoleAsync(userRole: storageUserRole);
+        item.RoleId = result.RoleId;
+        item.UserId = result.UserId;
+        return item;
     }
 
-    public ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole) =>
-        userRoleBroker.DeleteSSOUserRoleAsync(deletedSSOUserRole: deletedSSOUserRole);
+    public ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
+        userRoleBroker.DeleteSSOUserRoleAsync(userRole: item);
 
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
         userRoleBroker.SelectAllSSOUserRoles();

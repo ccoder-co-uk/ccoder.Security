@@ -21,6 +21,6 @@ public class MSSQLSecurityDbContextFactory()
     public SecurityDbContext CreateDbContext(bool ignoreAuthInfo = false) =>
         new(GetAuthInfo(arg: ignoreAuthInfo), new SecurityMSSQLModelBuildProvider(connectionString ?? "SSO"));
 
-    public SecurityDbContext CreateDbContext(string[] @new) =>
+    public SecurityDbContext CreateDbContext(string[] args) =>
         CreateDbContext();
 }

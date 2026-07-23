@@ -25,24 +25,24 @@ internal class SSOUserOrchestrationService(
     public IQueryable<SSOUser> GetAllSSOUsers() =>
         ssoUserProcessingService.GetAllSSOUsers();
 
-    public async ValueTask<(SSOUser, string)> Register(RegisterUser newRegisterUser)
+    public async ValueTask<(SSOUser, string)> Register(RegisterUser registerForm)
     {
-        ValidateRegisterForm(registerForm: newRegisterUser);
+        ValidateRegisterForm(registerForm: registerForm);
 
-        SSOUser mappedUser = MapToSSOUser(registerForm: newRegisterUser);
+        SSOUser mappedUser = MapToSSOUser(registerForm: registerForm);
 
-        (SSOUser user, bool created) = await RegisterOrReturnExistingUserAsync(newRegisterUser: newRegisterUser, newSSOUser: mappedUser);
+        (SSOUser user, bool created) = await RegisterOrReturnExistingUserAsync(registerForm: registerForm, mappedUser: mappedUser);
 
         if (!created)
         { return (Sanitize(user: user), null); }
 
-        await TryAttachBootstrapTenantRoleAsync(registerForm: newRegisterUser, user: user);
+        await TryAttachBootstrapTenantRoleAsync(registerForm: registerForm, user: user);
         Token confirmationToken = await tokenProcessingService.GenerateConfirmationToken(userId: user.Id);
-        await accountEventService.RaiseRegistrationCreatedEventAsync(user: user, registerForm: newRegisterUser, token: confirmationToken.Id);
+        await accountEventService.RaiseRegistrationCreatedEventAsync(user: user, registerForm: registerForm, token: confirmationToken.Id);
         return (Sanitize(user: user), confirmationToken.Id);
     }
 
-    public async ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser updatedSSOUser)
+    public async ValueTask<SSOUser> UpdateSSOUserAsync(string username, SSOUser item)
     {
         SSOUser user = GetAllSSOUsers()
             .FirstOrDefault(predicate: user => user.Id == username);
@@ -53,29 +53,29 @@ internal class SSOUserOrchestrationService(
             throw new SecurityException("Access Denied!");
         }
 
-        user.DisplayName = updatedSSOUser.DisplayName;
-        user.PhoneNumber = updatedSSOUser.PhoneNumber;
-        user.Email = updatedSSOUser.Email;
+        user.DisplayName = item.DisplayName;
+        user.PhoneNumber = item.PhoneNumber;
+        user.Email = item.Email;
 
-        return await ssoUserProcessingService.UpdateSSOUserAsync(updatedSSOUser: user);
+        return await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
     }
 
-    public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>
-        ssoUserProcessingService.DeleteSSOUserAsync(deletedSSOUser: deletedSSOUser);
+    public ValueTask DeleteSSOUserAsync(SSOUser item) =>
+        ssoUserProcessingService.DeleteSSOUserAsync(item: item);
 
-    public async ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser newRegisterUser)
+    public async ValueTask<(SSOUser, string)> InviteUserAsync(RegisterUser registerForm)
     {
-        ValidateRegisterForm(registerForm: newRegisterUser, requirePassword: false);
+        ValidateRegisterForm(registerForm: registerForm, requirePassword: false);
 
-        SSOUser mappedUser = MapToSSOUser(registerForm: newRegisterUser);
+        SSOUser mappedUser = MapToSSOUser(registerForm: registerForm);
 
-        (SSOUser user, bool created) = await InviteOrReturnExistingUserAsync(newRegisterUser: newRegisterUser, newSSOUser: mappedUser);
+        (SSOUser user, bool created) = await InviteOrReturnExistingUserAsync(registerForm: registerForm, mappedUser: mappedUser);
 
         if (!created)
         { return (Sanitize(user: user), null); }
 
         Token inviteToken = await tokenProcessingService.GenerateInvitationToken(userId: user.Id);
-        await accountEventService.RaiseInvitationCreatedEventAsync(user: user, registerForm: newRegisterUser, token: inviteToken.Id);
+        await accountEventService.RaiseInvitationCreatedEventAsync(user: user, registerForm: registerForm, token: inviteToken.Id);
         return (Sanitize(user: user), inviteToken.Id);
     }
 
@@ -105,7 +105,7 @@ internal class SSOUserOrchestrationService(
 
         await tokenProcessingService.DeleteTokenAsync(tokenId: token.Id);
 
-        SSOUser updatedUser = await ssoUserProcessingService.UpdateSSOUserAsync(updatedSSOUser: user);
+        SSOUser updatedUser = await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
         await accountEventService.RaiseInvitationAcceptedEventAsync(user: updatedUser, registerForm: registerForm, token: tokenId);
         return updatedUser;
     }
@@ -146,7 +146,7 @@ internal class SSOUserOrchestrationService(
         }
 
         user.EmailConfirmed = true;
-        await ssoUserProcessingService.UpdateSSOUserAsync(updatedSSOUser: user);
+        await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
         await tokenProcessingService.DeleteTokenAsync(tokenId: token.Id);
         await accountEventService.RaiseRegistrationConfirmedEventAsync(user: user, token: tokenId);
     }
@@ -174,30 +174,30 @@ internal class SSOUserOrchestrationService(
         };
 
     private async ValueTask<(SSOUser User, bool Created)> RegisterOrReturnExistingUserAsync(
-        RegisterUser newRegisterUser,
-        SSOUser newSSOUser)
+        RegisterUser registerForm,
+        SSOUser mappedUser)
     {
         try
         {
-            return (await ssoUserProcessingService.RegisterSSOUserAsync(newSSOUser: newSSOUser), true);
+            return (await ssoUserProcessingService.RegisterSSOUserAsync(item: mappedUser), true);
         }
         catch (ValidationException exception) when (exception.Message == "Email exists")
         {
-            return (GetExistingUserByEmail(email: newRegisterUser.Email), false);
+            return (GetExistingUserByEmail(email: registerForm.Email), false);
         }
     }
 
     private async ValueTask<(SSOUser User, bool Created)> InviteOrReturnExistingUserAsync(
-        RegisterUser newRegisterUser,
-        SSOUser newSSOUser)
+        RegisterUser registerForm,
+        SSOUser mappedUser)
     {
         try
         {
-            return (await ssoUserProcessingService.InviteSSOUserAsync(newSSOUser: newSSOUser), true);
+            return (await ssoUserProcessingService.InviteSSOUserAsync(user: mappedUser), true);
         }
         catch (ValidationException exception) when (exception.Message == "Email exists")
         {
-            return (GetExistingUserByEmail(email: newRegisterUser.Email), false);
+            return (GetExistingUserByEmail(email: registerForm.Email), false);
         }
     }
 
@@ -236,7 +236,7 @@ internal class SSOUserOrchestrationService(
             $"Bootstrap administrator role not found for tenant '{registerForm.TenantId}'.");
         }
 
-        await userRoleOrchestrationService.AddSSOUserRoleAsync(newSSOUserRole: new SSOUserRole
+        await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: new SSOUserRole
         {
             UserId = user.Id,
             RoleId = role.Id

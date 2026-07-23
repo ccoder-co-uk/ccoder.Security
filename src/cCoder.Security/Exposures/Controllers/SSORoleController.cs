@@ -32,27 +32,27 @@ public class SSORoleController(ISSORoleOrchestrationService roleOrchestrationSer
     }
 
     [HttpPost]
-    public virtual async ValueTask<IActionResult> Post([FromBody] SSORole newSSORole) =>
-        Ok(value: await roleOrchestrationService.AddSSORoleAsync(newSSORole: newSSORole));
+    public virtual async ValueTask<IActionResult> Post([FromBody] SSORole role) =>
+        Ok(value: await roleOrchestrationService.AddSSORoleAsync(item: role));
 
     [HttpPut]
-    public virtual async ValueTask<IActionResult> Put([FromRoute] Guid updatedGuid, [FromBody] SSORole updatedSSORole) =>
-        Ok(value: await roleOrchestrationService.UpdateSSORoleAsync(updatedSSORole: updatedSSORole));
+    public virtual async ValueTask<IActionResult> Put([FromRoute] Guid key, [FromBody] SSORole role) =>
+        Ok(value: await roleOrchestrationService.UpdateSSORoleAsync(item: role));
 
     [HttpDelete]
-    public async ValueTask<IActionResult> Delete([FromRoute] Guid deletedGuid)
+    public async ValueTask<IActionResult> Delete([FromRoute] Guid key)
     {
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
         var role = roleOrchestrationService
             .GetAllSSORoles()
-            .FirstOrDefault(predicate: r => r.Id == deletedGuid);
+            .FirstOrDefault(predicate: r => r.Id == key);
 
         if (role is null)
         { return NotFound(); }
 
-        await roleOrchestrationService.DeleteSSORoleAsync(deletedSSORole: role);
+        await roleOrchestrationService.DeleteSSORoleAsync(item: role);
 
         return Ok();
     }

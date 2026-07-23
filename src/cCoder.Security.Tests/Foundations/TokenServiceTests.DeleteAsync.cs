@@ -23,11 +23,11 @@ public partial class TokenServiceTests
         };
 
         // when
-        await tokenService.DeleteTokenAsync(deletedToken: inputToken);
+        await tokenService.DeleteTokenAsync(item: inputToken);
 
         // then
         tokenBrokerMock.Verify(expression: broker =>
-            broker.DeleteTokenAsync(deletedToken: inputToken),
+            broker.DeleteTokenAsync(token: inputToken),
 times: Times.Once);
 
         tokenBrokerMock.VerifyNoOtherCalls();

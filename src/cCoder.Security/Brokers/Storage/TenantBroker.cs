@@ -13,38 +13,38 @@ namespace cCoder.Security.Brokers.Storage;
 internal class TenantBroker(ISecurityDbContextFactory contextFactory)
     : ITenantBroker
 {
-    public async ValueTask<Tenant> InsertTenantAsync(Tenant newTenant)
+    public async ValueTask<Tenant> InsertTenantAsync(Tenant tenant)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
         EntityEntry<Tenant> entityEntry =
-            await context.Tenants.AddAsync(entity: newTenant);
+            await context.Tenants.AddAsync(entity: tenant);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant)
+    public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Tenant> entityEntry =
-            context.Tenants.Update(entity: updatedTenant);
+            context.Tenants.Update(entity: tenant);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteTenantAsync(Tenant deletedTenant)
+    public async ValueTask DeleteTenantAsync(Tenant tenant)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<Tenant> entityEntry =
-            context.Tenants.Remove(entity: deletedTenant);
+            context.Tenants.Remove(entity: tenant);
 
         await context.SaveChangesAsync();
     }

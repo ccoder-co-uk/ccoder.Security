@@ -12,7 +12,7 @@ namespace cCoder.Security.Services.Foundations;
 internal class TokenService(ITokenBroker tokenBroker, IConfiguration configuration)
     : ITokenService
 {
-    public async ValueTask<Token> AddTokenAsync(string userId, TokenUse tokenUse, int? newNullable = null)
+    public async ValueTask<Token> AddTokenAsync(string userId, TokenUse tokenUse, int? timeout = null)
     {
         int tokenTimeout = GetTokenTimeout();
 
@@ -31,7 +31,7 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
         Token token = new()
         {
             Id = value,
-            Expires = DateTimeOffset.Now.AddMinutes(minutes: newNullable ?? tokenTimeout),
+            Expires = DateTimeOffset.Now.AddMinutes(minutes: timeout ?? tokenTimeout),
             Reason = (int)tokenUse,
             UserName = userId
         };
@@ -44,7 +44,7 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
             UserName = token.UserName
         };
 
-        Token result = await tokenBroker.InsertTokenAsync(newToken: storageToken);
+        Token result = await tokenBroker.InsertTokenAsync(token: storageToken);
         token.Id = result.Id;
         token.Expires = result.Expires;
         token.Reason = result.Reason;
@@ -52,11 +52,11 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
         return token;
     }
 
-    public ValueTask DeleteTokenAsync(Token deletedToken) =>
-        tokenBroker.DeleteTokenAsync(deletedToken: deletedToken);
+    public ValueTask DeleteTokenAsync(Token item) =>
+        tokenBroker.DeleteTokenAsync(token: item);
 
-    public ValueTask<int> DeleteExpiredAsync(CancellationToken deletedCancellationToken = default) =>
-        tokenBroker.DeleteExpiredAsync(deletedDateTimeOffset: DateTimeOffset.UtcNow, deletedCancellationToken: deletedCancellationToken);
+    public ValueTask<int> DeleteExpiredAsync(CancellationToken cancellationToken = default) =>
+        tokenBroker.DeleteExpiredAsync(expiresBefore: DateTimeOffset.UtcNow, cancellationToken: cancellationToken);
 
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
         tokenBroker.SelectAllTokens(ignoreFilters: ignoreFilters);

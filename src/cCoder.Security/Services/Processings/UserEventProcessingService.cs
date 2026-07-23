@@ -11,11 +11,11 @@ namespace cCoder.Security.Services.Processings;
 internal class UserEventProcessingService(IUserEventService userEventService)
         : IUserEventProcessingService
 {
-    public ValueTask<UserEvent> AddUserEventAsync(UserEvent newUserEvent) =>
-        userEventService.AddUserEventAsync(newUserEvent: newUserEvent);
+    public ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent) =>
+        userEventService.AddUserEventAsync(userEvent: userEvent);
 
-    public ValueTask DeleteUserEventAsync(UserEvent deletedUserEvent) =>
-        userEventService.DeleteUserEventAsync(deletedUserEvent: deletedUserEvent);
+    public ValueTask DeleteUserEventAsync(UserEvent userEvent) =>
+        userEventService.DeleteUserEventAsync(userEvent: userEvent);
 
     public IQueryable<UserEvent> GetAllUserEvents() =>
         userEventService.GetAllUserEvents();

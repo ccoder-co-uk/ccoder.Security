@@ -20,7 +20,7 @@ internal class TokenProcessingService(ITokenService tokenService)
             .FirstOrDefault(predicate: t => t.Id == tokenId);
 
         if (token != null)
-        { await tokenService.DeleteTokenAsync(deletedToken: token); }
+        { await tokenService.DeleteTokenAsync(item: token); }
     }
 
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
@@ -44,7 +44,7 @@ internal class TokenProcessingService(ITokenService tokenService)
         tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.Confirmation);
 
     public ValueTask<Token> GenerateInvitationToken(string userId) =>
-        tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.Invitation, newNullable: (7 * 24 * 60));
+        tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.Invitation, timeout: (7 * 24 * 60));
 
     public ValueTask<Token> GenerateForgottenPasswordToken(string userId) =>
         tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.PasswordReset);

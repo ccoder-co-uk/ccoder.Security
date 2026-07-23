@@ -19,11 +19,11 @@ public partial class SSOUserServiceTests
         SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
         // when
-        await userService.DeleteSSOUserAsync(deletedSSOUser: inputSSOUser);
+        await userService.DeleteSSOUserAsync(item: inputSSOUser);
 
         // then
         userBrokerMock.Verify(expression: broker =>
-            broker.DeleteSSOUserAsync(deletedSSOUser: inputSSOUser),
+            broker.DeleteSSOUserAsync(SSOUser: inputSSOUser),
 times: Times.Once);
 
         userBrokerMock.VerifyNoOtherCalls();

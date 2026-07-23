@@ -33,7 +33,7 @@ public partial class TokenServiceTests
 
         // then
         actualToken.Should().BeEquivalentTo(expectation: expectedToken);
-        tokenBrokerMock.Verify(expression: broker => broker.InsertTokenAsync(newToken: It.IsAny<Token>()), times: Times.Once);
+        tokenBrokerMock.Verify(expression: broker => broker.InsertTokenAsync(token: It.IsAny<Token>()), times: Times.Once);
         tokenBrokerMock.VerifyNoOtherCalls();
     }
 }
