@@ -9,38 +9,57 @@ using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
 
-internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffsetBroker dateTimeOffsetBroker)
+internal sealed partial class UserEventService(
+    IUserEventBroker broker,
+    ISecurityDateTimeOffsetBroker dateTimeOffsetBroker)
     : IUserEventService
 {
-    public async ValueTask<UserEvent> AddUserEventAsync(UserEvent newUserEvent)
-    {
-        newUserEvent.CreatedOn = dateTimeOffsetBroker.GetCurrentTime();
-
-        UserEvent storageUserEvent = new()
+    public ValueTask<UserEvent> AddUserEventAsync(UserEvent newUserEvent) =>
+        TryCatch<UserEvent>(operation: async () =>
         {
-            Id = newUserEvent.Id,
-            EventName = newUserEvent.EventName,
-            Value = newUserEvent.Value,
-            CreatedOn = newUserEvent.CreatedOn,
-            SessionId = newUserEvent.SessionId,
-            TenantId = newUserEvent.TenantId,
-            CreatedBy = newUserEvent.CreatedBy
-        };
+            ValidateUserEventOnAdd(newUserEvent: newUserEvent);
+            newUserEvent.CreatedOn = dateTimeOffsetBroker.GetCurrentTime();
 
-        UserEvent result = await broker.InsertUserEventAsync(userEvent: storageUserEvent);
-        newUserEvent.Id = result.Id;
-        newUserEvent.EventName = result.EventName;
-        newUserEvent.Value = result.Value;
-        newUserEvent.CreatedOn = result.CreatedOn;
-        newUserEvent.SessionId = result.SessionId;
-        newUserEvent.TenantId = result.TenantId;
-        newUserEvent.CreatedBy = result.CreatedBy;
-        return newUserEvent;
-    }
+            UserEvent storageUserEvent = new()
+            {
+                Id = newUserEvent.Id,
+                EventName = newUserEvent.EventName,
+                Value = newUserEvent.Value,
+                CreatedOn = newUserEvent.CreatedOn,
+                SessionId = newUserEvent.SessionId,
+                TenantId = newUserEvent.TenantId,
+                CreatedBy = newUserEvent.CreatedBy
+            };
+
+            UserEvent result = await broker.InsertUserEventAsync(
+                userEvent: storageUserEvent);
+
+            CopyUserEvent(sourceUserEvent: result, targetUserEvent: newUserEvent);
+
+            return newUserEvent;
+        });
 
     public ValueTask DeleteUserEventAsync(UserEvent deletedUserEvent) =>
-        broker.DeleteUserEventAsync(userEvent: deletedUserEvent);
+        TryCatch(operation: async () =>
+        {
+            ValidateUserEventOnDelete(deletedUserEvent: deletedUserEvent);
+
+            await broker.DeleteUserEventAsync(userEvent: deletedUserEvent);
+        });
 
     public IQueryable<UserEvent> GetAllUserEvents() =>
-        broker.SelectAllUserEvents();
+        TryCatch(operation: () => broker.SelectAllUserEvents());
+
+    private static void CopyUserEvent(
+        UserEvent sourceUserEvent,
+        UserEvent targetUserEvent)
+    {
+        targetUserEvent.Id = sourceUserEvent.Id;
+        targetUserEvent.EventName = sourceUserEvent.EventName;
+        targetUserEvent.Value = sourceUserEvent.Value;
+        targetUserEvent.CreatedOn = sourceUserEvent.CreatedOn;
+        targetUserEvent.SessionId = sourceUserEvent.SessionId;
+        targetUserEvent.TenantId = sourceUserEvent.TenantId;
+        targetUserEvent.CreatedBy = sourceUserEvent.CreatedBy;
+    }
 }
