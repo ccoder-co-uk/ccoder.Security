@@ -8,9 +8,14 @@ using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
 
-internal class SSOPrivilegeService(ISSOPrivilegeBroker privBroker)
+internal sealed partial class SSOPrivilegeService(ISSOPrivilegeBroker privBroker)
     : ISSOPrivilegeService
 {
     public IQueryable<SSOPrivilege> GetAllSSOPrivileges() =>
-        privBroker.SelectPrivileges();
+        TryCatch(operation: () =>
+        {
+            ValidatePrivilegesOnGet();
+
+            return privBroker.SelectPrivileges();
+        });
 }
