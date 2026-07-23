@@ -122,7 +122,6 @@ public partial class SecurityDbContext(
         UserEvents.IgnoreQueryFilters()
             .Select(selector: ue => new UserActivity
             {
-                // tenant details
                 TenantId = ue.TenantId,
                 TenantName = ue.Tenant.Name,
                 TenantDescription = ue.Tenant.Description,
@@ -131,19 +130,16 @@ public partial class SecurityDbContext(
                 TenantCreatedOn = ue.Tenant.CreatedOn,
                 TenantLastUpdated = ue.Tenant.LastUpdated,
 
-                // user details
                 UserId = ue.CreatedBy,
                 UserDisplayName = ue.CreatedByUser.DisplayName,
                 UserEmail = ue.CreatedByUser.Email,
                 UserPhoneNumber = ue.TenantId,
 
-                // event details
                 EventId = ue.Id,
                 EventName = ue.EventName,
                 EventValue = ue.Value,
                 EventCreatedOn = ue.CreatedOn,
 
-                // session details
                 SessionId = ue.SessionId
             });
 }

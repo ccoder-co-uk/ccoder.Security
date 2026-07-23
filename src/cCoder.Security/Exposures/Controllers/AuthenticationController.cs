@@ -40,7 +40,6 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
         }
         catch
         {
-            // Deliberate: avoid revealing whether an account exists for the email.
         }
 
         return Ok();

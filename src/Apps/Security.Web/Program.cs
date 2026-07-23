@@ -20,7 +20,6 @@ public class Program
             .AddEnvironmentVariables(prefix: "ENV_")
             .Build();
 
-        // configure DI for stack
         builder.Services.AddAspNetCore();
         builder.Services.AddMetadata();
 

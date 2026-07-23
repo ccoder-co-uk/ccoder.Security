@@ -3246,18 +3246,11 @@
       "LineNumber": 31
     },
     {
-      "Code": "STXFORMAT010",
-      "Description": "Production code must not contain non-documentation comments.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 43
-    },
-    {
       "Code": "STXAPI004",
       "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 49
+      "LineNumber": 48
     },
     {
       "Code": "STXAPI004",
@@ -3379,39 +3372,18 @@
       "LineNumber": 23
     },
     {
-      "Code": "STXFORMAT010",
-      "Description": "Production code must not contain non-documentation comments.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 29
-    },
-    {
       "Code": "STXE005",
       "Description": "An exposure must not sequence multiple routine calls.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 35
-    },
-    {
-      "Code": "STXFORMAT010",
-      "Description": "Production code must not contain non-documentation comments.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STXFORMAT010",
-      "Description": "Production code must not contain non-documentation comments.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 42
+      "LineNumber": 34
     },
     {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 43
+      "LineNumber": 40
     },
     {
       "Code": "STXE005",
@@ -3419,13 +3391,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
       "LineNumber": 20
-    },
-    {
-      "Code": "STXFORMAT010",
-      "Description": "Production code must not contain non-documentation comments.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
-      "LineNumber": 33
     },
     {
       "Code": "STXSTRUCT001",

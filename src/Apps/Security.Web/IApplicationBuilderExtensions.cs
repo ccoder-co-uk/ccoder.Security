@@ -23,17 +23,12 @@ public static class IApplicationBuilderExtensions
     public static IApplicationBuilder UseTheFramework(this IApplicationBuilder app)
     {
         app.HandleExceptions();
-        //app.UseExceptionHandler("/Error");
 
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        //app.UseHsts();
         app.UseDeveloperExceptionPage();
 
-        // setup some basics
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
-        // setup OData
         app.UseODataBatching();
         app.UseHttpsRedirection();
         app.UseRouting();

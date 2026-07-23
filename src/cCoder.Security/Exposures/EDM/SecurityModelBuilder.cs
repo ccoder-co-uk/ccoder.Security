@@ -30,7 +30,6 @@ public class SecurityModelBuilder : ODataModelBuilder
         var userEventType = Builder.EntityType<UserEvent>();
         userEventType.Ignore(propertyExpression: u => u.Session);
 
-        // Security
         AddSet<SSOUser, string>();
         AddSet<SSORole, string>();
         AddSet<SSOPrivilege, string>();

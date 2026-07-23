@@ -21,11 +21,9 @@ internal class AesThenHmac
 {
     private static readonly RandomNumberGenerator Random = RandomNumberGenerator.Create();
 
-    //Preconfigured Encryption Parameters
     public int BlockBitSize { get; set; } = 128;
     public int KeyBitSize { get; set; } = 256;
 
-    //Preconfigured Password Key Derivation Parameters
     public int SaltBitSize { get; set; } = 64;
     public int Iterations { get; set; } = 10000;
     public int MinPasswordLength { get; set; } = 12;
@@ -85,7 +83,6 @@ outputLength: outputLength);
 
     public byte[] SimpleEncrypt(byte[] secretMessage, byte[] cryptKey, byte[] authKey, byte[] nonSecretPayload)
     {
-        //User Error Checks
         if (cryptKey == null || cryptKey.Length != KeyBitSize / 8)
         { throw new ArgumentException(string.Format(format: "Key needs to be {0} bit!", arg0: KeyBitSize), nameof(cryptKey)); }
 
@@ -96,7 +93,6 @@ outputLength: outputLength);
         { throw new ArgumentException("Secret Message Required!", nameof(secretMessage)); }
 
 
-        //non-secret payload optional
         nonSecretPayload ??= [];
 
         byte[] cipherText;
@@ -111,7 +107,6 @@ outputLength: outputLength);
 
         using (aes)
         {
-            //Use random IV
             aes.GenerateIV();
             iv = aes.IV;
 
@@ -128,7 +123,6 @@ outputLength: outputLength);
             cipherText = cipherStream.ToArray();
         }
 
-        //Assemble encrypted message and add authentication
         using HMACSHA256 hmac = new(authKey);
         using MemoryStream encryptedStream = new();
         using (BinaryWriter binaryWriter = new(encryptedStream))
@@ -169,7 +163,6 @@ outputLength: outputLength);
     public byte[] SimpleDecrypt(byte[] encryptedMessage, byte[] cryptKey, byte[] authKey, int nonSecretPayloadLength = 0)
     {
 
-        //Basic Usage Error Checks
         if (cryptKey == null || cryptKey.Length != KeyByteSize)
         { throw new ArgumentException(string.Format(format: "CryptKey needs to be {0} bit!", arg0: KeyBitSize), nameof(cryptKey)); }
 
@@ -182,24 +175,19 @@ outputLength: outputLength);
         using HMACSHA256 hmac = new(authKey);
         byte[] sentTag = new byte[hmac.HashSize / 8];
 
-        //Calculate Tag
         byte[] calcTag = hmac.ComputeHash(buffer: encryptedMessage, offset: 0, count: encryptedMessage.Length - sentTag.Length);
         int ivLength = BlockBitSize / 8;
 
-        //if message length is to small just return null
         if (encryptedMessage.Length < sentTag.Length + nonSecretPayloadLength + ivLength)
         { return []; }
 
-        //Grab Sent Tag
         Array.Copy(sourceArray: encryptedMessage, sourceIndex: encryptedMessage.Length - sentTag.Length, destinationArray: sentTag, destinationIndex: 0, length: sentTag.Length);
 
-        //Compare Tag with constant time comparison
         int compare = 0;
         for (int i = 0; i < sentTag.Length; i++)
         { compare |= sentTag[i] ^ calcTag[i]; }
 
 
-        //if message doesn't authenticate return null
         if (compare != 0)
         { return []; }
 
@@ -210,7 +198,6 @@ outputLength: outputLength);
         aes.Mode = CipherMode.CBC;
         aes.Padding = PaddingMode.PKCS7;
 
-        //Grab IV from message
         byte[] iv = new byte[ivLength];
         Array.Copy(sourceArray: encryptedMessage, sourceIndex: nonSecretPayloadLength, destinationArray: iv, destinationIndex: 0, length: iv.Length);
 
@@ -220,7 +207,6 @@ outputLength: outputLength);
         {
             using (BinaryWriter binaryWriter = new(decrypterStream))
             {
-                //Decrypt Cipher Text from Message
                 binaryWriter.Write(
     buffer: encryptedMessage,
     index: nonSecretPayloadLength + iv.Length,
@@ -229,7 +215,6 @@ outputLength: outputLength);
             }
         }
 
-        //Return Plain Text
         return plainTextStream.ToArray();
     }
 
@@ -262,7 +247,6 @@ outputLength: outputLength);
     {
         nonSecretPayload ??= [];
 
-        //User Error Checks
         if (string.IsNullOrWhiteSpace(value: password) || password.Length < MinPasswordLength)
         { throw new ArgumentException(string.Format(format: "Must have a password of at least {0} characters!", arg0: MinPasswordLength), nameof(password)); }
 
@@ -277,14 +261,11 @@ outputLength: outputLength);
         byte[] cryptKey;
         byte[] authKey;
 
-        //Use Random Salt to prevent pre-generated weak password attacks.
         byte[] cryptSalt = GenerateSalt();
         cryptKey = DeriveKey(password: password, salt: cryptSalt, outputLength: KeyBitSize / 8);           //Generate Keys
         Array.Copy(sourceArray: cryptSalt, sourceIndex: 0, destinationArray: payload, destinationIndex: payloadIndex, length: cryptSalt.Length);   //Create Non Secret Payload
         payloadIndex += cryptSalt.Length;
 
-        //Deriving separate key, might be less efficient than using HKDF, 
-        //but now compatible with RNEncryptor which had a very similar wireformat and requires less code than HKDF.
         byte[] authSalt = GenerateSalt();
         authKey = DeriveKey(password: password, salt: authSalt, outputLength: KeyBitSize / 8);            //Generate Keys
         Array.Copy(sourceArray: authSalt, sourceIndex: 0, destinationArray: payload, destinationIndex: payloadIndex, length: authSalt.Length);    //Create Rest of Non Secret Payload
@@ -318,18 +299,15 @@ outputLength: outputLength);
 
     public byte[] SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
     {
-        //User Error Checks
         if (string.IsNullOrWhiteSpace(value: password) || password.Length < MinPasswordLength)
         { throw new ArgumentException(string.Format(format: "Must have a password of at least {0} characters!", arg0: MinPasswordLength), nameof(password)); }
 
         if (encryptedMessage == null || encryptedMessage.Length == 0)
         { throw new ArgumentException("Encrypted Message Required!", nameof(encryptedMessage)); }
 
-        //Grab Salt from Non-Secret Payload
         byte[] cryptSalt = [.. encryptedMessage.Skip(count: nonSecretPayloadLength).Take(count: SaltByteSize)];
         byte[] authSalt = [.. encryptedMessage.Skip(count: nonSecretPayloadLength + cryptSalt.Length).Take(count: SaltByteSize)];
 
-        // generate keys
         byte[] cryptKey = DeriveKey(password: password, salt: cryptSalt, outputLength: KeyByteSize);
         byte[] authKey = DeriveKey(password: password, salt: authSalt, outputLength: KeyByteSize);
 

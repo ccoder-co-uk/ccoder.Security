@@ -26,7 +26,6 @@ public abstract class ODataModelBuilder
         setName ??= typeof(T).Name;
         EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(name: setName);
 
-        // register base OData controller defined functions
         StructuralTypeConfiguration typeInfo = Builder.StructuralTypes.First(predicate: t => t.ClrType == typeof(T));
 
         return setConfig;
@@ -36,10 +35,8 @@ public abstract class ODataModelBuilder
         where T : class
     {
         string setName = typeof(T).Name;
-        // register basic CRUD endpoint
         EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(name: setName);
 
-        // register base OData controller defined functions
         _ = Builder.EntityType<T>().HasKey(keyDefinitionExpression: key);
 
         return setConfig;
