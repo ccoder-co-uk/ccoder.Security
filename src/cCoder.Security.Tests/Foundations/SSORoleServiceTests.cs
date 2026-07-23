@@ -23,8 +23,8 @@ public partial class SSORoleServiceTests
     }
 
     private static IQueryable<SSORole> RandomRoles() =>
-        Enumerable.Range(0, new Random().Next(100))
-            .Select(selector: i => RandomRole(Guid.NewGuid()))
+        Enumerable.Range(start: 0, count: new Random().Next(100))
+            .Select(selector: i => RandomRole(id: Guid.NewGuid()))
             .AsQueryable();
 
     private static SSORole RandomRole(Guid id) =>

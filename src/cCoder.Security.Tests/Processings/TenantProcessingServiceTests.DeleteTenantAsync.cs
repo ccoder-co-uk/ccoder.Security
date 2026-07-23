@@ -21,7 +21,7 @@ public partial class TenantProcessingServiceTests
 
         //then
         tenantServiceMock.Verify(expression: tenantServiceMock =>
-            tenantServiceMock.DeleteTenantAsync(inputTenant),
+            tenantServiceMock.DeleteTenantAsync(tenant: inputTenant),
 times: Times.Once());
 
         tenantServiceMock.VerifyNoOtherCalls();

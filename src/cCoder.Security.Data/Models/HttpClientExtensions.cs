@@ -24,7 +24,7 @@ public static class HttpClientExtensions
         try
         {
             var auth = new { User = user, Pass = pass };
-            HttpResponseMessage response = await client.PostAsync(requestUri: "Account/Login", content: new StringContent(Json(auth), Encoding.UTF8, "application/json"));
+            HttpResponseMessage response = await client.PostAsync(requestUri: "Account/Login", content: new StringContent(Json(source: auth), Encoding.UTF8, "application/json"));
             _ = response.EnsureSuccessStatusCode();
             Token token = await ReadAsAsync<Token>(content: response.Content);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Id);

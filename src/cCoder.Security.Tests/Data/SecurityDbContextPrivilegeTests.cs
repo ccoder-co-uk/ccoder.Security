@@ -42,13 +42,13 @@ public class SecurityDbContextPrivilegeTests
         SSOPrivilege[] privileges = [.. context.GetPrivileges()];
 
         // then
-        privileges.Select(privilege => privilege.Id)
+        privileges.Select(selector: privilege => privilege.Id)
             .Should().BeEquivalentTo(expectation: expectedPrivilegeIds);
 
         privileges.Should().OnlyContain(predicate: privilege =>
-            !string.IsNullOrWhiteSpace(privilege.Id)
-            && !string.IsNullOrWhiteSpace(privilege.Type)
-            && !string.IsNullOrWhiteSpace(privilege.Operation)
-            && !string.IsNullOrWhiteSpace(privilege.Description));
+            !string.IsNullOrWhiteSpace(value: privilege.Id)
+            && !string.IsNullOrWhiteSpace(value: privilege.Type)
+            && !string.IsNullOrWhiteSpace(value: privilege.Operation)
+            && !string.IsNullOrWhiteSpace(value: privilege.Description));
     }
 }

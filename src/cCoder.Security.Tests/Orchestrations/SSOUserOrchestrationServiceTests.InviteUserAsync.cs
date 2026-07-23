@@ -32,11 +32,11 @@ public partial class SSOUserOrchestrationServiceTests
         };
 
         ssoUserProcessingServiceMock
-            .Setup(service => service.InviteSSOUserAsync(It.IsAny<SSOUser>()))
+            .Setup(expression: service => service.InviteSSOUserAsync(It.IsAny<SSOUser>()))
             .ThrowsAsync(exception: new ValidationException("Email exists"));
 
         ssoUserProcessingServiceMock
-            .Setup(service => service.GetAllSSOUsers(true))
+            .Setup(expression: service => service.GetAllSSOUsers(true))
             .Returns(value: new[] { existingUser }.AsQueryable());
 
         (SSOUser actualUser, string token) =
@@ -47,14 +47,14 @@ public partial class SSOUserOrchestrationServiceTests
         token.Should().BeNull();
 
         tokenProcessingServiceMock.Verify(
-expression: service => service.GenerateInvitationToken(It.IsAny<string>()),
+expression: service => service.GenerateInvitationToken(userId: It.IsAny<string>()),
 times: Times.Never);
 
         accountEventServiceMock.Verify(
 expression: service => service.RaiseInvitationCreatedEventAsync(
-                It.IsAny<SSOUser>(),
-                It.IsAny<RegisterUser>(),
-                It.IsAny<string>()),
+user: It.IsAny<SSOUser>(),
+registerForm: It.IsAny<RegisterUser>(),
+token: It.IsAny<string>()),
 times: Times.Never);
     }
 }

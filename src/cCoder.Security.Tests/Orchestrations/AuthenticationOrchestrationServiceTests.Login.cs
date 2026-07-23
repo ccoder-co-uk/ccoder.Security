@@ -17,6 +17,6 @@ public partial class AuthenticationOrchestrationServiceTests
         string password = RandomString();
 
         //when & then
-        await Assert.ThrowsAsync<SecurityException>(testCode: async () => await authenticationOrchestrationService.LoginAsync(username, password));
+        await Assert.ThrowsAsync<SecurityException>(testCode: async () => await authenticationOrchestrationService.LoginAsync(username: username, password: password));
     }
 }

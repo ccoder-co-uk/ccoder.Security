@@ -118,7 +118,7 @@ value: previousConnectionString);
     private async ValueTask<string> ResendInviteAsync(string userId)
     {
         HttpResponseMessage response = await api.PostAsync(
-requestUri: $"/Api/Account/ResendInvite?userId={WebUtility.UrlEncode(userId)}",
+requestUri: $"/Api/Account/ResendInvite?userId={WebUtility.UrlEncode(value: userId)}",
             content: null);
 
         response.EnsureSuccessStatusCode();
@@ -131,7 +131,7 @@ requestUri: $"/Api/Account/ResendInvite?userId={WebUtility.UrlEncode(userId)}",
     private async ValueTask ConfirmRegistrationAsync(string token)
     {
         HttpResponseMessage response = await api.PostAsync(
-requestUri: $"/Api/Account/ConfirmRegistration?confirmationToken={WebUtility.UrlEncode(token)}",
+requestUri: $"/Api/Account/ConfirmRegistration?confirmationToken={WebUtility.UrlEncode(value: token)}",
             content: null);
 
         response.EnsureSuccessStatusCode();
@@ -140,7 +140,7 @@ requestUri: $"/Api/Account/ConfirmRegistration?confirmationToken={WebUtility.Url
     private async ValueTask AcceptInviteAsync(string userId, string token, RegisterUser user)
     {
         HttpResponseMessage response = await api.PostAsJsonAsync(
-requestUri: $"/Api/Account/AcceptInvite?userId={WebUtility.UrlEncode(userId)}&inviteToken={WebUtility.UrlEncode(token)}",
+requestUri: $"/Api/Account/AcceptInvite?userId={WebUtility.UrlEncode(value: userId)}&inviteToken={WebUtility.UrlEncode(value: token)}",
 value: user);
 
         response.EnsureSuccessStatusCode();
@@ -202,7 +202,7 @@ value: request);
 
         return database.Tokens
             .IgnoreQueryFilters()
-            .Where(token =>
+            .Where(predicate: token =>
                 token.UserName == userId
                 && token.Reason == (int)tokenUse)
             .OrderByDescending(keySelector: token => token.Expires)
@@ -224,7 +224,7 @@ value: request);
         using JsonDocument document = JsonDocument.Parse(json: await response.Content.ReadAsStringAsync());
 
         SSOUser user = JsonSerializer.Deserialize<SSOUser>(
-json: document.RootElement.GetProperty("user").GetRawText(),
+json: document.RootElement.GetProperty(propertyName: "user").GetRawText(),
 options: JsonOptions);
 
         string token = document.RootElement.GetProperty(propertyName: "token").GetString();

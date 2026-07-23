@@ -27,20 +27,20 @@ public class TenantController(ITenantCoordinationService tenantCoordinationServi
             .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(value: SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(queryable: result))
             : NotFound();
     }
 
     [HttpPost]
     public async ValueTask<IActionResult> Post([FromBody] Tenant tenant) =>
         ModelState.IsValid
-            ? Ok(value: await tenantCoordinationService.AddTenantAsync(tenant))
+            ? Ok(value: await tenantCoordinationService.AddTenantAsync(item: tenant))
             : BadRequest(modelState: ModelState);
 
     [HttpPut]
     public async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] Tenant tenant) =>
         ModelState.IsValid
-            ? Ok(value: await tenantCoordinationService.UpdateTenantAsync(tenant))
+            ? Ok(value: await tenantCoordinationService.UpdateTenantAsync(item: tenant))
             : BadRequest(modelState: ModelState);
 
     [HttpDelete]

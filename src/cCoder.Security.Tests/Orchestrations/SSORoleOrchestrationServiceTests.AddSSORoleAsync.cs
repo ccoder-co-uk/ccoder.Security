@@ -21,11 +21,11 @@ public partial class SSORoleOrchestrationServiceTests
         };
 
         roleProcessingServiceMock
-            .Setup(x => x.GetAllSSORoles())
+            .Setup(expression: x => x.GetAllSSORoles())
             .Returns(value: Array.Empty<SSORole>().AsQueryable());
 
         roleProcessingServiceMock
-            .Setup(x => x.AddSSORoleAsync(inputRole))
+            .Setup(expression: x => x.AddSSORoleAsync(inputRole))
             .ReturnsAsync(value: inputRole);
 
         SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
@@ -33,7 +33,7 @@ public partial class SSORoleOrchestrationServiceTests
         actualRole.Should().BeSameAs(expected: inputRole);
 
         authorizationBrokerMock.Verify(
-expression: x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
+expression: x => x.UserIsPortalAdminWithPrivilege(privilege: It.IsAny<string>()),
 times: Times.Never);
     }
 
@@ -47,20 +47,20 @@ times: Times.Never);
         };
 
         roleProcessingServiceMock
-            .Setup(x => x.GetAllSSORoles())
+            .Setup(expression: x => x.GetAllSSORoles())
             .Returns(value: new[] { new SSORole { Name = "Administrators", TenantId = "tenant-1" } }.AsQueryable());
 
         authorizationBrokerMock
-            .Setup(expression: x => x.UserIsPortalAdminWithPrivilege("tenant_admin"));
+            .Setup(expression: x => x.UserIsPortalAdminWithPrivilege(privilege: "tenant_admin"));
 
         roleProcessingServiceMock
-            .Setup(x => x.AddSSORoleAsync(inputRole))
+            .Setup(expression: x => x.AddSSORoleAsync(inputRole))
             .ReturnsAsync(value: inputRole);
 
         await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
 
         authorizationBrokerMock.Verify(
-expression: x => x.UserIsPortalAdminWithPrivilege("tenant_admin"),
+expression: x => x.UserIsPortalAdminWithPrivilege(privilege: "tenant_admin"),
 times: Times.Once);
     }
 }

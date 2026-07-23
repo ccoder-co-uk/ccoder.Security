@@ -19,12 +19,12 @@ public partial class SSOUserRoleServiceTests
         SSOUserRole inputSSOUserRole = RandomUserRole();
         SSOUserRole expectedSSOUserRole = inputSSOUserRole.DeepClone();
 
-        userRoleBrokerMock.Setup(broker => broker.GetAllSSOUserRoles()).Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
+        userRoleBrokerMock.Setup(expression: broker => broker.GetAllSSOUserRoles()).Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
         SSOUserRole submitted = null;
 
         userRoleBrokerMock
             .Setup(broker => broker.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
-            .Callback<SSOUserRole>(candidate => submitted = candidate)
+            .Callback<SSOUserRole>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSOUserRole);
 
         // when
@@ -37,7 +37,7 @@ public partial class SSOUserRoleServiceTests
         actualSSOUserRole.Should().BeEquivalentTo(expectation: expectedSSOUserRole);
 
         userRoleBrokerMock.Verify(expression: broker =>
-            broker.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()),
+            broker.AddSSOUserRoleAsync(userRole: It.IsAny<SSOUserRole>()),
 times: Times.Once);
 
         userRoleBrokerMock.VerifyNoOtherCalls();

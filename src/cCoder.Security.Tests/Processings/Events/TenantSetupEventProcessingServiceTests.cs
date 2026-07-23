@@ -43,7 +43,7 @@ public class TenantSetupEventProcessingServiceTests
         };
 
         tenantSetupOrchestrationServiceMock
-            .Setup(service => service.SetupAsync(It.Is<SetupDetails>(details =>
+            .Setup(expression: service => service.SetupAsync(It.Is<SetupDetails>(details =>
                 details.User.Id == "admin"
                 && details.Tenant.CreatedBy == "admin"
                 && details.Tenant.LastUpdatedBy == "admin"

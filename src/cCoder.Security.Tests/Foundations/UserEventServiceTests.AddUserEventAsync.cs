@@ -26,10 +26,10 @@ public partial class UserEventServiceTests
 
         userEventBrokerMock.Setup(userEventBrokerMock =>
             userEventBrokerMock.AddUserEventAsync(It.IsAny<UserEvent>()))
-            .Callback<UserEvent>(candidate => submitted = candidate)
+            .Callback<UserEvent>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: inputUserEvent);
 
-        dateTimeOffsetBrokerMock.Setup(dateTimeOffsetBrokerMock =>
+        dateTimeOffsetBrokerMock.Setup(expression: dateTimeOffsetBrokerMock =>
             dateTimeOffsetBrokerMock.GetCurrentTime())
             .Returns(value: expectedTime);
 
@@ -43,7 +43,7 @@ public partial class UserEventServiceTests
         actualUserEvent.Should().BeEquivalentTo(expectation: expectedUserEvent);
 
         userEventBrokerMock.Verify(expression: userEventBrokerMock =>
-            userEventBrokerMock.AddUserEventAsync(It.IsAny<UserEvent>()),
+            userEventBrokerMock.AddUserEventAsync(userEvent: It.IsAny<UserEvent>()),
 times: Times.Once());
 
         userEventBrokerMock.VerifyNoOtherCalls();

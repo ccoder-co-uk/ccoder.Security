@@ -23,7 +23,7 @@ public partial class SSORoleServiceTests
 
         roleBrokerMock
             .Setup(broker => broker.UpdateSSORoleAsync(It.IsAny<SSORole>()))
-            .Callback<SSORole>(candidate => submitted = candidate)
+            .Callback<SSORole>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSORole);
 
         // when
@@ -36,7 +36,7 @@ public partial class SSORoleServiceTests
         actualSSORole.Should().BeEquivalentTo(expectation: expectedSSORole);
 
         roleBrokerMock.Verify(expression: broker =>
-            broker.UpdateSSORoleAsync(It.IsAny<SSORole>()),
+            broker.UpdateSSORoleAsync(SSORole: It.IsAny<SSORole>()),
 times: Times.Once);
 
         roleBrokerMock.VerifyNoOtherCalls();

@@ -47,7 +47,7 @@ internal class SessionService(ISession session, ISerializationBroker serilizatio
     public void SetUser(SSOUser user)
     {
         if (user != null)
-        { session?.SetString(key: "ssoUser", value: System.Text.Json.JsonSerializer.Serialize(user)); }
+        { session?.SetString(key: "ssoUser", value: System.Text.Json.JsonSerializer.Serialize(value: user)); }
         else
         { session?.Remove(key: "ssoUser"); }
     }

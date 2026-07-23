@@ -3288,13 +3288,6 @@
       "LineNumber": 43
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 60
-    },
-    {
       "Code": "STXB007",
       "Description": "Storage broker methods must use SQL nouns: Select, Insert, Update, or Delete.",
       "Severity": "Warning",
@@ -3356,13 +3349,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "LineNumber": 14
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 17
     },
     {
       "Code": "STXAPI004",
@@ -3435,32 +3421,11 @@
       "LineNumber": 60
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 30
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
       "LineNumber": 35
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 36
     },
     {
       "Code": "STX0020",
@@ -3470,20 +3435,6 @@
       "LineNumber": 39
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 30
-    },
-    {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
@@ -3491,25 +3442,11 @@
       "LineNumber": 36
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 38
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
       "LineNumber": 21
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
-      "LineNumber": 23
     },
     {
       "Code": "STXAPI001",
@@ -3526,20 +3463,6 @@
       "LineNumber": 9
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
-      "LineNumber": 30
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 30
-    },
-    {
       "Code": "STX0019",
       "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
@@ -3547,32 +3470,11 @@
       "LineNumber": 35
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 37
-    },
-    {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
       "LineNumber": 41
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 43
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.UserEventController",
-      "LineNumber": 30
     },
     {
       "Code": "STX0002",
@@ -3743,13 +3645,6 @@
       "LineNumber": 178
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 191
-    },
-    {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
@@ -3783,13 +3678,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
       "LineNumber": 191
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 192
     },
     {
       "Code": "STX0007",
@@ -3869,25 +3757,11 @@
       "LineNumber": 22
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 27
-    },
-    {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
       "LineNumber": 31
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 36
     },
     {
       "Code": "STX0018",
@@ -3897,13 +3771,6 @@
       "LineNumber": 40
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 45
-    },
-    {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
@@ -3911,39 +3778,11 @@
       "LineNumber": 49
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 54
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 54
-    },
-    {
       "Code": "STX0018",
       "Description": "Service method names must include each model type they operate on.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
       "LineNumber": 58
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 63
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "LineNumber": 101
     },
     {
       "Code": "STX0008",
@@ -3993,13 +3832,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
       "LineNumber": 11
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
-      "LineNumber": 16
     },
     {
       "Code": "STX0008",
@@ -4415,13 +4247,6 @@
       "LineNumber": 47
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 50
-    },
-    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
@@ -4674,13 +4499,6 @@
       "LineNumber": 47
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TokenService",
-      "LineNumber": 58
-    },
-    {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
@@ -4882,48 +4700,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
       "LineNumber": 70
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 93
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 94
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 95
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 96
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 97
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 98
     },
     {
       "Code": "STXFORMAT009",
@@ -5430,13 +5206,6 @@
       "LineNumber": 47
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 55
-    },
-    {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
@@ -5528,13 +5297,6 @@
       "LineNumber": 32
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 32
-    },
-    {
       "Code": "STXFORMAT009",
       "Description": "Every method chained from an invocation result must begin on a new line.",
       "Severity": "Warning",
@@ -5617,13 +5379,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
       "LineNumber": 17
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantSetupOrchestrationService",
-      "LineNumber": 22
     },
     {
       "Code": "STX0008",
@@ -5913,13 +5668,6 @@
       "LineNumber": 20
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 23
-    },
-    {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
@@ -5939,34 +5687,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "LineNumber": 36
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 39
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 41
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 42
     },
     {
       "Code": "STX0021",

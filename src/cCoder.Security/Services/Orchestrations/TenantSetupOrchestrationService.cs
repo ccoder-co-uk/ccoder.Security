@@ -19,7 +19,7 @@ internal class TenantSetupOrchestrationService(
         await tenantOrchestrationService.AddTenantAsync(item: setupDetails.Tenant);
 
         (SSOUser _, string confirmationToken) =
-            await ssoUserOrchestrationService.Register(registerForm: MapRegisterUser(setupDetails));
+            await ssoUserOrchestrationService.Register(registerForm: MapRegisterUser(setupDetails: setupDetails));
 
         await ssoUserOrchestrationService.ConfirmRegistration(tokenId: confirmationToken);
     }

@@ -25,28 +25,7 @@
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 24
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
       "LineNumber": 26
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 28
     },
     {
       "Code": "STXFORMAT005",
@@ -60,35 +39,7 @@
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.HostedServices.Program",
-      "LineNumber": 33
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 34
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
       "LineNumber": 43
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 43
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.HostedServices.Program",
-      "LineNumber": 45
     },
     {
       "Code": "STXFORMAT005",

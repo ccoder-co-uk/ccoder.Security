@@ -23,7 +23,7 @@ public partial class SSOUserRoleServiceTests
 
         // then
         userRoleBrokerMock.Verify(expression: broker =>
-            broker.DeleteSSOUserRoleAsync(inputSSOUserRole),
+            broker.DeleteSSOUserRoleAsync(userRole: inputSSOUserRole),
 times: Times.Once);
 
         userRoleBrokerMock.VerifyNoOtherCalls();

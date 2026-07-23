@@ -18,7 +18,7 @@ public partial class TenantServiceTests
         IQueryable<Tenant> expectedTenants = RandomTenants()
             .AsQueryable();
 
-        tenantBrokerMock.Setup(tenantBrokerMock =>
+        tenantBrokerMock.Setup(expression: tenantBrokerMock =>
             tenantBrokerMock.GetAllTenants())
             .Returns(value: expectedTenants);
 

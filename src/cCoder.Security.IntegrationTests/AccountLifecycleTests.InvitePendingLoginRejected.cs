@@ -29,6 +29,6 @@ public partial class AccountLifecycleTests
         resentInviteToken.Should().NotBeNullOrWhiteSpace();
         FindUser(userId: invitedUser.Id).LockoutEnabled.Should().BeTrue();
 
-        await AssertLoginRejectedAsync(auth: CreateAuth(user));
+        await AssertLoginRejectedAsync(auth: CreateAuth(user: user));
     }
 }

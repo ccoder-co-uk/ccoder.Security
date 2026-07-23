@@ -31,7 +31,7 @@ public partial class AuthenticationOrchestrationServiceTests
         };
 
         ssoUserProcessingServiceMock
-            .Setup(service => service.Me())
+            .Setup(expression: service => service.Me())
             .Returns(value: storedUser);
 
         //when

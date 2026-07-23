@@ -18,7 +18,7 @@ public partial class UserEventProcessingServiceTests
         IQueryable<UserEvent> expectedUserEvents = RandomUserEvents()
             .AsQueryable();
 
-        userEventServiceMock.Setup(userEventServiceMock =>
+        userEventServiceMock.Setup(expression: userEventServiceMock =>
             userEventServiceMock.GetAllUserEvents())
             .Returns(value: expectedUserEvents);
 

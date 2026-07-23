@@ -45,6 +45,6 @@ public partial class SSOUserOrchestrationServiceTests
 
     private void SetupRegistrationCreatedEvent(SSOUser user, RegisterUser registerForm, string token) =>
         accountEventServiceMock
-            .Setup(service => service.RaiseRegistrationCreatedEventAsync(user, registerForm, token))
+            .Setup(expression: service => service.RaiseRegistrationCreatedEventAsync(user, registerForm, token))
             .Returns(value: ValueTask.CompletedTask);
 }

@@ -40,23 +40,23 @@ public partial class SSOUserOrchestrationServiceTests
         };
 
         ssoUserProcessingServiceMock
-            .Setup(x => x.RegisterSSOUserAsync(It.IsAny<SSOUser>()))
+            .Setup(expression: x => x.RegisterSSOUserAsync(It.IsAny<SSOUser>()))
             .ReturnsAsync(value: storedUser);
 
         userRoleProcessingServiceMock
-            .Setup(x => x.GetAllSSOUserRoles())
+            .Setup(expression: x => x.GetAllSSOUserRoles())
             .Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
 
         roleProcessingServiceMock
-            .Setup(x => x.GetAllSSORoles(true))
+            .Setup(expression: x => x.GetAllSSORoles(true))
             .Returns(value: new[] { bootstrapRole }.AsQueryable());
 
         userRoleOrchestrationServiceMock
-            .Setup(x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
             .ReturnsAsync(valueFunction: (SSOUserRole userRole) => userRole);
 
         tokenProcessingServiceMock
-            .Setup(x => x.GenerateConfirmationToken(storedUser.Id))
+            .Setup(expression: x => x.GenerateConfirmationToken(storedUser.Id))
             .ReturnsAsync(value: new Token { Id = "token-1" });
 
         SetupRegistrationCreatedEvent(user: storedUser, registerForm: input, token: "token-1");
@@ -68,13 +68,13 @@ public partial class SSOUserOrchestrationServiceTests
         token.Should().Be(expected: "token-1");
 
         userRoleOrchestrationServiceMock.Verify(
-expression: x => x.AddSSOUserRoleAsync(It.Is<SSOUserRole>(userRole =>
+expression: x => x.AddSSOUserRoleAsync(userRole: It.Is<SSOUserRole>(userRole =>
                 userRole.UserId == storedUser.Id
                 && userRole.RoleId == bootstrapRole.Id)),
 times: Times.Once);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaiseRegistrationCreatedEventAsync(storedUser, input, "token-1"),
+expression: service => service.RaiseRegistrationCreatedEventAsync(user: storedUser, registerForm: input, token: "token-1"),
 times: Times.Once);
     }
 
@@ -98,15 +98,15 @@ times: Times.Once);
         };
 
         ssoUserProcessingServiceMock
-            .Setup(x => x.RegisterSSOUserAsync(It.IsAny<SSOUser>()))
+            .Setup(expression: x => x.RegisterSSOUserAsync(It.IsAny<SSOUser>()))
             .ReturnsAsync(value: storedUser);
 
         userRoleProcessingServiceMock
-            .Setup(x => x.GetAllSSOUserRoles())
+            .Setup(expression: x => x.GetAllSSOUserRoles())
             .Returns(value: new[] { new SSOUserRole { UserId = "existing-admin" } }.AsQueryable());
 
         tokenProcessingServiceMock
-            .Setup(x => x.GenerateConfirmationToken(storedUser.Id))
+            .Setup(expression: x => x.GenerateConfirmationToken(storedUser.Id))
             .ReturnsAsync(value: new Token { Id = "token-1" });
 
         SetupRegistrationCreatedEvent(user: storedUser, registerForm: input, token: "token-1");
@@ -116,11 +116,11 @@ times: Times.Once);
         roleProcessingServiceMock.Verify(expression: x => x.GetAllSSORoles(), times: Times.Never);
 
         userRoleOrchestrationServiceMock.Verify(
-expression: x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()),
+expression: x => x.AddSSOUserRoleAsync(userRole: It.IsAny<SSOUserRole>()),
 times: Times.Never);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaiseRegistrationCreatedEventAsync(storedUser, input, "token-1"),
+expression: service => service.RaiseRegistrationCreatedEventAsync(user: storedUser, registerForm: input, token: "token-1"),
 times: Times.Once);
     }
 
@@ -144,11 +144,11 @@ times: Times.Once);
         };
 
         ssoUserProcessingServiceMock
-            .Setup(service => service.RegisterSSOUserAsync(It.IsAny<SSOUser>()))
+            .Setup(expression: service => service.RegisterSSOUserAsync(It.IsAny<SSOUser>()))
             .ThrowsAsync(exception: new ValidationException("Email exists"));
 
         ssoUserProcessingServiceMock
-            .Setup(service => service.GetAllSSOUsers(true))
+            .Setup(expression: service => service.GetAllSSOUsers(true))
             .Returns(value: new[] { existingUser }.AsQueryable());
 
         (SSOUser actualUser, string token) =
@@ -159,14 +159,14 @@ times: Times.Once);
         token.Should().BeNull();
 
         tokenProcessingServiceMock.Verify(
-expression: service => service.GenerateConfirmationToken(It.IsAny<string>()),
+expression: service => service.GenerateConfirmationToken(userId: It.IsAny<string>()),
 times: Times.Never);
 
         accountEventServiceMock.Verify(
 expression: service => service.RaiseRegistrationCreatedEventAsync(
-                It.IsAny<SSOUser>(),
-                It.IsAny<RegisterUser>(),
-                It.IsAny<string>()),
+user: It.IsAny<SSOUser>(),
+registerForm: It.IsAny<RegisterUser>(),
+token: It.IsAny<string>()),
 times: Times.Never);
     }
 }

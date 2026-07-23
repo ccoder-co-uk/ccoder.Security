@@ -23,7 +23,7 @@ public partial class SSOUserServiceTests
 
         // then
         userBrokerMock.Verify(expression: broker =>
-            broker.DeleteSSOUserAsync(inputSSOUser),
+            broker.DeleteSSOUserAsync(SSOUser: inputSSOUser),
 times: Times.Once);
 
         userBrokerMock.VerifyNoOtherCalls();

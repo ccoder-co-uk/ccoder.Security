@@ -16,7 +16,7 @@ public partial class SSORoleServiceTests
     {
         // given
         IQueryable<SSORole> expectedSSORoles = RandomRoles();
-        roleBrokerMock.Setup(broker => broker.GetAllSSORoles()).Returns(value: expectedSSORoles);
+        roleBrokerMock.Setup(expression: broker => broker.GetAllSSORoles()).Returns(value: expectedSSORoles);
 
         // when
         IEnumerable<SSORole> actualSSORoles = roleService.GetAllSSORoles();

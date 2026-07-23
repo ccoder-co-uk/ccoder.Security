@@ -23,19 +23,19 @@ public partial class TenantOrchestrationServiceTests
         };
 
         tenantProcessingServiceMock
-            .Setup(x => x.GetAllTenants())
+            .Setup(expression: x => x.GetAllTenants())
             .Returns(value: Array.Empty<Tenant>().AsQueryable());
 
         tenantProcessingServiceMock
-            .Setup(x => x.AddTenantAsync(inputTenant))
+            .Setup(expression: x => x.AddTenantAsync(inputTenant))
             .Returns(value: new ValueTask<Tenant>(inputTenant));
 
         authorizationBrokerMock
-            .Setup(x => x.GetCurrentUser())
+            .Setup(expression: x => x.GetCurrentUser())
             .Returns(value: new SSOUser { Id = "Guest" });
 
         authorizationBrokerMock
-            .Setup(x => x.GetAllPrivileges())
+            .Setup(expression: x => x.GetAllPrivileges())
             .Returns(
 value: new[]
                 {
@@ -45,11 +45,11 @@ value: new[]
                 });
 
         roleOrchestrationServiceMock
-            .Setup(x => x.AddSSORoleAsync(It.IsAny<SSORole>()))
+            .Setup(expression: x => x.AddSSORoleAsync(It.IsAny<SSORole>()))
             .ReturnsAsync(valueFunction: (SSORole role) => role);
 
         userProcessingServiceMock
-            .Setup(x => x.FindById("setup-admin"))
+            .Setup(expression: x => x.FindById("setup-admin"))
             .Returns(value: (SSOUser)null);
 
         Tenant result = await tenantOrchestrationService.AddTenantAsync(item: inputTenant);
@@ -57,7 +57,7 @@ value: new[]
         result.Should().BeSameAs(expected: inputTenant);
 
         roleOrchestrationServiceMock.Verify(
-expression: x => x.AddSSORoleAsync(It.Is<SSORole>(role =>
+expression: x => x.AddSSORoleAsync(item: It.Is<SSORole>(role =>
                 role.Name == "Administrators"
                 && role.UsersArePortalAdmins
                 && role.TenantId == inputTenant.Id
@@ -65,10 +65,10 @@ expression: x => x.AddSSORoleAsync(It.Is<SSORole>(role =>
 times: Times.Once);
 
         userRoleOrchestrationServiceMock.Verify(
-expression: x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()),
+expression: x => x.AddSSOUserRoleAsync(userRole: It.IsAny<SSOUserRole>()),
 times: Times.Never);
 
-        authorizationBrokerMock.Verify(expression: x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()), times: Times.Never);
+        authorizationBrokerMock.Verify(expression: x => x.UserIsPortalAdminWithPrivilege(privilege: It.IsAny<string>()), times: Times.Never);
     }
 
     [Fact]
@@ -82,19 +82,19 @@ times: Times.Never);
         };
 
         tenantProcessingServiceMock
-            .Setup(x => x.GetAllTenants())
+            .Setup(expression: x => x.GetAllTenants())
             .Returns(value: Array.Empty<Tenant>().AsQueryable());
 
         tenantProcessingServiceMock
-            .Setup(x => x.AddTenantAsync(inputTenant))
+            .Setup(expression: x => x.AddTenantAsync(inputTenant))
             .Returns(value: new ValueTask<Tenant>(inputTenant));
 
         authorizationBrokerMock
-            .Setup(x => x.GetCurrentUser())
+            .Setup(expression: x => x.GetCurrentUser())
             .Returns(value: new SSOUser { Id = "Guest" });
 
         authorizationBrokerMock
-            .Setup(x => x.GetAllPrivileges())
+            .Setup(expression: x => x.GetAllPrivileges())
             .Returns(
 value: new[]
                 {
@@ -104,21 +104,21 @@ value: new[]
                 });
 
         roleOrchestrationServiceMock
-            .Setup(x => x.AddSSORoleAsync(It.IsAny<SSORole>()))
+            .Setup(expression: x => x.AddSSORoleAsync(It.IsAny<SSORole>()))
             .ReturnsAsync(valueFunction: (SSORole role) => role);
 
         userProcessingServiceMock
-            .Setup(x => x.FindById("setup-admin"))
+            .Setup(expression: x => x.FindById("setup-admin"))
             .Returns(value: new SSOUser { Id = "setup-admin" });
 
         userRoleOrchestrationServiceMock
-            .Setup(x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
             .ReturnsAsync(valueFunction: (SSOUserRole userRole) => userRole);
 
         await tenantOrchestrationService.AddTenantAsync(item: inputTenant);
 
         userRoleOrchestrationServiceMock.Verify(
-expression: x => x.AddSSOUserRoleAsync(It.Is<SSOUserRole>(userRole =>
+expression: x => x.AddSSOUserRoleAsync(userRole: It.Is<SSOUserRole>(userRole =>
                 userRole.UserId == "setup-admin")),
 times: Times.Once);
     }
@@ -134,15 +134,15 @@ times: Times.Once);
         };
 
         tenantProcessingServiceMock
-            .Setup(x => x.GetAllTenants())
+            .Setup(expression: x => x.GetAllTenants())
             .Returns(value: Array.Empty<Tenant>().AsQueryable());
 
         tenantProcessingServiceMock
-            .Setup(x => x.AddTenantAsync(inputTenant))
+            .Setup(expression: x => x.AddTenantAsync(inputTenant))
             .Returns(value: new ValueTask<Tenant>(inputTenant));
 
         authorizationBrokerMock
-            .Setup(x => x.GetCurrentUser())
+            .Setup(expression: x => x.GetCurrentUser())
             .Returns(value: new SSOUser { Id = "Guest" });
 
         Func<Task> act = async () => await tenantOrchestrationService.AddTenantAsync(item: inputTenant);
@@ -162,45 +162,45 @@ times: Times.Once);
         };
 
         tenantProcessingServiceMock
-            .Setup(x => x.GetAllTenants())
+            .Setup(expression: x => x.GetAllTenants())
             .Returns(value: new[] { new Tenant { Id = "tenant-1", Name = "Existing" } }.AsQueryable());
 
         authorizationBrokerMock
-            .Setup(expression: x => x.UserIsPortalAdminWithPrivilege("tenant_create"));
+            .Setup(expression: x => x.UserIsPortalAdminWithPrivilege(privilege: "tenant_create"));
 
         tenantProcessingServiceMock
-            .Setup(x => x.AddTenantAsync(inputTenant))
+            .Setup(expression: x => x.AddTenantAsync(inputTenant))
             .Returns(value: new ValueTask<Tenant>(inputTenant));
 
         authorizationBrokerMock
-            .Setup(x => x.GetCurrentUser())
+            .Setup(expression: x => x.GetCurrentUser())
             .Returns(value: new SSOUser { Id = "existing-admin" });
 
         roleOrchestrationServiceMock
-            .Setup(x => x.AddSSORoleAsync(It.IsAny<SSORole>()))
+            .Setup(expression: x => x.AddSSORoleAsync(It.IsAny<SSORole>()))
             .ReturnsAsync(valueFunction: (SSORole role) => role);
 
         userProcessingServiceMock
-            .Setup(x => x.FindById("existing-admin"))
+            .Setup(expression: x => x.FindById("existing-admin"))
             .Returns(value: new SSOUser { Id = "existing-admin" });
 
         userRoleOrchestrationServiceMock
-            .Setup(x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(It.IsAny<SSOUserRole>()))
             .ReturnsAsync(valueFunction: (SSOUserRole userRole) => userRole);
 
         await tenantOrchestrationService.AddTenantAsync(item: inputTenant);
 
-        authorizationBrokerMock.Verify(expression: x => x.UserIsPortalAdminWithPrivilege("tenant_create"), times: Times.Once);
+        authorizationBrokerMock.Verify(expression: x => x.UserIsPortalAdminWithPrivilege(privilege: "tenant_create"), times: Times.Once);
 
         roleOrchestrationServiceMock.Verify(
-expression: x => x.AddSSORoleAsync(It.Is<SSORole>(role =>
+expression: x => x.AddSSORoleAsync(item: It.Is<SSORole>(role =>
                 role.Name == "Tenant Two Admins"
                 && !role.UsersArePortalAdmins
                 && role.Privs == "tenant_read,tenant_admin")),
 times: Times.Once);
 
         userRoleOrchestrationServiceMock.Verify(
-expression: x => x.AddSSOUserRoleAsync(It.Is<SSOUserRole>(userRole => userRole.UserId == "existing-admin")),
+expression: x => x.AddSSOUserRoleAsync(userRole: It.Is<SSOUserRole>(userRole => userRole.UserId == "existing-admin")),
 times: Times.Once);
     }
 }

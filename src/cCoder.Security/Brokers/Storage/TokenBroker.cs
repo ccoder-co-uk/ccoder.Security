@@ -59,7 +59,7 @@ internal class TokenBroker(ISecurityDbContextFactory contextFactory)
 
         int deletedCount = await context.Tokens
             .IgnoreQueryFilters()
-            .Where(token => token.Expires < expiresBefore)
+            .Where(predicate: token => token.Expires < expiresBefore)
             .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
         return deletedCount;

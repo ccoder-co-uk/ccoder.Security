@@ -23,7 +23,7 @@ public partial class SSOUserRoleServiceTests
     }
 
     private static IQueryable<SSOUserRole> RandomUserRoles() =>
-        Enumerable.Range(0, new Random().Next(100))
+        Enumerable.Range(start: 0, count: new Random().Next(100))
             .Select(selector: i => RandomUserRole())
             .AsQueryable();
 

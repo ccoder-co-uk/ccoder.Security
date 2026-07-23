@@ -24,13 +24,13 @@ public partial class SSOUserProcessingServiceTests
         foreach (SSOUser user in ssoUsersInService)
         { user.LockoutEnabled = false; }
 
-        ssoUserServiceMock.Setup(ssoUserServiceMock =>
+        ssoUserServiceMock.Setup(expression: ssoUserServiceMock =>
             ssoUserServiceMock.GetAllSSOUsers(true))
             .Returns(value: ssoUsersInService);
 
         SSOUser expectedSSOUser = ssoUsersInService.First();
 
-        passwordEncryptionBrokerMock.Setup(passwordEncryptionBrokerMock =>
+        passwordEncryptionBrokerMock.Setup(expression: passwordEncryptionBrokerMock =>
                 passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword))
                 .Returns(value: true);
 
@@ -42,11 +42,11 @@ public partial class SSOUserProcessingServiceTests
         actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
 
         ssoUserServiceMock.Verify(expression: ssoUserServiceMock =>
-            ssoUserServiceMock.GetAllSSOUsers(true),
-times: Times.Exactly(2));
+            ssoUserServiceMock.GetAllSSOUsers(ignoreFilters: true),
+times: Times.Exactly(callCount: 2));
 
         passwordEncryptionBrokerMock.Verify(expression: passwordEncryptionBrokerMock =>
-            passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword),
+            passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(encrypted: expectedSSOUser.PasswordHash, plainText: inputPassword),
 times: Times.Once);
     }
 
@@ -59,7 +59,7 @@ times: Times.Once);
         IQueryable<SSOUser> ssoUsersInService = RandomSSOUsers()
             .AsQueryable();
 
-        ssoUserServiceMock.Setup(ssoUserServiceMock =>
+        ssoUserServiceMock.Setup(expression: ssoUserServiceMock =>
             ssoUserServiceMock.GetAllSSOUsers(true))
             .Returns(value: ssoUsersInService);
 
@@ -67,12 +67,12 @@ times: Times.Once);
 
         expectedSSOUser.LockoutEnabled = true;
 
-        passwordEncryptionBrokerMock.Setup(passwordEncryptionBrokerMock =>
+        passwordEncryptionBrokerMock.Setup(expression: passwordEncryptionBrokerMock =>
             passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword))
             .Returns(value: true);
 
         //when & then
         await Assert.ThrowsAsync<SecurityException>(testCode: async () => await ssoUserProcessingService
-            .FindByUserAndPasswordAsync(expectedSSOUser.Id, inputPassword));
+            .FindByUserAndPasswordAsync(username: expectedSSOUser.Id, password: inputPassword));
     }
 }

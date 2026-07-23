@@ -42,7 +42,7 @@ public static class IApplicationBuilderExtensions
         {
             builder.AllowAnyHeader();
             builder.AllowAnyMethod();
-            builder.SetIsOriginAllowed(_ => true);
+            builder.SetIsOriginAllowed(isOriginAllowed: _ => true);
             builder.AllowCredentials();
         });
 
@@ -68,7 +68,7 @@ public static class IApplicationBuilderExtensions
 
     private static IApplicationBuilder HandleExceptions(this IApplicationBuilder app)
         =>
-        app.UseExceptionHandler(configure: errorApp => errorApp.Run(async (context) =>
+        app.UseExceptionHandler(configure: errorApp => errorApp.Run(handler: async (context) =>
         {
             Exception ex = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
             context.Response.StatusCode = ex?.GetType() == typeof(SecurityException) ? 401 : 500;

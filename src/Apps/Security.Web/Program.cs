@@ -15,7 +15,7 @@ public class Program
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 
         IConfigurationRoot config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
+            .SetBasePath(basePath: Directory.GetCurrentDirectory())
             .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
             .AddEnvironmentVariables(prefix: "ENV_")
             .Build();
@@ -29,12 +29,12 @@ public class Program
             securityConfig.RootPath = "Api/Security";
 
             securityConfig.AddMSSQLModelProvider(
-                services,
-                config.GetConnectionString("SSO"));
+services: services,
+connectionString: config.GetConnectionString("SSO"));
 
             securityConfig.UseAESHMMACPasswordEncryption(
-                services,
-                config.GetSection("settings")["DecryptionKey"]);
+services: services,
+decryptionKey: config.GetSection("settings")["DecryptionKey"]);
         });
 
         builder.Services.AddControllersWithViews();
@@ -46,7 +46,7 @@ public class Program
 
         WebApplication app = builder.Build();
         app.InitialiseSecurityDatabase();
-        app.MapGet(pattern: "/Health", handler: () => Results.Text("Healthy"));
+        app.MapGet(pattern: "/Health", handler: () => Results.Text(content: "Healthy"));
         app.UseSession();
         app.StartSecurityWeb();
         app.UseTheFramework();

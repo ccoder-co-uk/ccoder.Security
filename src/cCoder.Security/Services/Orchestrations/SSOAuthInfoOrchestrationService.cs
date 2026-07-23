@@ -90,12 +90,12 @@ internal class SSOAuthInfoOrchestrationService(
         string authString = Encoding.UTF8.GetString(bytes: authBytes);
 
         return (
-            (authString.Contains('&')
-                ? authString.Split("&")[0]
-                : authString.Split(":")[0]).Replace(oldValue: "username=", newValue: ""),
-            (authString.Contains('&')
-                ? authString.Split("&")[1]
-                : authString.Split(":")[1]).Replace(oldValue: "password=", newValue: "")
+            (authString.Contains(value: '&')
+                ? authString.Split(separator: "&")[0]
+                : authString.Split(separator: ":")[0]).Replace(oldValue: "username=", newValue: ""),
+            (authString.Contains(value: '&')
+                ? authString.Split(separator: "&")[1]
+                : authString.Split(separator: ":")[1]).Replace(oldValue: "password=", newValue: "")
         );
     }
 

@@ -29,7 +29,7 @@ internal class TenantRelationsOrchestrationService(
 
         var userRoles = userRoleProcessingService
             .GetAllSSOUserRoles()
-            .Where(predicate: ur => tenantRoles.Select(tr => tr.Id).Contains(ur.RoleId))
+            .Where(predicate: ur => tenantRoles.Select(tr => tr.Id).Contains(value: ur.RoleId))
             .ToArray();
 
         var tenantAnalysis = tenantAnalysisProcessingService

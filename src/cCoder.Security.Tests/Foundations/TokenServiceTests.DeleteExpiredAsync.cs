@@ -16,7 +16,7 @@ public partial class TokenServiceTests
         int expectedDeletedTokenCount = new Random().Next(minValue: 1, maxValue: 100);
 
         tokenBrokerMock
-            .Setup(broker => broker.DeleteExpiredAsync(
+            .Setup(expression: broker => broker.DeleteExpiredAsync(
                 It.IsAny<DateTimeOffset>(),
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(value: expectedDeletedTokenCount);
@@ -29,8 +29,8 @@ public partial class TokenServiceTests
 
         tokenBrokerMock.Verify(
 expression: broker => broker.DeleteExpiredAsync(
-                It.IsAny<DateTimeOffset>(),
-                It.IsAny<CancellationToken>()),
+expiresBefore: It.IsAny<DateTimeOffset>(),
+cancellationToken: It.IsAny<CancellationToken>()),
 times: Times.Once);
 
         tokenBrokerMock.VerifyNoOtherCalls();

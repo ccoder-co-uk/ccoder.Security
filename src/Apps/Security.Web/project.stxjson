@@ -132,13 +132,6 @@
       "LineNumber": 10
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Controllers.HomeController",
-      "LineNumber": 16
-    },
-    {
       "Code": "STXAPI004",
       "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
       "Severity": "Warning",
@@ -171,20 +164,6 @@
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.Web.IServiceCollectionExtensions",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.IServiceCollectionExtensions",
-      "LineNumber": 22
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.IServiceCollectionExtensions",
       "LineNumber": 26
     },
     {
@@ -202,25 +181,11 @@
       "LineNumber": 37
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Program",
-      "LineNumber": 17
-    },
-    {
       "Code": "STXFORMAT010",
       "Description": "Production code must not contain non-documentation comments.",
       "Severity": "Warning",
       "Type": "Security.Web.Program",
       "LineNumber": 23
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Program",
-      "LineNumber": 31
     },
     {
       "Code": "STXFORMAT005",
@@ -234,21 +199,7 @@
       "Description": "Method call arguments must declare their parameter names.",
       "Severity": "Warning",
       "Type": "Security.Web.Program",
-      "LineNumber": 35
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Program",
       "LineNumber": 37
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Program",
-      "LineNumber": 49
     }
   ]
 }

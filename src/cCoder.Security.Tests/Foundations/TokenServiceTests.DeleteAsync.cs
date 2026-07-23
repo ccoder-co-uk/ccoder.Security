@@ -27,7 +27,7 @@ public partial class TokenServiceTests
 
         // then
         tokenBrokerMock.Verify(expression: broker =>
-            broker.DeleteTokenAsync(inputToken),
+            broker.DeleteTokenAsync(token: inputToken),
 times: Times.Once);
 
         tokenBrokerMock.VerifyNoOtherCalls();

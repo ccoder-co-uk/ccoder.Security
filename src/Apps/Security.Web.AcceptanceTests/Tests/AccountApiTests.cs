@@ -31,7 +31,7 @@ public partial class AccountApiTests(
             .RuleFor(r => r.DisplayName, f => f.Name.FullName())
             .RuleFor(r => r.Email, f => f.Internet.Email())
             .RuleFor(r => r.Password, f => f.Internet.Password(prefix: "Cc123!"))
-            .RuleFor(r => r.Culture, f => f.Locale)
+            .RuleFor(property: r => r.Culture, setter: f => f.Locale)
             .RuleFor(property: r => r.PhoneNumber, setter: f => f.Phone.PhoneNumber());
 
         return filler;

@@ -32,7 +32,7 @@ public partial class AccountLifecycleTests
         Token resetToken = FindToken(userId: registeredUser.Id, tokenUse: TokenUse.PasswordReset);
 
         await ConfirmForgotPasswordAsync(token: resetToken.Id, userId: registeredUser.Id, password: UpdatedPassword);
-        Token loginToken = await LoginAsync(auth: CreateAuth(user, UpdatedPassword));
+        Token loginToken = await LoginAsync(auth: CreateAuth(user: user, password: UpdatedPassword));
 
         // then
         SSOUser recoveredUser = FindUser(userId: registeredUser.Id);

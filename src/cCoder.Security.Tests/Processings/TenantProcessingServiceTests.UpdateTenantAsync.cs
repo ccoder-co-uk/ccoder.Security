@@ -19,7 +19,7 @@ public partial class TenantProcessingServiceTests
         Tenant inputTenant = RandomTenant();
         Tenant expectedTenant = inputTenant.DeepClone();
 
-        tenantServiceMock.Setup(tenantServiceMock =>
+        tenantServiceMock.Setup(expression: tenantServiceMock =>
             tenantServiceMock.UpdateTenantAsync(inputTenant))
             .ReturnsAsync(value: expectedTenant);
 
@@ -30,7 +30,7 @@ public partial class TenantProcessingServiceTests
         actualTenant.Should().BeEquivalentTo(expectation: expectedTenant);
 
         tenantServiceMock.Verify(expression: tenantServiceMock =>
-            tenantServiceMock.UpdateTenantAsync(inputTenant),
+            tenantServiceMock.UpdateTenantAsync(tenant: inputTenant),
 times: Times.Once);
 
         tenantServiceMock.VerifyNoOtherCalls();

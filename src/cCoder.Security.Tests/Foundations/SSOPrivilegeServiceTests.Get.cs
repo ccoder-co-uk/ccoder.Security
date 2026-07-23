@@ -16,7 +16,7 @@ public partial class SSOPrivilegeServiceTests
     {
         // given
         IQueryable<SSOPrivilege> expectedSSOPrivileges = RandomSSOPrivileges();
-        privBrokerMock.Setup(broker => broker.GetPrivileges()).Returns(value: expectedSSOPrivileges);
+        privBrokerMock.Setup(expression: broker => broker.GetPrivileges()).Returns(value: expectedSSOPrivileges);
 
         // when
         IEnumerable<SSOPrivilege> actualSSOPrivileges = privService.GetAllSSOPrivileges();

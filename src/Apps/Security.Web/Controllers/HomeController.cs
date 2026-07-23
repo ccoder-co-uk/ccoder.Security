@@ -13,7 +13,7 @@ public class HomeController(ISSOAuthInfo authInfo, IWebHostEnvironment environme
     [HttpGet]
     public IActionResult Get() =>
         PhysicalFile(
-physicalPath: Path.Combine(environment.WebRootPath, "index.html"),
+physicalPath: Path.Combine(path1: environment.WebRootPath, path2: "index.html"),
 contentType: "text/html");
 
     [HttpGet("CurrentUser")]

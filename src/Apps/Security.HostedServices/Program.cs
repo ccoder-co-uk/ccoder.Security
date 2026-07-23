@@ -14,7 +14,7 @@ public class Program
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 
         IConfigurationRoot config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
+            .SetBasePath(basePath: Directory.GetCurrentDirectory())
             .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
             .AddEnvironmentVariables(prefix: "ENV_")
             .Build();
@@ -22,16 +22,16 @@ public class Program
         builder.Services.AddSecurityHostedServices(configAction: (services, securityConfig) =>
         {
             securityConfig.AddMSSQLModelProvider(
-                services,
-                config.GetConnectionString("SSO"));
+services: services,
+connectionString: config.GetConnectionString("SSO"));
 
             securityConfig.UseAESHMMACPasswordEncryption(
-                services,
-                config.GetSection("settings")["DecryptionKey"]);
+services: services,
+decryptionKey: config.GetSection("settings")["DecryptionKey"]);
 
             securityConfig.IsMigrating =
-                config.GetValue<int?>("MIGRATING") == 1
-                || config.GetValue<bool?>("Security:IsMigrating") == true;
+                config.GetValue<int?>(key: "MIGRATING") == 1
+                || config.GetValue<bool?>(key: "Security:IsMigrating") == true;
         });
 
         builder.Logging.ClearProviders();
@@ -40,9 +40,9 @@ public class Program
         WebApplication app = builder.Build();
 
         app.MapGet(pattern: "/", handler: (IHostEnvironment environment) =>
-            Results.Text(BuildHostedServicesReport(environment), "text/plain"));
+            Results.Text(content: BuildHostedServicesReport(environment), contentType: "text/plain"));
 
-        app.MapGet(pattern: "/Health", handler: () => Results.Text("Healthy"));
+        app.MapGet(pattern: "/Health", handler: () => Results.Text(content: "Healthy"));
         app.StartSecurityHostedServices();
         app.Run();
     }

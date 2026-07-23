@@ -14,7 +14,7 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
     [HttpPost("Login")]
     public async ValueTask<IActionResult> Login([FromBody] Auth auth) =>
         ModelState.IsValid
-            ? Ok(value: await authenticationOrchestrationService.LoginAsync(auth.User, auth.Pass))
+            ? Ok(value: await authenticationOrchestrationService.LoginAsync(username: auth.User, password: auth.Pass))
             : BadRequest(modelState: ModelState);
 
     [HttpPost("Logout")]

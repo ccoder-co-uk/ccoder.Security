@@ -72,7 +72,7 @@ public class AccountApiClient : IDisposable
         else
         {
             string encoded =
-                Convert.ToBase64String(inArray: Encoding.UTF8.GetBytes(auth.User + ":" + auth.Pass));
+                Convert.ToBase64String(inArray: Encoding.UTF8.GetBytes(s: auth.User + ":" + auth.Pass));
 
             api.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("basic", encoded);

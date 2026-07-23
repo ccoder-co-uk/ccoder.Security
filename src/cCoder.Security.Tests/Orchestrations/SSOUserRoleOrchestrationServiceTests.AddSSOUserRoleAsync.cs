@@ -20,11 +20,11 @@ public partial class SSOUserRoleOrchestrationServiceTests
         };
 
         userRoleProcessingServiceMock
-            .Setup(x => x.GetAllSSOUserRoles())
+            .Setup(expression: x => x.GetAllSSOUserRoles())
             .Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
 
         userRoleProcessingServiceMock
-            .Setup(x => x.AddSSOUserRoleAsync(inputUserRole))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(inputUserRole))
             .ReturnsAsync(value: inputUserRole);
 
         SSOUserRole actualUserRole = await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
@@ -32,7 +32,7 @@ public partial class SSOUserRoleOrchestrationServiceTests
         actualUserRole.Should().BeSameAs(expected: inputUserRole);
 
         authorizationBrokerMock.Verify(
-expression: x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
+expression: x => x.UserIsPortalAdminWithPrivilege(privilege: It.IsAny<string>()),
 times: Times.Never);
     }
 
@@ -45,20 +45,20 @@ times: Times.Never);
         };
 
         userRoleProcessingServiceMock
-            .Setup(x => x.GetAllSSOUserRoles())
+            .Setup(expression: x => x.GetAllSSOUserRoles())
             .Returns(value: new[] { new SSOUserRole { UserId = "setup-admin" } }.AsQueryable());
 
         authorizationBrokerMock
-            .Setup(expression: x => x.UserIsPortalAdminWithPrivilege("userrole_create"));
+            .Setup(expression: x => x.UserIsPortalAdminWithPrivilege(privilege: "userrole_create"));
 
         userRoleProcessingServiceMock
-            .Setup(x => x.AddSSOUserRoleAsync(inputUserRole))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(inputUserRole))
             .ReturnsAsync(value: inputUserRole);
 
         await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
 
         authorizationBrokerMock.Verify(
-expression: x => x.UserIsPortalAdminWithPrivilege("userrole_create"),
+expression: x => x.UserIsPortalAdminWithPrivilege(privilege: "userrole_create"),
 times: Times.Once);
     }
 }

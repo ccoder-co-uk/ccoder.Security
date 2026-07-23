@@ -52,7 +52,7 @@ internal class TenantOrchestrationService(
             UsersArePortalAdmins = isFirstTenant,
             Name = isFirstTenant ? "Administrators" : $"{tenant.Name} Admins",
             Description = isFirstTenant ? "Bootstrap tenant administrators" : $"{tenant.Name} Admins",
-            Privs = string.Join(',', rolePrivileges),
+            Privs = string.Join(separator: ',', value: rolePrivileges),
             TenantId = tenant.Id
         });
 

@@ -59,25 +59,25 @@ public partial class SecurityMSSQLModelBuildProvider
             .HasKey(keyExpression: t => t.Id);
 
         modelBuilder.Entity<Tenant>()
-            .Property(t => t.Id)
+            .Property(propertyExpression: t => t.Id)
             .HasMaxLength(maxLength: 50);
 
         modelBuilder.Entity<Tenant>()
-            .Property(t => t.Name)
+            .Property(propertyExpression: t => t.Name)
             .HasMaxLength(maxLength: 50)
             .IsRequired();
 
         modelBuilder.Entity<Tenant>()
-            .Property(t => t.Description)
+            .Property(propertyExpression: t => t.Description)
             .HasMaxLength(maxLength: 500)
             .IsRequired();
 
         modelBuilder.Entity<Tenant>()
-            .Property(t => t.CreatedBy)
+            .Property(propertyExpression: t => t.CreatedBy)
             .HasMaxLength(maxLength: 100);
 
         modelBuilder.Entity<Tenant>()
-            .Property(t => t.LastUpdatedBy)
+            .Property(propertyExpression: t => t.LastUpdatedBy)
             .HasMaxLength(maxLength: 100);
 
         modelBuilder.Entity<TenantAnalysis>()
@@ -87,7 +87,7 @@ public partial class SecurityMSSQLModelBuildProvider
             .HasKey(keyExpression: t => t.Id);
 
         modelBuilder.Entity<Token>()
-            .Property(t => t.Id)
+            .Property(propertyExpression: t => t.Id)
             .HasMaxLength(maxLength: 64);
 
         modelBuilder.Entity<UserEvent>()
@@ -98,77 +98,77 @@ public partial class SecurityMSSQLModelBuildProvider
     {
         modelBuilder.Entity<SSORole>()
             .HasMany(ssoRole => ssoRole.Users)
-            .WithOne(ssoUserRole => ssoUserRole.Role)
+            .WithOne(navigationExpression: ssoUserRole => ssoUserRole.Role)
             .HasForeignKey(foreignKeyExpression: ssoUserRole => ssoUserRole.RoleId);
 
         modelBuilder.Entity<SSORole>()
             .HasOne(ssoRole => ssoRole.Tenant)
-            .WithMany(t => t.Roles)
+            .WithMany(navigationExpression: t => t.Roles)
             .HasForeignKey(foreignKeyExpression: ssoRole => ssoRole.TenantId);
 
         modelBuilder.Entity<SSOUser>()
             .HasMany(ssoUser => ssoUser.Roles)
-            .WithOne(ssoUserRole => ssoUserRole.User)
+            .WithOne(navigationExpression: ssoUserRole => ssoUserRole.User)
             .HasForeignKey(foreignKeyExpression: ssoUserRole => ssoUserRole.UserId);
 
         modelBuilder.Entity<SSOUser>()
             .HasMany(ssoUser => ssoUser.UserEvents)
-            .WithOne(userEvent => userEvent.CreatedByUser)
+            .WithOne(navigationExpression: userEvent => userEvent.CreatedByUser)
             .HasForeignKey(foreignKeyExpression: userEvent => userEvent.CreatedBy);
 
         modelBuilder.Entity<SSOUser>()
             .HasMany(ssoUser => ssoUser.Tokens)
-            .WithOne(token => token.User)
+            .WithOne(navigationExpression: token => token.User)
             .HasForeignKey(foreignKeyExpression: token => token.UserName);
 
         modelBuilder.Entity<SSOUserRole>()
             .HasOne(ssoUserRole => ssoUserRole.Role)
-            .WithMany(ssoRole => ssoRole.Users)
+            .WithMany(navigationExpression: ssoRole => ssoRole.Users)
             .HasForeignKey(foreignKeyExpression: ssoUserRole => ssoUserRole.RoleId);
 
         modelBuilder.Entity<SSOUserRole>()
             .HasOne(ssoUserRole => ssoUserRole.User)
-            .WithMany(ssoUser => ssoUser.Roles)
+            .WithMany(navigationExpression: ssoUser => ssoUser.Roles)
             .HasForeignKey(foreignKeyExpression: ssoUserRole => ssoUserRole.UserId);
 
         modelBuilder.Entity<Tenant>()
             .HasMany(t => t.Roles)
-            .WithOne(ssoRole => ssoRole.Tenant)
+            .WithOne(navigationExpression: ssoRole => ssoRole.Tenant)
             .HasForeignKey(foreignKeyExpression: ssoRole => ssoRole.TenantId);
 
         modelBuilder.Entity<Tenant>()
             .HasMany(t => t.UserEvents)
-            .WithOne(userEvent => userEvent.Tenant)
+            .WithOne(navigationExpression: userEvent => userEvent.Tenant)
             .HasForeignKey(foreignKeyExpression: userEvent => userEvent.TenantId);
 
         modelBuilder.Entity<Tenant>()
             .HasMany(t => t.Analysis)
-            .WithOne(analysis => analysis.Tenant)
+            .WithOne(navigationExpression: analysis => analysis.Tenant)
             .HasForeignKey(foreignKeyExpression: analysis => analysis.TenantId);
 
         modelBuilder.Entity<TenantAnalysis>()
             .HasOne(ta => ta.Tenant)
-            .WithMany(t => t.Analysis)
+            .WithMany(navigationExpression: t => t.Analysis)
             .HasForeignKey(foreignKeyExpression: ta => ta.TenantId);
 
         modelBuilder.Entity<Token>()
             .HasOne(t => t.User)
-            .WithMany(u => u.Tokens)
+            .WithMany(navigationExpression: u => u.Tokens)
             .HasForeignKey(foreignKeyExpression: t => t.UserName);
 
         modelBuilder.Entity<UserEvent>()
             .HasOne(ur => ur.Session)
-            .WithMany(s => s.UserEvents)
+            .WithMany(navigationExpression: s => s.UserEvents)
             .HasForeignKey(foreignKeyExpression: ur => ur.SessionId);
 
         modelBuilder.Entity<UserEvent>()
             .HasOne(ue => ue.Tenant)
-            .WithMany(t => t.UserEvents)
+            .WithMany(navigationExpression: t => t.UserEvents)
             .HasForeignKey(foreignKeyExpression: ue => ue.TenantId);
 
         modelBuilder.Entity<UserEvent>()
             .HasOne(ue => ue.CreatedByUser)
-            .WithMany(ssoUser => ssoUser.UserEvents)
+            .WithMany(navigationExpression: ssoUser => ssoUser.UserEvents)
             .HasForeignKey(foreignKeyExpression: ue => ue.CreatedBy);
     }
 }

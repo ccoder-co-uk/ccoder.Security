@@ -52,7 +52,7 @@ public partial class SecurityDbContext(
         builder.Entity<Session>().HasQueryFilter(filter: s => s.UserEvents.Any());
         builder.Entity<UserEvent>().HasQueryFilter(filter: u => u.CreatedByUser != null);
 
-        builder.Entity<Tenant>().HasQueryFilter(filter: t => t.Roles.Any(r => r.Privs.Contains("tenant_read")));
+        builder.Entity<Tenant>().HasQueryFilter(filter: t => t.Roles.Any(predicate: r => r.Privs.Contains("tenant_read")));
         builder.Entity<TenantAnalysis>().HasQueryFilter(filter: t => t.Tenant != null);
     }
 
@@ -70,7 +70,7 @@ public partial class SecurityDbContext(
                 .IgnoreQueryFilters()
                 .AsNoTracking()
                 .Include(u => u.Roles)
-                    .ThenInclude(ur => ur.Role)
+                    .ThenInclude(navigationPropertyPath: ur => ur.Role)
                 .FirstOrDefault(predicate: u => u.Id == userNameRequested);
             }
 
@@ -88,7 +88,7 @@ public partial class SecurityDbContext(
     protected Guid[] GetCurrentUserRolesForTenant(string tenantId) =>
         [.. GetCurrentUser()
             .Roles
-            .Where(r => r.Role.TenantId == tenantId)
+            .Where(predicate:r => r.Role.TenantId == tenantId)
             .Select(selector:r => r.RoleId)];
 
     public void UserIsPortalAdminWithPrivilege(string privilege)
@@ -100,7 +100,7 @@ public partial class SecurityDbContext(
 
         bool passed = Roles
             .IgnoreQueryFilters()
-            .Any(predicate: r => userRoles.Contains(r.Id) && (r.Privs.Contains(privilege) && r.UsersArePortalAdmins) || (r.Privs.Contains("security_admin"))) ||
+            .Any(predicate: r => userRoles.Contains(value: r.Id) && (r.Privs.Contains(value: privilege) && r.UsersArePortalAdmins) || (r.Privs.Contains(value: "security_admin"))) ||
                 !Roles.IgnoreQueryFilters().Any();
 
         if (!passed)
@@ -112,7 +112,7 @@ public partial class SecurityDbContext(
             ? GetCurrentUserRoles()
             : GetCurrentUserRolesForTenant(tenantId: tenantId);
 
-        bool passed = Roles.Any(predicate: r => userRoles.Contains(r.Id) && (r.Privs.Contains(privilege) || r.Privs.Contains("security_admin")));
+        bool passed = Roles.Any(predicate: r => userRoles.Contains(value: r.Id) && (r.Privs.Contains(value: privilege) || r.Privs.Contains(value: "security_admin")));
 
         if (!passed)
         { throw new SecurityException($"Privilege '{privilege}' is not granted for user: {GetCurrentUser().Id}"); }

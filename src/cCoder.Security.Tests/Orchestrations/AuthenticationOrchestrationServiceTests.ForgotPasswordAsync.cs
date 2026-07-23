@@ -27,15 +27,15 @@ public partial class AuthenticationOrchestrationServiceTests
         };
 
         ssoUserProcessingServiceMock
-            .Setup(service => service.GetAllSSOUsers(true))
+            .Setup(expression: service => service.GetAllSSOUsers(true))
             .Returns(value: new[] { user }.AsQueryable());
 
         tokenProcessingServiceMock
-            .Setup(service => service.GenerateForgottenPasswordToken(user.Id))
+            .Setup(expression: service => service.GenerateForgottenPasswordToken(user.Id))
             .ReturnsAsync(value: token);
 
         accountEventServiceMock
-            .Setup(service => service.RaisePasswordResetRequestedEventAsync(user, token.Id))
+            .Setup(expression: service => service.RaisePasswordResetRequestedEventAsync(user, token.Id))
             .Returns(value: ValueTask.CompletedTask);
 
         Token actualToken =
@@ -44,7 +44,7 @@ public partial class AuthenticationOrchestrationServiceTests
         actualToken.Should().BeSameAs(expected: token);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaisePasswordResetRequestedEventAsync(user, token.Id),
+expression: service => service.RaisePasswordResetRequestedEventAsync(user: user, token: token.Id),
 times: Times.Once);
     }
 }

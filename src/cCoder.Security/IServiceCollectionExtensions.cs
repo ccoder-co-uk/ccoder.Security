@@ -188,7 +188,7 @@ public static class IServiceCollectionExtensions
         services.AddControllers()
             .AddOData(setupAction: options =>
             {
-                options.Expand().Count().Filter().Select().OrderBy().SetMaxTop(1000);
-                options.AddRouteComponents(atPath, new SecurityModelBuilder().Build().EDMModel);
+                options.Expand().Count().Filter().Select().OrderBy().SetMaxTop(maxTopValue: 1000);
+                options.AddRouteComponents(routePrefix: atPath, model: new SecurityModelBuilder().Build().EDMModel);
             });
 }

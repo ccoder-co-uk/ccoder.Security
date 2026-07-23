@@ -23,7 +23,7 @@ public partial class SSOUserServiceTests
 
         userBrokerMock
             .Setup(broker => broker.AddSSOUserAsync(It.IsAny<SSOUser>()))
-            .Callback<SSOUser>(candidate => submitted = candidate)
+            .Callback<SSOUser>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSOUser);
 
         // when
@@ -35,7 +35,7 @@ public partial class SSOUserServiceTests
         actualSSOUser.Should().NotBeSameAs(unexpected: submitted);
         actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
 
-        userBrokerMock.Verify(expression: broker => broker.AddSSOUserAsync(It.IsAny<SSOUser>()), times: Times.Once);
+        userBrokerMock.Verify(expression: broker => broker.AddSSOUserAsync(user: It.IsAny<SSOUser>()), times: Times.Once);
         userBrokerMock.VerifyNoOtherCalls();
     }
 }

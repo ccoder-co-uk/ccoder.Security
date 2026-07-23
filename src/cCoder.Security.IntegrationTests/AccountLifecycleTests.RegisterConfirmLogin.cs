@@ -20,7 +20,7 @@ public partial class AccountLifecycleTests
         // when
         (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user: user);
         await ConfirmRegistrationAsync(token: confirmationToken);
-        Token token = await LoginAsync(auth: CreateAuth(user));
+        Token token = await LoginAsync(auth: CreateAuth(user: user));
         await LogoutAsync();
 
         // then

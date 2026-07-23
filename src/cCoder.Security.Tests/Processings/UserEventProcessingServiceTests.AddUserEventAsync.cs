@@ -19,7 +19,7 @@ public partial class UserEventProcessingServiceTests
         UserEvent inputUserEvent = RandomUserEvent();
         UserEvent expectedUserEvent = inputUserEvent.DeepClone();
 
-        userEventServiceMock.Setup(userEventServiceMock =>
+        userEventServiceMock.Setup(expression: userEventServiceMock =>
             userEventServiceMock.AddUserEventAsync(inputUserEvent))
             .ReturnsAsync(value: expectedUserEvent);
 
@@ -30,7 +30,7 @@ public partial class UserEventProcessingServiceTests
         actualUserEvent.Should().BeEquivalentTo(expectation: expectedUserEvent);
 
         userEventServiceMock.Verify(expression: userEventServiceMock =>
-            userEventServiceMock.AddUserEventAsync(inputUserEvent),
+            userEventServiceMock.AddUserEventAsync(userEvent: inputUserEvent),
 times: Times.Once());
 
         userEventServiceMock.VerifyNoOtherCalls();

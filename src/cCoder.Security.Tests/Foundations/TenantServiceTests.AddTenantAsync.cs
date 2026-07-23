@@ -20,7 +20,7 @@ public partial class TenantServiceTests
         Tenant expectedTenant = inputTenant.DeepClone();
         DateTimeOffset expectedTime = DateTimeOffset.Now;
 
-        dateTimeOffsetBrokerMock.Setup(dateTimeOffsetBrokerMock =>
+        dateTimeOffsetBrokerMock.Setup(expression: dateTimeOffsetBrokerMock =>
             dateTimeOffsetBrokerMock.GetCurrentTime())
             .Returns(value: expectedTime);
 
@@ -28,7 +28,7 @@ public partial class TenantServiceTests
 
         tenantBrokerMock.Setup(tenantBrokerMock =>
             tenantBrokerMock.AddTenantAsync(It.IsAny<Tenant>()))
-            .Callback<Tenant>(candidate => submitted = candidate)
+            .Callback<Tenant>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: inputTenant);
 
         //when
@@ -38,8 +38,8 @@ public partial class TenantServiceTests
         actualTenant.Should().BeSameAs(expected: inputTenant);
         submitted.Should().NotBeSameAs(unexpected: inputTenant);
         actualTenant.Should().NotBeSameAs(unexpected: submitted);
-        actualTenant.CreatedOn.Should().BeCloseTo(nearbyTime: expectedTime, precision: TimeSpan.FromSeconds(1));
-        actualTenant.LastUpdated.Should().BeCloseTo(nearbyTime: expectedTime, precision: TimeSpan.FromSeconds(1));
+        actualTenant.CreatedOn.Should().BeCloseTo(nearbyTime: expectedTime, precision: TimeSpan.FromSeconds(seconds: 1));
+        actualTenant.LastUpdated.Should().BeCloseTo(nearbyTime: expectedTime, precision: TimeSpan.FromSeconds(seconds: 1));
 
         expectedTenant.CreatedOn = actualTenant.CreatedOn;
         expectedTenant.LastUpdated = actualTenant.LastUpdated;
@@ -47,7 +47,7 @@ public partial class TenantServiceTests
         actualTenant.Should().BeEquivalentTo(expectation: expectedTenant);
 
         tenantBrokerMock.Verify(expression: tenantBrokerMock =>
-            tenantBrokerMock.AddTenantAsync(It.IsAny<Tenant>()), times: Times.Once());
+            tenantBrokerMock.AddTenantAsync(tenant: It.IsAny<Tenant>()), times: Times.Once());
 
         tenantBrokerMock.VerifyNoOtherCalls();
     }

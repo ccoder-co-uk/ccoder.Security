@@ -27,7 +27,7 @@ public class SSOPrivilegeController(ISSOPrivilegeProcessingService privilegeProc
             .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(value: SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(queryable: result))
             : NotFound();
     }
 }

@@ -26,8 +26,8 @@ public partial class TokenServiceTests
         new RandomGenerator().NextString(minLength: 5, maxLength: 12);
 
     private static IQueryable<Token> RandomTokens() =>
-        Enumerable.Range(0, new Random().Next(100))
-            .Select(selector: i => RandomToken(RandomString()))
+        Enumerable.Range(start: 0, count: new Random().Next(100))
+            .Select(selector: i => RandomToken(id: RandomString()))
             .AsQueryable();
 
     private static Token RandomToken(string id) =>

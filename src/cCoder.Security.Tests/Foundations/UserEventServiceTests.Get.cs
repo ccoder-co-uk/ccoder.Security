@@ -18,7 +18,7 @@ public partial class UserEventServiceTests
         IQueryable<UserEvent> expectedUserEvents = RandomUserEvents()
             .AsQueryable();
 
-        userEventBrokerMock.Setup(userEventBrokerMock =>
+        userEventBrokerMock.Setup(expression: userEventBrokerMock =>
             userEventBrokerMock.GetAllUserEvents())
             .Returns(value: expectedUserEvents);
 

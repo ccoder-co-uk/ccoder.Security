@@ -42,7 +42,7 @@ internal class AesThenHmac
 
     private byte[] DeriveKey(string password, byte[] salt, int outputLength) =>
         Rfc2898DeriveBytes.Pbkdf2(
-password: Encoding.UTF8.GetBytes(password),
+password: Encoding.UTF8.GetBytes(s: password),
 salt: salt,
 iterations: Iterations,
 hashAlgorithm: HashAlgorithmName.SHA1,
@@ -326,8 +326,8 @@ outputLength: outputLength);
         { throw new ArgumentException("Encrypted Message Required!", nameof(encryptedMessage)); }
 
         //Grab Salt from Non-Secret Payload
-        byte[] cryptSalt = [.. encryptedMessage.Skip(nonSecretPayloadLength).Take(count: SaltByteSize)];
-        byte[] authSalt = [.. encryptedMessage.Skip(nonSecretPayloadLength + cryptSalt.Length).Take(count: SaltByteSize)];
+        byte[] cryptSalt = [.. encryptedMessage.Skip(count: nonSecretPayloadLength).Take(count: SaltByteSize)];
+        byte[] authSalt = [.. encryptedMessage.Skip(count: nonSecretPayloadLength + cryptSalt.Length).Take(count: SaltByteSize)];
 
         // generate keys
         byte[] cryptKey = DeriveKey(password: password, salt: cryptSalt, outputLength: KeyByteSize);

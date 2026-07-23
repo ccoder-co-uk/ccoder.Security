@@ -16,7 +16,7 @@ public partial class SSOUserProcessingServiceTests
         //given
         SSOUser expectedSSOUser = RandomSSOUser();
 
-        ssoUserServiceMock.Setup(identityBrokerMock =>
+        ssoUserServiceMock.Setup(expression: identityBrokerMock =>
         identityBrokerMock.Me())
         .Returns(value: expectedSSOUser);
 

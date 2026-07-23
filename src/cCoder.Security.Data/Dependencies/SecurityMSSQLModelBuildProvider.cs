@@ -19,7 +19,7 @@ public partial class SecurityMSSQLModelBuildProvider(string connectionString, bo
         ConfigureSecurityModel(modelBuilder: modelBuilder);
 
         IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey> cascadingRelationships = modelBuilder.Model.GetEntityTypes()
-            .SelectMany(t => t.GetForeignKeys())
+            .SelectMany(selector: t => t.GetForeignKeys())
             .Where(predicate: fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 
         foreach (Microsoft.EntityFrameworkCore.Metadata.IMutableForeignKey relationship in cascadingRelationships)
@@ -28,14 +28,14 @@ public partial class SecurityMSSQLModelBuildProvider(string connectionString, bo
 
     public void Configure(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(connectionString: connectionString, sqlServerOptionsAction: b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name));
+        optionsBuilder.UseSqlServer(connectionString: connectionString, sqlServerOptionsAction: b => b.MigrationsAssembly(assemblyName: Assembly.GetExecutingAssembly().GetName().Name));
 
         if (logSQL)
         {
             optionsBuilder.LogTo(action: (message) =>
         {
-            if (message.Contains("Executing") || message.Contains("transaction"))
-            { System.Diagnostics.Debug.WriteLine(message); }
+            if (message.Contains(value: "Executing") || message.Contains(value: "transaction"))
+            { System.Diagnostics.Debug.WriteLine(message: message); }
         });
         }
     }

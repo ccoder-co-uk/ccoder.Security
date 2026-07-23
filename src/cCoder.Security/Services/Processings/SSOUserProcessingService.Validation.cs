@@ -21,7 +21,7 @@ internal partial class SSOUserProcessingService
         { throw new ValidationException("Password cannot be empty"); }
 
         bool emailInSystem = ssoUserService
-            .GetAllSSOUsers(true)
+            .GetAllSSOUsers(ignoreFilters: true)
             .Any(predicate: sso => sso.Email == user.Email);
 
         if (emailInSystem)
@@ -36,10 +36,10 @@ internal partial class SSOUserProcessingService
         if (password.Length < 8)
         { throw new ValidationException("Password is too short"); }
 
-        bool passwordHasLetters = password.Any(predicate: c => char.IsLetter(c));
-        bool passwordHasDigits = password.Any(predicate: c => char.IsNumber(c));
-        bool passwordHasUpperCase = password.Any(predicate: c => char.IsUpper(c));
-        bool passwordHasLowerCase = password.Any(predicate: c => char.IsLower(c));
+        bool passwordHasLetters = password.Any(predicate: c => char.IsLetter(c: c));
+        bool passwordHasDigits = password.Any(predicate: c => char.IsNumber(c: c));
+        bool passwordHasUpperCase = password.Any(predicate: c => char.IsUpper(c: c));
+        bool passwordHasLowerCase = password.Any(predicate: c => char.IsLower(c: c));
 
         if (!(passwordHasLetters && passwordHasDigits))
         { throw new ValidationException("Password must contain both letter and numbers."); }

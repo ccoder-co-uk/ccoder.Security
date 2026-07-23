@@ -16,7 +16,7 @@ public partial class SSOUserRoleServiceTests
     {
         // given
         IQueryable<SSOUserRole> expectedSSOUserRoles = RandomUserRoles();
-        userRoleBrokerMock.Setup(broker => broker.GetAllSSOUserRoles()).Returns(value: expectedSSOUserRoles);
+        userRoleBrokerMock.Setup(expression: broker => broker.GetAllSSOUserRoles()).Returns(value: expectedSSOUserRoles);
 
         // when
         IEnumerable<SSOUserRole> actualSSOUserRoles = userRoleService.GetAllSSOUserRoles();

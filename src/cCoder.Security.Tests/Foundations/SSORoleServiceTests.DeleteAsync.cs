@@ -23,7 +23,7 @@ public partial class SSORoleServiceTests
 
         // then
         roleBrokerMock.Verify(expression: broker =>
-            broker.DeleteSSORoleAsync(inputSSORole),
+            broker.DeleteSSORoleAsync(SSORole: inputSSORole),
 times: Times.Once);
 
         roleBrokerMock.VerifyNoOtherCalls();

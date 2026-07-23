@@ -13,5 +13,5 @@ internal class EventHandlerService(IEventHubBroker eventHubBroker) : IEventHandl
     public void ListenToAllEvents() =>
         eventHubBroker.ListenToEvent(
 eventName: "tenant_setup",
-handler: (ITenantSetupEventProcessingService service, SetupDetails details) => service.SetupAsync(details));
+handler: (ITenantSetupEventProcessingService service, SetupDetails details) => service.SetupAsync(setupDetails: details));
 }

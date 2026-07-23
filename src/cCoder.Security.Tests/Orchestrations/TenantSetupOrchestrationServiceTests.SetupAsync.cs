@@ -38,11 +38,11 @@ public partial class TenantSetupOrchestrationServiceTests
         };
 
         tenantOrchestrationServiceMock
-            .Setup(service => service.AddTenantAsync(setupDetails.Tenant))
+            .Setup(expression: service => service.AddTenantAsync(setupDetails.Tenant))
             .ReturnsAsync(valueFunction: (Tenant tenant) => tenant);
 
         ssoUserOrchestrationServiceMock
-            .Setup(service => service.Register(It.Is<RegisterUser>(user =>
+            .Setup(expression: service => service.Register(It.Is<RegisterUser>(user =>
                 user.Email == "admin@example.com"
                 && user.DisplayName == "Admin User"
                 && user.Password == "TestPass01!"
@@ -50,7 +50,7 @@ public partial class TenantSetupOrchestrationServiceTests
             .ReturnsAsync(value: (new SSOUser { Id = "admin", Email = "admin@example.com" }, "token"));
 
         ssoUserOrchestrationServiceMock
-            .Setup(service => service.ConfirmRegistration("token"))
+            .Setup(expression: service => service.ConfirmRegistration("token"))
             .Returns(value: ValueTask.CompletedTask);
 
         await tenantSetupOrchestrationService.SetupAsync(setupDetails: setupDetails);

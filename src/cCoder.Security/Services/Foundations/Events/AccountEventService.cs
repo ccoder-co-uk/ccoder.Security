@@ -24,7 +24,7 @@ internal class AccountEventService(
 eventName: SecurityAccountEventNames.RegistrationCreated,
 kind: SecurityAccountEventKind.RegistrationCreated,
 user: user,
-tenant: ResolveTenant(registerForm?.TenantId),
+tenant: ResolveTenant(tenantId: registerForm?.TenantId),
 token: token,
 culture: registerForm?.Culture);
 
@@ -33,7 +33,7 @@ culture: registerForm?.Culture);
 eventName: SecurityAccountEventNames.RegistrationConfirmed,
 kind: SecurityAccountEventKind.RegistrationConfirmed,
 user: user,
-tenant: ResolveTenant(user),
+tenant: ResolveTenant(user: user),
 token: token,
 culture: null);
 
@@ -42,7 +42,7 @@ culture: null);
 eventName: SecurityAccountEventNames.InvitationCreated,
 kind: SecurityAccountEventKind.InvitationCreated,
 user: user,
-tenant: ResolveTenant(registerForm?.TenantId),
+tenant: ResolveTenant(tenantId: registerForm?.TenantId),
 token: token,
 culture: registerForm?.Culture);
 
@@ -51,7 +51,7 @@ culture: registerForm?.Culture);
 eventName: SecurityAccountEventNames.InvitationAccepted,
 kind: SecurityAccountEventKind.InvitationAccepted,
 user: user,
-tenant: ResolveTenant(registerForm?.TenantId) ?? ResolveTenant(user),
+tenant: ResolveTenant(tenantId: registerForm?.TenantId) ?? ResolveTenant(user: user),
 token: token,
 culture: registerForm?.Culture);
 
@@ -60,7 +60,7 @@ culture: registerForm?.Culture);
 eventName: SecurityAccountEventNames.PasswordResetRequested,
 kind: SecurityAccountEventKind.PasswordResetRequested,
 user: user,
-tenant: ResolveTenant(user),
+tenant: ResolveTenant(user: user),
 token: token,
 culture: null);
 
@@ -98,6 +98,6 @@ message: new EventMessage<SecurityAccountEvent>
 
     private Tenant ResolveTenant(SSOUser user) =>
         user?.Roles?
-            .Select(userRole => userRole.Role?.Tenant)
+            .Select(selector: userRole => userRole.Role?.Tenant)
             .FirstOrDefault(predicate: tenant => tenant is not null);
 }

@@ -27,7 +27,7 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
             .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(value: SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(queryable: result))
             : NotFound();
     }
 
@@ -35,7 +35,7 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
     [EnableQuery]
     public virtual async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] SSOUser ssoUser) =>
         ModelState.IsValid
-            ? Get(key: (await ssoUserOrchestrationService.UpdateSSOUserAsync(key, ssoUser)).Id)
+            ? Get(key: (await ssoUserOrchestrationService.UpdateSSOUserAsync(username: key, item: ssoUser)).Id)
             : BadRequest(modelState: ModelState);
 
     [HttpDelete]

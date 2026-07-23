@@ -27,17 +27,17 @@ public class SSORoleController(ISSORoleOrchestrationService roleOrchestrationSer
             .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(value: SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(queryable: result))
             : NotFound();
     }
 
     [HttpPost]
     public virtual async ValueTask<IActionResult> Post([FromBody] SSORole role) =>
-        Ok(value: await roleOrchestrationService.AddSSORoleAsync(role));
+        Ok(value: await roleOrchestrationService.AddSSORoleAsync(item: role));
 
     [HttpPut]
     public virtual async ValueTask<IActionResult> Put([FromRoute] Guid key, [FromBody] SSORole role) =>
-        Ok(value: await roleOrchestrationService.UpdateSSORoleAsync(role));
+        Ok(value: await roleOrchestrationService.UpdateSSORoleAsync(item: role));
 
     [HttpDelete]
     public async ValueTask<IActionResult> Delete([FromRoute] Guid key)

@@ -25,7 +25,7 @@ public partial class SSOUserApiTests(
         };
 
     private static RegisterUser[] RandomRegisterUsers() =>
-        [.. Enumerable.Range(1, new Random().Next(10, 20)).Select(selector: _ => RandomRegisterUser())];
+        [.. Enumerable.Range(start: 1, count: new Random().Next(10, 20)).Select(selector: _ => RandomRegisterUser())];
 
     private static RegisterUser RandomRegisterUser() =>
         GetRegisterUserFiller()
@@ -37,7 +37,7 @@ public partial class SSOUserApiTests(
             .RuleFor(r => r.DisplayName, f => f.Name.FullName())
             .RuleFor(r => r.Email, f => f.Internet.Email())
             .RuleFor(r => r.Password, f => f.Internet.Password(prefix: "Cc123!"))
-            .RuleFor(r => r.Culture, f => f.Locale)
+            .RuleFor(property: r => r.Culture, setter: f => f.Locale)
             .RuleFor(property: r => r.PhoneNumber, setter: f => f.Phone.PhoneNumber());
 
         return filler;

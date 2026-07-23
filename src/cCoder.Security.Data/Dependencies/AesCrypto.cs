@@ -15,7 +15,7 @@ public class AesCrypto<T>(string decryptionKey) : ISymmetricCrypto<T>
     public string Encrypt(T source, string key)
     {
         Encoding e = Encoding.UTF8;
-        byte[] rawData = e.GetBytes(s: JsonSerializer.Serialize(source));
+        byte[] rawData = e.GetBytes(s: JsonSerializer.Serialize(value: source));
         byte[] cipherData = crypto.SimpleEncryptWithPassword(secretMessage: rawData, password: key, nonSecretPayload: null);
         return Convert.ToBase64String(inArray: cipherData);
     }
@@ -28,7 +28,7 @@ public class AesCrypto<T>(string decryptionKey) : ISymmetricCrypto<T>
         }
 
         Encoding e = Encoding.UTF8;
-        byte[] rawData = e.GetBytes(s: System.Text.Json.JsonSerializer.Serialize(source));
+        byte[] rawData = e.GetBytes(s: System.Text.Json.JsonSerializer.Serialize(value: source));
         byte[] cipherData = crypto.SimpleEncryptWithPassword(secretMessage: rawData, password: decryptionKey, nonSecretPayload: null);
         return Convert.ToBase64String(inArray: cipherData);
     }
@@ -36,8 +36,8 @@ public class AesCrypto<T>(string decryptionKey) : ISymmetricCrypto<T>
     public T Decrypt(string source, string key)
     {
         Encoding e = Encoding.UTF8;
-        byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(encryptedMessage: Convert.FromBase64String(source), password: key);
-        return JsonSerializer.Deserialize<T>(json: e.GetString(decryptedBytes));
+        byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(encryptedMessage: Convert.FromBase64String(s: source), password: key);
+        return JsonSerializer.Deserialize<T>(json: e.GetString(bytes: decryptedBytes));
     }
 
     public T Decrypt(string source)
@@ -48,7 +48,7 @@ public class AesCrypto<T>(string decryptionKey) : ISymmetricCrypto<T>
         }
 
         Encoding e = Encoding.UTF8;
-        byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(encryptedMessage: Convert.FromBase64String(source), password: decryptionKey);
-        return JsonSerializer.Deserialize<T>(json: e.GetString(decryptedBytes));
+        byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(encryptedMessage: Convert.FromBase64String(s: source), password: decryptionKey);
+        return JsonSerializer.Deserialize<T>(json: e.GetString(bytes: decryptedBytes));
     }
 }

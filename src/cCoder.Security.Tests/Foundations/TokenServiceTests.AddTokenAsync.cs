@@ -25,7 +25,7 @@ public partial class TokenServiceTests
             UserName = userId
         };
 
-        tokenBrokerMock.Setup(broker => broker.AddTokenAsync(It.IsAny<Token>())).ReturnsAsync(value: expectedToken);
+        tokenBrokerMock.Setup(expression: broker => broker.AddTokenAsync(It.IsAny<Token>())).ReturnsAsync(value: expectedToken);
 
         // when
         Token actualToken = await tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.WorkflowExecution);
@@ -33,7 +33,7 @@ public partial class TokenServiceTests
 
         // then
         actualToken.Should().BeEquivalentTo(expectation: expectedToken);
-        tokenBrokerMock.Verify(expression: broker => broker.AddTokenAsync(It.IsAny<Token>()), times: Times.Once);
+        tokenBrokerMock.Verify(expression: broker => broker.AddTokenAsync(token: It.IsAny<Token>()), times: Times.Once);
         tokenBrokerMock.VerifyNoOtherCalls();
     }
 }

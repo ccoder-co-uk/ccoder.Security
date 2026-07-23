@@ -21,7 +21,7 @@ public partial class UserEventProcessingServiceTests
 
         //then
         userEventServiceMock.Verify(expression: userEventServiceMock =>
-            userEventServiceMock.DeleteUserEventAsync(inputUserEvent),
+            userEventServiceMock.DeleteUserEventAsync(userEvent: inputUserEvent),
 times: Times.Once());
 
         userEventServiceMock.VerifyNoOtherCalls();

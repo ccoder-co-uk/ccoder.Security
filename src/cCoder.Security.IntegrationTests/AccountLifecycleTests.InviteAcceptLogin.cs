@@ -24,7 +24,7 @@ public partial class AccountLifecycleTests
         user.Password = DefaultPassword;
 
         await AcceptInviteAsync(userId: invitedUser.Id, token: inviteToken, user: user);
-        Token token = await LoginAsync(auth: CreateAuth(user));
+        Token token = await LoginAsync(auth: CreateAuth(user: user));
 
         // then
         token.UserName.Should().Be(expected: invitedUser.Id);

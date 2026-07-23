@@ -26,8 +26,8 @@ public partial class SSOUserServiceTests
         new RandomGenerator().NextString(minLength: 5, maxLength: 12);
 
     private static IQueryable<SSOUser> RandomUsers() =>
-        Enumerable.Range(0, new Random().Next(100))
-            .Select(selector: i => RandomUser(RandomString()))
+        Enumerable.Range(start: 0, count: new Random().Next(100))
+            .Select(selector: i => RandomUser(id: RandomString()))
             .AsQueryable();
 
     private static SSOUser RandomUser(string id) =>

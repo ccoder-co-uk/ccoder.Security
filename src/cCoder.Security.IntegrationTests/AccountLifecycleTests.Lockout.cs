@@ -27,6 +27,6 @@ public partial class AccountLifecycleTests
 
         // then
         FindUser(userId: registeredUser.Id).LockoutEnabled.Should().BeTrue();
-        await AssertLoginRejectedAsync(auth: CreateAuth(user));
+        await AssertLoginRejectedAsync(auth: CreateAuth(user: user));
     }
 }

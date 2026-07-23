@@ -12,14 +12,14 @@ public static partial class IServiceCollectionExtensions
     {
         _ = services.AddResponseCompression();
 
-        _ = services.AddMvcCore(options =>
+        _ = services.AddMvcCore(setupAction: options =>
         {
             options.MaxIAsyncEnumerableBufferLimit = int.MaxValue;
             options.MaxModelBindingCollectionSize = 10000;
             options.MaxModelBindingRecursionDepth = 10;
         })
             .AddDataAnnotations()
-            .AddCors(setupAction: options => options.AddDefaultPolicy(builder =>
+            .AddCors(setupAction: options => options.AddDefaultPolicy(configurePolicy: builder =>
             {
                 _ = builder.AllowAnyHeader();
                 _ = builder.AllowAnyMethod();

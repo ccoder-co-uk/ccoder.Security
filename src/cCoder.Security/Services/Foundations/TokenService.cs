@@ -55,7 +55,7 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
 
     private int GetTokenTimeout()
     {
-        if (int.TryParse(s: configuration?.GetSection("Settings")["TokenTimeout"], result: out int timeout))
+        if (int.TryParse(s: configuration?.GetSection(key: "Settings")["TokenTimeout"], result: out int timeout))
         { return timeout; }
 
         return 45;
