@@ -28,33 +28,33 @@ internal sealed partial class SSOUserRoleOrchestrationService(
         SSOUserRole newSSOUserRole) =>
         TryCatch<SSOUserRole>(operation: async () =>
         {
-                ValidateSSOUserRoleOnAdd(newSSOUserRole: newSSOUserRole);
+            ValidateSSOUserRoleOnAdd(newSSOUserRole: newSSOUserRole);
 
-                if (userRoleProcessingService
-                    .GetAllSSOUserRoles()
-                    .Any())
-                {
-                    authorizationProcessingService
-                        .EnsureUserIsPortalAdminWithPrivilege(
-                            privilege: "userrole_create");
-                }
+            if (userRoleProcessingService
+                .GetAllSSOUserRoles()
+                .Any())
+            {
+                authorizationProcessingService
+                    .EnsureUserIsPortalAdminWithPrivilege(
+                        privilege: "userrole_create");
+            }
 
-                return await userRoleProcessingService.AddSSOUserRoleAsync(
-                    item: newSSOUserRole);
+            return await userRoleProcessingService.AddSSOUserRoleAsync(
+                item: newSSOUserRole);
         });
 
     public ValueTask DeleteSSOUserRoleAsync(
         SSOUserRole deletedSSOUserRole) =>
         TryCatch(operation: async () =>
         {
-                ValidateSSOUserRoleOnDelete(
-                    deletedSSOUserRole: deletedSSOUserRole);
+            ValidateSSOUserRoleOnDelete(
+                deletedSSOUserRole: deletedSSOUserRole);
 
-                authorizationProcessingService
-                    .EnsureUserIsPortalAdminWithPrivilege(
-                        privilege: "userrole_delete");
+            authorizationProcessingService
+                .EnsureUserIsPortalAdminWithPrivilege(
+                    privilege: "userrole_delete");
 
-                await userRoleProcessingService.DeleteSSOUserRoleAsync(
-                    item: deletedSSOUserRole);
+            await userRoleProcessingService.DeleteSSOUserRoleAsync(
+                item: deletedSSOUserRole);
         });
 }

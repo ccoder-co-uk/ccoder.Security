@@ -11,16 +11,13 @@ internal sealed partial class AuthorizationService
     private static void Validate(params object[] inputs) =>
         ValidationRulesEngine.Validate(inputs: inputs);
 
-    private static void ValidateCurrentUserOnGet() =>
-        Validate(inputs: []);
-
-    private static void ValidatePrivilegesOnGet() =>
+    private static void ValidateAuthorizationContextOnGet() =>
         Validate(inputs: []);
 
     private static void ValidatePrivilegeOnEnsure(
         string privilege,
         string tenantId) =>
-            Validate(inputs: privilege);
+        Validate(inputs: privilege);
 
     private static void ValidatePortalPrivilegeOnEnsure(string privilege) =>
         Validate(inputs: privilege);

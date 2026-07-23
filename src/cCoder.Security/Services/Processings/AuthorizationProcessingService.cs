@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Models;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 
@@ -12,20 +12,12 @@ internal sealed partial class AuthorizationProcessingService(
     IAuthorizationService authorizationService)
         : IAuthorizationProcessingService
 {
-    public SSOUser GetCurrentUser() =>
+    public AuthorizationContext GetAuthorizationContext() =>
         TryCatch(operation: () =>
         {
-            ValidateCurrentUserOnGet();
+            ValidateAuthorizationContextOnGet();
 
-            return authorizationService.GetCurrentUser();
-        });
-
-    public IEnumerable<SSOPrivilege> GetAllPrivileges() =>
-        TryCatch(operation: () =>
-        {
-            ValidatePrivilegesOnGet();
-
-            return authorizationService.GetAllPrivileges();
+            return authorizationService.GetAuthorizationContext();
         });
 
     public void EnsureUserHasPrivilege(string privilege, string tenantId = null) =>

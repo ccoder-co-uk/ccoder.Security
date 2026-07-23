@@ -7,19 +7,11 @@ using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Orchestrations;
 
-internal sealed partial class SSOUserRoleOrchestrationService
+internal sealed partial class TenantRelationsOrchestrationService
 {
     private static void Validate(params object[] inputs) =>
         ValidationRulesEngine.Validate(inputs: inputs);
 
-    private static void ValidateSSOUserRolesOnGet() =>
-        Validate(inputs: []);
-
-    private static void ValidateSSOUserRoleOnAdd(
-        SSOUserRole newSSOUserRole) =>
-        Validate(inputs: newSSOUserRole);
-
-    private static void ValidateSSOUserRoleOnDelete(
-        SSOUserRole deletedSSOUserRole) =>
-        Validate(inputs: deletedSSOUserRole);
+    private static void ValidateTenantRelationsOnDelete(Tenant deletedTenant) =>
+        Validate(inputs: deletedTenant);
 }

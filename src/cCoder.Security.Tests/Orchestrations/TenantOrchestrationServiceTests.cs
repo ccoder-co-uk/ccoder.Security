@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestrations;
 using cCoder.Security.Services.Orchestrations.Interfaces;
@@ -17,7 +16,7 @@ public partial class TenantOrchestrationServiceTests
     private readonly Mock<ISSOUserProcessingService> userProcessingServiceMock;
     private readonly Mock<ISSORoleOrchestrationService> roleOrchestrationServiceMock;
     private readonly Mock<ISSOUserRoleOrchestrationService> userRoleOrchestrationServiceMock;
-    private readonly Mock<ISSOAuthorizationBroker> authorizationBrokerMock;
+    private readonly Mock<IAuthorizationProcessingService> authorizationProcessingServiceMock;
     private readonly ITenantOrchestrationService tenantOrchestrationService;
 
     public TenantOrchestrationServiceTests()
@@ -26,12 +25,15 @@ public partial class TenantOrchestrationServiceTests
         userProcessingServiceMock = new Mock<ISSOUserProcessingService>(MockBehavior.Strict);
         roleOrchestrationServiceMock = new Mock<ISSORoleOrchestrationService>(MockBehavior.Strict);
         userRoleOrchestrationServiceMock = new Mock<ISSOUserRoleOrchestrationService>(MockBehavior.Strict);
-        authorizationBrokerMock = new Mock<ISSOAuthorizationBroker>(MockBehavior.Strict);
+        authorizationProcessingServiceMock =
+            new Mock<IAuthorizationProcessingService>(MockBehavior.Strict);
+
         tenantOrchestrationService = new TenantOrchestrationService(
-            tenantProcessingServiceMock.Object,
-            userProcessingServiceMock.Object,
-            roleOrchestrationServiceMock.Object,
-            userRoleOrchestrationServiceMock.Object,
-            authorizationBrokerMock.Object);
+            tenantProcessingService: tenantProcessingServiceMock.Object,
+            userProcessingService: userProcessingServiceMock.Object,
+            roleOrchestrationService: roleOrchestrationServiceMock.Object,
+            userRoleOrchestrationService: userRoleOrchestrationServiceMock.Object,
+            authorizationProcessingService:
+                authorizationProcessingServiceMock.Object);
     }
 }

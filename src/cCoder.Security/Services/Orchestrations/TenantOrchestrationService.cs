@@ -3,36 +3,72 @@
 // ---------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
-using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Orchestrations;
 
-internal class TenantOrchestrationService(
+internal sealed partial class TenantOrchestrationService(
     ITenantProcessingService tenantProcessingService,
     ISSOUserProcessingService userProcessingService,
     ISSORoleOrchestrationService roleOrchestrationService,
     ISSOUserRoleOrchestrationService userRoleOrchestrationService,
-    ISSOAuthorizationBroker authBroker)
+    IAuthorizationProcessingService authorizationProcessingService)
         : ITenantOrchestrationService
 {
-    public IQueryable<Tenant> GetAllTenants()
+    public IQueryable<Tenant> GetAllTenants() =>
+        TryCatch(operation: () =>
+        {
+            ValidateTenantsOnGet();
+
+            return GetAllTenantsCore();
+        });
+
+    public ValueTask<Tenant> AddTenantAsync(Tenant newTenant) =>
+        TryCatch<Tenant>(operation: async () =>
+        {
+            ValidateTenantOnAdd(newTenant: newTenant);
+
+            return await AddTenantCoreAsync(newTenant: newTenant);
+        });
+
+    public ValueTask DeleteTenantAsync(Tenant deletedTenant) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateTenantOnDelete(deletedTenant: deletedTenant);
+
+            await DeleteTenantCoreAsync(deletedTenant: deletedTenant);
+        });
+
+    public ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant) =>
+        TryCatch<Tenant>(operation: async () =>
+        {
+            ValidateTenantOnUpdate(updatedTenant: updatedTenant);
+
+            return await UpdateTenantCoreAsync(updatedTenant: updatedTenant);
+        });
+
+    private IQueryable<Tenant> GetAllTenantsCore()
     {
-        authBroker.UserHasPrivilege(privilege: "tenant_read");
+        authorizationProcessingService.EnsureUserHasPrivilege(
+            privilege: "tenant_read");
 
         return tenantProcessingService.GetAllTenants();
     }
 
-    public async ValueTask<Tenant> AddTenantAsync(Tenant newTenant)
+    private async ValueTask<Tenant> AddTenantCoreAsync(Tenant newTenant)
     {
         bool isFirstTenant = !tenantProcessingService
             .GetAllTenants()
             .Any();
 
         if (!isFirstTenant)
-        { authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_create"); }
+        {
+            authorizationProcessingService
+                .EnsureUserIsPortalAdminWithPrivilege(
+                    privilege: "tenant_create");
+        }
 
         var existing = tenantProcessingService
             .GetAllTenants()
@@ -46,8 +82,9 @@ internal class TenantOrchestrationService(
         string bootstrapUserId = ResolveBootstrapUserId(tenant: newTenant, isFirstTenant: isFirstTenant);
 
         string[] rolePrivileges = isFirstTenant
-            ? [.. authBroker
-                .GetAllPrivileges()
+            ? [.. authorizationProcessingService
+                .GetAuthorizationContext()
+                .Privileges
                 .Select(selector: privilege => privilege.Id)]
             : ["tenant_read", "tenant_admin"];
 
@@ -72,23 +109,29 @@ internal class TenantOrchestrationService(
         return dbTenant;
     }
 
-    public async ValueTask DeleteTenantAsync(Tenant deletedTenant)
+    private async ValueTask DeleteTenantCoreAsync(Tenant deletedTenant)
     {
-        authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_delete");
+        authorizationProcessingService
+            .EnsureUserIsPortalAdminWithPrivilege(
+                privilege: "tenant_delete");
 
         await tenantProcessingService.DeleteTenantAsync(item: deletedTenant);
     }
 
-    public async ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant)
+    private async ValueTask<Tenant> UpdateTenantCoreAsync(Tenant updatedTenant)
     {
-        authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_update");
+        authorizationProcessingService
+            .EnsureUserIsPortalAdminWithPrivilege(
+                privilege: "tenant_update");
 
         return await tenantProcessingService.UpdateTenantAsync(item: updatedTenant);
     }
 
     private string ResolveBootstrapUserId(Tenant tenant, bool isFirstTenant)
     {
-        string currentUserId = authBroker.GetCurrentUser()?.Id;
+        string currentUserId = authorizationProcessingService
+            .GetAuthorizationContext()
+            .CurrentUser?.Id;
 
         if (!string.IsNullOrWhiteSpace(value: currentUserId) &&
             !string.Equals(a: currentUserId, b: "Guest", comparisonType: StringComparison.OrdinalIgnoreCase))

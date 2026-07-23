@@ -1395,6 +1395,21 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Objects.Models.AuthorizationContext",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "CurrentUser",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "Privileges",
+          "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.SecurityConfigurationExtensions",
       "StandardElementType": "Dependency",
       "Properties": [],
@@ -1494,14 +1509,9 @@
           "ReturnType": "System.Void"
         },
         {
-          "Name": "GetAllPrivileges",
+          "Name": "GetAuthorizationContext",
           "Inputs": [],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
-        },
-        {
-          "Name": "GetCurrentUser",
-          "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Objects.Models.AuthorizationContext"
         }
       ]
     },
@@ -2332,14 +2342,9 @@
           "ReturnType": "System.Void"
         },
         {
-          "Name": "GetAllPrivileges",
+          "Name": "GetAuthorizationContext",
           "Inputs": [],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
-        },
-        {
-          "Name": "GetCurrentUser",
-          "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Objects.Models.AuthorizationContext"
         }
       ]
     },
@@ -3109,10 +3114,6 @@
     },
     {
       "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "ToType": "cCoder.Security.Brokers.Utility.SSOAuthorizationBroker"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
       "ToType": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService"
     },
     {
@@ -3121,15 +3122,15 @@
     },
     {
       "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
+      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
       "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
     },
     {
       "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
       "ToType": "cCoder.Security.Services.Processings.TenantProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "ToType": "cCoder.Security.Brokers.Utility.SSOAuthorizationBroker"
     },
     {
       "FromType": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
@@ -3219,20 +3220,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Objects.Events.SecurityAccountEventRequest",
       "LineNumber": 10
-    },
-    {
-      "Code": "STX0007",
-      "Description": "A service public API must use one model contract or primitive types.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.AuthorizationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.AuthorizationService",
-      "LineNumber": 22
     },
     {
       "Code": "STX0007",
@@ -3424,20 +3411,6 @@
       "LineNumber": 59
     },
     {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "LineNumber": 23
-    },
-    {
       "Code": "STX0004",
       "Description": "A service must not depend on another service at the same layer.",
       "Severity": "Warning",
@@ -3512,133 +3485,14 @@
       "Description": "A service must not depend on another service at the same layer.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
+      "LineNumber": 12
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0007",
-      "Description": "A service public API must use one model contract or primitive types.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.AuthorizationProcessingService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.AuthorizationProcessingService",
-      "LineNumber": 22
+      "LineNumber": 12
     }
   ]
 }

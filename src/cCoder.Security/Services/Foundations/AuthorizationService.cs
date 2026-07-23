@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Brokers.Utility.Interfaces;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Models;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
@@ -12,20 +12,16 @@ internal sealed partial class AuthorizationService(
     ISSOAuthorizationBroker authorizationBroker)
         : IAuthorizationService
 {
-    public SSOUser GetCurrentUser() =>
+    public AuthorizationContext GetAuthorizationContext() =>
         TryCatch(operation: () =>
         {
-            ValidateCurrentUserOnGet();
+            ValidateAuthorizationContextOnGet();
 
-            return authorizationBroker.GetCurrentUser();
-        });
-
-    public IEnumerable<SSOPrivilege> GetAllPrivileges() =>
-        TryCatch(operation: () =>
-        {
-            ValidatePrivilegesOnGet();
-
-            return authorizationBroker.GetAllPrivileges();
+            return new AuthorizationContext
+            {
+                CurrentUser = authorizationBroker.GetCurrentUser(),
+                Privileges = authorizationBroker.GetAllPrivileges()
+            };
         });
 
     public void EnsureUserHasPrivilege(string privilege, string tenantId = null) =>
