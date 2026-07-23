@@ -8,9 +8,9 @@ namespace cCoder.Security.Services.Processings.Interfaces;
 
 public interface IUserEventProcessingService
 {
-    ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent);
+    ValueTask<UserEvent> AddUserEventAsync(UserEvent newUserEvent);
 
-    ValueTask DeleteUserEventAsync(UserEvent userEvent);
+    ValueTask DeleteUserEventAsync(UserEvent deletedUserEvent);
 
     IQueryable<UserEvent> GetAllUserEvents();
 }

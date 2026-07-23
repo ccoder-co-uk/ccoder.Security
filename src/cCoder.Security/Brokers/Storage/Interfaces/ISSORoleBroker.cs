@@ -8,8 +8,8 @@ namespace cCoder.Security.Brokers.Storage.Interfaces;
 
 internal interface ISSORoleBroker
 {
-    ValueTask<SSORole> InsertSSORoleAsync(SSORole SSORole);
-    ValueTask DeleteSSORoleAsync(SSORole SSORole);
+    ValueTask<SSORole> InsertSSORoleAsync(SSORole newSSORole);
+    ValueTask DeleteSSORoleAsync(SSORole deletedSSORole);
     IQueryable<SSORole> SelectAllSSORoles(bool ignoreFilters = false);
-    ValueTask<SSORole> UpdateSSORoleAsync(SSORole SSORole);
+    ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole);
 }

@@ -15,50 +15,50 @@ internal class SSORoleService(
     public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
         roleBroker.SelectAllSSORoles(ignoreFilters: ignoreFilters);
 
-    public async ValueTask<SSORole> AddSSORoleAsync(SSORole item)
+    public async ValueTask<SSORole> AddSSORoleAsync(SSORole newSSORole)
     {
         SSORole storageRole = new()
         {
-            Id = item.Id,
-            UsersArePortalAdmins = item.UsersArePortalAdmins,
-            Name = item.Name,
-            Description = item.Description,
-            Privs = item.Privs,
-            TenantId = item.TenantId
+            Id = newSSORole.Id,
+            UsersArePortalAdmins = newSSORole.UsersArePortalAdmins,
+            Name = newSSORole.Name,
+            Description = newSSORole.Description,
+            Privs = newSSORole.Privs,
+            TenantId = newSSORole.TenantId
         };
 
-        SSORole result = await roleBroker.InsertSSORoleAsync(SSORole: storageRole);
-        item.Id = result.Id;
-        item.UsersArePortalAdmins = result.UsersArePortalAdmins;
-        item.Name = result.Name;
-        item.Description = result.Description;
-        item.Privs = result.Privs;
-        item.TenantId = result.TenantId;
-        return item;
+        SSORole result = await roleBroker.InsertSSORoleAsync(newSSORole: storageRole);
+        newSSORole.Id = result.Id;
+        newSSORole.UsersArePortalAdmins = result.UsersArePortalAdmins;
+        newSSORole.Name = result.Name;
+        newSSORole.Description = result.Description;
+        newSSORole.Privs = result.Privs;
+        newSSORole.TenantId = result.TenantId;
+        return newSSORole;
     }
 
-    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole item)
+    public async ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole)
     {
         SSORole storageRole = new()
         {
-            Id = item.Id,
-            UsersArePortalAdmins = item.UsersArePortalAdmins,
-            Name = item.Name,
-            Description = item.Description,
-            Privs = item.Privs,
-            TenantId = item.TenantId
+            Id = updatedSSORole.Id,
+            UsersArePortalAdmins = updatedSSORole.UsersArePortalAdmins,
+            Name = updatedSSORole.Name,
+            Description = updatedSSORole.Description,
+            Privs = updatedSSORole.Privs,
+            TenantId = updatedSSORole.TenantId
         };
 
-        SSORole result = await roleBroker.UpdateSSORoleAsync(SSORole: storageRole);
-        item.Id = result.Id;
-        item.UsersArePortalAdmins = result.UsersArePortalAdmins;
-        item.Name = result.Name;
-        item.Description = result.Description;
-        item.Privs = result.Privs;
-        item.TenantId = result.TenantId;
-        return item;
+        SSORole result = await roleBroker.UpdateSSORoleAsync(updatedSSORole: storageRole);
+        updatedSSORole.Id = result.Id;
+        updatedSSORole.UsersArePortalAdmins = result.UsersArePortalAdmins;
+        updatedSSORole.Name = result.Name;
+        updatedSSORole.Description = result.Description;
+        updatedSSORole.Privs = result.Privs;
+        updatedSSORole.TenantId = result.TenantId;
+        return updatedSSORole;
     }
 
-    public ValueTask DeleteSSORoleAsync(SSORole item) =>
-        roleBroker.DeleteSSORoleAsync(SSORole: item);
+    public ValueTask DeleteSSORoleAsync(SSORole deletedSSORole) =>
+        roleBroker.DeleteSSORoleAsync(deletedSSORole: deletedSSORole);
 }

@@ -24,13 +24,13 @@ public partial class UserEventProcessingServiceTests
             .ReturnsAsync(value: expectedUserEvent);
 
         //when
-        UserEvent actualUserEvent = await userEventProcessingService.AddUserEventAsync(userEvent: inputUserEvent);
+        UserEvent actualUserEvent = await userEventProcessingService.AddUserEventAsync(newUserEvent: inputUserEvent);
 
         //then
         actualUserEvent.Should().BeEquivalentTo(expectation: expectedUserEvent);
 
         userEventServiceMock.Verify(expression: userEventServiceMock =>
-            userEventServiceMock.AddUserEventAsync(userEvent: inputUserEvent),
+            userEventServiceMock.AddUserEventAsync(newUserEvent: inputUserEvent),
 times: Times.Once());
 
         userEventServiceMock.VerifyNoOtherCalls();

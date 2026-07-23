@@ -38,7 +38,7 @@ public partial class SecurityDbContext(
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder: modelBuilder);
-        modelBuildProvider.Create(modelBuilder: modelBuilder);
+        modelBuildProvider.Create(newModelBuilder: modelBuilder);
         ApplyFilters(builder: modelBuilder);
     }
 

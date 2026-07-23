@@ -28,7 +28,7 @@ public class Program
             securityConfig.RootPath = "Api/Security";
 
             securityConfig.AddMSSQLModelProvider(
-services: services,
+newIServiceCollection: services,
 connectionString: config.GetConnectionString("SSO"));
 
             securityConfig.UseAESHMMACPasswordEncryption(

@@ -13,36 +13,36 @@ internal class TenantAnalysisBroker(
     ISecurityDbContextFactory contextFactory)
         : ITenantAnalysisBroker
 {
-    public async ValueTask<TenantAnalysis> InsertTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
+    public async ValueTask<TenantAnalysis> InsertTenantAnalysisAsync(TenantAnalysis newTenantAnalysis)
     {
         using var context = contextFactory.CreateDbContext();
 
         EntityEntry<TenantAnalysis> entityEntry =
-            await context.TenantAnalysis.AddAsync(entity: tenantAnalysis);
+            await context.TenantAnalysis.AddAsync(entity: newTenantAnalysis);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
+    public async ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis)
     {
         using var context = contextFactory.CreateDbContext();
 
         EntityEntry<TenantAnalysis> entityEntry =
-            context.TenantAnalysis.Update(entity: tenantAnalysis);
+            context.TenantAnalysis.Update(entity: updatedTenantAnalysis);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
+    public async ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis)
     {
         using var context = contextFactory.CreateDbContext();
 
         EntityEntry<TenantAnalysis> entityEntry =
-            context.TenantAnalysis.Remove(entity: tenantAnalysis);
+            context.TenantAnalysis.Remove(entity: deletedTenantAnalysis);
 
         await context.SaveChangesAsync();
     }

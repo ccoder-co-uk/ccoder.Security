@@ -32,7 +32,7 @@ public abstract class ODataModelBuilder
         return setConfig;
     }
 
-    protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> key)
+    protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> newExpression)
         where T : class
     {
         string setName = typeof(T).Name;
@@ -40,7 +40,7 @@ public abstract class ODataModelBuilder
 
         _ = Builder
             .EntityType<T>()
-            .HasKey(keyDefinitionExpression: key);
+            .HasKey(keyDefinitionExpression: newExpression);
 
         return setConfig;
     }

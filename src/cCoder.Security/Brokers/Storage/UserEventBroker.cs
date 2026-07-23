@@ -13,39 +13,39 @@ namespace cCoder.Security.Brokers.Storage;
 internal class UserEventBroker(ISecurityDbContextFactory contextFactory)
     : IUserEventBroker
 {
-    public async ValueTask<UserEvent> InsertUserEventAsync(UserEvent userEvent)
+    public async ValueTask<UserEvent> InsertUserEventAsync(UserEvent newUserEvent)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<UserEvent> entityEntry =
-            await context.UserEvents.AddAsync(entity: userEvent);
+            await context.UserEvents.AddAsync(entity: newUserEvent);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask<UserEvent> UpdateUserEventAsync(UserEvent userEvent)
+    public async ValueTask<UserEvent> UpdateUserEventAsync(UserEvent updatedUserEvent)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<UserEvent> entityEntry =
-            context.UserEvents.Update(entity: userEvent);
+            context.UserEvents.Update(entity: updatedUserEvent);
 
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
     }
 
-    public async ValueTask DeleteUserEventAsync(UserEvent userEvent)
+    public async ValueTask DeleteUserEventAsync(UserEvent deletedUserEvent)
     {
         using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         EntityEntry<UserEvent> entityEntry =
-            context.UserEvents.Remove(entity: userEvent);
+            context.UserEvents.Remove(entity: deletedUserEvent);
 
         await context.SaveChangesAsync();
     }

@@ -62,7 +62,7 @@ internal class AuthenticationOrchestrationService(
 
         user.PasswordHash = newPassword;
 
-        await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
+        await ssoUserProcessingService.UpdateSSOUserAsync(updatedSSOUser: user);
     }
 
     public async ValueTask<Token> ForgotPasswordAsync(string email)
@@ -108,7 +108,7 @@ internal class AuthenticationOrchestrationService(
         user.LockoutEnabled = false;
         user.AccessFailedCount = 0;
 
-        await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
+        await ssoUserProcessingService.UpdateSSOUserAsync(updatedSSOUser: user);
         await tokenProcessingService.DeleteTokenAsync(tokenId: token.Id);
     }
 

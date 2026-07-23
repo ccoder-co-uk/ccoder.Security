@@ -8,5 +8,5 @@ namespace cCoder.Security.Services.Orchestrations.Interfaces;
 
 internal interface ITenantRelationsOrchestrationService
 {
-    ValueTask DeleteTenantRelationsAsync(Tenant item);
+    ValueTask DeleteTenantRelationsAsync(Tenant deletedTenant);
 }

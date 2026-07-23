@@ -8,11 +8,11 @@ public static partial class IServiceCollectionExtensions
 {
     public static string SSOUserId = "TestUser1";
 
-    public static void AddAspNetCore(this IServiceCollection services)
+    public static void AddAspNetCore(this IServiceCollection newIServiceCollection)
     {
-        _ = services.AddResponseCompression();
+        _ = newIServiceCollection.AddResponseCompression();
 
-        _ = services.AddMvcCore(setupAction: options =>
+        _ = newIServiceCollection.AddMvcCore(setupAction: options =>
         {
             options.MaxIAsyncEnumerableBufferLimit = int.MaxValue;
             options.MaxModelBindingCollectionSize = 10000;
@@ -28,10 +28,10 @@ public static partial class IServiceCollectionExtensions
             }));
     }
 
-    public static void AddMetadata(this IServiceCollection services)
+    public static void AddMetadata(this IServiceCollection newIServiceCollection)
     {
-        _ = services.AddEndpointsApiExplorer();
-        _ = services.AddSwaggerGen();
+        _ = newIServiceCollection.AddEndpointsApiExplorer();
+        _ = newIServiceCollection.AddSwaggerGen();
     }
 
     public static void ConfigureSessions(this IServiceCollection services)

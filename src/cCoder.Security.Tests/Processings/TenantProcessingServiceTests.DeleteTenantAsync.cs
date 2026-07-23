@@ -17,11 +17,11 @@ public partial class TenantProcessingServiceTests
         Tenant inputTenant = RandomTenant();
 
         //when
-        await tenantProcessingService.DeleteTenantAsync(item: inputTenant);
+        await tenantProcessingService.DeleteTenantAsync(deletedTenant: inputTenant);
 
         //then
         tenantServiceMock.Verify(expression: tenantServiceMock =>
-            tenantServiceMock.DeleteTenantAsync(tenant: inputTenant),
+            tenantServiceMock.DeleteTenantAsync(deletedTenant: inputTenant),
 times: Times.Once());
 
         tenantServiceMock.VerifyNoOtherCalls();

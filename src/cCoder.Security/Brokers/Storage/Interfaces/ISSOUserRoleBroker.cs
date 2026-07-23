@@ -8,8 +8,8 @@ namespace cCoder.Security.Brokers.Storage.Interfaces;
 
 internal interface ISSOUserRoleBroker
 {
-    ValueTask<SSOUserRole> InsertSSOUserRoleAsync(SSOUserRole userRole);
-    ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole);
+    ValueTask<SSOUserRole> InsertSSOUserRoleAsync(SSOUserRole newSSOUserRole);
+    ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole);
 
     IQueryable<SSOUserRole> SelectAllSSOUserRoles();
 }

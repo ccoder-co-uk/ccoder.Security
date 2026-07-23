@@ -11,64 +11,64 @@ namespace cCoder.Security.Services.Foundations;
 internal class TenantService(ITenantBroker broker)
     : ITenantService
 {
-    public async ValueTask<Tenant> AddTenantAsync(Tenant tenant)
+    public async ValueTask<Tenant> AddTenantAsync(Tenant newTenant)
     {
-        tenant.LastUpdated = DateTimeOffset.UtcNow;
-        tenant.CreatedOn = tenant.LastUpdated;
+        newTenant.LastUpdated = DateTimeOffset.UtcNow;
+        newTenant.CreatedOn = newTenant.LastUpdated;
 
         Tenant storageTenant = new()
         {
-            Id = tenant.Id,
-            Name = tenant.Name,
-            Description = tenant.Description,
-            CreatedBy = tenant.CreatedBy,
-            LastUpdatedBy = tenant.LastUpdatedBy,
-            CreatedOn = tenant.CreatedOn,
-            LastUpdated = tenant.LastUpdated
+            Id = newTenant.Id,
+            Name = newTenant.Name,
+            Description = newTenant.Description,
+            CreatedBy = newTenant.CreatedBy,
+            LastUpdatedBy = newTenant.LastUpdatedBy,
+            CreatedOn = newTenant.CreatedOn,
+            LastUpdated = newTenant.LastUpdated
         };
 
-        Tenant result = await broker.InsertTenantAsync(tenant: storageTenant);
-        tenant.Id = result.Id;
-        tenant.Name = result.Name;
-        tenant.Description = result.Description;
-        tenant.CreatedBy = result.CreatedBy;
-        tenant.LastUpdatedBy = result.LastUpdatedBy;
-        tenant.CreatedOn = result.CreatedOn;
-        tenant.LastUpdated = result.LastUpdated;
-        return tenant;
+        Tenant result = await broker.InsertTenantAsync(newTenant: storageTenant);
+        newTenant.Id = result.Id;
+        newTenant.Name = result.Name;
+        newTenant.Description = result.Description;
+        newTenant.CreatedBy = result.CreatedBy;
+        newTenant.LastUpdatedBy = result.LastUpdatedBy;
+        newTenant.CreatedOn = result.CreatedOn;
+        newTenant.LastUpdated = result.LastUpdated;
+        return newTenant;
     }
 
-    public ValueTask DeleteTenantAsync(Tenant tenant)
+    public ValueTask DeleteTenantAsync(Tenant deletedTenant)
         =>
-        broker.DeleteTenantAsync(tenant: tenant);
+        broker.DeleteTenantAsync(deletedTenant: deletedTenant);
 
     public IQueryable<Tenant> GetAllTenants()
         =>
         broker.SelectAllTenants();
 
-    public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant)
+    public async ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant)
     {
-        tenant.LastUpdated = DateTimeOffset.UtcNow;
+        updatedTenant.LastUpdated = DateTimeOffset.UtcNow;
 
         Tenant storageTenant = new()
         {
-            Id = tenant.Id,
-            Name = tenant.Name,
-            Description = tenant.Description,
-            CreatedBy = tenant.CreatedBy,
-            LastUpdatedBy = tenant.LastUpdatedBy,
-            CreatedOn = tenant.CreatedOn,
-            LastUpdated = tenant.LastUpdated
+            Id = updatedTenant.Id,
+            Name = updatedTenant.Name,
+            Description = updatedTenant.Description,
+            CreatedBy = updatedTenant.CreatedBy,
+            LastUpdatedBy = updatedTenant.LastUpdatedBy,
+            CreatedOn = updatedTenant.CreatedOn,
+            LastUpdated = updatedTenant.LastUpdated
         };
 
-        Tenant result = await broker.UpdateTenantAsync(tenant: storageTenant);
-        tenant.Id = result.Id;
-        tenant.Name = result.Name;
-        tenant.Description = result.Description;
-        tenant.CreatedBy = result.CreatedBy;
-        tenant.LastUpdatedBy = result.LastUpdatedBy;
-        tenant.CreatedOn = result.CreatedOn;
-        tenant.LastUpdated = result.LastUpdated;
-        return tenant;
+        Tenant result = await broker.UpdateTenantAsync(updatedTenant: storageTenant);
+        updatedTenant.Id = result.Id;
+        updatedTenant.Name = result.Name;
+        updatedTenant.Description = result.Description;
+        updatedTenant.CreatedBy = result.CreatedBy;
+        updatedTenant.LastUpdatedBy = result.LastUpdatedBy;
+        updatedTenant.CreatedOn = result.CreatedOn;
+        updatedTenant.LastUpdated = result.LastUpdated;
+        return updatedTenant;
     }
 }

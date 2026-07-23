@@ -8,8 +8,8 @@ namespace cCoder.Security.Services.Foundations.Interfaces;
 
 internal interface ITenantAnalysisService
 {
-    ValueTask<TenantAnalysis> AddTenantAnalaysisAsync(TenantAnalysis tenant);
-    ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenant);
+    ValueTask<TenantAnalysis> AddTenantAnalaysisAsync(TenantAnalysis newTenantAnalysis);
+    ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis);
     IQueryable<TenantAnalysis> GetAllTenantAnalysis();
-    ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenant);
+    ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis);
 }

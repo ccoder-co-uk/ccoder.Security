@@ -8,8 +8,8 @@ namespace cCoder.Security.Services.Orchestrations.Interfaces;
 
 public interface ISSORoleOrchestrationService
 {
-    ValueTask<SSORole> AddSSORoleAsync(SSORole item);
-    ValueTask DeleteSSORoleAsync(SSORole item);
+    ValueTask<SSORole> AddSSORoleAsync(SSORole newSSORole);
+    ValueTask DeleteSSORoleAsync(SSORole deletedSSORole);
     IQueryable<SSORole> GetAllSSORoles();
-    ValueTask<SSORole> UpdateSSORoleAsync(SSORole item);
+    ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole);
 }

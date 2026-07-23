@@ -10,6 +10,6 @@ internal interface ISSOUserRoleService
 {
     IQueryable<SSOUserRole> GetAllSSOUserRoles();
 
-    ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item);
-    ValueTask DeleteSSOUserRoleAsync(SSOUserRole item);
+    ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole);
+    ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole);
 }

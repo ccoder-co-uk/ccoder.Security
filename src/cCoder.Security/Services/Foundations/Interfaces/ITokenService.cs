@@ -8,11 +8,11 @@ namespace cCoder.Security.Services.Foundations.Interfaces;
 
 internal interface ITokenService
 {
-    ValueTask<Token> AddTokenAsync(string userId, TokenUse tokenUse, int? timeout = null);
+    ValueTask<Token> AddTokenAsync(string userId, TokenUse tokenUse, int? newNullable = null);
 
-    ValueTask DeleteTokenAsync(Token item);
+    ValueTask DeleteTokenAsync(Token deletedToken);
 
-    ValueTask<int> DeleteExpiredAsync(CancellationToken cancellationToken = default);
+    ValueTask<int> DeleteExpiredAsync(CancellationToken deletedCancellationToken = default);
 
     IQueryable<Token> GetAllTokens(bool ignoreFilters = false);
 }

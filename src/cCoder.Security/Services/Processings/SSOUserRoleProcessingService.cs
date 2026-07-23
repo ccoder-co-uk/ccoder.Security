@@ -15,9 +15,9 @@ internal class SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleServi
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
         ssoUserRoleService.GetAllSSOUserRoles();
 
-    public ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) =>
-        ssoUserRoleService.AddSSOUserRoleAsync(item: item);
+    public ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole) =>
+        ssoUserRoleService.AddSSOUserRoleAsync(newSSOUserRole: newSSOUserRole);
 
-    public ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
-        ssoUserRoleService.DeleteSSOUserRoleAsync(item: item);
+    public ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole) =>
+        ssoUserRoleService.DeleteSSOUserRoleAsync(deletedSSOUserRole: deletedSSOUserRole);
 }

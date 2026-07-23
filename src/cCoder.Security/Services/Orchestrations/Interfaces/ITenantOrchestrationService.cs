@@ -8,11 +8,11 @@ namespace cCoder.Security.Services.Orchestrations.Interfaces;
 
 public interface ITenantOrchestrationService
 {
-    ValueTask<Tenant> AddTenantAsync(Tenant item);
+    ValueTask<Tenant> AddTenantAsync(Tenant newTenant);
 
-    ValueTask DeleteTenantAsync(Tenant item);
+    ValueTask DeleteTenantAsync(Tenant deletedTenant);
 
     IQueryable<Tenant> GetAllTenants();
 
-    ValueTask<Tenant> UpdateTenantAsync(Tenant item);
+    ValueTask<Tenant> UpdateTenantAsync(Tenant updatedTenant);
 }

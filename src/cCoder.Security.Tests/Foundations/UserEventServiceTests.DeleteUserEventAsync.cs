@@ -17,11 +17,11 @@ public partial class UserEventServiceTests
         UserEvent inputUserEvent = RandomUserEvent();
 
         //when
-        await userEventService.DeleteUserEventAsync(userEvent: inputUserEvent);
+        await userEventService.DeleteUserEventAsync(deletedUserEvent: inputUserEvent);
 
         //then
         userEventBrokerMock.Verify(expression: userEventBrokerMock =>
-            userEventBrokerMock.DeleteUserEventAsync(userEvent: inputUserEvent),
+            userEventBrokerMock.DeleteUserEventAsync(deletedUserEvent: inputUserEvent),
 times: Times.Once());
 
         userEventBrokerMock.VerifyNoOtherCalls();

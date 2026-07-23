@@ -28,7 +28,7 @@ public partial class SSOUserRoleServiceTests
             .ReturnsAsync(value: expectedSSOUserRole);
 
         // when
-        SSOUserRole actualSSOUserRole = await userRoleService.AddSSOUserRoleAsync(item: inputSSOUserRole);
+        SSOUserRole actualSSOUserRole = await userRoleService.AddSSOUserRoleAsync(newSSOUserRole: inputSSOUserRole);
 
         // then
         actualSSOUserRole.Should().BeSameAs(expected: inputSSOUserRole);
@@ -37,7 +37,7 @@ public partial class SSOUserRoleServiceTests
         actualSSOUserRole.Should().BeEquivalentTo(expectation: expectedSSOUserRole);
 
         userRoleBrokerMock.Verify(expression: broker =>
-            broker.InsertSSOUserRoleAsync(userRole: It.IsAny<SSOUserRole>()),
+            broker.InsertSSOUserRoleAsync(newSSOUserRole: It.IsAny<SSOUserRole>()),
 times: Times.Once);
 
         userRoleBrokerMock.VerifyNoOtherCalls();

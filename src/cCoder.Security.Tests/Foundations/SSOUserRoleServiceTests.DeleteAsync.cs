@@ -19,11 +19,11 @@ public partial class SSOUserRoleServiceTests
         SSOUserRole expectedSSOUserRole = inputSSOUserRole.DeepClone();
 
         // when
-        await userRoleService.DeleteSSOUserRoleAsync(item: inputSSOUserRole);
+        await userRoleService.DeleteSSOUserRoleAsync(deletedSSOUserRole: inputSSOUserRole);
 
         // then
         userRoleBrokerMock.Verify(expression: broker =>
-            broker.DeleteSSOUserRoleAsync(userRole: inputSSOUserRole),
+            broker.DeleteSSOUserRoleAsync(deletedSSOUserRole: inputSSOUserRole),
 times: Times.Once);
 
         userRoleBrokerMock.VerifyNoOtherCalls();

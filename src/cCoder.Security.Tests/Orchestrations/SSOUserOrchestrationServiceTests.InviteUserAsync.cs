@@ -40,7 +40,7 @@ public partial class SSOUserOrchestrationServiceTests
             .Returns(value: new[] { existingUser }.AsQueryable());
 
         (SSOUser actualUser, string token) =
-            await ssoUserOrchestrationService.InviteUserAsync(registerForm: input);
+            await ssoUserOrchestrationService.InviteUserAsync(newRegisterUser: input);
 
         actualUser.Should().BeSameAs(expected: existingUser);
         actualUser.PasswordHash.Should().BeNull();

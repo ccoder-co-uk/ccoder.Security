@@ -12,11 +12,11 @@ namespace cCoder.Security.Data.EF;
 public static class MSSQLSecurityConfigurationExtensions
 {
     public static void AddMSSQLModelProvider(
-        this SecurityConfiguration config,
-        IServiceCollection services,
+        this SecurityConfiguration newSecurityConfiguration,
+        IServiceCollection newIServiceCollection,
         string connectionString)
     {
-        services.AddTransient<ISecurityDbContextFactory>(implementationFactory: sp =>
+        newIServiceCollection.AddTransient<ISecurityDbContextFactory>(implementationFactory: sp =>
             new MSSQLSecurityDbContextFactory(connectionString)
             {
                 GetAuthInfo = (withAuth) =>
@@ -27,7 +27,7 @@ public static class MSSQLSecurityConfigurationExtensions
                 }
             });
 
-        services.AddDistributedSqlServerCache(setupAction: options =>
+        newIServiceCollection.AddDistributedSqlServerCache(setupAction: options =>
         {
             options.ConnectionString = connectionString;
             options.SchemaName = "dbo";

@@ -29,8 +29,8 @@ public partial class TokenServiceTests
 
         tokenBrokerMock.Verify(
 expression: broker => broker.DeleteExpiredAsync(
-expiresBefore: It.IsAny<DateTimeOffset>(),
-cancellationToken: It.IsAny<CancellationToken>()),
+deletedDateTimeOffset: It.IsAny<DateTimeOffset>(),
+deletedCancellationToken: It.IsAny<CancellationToken>()),
 times: Times.Once);
 
         tokenBrokerMock.VerifyNoOtherCalls();

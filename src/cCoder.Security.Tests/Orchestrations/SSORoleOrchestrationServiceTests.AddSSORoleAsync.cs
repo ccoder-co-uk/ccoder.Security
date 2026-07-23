@@ -28,7 +28,7 @@ public partial class SSORoleOrchestrationServiceTests
             .Setup(expression: x => x.AddSSORoleAsync(inputRole))
             .ReturnsAsync(value: inputRole);
 
-        SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
+        SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(newSSORole: inputRole);
 
         actualRole.Should().BeSameAs(expected: inputRole);
 
@@ -57,7 +57,7 @@ times: Times.Never);
             .Setup(expression: x => x.AddSSORoleAsync(inputRole))
             .ReturnsAsync(value: inputRole);
 
-        await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
+        await roleOrchestrationService.AddSSORoleAsync(newSSORole: inputRole);
 
         authorizationBrokerMock.Verify(
 expression: x => x.UserIsPortalAdminWithPrivilege(privilege: "tenant_admin"),

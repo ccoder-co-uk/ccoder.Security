@@ -8,11 +8,11 @@ namespace cCoder.Security.Brokers.Storage.Interfaces;
 
 internal interface ITokenBroker
 {
-    ValueTask<Token> InsertTokenAsync(Token token);
-    ValueTask DeleteTokenAsync(Token token);
+    ValueTask<Token> InsertTokenAsync(Token newToken);
+    ValueTask DeleteTokenAsync(Token deletedToken);
     ValueTask<int> DeleteExpiredAsync(
-        DateTimeOffset expiresBefore,
-        CancellationToken cancellationToken = default);
+        DateTimeOffset deletedDateTimeOffset,
+        CancellationToken deletedCancellationToken = default);
     IQueryable<Token> SelectAllTokens(bool ignoreFilters = false);
-    ValueTask<Token> UpdateTokenAsync(Token token);
+    ValueTask<Token> UpdateTokenAsync(Token updatedToken);
 }
