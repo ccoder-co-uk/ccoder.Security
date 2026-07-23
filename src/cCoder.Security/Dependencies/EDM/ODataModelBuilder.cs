@@ -6,7 +6,7 @@ using cCoder.Security.Models;
 using Microsoft.OData.ModelBuilder;
 using System.Linq.Expressions;
 
-namespace cCoder.Security.Exposures.EDM;
+namespace cCoder.Security.Dependencies.EDM;
 
 /// <summary>
 /// Base model builder class for all OData model builders

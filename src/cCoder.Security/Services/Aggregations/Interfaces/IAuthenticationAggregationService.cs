@@ -4,12 +4,10 @@
 
 using cCoder.Security.Objects.Entities;
 
-namespace cCoder.Security.Services.Orchestrations.Interfaces;
+namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-public interface IAuthenticationOrchestrationService
+public interface IAuthenticationAggregationService
 {
-    SSOUser Me();
-
     ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse);
 
     ValueTask<Token> LoginAsync(string username, string password);

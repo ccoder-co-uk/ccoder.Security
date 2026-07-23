@@ -12,19 +12,21 @@ using Moq;
 
 namespace cCoder.Security.Tests.Aggregations;
 
-public partial class SSOUserAggregationServiceTests
+public partial class RegistrationAggregationServiceTests
 {
     private readonly Mock<ISSOUserProcessingService> ssoUserProcessingServiceMock;
+    private readonly Mock<ITenantProcessingService> tenantProcessingServiceMock;
     private readonly Mock<ITokenProcessingService> tokenProcessingServiceMock;
     private readonly Mock<ISSORoleProcessingService> roleProcessingServiceMock;
     private readonly Mock<ISSOUserRoleProcessingService> userRoleProcessingServiceMock;
     private readonly Mock<IAccountEventProcessingService> accountEventProcessingServiceMock;
     private readonly Mock<ILoggingProcessingService> loggingProcessingServiceMock;
-    private readonly ISSOUserAggregationService ssoUserAggregationService;
+    private readonly IRegistrationAggregationService registrationAggregationService;
 
-    public SSOUserAggregationServiceTests()
+    public RegistrationAggregationServiceTests()
     {
         ssoUserProcessingServiceMock = new Mock<ISSOUserProcessingService>(MockBehavior.Strict);
+        tenantProcessingServiceMock = new Mock<ITenantProcessingService>(MockBehavior.Strict);
         tokenProcessingServiceMock = new Mock<ITokenProcessingService>(MockBehavior.Strict);
         roleProcessingServiceMock = new Mock<ISSORoleProcessingService>(MockBehavior.Strict);
         userRoleProcessingServiceMock = new Mock<ISSOUserRoleProcessingService>(MockBehavior.Strict);
@@ -34,8 +36,9 @@ public partial class SSOUserAggregationServiceTests
         loggingProcessingServiceMock =
             new Mock<ILoggingProcessingService>(MockBehavior.Strict);
 
-        ssoUserAggregationService = new SSOUserAggregationService(
+        registrationAggregationService = new RegistrationAggregationService(
             ssoUserProcessingService: ssoUserProcessingServiceMock.Object,
+            tenantProcessingService: tenantProcessingServiceMock.Object,
             tokenProcessingService: tokenProcessingServiceMock.Object,
             roleProcessingService: roleProcessingServiceMock.Object,
             userRoleProcessingService: userRoleProcessingServiceMock.Object,

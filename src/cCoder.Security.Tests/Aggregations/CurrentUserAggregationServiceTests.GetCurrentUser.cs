@@ -3,13 +3,16 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.Entities;
+using cCoder.Security.Services.Aggregations;
+using cCoder.Security.Services.Aggregations.Interfaces;
+using cCoder.Security.Services.Processings.Interfaces;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace cCoder.Security.Tests.Orchestrations;
+namespace cCoder.Security.Tests.Aggregations;
 
-public partial class AuthenticationOrchestrationServiceTests
+public class CurrentUserAggregationServiceTests
 {
     [Fact]
     public void MeReturnsCurrentUserWithoutProtectedFields()
@@ -30,12 +33,20 @@ public partial class AuthenticationOrchestrationServiceTests
             Roles = new List<SSOUserRole>()
         };
 
+        Mock<ISSOUserProcessingService> ssoUserProcessingServiceMock =
+            new(MockBehavior.Strict);
+
+        ICurrentUserAggregationService currentUserAggregationService =
+            new CurrentUserAggregationService(
+                ssoUserProcessingService:
+                    ssoUserProcessingServiceMock.Object);
+
         ssoUserProcessingServiceMock
             .Setup(expression: service => service.Me())
             .Returns(value: storedUser);
 
         //when
-        SSOUser actualUser = authenticationOrchestrationService.Me();
+        SSOUser actualUser = currentUserAggregationService.GetCurrentUser();
 
         //then
         actualUser.Should().BeEquivalentTo(expectation: new SSOUser

@@ -3,18 +3,20 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.DTOs;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
-public class AuthenticationController(IAuthenticationOrchestrationService authenticationOrchestrationService) : Controller
+public class AuthenticationController(
+    IAuthenticationAggregationService authenticationAggregationService)
+        : Controller
 {
     [HttpPost("Login")]
     public async ValueTask<IActionResult> PostLogin([FromBody] Auth newAuth) =>
         ModelState.IsValid
-            ? Ok(value: await authenticationOrchestrationService.LoginAsync(
+            ? Ok(value: await authenticationAggregationService.LoginAsync(
                 username: newAuth.User,
                 password: newAuth.Pass))
             : BadRequest(modelState: ModelState);
@@ -22,12 +24,7 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
     [HttpPost("Logout")]
     public async ValueTask<IActionResult> PostLogout()
     {
-        await authenticationOrchestrationService.LogoutAsync();
+        await authenticationAggregationService.LogoutAsync();
         return Ok();
     }
-
-    [HttpGet("Me")]
-    public IActionResult GetMe() =>
-        Ok(value: authenticationOrchestrationService.Me());
-
 }

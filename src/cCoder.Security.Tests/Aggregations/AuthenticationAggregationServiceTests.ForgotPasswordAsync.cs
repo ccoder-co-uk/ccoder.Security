@@ -8,9 +8,9 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace cCoder.Security.Tests.Orchestrations;
+namespace cCoder.Security.Tests.Aggregations;
 
-public partial class AuthenticationOrchestrationServiceTests
+public partial class AuthenticationAggregationServiceTests
 {
     [Fact]
     public async Task ShouldGenerateForgotPasswordTokenAndRaisePasswordResetRequestedEvent()
@@ -35,7 +35,7 @@ public partial class AuthenticationOrchestrationServiceTests
             .Setup(expression: service => service.GenerateForgottenPasswordToken(user.Id))
             .ReturnsAsync(value: token);
 
-        accountEventServiceMock
+        accountEventProcessingServiceMock
             .Setup(expression: service => service.RaiseSecurityAccountEventRequestAsync(
                 It.Is<SecurityAccountEventRequest>(request =>
                     request.Kind == SecurityAccountEventKind.PasswordResetRequested
@@ -44,11 +44,12 @@ public partial class AuthenticationOrchestrationServiceTests
             .Returns(value: ValueTask.CompletedTask);
 
         Token actualToken =
-            await authenticationOrchestrationService.ForgotPasswordAsync(email: user.Email);
+            await authenticationAggregationService.ForgotPasswordAsync(
+                email: user.Email);
 
         actualToken.Should().BeSameAs(expected: token);
 
-        accountEventServiceMock.Verify(
+        accountEventProcessingServiceMock.Verify(
             expression: service => service.RaiseSecurityAccountEventRequestAsync(
                 It.Is<SecurityAccountEventRequest>(request =>
                     request.Kind == SecurityAccountEventKind.PasswordResetRequested

@@ -623,8 +623,20 @@
           "Type": "System.String"
         },
         {
+          "Name": "Tenant",
+          "Type": "cCoder.Security.Objects.Entities.Tenant"
+        },
+        {
           "Name": "TenantId",
           "Type": "System.String"
+        },
+        {
+          "Name": "Token",
+          "Type": "System.String"
+        },
+        {
+          "Name": "User",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
         }
       ],
       "Methods": []

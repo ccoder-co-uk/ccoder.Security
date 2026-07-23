@@ -6,13 +6,7 @@ using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-public interface ISSOUserAggregationService
+public interface ICurrentUserAggregationService
 {
-    IQueryable<SSOUser> GetAllSSOUsers();
-
-    ValueTask<SSOUser> UpdateSSOUserAsync(
-        string username,
-        SSOUser updatedSSOUser);
-
-    ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser);
+    SSOUser GetCurrentUser();
 }

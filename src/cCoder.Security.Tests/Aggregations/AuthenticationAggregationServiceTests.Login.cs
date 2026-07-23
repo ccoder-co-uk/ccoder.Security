@@ -2,12 +2,12 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using System.Security;
+using cCoder.Security.Objects.Exceptions;
 using Xunit;
 
-namespace cCoder.Security.Tests.Orchestrations;
+namespace cCoder.Security.Tests.Aggregations;
 
-public partial class AuthenticationOrchestrationServiceTests
+public partial class AuthenticationAggregationServiceTests
 {
     [Fact]
     public async Task LoginThrowsSecurityExceptionIfNotValidLogin()
@@ -17,6 +17,10 @@ public partial class AuthenticationOrchestrationServiceTests
         string password = RandomString();
 
         //when & then
-        await Assert.ThrowsAsync<SecurityException>(testCode: async () => await authenticationOrchestrationService.LoginAsync(username: username, password: password));
+        await Assert.ThrowsAsync<SecurityAggregationServiceException>(
+            testCode: async () =>
+                await authenticationAggregationService.LoginAsync(
+                    username: username,
+                    password: password));
     }
 }

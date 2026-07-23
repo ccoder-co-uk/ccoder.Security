@@ -3,14 +3,14 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.DTOs;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class ForgotPasswordController(
-    IAuthenticationOrchestrationService authenticationOrchestrationService)
+    IAuthenticationAggregationService authenticationAggregationService)
         : Controller
 {
     [HttpPost("ForgotPassword")]
@@ -22,7 +22,7 @@ public class ForgotPasswordController(
 
         try
         {
-            await authenticationOrchestrationService.ForgotPasswordAsync(
+            await authenticationAggregationService.ForgotPasswordAsync(
                 email: newForgotPasswordRequest.Email);
         }
         catch

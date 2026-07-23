@@ -733,15 +733,34 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Build",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Models.ODataModel"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Dependencies.EDM.SecurityModelBuilder",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Build",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Models.ODataModel"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": [
-        {
-          "Name": "GetMe",
-          "Inputs": [],
-          "ReturnType": "IActionResult"
-        },
         {
           "Name": "PostLogin",
           "Inputs": [
@@ -773,6 +792,18 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.Controllers.CurrentUserController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetMe",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
         }
       ]
     },
@@ -1153,30 +1184,6 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "Build",
-          "Inputs": [],
-          "ReturnType": "cCoder.Security.Models.ODataModel"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "Build",
-          "Inputs": [],
-          "ReturnType": "cCoder.Security.Models.ODataModel"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Security.Exposures.EventHandlers.SecurityEventHandlers",
       "StandardElementType": "Exposure",
       "Properties": [],
@@ -1516,19 +1523,109 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "Name": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
       "StandardElementType": "AggregationService",
       "Properties": [],
       "Methods": [
         {
-          "Name": "GetSSOAuthInfoAsync",
+          "Name": "ChangePasswordAsync",
+          "Inputs": [
+            {
+              "Name": "username",
+              "Type": "System.String"
+            },
+            {
+              "Name": "oldPassword",
+              "Type": "System.String"
+            },
+            {
+              "Name": "newPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "ConfirmForgotPasswordAsync",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "newPassword",
+              "Type": "System.String"
+            },
+            {
+              "Name": "confirmNewPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "ForgotPasswordAsync",
+          "Inputs": [
+            {
+              "Name": "email",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "IssueTokenAsync",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenUse",
+              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "LoginAsync",
+          "Inputs": [
+            {
+              "Name": "username",
+              "Type": "System.String"
+            },
+            {
+              "Name": "password",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "LogoutAsync",
           "Inputs": [],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.ISSOAuthInfo\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask"
         }
       ]
     },
     {
-      "Name": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "Name": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetCurrentUser",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
       "StandardElementType": "AggregationService",
       "Properties": [],
       "Methods": [
@@ -1548,7 +1645,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
         },
         {
           "Name": "ConfirmRegistration",
@@ -1561,21 +1658,6 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         },
         {
-          "Name": "DeleteSSOUserAsync",
-          "Inputs": [
-            {
-              "Name": "deletedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "GetAllSSOUsers",
-          "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
-        },
-        {
           "Name": "InviteRegisterUserAsync",
           "Inputs": [
             {
@@ -1583,7 +1665,7 @@
               "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003C(cCoder.Security.Objects.Entities.SSOUser, System.String)\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
         },
         {
           "Name": "RegenerateUserInviteToken",
@@ -1603,7 +1685,51 @@
               "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003C(cCoder.Security.Objects.Entities.SSOUser, System.String)\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
+        },
+        {
+          "Name": "SetupRegisterUserAsync",
+          "Inputs": [
+            {
+              "Name": "newRegisterUser",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetSSOAuthInfoAsync",
+          "Inputs": [],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.ISSOAuthInfo\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DeleteSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSOUsers",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
         },
         {
           "Name": "UpdateSSOUserAsync",
@@ -2151,118 +2277,6 @@
           "Name": "GetAllUserEvents",
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Services.Managements.TenantSetupManagementService",
-      "StandardElementType": "ManagementService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "SetupDetailsAsync",
-          "Inputs": [
-            {
-              "Name": "setupDetails",
-              "Type": "cCoder.Security.Data.Models.SetupDetails"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "StandardElementType": "OrchestrationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "ChangePasswordAsync",
-          "Inputs": [
-            {
-              "Name": "username",
-              "Type": "System.String"
-            },
-            {
-              "Name": "oldPassword",
-              "Type": "System.String"
-            },
-            {
-              "Name": "newPassword",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "ConfirmForgotPasswordAsync",
-          "Inputs": [
-            {
-              "Name": "tokenId",
-              "Type": "System.String"
-            },
-            {
-              "Name": "userId",
-              "Type": "System.String"
-            },
-            {
-              "Name": "newPassword",
-              "Type": "System.String"
-            },
-            {
-              "Name": "confirmNewPassword",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "ForgotPasswordAsync",
-          "Inputs": [
-            {
-              "Name": "email",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
-        },
-        {
-          "Name": "IssueTokenAsync",
-          "Inputs": [
-            {
-              "Name": "userId",
-              "Type": "System.String"
-            },
-            {
-              "Name": "tokenUse",
-              "Type": "cCoder.Security.Objects.Entities.TokenUse"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
-        },
-        {
-          "Name": "LoginAsync",
-          "Inputs": [
-            {
-              "Name": "username",
-              "Type": "System.String"
-            },
-            {
-              "Name": "password",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
-        },
-        {
-          "Name": "LogoutAsync",
-          "Inputs": [],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "Me",
-          "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
         }
       ]
     },
@@ -2961,19 +2975,23 @@
   "Links": [
     {
       "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
+      "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
-      "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
+      "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.CurrentUserController",
+      "ToType": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
-      "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
+      "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "ToType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService"
+      "ToType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
@@ -3013,11 +3031,63 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.TenantManager",
-      "ToType": "cCoder.Security.Services.Managements.TenantSetupManagementService"
+      "ToType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.TokenManager",
-      "ToType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService"
+      "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.AccountEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.LoggingProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SessionProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.AccountEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.LoggingProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TenantProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
     },
     {
       "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
@@ -3037,27 +3107,11 @@
     },
     {
       "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
-      "ToType": "cCoder.Security.Services.Processings.AccountEventProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
       "ToType": "cCoder.Security.Services.Processings.LoggingProcessingService"
     },
     {
       "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
-      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
       "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
-      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
-      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
     },
     {
       "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
@@ -3172,30 +3226,6 @@
       "ToType": "cCoder.Security.Brokers.Storage.UserEventBroker"
     },
     {
-      "FromType": "cCoder.Security.Services.Managements.TenantSetupManagementService",
-      "ToType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Managements.TenantSetupManagementService",
-      "ToType": "cCoder.Security.Services.Aggregations.TenantAggregationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "ToType": "cCoder.Security.Services.Foundations.Events.AccountEventService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SessionProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
-    },
-    {
       "FromType": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService",
       "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
     },
@@ -3264,132 +3294,5 @@
       "ToType": "cCoder.Security.Services.Foundations.UserEventService"
     }
   ],
-  "AnalysisItems": [
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 35
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 59
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 24
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 35
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
-      "LineNumber": 21
-    },
-    {
-      "Code": "STXAPP003",
-      "Description": "Configuration objects should be registered as singletons.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 94
-    },
-    {
-      "Code": "STXSTRUCT001",
-      "Description": "The source file must live in the standard folder for its element type.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Objects.Events.SecurityAccountEventRequest",
-      "LineNumber": 10
-    },
-    {
-      "Code": "STX0007",
-      "Description": "A service public API must use one model contract or primitive types.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
-      "LineNumber": 15
-    },
-    {
-      "Code": "STXMG001",
-      "Description": "The service must have two or three CoordinationService dependencies.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Managements.TenantSetupManagementService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0007",
-      "Description": "A service public API must use one model contract or primitive types.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    }
-  ]
+  "AnalysisItems": []
 }

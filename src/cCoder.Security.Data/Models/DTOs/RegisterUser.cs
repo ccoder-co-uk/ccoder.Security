@@ -2,8 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Security.Objects.DTOs;
+using cCoder.Security.Objects.Entities;
 
+namespace cCoder.Security.Objects.DTOs;
 
 public class RegisterUser
 {
@@ -20,4 +21,10 @@ public class RegisterUser
     public int AppId { get; set; }
 
     public string TenantId { get; set; }
+
+    public SSOUser User { get; set; }
+
+    public Tenant Tenant { get; set; }
+
+    public string Token { get; set; }
 }

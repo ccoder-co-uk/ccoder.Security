@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
-public class RegistrationController(ISSOUserAggregationService ssoUserAggregationService)
+public class RegistrationController(
+    IRegistrationAggregationService registrationAggregationService)
     : Controller
 {
     [HttpPost("Register")]
@@ -19,21 +20,23 @@ public class RegistrationController(ISSOUserAggregationService ssoUserAggregatio
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string confirmationToken) = await ssoUserAggregationService.RegisterUserAsync(
+        RegisterUser registeredUser =
+            await registrationAggregationService.RegisterUserAsync(
             registerForm: newRegisterUser);
 
         return Ok(value: new
         {
-            User = user,
-            Token = confirmationToken
+            registeredUser.User,
+            registeredUser.Token
         });
     }
 
     [HttpPost("ConfirmRegistration")]
     public async ValueTask<IActionResult> PostConfirmRegistration(string confirmationToken)
     {
-        await ssoUserAggregationService.ConfirmRegistration(
+        await registrationAggregationService.ConfirmRegistration(
             tokenId: confirmationToken);
+
         return Ok();
     }
 
@@ -43,21 +46,23 @@ public class RegistrationController(ISSOUserAggregationService ssoUserAggregatio
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string invitationToken) = await ssoUserAggregationService.InviteRegisterUserAsync(
+        RegisterUser invitedUser =
+            await registrationAggregationService.InviteRegisterUserAsync(
             registerForm: newRegisterUser);
 
         return Ok(value: new
         {
-            User = user,
-            Token = invitationToken
+            invitedUser.User,
+            invitedUser.Token
         });
     }
 
     [HttpPost("ResendInvite")]
     public async ValueTask<IActionResult> PostResendInvite([FromQuery] string userId)
     {
-        string invitationToken = await ssoUserAggregationService
+        string invitationToken = await registrationAggregationService
             .RegenerateUserInviteToken(userId: userId);
+
         return Ok(value: new { Token = invitationToken });
     }
 
@@ -70,7 +75,7 @@ public class RegistrationController(ISSOUserAggregationService ssoUserAggregatio
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        await ssoUserAggregationService.AcceptRegisterUserInviteAsync(
+        await registrationAggregationService.AcceptRegisterUserInviteAsync(
             registerForm: newRegisterUser,
             userId: userId,
             tokenId: inviteToken);

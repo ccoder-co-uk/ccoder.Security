@@ -12,7 +12,7 @@ using Xunit;
 
 namespace cCoder.Security.Tests.Aggregations;
 
-public partial class SSOUserAggregationServiceTests
+public partial class RegistrationAggregationServiceTests
 {
     [Fact]
     public async Task ShouldRegisterFirstUserAndAttachBootstrapTenantAdministratorRole()
@@ -62,11 +62,12 @@ public partial class SSOUserAggregationServiceTests
 
         SetupRegistrationCreatedEvent(user: storedUser, registerForm: input, token: "token-1");
 
-        (SSOUser actualUser, string token) =
-            await ssoUserAggregationService.RegisterUserAsync(registerForm: input);
+        RegisterUser registration =
+            await registrationAggregationService.RegisterUserAsync(
+                registerForm: input);
 
-        actualUser.Should().BeSameAs(expected: storedUser);
-        token.Should().Be(expected: "token-1");
+        registration.User.Should().BeSameAs(expected: storedUser);
+        registration.Token.Should().Be(expected: "token-1");
 
         userRoleProcessingServiceMock.Verify(
 expression: x => x.AddSSOUserRoleAsync(item: It.Is<SSOUserRole>(userRole =>
@@ -117,7 +118,8 @@ times: Times.Once);
 
         SetupRegistrationCreatedEvent(user: storedUser, registerForm: input, token: "token-1");
 
-        await ssoUserAggregationService.RegisterUserAsync(registerForm: input);
+        await registrationAggregationService.RegisterUserAsync(
+            registerForm: input);
 
         roleProcessingServiceMock.Verify(expression: x => x.GetAllSSORoles(), times: Times.Never);
 
@@ -162,12 +164,13 @@ times: Times.Never);
             .Setup(expression: service => service.GetAllSSOUsers(true))
             .Returns(value: new[] { existingUser }.AsQueryable());
 
-        (SSOUser actualUser, string token) =
-            await ssoUserAggregationService.RegisterUserAsync(registerForm: input);
+        RegisterUser registration =
+            await registrationAggregationService.RegisterUserAsync(
+                registerForm: input);
 
-        actualUser.Should().BeSameAs(expected: existingUser);
-        actualUser.PasswordHash.Should().BeNull();
-        token.Should().BeNull();
+        registration.User.Should().BeSameAs(expected: existingUser);
+        registration.User.PasswordHash.Should().BeNull();
+        registration.Token.Should().BeNull();
 
         tokenProcessingServiceMock.Verify(
 expression: service => service.GenerateConfirmationToken(userId: It.IsAny<string>()),

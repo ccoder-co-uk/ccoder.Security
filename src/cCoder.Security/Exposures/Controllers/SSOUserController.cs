@@ -39,7 +39,7 @@ public class SSOUserController(ISSOUserAggregationService ssoUserAggregationServ
         ModelState.IsValid
             ? Get(key: (await ssoUserAggregationService.UpdateSSOUserAsync(
                 username: key,
-                item: updatedSSOUser)).Id)
+                updatedSSOUser: updatedSSOUser)).Id)
             : BadRequest(modelState: ModelState);
 
     [HttpDelete]
@@ -52,7 +52,9 @@ public class SSOUserController(ISSOUserAggregationService ssoUserAggregationServ
         if (origentity == null)
         { return NotFound(); }
 
-        await ssoUserAggregationService.DeleteSSOUserAsync(item: origentity);
+        await ssoUserAggregationService.DeleteSSOUserAsync(
+            deletedSSOUser: origentity);
+
         return Ok();
     }
 }

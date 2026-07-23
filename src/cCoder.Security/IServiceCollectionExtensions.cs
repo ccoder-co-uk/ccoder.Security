@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Brokers.Authentication;
-using cCoder.Security.Exposures.EDM;
+using cCoder.Security.Dependencies.EDM;
 using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
@@ -30,8 +30,6 @@ using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
 using cCoder.Security.Services.Aggregations;
 using cCoder.Security.Services.Aggregations.Interfaces;
-using cCoder.Security.Services.Managements;
-using cCoder.Security.Services.Managements.Interfaces;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
 
@@ -91,7 +89,7 @@ public static class IServiceCollectionExtensions
 
     private static void AddBrokers(this IServiceCollection services)
     {
-        services.AddTransient<ISecurityConfigurationBroker, SecurityConfigurationBroker>();
+        services.AddSingleton<ISecurityConfigurationBroker, SecurityConfigurationBroker>();
         services.AddTransient<IAuthenticationContextBroker, AuthenticationContextBroker>();
         services.AddTransient<IWebSessionBroker, WebSessionBroker>();
         services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
@@ -162,15 +160,16 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISessionProcessingService, SessionProcessingService>();
         services.AddTransient<IUserEventProcessingService, UserEventProcessingService>();
 
-        services.AddTransient<ITenantSetupManagementService, TenantSetupManagementService>();
     }
 
     private static void AddOrchestrations(this IServiceCollection services)
     {
         services.AddTransient<ISSOAuthInfoAggregationService, SSOAuthInfoAggregationService>();
-        services.AddTransient<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
+        services.AddTransient<IAuthenticationAggregationService, AuthenticationAggregationService>();
+        services.AddTransient<ICurrentUserAggregationService, CurrentUserAggregationService>();
         services.AddTransient<ITenantAggregationService, TenantAggregationService>();
         services.AddTransient<ISSOUserAggregationService, SSOUserAggregationService>();
+        services.AddTransient<IRegistrationAggregationService, RegistrationAggregationService>();
         services.AddTransient<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();
         services.AddTransient<ISSORoleOrchestrationService, SSORoleOrchestrationService>();
     }

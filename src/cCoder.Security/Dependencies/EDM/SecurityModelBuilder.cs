@@ -6,7 +6,7 @@ using cCoder.Security.Models;
 using cCoder.Security.Objects.Entities;
 using Microsoft.OData.Edm;
 
-namespace cCoder.Security.Exposures.EDM;
+namespace cCoder.Security.Dependencies.EDM;
 
 public class SecurityModelBuilder : ODataModelBuilder
 {
