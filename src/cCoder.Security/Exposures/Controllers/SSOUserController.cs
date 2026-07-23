@@ -3,26 +3,26 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestrationService)
+public class SSOUserController(ISSOUserAggregationService ssoUserAggregationService)
         : Controller
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<SSOUser> queryOptions) =>
-        Ok(value: ssoUserOrchestrationService.GetAllSSOUsers());
+        Ok(value: ssoUserAggregationService.GetAllSSOUsers());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] string key)
     {
-        IQueryable<SSOUser> result = ssoUserOrchestrationService
+        IQueryable<SSOUser> result = ssoUserAggregationService
             .GetAllSSOUsers()
             .Where(predicate: i => i.Id == key);
 
@@ -37,7 +37,7 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
         [FromRoute] string key,
         [FromBody] SSOUser updatedSSOUser) =>
         ModelState.IsValid
-            ? Get(key: (await ssoUserOrchestrationService.UpdateSSOUserAsync(
+            ? Get(key: (await ssoUserAggregationService.UpdateSSOUserAsync(
                 username: key,
                 item: updatedSSOUser)).Id)
             : BadRequest(modelState: ModelState);
@@ -45,14 +45,14 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
     [HttpDelete]
     public virtual async ValueTask<IActionResult> Delete([FromRoute] string key, string reference = null)
     {
-        SSOUser origentity = ssoUserOrchestrationService
+        SSOUser origentity = ssoUserAggregationService
             .GetAllSSOUsers()
             .FirstOrDefault(predicate: i => i.Id == key);
 
         if (origentity == null)
         { return NotFound(); }
 
-        await ssoUserOrchestrationService.DeleteSSOUserAsync(item: origentity);
+        await ssoUserAggregationService.DeleteSSOUserAsync(item: origentity);
         return Ok();
     }
 }

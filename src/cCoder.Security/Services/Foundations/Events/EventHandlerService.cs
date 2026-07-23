@@ -4,7 +4,7 @@
 
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Data.Models;
-using cCoder.Security.Services.Coordinations.Interfaces;
+using cCoder.Security.Services.Managements.Interfaces;
 
 namespace cCoder.Security.Services.Foundations.Events;
 
@@ -15,6 +15,6 @@ internal sealed partial class EventHandlerService(IEventHubBroker eventHubBroker
         TryCatch(operation: () =>
             eventHubBroker.ListenToEvent(
                 eventName: "tenant_setup",
-                handler: (ITenantSetupCoordinationService service, SetupDetails details) =>
+                handler: (ITenantSetupManagementService service, SetupDetails details) =>
                     service.SetupDetailsAsync(setupDetails: details)));
 }

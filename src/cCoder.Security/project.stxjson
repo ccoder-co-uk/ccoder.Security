@@ -198,6 +198,23 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Brokers.Logging.LoggingBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "LogWarning",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Brokers.Requests.HttpRequestBroker",
       "StandardElementType": "Broker",
       "Properties": [],
@@ -1365,6 +1382,24 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.Objects.Exceptions.SecurityOrchestrationDependencyException",
       "StandardElementType": "Dependency",
       "Properties": [],
@@ -1493,19 +1528,138 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService",
-      "StandardElementType": "CoordinationService",
+      "Name": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "StandardElementType": "AggregationService",
       "Properties": [],
       "Methods": [
         {
-          "Name": "SetupDetailsAsync",
+          "Name": "AcceptRegisterUserInviteAsync",
           "Inputs": [
             {
-              "Name": "setupDetails",
-              "Type": "cCoder.Security.Data.Models.SetupDetails"
+              "Name": "registerForm",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            },
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "ConfirmRegistration",
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "DeleteSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "deletedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllSSOUsers",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "InviteRegisterUserAsync",
+          "Inputs": [
+            {
+              "Name": "registerForm",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003C(cCoder.Security.Objects.Entities.SSOUser, System.String)\u003E"
+        },
+        {
+          "Name": "RegenerateUserInviteToken",
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.String\u003E"
+        },
+        {
+          "Name": "RegisterUserAsync",
+          "Inputs": [
+            {
+              "Name": "registerForm",
+              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003C(cCoder.Security.Objects.Entities.SSOUser, System.String)\u003E"
+        },
+        {
+          "Name": "UpdateSSOUserAsync",
+          "Inputs": [
+            {
+              "Name": "username",
+              "Type": "System.String"
+            },
+            {
+              "Name": "updatedSSOUser",
+              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddTenantAsync",
+          "Inputs": [
+            {
+              "Name": "newTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "DeleteTenantAsync",
+          "Inputs": [
+            {
+              "Name": "deletedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllTenants",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "UpdateTenantAsync",
+          "Inputs": [
+            {
+              "Name": "updatedTenant",
+              "Type": "cCoder.Security.Objects.Entities.Tenant"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
         }
       ]
     },
@@ -1588,6 +1742,23 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Foundations.LoggingService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "LogWarning",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
         }
       ]
     },
@@ -1984,6 +2155,23 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Services.Managements.TenantSetupManagementService",
+      "StandardElementType": "ManagementService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "SetupDetailsAsync",
+          "Inputs": [
+            {
+              "Name": "setupDetails",
+              "Type": "cCoder.Security.Data.Models.SetupDetails"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
       "StandardElementType": "OrchestrationService",
       "Properties": [],
@@ -2121,100 +2309,6 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "StandardElementType": "OrchestrationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "AcceptRegisterUserInviteAsync",
-          "Inputs": [
-            {
-              "Name": "registerForm",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
-            },
-            {
-              "Name": "userId",
-              "Type": "System.String"
-            },
-            {
-              "Name": "tokenId",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
-        },
-        {
-          "Name": "ConfirmRegistration",
-          "Inputs": [
-            {
-              "Name": "tokenId",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "DeleteSSOUserAsync",
-          "Inputs": [
-            {
-              "Name": "deletedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "GetAllSSOUsers",
-          "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
-        },
-        {
-          "Name": "InviteRegisterUserAsync",
-          "Inputs": [
-            {
-              "Name": "registerForm",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003C(cCoder.Security.Objects.Entities.SSOUser, System.String)\u003E"
-        },
-        {
-          "Name": "RegenerateUserInviteToken",
-          "Inputs": [
-            {
-              "Name": "userId",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.String\u003E"
-        },
-        {
-          "Name": "RegisterUserAsync",
-          "Inputs": [
-            {
-              "Name": "registerForm",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003C(cCoder.Security.Objects.Entities.SSOUser, System.String)\u003E"
-        },
-        {
-          "Name": "UpdateSSOUserAsync",
-          "Inputs": [
-            {
-              "Name": "username",
-              "Type": "System.String"
-            },
-            {
-              "Name": "updatedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
       "StandardElementType": "OrchestrationService",
       "Properties": [],
@@ -2247,100 +2341,16 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "StandardElementType": "OrchestrationService",
+      "Name": "cCoder.Security.Services.Processings.AccountEventProcessingService",
+      "StandardElementType": "ProcessingService",
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddTenantAsync",
+          "Name": "RaiseSecurityAccountEventRequestAsync",
           "Inputs": [
             {
-              "Name": "newTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
-        },
-        {
-          "Name": "DeleteTenantAsync",
-          "Inputs": [
-            {
-              "Name": "deletedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "GetAllTenants",
-          "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
-        },
-        {
-          "Name": "UpdateTenantAsync",
-          "Inputs": [
-            {
-              "Name": "updatedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "StandardElementType": "OrchestrationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "AddTenantAsync",
-          "Inputs": [
-            {
-              "Name": "newTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
-        },
-        {
-          "Name": "DeleteTenantAsync",
-          "Inputs": [
-            {
-              "Name": "deletedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "GetAllTenants",
-          "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
-        },
-        {
-          "Name": "UpdateTenantAsync",
-          "Inputs": [
-            {
-              "Name": "updatedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "StandardElementType": "OrchestrationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "DeleteTenantRelationsAsync",
-          "Inputs": [
-            {
-              "Name": "deletedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Name": "accountEventRequest",
+              "Type": "cCoder.Security.Objects.Events.SecurityAccountEventRequest"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2380,6 +2390,23 @@
           "Name": "GetAuthorizationContext",
           "Inputs": [],
           "ReturnType": "cCoder.Security.Objects.Models.AuthorizationContext"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.LoggingProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "LogWarning",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
         }
       ]
     },
@@ -2946,7 +2973,7 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "ToType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService"
+      "ToType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
@@ -2958,7 +2985,7 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "ToType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService"
+      "ToType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
@@ -2970,7 +2997,7 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.TenantController",
-      "ToType": "cCoder.Security.Services.Orchestrations.TenantCoordinationService"
+      "ToType": "cCoder.Security.Services.Aggregations.TenantAggregationService"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.UserEventController",
@@ -2986,7 +3013,7 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.TenantManager",
-      "ToType": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService"
+      "ToType": "cCoder.Security.Services.Managements.TenantSetupManagementService"
     },
     {
       "FromType": "cCoder.Security.Exposures.TokenManager",
@@ -3009,12 +3036,52 @@
       "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
     },
     {
-      "FromType": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService"
+      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.AccountEventProcessingService"
     },
     {
-      "FromType": "cCoder.Security.Services.Coordinations.TenantSetupCoordinationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService"
+      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.LoggingProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.TenantAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.TenantProcessingService"
     },
     {
       "FromType": "cCoder.Security.Services.Foundations.AuthorizationService",
@@ -3047,6 +3114,10 @@
     {
       "FromType": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
       "ToType": "cCoder.Security.Brokers.Events.TenantSetupEventBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.LoggingService",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
     },
     {
       "FromType": "cCoder.Security.Services.Foundations.RequestService",
@@ -3101,6 +3172,14 @@
       "ToType": "cCoder.Security.Brokers.Storage.UserEventBroker"
     },
     {
+      "FromType": "cCoder.Security.Services.Managements.TenantSetupManagementService",
+      "ToType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Managements.TenantSetupManagementService",
+      "ToType": "cCoder.Security.Services.Aggregations.TenantAggregationService"
+    },
+    {
       "FromType": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
       "ToType": "cCoder.Security.Services.Foundations.Events.AccountEventService"
     },
@@ -3125,84 +3204,24 @@
       "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
     },
     {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
+      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
+      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
+      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.AccountEventProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.Events.AccountEventService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "ToType": "cCoder.Security.Brokers.Utility.SSOAuthorizationBroker"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.SSORoleOrchestrationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "ToType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSOUserProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.TenantProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSORoleProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "ToType": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService"
     },
     {
       "FromType": "cCoder.Security.Services.Processings.AuthorizationProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.AuthorizationService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.LoggingProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.LoggingService"
     },
     {
       "FromType": "cCoder.Security.Services.Processings.RequestProcessingService",
@@ -3247,6 +3266,20 @@
   ],
   "AnalysisItems": [
     {
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
+      "LineNumber": 35
+    },
+    {
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
+      "LineNumber": 59
+    },
+    {
       "Code": "STXE005",
       "Description": "An exposure must not sequence multiple routine calls.",
       "Severity": "Warning",
@@ -3272,7 +3305,7 @@
       "Description": "Configuration objects should be registered as singletons.",
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
-      "LineNumber": 93
+      "LineNumber": 94
     },
     {
       "Code": "STXSTRUCT001",
@@ -3285,225 +3318,78 @@
       "Code": "STX0007",
       "Description": "A service public API must use one model contract or primitive types.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
+      "Type": "cCoder.Security.Services.Aggregations.SSOUserAggregationService",
+      "LineNumber": 15
     },
     {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
+      "Code": "STXMG001",
+      "Description": "The service must have two or three CoordinationService dependencies.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "Type": "cCoder.Security.Services.Managements.TenantSetupManagementService",
       "LineNumber": 14
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
-      "LineNumber": 14
-    },
-    {
-      "Code": "STX0004",
-      "Description": "A service must not depend on another service at the same layer.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
     },
     {
       "Code": "STX0007",
       "Description": "A service public API must use one model contract or primitive types.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     },
     {
       "Code": "STX0008",
       "Description": "A service must declare its validations in a Validations partial.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     },
     {
       "Code": "STX0009",
       "Description": "A service must declare TryCatch handling in an Exceptions partial.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     },
     {
       "Code": "STX0010",
       "Description": "Every public service method must enter through a local TryCatch operation.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     },
     {
       "Code": "STX0011",
       "Description": "Every service input must be validated inside TryCatch before business work.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     },
     {
       "Code": "STXEX001",
       "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     },
     {
       "Code": "STXEX002",
       "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     },
     {
       "Code": "STXEX003",
       "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     },
     {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 17
-    },
-    {
-      "Code": "STX0005",
-      "Description": "A public service method must not call another public method on the same service.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOUserOrchestrationService",
-      "LineNumber": 59
-    },
-    {
-      "Code": "STX0004",
-      "Description": "A service must not depend on another service at the same layer.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXO002",
-      "Description": "An orchestration service name must contain the Orchestration identifier.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantCoordinationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0004",
-      "Description": "A service must not depend on another service at the same layer.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
-    },
-    {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantOrchestrationService",
-      "LineNumber": 12
+      "Type": "cCoder.Security.Services.Orchestrations.AuthenticationOrchestrationService",
+      "LineNumber": 14
     }
   ]
 }

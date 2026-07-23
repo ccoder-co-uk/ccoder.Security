@@ -8,6 +8,7 @@ using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Requests;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Brokers.Serialization;
 using cCoder.Security.Brokers.Sessions;
 using cCoder.Security.Brokers.Storage;
@@ -26,11 +27,11 @@ using cCoder.Security.Services.Foundations.Events;
 using cCoder.Security.Services.Orchestrations;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings;
-using cCoder.Security.Services.Coordinations;
-using cCoder.Security.Services.Coordinations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 using cCoder.Security.Services.Aggregations;
 using cCoder.Security.Services.Aggregations.Interfaces;
+using cCoder.Security.Services.Managements;
+using cCoder.Security.Services.Managements.Interfaces;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
 
@@ -110,6 +111,10 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IAuthorizationProcessingService, AuthorizationProcessingService>();
         services.AddTransient<IRequestService, RequestService>();
         services.AddTransient<IRequestProcessingService, RequestProcessingService>();
+        services.AddTransient<ILoggingBroker, LoggingBroker>();
+        services.AddTransient<ILoggingService, LoggingService>();
+        services.AddTransient<ILoggingProcessingService, LoggingProcessingService>();
+        services.AddTransient<IAccountEventProcessingService, AccountEventProcessingService>();
 
         services.AddTransient<IEventHubBroker, EventHubBroker>();
         services.AddTransient<IAccountEventBroker, AccountEventBroker>();
@@ -157,17 +162,15 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISessionProcessingService, SessionProcessingService>();
         services.AddTransient<IUserEventProcessingService, UserEventProcessingService>();
 
-        services.AddTransient<ITenantSetupCoordinationService, TenantSetupCoordinationService>();
+        services.AddTransient<ITenantSetupManagementService, TenantSetupManagementService>();
     }
 
     private static void AddOrchestrations(this IServiceCollection services)
     {
         services.AddTransient<ISSOAuthInfoAggregationService, SSOAuthInfoAggregationService>();
         services.AddTransient<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
-        services.AddTransient<ITenantOrchestrationService, TenantOrchestrationService>();
-        services.AddTransient<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();
-        services.AddTransient<ITenantCoordinationService, TenantCoordinationService>();
-        services.AddTransient<ISSOUserOrchestrationService, SSOUserOrchestrationService>();
+        services.AddTransient<ITenantAggregationService, TenantAggregationService>();
+        services.AddTransient<ISSOUserAggregationService, SSOUserAggregationService>();
         services.AddTransient<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();
         services.AddTransient<ISSORoleOrchestrationService, SSORoleOrchestrationService>();
     }

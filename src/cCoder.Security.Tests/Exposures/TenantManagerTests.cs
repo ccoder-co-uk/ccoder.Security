@@ -5,7 +5,7 @@
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Coordinations.Interfaces;
+using cCoder.Security.Services.Managements.Interfaces;
 using Moq;
 using Xunit;
 
@@ -13,17 +13,17 @@ namespace cCoder.Security.Tests.Exposures;
 
 public class TenantManagerTests
 {
-    private readonly Mock<ITenantSetupCoordinationService> tenantSetupCoordinationServiceMock;
+    private readonly Mock<ITenantSetupManagementService> tenantSetupManagementServiceMock;
     private readonly ITenantManager tenantManager;
 
     public TenantManagerTests()
     {
-        tenantSetupCoordinationServiceMock =
-            new Mock<ITenantSetupCoordinationService>(MockBehavior.Strict);
+        tenantSetupManagementServiceMock =
+            new Mock<ITenantSetupManagementService>(MockBehavior.Strict);
 
         tenantManager = new TenantManager(
-            tenantSetupCoordinationService:
-                tenantSetupCoordinationServiceMock.Object);
+            tenantSetupManagementService:
+                tenantSetupManagementServiceMock.Object);
     }
 
     [Fact]
@@ -31,13 +31,13 @@ public class TenantManagerTests
     {
         SetupDetails setupDetails = CreateSetupDetails();
 
-        tenantSetupCoordinationServiceMock
+        tenantSetupManagementServiceMock
             .Setup(expression: service => service.SetupDetailsAsync(setupDetails))
             .Returns(value: ValueTask.CompletedTask);
 
         await tenantManager.SetupAsync(setupDetails: setupDetails);
 
-        tenantSetupCoordinationServiceMock.Verify(
+        tenantSetupManagementServiceMock.Verify(
             expression: service => service.SetupDetailsAsync(
                 setupDetails: setupDetails),
             times: Times.Once);

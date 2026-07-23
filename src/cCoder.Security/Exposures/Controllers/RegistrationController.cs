@@ -4,13 +4,13 @@
 
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
-public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestrationService)
+public class RegistrationController(ISSOUserAggregationService ssoUserAggregationService)
     : Controller
 {
     [HttpPost("Register")]
@@ -19,7 +19,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string confirmationToken) = await ssoUserOrchestrationService.RegisterUserAsync(
+        (SSOUser user, string confirmationToken) = await ssoUserAggregationService.RegisterUserAsync(
             registerForm: newRegisterUser);
 
         return Ok(value: new
@@ -32,7 +32,8 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
     [HttpPost("ConfirmRegistration")]
     public async ValueTask<IActionResult> PostConfirmRegistration(string confirmationToken)
     {
-        await ssoUserOrchestrationService.ConfirmRegistration(tokenId: confirmationToken);
+        await ssoUserAggregationService.ConfirmRegistration(
+            tokenId: confirmationToken);
         return Ok();
     }
 
@@ -42,7 +43,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string invitationToken) = await ssoUserOrchestrationService.InviteRegisterUserAsync(
+        (SSOUser user, string invitationToken) = await ssoUserAggregationService.InviteRegisterUserAsync(
             registerForm: newRegisterUser);
 
         return Ok(value: new
@@ -55,7 +56,8 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
     [HttpPost("ResendInvite")]
     public async ValueTask<IActionResult> PostResendInvite([FromQuery] string userId)
     {
-        string invitationToken = await ssoUserOrchestrationService.RegenerateUserInviteToken(userId: userId);
+        string invitationToken = await ssoUserAggregationService
+            .RegenerateUserInviteToken(userId: userId);
         return Ok(value: new { Token = invitationToken });
     }
 
@@ -68,7 +70,7 @@ public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestr
         if (!ModelState.IsValid)
         { return BadRequest(modelState: ModelState); }
 
-        await ssoUserOrchestrationService.AcceptRegisterUserInviteAsync(
+        await ssoUserAggregationService.AcceptRegisterUserInviteAsync(
             registerForm: newRegisterUser,
             userId: userId,
             tokenId: inviteToken);
