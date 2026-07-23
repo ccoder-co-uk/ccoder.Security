@@ -8,11 +8,13 @@ using cCoder.Security.Services.Processings.Events;
 
 namespace cCoder.Security.Services.Foundations.Events;
 
-internal class EventHandlerService(IEventHubBroker eventHubBroker) : IEventHandlerService
+internal sealed partial class EventHandlerService(IEventHubBroker eventHubBroker)
+    : IEventHandlerService
 {
     public void ListenToAllEvents() =>
-        eventHubBroker.ListenToEvent(
-eventName: "tenant_setup",
-handler: (ITenantSetupEventProcessingService service, SetupDetails details) =>
-    service.SetupDetailsAsync(setupDetails: details));
+        TryCatch(operation: () =>
+            eventHubBroker.ListenToEvent(
+                eventName: "tenant_setup",
+                handler: (ITenantSetupEventProcessingService service, SetupDetails details) =>
+                    service.SetupDetailsAsync(setupDetails: details)));
 }
