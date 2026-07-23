@@ -75,7 +75,9 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
     }
 
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>
-        ssoUserBroker.SelectAllSSOUsers(ignoreFilters: ignoreFilters);
+        ignoreFilters
+            ? ssoUserBroker.SelectAllSSOUsersIgnoringFilters()
+            : ssoUserBroker.SelectAllSSOUsers();
 
     public SSOUser Me() =>
         ssoUserBroker.SelectCurrentSSOUser();

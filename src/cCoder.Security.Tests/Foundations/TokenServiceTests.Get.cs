@@ -23,14 +23,18 @@ public partial class TokenServiceTests
         };
 
         // given
-        tokenBrokerMock.Setup(expression: broker => broker.SelectAllTokens(false)).Returns(value: new[] { expectedToken }.AsQueryable());
+        tokenBrokerMock
+            .Setup(expression: broker => broker.SelectAllTokens())
+            .Returns(value: new[] { expectedToken }.AsQueryable());
 
         // when
         Token actualToken = tokenService.GetAllTokens().First();
 
         // then
         actualToken.Should().BeEquivalentTo(expectation: expectedToken);
-        tokenBrokerMock.Verify(expression: broker => broker.SelectAllTokens(ignoreFilters: false), times: Times.Once);
+        tokenBrokerMock.Verify(
+            expression: broker => broker.SelectAllTokens(),
+            times: Times.Once);
         tokenBrokerMock.VerifyNoOtherCalls();
     }
 }

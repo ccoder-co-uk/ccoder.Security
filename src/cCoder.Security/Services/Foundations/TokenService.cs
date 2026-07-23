@@ -59,7 +59,9 @@ internal class TokenService(ITokenBroker tokenBroker, IConfiguration configurati
         tokenBroker.DeleteExpiredAsync(expiresBefore: DateTimeOffset.UtcNow, cancellationToken: cancellationToken);
 
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
-        tokenBroker.SelectAllTokens(ignoreFilters: ignoreFilters);
+        ignoreFilters
+            ? tokenBroker.SelectAllTokensIgnoringFilters()
+            : tokenBroker.SelectAllTokens();
 
     private int GetTokenTimeout()
     {

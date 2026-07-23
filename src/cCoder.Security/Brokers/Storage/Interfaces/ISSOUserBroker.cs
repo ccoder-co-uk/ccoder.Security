@@ -9,7 +9,8 @@ namespace cCoder.Security.Brokers.Storage.Interfaces;
 internal interface ISSOUserBroker
 {
     SSOUser SelectCurrentSSOUser();
-    IQueryable<SSOUser> SelectAllSSOUsers(bool ignoreFilters = false);
+    IQueryable<SSOUser> SelectAllSSOUsers();
+    IQueryable<SSOUser> SelectAllSSOUsersIgnoringFilters();
 
     ValueTask<SSOUser> InsertSSOUserAsync(SSOUser user);
     ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser user);

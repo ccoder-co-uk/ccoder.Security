@@ -13,7 +13,9 @@ internal class SSORoleService(
         : ISSORoleService
 {
     public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
-        roleBroker.SelectAllSSORoles(ignoreFilters: ignoreFilters);
+        ignoreFilters
+            ? roleBroker.SelectAllSSORolesIgnoringFilters()
+            : roleBroker.SelectAllSSORoles();
 
     public async ValueTask<SSORole> AddSSORoleAsync(SSORole newSSORole)
     {

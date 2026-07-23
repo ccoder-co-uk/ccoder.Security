@@ -84,11 +84,20 @@ message: new EventMessage<SecurityAccountEvent>
         Kind = kind,
         User = user,
         Tenant = tenant,
-        RequestDomain = requestBroker.GetRequestDomain(),
+        RequestDomain = ResolveRequestDomain(),
         Token = token,
         Culture = culture
     }
 });
+
+    private string ResolveRequestDomain()
+    {
+        string forwardedHost = requestBroker.Header(key: "X-Forwarded-Host");
+
+        return string.IsNullOrWhiteSpace(value: forwardedHost)
+            ? requestBroker.RequestHost()
+            : forwardedHost;
+    }
 
     private Tenant ResolveTenant(string tenantId) =>
         string.IsNullOrWhiteSpace(value: tenantId)

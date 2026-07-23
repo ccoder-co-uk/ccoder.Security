@@ -170,11 +170,6 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "GetRequestDomain",
-          "Inputs": [],
-          "ReturnType": "System.String"
-        },
-        {
           "Name": "HasHeader",
           "Inputs": [
             {
@@ -192,6 +187,11 @@
               "Type": "System.String"
             }
           ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "RequestHost",
+          "Inputs": [],
           "ReturnType": "System.String"
         }
       ]
@@ -262,12 +262,12 @@
         },
         {
           "Name": "SelectAllSSORoles",
-          "Inputs": [
-            {
-              "Name": "ignoreFilters",
-              "Type": "System.Boolean"
-            }
-          ],
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "SelectAllSSORolesIgnoringFilters",
+          "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
         },
         {
@@ -309,12 +309,12 @@
         },
         {
           "Name": "SelectAllSSOUsers",
-          "Inputs": [
-            {
-              "Name": "ignoreFilters",
-              "Type": "System.Boolean"
-            }
-          ],
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        },
+        {
+          "Name": "SelectAllSSOUsersIgnoringFilters",
+          "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
         },
         {
@@ -533,12 +533,12 @@
         },
         {
           "Name": "SelectAllTokens",
-          "Inputs": [
-            {
-              "Name": "ignoreFilters",
-              "Type": "System.Boolean"
-            }
-          ],
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "SelectAllTokensIgnoringFilters",
+          "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
         },
         {
@@ -3015,53 +3015,11 @@
   ],
   "AnalysisItems": [
     {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Requests.HttpRequestBroker",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Requests.HttpRequestBroker",
-      "LineNumber": 24
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSORoleBroker",
-      "LineNumber": 50
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.SSOUserBroker",
-      "LineNumber": 26
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Brokers.Storage.TokenBroker",
-      "LineNumber": 73
-    },
-    {
       "Code": "STXAPI002",
       "Description": "An API controller must expose a single model contract.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "LineNumber": 11
-    },
-    {
-      "Code": "STXFORMAT002",
-      "Description": "Expression-bodied method implementations must start on the line after the =\u003E token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 41
     },
     {
       "Code": "STXAPI001",

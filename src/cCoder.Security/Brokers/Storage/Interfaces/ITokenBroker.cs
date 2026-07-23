@@ -13,6 +13,7 @@ internal interface ITokenBroker
     ValueTask<int> DeleteExpiredAsync(
         DateTimeOffset expiresBefore,
         CancellationToken cancellationToken = default);
-    IQueryable<Token> SelectAllTokens(bool ignoreFilters = false);
+    IQueryable<Token> SelectAllTokens();
+    IQueryable<Token> SelectAllTokensIgnoringFilters();
     ValueTask<Token> UpdateTokenAsync(Token token);
 }

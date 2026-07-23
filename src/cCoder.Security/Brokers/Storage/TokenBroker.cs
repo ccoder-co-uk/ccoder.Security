@@ -65,13 +65,14 @@ internal class TokenBroker(ISecurityDbContextFactory contextFactory)
         return deletedCount;
     }
 
-    public IQueryable<Token> SelectAllTokens(bool ignoreFilters = false)
-    {
-        SecurityDbContext context =
-            contextFactory.CreateDbContext(ignoreAuthInfo: ignoreFilters);
+    public IQueryable<Token> SelectAllTokens() =>
+        contextFactory
+            .CreateDbContext()
+            .Tokens;
 
-        return ignoreFilters
-            ? context.Tokens.IgnoreQueryFilters()
-            : context.Tokens;
-    }
+    public IQueryable<Token> SelectAllTokensIgnoringFilters() =>
+        contextFactory
+            .CreateDbContext(ignoreAuthInfo: true)
+            .Tokens
+            .IgnoreQueryFilters();
 }

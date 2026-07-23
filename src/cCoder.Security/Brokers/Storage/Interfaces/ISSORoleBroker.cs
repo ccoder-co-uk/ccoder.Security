@@ -10,6 +10,7 @@ internal interface ISSORoleBroker
 {
     ValueTask<SSORole> InsertSSORoleAsync(SSORole SSORole);
     ValueTask DeleteSSORoleAsync(SSORole SSORole);
-    IQueryable<SSORole> SelectAllSSORoles(bool ignoreFilters = false);
+    IQueryable<SSORole> SelectAllSSORoles();
+    IQueryable<SSORole> SelectAllSSORolesIgnoringFilters();
     ValueTask<SSORole> UpdateSSORoleAsync(SSORole SSORole);
 }

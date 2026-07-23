@@ -19,14 +19,16 @@ internal class SSOUserBroker(ISecurityDbContextFactory contextFactory)
         return context.GetCurrentUser();
     }
 
-    public IQueryable<SSOUser> SelectAllSSOUsers(bool ignoreFilters = false)
-    {
-        SecurityDbContext context = contextFactory.CreateDbContext(ignoreAuthInfo: ignoreFilters);
+    public IQueryable<SSOUser> SelectAllSSOUsers() =>
+        contextFactory
+            .CreateDbContext()
+            .Users;
 
-        return ignoreFilters
-            ? context.Users.IgnoreQueryFilters()
-            : context.Users;
-    }
+    public IQueryable<SSOUser> SelectAllSSOUsersIgnoringFilters() =>
+        contextFactory
+            .CreateDbContext(ignoreAuthInfo: true)
+            .Users
+            .IgnoreQueryFilters();
 
     public async ValueTask<SSOUser> InsertSSOUserAsync(SSOUser newSSOUser)
     {

@@ -42,13 +42,14 @@ internal class SSORoleBroker(ISecurityDbContextFactory contextFactory)
         await context.SaveChangesAsync();
     }
 
-    public IQueryable<SSORole> SelectAllSSORoles(bool ignoreFilters = false)
-    {
-        SecurityDbContext context = contextFactory.CreateDbContext();
-        IQueryable<SSORole> roles = context.Roles;
+    public IQueryable<SSORole> SelectAllSSORoles() =>
+        contextFactory
+            .CreateDbContext()
+            .Roles;
 
-        return ignoreFilters
-            ? roles.IgnoreQueryFilters()
-            : roles;
-    }
+    public IQueryable<SSORole> SelectAllSSORolesIgnoringFilters() =>
+        contextFactory
+            .CreateDbContext(ignoreAuthInfo: true)
+            .Roles
+            .IgnoreQueryFilters();
 }

@@ -16,14 +16,18 @@ public partial class SSOUserServiceTests
     {
         // given
         IQueryable<SSOUser> expectedSSOUsers = RandomUsers();
-        userBrokerMock.Setup(expression: broker => broker.SelectAllSSOUsers(false)).Returns(value: expectedSSOUsers);
+        userBrokerMock
+            .Setup(expression: broker => broker.SelectAllSSOUsers())
+            .Returns(value: expectedSSOUsers);
 
         // when
         IEnumerable<SSOUser> actualSSOUsers = userService.GetAllSSOUsers();
 
         // then
         actualSSOUsers.Should().BeEquivalentTo(expectation: expectedSSOUsers);
-        userBrokerMock.Verify(expression: broker => broker.SelectAllSSOUsers(ignoreFilters: false), times: Times.Once);
+        userBrokerMock.Verify(
+            expression: broker => broker.SelectAllSSOUsers(),
+            times: Times.Once);
         userBrokerMock.VerifyNoOtherCalls();
     }
 }
