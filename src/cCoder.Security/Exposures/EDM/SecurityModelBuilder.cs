@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Security.Models;
 using cCoder.Security.Objects.Entities;
 using Microsoft.OData.Edm;
 

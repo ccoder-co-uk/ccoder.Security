@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Security.Models;
 using Microsoft.OData.ModelBuilder;
 using System.Linq.Expressions;
 

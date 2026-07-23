@@ -1049,25 +1049,6 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Exposures.EDM.ODataModel",
-      "StandardElementType": "Exposure",
-      "Properties": [
-        {
-          "Name": "Context",
-          "Type": "System.String"
-        },
-        {
-          "Name": "Description",
-          "Type": "System.String"
-        },
-        {
-          "Name": "EDMModel",
-          "Type": "IEdmModel"
-        }
-      ],
-      "Methods": []
-    },
-    {
       "Name": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
       "StandardElementType": "Exposure",
       "Properties": [],
@@ -1075,7 +1056,7 @@
         {
           "Name": "Build",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Exposures.EDM.ODataModel"
+          "ReturnType": "cCoder.Security.Models.ODataModel"
         }
       ]
     },
@@ -1087,7 +1068,7 @@
         {
           "Name": "Build",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Exposures.EDM.ODataModel"
+          "ReturnType": "cCoder.Security.Models.ODataModel"
         }
       ]
     },
@@ -1229,6 +1210,25 @@
           "ReturnType": "cCoder.Security.Objects.SecurityConfiguration"
         }
       ]
+    },
+    {
+      "Name": "cCoder.Security.Models.ODataModel",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Context",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Description",
+          "Type": "System.String"
+        },
+        {
+          "Name": "EDMModel",
+          "Type": "IEdmModel"
+        }
+      ],
+      "Methods": []
     },
     {
       "Name": "cCoder.Security.SecurityConfigurationExtensions",
@@ -3344,46 +3344,25 @@
       "LineNumber": 41
     },
     {
-      "Code": "STX0002",
-      "Description": "Properties may only be declared on models.",
+      "Code": "STXE005",
+      "Description": "An exposure must not sequence multiple routine calls.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModel",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STX0002",
-      "Description": "Properties may only be declared on models.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModel",
+      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
       "LineNumber": 24
     },
     {
-      "Code": "STX0002",
-      "Description": "Properties may only be declared on models.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModel",
-      "LineNumber": 29
-    },
-    {
       "Code": "STXE005",
       "Description": "An exposure must not sequence multiple routine calls.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 23
-    },
-    {
-      "Code": "STXE005",
-      "Description": "An exposure must not sequence multiple routine calls.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 34
+      "LineNumber": 35
     },
     {
       "Code": "STXE005",
       "Description": "An exposure must not sequence multiple routine calls.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.EDM.SecurityModelBuilder",
-      "LineNumber": 20
+      "LineNumber": 21
     },
     {
       "Code": "STXSTRUCT001",
@@ -3468,6 +3447,13 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.IServiceCollectionExtensions",
       "LineNumber": 180
+    },
+    {
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Models.ODataModel",
+      "LineNumber": 30
     },
     {
       "Code": "STX0007",
@@ -4254,18 +4240,11 @@
       "LineNumber": 12
     },
     {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.TokenService",
-      "LineNumber": 18
-    },
-    {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Foundations.TokenService",
-      "LineNumber": 54
+      "LineNumber": 55
     },
     {
       "Code": "STX0008",
@@ -4462,20 +4441,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
       "LineNumber": 13
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 93
-    },
-    {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.SSOAuthInfoOrchestrationService",
-      "LineNumber": 98
     },
     {
       "Code": "STX0008",
@@ -5017,20 +4982,6 @@
       "LineNumber": 21
     },
     {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 32
-    },
-    {
-      "Code": "STXFORMAT009",
-      "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Orchestrations.TenantRelationsOrchestrationService",
-      "LineNumber": 32
-    },
-    {
       "Code": "STX0004",
       "Description": "A service must not depend on another service at the same layer.",
       "Severity": "Warning",
@@ -5169,20 +5120,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
       "LineNumber": 15
-    },
-    {
-      "Code": "STXFORMAT003",
-      "Description": "Control-flow blocks must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 40
-    },
-    {
-      "Code": "STXFORMAT003",
-      "Description": "Control-flow blocks must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.Events.TenantSetupEventProcessingService",
-      "LineNumber": 42
     },
     {
       "Code": "STX0003",
@@ -5409,67 +5346,60 @@
       "LineNumber": 31
     },
     {
-      "Code": "STXFORMAT009",
-      "Description": "Every method chained from an invocation result must begin on a new line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 36
-    },
-    {
       "Code": "STX0021",
       "Description": "delete model parameters must use the deleted prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 44
+      "LineNumber": 48
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 51
+      "LineNumber": 55
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 63
+      "LineNumber": 67
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 71
+      "LineNumber": 75
     },
     {
       "Code": "STX0017",
       "Description": "Identifier parameters must be named for their type, for example studentId.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 81
+      "LineNumber": 85
     },
     {
       "Code": "STX0020",
       "Description": "update model parameters must use the updated prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 89
+      "LineNumber": 93
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 91
+      "LineNumber": 95
     },
     {
       "Code": "STX0005",
       "Description": "A public service method must not call another public method on the same service.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 96
+      "LineNumber": 100
     },
     {
       "Code": "STX0003",
