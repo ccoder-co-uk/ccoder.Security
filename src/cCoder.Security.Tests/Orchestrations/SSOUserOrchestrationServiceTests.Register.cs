@@ -4,6 +4,7 @@
 
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Events;
 using FluentAssertions;
 using Moq;
 using System.ComponentModel.DataAnnotations;
@@ -74,8 +75,13 @@ expression: x => x.AddSSOUserRoleAsync(userRole: It.Is<SSOUserRole>(userRole =>
 times: Times.Once);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaiseRegistrationCreatedSSOUserRegisterUserEventAsync(user: storedUser, registerForm: input, token: "token-1"),
-times: Times.Once);
+            expression: service => service.RaiseSecurityAccountEventRequestAsync(
+                It.Is<SecurityAccountEventRequest>(request =>
+                    request.Kind == SecurityAccountEventKind.RegistrationCreated
+                    && request.User == storedUser
+                    && request.RegisterForm == input
+                    && request.Token == "token-1")),
+            times: Times.Once);
     }
 
     [Fact]
@@ -120,8 +126,13 @@ expression: x => x.AddSSOUserRoleAsync(userRole: It.IsAny<SSOUserRole>()),
 times: Times.Never);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaiseRegistrationCreatedSSOUserRegisterUserEventAsync(user: storedUser, registerForm: input, token: "token-1"),
-times: Times.Once);
+            expression: service => service.RaiseSecurityAccountEventRequestAsync(
+                It.Is<SecurityAccountEventRequest>(request =>
+                    request.Kind == SecurityAccountEventKind.RegistrationCreated
+                    && request.User == storedUser
+                    && request.RegisterForm == input
+                    && request.Token == "token-1")),
+            times: Times.Once);
     }
 
     [Fact]
@@ -163,10 +174,8 @@ expression: service => service.GenerateConfirmationToken(userId: It.IsAny<string
 times: Times.Never);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaiseRegistrationCreatedSSOUserRegisterUserEventAsync(
-user: It.IsAny<SSOUser>(),
-registerForm: It.IsAny<RegisterUser>(),
-token: It.IsAny<string>()),
-times: Times.Never);
+            expression: service => service.RaiseSecurityAccountEventRequestAsync(
+                It.IsAny<SecurityAccountEventRequest>()),
+            times: Times.Never);
     }
 }

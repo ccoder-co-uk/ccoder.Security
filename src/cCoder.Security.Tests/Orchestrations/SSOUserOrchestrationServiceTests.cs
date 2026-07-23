@@ -4,6 +4,7 @@
 
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Objects.DTOs;
+using cCoder.Security.Objects.Events;
 using cCoder.Security.Services.Foundations.Events;
 using cCoder.Security.Services.Orchestrations;
 using cCoder.Security.Services.Orchestrations.Interfaces;
@@ -45,6 +46,11 @@ public partial class SSOUserOrchestrationServiceTests
 
     private void SetupRegistrationCreatedEvent(SSOUser user, RegisterUser registerForm, string token) =>
         accountEventServiceMock
-            .Setup(expression: service => service.RaiseRegistrationCreatedSSOUserRegisterUserEventAsync(user, registerForm, token))
+            .Setup(expression: service => service.RaiseSecurityAccountEventRequestAsync(
+                It.Is<SecurityAccountEventRequest>(request =>
+                    request.Kind == SecurityAccountEventKind.RegistrationCreated
+                    && request.User == user
+                    && request.RegisterForm == registerForm
+                    && request.Token == token)))
             .Returns(value: ValueTask.CompletedTask);
 }

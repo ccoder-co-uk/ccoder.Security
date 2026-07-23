@@ -4,6 +4,7 @@
 
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Events;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Foundations.Events;
 using cCoder.Security.Services.Processings.Interfaces;
@@ -39,10 +40,16 @@ internal class SSOUserOrchestrationService(
         await TryAttachBootstrapTenantRoleAsync(registerForm: registerForm, user: user);
         Token confirmationToken = await tokenProcessingService.GenerateConfirmationToken(userId: user.Id);
 
-        await accountEventService.RaiseRegistrationCreatedSSOUserRegisterUserEventAsync(
-            user: user,
-            registerForm: registerForm,
-            token: confirmationToken.Id);
+        SecurityAccountEventRequest accountEventRequest = new()
+        {
+            Kind = SecurityAccountEventKind.RegistrationCreated,
+            User = user,
+            RegisterForm = registerForm,
+            Token = confirmationToken.Id
+        };
+
+        await accountEventService.RaiseSecurityAccountEventRequestAsync(
+            accountEventRequest: accountEventRequest);
 
         return (Sanitize(user: user), confirmationToken.Id);
     }
@@ -81,10 +88,16 @@ internal class SSOUserOrchestrationService(
 
         Token inviteToken = await tokenProcessingService.GenerateInvitationToken(userId: user.Id);
 
-        await accountEventService.RaiseInvitationCreatedSSOUserRegisterUserEventAsync(
-            user: user,
-            registerForm: registerForm,
-            token: inviteToken.Id);
+        SecurityAccountEventRequest accountEventRequest = new()
+        {
+            Kind = SecurityAccountEventKind.InvitationCreated,
+            User = user,
+            RegisterForm = registerForm,
+            Token = inviteToken.Id
+        };
+
+        await accountEventService.RaiseSecurityAccountEventRequestAsync(
+            accountEventRequest: accountEventRequest);
 
         return (Sanitize(user: user), inviteToken.Id);
     }
@@ -120,10 +133,16 @@ internal class SSOUserOrchestrationService(
 
         SSOUser updatedUser = await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
 
-        await accountEventService.RaiseInvitationAcceptedSSOUserRegisterUserEventAsync(
-            user: updatedUser,
-            registerForm: registerForm,
-            token: tokenId);
+        SecurityAccountEventRequest accountEventRequest = new()
+        {
+            Kind = SecurityAccountEventKind.InvitationAccepted,
+            User = updatedUser,
+            RegisterForm = registerForm,
+            Token = tokenId
+        };
+
+        await accountEventService.RaiseSecurityAccountEventRequestAsync(
+            accountEventRequest: accountEventRequest);
 
         return updatedUser;
     }
@@ -141,10 +160,16 @@ internal class SSOUserOrchestrationService(
 
         var newToken = await tokenProcessingService.GenerateInvitationToken(userId: userId);
 
-        await accountEventService.RaiseInvitationCreatedSSOUserRegisterUserEventAsync(
-            user: user,
-            registerForm: null,
-            token: newToken.Id);
+        SecurityAccountEventRequest accountEventRequest = new()
+        {
+            Kind = SecurityAccountEventKind.InvitationCreated,
+            User = user,
+            RegisterForm = null,
+            Token = newToken.Id
+        };
+
+        await accountEventService.RaiseSecurityAccountEventRequestAsync(
+            accountEventRequest: accountEventRequest);
 
         return newToken.Id;
     }
@@ -171,9 +196,16 @@ internal class SSOUserOrchestrationService(
         await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
         await tokenProcessingService.DeleteTokenAsync(tokenId: token.Id);
 
-        await accountEventService.RaiseRegistrationConfirmedSSOUserEventAsync(
-            user: user,
-            token: tokenId);
+        SecurityAccountEventRequest accountEventRequest = new()
+        {
+            Kind = SecurityAccountEventKind.RegistrationConfirmed,
+            User = user,
+            RegisterForm = null,
+            Token = tokenId
+        };
+
+        await accountEventService.RaiseSecurityAccountEventRequestAsync(
+            accountEventRequest: accountEventRequest);
     }
 
     private static void ValidateRegisterForm(RegisterUser registerForm, bool requirePassword = true)

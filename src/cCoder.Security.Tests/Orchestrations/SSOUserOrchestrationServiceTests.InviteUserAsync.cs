@@ -4,6 +4,7 @@
 
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Events;
 using FluentAssertions;
 using Moq;
 using System.ComponentModel.DataAnnotations;
@@ -51,10 +52,8 @@ expression: service => service.GenerateInvitationToken(userId: It.IsAny<string>(
 times: Times.Never);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaiseInvitationCreatedSSOUserRegisterUserEventAsync(
-user: It.IsAny<SSOUser>(),
-registerForm: It.IsAny<RegisterUser>(),
-token: It.IsAny<string>()),
-times: Times.Never);
+            expression: service => service.RaiseSecurityAccountEventRequestAsync(
+                It.IsAny<SecurityAccountEventRequest>()),
+            times: Times.Never);
     }
 }

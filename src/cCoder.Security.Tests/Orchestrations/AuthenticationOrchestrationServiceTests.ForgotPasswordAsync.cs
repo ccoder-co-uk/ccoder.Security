@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Events;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -35,7 +36,11 @@ public partial class AuthenticationOrchestrationServiceTests
             .ReturnsAsync(value: token);
 
         accountEventServiceMock
-            .Setup(expression: service => service.RaisePasswordResetRequestedSSOUserEventAsync(user, token.Id))
+            .Setup(expression: service => service.RaiseSecurityAccountEventRequestAsync(
+                It.Is<SecurityAccountEventRequest>(request =>
+                    request.Kind == SecurityAccountEventKind.PasswordResetRequested
+                    && request.User == user
+                    && request.Token == token.Id)))
             .Returns(value: ValueTask.CompletedTask);
 
         Token actualToken =
@@ -44,7 +49,11 @@ public partial class AuthenticationOrchestrationServiceTests
         actualToken.Should().BeSameAs(expected: token);
 
         accountEventServiceMock.Verify(
-expression: service => service.RaisePasswordResetRequestedSSOUserEventAsync(user: user, token: token.Id),
-times: Times.Once);
+            expression: service => service.RaiseSecurityAccountEventRequestAsync(
+                It.Is<SecurityAccountEventRequest>(request =>
+                    request.Kind == SecurityAccountEventKind.PasswordResetRequested
+                    && request.User == user
+                    && request.Token == token.Id)),
+            times: Times.Once);
     }
 }

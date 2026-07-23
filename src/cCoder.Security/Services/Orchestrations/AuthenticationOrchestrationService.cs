@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Events;
 using cCoder.Security.Services.Foundations.Events;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
@@ -76,9 +77,16 @@ internal class AuthenticationOrchestrationService(
 
         Token token = await tokenProcessingService.GenerateForgottenPasswordToken(userId: user.Id);
 
-        await accountEventService.RaisePasswordResetRequestedSSOUserEventAsync(
-            user: user,
-            token: token.Id);
+        SecurityAccountEventRequest accountEventRequest = new()
+        {
+            Kind = SecurityAccountEventKind.PasswordResetRequested,
+            User = user,
+            RegisterForm = null,
+            Token = token.Id
+        };
+
+        await accountEventService.RaiseSecurityAccountEventRequestAsync(
+            accountEventRequest: accountEventRequest);
 
         return token;
     }
