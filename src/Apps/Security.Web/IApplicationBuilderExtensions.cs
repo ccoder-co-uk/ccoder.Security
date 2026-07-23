@@ -3,14 +3,30 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Data.EF.Interfaces;
+using cCoder.Security;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.OData;
 using System.Security;
+using Security.Web.Exposures;
 
 namespace Security.Web;
 
 public static class IApplicationBuilderExtensions
 {
+    public static IApplicationBuilder UseSecurityWebApplication(
+        this WebApplication app)
+    {
+        app.InitialiseSecurityDatabase();
+        app.MapGet(
+            pattern: "/Health",
+            handler: () => Results.Text(content: "Healthy"));
+        app.UseSession();
+        app.StartSecurityWeb();
+        app.UseTheFramework();
+
+        return app;
+    }
+
     public static IApplicationBuilder InitialiseSecurityDatabase(this IApplicationBuilder app)
     {
         using IServiceScope scope = app.ApplicationServices.CreateScope();

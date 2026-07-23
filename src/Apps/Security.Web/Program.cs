@@ -2,10 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security;
-using cCoder.Security.Exposures;
-using cCoder.Security.Data.EF;
-
 namespace Security.Web;
 
 public class Program
@@ -20,35 +16,14 @@ public class Program
             .AddEnvironmentVariables(prefix: "ENV_")
             .Build();
 
-        builder.Services.AddAspNetCore();
-        builder.Services.AddMetadata();
-
-        builder.Services.AddSecurityWeb(configAction: (services, securityConfig) =>
-        {
-            securityConfig.RootPath = "Api/Security";
-
-            securityConfig.AddMSSQLModelProvider(
-services: services,
-connectionString: config.GetConnectionString("SSO"));
-
-            securityConfig.UseAESHMMACPasswordEncryption(
-services: services,
-decryptionKey: config.GetSection("settings")["DecryptionKey"]);
-        });
-
-        builder.Services.AddControllersWithViews();
-
-        builder.Services.ConfigureSessions();
+        builder.Services.AddSecurityWebApplication(
+            configuration: config);
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSimpleConsole();
 
         WebApplication app = builder.Build();
-        app.InitialiseSecurityDatabase();
-        app.MapGet(pattern: "/Health", handler: () => Results.Text(content: "Healthy"));
-        app.UseSession();
-        app.StartSecurityWeb();
-        app.UseTheFramework();
+        app.UseSecurityWebApplication();
         app.Run();
     }
 }

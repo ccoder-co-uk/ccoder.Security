@@ -1,15 +1,22 @@
 {
   "Classes": [
     {
-      "Name": "Security.Web.Controllers.HomeController",
+      "Name": "Security.Web.Controllers.CurrentUserController",
       "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": [
         {
-          "Name": "CurrentUser",
+          "Name": "Get",
           "Inputs": [],
           "ReturnType": "IActionResult"
-        },
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Controllers.HomeController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
         {
           "Name": "Get",
           "Inputs": [],
@@ -30,6 +37,30 @@
       ]
     },
     {
+      "Name": "Security.Web.Exposures.CurrentUserManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetCurrentUserId",
+          "Inputs": [],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Exposures.HomeManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetIndexPath",
+          "Inputs": [],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
       "Name": "Security.Web.Exposures.Setup.UIBaseline",
       "StandardElementType": "Dependency",
       "Properties": [
@@ -39,6 +70,18 @@
         }
       ],
       "Methods": []
+    },
+    {
+      "Name": "Security.Web.Exposures.UIBaselineManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetPackages",
+          "Inputs": [],
+          "ReturnType": "System.Object"
+        }
+      ]
     },
     {
       "Name": "Security.Web.IApplicationBuilderExtensions",
@@ -51,6 +94,16 @@
             {
               "Name": "app",
               "Type": "IApplicationBuilder"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
+        },
+        {
+          "Name": "UseSecurityWebApplication",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
             }
           ],
           "ReturnType": "IApplicationBuilder"
@@ -93,6 +146,20 @@
           "ReturnType": "System.Void"
         },
         {
+          "Name": "AddSecurityWebApplication",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "IConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
           "Name": "ConfigureSessions",
           "Inputs": [
             {
@@ -122,35 +189,19 @@
       ]
     }
   ],
-  "Links": [],
-  "AnalysisItems": [
+  "Links": [
     {
-      "Code": "STXAPI001",
-      "Description": "An API controller must have exactly one business dependency.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Controllers.HomeController",
-      "LineNumber": 10
+      "FromType": "Security.Web.Controllers.CurrentUserController",
+      "ToType": "Security.Web.Exposures.CurrentUserManager"
     },
     {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Controllers.HomeController",
-      "LineNumber": 19
+      "FromType": "Security.Web.Controllers.HomeController",
+      "ToType": "Security.Web.Exposures.HomeManager"
     },
     {
-      "Code": "STXAPI001",
-      "Description": "An API controller must have exactly one business dependency.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Exposures.Controllers.BaselineController",
-      "LineNumber": 10
-    },
-    {
-      "Code": "STXAPP005",
-      "Description": "Program.cs must compose the app through IServiceCollection using SDK namespaces and one local composition namespace only.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Program",
-      "LineNumber": 11
+      "FromType": "Security.Web.Exposures.Controllers.BaselineController",
+      "ToType": "Security.Web.Exposures.UIBaselineManager"
     }
-  ]
+  ],
+  "AnalysisItems": []
 }

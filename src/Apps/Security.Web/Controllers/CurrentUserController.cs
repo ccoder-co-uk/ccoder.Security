@@ -7,12 +7,12 @@ using Security.Web.Exposures;
 
 namespace Security.Web.Controllers;
 
-[Route("")]
-public class HomeController(IHomeManager homeManager) : Controller
+[Route("CurrentUser")]
+public class CurrentUserController(
+    ICurrentUserManager currentUserManager)
+        : Controller
 {
     [HttpGet]
     public IActionResult Get() =>
-        PhysicalFile(
-            physicalPath: homeManager.GetIndexPath(),
-            contentType: "text/html");
+        Ok(value: currentUserManager.GetCurrentUserId());
 }

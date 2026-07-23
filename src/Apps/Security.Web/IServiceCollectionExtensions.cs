@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Security;
+using cCoder.Security.Data.EF;
+using cCoder.Security.Exposures;
+using Security.Web.Exposures;
+
 namespace Security.Web;
 
 public static partial class IServiceCollectionExtensions
@@ -26,6 +31,33 @@ public static partial class IServiceCollectionExtensions
                 _ = builder.SetIsOriginAllowed(origin => true);
                 _ = builder.AllowCredentials();
             }));
+    }
+
+    public static void AddSecurityWebApplication(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.AddAspNetCore();
+        services.AddMetadata();
+
+        services.AddSecurityWeb(configAction: (serviceCollection, securityConfig) =>
+        {
+            securityConfig.RootPath = "Api/Security";
+
+            securityConfig.AddMSSQLModelProvider(
+                services: serviceCollection,
+                connectionString: configuration.GetConnectionString("SSO"));
+
+            securityConfig.UseAESHMMACPasswordEncryption(
+                services: serviceCollection,
+                decryptionKey: configuration.GetSection("settings")["DecryptionKey"]);
+        });
+
+        services.AddControllersWithViews();
+        services.ConfigureSessions();
+        services.AddTransient<IUIBaselineManager, UIBaselineManager>();
+        services.AddTransient<IHomeManager, HomeManager>();
+        services.AddTransient<ICurrentUserManager, CurrentUserManager>();
     }
 
     public static void AddMetadata(this IServiceCollection services)
