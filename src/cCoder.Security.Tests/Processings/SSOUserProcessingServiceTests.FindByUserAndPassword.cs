@@ -1,74 +1,87 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
+using cCoder.Security.Objects.Exceptions;
 using FluentAssertions;
 using Moq;
-using System.Security;
 using Xunit;
 
 namespace cCoder.Security.Tests.Processings;
 
 public partial class SSOUserProcessingServiceTests
-	{
-		[Fact]
-		public async Task FindByUserAndPasswordWorksAsExpected()
-		{
-			//given
-			string inputPassword = RandomString();
-
-			IQueryable<SSOUser> ssoUsersInService = RandomSSOUsers()
-				.AsQueryable();
-
-			foreach (SSOUser user in ssoUsersInService)
-				user.LockoutEnabled = false;
-
-			ssoUserServiceMock.Setup(ssoUserServiceMock =>
-				ssoUserServiceMock.GetAllSSOUsers(true))
-				.Returns(ssoUsersInService);
-
-        SSOUser expectedSSOUser = ssoUsersInService.First();
-
-        passwordEncryptionBrokerMock.Setup(passwordEncryptionBrokerMock =>
-				passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword))
-				.Returns(true);
-
-			//when
-			SSOUser actualSSOUser = await ssoUserProcessingService
-				.FindByUserAndPasswordAsync(expectedSSOUser.Id, inputPassword);
-
-			//then
-			actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
-
-			ssoUserServiceMock.Verify(ssoUserServiceMock =>
-				ssoUserServiceMock.GetAllSSOUsers(true),
-				Times.Exactly(2));
-
-			passwordEncryptionBrokerMock.Verify(passwordEncryptionBrokerMock =>
-				passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword),
-				Times.Once);
-		}
-
+{
     [Fact]
-    public async Task FindByUserAndPasswordNotWorksForLockoutAsExpected()
+    public async Task FindByUserAndPasswordWorksAsExpected()
     {
-        //given
+        // Given
         string inputPassword = RandomString();
 
         IQueryable<SSOUser> ssoUsersInService = RandomSSOUsers()
             .AsQueryable();
 
-        ssoUserServiceMock.Setup(ssoUserServiceMock =>
-            ssoUserServiceMock.GetAllSSOUsers(true))
-            .Returns(ssoUsersInService);
+        foreach (SSOUser user in ssoUsersInService)
+        { user.LockoutEnabled = false; }
+
+        ssoUserServiceMock.Setup(expression: ssoUserServiceMock =>
+            ssoUserServiceMock.GetAllSSOUsers(ignoreFilters:true))
+            .Returns(value: ssoUsersInService);
+
+        SSOUser expectedSSOUser = ssoUsersInService.First();
+
+        passwordEncryptionBrokerMock.Setup(expression: passwordEncryptionBrokerMock =>
+                passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(encrypted:expectedSSOUser.PasswordHash, plainText:inputPassword))
+                .Returns(value: true);
+
+        // When
+        SSOUser actualSSOUser = await ssoUserProcessingService
+            .FindByUserAndPasswordAsync(username: expectedSSOUser.Id, password: inputPassword);
+
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser);
+
+        ssoUserServiceMock.Verify(expression: ssoUserServiceMock =>
+            ssoUserServiceMock.GetAllSSOUsers(ignoreFilters: true),
+times: Times.Exactly(callCount: 2));
+
+        passwordEncryptionBrokerMock.Verify(expression: passwordEncryptionBrokerMock =>
+            passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(encrypted: expectedSSOUser.PasswordHash, plainText: inputPassword),
+times: Times.Once);
+    }
+
+    [Fact]
+    public async Task FindByUserAndPasswordNotWorksForLockoutAsExpected()
+    {
+        // Given
+        string inputPassword = RandomString();
+
+        IQueryable<SSOUser> ssoUsersInService = RandomSSOUsers()
+            .AsQueryable();
+
+        ssoUserServiceMock.Setup(expression: ssoUserServiceMock =>
+            ssoUserServiceMock.GetAllSSOUsers(ignoreFilters:true))
+            .Returns(value: ssoUsersInService);
 
         SSOUser expectedSSOUser = ssoUsersInService.First();
 
         expectedSSOUser.LockoutEnabled = true;
 
-        passwordEncryptionBrokerMock.Setup(passwordEncryptionBrokerMock =>
-            passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword))
-            .Returns(true);
+        passwordEncryptionBrokerMock.Setup(expression: passwordEncryptionBrokerMock =>
+            passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(encrypted:expectedSSOUser.PasswordHash, plainText:inputPassword))
+            .Returns(value: true);
 
-        //when & then
-        await Assert.ThrowsAsync<SecurityException>(async () => await ssoUserProcessingService
-			.FindByUserAndPasswordAsync(expectedSSOUser.Id, inputPassword));
+        // When
+        // Then
+        SecurityProcessingServiceException actualException =
+            await Assert.ThrowsAsync<SecurityProcessingServiceException>(
+                testCode: async () =>
+                    await ssoUserProcessingService.FindByUserAndPasswordAsync(
+                        username: expectedSSOUser.Id,
+                        password: inputPassword));
+
+        actualException.InnerException.Should()
+            .BeOfType<System.Security.SecurityException>();
     }
 }

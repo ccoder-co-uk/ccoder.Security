@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Foundations.Interfaces;
+
 internal interface ISSOUserRoleService
 {
     IQueryable<SSOUserRole> GetAllSSOUserRoles();
@@ -8,4 +13,3 @@ internal interface ISSOUserRoleService
     ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item);
     ValueTask DeleteSSOUserRoleAsync(SSOUserRole item);
 }
-

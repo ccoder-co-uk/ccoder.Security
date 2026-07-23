@@ -1,11 +1,16 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Processings.Interfaces;
+
 internal interface ITokenProcessingService
 {
     IQueryable<Token> GetAllTokens(bool ignoreFilters = false);
 
-    Token GetTokenById(string id);
+    Token GetTokenById(string tokenId);
 
     Token GetForgottenPasswordToken(string tokenId);
 
@@ -23,4 +28,3 @@ internal interface ITokenProcessingService
 
     ValueTask DeleteTokenAsync(string tokenId);
 }
-

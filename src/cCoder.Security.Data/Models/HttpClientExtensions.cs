@@ -1,4 +1,8 @@
-﻿using cCoder.Security.Objects.Entities;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Security.Objects.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
@@ -20,9 +24,9 @@ public static class HttpClientExtensions
         try
         {
             var auth = new { User = user, Pass = pass };
-            HttpResponseMessage response = await client.PostAsync("Account/Login", new StringContent(Json(auth), Encoding.UTF8, "application/json"));
+            HttpResponseMessage response = await client.PostAsync(requestUri: "Account/Login", content: new StringContent(Json(source: auth), Encoding.UTF8, "application/json"));
             _ = response.EnsureSuccessStatusCode();
-            Token token = await ReadAsAsync<Token>(response.Content);
+            Token token = await ReadAsAsync<Token>(content: response.Content);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Id);
             return token;
         }
@@ -30,18 +34,20 @@ public static class HttpClientExtensions
         return null;
     }
 
-    public static async Task<T> ReadAsAsync<T>(HttpContent content) 
-        => JsonConvert.DeserializeObject<T>(await content.ReadAsStringAsync());
+    public static async Task<T> ReadAsAsync<T>(HttpContent content)
+        =>
+        JsonConvert.DeserializeObject<T>(value: await content.ReadAsStringAsync());
 
-    static string Json(object source) => JsonConvert.SerializeObject(source, new JsonSerializerSettings
-    {
-        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-        TypeNameHandling = TypeNameHandling.None,
-        Formatting = Formatting.None,
-        DateFormatHandling = DateFormatHandling.IsoDateFormat,
-        NullValueHandling = NullValueHandling.Ignore,
-        DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-        ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = true },
-        MaxDepth = 4
-    });
+    static string Json(object source) =>
+        JsonConvert.SerializeObject(value: source, settings: new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            TypeNameHandling = TypeNameHandling.None,
+            Formatting = Formatting.None,
+            DateFormatHandling = DateFormatHandling.IsoDateFormat,
+            NullValueHandling = NullValueHandling.Ignore,
+            DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+            ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = true },
+            MaxDepth = 4
+        });
 }

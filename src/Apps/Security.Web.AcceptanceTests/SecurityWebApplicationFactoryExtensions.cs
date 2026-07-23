@@ -1,8 +1,12 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -23,13 +27,17 @@ public static class SecurityWebApplicationFactoryExtensions
         lock (SetupLock)
         {
             if (setupComplete)
-                return;
+            { return; }
 
             ConfigureAcceptanceEnvironment();
 
             using IServiceScope scope = appFactory.Services.CreateScope();
             IServiceProvider scopedServices = scope.ServiceProvider;
-            EnsureSSOSetupForTesting(scopedServices).AsTask().Wait();
+
+            EnsureSSOSetupForTesting(scopedServices: scopedServices)
+                .AsTask()
+                .Wait();
+
             setupComplete = true;
         }
     }
@@ -37,26 +45,35 @@ public static class SecurityWebApplicationFactoryExtensions
     private static void ConfigureAcceptanceEnvironment()
     {
         if (acceptanceEnvironmentConfigured)
-            return;
+        { return; }
 
         if (typeof(AcceptanceHost).Namespace == "Security.Web")
         {
-            acceptanceConnectionString = Environment.GetEnvironmentVariable("ENV_ConnectionStrings__SSO");
+            acceptanceConnectionString = Environment.GetEnvironmentVariable(
+                variable: "ConnectionStrings__SSO");
 
-            if (!string.IsNullOrWhiteSpace(acceptanceConnectionString))
+            if (!string.IsNullOrWhiteSpace(value: acceptanceConnectionString))
             {
+                SqlConnectionStringBuilder connectionStringBuilder =
+                    new(connectionString: acceptanceConnectionString);
+
+                connectionStringBuilder.InitialCatalog =
+                    $"{connectionStringBuilder.InitialCatalog}-AcceptanceTests-{Environment.ProcessId}";
+
+                acceptanceConnectionString =
+                    connectionStringBuilder.ConnectionString;
+
+                Environment.SetEnvironmentVariable(
+                    variable: "ENV_ConnectionStrings__SSO",
+                    value: acceptanceConnectionString);
+
                 acceptanceEnvironmentConfigured = true;
+                ownsAcceptanceDatabase = true;
                 return;
             }
 
-            string databaseName = $"SSOAcceptanceTests_{Environment.ProcessId}";
-            acceptanceConnectionString =
-                $"Data Source=.;Initial Catalog={databaseName};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
-
-            Environment.SetEnvironmentVariable(
-                "ENV_ConnectionStrings__SSO",
-                acceptanceConnectionString);
-            ownsAcceptanceDatabase = true;
+            throw new InvalidOperationException(
+                "ConnectionStrings__SSO must be configured for acceptance tests.");
         }
 
         acceptanceEnvironmentConfigured = true;
@@ -64,27 +81,32 @@ public static class SecurityWebApplicationFactoryExtensions
 
     private static async ValueTask EnsureSSOSetupForTesting(IServiceProvider scopedServices)
     {
-        IAuthenticationOrchestrationService authenticationOrchestrationService =
-            scopedServices.GetRequiredService<IAuthenticationOrchestrationService>();
+        IAuthenticationAggregationService authenticationAggregationService =
+            scopedServices.GetRequiredService<IAuthenticationAggregationService>();
+
         ITenantManager tenantManager = scopedServices.GetRequiredService<ITenantManager>();
 
         using cCoder.Security.Data.EF.SecurityDbContext db =
-            scopedServices.GetRequiredService<ISecurityDbContextFactory>().CreateDbContext();
+            scopedServices.GetRequiredService<ISecurityDbContextFactory>()
+                .CreateDbContext(ignoreAuthInfo: true);
 
-        if (db.Database.ProviderName?.Contains("SqlServer", StringComparison.OrdinalIgnoreCase) == true)
-            DropDatabaseForTesting(db.Database.GetConnectionString());
+        if (db.Database.ProviderName?.Contains(value: "SqlServer", comparisonType: StringComparison.OrdinalIgnoreCase) == true)
+        { DropDatabaseForTesting(connectionString: db.Database.GetConnectionString()); }
         else
-            db.Database.EnsureDeleted();
+        { db.Database.EnsureDeleted(); }
 
         db.Migrate();
 
-        await SetupTestUser(tenantManager);
-        await authenticationOrchestrationService.LoginAsync("TestUser", "TestPass01!");
+        await SetupTestUser(tenantManager: tenantManager);
+
+        await authenticationAggregationService.LoginAsync(
+            username: "TestUser",
+            password: "TestPass01!");
     }
 
     private static async Task SetupTestUser(ITenantManager tenantManager)
     {
-        await tenantManager.SetupAsync(new SetupDetails
+        SetupDetails setupDetails = new()
         {
             Tenant = new Tenant
             {
@@ -99,36 +121,42 @@ public static class SecurityWebApplicationFactoryExtensions
                 Email = "TestUser@somehwere.com",
                 PasswordHash = "TestPass01!"
             }
-        });
+        };
+
+        await tenantManager.SetupAsync(
+            setupDetails: setupDetails);
     }
 
     public static void DropAcceptanceDatabaseForTesting()
     {
         if (!ownsAcceptanceDatabase)
-            return;
+        { return; }
 
-        DropDatabaseForTesting(acceptanceConnectionString);
+        DropDatabaseForTesting(connectionString: acceptanceConnectionString);
     }
 
     internal static void DropDatabaseForTesting(string connectionString)
     {
-        if (string.IsNullOrWhiteSpace(connectionString))
-            return;
+        if (string.IsNullOrWhiteSpace(value: connectionString))
+        { return; }
 
         SqlConnectionStringBuilder builder = new(connectionString)
         {
             Encrypt = true,
             TrustServerCertificate = true,
         };
+
         string databaseName = builder.InitialCatalog ?? string.Empty;
 
-        if (string.IsNullOrWhiteSpace(databaseName))
-            return;
+        if (string.IsNullOrWhiteSpace(value: databaseName))
+        { return; }
 
-        if (!databaseName.Contains("accept", StringComparison.OrdinalIgnoreCase)
-            && !databaseName.Contains("integrationtest", StringComparison.OrdinalIgnoreCase))
+        if (!databaseName.Contains(value: "accept", comparisonType: StringComparison.OrdinalIgnoreCase)
+            && !databaseName.Contains(value: "integrationtest", comparisonType: StringComparison.OrdinalIgnoreCase))
+        {
             throw new InvalidOperationException(
-                $"Refusing to drop non-acceptance test database '{databaseName}'.");
+            $"Refusing to drop non-acceptance test database '{databaseName}'.");
+        }
 
         builder.InitialCatalog = "master";
 
@@ -136,6 +164,7 @@ public static class SecurityWebApplicationFactoryExtensions
         connection.Open();
 
         using SqlCommand command = connection.CreateCommand();
+
         command.CommandText = @"
 IF DB_ID(@databaseName) IS NOT NULL
 BEGIN
@@ -144,8 +173,8 @@ BEGIN
         + N'DROP DATABASE [' + REPLACE(@databaseName, ']', ']]') + N']';
     EXEC(@sql);
 END";
-        _ = command.Parameters.AddWithValue("@databaseName", databaseName);
+
+        _ = command.Parameters.AddWithValue(parameterName: "@databaseName", value: databaseName);
         command.ExecuteNonQuery();
     }
 }
-

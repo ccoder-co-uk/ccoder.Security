@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="cCoder.Eventing" Version="2026.4.*" />
+    <PackageReference Include="cCoder.Eventing" Version="2026.7.23.1424" />
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
   </ItemGroup>
 </Project>

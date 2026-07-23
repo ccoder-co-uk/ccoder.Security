@@ -1,54 +1,77 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Serialization;
+using cCoder.Security.Brokers.Sessions;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
-using Microsoft.AspNetCore.Http;
 
 namespace cCoder.Security.Services.Foundations;
-internal class SessionService(ISession session, ISerializationBroker serilizationBroker) 
+
+internal sealed partial class SessionService(
+    IWebSessionBroker sessionBroker,
+    ISerializationBroker serializationBroker)
     : ISessionService
 {
-    public void SetString(string key, string value)
-    {
-        if (value is null)
-            RemoveKey(key);
-        else
-            session.SetString(key, value);
-    }
+    public void SetString(string key, string value) =>
+        TryCatch(operation: () =>
+        {
+            ValidateSessionOnSet(key: key, value: value);
+
+            if (value is null)
+            {
+                sessionBroker.Remove(key: key);
+            }
+            else
+            {
+                sessionBroker.SetString(key: key, value: value);
+            }
+        });
 
     public void Clear() =>
-        session.Clear();
+        TryCatch(operation: () => sessionBroker.Clear());
 
-    public string GetString(string key)
-    {
-        try
+    public string GetString(string key) =>
+        TryCatch(operation: () =>
         {
-            return session?.GetString(key);
-        }
-        catch (NullReferenceException)
+            ValidateStringOnGet(key: key);
+
+            return sessionBroker.GetString(key: key);
+        });
+
+    public SSOUser GetUser() =>
+        TryCatch(operation: () =>
         {
-            return null;
-        }
-    }
+            ValidateUserOnGet();
+            string userJson = sessionBroker.GetString(key: "ssoUser");
 
-    public SSOUser GetUser()
-    {
-        string userJson = GetString("ssoUser");
+            return !string.IsNullOrEmpty(value: userJson)
+                ? serializationBroker.Deserialize<SSOUser>(input: userJson)
+                : null;
+        });
 
-        return !string.IsNullOrEmpty(userJson)
-            ? serilizationBroker.Deserialize<SSOUser>(userJson)
-            : null;
-    }
+    public void SetSSOUser(SSOUser user) =>
+        TryCatch(operation: () =>
+        {
+            ValidateSSOUserOnSet(user: user);
 
-    public void SetUser(SSOUser user)
-    {
-        if (user != null)
-            session?.SetString("ssoUser", System.Text.Json.JsonSerializer.Serialize(user));
-        else
-            session?.Remove("ssoUser");
-    }
+            if (user != null)
+            {
+                string serializedUser = System.Text.Json.JsonSerializer.Serialize(value: user);
+                sessionBroker.SetString(key: "ssoUser", value: serializedUser);
+            }
+            else
+            {
+                sessionBroker.Remove(key: "ssoUser");
+            }
+        });
 
-    public void RemoveKey(string key) => 
-        session.Remove(key);
+    public void RemoveKey(string key) =>
+        TryCatch(operation: () =>
+        {
+            ValidateSessionOnRemove(key: key);
+
+            sessionBroker.Remove(key: key);
+        });
 }
-
-

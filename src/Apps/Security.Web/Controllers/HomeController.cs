@@ -1,18 +1,18 @@
-using cCoder.Security.Objects;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Microsoft.AspNetCore.Mvc;
+using Security.Web.Exposures;
 
 namespace Security.Web.Controllers;
 
 [Route("")]
-public class HomeController(ISSOAuthInfo authInfo, IWebHostEnvironment environment) : Controller
+public class HomeController(IHomeManager homeManager) : Controller
 {
     [HttpGet]
     public IActionResult Get() =>
         PhysicalFile(
-            Path.Combine(environment.WebRootPath, "index.html"),
-            "text/html");
-
-    [HttpGet("CurrentUser")]
-    public IActionResult CurrentUser() =>
-        Ok(authInfo.SSOUserId);
+            physicalPath: homeManager.GetIndexPath(),
+            contentType: "text/html");
 }

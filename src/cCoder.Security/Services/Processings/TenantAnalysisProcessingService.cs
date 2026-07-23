@@ -1,21 +1,48 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Processings;
-internal class TenantAnalysisProcessingService(ITenantAnalysisService tenantAnalysisService) 
+
+internal sealed partial class TenantAnalysisProcessingService(
+    ITenantAnalysisService tenantAnalysisService)
     : ITenantAnalysisProcessingService
-
 {
-    public ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis item) =>
-        tenantAnalysisService.AddTenantAnalaysisAsync(item);
+    public ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis newTenantAnalysis) =>
+        TryCatch<TenantAnalysis>(operation: async () =>
+        {
+            ValidateTenantAnalysisOnAdd(newTenantAnalysis: newTenantAnalysis);
 
-    public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis item) =>
-        tenantAnalysisService.DeleteTenantAnalysisAsync(item);
+            return await tenantAnalysisService.AddTenantAnalysisAsync(
+                tenant: newTenantAnalysis);
+        });
+
+    public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateTenantAnalysisOnDelete(deletedTenantAnalysis: deletedTenantAnalysis);
+
+            await tenantAnalysisService.DeleteTenantAnalysisAsync(
+                tenant: deletedTenantAnalysis);
+        });
 
     public IQueryable<TenantAnalysis> GetAllTenantAnalysis() =>
-        tenantAnalysisService.GetAllTenantAnalysis();
+        TryCatch(operation: () =>
+        {
+            ValidateTenantAnalysisOnGet();
 
-    public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis item) =>
-        tenantAnalysisService.UpdateTenantAnalysisAsync(item);
+            return tenantAnalysisService.GetAllTenantAnalysis();
+        });
+
+    public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis) =>
+        TryCatch<TenantAnalysis>(operation: async () =>
+        {
+            ValidateTenantAnalysisOnUpdate(updatedTenantAnalysis: updatedTenantAnalysis);
+
+            return await tenantAnalysisService.UpdateTenantAnalysisAsync(
+                tenant: updatedTenantAnalysis);
+        });
 }
-

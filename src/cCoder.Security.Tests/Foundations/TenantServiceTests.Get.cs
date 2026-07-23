@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -10,25 +14,25 @@ public partial class TenantServiceTests
     [Fact]
     public void GetAllTenantsWorksAsExpected()
     {
-        //given
+        // Given
         IQueryable<Tenant> expectedTenants = RandomTenants()
             .AsQueryable();
 
-        tenantBrokerMock.Setup(tenantBrokerMock =>
-            tenantBrokerMock.GetAllTenants())
-            .Returns(expectedTenants);
+        tenantBrokerMock.Setup(expression: tenantBrokerMock =>
+            tenantBrokerMock.SelectAllTenants())
+            .Returns(value: expectedTenants);
 
-        //when
+        // When
         IQueryable<Tenant> actualTenants = tenantService.GetAllTenants();
 
-        //then
-        actualTenants.Should().BeEquivalentTo(expectedTenants);
+        // Then
+        actualTenants.Should()
+            .BeEquivalentTo(expectation: expectedTenants);
 
-        tenantBrokerMock.Verify(tenantBrokerMock =>
-            tenantBrokerMock.GetAllTenants(),
-            Times.Once());
+        tenantBrokerMock.Verify(expression: tenantBrokerMock =>
+            tenantBrokerMock.SelectAllTenants(),
+times: Times.Once());
 
         tenantBrokerMock.VerifyNoOtherCalls();
     }
 }
-

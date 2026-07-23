@@ -1,8 +1,17 @@
-using cCoder.Security.Exposures.EDM;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Security.Brokers.Authentication;
+using cCoder.Security.Dependencies.EDM;
+using cCoder.Security.Dependencies.Sessions;
+using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Requests;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Brokers.Serialization;
+using cCoder.Security.Brokers.Sessions;
 using cCoder.Security.Brokers.Storage;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Brokers.Utility;
@@ -19,8 +28,9 @@ using cCoder.Security.Services.Foundations.Events;
 using cCoder.Security.Services.Orchestrations;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings;
-using cCoder.Security.Services.Processings.Events;
 using cCoder.Security.Services.Processings.Interfaces;
+using cCoder.Security.Services.Aggregations;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
 
@@ -31,18 +41,18 @@ public static class IServiceCollectionExtensions
     public static void AddSecurityApi(
         this IServiceCollection services,
         Action<IServiceCollection, SecurityConfiguration> configAction) =>
-        services.AddSecurityWeb(configAction);
+        services.AddSecurityWeb(configAction: configAction);
 
     public static SecurityConfiguration AddSecurityWeb(
         this IServiceCollection services,
         Action<IServiceCollection, SecurityConfiguration> configAction) =>
-        services.AddSecurity(configAction);
+        services.AddSecurity(configAction: configAction);
 
     public static SecurityConfiguration AddSecurityHostedServices(
         this IServiceCollection services,
         Action<IServiceCollection, SecurityConfiguration> configAction)
     {
-        SecurityConfiguration securityConfiguration = services.AddSecurity(configAction);
+        SecurityConfiguration securityConfiguration = services.AddSecurity(configAction: configAction);
         services.AddSecurityHostedServiceExposures();
 
         return securityConfiguration;
@@ -53,8 +63,8 @@ public static class IServiceCollectionExtensions
         Action<IServiceCollection, SecurityConfiguration> configAction)
     {
         SecurityConfiguration securityConfiguration = new();
-        configAction(services, securityConfiguration);
-        services.AddSingleton(securityConfiguration);
+        configAction(arg1: services, arg2: securityConfiguration);
+        services.AddSingleton(implementationInstance: securityConfiguration);
 
         services.AddEventing();
         services.AddEventingTypes();
@@ -66,8 +76,8 @@ public static class IServiceCollectionExtensions
         services.AddExposures();
         services.AddEventHandlers();
 
-        if (!string.IsNullOrWhiteSpace(securityConfiguration.RootPath))
-            services.AddSecurityApiLayer(securityConfiguration.RootPath);
+        if (!string.IsNullOrWhiteSpace(value: securityConfiguration.RootPath))
+        { services.AddSecurityApiLayer(atPath: securityConfiguration.RootPath); }
 
         return securityConfiguration;
     }
@@ -80,6 +90,9 @@ public static class IServiceCollectionExtensions
 
     private static void AddBrokers(this IServiceCollection services)
     {
+        services.AddSingleton<ISecurityConfigurationBroker, SecurityConfigurationBroker>();
+        services.AddTransient<IAuthenticationContextBroker, AuthenticationContextBroker>();
+        services.AddTransient<IWebSessionBroker, WebSessionBroker>();
         services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
         services.AddTransient<ISessionBroker, SessionBroker>();
         services.AddTransient<ISSOPrivilegeBroker, SSOPrivilegeBroker>();
@@ -93,6 +106,14 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISerializationBroker, SerializationBroker>();
         services.AddTransient<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
         services.AddTransient<ISSOAuthorizationBroker, SSOAuthorizationBroker>();
+        services.AddTransient<IAuthorizationService, AuthorizationService>();
+        services.AddTransient<IAuthorizationProcessingService, AuthorizationProcessingService>();
+        services.AddTransient<IRequestService, RequestService>();
+        services.AddTransient<IRequestProcessingService, RequestProcessingService>();
+        services.AddTransient<ILoggingBroker, LoggingBroker>();
+        services.AddTransient<ILoggingService, LoggingService>();
+        services.AddTransient<ILoggingProcessingService, LoggingProcessingService>();
+        services.AddTransient<IAccountEventProcessingService, AccountEventProcessingService>();
 
         services.AddTransient<IEventHubBroker, EventHubBroker>();
         services.AddTransient<IAccountEventBroker, AccountEventBroker>();
@@ -101,10 +122,12 @@ public static class IServiceCollectionExtensions
 
     private static void AddFoundations(this IServiceCollection services)
     {
-        services.AddTransient(async provider =>
-            await provider.GetRequiredService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfoAsync());
+        services.AddTransient(implementationFactory: async provider =>
+            await provider
+                .GetRequiredService<ISSOAuthInfoAggregationService>()
+                .GetSSOAuthInfoAsync());
 
-        services.AddTransient(provider =>
+        services.AddTransient(implementationFactory: provider =>
         {
             Task<ISSOAuthInfo> authInfoTask = provider.GetRequiredService<Task<ISSOAuthInfo>>();
             authInfoTask.Wait();
@@ -138,18 +161,16 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISessionProcessingService, SessionProcessingService>();
         services.AddTransient<IUserEventProcessingService, UserEventProcessingService>();
 
-        services.AddTransient<ITenantSetupEventProcessingService, TenantSetupEventProcessingService>();
     }
 
     private static void AddOrchestrations(this IServiceCollection services)
     {
-        services.AddTransient<ISSOAuthInfoOrchestrationService, SSOAuthInfoOrchestrationService>();
-        services.AddTransient<IAuthenticationOrchestrationService, AuthenticationOrchestrationService>();
-        services.AddTransient<ITenantOrchestrationService, TenantOrchestrationService>();
-        services.AddTransient<ITenantRelationsOrchestrationService, TenantRelationsOrchestrationService>();
-        services.AddTransient<ITenantSetupOrchestrationService, TenantSetupOrchestrationService>();
-        services.AddTransient<ITenantCoordinationService, TenantCoordinationService>();
-        services.AddTransient<ISSOUserOrchestrationService, SSOUserOrchestrationService>();
+        services.AddTransient<ISSOAuthInfoAggregationService, SSOAuthInfoAggregationService>();
+        services.AddTransient<IAuthenticationAggregationService, AuthenticationAggregationService>();
+        services.AddTransient<ICurrentUserAggregationService, CurrentUserAggregationService>();
+        services.AddTransient<ITenantAggregationService, TenantAggregationService>();
+        services.AddTransient<ISSOUserAggregationService, SSOUserAggregationService>();
+        services.AddTransient<IRegistrationAggregationService, RegistrationAggregationService>();
         services.AddTransient<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();
         services.AddTransient<ISSORoleOrchestrationService, SSORoleOrchestrationService>();
     }
@@ -163,7 +184,8 @@ public static class IServiceCollectionExtensions
     private static void AddSecurityHostedServiceExposures(this IServiceCollection services)
     {
         services.AddSingleton<ITokenCleaner, TokenCleaner>();
-        services.AddSingleton<IHostedService>(serviceProvider =>
+
+        services.AddSingleton<IHostedService>(implementationFactory: serviceProvider =>
             serviceProvider.GetRequiredService<ITokenCleaner>());
     }
 
@@ -173,19 +195,30 @@ public static class IServiceCollectionExtensions
     private static void AddAspNet(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
-        services.AddTransient(ctx => ctx.GetService<IHttpContextAccessor>()?.HttpContext);
-        services.AddTransient(ctx => ctx.GetService<HttpContext>()?.Request);
-        services.AddTransient(ctx => ctx.GetService<HttpContext>()?.Session);
+        services.AddTransient(implementationFactory: ctx => ctx.GetService<IHttpContextAccessor>()?.HttpContext);
+        services.AddTransient(implementationFactory: ctx => ctx.GetService<HttpContext>()?.Request);
+        services.AddTransient<ISession>(implementationFactory: context =>
+            context.GetService<HttpContext>()?.Session ??
+            new NullSession());
         services.AddSession();
     }
 
     public static void AddSecurityApiLayer(this IServiceCollection services, string atPath) =>
         services.AddControllers()
-            .AddOData(options =>
+            .AddOData(setupAction: options =>
             {
-                options.Expand().Count().Filter().Select().OrderBy().SetMaxTop(1000);
-                options.AddRouteComponents(atPath, new SecurityModelBuilder().Build().EDMModel);
+                options
+                    .Expand()
+                    .Count()
+                    .Filter()
+                    .Select()
+                    .OrderBy()
+                    .SetMaxTop(maxTopValue: 1000);
+
+                options.AddRouteComponents(
+                    routePrefix: atPath,
+                    model: new SecurityModelBuilder()
+                        .Build()
+                        .EDMModel);
             });
 }
-
-

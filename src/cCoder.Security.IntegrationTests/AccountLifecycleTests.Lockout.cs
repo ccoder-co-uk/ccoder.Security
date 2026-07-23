@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -10,19 +14,22 @@ public partial class AccountLifecycleTests
     [Fact]
     public async Task ShouldRejectValidLoginAfterFailedAttemptsTriggerLockoutAsync()
     {
-        // given
-        RegisterUser user = CreateRegisterUser("lockout");
-        (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user);
-        await ConfirmRegistrationAsync(confirmationToken);
+        // Given
+        RegisterUser user = CreateRegisterUser(name: "lockout");
+        (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user: user);
+        await ConfirmRegistrationAsync(token: confirmationToken);
 
-        Auth invalidAuth = CreateAuth(user, password: "WrongPass01!");
+        Auth invalidAuth = CreateAuth(user: user, password: "WrongPass01!");
 
-        // when
+        // When
         for (int attempt = 0; attempt < 11; attempt++)
-            await AssertLoginRejectedAsync(invalidAuth);
+        { await AssertLoginRejectedAsync(auth: invalidAuth); }
 
-        // then
-        FindUser(registeredUser.Id).LockoutEnabled.Should().BeTrue();
-        await AssertLoginRejectedAsync(CreateAuth(user));
+        // Then
+        FindUser(userId: registeredUser.Id)
+            .LockoutEnabled.Should()
+            .BeTrue();
+
+        await AssertLoginRejectedAsync(auth: CreateAuth(user: user));
     }
 }

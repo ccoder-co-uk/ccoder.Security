@@ -1,13 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using Security.Web.Exposures.Setup;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
 
+using Microsoft.AspNetCore.Mvc;
 namespace Security.Web.Exposures.Controllers;
 
 [ApiController]
 [Route("Api/Security/Baseline")]
-public sealed class BaselineController : ControllerBase
+public sealed class BaselineController(
+    IUIBaselineManager uiBaselineManager)
+        : ControllerBase
 {
     [HttpGet]
     public IActionResult Get() =>
-        Ok(UIBaseline.Packages);
+        Ok(value: uiBaselineManager.GetPackages());
 }

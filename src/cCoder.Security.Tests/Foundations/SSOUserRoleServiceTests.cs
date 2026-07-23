@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations;
@@ -18,14 +22,13 @@ public partial class SSOUserRoleServiceTests
         userRoleService = new SSOUserRoleService(userRoleBrokerMock.Object);
     }
 
-    private static IQueryable<SSOUserRole> RandomUserRoles() => 
-        Enumerable.Range(0, new Random().Next(100))
-            .Select(i => RandomUserRole())
+    private static IQueryable<SSOUserRole> RandomUserRoles() =>
+        Enumerable.Range(start: 0, count: new Random().Next(maxValue:100))
+            .Select(selector: i => RandomUserRole())
             .AsQueryable();
 
-    private static SSOUserRole RandomUserRole() => 
+    private static SSOUserRole RandomUserRole() =>
         Builder<SSOUserRole>
             .CreateNew()
             .Build();
 }
-

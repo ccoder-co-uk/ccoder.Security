@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace cCoder.Security.Data.EF.Interfaces;
 

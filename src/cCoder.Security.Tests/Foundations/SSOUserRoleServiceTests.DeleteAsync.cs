@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Force.DeepCloner;
 using Moq;
@@ -10,17 +14,17 @@ public partial class SSOUserRoleServiceTests
     [Fact]
     public async Task ShouldDeleteSSOUserRoleAsync()
     {
-        // given
+        // Given
         SSOUserRole inputSSOUserRole = RandomUserRole();
         SSOUserRole expectedSSOUserRole = inputSSOUserRole.DeepClone();
 
-        // when
-        await userRoleService.DeleteSSOUserRoleAsync(inputSSOUserRole);
+        // When
+        await userRoleService.DeleteSSOUserRoleAsync(item: inputSSOUserRole);
 
-        // then
-        userRoleBrokerMock.Verify(broker => 
-            broker.DeleteSSOUserRoleAsync(inputSSOUserRole), 
-            Times.Once);
+        // Then
+        userRoleBrokerMock.Verify(expression: broker =>
+            broker.DeleteSSOUserRoleAsync(userRole: inputSSOUserRole),
+times: Times.Once);
 
         userRoleBrokerMock.VerifyNoOtherCalls();
     }

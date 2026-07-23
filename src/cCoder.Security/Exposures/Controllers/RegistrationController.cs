@@ -1,68 +1,84 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
-public class RegistrationController(ISSOUserOrchestrationService ssoUserOrchestrationService) 
+public class RegistrationController(
+    IRegistrationAggregationService registrationAggregationService)
     : Controller
 {
     [HttpPost("Register")]
-    public async ValueTask<IActionResult> Register([FromBody] RegisterUser registerForm)
+    public async ValueTask<IActionResult> PostRegister([FromBody] RegisterUser newRegisterUser)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string confirmationToken) = await ssoUserOrchestrationService.Register(registerForm);
+        RegisterUser registeredUser =
+            await registrationAggregationService.RegisterUserAsync(
+            registerForm: newRegisterUser);
 
-        return Ok(new
+        return Ok(value: new
         {
-            User = user,
-            Token = confirmationToken
+            registeredUser.User,
+            registeredUser.Token
         });
     }
 
     [HttpPost("ConfirmRegistration")]
-    public async ValueTask<IActionResult> ConfirmRegistration(string confirmationToken)
+    public async ValueTask<IActionResult> PostConfirmRegistration(string confirmationToken)
     {
-        await ssoUserOrchestrationService.ConfirmRegistration(confirmationToken);
+        await registrationAggregationService.ConfirmRegistration(
+            tokenId: confirmationToken);
+
         return Ok();
     }
 
     [HttpPost("Invite")]
-    public async ValueTask<IActionResult> Invite([FromBody] RegisterUser inviteForm)
+    public async ValueTask<IActionResult> PostInvite([FromBody] RegisterUser newRegisterUser)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        { return BadRequest(modelState: ModelState); }
 
-        (SSOUser user, string invitationToken) = await ssoUserOrchestrationService.InviteUserAsync(inviteForm);
+        RegisterUser invitedUser =
+            await registrationAggregationService.InviteRegisterUserAsync(
+            registerForm: newRegisterUser);
 
-        return Ok(new
+        return Ok(value: new
         {
-            User = user,
-            Token = invitationToken
+            invitedUser.User,
+            invitedUser.Token
         });
     }
 
     [HttpPost("ResendInvite")]
-    public async ValueTask<IActionResult> ResendInvite([FromQuery] string userId)
+    public async ValueTask<IActionResult> PostResendInvite([FromQuery] string userId)
     {
-        string invitationToken = await ssoUserOrchestrationService.RegenerateUserInviteToken(userId);
-        return Ok(new { Token = invitationToken });
+        string invitationToken = await registrationAggregationService
+            .RegenerateUserInviteToken(userId: userId);
+
+        return Ok(value: new { Token = invitationToken });
     }
 
     [HttpPost("AcceptInvite")]
-    public async ValueTask<IActionResult> AcceptInvite(
+    public async ValueTask<IActionResult> PostAcceptInvite(
         [FromQuery] string userId,
         [FromQuery] string inviteToken,
-        [FromBody] RegisterUser inviteForm)
+        [FromBody] RegisterUser newRegisterUser)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        { return BadRequest(modelState: ModelState); }
 
-        await ssoUserOrchestrationService.AcceptInviteAsync(inviteForm, userId, inviteToken);
+        await registrationAggregationService.AcceptRegisterUserInviteAsync(
+            registerForm: newRegisterUser,
+            userId: userId,
+            tokenId: inviteToken);
 
         return Ok();
     }

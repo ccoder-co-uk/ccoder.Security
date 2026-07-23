@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -10,16 +14,20 @@ public partial class SSOPrivilegeServiceTests
     [Fact]
     public void ShouldGetAllSSOPrivileges()
     {
-        // given
+        // Given
         IQueryable<SSOPrivilege> expectedSSOPrivileges = RandomSSOPrivileges();
-        privBrokerMock.Setup(broker => broker.GetPrivileges()).Returns(expectedSSOPrivileges);
 
-        // when
+        privBrokerMock.Setup(expression: broker => broker.SelectPrivileges())
+            .Returns(value: expectedSSOPrivileges);
+
+        // When
         IEnumerable<SSOPrivilege> actualSSOPrivileges = privService.GetAllSSOPrivileges();
 
-        // then
-        actualSSOPrivileges.Should().BeEquivalentTo(expectedSSOPrivileges);
-        privBrokerMock.Verify(broker => broker.GetPrivileges(), Times.Once);
+        // Then
+        actualSSOPrivileges.Should()
+            .BeEquivalentTo(expectation: expectedSSOPrivileges);
+
+        privBrokerMock.Verify(expression: broker => broker.SelectPrivileges(), times: Times.Once);
         privBrokerMock.VerifyNoOtherCalls();
     }
 }

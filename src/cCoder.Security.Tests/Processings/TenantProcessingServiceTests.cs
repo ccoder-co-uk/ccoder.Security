@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings;
@@ -18,25 +22,29 @@ public partial class TenantProcessingServiceTests
         tenantProcessingService = new TenantProcessingService(tenantServiceMock.Object);
     }
 
-    public Tenant[] RandomTenants() => 
-        Enumerable.Range(1, new Random().Next(1, 20))
-            .Select(_ => RandomTenant())
+    public Tenant[] RandomTenants() =>
+        Enumerable.Range(start: 1, count: new Random().Next(minValue:1, maxValue:20))
+            .Select(selector: _ => RandomTenant())
             .ToArray();
 
-    public Tenant RandomTenant() => 
-        GetTenantFiller().Create();
+    public Tenant RandomTenant() =>
+        GetTenantFiller()
+            .Create();
 
     public Filler<Tenant> GetTenantFiller()
     {
         Filler<Tenant> filler = new();
 
         filler.Setup()
-            .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)
-            .OnProperty(p => p.Analysis).IgnoreIt()
-            .OnProperty(p => p.UserEvents).IgnoreIt()
-            .OnProperty(p => p.Roles).IgnoreIt();
+            .OnType<DateTimeOffset>()
+            .Use(valueToUse:DateTimeOffset.Now)
+            .OnProperty(property:p => p.Analysis)
+            .IgnoreIt()
+            .OnProperty(property: p => p.UserEvents)
+            .IgnoreIt()
+            .OnProperty(property: p => p.Roles)
+            .IgnoreIt();
 
         return filler;
-    } 
+    }
 }
-

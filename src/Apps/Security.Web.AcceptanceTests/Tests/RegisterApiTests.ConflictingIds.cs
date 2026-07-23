@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -12,7 +16,9 @@ public partial class RegisterApiTests
     public async Task ShouldRegisterMultipleAccountsWithSameEmailLocalPartAsync()
     {
         // Given.
+        // Given
         RegisterUser inputRegisterUser1 = RandomRegisterUser();
+
         SSOUser expectedSSOUser1 = new()
         {
             AccessFailedCount = 0,
@@ -23,11 +29,12 @@ public partial class RegisterApiTests
             LockoutEndDateUtc = null,
             PhoneNumber = inputRegisterUser1.PhoneNumber,
             PhoneNumberConfirmed = false,
-            Id = inputRegisterUser1.Email.Split('@')[0]
+            Id = inputRegisterUser1.Email.Split(separator: '@')[0]
         };
 
         RegisterUser inputRegisterUser2 = RandomRegisterUser();
         inputRegisterUser2.Email = inputRegisterUser1.Email + ".uk";
+
         SSOUser expectedSSOUser2 = new()
         {
             AccessFailedCount = 0,
@@ -43,6 +50,7 @@ public partial class RegisterApiTests
 
         RegisterUser inputRegisterUser3 = RandomRegisterUser();
         inputRegisterUser3.Email = inputRegisterUser1.Email + ".com";
+
         SSOUser expectedSSOUser3 = new()
         {
             AccessFailedCount = 0,
@@ -58,13 +66,13 @@ public partial class RegisterApiTests
 
         // When.
         RegistrationResult result1 = await userApiClient
-            .RegisterAsync(inputRegisterUser1);
+            .RegisterAsync(registerUser: inputRegisterUser1);
 
         RegistrationResult result2 = await userApiClient
-            .RegisterAsync(inputRegisterUser2);
+            .RegisterAsync(registerUser: inputRegisterUser2);
 
         RegistrationResult result3 = await userApiClient
-            .RegisterAsync(inputRegisterUser3);
+            .RegisterAsync(registerUser: inputRegisterUser3);
 
         SSOUser actualSSOUser1 = result1.User;
         SSOUser actualSSOUser2 = result2.User;
@@ -72,15 +80,22 @@ public partial class RegisterApiTests
 
         expectedSSOUser1.PasswordHash = actualSSOUser1.PasswordHash;
         expectedSSOUser2.PasswordHash = actualSSOUser2.PasswordHash;
+        // When
         expectedSSOUser3.PasswordHash = actualSSOUser3.PasswordHash;
 
         // Then.
-        actualSSOUser1.Should().BeEquivalentTo(expectedSSOUser1);
-        actualSSOUser2.Should().BeEquivalentTo(expectedSSOUser2);
-        actualSSOUser3.Should().BeEquivalentTo(expectedSSOUser3);
+        // Then
+        actualSSOUser1.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser1);
 
-        await TearDownUserAsync(actualSSOUser1.Id);
-        await TearDownUserAsync(actualSSOUser2.Id);
-        await TearDownUserAsync(actualSSOUser3.Id);
+        actualSSOUser2.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser2);
+
+        actualSSOUser3.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser3);
+
+        await TearDownUserAsync(userId: actualSSOUser1.Id);
+        await TearDownUserAsync(userId: actualSSOUser2.Id);
+        await TearDownUserAsync(userId: actualSSOUser3.Id);
     }
 }

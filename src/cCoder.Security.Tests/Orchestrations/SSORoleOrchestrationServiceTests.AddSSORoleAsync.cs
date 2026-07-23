@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -10,6 +14,7 @@ public partial class SSORoleOrchestrationServiceTests
     [Fact]
     public async Task ShouldAllowBootstrappingFirstRoleWithoutPortalAdminCheck()
     {
+        // Given
         SSORole inputRole = new()
         {
             Name = "Administrators",
@@ -17,23 +22,30 @@ public partial class SSORoleOrchestrationServiceTests
         };
 
         roleProcessingServiceMock
-            .Setup(x => x.GetAllSSORoles())
-            .Returns(Array.Empty<SSORole>().AsQueryable());
+            .Setup(expression: x => x.GetAllSSORoles())
+            .Returns(value: Array.Empty<SSORole>()
+                                .AsQueryable());
+
         roleProcessingServiceMock
-            .Setup(x => x.AddSSORoleAsync(inputRole))
-            .ReturnsAsync(inputRole);
+            .Setup(expression: x => x.AddSSORoleAsync(item:inputRole))
+            .ReturnsAsync(value: inputRole);
 
-        SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(inputRole);
+        // When
+        SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
 
-        actualRole.Should().BeSameAs(inputRole);
-        authorizationBrokerMock.Verify(
-            x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
-            Times.Never);
+        // Then
+        actualRole.Should()
+            .BeSameAs(expected: inputRole);
+
+        authorizationProcessingServiceMock.Verify(
+expression: service => service.EnsureUserIsPortalAdminWithPrivilege(privilege: It.IsAny<string>()),
+times: Times.Never);
     }
 
     [Fact]
     public async Task ShouldRequirePortalAdminCheckAfterBootstrapRoleExists()
     {
+        // Given
         SSORole inputRole = new()
         {
             Name = "Editors",
@@ -41,19 +53,24 @@ public partial class SSORoleOrchestrationServiceTests
         };
 
         roleProcessingServiceMock
-            .Setup(x => x.GetAllSSORoles())
-            .Returns(new[] { new SSORole { Name = "Administrators", TenantId = "tenant-1" } }.AsQueryable());
-        authorizationBrokerMock
-            .Setup(x => x.UserIsPortalAdminWithPrivilege("tenant_admin"));
+            .Setup(expression: x => x.GetAllSSORoles())
+            .Returns(value: new[] { new SSORole { Name = "Administrators", TenantId = "tenant-1" } }.AsQueryable());
+
+        authorizationProcessingServiceMock
+            .Setup(expression: service =>
+                service.EnsureUserIsPortalAdminWithPrivilege(
+                    privilege: "tenant_admin"));
+
         roleProcessingServiceMock
-            .Setup(x => x.AddSSORoleAsync(inputRole))
-            .ReturnsAsync(inputRole);
+            .Setup(expression: x => x.AddSSORoleAsync(item:inputRole))
+            .ReturnsAsync(value: inputRole);
 
-        await roleOrchestrationService.AddSSORoleAsync(inputRole);
+        // When
+        await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
 
-        authorizationBrokerMock.Verify(
-            x => x.UserIsPortalAdminWithPrivilege("tenant_admin"),
-            Times.Once);
+        // Then
+        authorizationProcessingServiceMock.Verify(
+expression: service => service.EnsureUserIsPortalAdminWithPrivilege(privilege: "tenant_admin"),
+times: Times.Once);
     }
 }
-

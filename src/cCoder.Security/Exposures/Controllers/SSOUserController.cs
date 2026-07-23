@@ -1,51 +1,60 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
-using cCoder.Security.Services.Orchestrations.Interfaces;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestrationService)
-        : SecurityController<SSOUser>
+public class SSOUserController(ISSOUserAggregationService ssoUserAggregationService)
+        : Controller
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<SSOUser> queryOptions) =>
-        Ok(ssoUserOrchestrationService.GetAllSSOUsers());
+        Ok(value: ssoUserAggregationService.GetAllSSOUsers());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] string key)
     {
-        IQueryable<SSOUser> result = ssoUserOrchestrationService
+        IQueryable<SSOUser> result = ssoUserAggregationService
             .GetAllSSOUsers()
-            .Where(i => i.Id == key);
+            .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(queryable: result))
             : NotFound();
     }
 
     [HttpPut]
     [EnableQuery]
-    public virtual async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] SSOUser ssoUser) =>
+    public virtual async ValueTask<IActionResult> Put(
+        [FromRoute] string key,
+        [FromBody] SSOUser updatedSSOUser) =>
         ModelState.IsValid
-            ? Get((await ssoUserOrchestrationService.UpdateSSOUserAsync(key, ssoUser)).Id)
-            : BadRequest(ModelState);
+            ? Get(key: (await ssoUserAggregationService.UpdateSSOUserAsync(
+                username: key,
+                updatedSSOUser: updatedSSOUser)).Id)
+            : BadRequest(modelState: ModelState);
 
     [HttpDelete]
     public virtual async ValueTask<IActionResult> Delete([FromRoute] string key, string reference = null)
     {
-        SSOUser origentity = ssoUserOrchestrationService
+        SSOUser origentity = ssoUserAggregationService
             .GetAllSSOUsers()
-            .FirstOrDefault(i => i.Id == key);
+            .FirstOrDefault(predicate: i => i.Id == key);
 
         if (origentity == null)
-            return NotFound();
+        { return NotFound(); }
 
-        await ssoUserOrchestrationService.DeleteSSOUserAsync(origentity);
+        await ssoUserAggregationService.DeleteSSOUserAsync(
+            deletedSSOUser: origentity);
+
         return Ok();
     }
 }
-

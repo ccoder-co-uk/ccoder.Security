@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Exposures.EventHandlers;
 
 namespace cCoder.Security;
@@ -5,14 +9,14 @@ namespace cCoder.Security;
 public static class WebApplicationExtensions
 {
     public static WebApplication StartSecurityWeb(this WebApplication app, ILogger log = null) =>
-        app.UseSecurityExposure(log);
+        app.UseSecurityExposure(log: log);
 
     public static WebApplication StartSecurityHostedServices(this WebApplication app) =>
         app.ListenToSecurityEvents();
 
     public static WebApplication UseSecurityExposure(this WebApplication app, ILogger log = null)
     {
-        log?.LogInformation("Initialising Security");
+        log?.LogInformation(message: "Initialising Security");
         return app;
     }
 
@@ -22,7 +26,7 @@ public static class WebApplicationExtensions
         IServiceProvider services = serviceScope.ServiceProvider;
 
         foreach (ISecurityEventHandlers handlers in services.GetServices<ISecurityEventHandlers>())
-            handlers.ListenToAllEvents();
+        { handlers.ListenToAllEvents(); }
 
         return app;
     }

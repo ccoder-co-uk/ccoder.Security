@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -10,25 +14,25 @@ public partial class UserEventProcessingServiceTests
     [Fact]
     public void ShouldGetAllUserEvents()
     {
-        //given
+        // Given
         IQueryable<UserEvent> expectedUserEvents = RandomUserEvents()
             .AsQueryable();
 
-        userEventServiceMock.Setup(userEventServiceMock =>
+        userEventServiceMock.Setup(expression: userEventServiceMock =>
             userEventServiceMock.GetAllUserEvents())
-            .Returns(expectedUserEvents);
+            .Returns(value: expectedUserEvents);
 
-        //when
+        // When
         IQueryable<UserEvent> actualUserEvents = userEventProcessingService.GetAllUserEvents();
 
-        //then
-        actualUserEvents.Should().BeEquivalentTo(expectedUserEvents);
+        // Then
+        actualUserEvents.Should()
+            .BeEquivalentTo(expectation: expectedUserEvents);
 
-        userEventServiceMock.Verify(userEventServiceMock =>
+        userEventServiceMock.Verify(expression: userEventServiceMock =>
             userEventServiceMock.GetAllUserEvents(),
-            Times.Once());
+times: Times.Once());
 
         userEventServiceMock.VerifyNoOtherCalls();
     }
 }
-

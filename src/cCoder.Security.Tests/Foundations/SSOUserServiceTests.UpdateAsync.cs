@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -11,28 +15,36 @@ public partial class SSOUserServiceTests
     [Fact]
     public async Task ShouldUpdateSSOUserAsync()
     {
-        // given
-        SSOUser inputSSOUser = RandomUser(RandomString());
+        // Given
+        SSOUser inputSSOUser = RandomUser(id: RandomString());
         SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
         SSOUser submitted = null;
+
         userBrokerMock
-            .Setup(broker => broker.UpdateSSOUserAsync(It.IsAny<SSOUser>()))
-            .Callback<SSOUser>(candidate => submitted = candidate)
-            .ReturnsAsync(expectedSSOUser);
+            .Setup(expression:broker => broker.UpdateSSOUserAsync(user:It.IsAny<SSOUser>()))
+            .Callback<SSOUser>(action: candidate => submitted = candidate)
+            .ReturnsAsync(value: expectedSSOUser);
 
-        // when
-        SSOUser actualSSOUser = await userService.UpdateSSOUserAsync(inputSSOUser);
+        // When
+        SSOUser actualSSOUser = await userService.UpdateSSOUserAsync(item: inputSSOUser);
 
-        // then
-        actualSSOUser.Should().BeSameAs(inputSSOUser);
-        submitted.Should().NotBeSameAs(inputSSOUser);
-        actualSSOUser.Should().NotBeSameAs(submitted);
-        actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeSameAs(expected: inputSSOUser);
 
-        userBrokerMock.Verify(broker => 
-            broker.UpdateSSOUserAsync(It.IsAny<SSOUser>()), 
-            Times.Once);
+        submitted.Should()
+            .NotBeSameAs(unexpected: inputSSOUser);
+
+        actualSSOUser.Should()
+            .NotBeSameAs(unexpected: submitted);
+
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: expectedSSOUser);
+
+        userBrokerMock.Verify(expression: broker =>
+            broker.UpdateSSOUserAsync(user: It.IsAny<SSOUser>()),
+times: Times.Once);
 
         userBrokerMock.VerifyNoOtherCalls();
     }

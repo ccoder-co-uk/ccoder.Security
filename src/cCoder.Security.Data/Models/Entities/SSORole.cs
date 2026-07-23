@@ -1,4 +1,8 @@
-﻿namespace cCoder.Security.Objects.Entities;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+namespace cCoder.Security.Objects.Entities;
 
 public class SSORole
 {

@@ -1,37 +1,57 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace Security.HostedServices.AcceptanceTests.Tests;
 
-public class HealthTests
+public partial class HealthTests
 {
     [Fact]
     public async Task ShouldReturnHostedServicesReportForGetRoot()
     {
+        // Given
         using WebApplicationFactory<AcceptanceHost> factory = new();
         using HttpClient client = factory.CreateClient();
 
-        HttpResponseMessage response = await client.GetAsync("/");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/");
 
         response.EnsureSuccessStatusCode();
+        // When
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("cCoder.Security Hosted Services");
-        content.Should().Contain("TokenCleaner");
-        content.Should().NotContain("tenant_setup");
-        content.Should().NotContain("Hosted event listeners");
+
+        // Then
+        content.Should()
+            .Contain(expected: "cCoder.Security Hosted Services");
+
+        content.Should()
+            .Contain(expected: "TokenCleaner");
+
+        content.Should()
+            .NotContain(unexpected: "tenant_setup");
+
+        content.Should()
+            .NotContain(unexpected: "Hosted event listeners");
     }
 
     [Fact]
     public async Task ShouldReturnHealthyForGetHealth()
     {
+        // Given
         using WebApplicationFactory<AcceptanceHost> factory = new();
         using HttpClient client = factory.CreateClient();
 
-        HttpResponseMessage response = await client.GetAsync("/Health");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/Health");
 
         response.EnsureSuccessStatusCode();
+        // When
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Be("Healthy");
+
+        // Then
+        content.Should()
+            .Be(expected: "Healthy");
     }
 }

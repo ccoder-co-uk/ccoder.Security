@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -11,25 +15,25 @@ public partial class UserEventProcessingServiceTests
     [Fact]
     public async Task AddUserEventAsyncWorksAsExpected()
     {
-        //given
+        // Given
         UserEvent inputUserEvent = RandomUserEvent();
         UserEvent expectedUserEvent = inputUserEvent.DeepClone();
 
-        userEventServiceMock.Setup(userEventServiceMock =>
-            userEventServiceMock.AddUserEventAsync(inputUserEvent))
-            .ReturnsAsync(expectedUserEvent);
+        userEventServiceMock.Setup(expression: userEventServiceMock =>
+            userEventServiceMock.AddUserEventAsync(userEvent:inputUserEvent))
+            .ReturnsAsync(value: expectedUserEvent);
 
-        //when
-        UserEvent actualUserEvent = await userEventProcessingService.AddUserEventAsync(inputUserEvent);
+        // When
+        UserEvent actualUserEvent = await userEventProcessingService.AddUserEventAsync(userEvent: inputUserEvent);
 
-        //then
-        actualUserEvent.Should().BeEquivalentTo(expectedUserEvent);
+        // Then
+        actualUserEvent.Should()
+            .BeEquivalentTo(expectation: expectedUserEvent);
 
-        userEventServiceMock.Verify(userEventServiceMock =>
-            userEventServiceMock.AddUserEventAsync(inputUserEvent),
-            Times.Once());
+        userEventServiceMock.Verify(expression: userEventServiceMock =>
+            userEventServiceMock.AddUserEventAsync(userEvent: inputUserEvent),
+times: Times.Once());
 
         userEventServiceMock.VerifyNoOtherCalls();
     }
 }
-

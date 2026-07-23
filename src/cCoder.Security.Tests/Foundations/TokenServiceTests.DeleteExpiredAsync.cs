@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Moq;
 using Xunit;
 
@@ -8,26 +12,26 @@ public partial class TokenServiceTests
     [Fact]
     public async Task ShouldDeleteExpiredTokensAsync()
     {
-        // given
-        int expectedDeletedTokenCount = new Random().Next(1, 100);
+        // Given
+        int expectedDeletedTokenCount = new Random().Next(minValue: 1, maxValue: 100);
 
         tokenBrokerMock
-            .Setup(broker => broker.DeleteExpiredAsync(
-                It.IsAny<DateTimeOffset>(),
-                It.IsAny<CancellationToken>()))
-            .ReturnsAsync(expectedDeletedTokenCount);
+            .Setup(expression: broker => broker.DeleteExpiredAsync(
+expiresBefore:                It.IsAny<DateTimeOffset>(),
+cancellationToken:                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(value: expectedDeletedTokenCount);
 
-        // when
+        // When
         int actualDeletedTokenCount = await tokenService.DeleteExpiredAsync();
 
-        // then
-        Assert.Equal(expectedDeletedTokenCount, actualDeletedTokenCount);
+        // Then
+        Assert.Equal(expected: expectedDeletedTokenCount, actual: actualDeletedTokenCount);
 
         tokenBrokerMock.Verify(
-            broker => broker.DeleteExpiredAsync(
-                It.IsAny<DateTimeOffset>(),
-                It.IsAny<CancellationToken>()),
-            Times.Once);
+expression: broker => broker.DeleteExpiredAsync(
+expiresBefore: It.IsAny<DateTimeOffset>(),
+cancellationToken: It.IsAny<CancellationToken>()),
+times: Times.Once);
 
         tokenBrokerMock.VerifyNoOtherCalls();
     }

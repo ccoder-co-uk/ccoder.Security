@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -12,7 +16,7 @@ public partial class AccountApiTests
     [Fact]
     public async Task MeWorksAsExpectedForBearerToken()
     {
-        //given
+        // Given
         using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
 
         accountClient.UseNoCookiesApiClient();
@@ -20,71 +24,74 @@ public partial class AccountApiTests
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
         RegistrationResult result = await registerApiClient
-            .RegisterAsync(existingRegisterUser);
+            .RegisterAsync(registerUser: existingRegisterUser);
 
         SSOUser existingSSOUser = result.User;
 
-        Auth inputAuth = RandomAuth(existingRegisterUser);
-        Token token = await accountClient.LoginAsync(inputAuth);
+        Auth inputAuth = RandomAuth(user: existingRegisterUser);
+        Token token = await accountClient.LoginAsync(auth: inputAuth);
 
-        //when
-        accountClient.AddBearerAuthentication(token.Id);
+        // When
+        accountClient.AddBearerAuthentication(bearer: token.Id);
         SSOUser actualSSOUser = await accountClient.Me();
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(existingSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: existingSSOUser);
 
-        await TearDownUserAsync(existingSSOUser.Id);
+        await TearDownUserAsync(userId: existingSSOUser.Id);
     }
 
     [Fact]
     public async Task MeWorksAsExpectedForSession()
     {
-        //given
+        // Given
         using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
         RegistrationResult result = await registerApiClient
-            .RegisterAsync(existingRegisterUser);
+            .RegisterAsync(registerUser: existingRegisterUser);
 
         SSOUser existingSSOUser = result.User;
 
-        Auth inputAuth = RandomAuth(existingRegisterUser);
-        Token token = await accountClient.LoginAsync(inputAuth);
+        Auth inputAuth = RandomAuth(user: existingRegisterUser);
+        Token token = await accountClient.LoginAsync(auth: inputAuth);
 
-        //when
-        accountClient.AddBearerAuthentication(token.Id);
+        // When
+        accountClient.AddBearerAuthentication(bearer: token.Id);
         SSOUser actualSSOUser = await accountClient.Me();
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(existingSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: existingSSOUser);
 
-        await TearDownUserAsync(existingSSOUser.Id);
+        await TearDownUserAsync(userId: existingSSOUser.Id);
     }
 
     [Fact]
     public async Task MeWorksAsExpectedForBasic()
     {
-        //given
+        // Given
         using AccountApiClient accountClient = AccountApiClient.CreateUnauthenticated();
         accountClient.UseNoCookiesApiClient();
 
         RegisterUser existingRegisterUser = RandomRegisterUser();
 
         RegistrationResult result = await registerApiClient
-            .RegisterAsync(existingRegisterUser);
+            .RegisterAsync(registerUser: existingRegisterUser);
 
         SSOUser existingSSOUser = result.User;
 
-        Auth inputAuth = RandomAuth(existingRegisterUser);
+        Auth inputAuth = RandomAuth(user: existingRegisterUser);
 
-        //when
-        accountClient.AddBasicAuthentication(inputAuth);
+        // When
+        accountClient.AddBasicAuthentication(auth: inputAuth);
         SSOUser actualSSOUser = await accountClient.Me();
 
-        //then
-        actualSSOUser.Should().BeEquivalentTo(existingSSOUser);
+        // Then
+        actualSSOUser.Should()
+            .BeEquivalentTo(expectation: existingSSOUser);
 
-        await TearDownUserAsync(existingSSOUser.Id);
+        await TearDownUserAsync(userId: existingSSOUser.Id);
     }
 }
