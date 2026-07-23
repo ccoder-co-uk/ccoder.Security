@@ -8,6 +8,7 @@ using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Requests;
 using cCoder.Security.Brokers.Serialization;
+using cCoder.Security.Brokers.Sessions;
 using cCoder.Security.Brokers.Storage;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Brokers.Utility;
@@ -86,6 +87,7 @@ public static class IServiceCollectionExtensions
     private static void AddBrokers(this IServiceCollection services)
     {
         services.AddTransient<ISecurityConfigurationBroker, SecurityConfigurationBroker>();
+        services.AddTransient<IWebSessionBroker, WebSessionBroker>();
         services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
         services.AddTransient<ISessionBroker, SessionBroker>();
         services.AddTransient<ISSOPrivilegeBroker, SSOPrivilegeBroker>();
