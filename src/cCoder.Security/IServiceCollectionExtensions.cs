@@ -104,6 +104,8 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISerializationBroker, SerializationBroker>();
         services.AddTransient<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
         services.AddTransient<ISSOAuthorizationBroker, SSOAuthorizationBroker>();
+        services.AddTransient<IAuthorizationService, AuthorizationService>();
+        services.AddTransient<IAuthorizationProcessingService, AuthorizationProcessingService>();
 
         services.AddTransient<IEventHubBroker, EventHubBroker>();
         services.AddTransient<IAccountEventBroker, AccountEventBroker>();

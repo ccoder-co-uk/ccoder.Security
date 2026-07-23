@@ -2,39 +2,59 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Orchestrations;
 
-internal class SSOUserRoleOrchestrationService(
+internal sealed partial class SSOUserRoleOrchestrationService(
     ISSOUserRoleProcessingService userRoleProcessingService,
-    ISSOAuthorizationBroker authBroker)
+    IAuthorizationProcessingService authorizationProcessingService)
         : ISSOUserRoleOrchestrationService
 {
-    public IQueryable<SSOUserRole> GetAllSSOUserRoles()
-    {
-        authBroker.UserHasPrivilege(privilege: "userrole_read");
+    public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
+        TryCatch(operation: () =>
+        {
+            ValidateSSOUserRolesOnGet();
 
-        return userRoleProcessingService.GetAllSSOUserRoles();
-    }
+            authorizationProcessingService.EnsureUserHasPrivilege(
+                privilege: "userrole_read");
 
-    public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole newSSOUserRole)
-    {
-        if (userRoleProcessingService
-            .GetAllSSOUserRoles()
-            .Any())
-        { authBroker.UserIsPortalAdminWithPrivilege(privilege: "userrole_create"); }
+            return userRoleProcessingService.GetAllSSOUserRoles();
+        });
 
-        return await userRoleProcessingService.AddSSOUserRoleAsync(item: newSSOUserRole);
-    }
+    public ValueTask<SSOUserRole> AddSSOUserRoleAsync(
+        SSOUserRole newSSOUserRole) =>
+        TryCatch<SSOUserRole>(operation: async () =>
+        {
+                ValidateSSOUserRoleOnAdd(newSSOUserRole: newSSOUserRole);
 
-    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole deletedSSOUserRole)
-    {
-        authBroker.UserIsPortalAdminWithPrivilege(privilege: "userrole_delete");
+                if (userRoleProcessingService
+                    .GetAllSSOUserRoles()
+                    .Any())
+                {
+                    authorizationProcessingService
+                        .EnsureUserIsPortalAdminWithPrivilege(
+                            privilege: "userrole_create");
+                }
 
-        await userRoleProcessingService.DeleteSSOUserRoleAsync(item: deletedSSOUserRole);
-    }
+                return await userRoleProcessingService.AddSSOUserRoleAsync(
+                    item: newSSOUserRole);
+        });
+
+    public ValueTask DeleteSSOUserRoleAsync(
+        SSOUserRole deletedSSOUserRole) =>
+        TryCatch(operation: async () =>
+        {
+                ValidateSSOUserRoleOnDelete(
+                    deletedSSOUserRole: deletedSSOUserRole);
+
+                authorizationProcessingService
+                    .EnsureUserIsPortalAdminWithPrivilege(
+                        privilege: "userrole_delete");
+
+                await userRoleProcessingService.DeleteSSOUserRoleAsync(
+                    item: deletedSSOUserRole);
+        });
 }
