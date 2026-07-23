@@ -1,7 +1,12 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Orchestrations.Interfaces;
+
 public interface ISSOUserOrchestrationService
 {
     ValueTask<(SSOUser, string)> Register(RegisterUser registerForm);
@@ -20,4 +25,3 @@ public interface ISSOUserOrchestrationService
 
     IQueryable<SSOUser> GetAllSSOUsers();
 }
-

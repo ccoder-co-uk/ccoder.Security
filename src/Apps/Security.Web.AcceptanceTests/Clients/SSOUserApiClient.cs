@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
@@ -22,7 +26,7 @@ public class SSOUserApiClient : IDisposable
         webApplicationFactory.EnsureDatabasesAreSetupForTesting();
 
         api = webApplicationFactory.CreateClient();
-        api.Authenticate("TestUser", "TestPass01!").Wait();
+        api.Authenticate(user: "TestUser", pass: "TestPass01!").Wait();
 
         using IServiceScope scope = webApplicationFactory.Services.CreateScope();
         IServiceProvider scopedServices = scope.ServiceProvider;
@@ -32,7 +36,7 @@ public class SSOUserApiClient : IDisposable
     }
 
     public async ValueTask<IEnumerable<SSOUser>> GetAllSSOUsersAsync(string query = "") =>
-        await api.GetODataCollection<SSOUser>(Endpoint + query);
+        await api.GetODataCollection<SSOUser>(query: Endpoint + query);
 
     public void Dispose()
     {
@@ -42,4 +46,3 @@ public class SSOUserApiClient : IDisposable
         SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting();
     }
 }
-

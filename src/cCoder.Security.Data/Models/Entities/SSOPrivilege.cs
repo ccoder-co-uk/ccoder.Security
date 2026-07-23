@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using System.ComponentModel.DataAnnotations;
 
 namespace cCoder.Security.Objects.Entities;
 

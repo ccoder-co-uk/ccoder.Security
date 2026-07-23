@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Exposures.HostedServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,16 +16,16 @@ public class HostedServicesRegistrationTests
     {
         IServiceCollection services = new ServiceCollection();
 
-        services.AddSecurityHostedServices((_, _) => { });
+        services.AddSecurityHostedServices(configAction: (_, _) => { });
 
         Assert.Contains(
-            services,
-            descriptor => descriptor.ServiceType == typeof(ITokenCleaner)
+collection: services,
+filter: descriptor => descriptor.ServiceType == typeof(ITokenCleaner)
                 && descriptor.ImplementationType == typeof(TokenCleaner));
 
         Assert.Contains(
-            services,
-            descriptor => descriptor.ServiceType == typeof(IHostedService)
+collection: services,
+filter: descriptor => descriptor.ServiceType == typeof(IHostedService)
                 && descriptor.ImplementationFactory is not null);
     }
 }

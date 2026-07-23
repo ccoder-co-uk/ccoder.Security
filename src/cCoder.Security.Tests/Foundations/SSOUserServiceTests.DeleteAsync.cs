@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Force.DeepCloner;
 using Moq;
@@ -11,16 +15,16 @@ public partial class SSOUserServiceTests
     public async Task ShouldDeleteSSOUserAsync()
     {
         // given
-        SSOUser inputSSOUser = RandomUser(RandomString());
+        SSOUser inputSSOUser = RandomUser(id: RandomString());
         SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
         // when
-        await userService.DeleteSSOUserAsync(inputSSOUser);
+        await userService.DeleteSSOUserAsync(item: inputSSOUser);
 
         // then
-        userBrokerMock.Verify(broker => 
-            broker.DeleteSSOUserAsync(inputSSOUser), 
-            Times.Once);
+        userBrokerMock.Verify(expression: broker =>
+            broker.DeleteSSOUserAsync(inputSSOUser),
+times: Times.Once);
 
         userBrokerMock.VerifyNoOtherCalls();
     }

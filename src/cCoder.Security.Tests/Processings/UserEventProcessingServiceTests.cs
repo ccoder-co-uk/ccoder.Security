@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings;
@@ -18,12 +22,12 @@ public partial class UserEventProcessingServiceTests
         userEventProcessingService = new UserEventProcessingService(userEventServiceMock.Object);
     }
 
-    private UserEvent[] RandomUserEvents() => 
+    private UserEvent[] RandomUserEvents() =>
         Enumerable.Range(1, new Random().Next(10, 20))
-            .Select(_ => RandomUserEvent())
+            .Select(selector: _ => RandomUserEvent())
             .ToArray();
 
-    private UserEvent RandomUserEvent() => 
+    private UserEvent RandomUserEvent() =>
         GetUserEventFiller().Create();
 
     private Filler<UserEvent> GetUserEventFiller()
@@ -34,9 +38,8 @@ public partial class UserEventProcessingServiceTests
             .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)
             .OnProperty(ue => ue.Session).IgnoreIt()
             .OnProperty(ue => ue.CreatedByUser).IgnoreIt()
-            .OnProperty(ue => ue.Tenant).IgnoreIt();
+            .OnProperty(property: ue => ue.Tenant).IgnoreIt();
 
         return filler;
     }
 }
-

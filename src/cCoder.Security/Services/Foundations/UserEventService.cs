@@ -1,10 +1,15 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
-internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffsetBroker dateTimeOffsetBroker) 
+
+internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffsetBroker dateTimeOffsetBroker)
     : IUserEventService
 {
     public async ValueTask<UserEvent> AddUserEventAsync(UserEvent userEvent)
@@ -21,7 +26,7 @@ internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffset
             CreatedBy = userEvent.CreatedBy
         };
 
-        UserEvent result = await broker.AddUserEventAsync(storageUserEvent);
+        UserEvent result = await broker.AddUserEventAsync(userEvent: storageUserEvent);
         userEvent.Id = result.Id;
         userEvent.EventName = result.EventName;
         userEvent.Value = result.Value;
@@ -32,12 +37,9 @@ internal class UserEventService(IUserEventBroker broker, ISecurityDateTimeOffset
         return userEvent;
     }
 
-    public async ValueTask DeleteUserEventAsync(UserEvent userEvent) => 
-        await broker.DeleteUserEventAsync(userEvent);
+    public async ValueTask DeleteUserEventAsync(UserEvent userEvent) =>
+        await broker.DeleteUserEventAsync(userEvent: userEvent);
 
-    public IQueryable<UserEvent> GetAllUserEvents() => 
+    public IQueryable<UserEvent> GetAllUserEvents() =>
         broker.GetAllUserEvents();
 }
-
-
-

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Objects.Entities;
@@ -25,11 +29,11 @@ public class TenantManagerTests
 
         tenantSetupEventProcessingServiceMock
             .Setup(service => service.SetupAsync(setupDetails))
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value: ValueTask.CompletedTask);
 
-        await tenantManager.SetupAsync(setupDetails);
+        await tenantManager.SetupAsync(setupDetails: setupDetails);
 
-        tenantSetupEventProcessingServiceMock.Verify(service => service.SetupAsync(setupDetails), Times.Once);
+        tenantSetupEventProcessingServiceMock.Verify(expression: service => service.SetupAsync(setupDetails), times: Times.Once);
     }
 
     private static SetupDetails CreateSetupDetails() => new()
@@ -48,4 +52,3 @@ public class TenantManagerTests
         }
     };
 }
-

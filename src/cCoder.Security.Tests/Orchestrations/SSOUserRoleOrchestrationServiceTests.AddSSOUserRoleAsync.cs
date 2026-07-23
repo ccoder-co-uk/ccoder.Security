@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -17,17 +21,17 @@ public partial class SSOUserRoleOrchestrationServiceTests
 
         userRoleProcessingServiceMock
             .Setup(x => x.GetAllSSOUserRoles())
-            .Returns(Array.Empty<SSOUserRole>().AsQueryable());
+            .Returns(value: Array.Empty<SSOUserRole>().AsQueryable());
         userRoleProcessingServiceMock
             .Setup(x => x.AddSSOUserRoleAsync(inputUserRole))
-            .ReturnsAsync(inputUserRole);
+            .ReturnsAsync(value: inputUserRole);
 
-        SSOUserRole actualUserRole = await userRoleOrchestrationService.AddSSOUserRoleAsync(inputUserRole);
+        SSOUserRole actualUserRole = await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
 
-        actualUserRole.Should().BeSameAs(inputUserRole);
+        actualUserRole.Should().BeSameAs(expected: inputUserRole);
         authorizationBrokerMock.Verify(
-            x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
-            Times.Never);
+expression: x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
+times: Times.Never);
     }
 
     [Fact]
@@ -40,18 +44,17 @@ public partial class SSOUserRoleOrchestrationServiceTests
 
         userRoleProcessingServiceMock
             .Setup(x => x.GetAllSSOUserRoles())
-            .Returns(new[] { new SSOUserRole { UserId = "setup-admin" } }.AsQueryable());
+            .Returns(value: new[] { new SSOUserRole { UserId = "setup-admin" } }.AsQueryable());
         authorizationBrokerMock
-            .Setup(x => x.UserIsPortalAdminWithPrivilege("userrole_create"));
+            .Setup(expression: x => x.UserIsPortalAdminWithPrivilege("userrole_create"));
         userRoleProcessingServiceMock
             .Setup(x => x.AddSSOUserRoleAsync(inputUserRole))
-            .ReturnsAsync(inputUserRole);
+            .ReturnsAsync(value: inputUserRole);
 
-        await userRoleOrchestrationService.AddSSOUserRoleAsync(inputUserRole);
+        await userRoleOrchestrationService.AddSSOUserRoleAsync(userRole: inputUserRole);
 
         authorizationBrokerMock.Verify(
-            x => x.UserIsPortalAdminWithPrivilege("userrole_create"),
-            Times.Once);
+expression: x => x.UserIsPortalAdminWithPrivilege("userrole_create"),
+times: Times.Once);
     }
 }
-

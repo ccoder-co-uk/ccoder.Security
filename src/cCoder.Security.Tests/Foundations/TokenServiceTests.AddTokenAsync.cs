@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -14,21 +18,21 @@ public partial class TokenServiceTests
         string userId = RandomString();
         Token expectedToken = new()
         {
-            Id = Guid.NewGuid().ToString().Replace("-", "") + Guid.NewGuid().ToString().Replace("-", ""),
-            Expires = DateTimeOffset.Now.AddMinutes(10),
+            Id = Guid.NewGuid().ToString().Replace(oldValue: "-", newValue: "") + Guid.NewGuid().ToString().Replace(oldValue: "-", newValue: ""),
+            Expires = DateTimeOffset.Now.AddMinutes(minutes: 10),
             Reason = (int)TokenUse.WorkflowExecution,
             UserName = userId
         };
 
-        tokenBrokerMock.Setup(broker => broker.AddTokenAsync(It.IsAny<Token>())).ReturnsAsync(expectedToken);
+        tokenBrokerMock.Setup(broker => broker.AddTokenAsync(It.IsAny<Token>())).ReturnsAsync(value: expectedToken);
 
         // when
-        Token actualToken = await tokenService.AddTokenAsync(userId, TokenUse.WorkflowExecution);
+        Token actualToken = await tokenService.AddTokenAsync(userId: userId, tokenUse: TokenUse.WorkflowExecution);
         expectedToken.Expires = actualToken.Expires;
 
         // then
-        actualToken.Should().BeEquivalentTo(expectedToken);
-        tokenBrokerMock.Verify(broker => broker.AddTokenAsync(It.IsAny<Token>()), Times.Once);
+        actualToken.Should().BeEquivalentTo(expectation: expectedToken);
+        tokenBrokerMock.Verify(expression: broker => broker.AddTokenAsync(It.IsAny<Token>()), times: Times.Once);
         tokenBrokerMock.VerifyNoOtherCalls();
     }
 }

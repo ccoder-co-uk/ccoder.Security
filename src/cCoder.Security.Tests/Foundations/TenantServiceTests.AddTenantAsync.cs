@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -18,33 +22,32 @@ public partial class TenantServiceTests
 
         dateTimeOffsetBrokerMock.Setup(dateTimeOffsetBrokerMock =>
             dateTimeOffsetBrokerMock.GetCurrentTime())
-            .Returns(expectedTime);
+            .Returns(value: expectedTime);
 
         Tenant submitted = null;
         tenantBrokerMock.Setup(tenantBrokerMock =>
             tenantBrokerMock.AddTenantAsync(It.IsAny<Tenant>()))
             .Callback<Tenant>(candidate => submitted = candidate)
-            .ReturnsAsync(inputTenant);
+            .ReturnsAsync(value: inputTenant);
 
         //when
-        Tenant actualTenant = await tenantService.AddTenantAsync(inputTenant);
+        Tenant actualTenant = await tenantService.AddTenantAsync(tenant: inputTenant);
 
         //then
-        actualTenant.Should().BeSameAs(inputTenant);
-        submitted.Should().NotBeSameAs(inputTenant);
-        actualTenant.Should().NotBeSameAs(submitted);
-        actualTenant.CreatedOn.Should().BeCloseTo(expectedTime, TimeSpan.FromSeconds(1));
-        actualTenant.LastUpdated.Should().BeCloseTo(expectedTime, TimeSpan.FromSeconds(1));
+        actualTenant.Should().BeSameAs(expected: inputTenant);
+        submitted.Should().NotBeSameAs(unexpected: inputTenant);
+        actualTenant.Should().NotBeSameAs(unexpected: submitted);
+        actualTenant.CreatedOn.Should().BeCloseTo(nearbyTime: expectedTime, precision: TimeSpan.FromSeconds(1));
+        actualTenant.LastUpdated.Should().BeCloseTo(nearbyTime: expectedTime, precision: TimeSpan.FromSeconds(1));
 
         expectedTenant.CreatedOn = actualTenant.CreatedOn;
         expectedTenant.LastUpdated = actualTenant.LastUpdated;
 
-        actualTenant.Should().BeEquivalentTo(expectedTenant);
+        actualTenant.Should().BeEquivalentTo(expectation: expectedTenant);
 
-        tenantBrokerMock.Verify(tenantBrokerMock =>
-            tenantBrokerMock.AddTenantAsync(It.IsAny<Tenant>()), Times.Once());
+        tenantBrokerMock.Verify(expression: tenantBrokerMock =>
+            tenantBrokerMock.AddTenantAsync(It.IsAny<Tenant>()), times: Times.Once());
 
         tenantBrokerMock.VerifyNoOtherCalls();
     }
 }
-

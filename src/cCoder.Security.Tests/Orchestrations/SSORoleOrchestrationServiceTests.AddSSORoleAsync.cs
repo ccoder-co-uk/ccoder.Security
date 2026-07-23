@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -18,17 +22,17 @@ public partial class SSORoleOrchestrationServiceTests
 
         roleProcessingServiceMock
             .Setup(x => x.GetAllSSORoles())
-            .Returns(Array.Empty<SSORole>().AsQueryable());
+            .Returns(value: Array.Empty<SSORole>().AsQueryable());
         roleProcessingServiceMock
             .Setup(x => x.AddSSORoleAsync(inputRole))
-            .ReturnsAsync(inputRole);
+            .ReturnsAsync(value: inputRole);
 
-        SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(inputRole);
+        SSORole actualRole = await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
 
-        actualRole.Should().BeSameAs(inputRole);
+        actualRole.Should().BeSameAs(expected: inputRole);
         authorizationBrokerMock.Verify(
-            x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
-            Times.Never);
+expression: x => x.UserIsPortalAdminWithPrivilege(It.IsAny<string>()),
+times: Times.Never);
     }
 
     [Fact]
@@ -42,18 +46,17 @@ public partial class SSORoleOrchestrationServiceTests
 
         roleProcessingServiceMock
             .Setup(x => x.GetAllSSORoles())
-            .Returns(new[] { new SSORole { Name = "Administrators", TenantId = "tenant-1" } }.AsQueryable());
+            .Returns(value: new[] { new SSORole { Name = "Administrators", TenantId = "tenant-1" } }.AsQueryable());
         authorizationBrokerMock
-            .Setup(x => x.UserIsPortalAdminWithPrivilege("tenant_admin"));
+            .Setup(expression: x => x.UserIsPortalAdminWithPrivilege("tenant_admin"));
         roleProcessingServiceMock
             .Setup(x => x.AddSSORoleAsync(inputRole))
-            .ReturnsAsync(inputRole);
+            .ReturnsAsync(value: inputRole);
 
-        await roleOrchestrationService.AddSSORoleAsync(inputRole);
+        await roleOrchestrationService.AddSSORoleAsync(item: inputRole);
 
         authorizationBrokerMock.Verify(
-            x => x.UserIsPortalAdminWithPrivilege("tenant_admin"),
-            Times.Once);
+expression: x => x.UserIsPortalAdminWithPrivilege("tenant_admin"),
+times: Times.Once);
     }
 }
-

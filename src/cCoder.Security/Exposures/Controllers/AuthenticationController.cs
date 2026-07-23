@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +14,8 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
     [HttpPost("Login")]
     public async ValueTask<IActionResult> Login([FromBody] Auth auth) =>
         ModelState.IsValid
-            ? Ok(await authenticationOrchestrationService.LoginAsync(auth.User, auth.Pass))
-            : BadRequest(ModelState);
+            ? Ok(value: await authenticationOrchestrationService.LoginAsync(auth.User, auth.Pass))
+            : BadRequest(modelState: ModelState);
 
     [HttpPost("Logout")]
     public async ValueTask<IActionResult> Logout()
@@ -22,17 +26,17 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
 
     [HttpGet("Me")]
     public IActionResult Me() =>
-        Ok(authenticationOrchestrationService.Me());
+        Ok(value: authenticationOrchestrationService.Me());
 
     [HttpPost("ForgotPassword")]
     public async ValueTask<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+            return BadRequest(modelState: ModelState);
 
         try
         {
-            await authenticationOrchestrationService.ForgotPasswordAsync(request.Email);
+            await authenticationOrchestrationService.ForgotPasswordAsync(email: request.Email);
         }
         catch
         {
@@ -47,13 +51,13 @@ public class AuthenticationController(IAuthenticationOrchestrationService authen
         [FromBody] ConfirmForgotPasswordRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+            return BadRequest(modelState: ModelState);
 
         await authenticationOrchestrationService.ConfirmForgotPasswordAsync(
-            request.Token,
-            request.UserId,
-            request.NewPassword,
-            request.ConfirmPassword);
+tokenId: request.Token,
+userId: request.UserId,
+newPassword: request.NewPassword,
+confirmNewPassword: request.ConfirmPassword);
 
         return Ok();
     }

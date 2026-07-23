@@ -1,9 +1,14 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
-internal class TenantService(ITenantBroker broker) 
+
+internal class TenantService(ITenantBroker broker)
     : ITenantService
 {
     public async ValueTask<Tenant> AddTenantAsync(Tenant tenant)
@@ -21,7 +26,7 @@ internal class TenantService(ITenantBroker broker)
             LastUpdated = tenant.LastUpdated
         };
 
-        Tenant result = await broker.AddTenantAsync(storageTenant);
+        Tenant result = await broker.AddTenantAsync(tenant: storageTenant);
         tenant.Id = result.Id;
         tenant.Name = result.Name;
         tenant.Description = result.Description;
@@ -33,7 +38,7 @@ internal class TenantService(ITenantBroker broker)
     }
 
     public async ValueTask DeleteTenantAsync(Tenant tenant)
-        => await broker.DeleteTenantAsync(tenant);
+        => await broker.DeleteTenantAsync(tenant: tenant);
 
     public IQueryable<Tenant> GetAllTenants()
         => broker.GetAllTenants();
@@ -52,7 +57,7 @@ internal class TenantService(ITenantBroker broker)
             LastUpdated = tenant.LastUpdated
         };
 
-        Tenant result = await broker.UpdateTenantAsync(storageTenant);
+        Tenant result = await broker.UpdateTenantAsync(tenant: storageTenant);
         tenant.Id = result.Id;
         tenant.Name = result.Name;
         tenant.Description = result.Description;
@@ -63,6 +68,3 @@ internal class TenantService(ITenantBroker broker)
         return tenant;
     }
 }
-
-
-

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
@@ -29,7 +33,7 @@ public static class SecurityWebApplicationFactoryExtensions
 
             using IServiceScope scope = appFactory.Services.CreateScope();
             IServiceProvider scopedServices = scope.ServiceProvider;
-            EnsureSSOSetupForTesting(scopedServices).AsTask().Wait();
+            EnsureSSOSetupForTesting(scopedServices: scopedServices).AsTask().Wait();
             setupComplete = true;
         }
     }
@@ -41,9 +45,9 @@ public static class SecurityWebApplicationFactoryExtensions
 
         if (typeof(AcceptanceHost).Namespace == "Security.Web")
         {
-            acceptanceConnectionString = Environment.GetEnvironmentVariable("ENV_ConnectionStrings__SSO");
+            acceptanceConnectionString = Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
 
-            if (!string.IsNullOrWhiteSpace(acceptanceConnectionString))
+            if (!string.IsNullOrWhiteSpace(value: acceptanceConnectionString))
             {
                 acceptanceEnvironmentConfigured = true;
                 return;
@@ -54,8 +58,8 @@ public static class SecurityWebApplicationFactoryExtensions
                 $"Data Source=.;Initial Catalog={databaseName};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
 
             Environment.SetEnvironmentVariable(
-                "ENV_ConnectionStrings__SSO",
-                acceptanceConnectionString);
+variable: "ENV_ConnectionStrings__SSO",
+value: acceptanceConnectionString);
             ownsAcceptanceDatabase = true;
         }
 
@@ -71,20 +75,20 @@ public static class SecurityWebApplicationFactoryExtensions
         using cCoder.Security.Data.EF.SecurityDbContext db =
             scopedServices.GetRequiredService<ISecurityDbContextFactory>().CreateDbContext();
 
-        if (db.Database.ProviderName?.Contains("SqlServer", StringComparison.OrdinalIgnoreCase) == true)
-            DropDatabaseForTesting(db.Database.GetConnectionString());
+        if (db.Database.ProviderName?.Contains(value: "SqlServer", comparisonType: StringComparison.OrdinalIgnoreCase) == true)
+            DropDatabaseForTesting(connectionString: db.Database.GetConnectionString());
         else
             db.Database.EnsureDeleted();
 
         db.Migrate();
 
-        await SetupTestUser(tenantManager);
-        await authenticationOrchestrationService.LoginAsync("TestUser", "TestPass01!");
+        await SetupTestUser(tenantManager: tenantManager);
+        await authenticationOrchestrationService.LoginAsync(username: "TestUser", password: "TestPass01!");
     }
 
     private static async Task SetupTestUser(ITenantManager tenantManager)
     {
-        await tenantManager.SetupAsync(new SetupDetails
+        await tenantManager.SetupAsync(setupDetails: new SetupDetails
         {
             Tenant = new Tenant
             {
@@ -107,12 +111,12 @@ public static class SecurityWebApplicationFactoryExtensions
         if (!ownsAcceptanceDatabase)
             return;
 
-        DropDatabaseForTesting(acceptanceConnectionString);
+        DropDatabaseForTesting(connectionString: acceptanceConnectionString);
     }
 
     internal static void DropDatabaseForTesting(string connectionString)
     {
-        if (string.IsNullOrWhiteSpace(connectionString))
+        if (string.IsNullOrWhiteSpace(value: connectionString))
             return;
 
         SqlConnectionStringBuilder builder = new(connectionString)
@@ -122,11 +126,11 @@ public static class SecurityWebApplicationFactoryExtensions
         };
         string databaseName = builder.InitialCatalog ?? string.Empty;
 
-        if (string.IsNullOrWhiteSpace(databaseName))
+        if (string.IsNullOrWhiteSpace(value: databaseName))
             return;
 
-        if (!databaseName.Contains("accept", StringComparison.OrdinalIgnoreCase)
-            && !databaseName.Contains("integrationtest", StringComparison.OrdinalIgnoreCase))
+        if (!databaseName.Contains(value: "accept", comparisonType: StringComparison.OrdinalIgnoreCase)
+            && !databaseName.Contains(value: "integrationtest", comparisonType: StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException(
                 $"Refusing to drop non-acceptance test database '{databaseName}'.");
 
@@ -144,8 +148,7 @@ BEGIN
         + N'DROP DATABASE [' + REPLACE(@databaseName, ']', ']]') + N']';
     EXEC(@sql);
 END";
-        _ = command.Parameters.AddWithValue("@databaseName", databaseName);
+        _ = command.Parameters.AddWithValue(parameterName: "@databaseName", value: databaseName);
         command.ExecuteNonQuery();
     }
 }
-

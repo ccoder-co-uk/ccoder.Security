@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -29,25 +33,25 @@ public partial class SSOUserOrchestrationServiceTests
 
         ssoUserProcessingServiceMock
             .Setup(service => service.InviteSSOUserAsync(It.IsAny<SSOUser>()))
-            .ThrowsAsync(new ValidationException("Email exists"));
+            .ThrowsAsync(exception: new ValidationException("Email exists"));
         ssoUserProcessingServiceMock
             .Setup(service => service.GetAllSSOUsers(true))
-            .Returns(new[] { existingUser }.AsQueryable());
+            .Returns(value: new[] { existingUser }.AsQueryable());
 
         (SSOUser actualUser, string token) =
-            await ssoUserOrchestrationService.InviteUserAsync(input);
+            await ssoUserOrchestrationService.InviteUserAsync(registerForm: input);
 
-        actualUser.Should().BeSameAs(existingUser);
+        actualUser.Should().BeSameAs(expected: existingUser);
         actualUser.PasswordHash.Should().BeNull();
         token.Should().BeNull();
         tokenProcessingServiceMock.Verify(
-            service => service.GenerateInvitationToken(It.IsAny<string>()),
-            Times.Never);
+expression: service => service.GenerateInvitationToken(It.IsAny<string>()),
+times: Times.Never);
         accountEventServiceMock.Verify(
-            service => service.RaiseInvitationCreatedEventAsync(
+expression: service => service.RaiseInvitationCreatedEventAsync(
                 It.IsAny<SSOUser>(),
                 It.IsAny<RegisterUser>(),
                 It.IsAny<string>()),
-            Times.Never);
+times: Times.Never);
     }
 }

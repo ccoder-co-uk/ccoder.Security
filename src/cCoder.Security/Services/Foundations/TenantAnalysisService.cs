@@ -1,9 +1,14 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
-internal class TenantAnalysisService(ITenantAnalysisBroker broker) 
+
+internal class TenantAnalysisService(ITenantAnalysisBroker broker)
     : ITenantAnalysisService
 {
     public async ValueTask<TenantAnalysis> AddTenantAnalaysisAsync(TenantAnalysis tenant)
@@ -19,7 +24,7 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
             CreatedOn = tenant.CreatedOn
         };
 
-        TenantAnalysis result = await broker.AddTenantAnalysisAsync(storageTenantAnalysis);
+        TenantAnalysis result = await broker.AddTenantAnalysisAsync(tenantAnalysis: storageTenantAnalysis);
         tenant.Id = result.Id;
         tenant.TenantId = result.TenantId;
         tenant.Key = result.Key;
@@ -30,7 +35,7 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
     }
 
     public async ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenant)
-        => await broker.DeleteTenantAnalysisAsync(tenant);
+        => await broker.DeleteTenantAnalysisAsync(tenantAnalysis: tenant);
 
     public IQueryable<TenantAnalysis> GetAllTenantAnalysis()
         => broker.GetAllTenantAnalysis();
@@ -47,7 +52,7 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
             CreatedOn = tenant.CreatedOn
         };
 
-        TenantAnalysis result = await broker.UpdateTenantAnalysisAsync(storageTenantAnalysis);
+        TenantAnalysis result = await broker.UpdateTenantAnalysisAsync(tenantAnalysis: storageTenantAnalysis);
         tenant.Id = result.Id;
         tenant.TenantId = result.TenantId;
         tenant.Key = result.Key;
@@ -57,5 +62,3 @@ internal class TenantAnalysisService(ITenantAnalysisBroker broker)
         return tenant;
     }
 }
-
-

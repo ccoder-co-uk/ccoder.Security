@@ -1,0 +1,268 @@
+{
+  "Classes": [
+    {
+      "Name": "Security.Web.Controllers.HomeController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "CurrentUser",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Exposures.Controllers.BaselineController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Get",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Exposures.Setup.UIBaseline",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Packages",
+          "Type": "cCoder.Data.Models.Packaging.Package[]"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "Security.Web.IApplicationBuilderExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "InitialiseSecurityDatabase",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "IApplicationBuilder"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
+        },
+        {
+          "Name": "UseTheFramework",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "IApplicationBuilder"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.IServiceCollectionExtensions",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddAspNetCore",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddMetadata",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSessions",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Program",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Main",
+          "Inputs": [
+            {
+              "Name": "args",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    }
+  ],
+  "Links": [],
+  "AnalysisItems": [
+    {
+      "Code": "STXAPI001",
+      "Description": "An API controller must have exactly one business dependency.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Controllers.HomeController",
+      "LineNumber": 10
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Controllers.HomeController",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STXAPI004",
+      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Controllers.HomeController",
+      "LineNumber": 19
+    },
+    {
+      "Code": "STXAPI001",
+      "Description": "An API controller must have exactly one business dependency.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Exposures.Controllers.BaselineController",
+      "LineNumber": 10
+    },
+    {
+      "Code": "STXSTRUCT001",
+      "Description": "The source file must live in the standard folder for its element type.",
+      "Severity": "Warning",
+      "Type": "Security.Web.IServiceCollectionExtensions",
+      "LineNumber": 7
+    },
+    {
+      "Code": "STXE005",
+      "Description": "An exposure must not sequence multiple routine calls.",
+      "Severity": "Warning",
+      "Type": "Security.Web.IServiceCollectionExtensions",
+      "LineNumber": 11
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.IServiceCollectionExtensions",
+      "LineNumber": 14
+    },
+    {
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Severity": "Warning",
+      "Type": "Security.Web.IServiceCollectionExtensions",
+      "LineNumber": 14
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.IServiceCollectionExtensions",
+      "LineNumber": 21
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.IServiceCollectionExtensions",
+      "LineNumber": 25
+    },
+    {
+      "Code": "STXE005",
+      "Description": "An exposure must not sequence multiple routine calls.",
+      "Severity": "Warning",
+      "Type": "Security.Web.IServiceCollectionExtensions",
+      "LineNumber": 30
+    },
+    {
+      "Code": "STXE005",
+      "Description": "An exposure must not sequence multiple routine calls.",
+      "Severity": "Warning",
+      "Type": "Security.Web.IServiceCollectionExtensions",
+      "LineNumber": 36
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Program",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STXFORMAT008",
+      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Program",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STXFORMAT010",
+      "Description": "Production code must not contain non-documentation comments.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Program",
+      "LineNumber": 22
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Program",
+      "LineNumber": 30
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Program",
+      "LineNumber": 32
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Program",
+      "LineNumber": 34
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Program",
+      "LineNumber": 36
+    },
+    {
+      "Code": "STXFORMAT005",
+      "Description": "Method call arguments must declare their parameter names.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Program",
+      "LineNumber": 48
+    }
+  ]
+}

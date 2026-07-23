@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF;
 using cCoder.Security.Objects;
 using cCoder.Security.Objects.Entities;
@@ -39,9 +43,9 @@ public class SecurityDbContextPrivilegeTests
 
         // then
         privileges.Select(privilege => privilege.Id)
-            .Should().BeEquivalentTo(expectedPrivilegeIds);
+            .Should().BeEquivalentTo(expectation: expectedPrivilegeIds);
 
-        privileges.Should().OnlyContain(privilege =>
+        privileges.Should().OnlyContain(predicate: privilege =>
             !string.IsNullOrWhiteSpace(privilege.Id)
             && !string.IsNullOrWhiteSpace(privilege.Type)
             && !string.IsNullOrWhiteSpace(privilege.Operation)

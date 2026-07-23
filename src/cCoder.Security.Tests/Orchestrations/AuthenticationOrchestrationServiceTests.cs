@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Services.Orchestrations;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Foundations.Events;
@@ -32,7 +36,6 @@ public partial class AuthenticationOrchestrationServiceTests
             loggerMock.Object);
     }
 
-    private static string RandomString() => 
+    private static string RandomString() =>
         new MnemonicString().GetValue();
 }
-

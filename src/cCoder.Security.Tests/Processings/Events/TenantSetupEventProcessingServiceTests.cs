@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.ComponentModel.DataAnnotations;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Objects.Entities;
@@ -46,9 +50,9 @@ public class TenantSetupEventProcessingServiceTests
                 && details.Tenant.Description == "Default tenant"
                 && details.Tenant.CreatedOn != default
                 && details.Tenant.LastUpdated != default)))
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value: ValueTask.CompletedTask);
 
-        await tenantSetupEventProcessingService.SetupAsync(setupDetails);
+        await tenantSetupEventProcessingService.SetupAsync(setupDetails: setupDetails);
 
         tenantSetupOrchestrationServiceMock.VerifyAll();
     }
@@ -67,10 +71,9 @@ public class TenantSetupEventProcessingServiceTests
             }
         };
 
-        Func<Task> act = async () => await tenantSetupEventProcessingService.SetupAsync(missingTenantId);
+        Func<Task> act = async () => await tenantSetupEventProcessingService.SetupAsync(setupDetails: missingTenantId);
 
         await act.Should().ThrowAsync<ValidationException>()
-            .WithMessage("Tenant ID is required.");
+            .WithMessage(expectedWildcardPattern: "Tenant ID is required.");
     }
 }
-

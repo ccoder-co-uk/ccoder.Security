@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations;
@@ -18,14 +22,13 @@ public partial class SSOPrivilegeServiceTests
         privService = new SSOPrivilegeService(privBrokerMock.Object);
     }
 
-    private static IQueryable<SSOPrivilege> RandomSSOPrivileges() => 
+    private static IQueryable<SSOPrivilege> RandomSSOPrivileges() =>
         Enumerable.Range(0, new Random().Next(100))
-            .Select(i => RandomSSOPrivilege())
+            .Select(selector: i => RandomSSOPrivilege())
             .AsQueryable();
 
-    private static SSOPrivilege RandomSSOPrivilege() => 
+    private static SSOPrivilege RandomSSOPrivilege() =>
         Builder<SSOPrivilege>
             .CreateNew()
             .Build();
 }
-

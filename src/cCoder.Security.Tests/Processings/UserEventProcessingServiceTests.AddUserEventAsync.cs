@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -17,19 +21,18 @@ public partial class UserEventProcessingServiceTests
 
         userEventServiceMock.Setup(userEventServiceMock =>
             userEventServiceMock.AddUserEventAsync(inputUserEvent))
-            .ReturnsAsync(expectedUserEvent);
+            .ReturnsAsync(value: expectedUserEvent);
 
         //when
-        UserEvent actualUserEvent = await userEventProcessingService.AddUserEventAsync(inputUserEvent);
+        UserEvent actualUserEvent = await userEventProcessingService.AddUserEventAsync(userEvent: inputUserEvent);
 
         //then
-        actualUserEvent.Should().BeEquivalentTo(expectedUserEvent);
+        actualUserEvent.Should().BeEquivalentTo(expectation: expectedUserEvent);
 
-        userEventServiceMock.Verify(userEventServiceMock =>
+        userEventServiceMock.Verify(expression: userEventServiceMock =>
             userEventServiceMock.AddUserEventAsync(inputUserEvent),
-            Times.Once());
+times: Times.Once());
 
         userEventServiceMock.VerifyNoOtherCalls();
     }
 }
-

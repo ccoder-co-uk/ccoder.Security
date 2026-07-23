@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace cCoder.Security.Data.EF;

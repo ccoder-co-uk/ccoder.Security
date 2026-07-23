@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Services.Foundations.Events;
@@ -42,6 +46,5 @@ public partial class SSOUserOrchestrationServiceTests
     private void SetupRegistrationCreatedEvent(SSOUser user, RegisterUser registerForm, string token) =>
         accountEventServiceMock
             .Setup(service => service.RaiseRegistrationCreatedEventAsync(user, registerForm, token))
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value: ValueTask.CompletedTask);
 }
-

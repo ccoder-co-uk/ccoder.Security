@@ -1,8 +1,13 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 
 namespace cCoder.Security.Services.Orchestrations;
+
 internal class TenantCoordinationService(
     ITenantOrchestrationService tenantOrchestrationService,
     ITenantRelationsOrchestrationService tenantRelationsOrchestrationService,
@@ -13,16 +18,16 @@ internal class TenantCoordinationService(
         tenantOrchestrationService.GetAllTenants();
 
     public async ValueTask<Tenant> AddTenantAsync(Tenant tenant) =>
-        await tenantOrchestrationService.AddTenantAsync(tenant);
+        await tenantOrchestrationService.AddTenantAsync(item: tenant);
 
     public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant) =>
-        await tenantOrchestrationService.UpdateTenantAsync(tenant);
+        await tenantOrchestrationService.UpdateTenantAsync(item: tenant);
 
     public async ValueTask DeleteTenantAsync(Tenant tenant)
     {
-        authBroker.UserIsPortalAdminWithPrivilege("tenant_delete");
+        authBroker.UserIsPortalAdminWithPrivilege(privilege: "tenant_delete");
 
-        await tenantRelationsOrchestrationService.DeleteTenantRelationsAsync(tenant);
-        await tenantOrchestrationService.DeleteTenantAsync(tenant);
+        await tenantRelationsOrchestrationService.DeleteTenantRelationsAsync(item: tenant);
+        await tenantOrchestrationService.DeleteTenantAsync(item: tenant);
     }
 }

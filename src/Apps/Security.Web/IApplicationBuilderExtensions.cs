@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.OData;
@@ -34,7 +38,7 @@ public static class IApplicationBuilderExtensions
         app.UseHttpsRedirection();
         app.UseRouting();
 
-        app.UseCors(builder =>
+        app.UseCors(configurePolicy: builder =>
         {
             builder.AllowAnyHeader();
             builder.AllowAnyMethod();
@@ -46,7 +50,7 @@ public static class IApplicationBuilderExtensions
             .UseSwagger()
             .UseODataRouteDebug();
 
-        app.UseEndpoints(endpoints =>
+        app.UseEndpoints(configure: endpoints =>
         {
             endpoints.MapControllers();
             endpoints.MapControllerRoute(
@@ -61,7 +65,7 @@ public static class IApplicationBuilderExtensions
     }
 
     private static IApplicationBuilder HandleExceptions(this IApplicationBuilder app)
-        => app.UseExceptionHandler(errorApp => errorApp.Run(async (context) =>
+        => app.UseExceptionHandler(configure: errorApp => errorApp.Run(async (context) =>
         {
             Exception ex = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
             context.Response.StatusCode = ex?.GetType() == typeof(SecurityException) ? 401 : 500;

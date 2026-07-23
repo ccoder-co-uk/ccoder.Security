@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -27,16 +31,15 @@ public partial class RegisterApiTests
 
         //when
         RegistrationResult result = await userApiClient
-            .RegisterAsync(inputRegisterUser);
+            .RegisterAsync(registerUser: inputRegisterUser);
 
-        SSOUser actualSSOUser = result.User;    
+        SSOUser actualSSOUser = result.User;
 
         expectedSSOUser.Id = actualSSOUser.Id;
         expectedSSOUser.PasswordHash = actualSSOUser.PasswordHash;
 
         //then
-        actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
-        await TearDownUserAsync(actualSSOUser.Id);
+        actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
+        await TearDownUserAsync(userId: actualSSOUser.Id);
     }
 }
-

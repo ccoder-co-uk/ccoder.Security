@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
@@ -6,14 +10,15 @@ using cCoder.Security.Objects.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace cCoder.Security.Brokers.Storage;
-internal class SSORoleBroker(ISecurityDbContextFactory contextFactory) 
+
+internal class SSORoleBroker(ISecurityDbContextFactory contextFactory)
     : ISSORoleBroker
 {
     public async ValueTask<SSORole> AddSSORoleAsync(SSORole role)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = await context.Roles.AddAsync(role);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = await context.Roles.AddAsync(entity: role);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -23,7 +28,7 @@ internal class SSORoleBroker(ISecurityDbContextFactory contextFactory)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Update(role);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Update(entity: role);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -33,7 +38,7 @@ internal class SSORoleBroker(ISecurityDbContextFactory contextFactory)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Remove(role);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<SSORole> entityEntry = context.Roles.Remove(entity: role);
         await context.SaveChangesAsync();
     }
 
@@ -47,8 +52,3 @@ internal class SSORoleBroker(ISecurityDbContextFactory contextFactory)
             : roles;
     }
 }
-
-
-
-
-

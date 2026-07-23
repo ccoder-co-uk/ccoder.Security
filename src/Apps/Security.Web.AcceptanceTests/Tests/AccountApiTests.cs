@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Bogus;
 using cCoder.Security.Objects.DTOs;
 using Security.AcceptanceTests;
@@ -17,7 +21,7 @@ public partial class AccountApiTests(
         Pass = user.Password
     };
 
-    private static RegisterUser RandomRegisterUser() => 
+    private static RegisterUser RandomRegisterUser() =>
         GetRegisterUserFiller().Generate();
 
     private static Faker<RegisterUser> GetRegisterUserFiller()
@@ -27,12 +31,11 @@ public partial class AccountApiTests(
             .RuleFor(r => r.Email, f => f.Internet.Email())
             .RuleFor(r => r.Password, f => f.Internet.Password(prefix: "Cc123!"))
             .RuleFor(r => r.Culture, f => f.Locale)
-            .RuleFor(r => r.PhoneNumber, f => f.Phone.PhoneNumber());
+            .RuleFor(property: r => r.PhoneNumber, setter: f => f.Phone.PhoneNumber());
 
         return filler;
     }
 
-    private async Task TearDownUserAsync(string userId) => 
-        await userApiClient.TearDown(userId);
+    private async Task TearDownUserAsync(string userId) =>
+        await userApiClient.TearDown(ssoUserId: userId);
 }
-

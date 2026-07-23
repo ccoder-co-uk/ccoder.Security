@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Requests;
 using cCoder.Security.Objects;
 using cCoder.Security.Services.Orchestrations.Interfaces;
@@ -5,6 +9,7 @@ using cCoder.Security.Services.Processings.Interfaces;
 using System.Text;
 
 namespace cCoder.Security.Services.Orchestrations;
+
 internal class SSOAuthInfoOrchestrationService(
     ISessionProcessingService sessionService,
     ISSOUserProcessingService userService,
@@ -20,16 +25,16 @@ internal class SSOAuthInfoOrchestrationService(
 
     private async ValueTask<ISSOAuthInfo> GetFromAuthenticationHeaderAsync()
     {
-        string authHeaderValue = httpRequestBroker.Header("Authorization");
+        string authHeaderValue = httpRequestBroker.Header(key: "Authorization");
 
-        if (string.IsNullOrEmpty(authHeaderValue))
+        if (string.IsNullOrEmpty(value: authHeaderValue))
             return null;
 
-        if (authHeaderValue.StartsWith("bearer", StringComparison.InvariantCultureIgnoreCase))
-            return GetBearerAuthentication(authHeaderValue);
+        if (authHeaderValue.StartsWith(value: "bearer", comparisonType: StringComparison.InvariantCultureIgnoreCase))
+            return GetBearerAuthentication(authHeaderValue: authHeaderValue);
 
-        if(authHeaderValue.StartsWith("basic", StringComparison.InvariantCultureIgnoreCase))
-            return await GetBasicAuthenticationAsync(authHeaderValue);
+        if (authHeaderValue.StartsWith(value: "basic", comparisonType: StringComparison.InvariantCultureIgnoreCase))
+            return await GetBasicAuthenticationAsync(authHeaderValue: authHeaderValue);
 
         return null;
     }
@@ -46,13 +51,13 @@ internal class SSOAuthInfoOrchestrationService(
 
     ISSOAuthInfo GetBearerAuthentication(string authHeaderValue)
     {
-        string tokenId = GetBearerToken(authHeaderValue);
+        string tokenId = GetBearerToken(auth: authHeaderValue);
 
         if (tokenId == null)
             return null;
 
         Objects.Entities.Token token = tokenService.GetAllTokens(ignoreFilters: true)
-            .FirstOrDefault(t => t.Id == tokenId);
+            .FirstOrDefault(predicate: t => t.Id == tokenId);
 
         if (token == null)
             return null;
@@ -62,18 +67,18 @@ internal class SSOAuthInfoOrchestrationService(
 
     async ValueTask<ISSOAuthInfo> GetBasicAuthenticationAsync(string authHeaderValue)
     {
-        if (authHeaderValue.ToLowerInvariant().StartsWith("basic"))
-            return await AuthenticateBasicAuthAsync(authHeaderValue);
+        if (authHeaderValue.ToLowerInvariant().StartsWith(value: "basic"))
+            return await AuthenticateBasicAuthAsync(auth: authHeaderValue);
 
         return null;
     }
 
     async ValueTask<ISSOAuthInfo> AuthenticateBasicAuthAsync(string auth)
     {
-        (string username, string password) = ParseBasicAuthDetails(auth);
+        (string username, string password) = ParseBasicAuthDetails(auth: auth);
 
         Objects.Entities.SSOUser user = await userService
-            .FindByUserAndPasswordAsync(username, password);
+            .FindByUserAndPasswordAsync(username: username, password: password);
 
         return new SSOAuthInfo { SSOUserId = user.Id };
     }
@@ -81,25 +86,23 @@ internal class SSOAuthInfoOrchestrationService(
     static (string, string) ParseBasicAuthDetails(string auth)
     {
         string base64AuthString = auth[6..];
-        byte[] authBytes = Convert.FromBase64String(base64AuthString);
-        string authString = Encoding.UTF8.GetString(authBytes);
+        byte[] authBytes = Convert.FromBase64String(s: base64AuthString);
+        string authString = Encoding.UTF8.GetString(bytes: authBytes);
         return (
             (authString.Contains('&')
                 ? authString.Split("&")[0]
-                : authString.Split(":")[0]).Replace("username=", ""),
+                : authString.Split(":")[0]).Replace(oldValue: "username=", newValue: ""),
             (authString.Contains('&')
                 ? authString.Split("&")[1]
-                : authString.Split(":")[1]).Replace("password=", "")
+                : authString.Split(":")[1]).Replace(oldValue: "password=", newValue: "")
         );
     }
 
     static string GetBearerToken(string auth)
     {
-        if (!auth.ToLowerInvariant().StartsWith("bearer"))
+        if (!auth.ToLowerInvariant().StartsWith(value: "bearer"))
             return null;
 
-        return auth.Split(" ").LastOrDefault();
+        return auth.Split(separator: " ").LastOrDefault();
     }
 }
-
-

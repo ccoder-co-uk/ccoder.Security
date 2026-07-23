@@ -1,16 +1,21 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Brokers.Storage;
+
 internal class SessionBroker(ISecurityDbContextFactory contextFactory) : ISessionBroker
 {
     public async ValueTask<Session> AddSessionAsync(Session Session)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = await context.Sessions.AddAsync(Session);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = await context.Sessions.AddAsync(entity: Session);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -20,7 +25,7 @@ internal class SessionBroker(ISecurityDbContextFactory contextFactory) : ISessio
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Update(Session);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Update(entity: Session);
         await context.SaveChangesAsync();
 
         return entityEntry.Entity;
@@ -30,7 +35,7 @@ internal class SessionBroker(ISecurityDbContextFactory contextFactory) : ISessio
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Remove(Session);
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Session> entityEntry = context.Sessions.Remove(entity: Session);
         await context.SaveChangesAsync();
     }
 
@@ -40,8 +45,3 @@ internal class SessionBroker(ISecurityDbContextFactory contextFactory) : ISessio
         return context.Sessions;
     }
 }
-
-
-
-
-

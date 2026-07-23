@@ -1,9 +1,14 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
-internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker) 
+
+internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
     : ISSOUserRoleService
 {
     public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item)
@@ -14,15 +19,15 @@ internal class SSOUserRoleService(ISSOUserRoleBroker userRoleBroker)
             UserId = item.UserId
         };
 
-        SSOUserRole result = await userRoleBroker.AddSSOUserRoleAsync(storageUserRole);
+        SSOUserRole result = await userRoleBroker.AddSSOUserRoleAsync(userRole: storageUserRole);
         item.RoleId = result.RoleId;
         item.UserId = result.UserId;
         return item;
     }
 
     public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
-        await userRoleBroker.DeleteSSOUserRoleAsync(item);
+        await userRoleBroker.DeleteSSOUserRoleAsync(userRole: item);
 
-    public IQueryable<SSOUserRole> GetAllSSOUserRoles()  =>
+    public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
         userRoleBroker.GetAllSSOUserRoles();
 }

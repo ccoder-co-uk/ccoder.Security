@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.Models;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
@@ -35,7 +39,7 @@ public partial class TenantSetupOrchestrationServiceTests
 
         tenantOrchestrationServiceMock
             .Setup(service => service.AddTenantAsync(setupDetails.Tenant))
-            .ReturnsAsync((Tenant tenant) => tenant);
+            .ReturnsAsync(valueFunction: (Tenant tenant) => tenant);
 
         ssoUserOrchestrationServiceMock
             .Setup(service => service.Register(It.Is<RegisterUser>(user =>
@@ -43,17 +47,16 @@ public partial class TenantSetupOrchestrationServiceTests
                 && user.DisplayName == "Admin User"
                 && user.Password == "TestPass01!"
                 && user.TenantId == "default")))
-            .ReturnsAsync((new SSOUser { Id = "admin", Email = "admin@example.com" }, "token"));
+            .ReturnsAsync(value: (new SSOUser { Id = "admin", Email = "admin@example.com" }, "token"));
 
         ssoUserOrchestrationServiceMock
             .Setup(service => service.ConfirmRegistration("token"))
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value: ValueTask.CompletedTask);
 
-        await tenantSetupOrchestrationService.SetupAsync(setupDetails);
+        await tenantSetupOrchestrationService.SetupAsync(setupDetails: setupDetails);
 
-        setupDetails.User.Id.Should().Be("admin");
+        setupDetails.User.Id.Should().Be(expected: "admin");
         tenantOrchestrationServiceMock.VerifyAll();
         ssoUserOrchestrationServiceMock.VerifyAll();
     }
 }
-

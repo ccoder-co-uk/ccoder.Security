@@ -1,19 +1,24 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.Entities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace cCoder.Security.Brokers.Storage;
+
 internal class TenantAnalysisBroker(
-    ISecurityDbContextFactory contextFactory) 
+    ISecurityDbContextFactory contextFactory)
         : ITenantAnalysisBroker
 {
     public async ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis tenantAnalysis)
     {
         using var context = contextFactory.CreateDbContext();
 
-        EntityEntry<TenantAnalysis> entityEntry = 
-            await context.TenantAnalysis.AddAsync(tenantAnalysis);
+        EntityEntry<TenantAnalysis> entityEntry =
+            await context.TenantAnalysis.AddAsync(entity: tenantAnalysis);
 
         await context.SaveChangesAsync();
 
@@ -24,8 +29,8 @@ internal class TenantAnalysisBroker(
     {
         using var context = contextFactory.CreateDbContext();
 
-        EntityEntry<TenantAnalysis> entityEntry = 
-            context.TenantAnalysis.Update(tenantAnalysis);
+        EntityEntry<TenantAnalysis> entityEntry =
+            context.TenantAnalysis.Update(entity: tenantAnalysis);
 
         await context.SaveChangesAsync();
 
@@ -36,8 +41,8 @@ internal class TenantAnalysisBroker(
     {
         using var context = contextFactory.CreateDbContext();
 
-        EntityEntry<TenantAnalysis> entityEntry = 
-            context.TenantAnalysis.Remove(tenantAnalysis);
+        EntityEntry<TenantAnalysis> entityEntry =
+            context.TenantAnalysis.Remove(entity: tenantAnalysis);
 
         await context.SaveChangesAsync();
     }
@@ -48,4 +53,3 @@ internal class TenantAnalysisBroker(
         return context.TenantAnalysis;
     }
 }
-

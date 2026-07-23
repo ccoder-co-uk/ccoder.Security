@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Objects;
@@ -11,12 +15,12 @@ internal class TenantSetupEventService(
 {
     public ValueTask RaiseSetupAsync(SetupDetails setupDetails) =>
         tenantSetupEventBroker.RaiseTenantSetupEventAsync(
-            new EventMessage<SetupDetails>
-            {
-                AuthInfo = new EventAuthInfo
-                {
-                    SSOUserId = authInfo?.SSOUserId ?? "Guest"
-                },
-                Data = setupDetails
-            });
+message: new EventMessage<SetupDetails>
+{
+    AuthInfo = new EventAuthInfo
+    {
+        SSOUserId = authInfo?.SSOUserId ?? "Guest"
+    },
+    Data = setupDetails
+});
 }

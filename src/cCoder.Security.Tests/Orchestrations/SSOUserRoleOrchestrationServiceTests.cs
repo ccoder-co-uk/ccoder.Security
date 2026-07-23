@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Services.Orchestrations;
 using cCoder.Security.Services.Orchestrations.Interfaces;
@@ -21,5 +25,3 @@ public partial class SSOUserRoleOrchestrationServiceTests
             authorizationBrokerMock.Object);
     }
 }
-
-

@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Processings.Interfaces;
+
 internal interface ISessionProcessingService
 {
     void SetString(string key, string value);
@@ -10,4 +15,3 @@ internal interface ISessionProcessingService
     void Clear();
     void Remove(string key);
 }
-

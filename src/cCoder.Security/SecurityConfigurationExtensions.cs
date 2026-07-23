@@ -1,4 +1,9 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data;
+using cCoder.Security.Data.Dependencies;
 using cCoder.Security.Brokers.Encryption;
 using cCoder.Security.Objects;
 
@@ -16,7 +21,7 @@ public static class SecurityConfigurationExtensions
         IServiceCollection services,
         string decryptionKey)
     {
-        services.AddTransient<ISymmetricCrypto<string>>(_ => new AesCrypto<string>(decryptionKey));
+        services.AddTransient<ISymmetricCrypto<string>>(implementationFactory: _ => new AesCrypto<string>(decryptionKey));
         services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerAESHMAC>();
     }
 
@@ -25,5 +30,3 @@ public static class SecurityConfigurationExtensions
         IServiceCollection services) =>
             services.AddTransient<IPasswordEncryptionBroker, PasswordEncryptionBrokerHasher>();
 }
-
-

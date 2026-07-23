@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
@@ -31,15 +35,15 @@ public partial class AccountLifecycleTests : IDisposable
 
     public AccountLifecycleTests()
     {
-        previousConnectionString = Environment.GetEnvironmentVariable(ConnectionStringEnvironmentVariableName);
+        previousConnectionString = Environment.GetEnvironmentVariable(variable: ConnectionStringEnvironmentVariableName);
 
         Environment.SetEnvironmentVariable(
-            ConnectionStringEnvironmentVariableName,
-            CreateConnectionString());
+variable: ConnectionStringEnvironmentVariableName,
+value: CreateConnectionString());
 
         webApplicationFactory = new WebApplicationFactory<AcceptanceHost>();
 
-        api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions
+        api = webApplicationFactory.CreateClient(options: new WebApplicationFactoryClientOptions
         {
             BaseAddress = new Uri("https://localhost")
         });
@@ -54,8 +58,8 @@ public partial class AccountLifecycleTests : IDisposable
         webApplicationFactory.Dispose();
 
         Environment.SetEnvironmentVariable(
-            ConnectionStringEnvironmentVariableName,
-            previousConnectionString);
+variable: ConnectionStringEnvironmentVariableName,
+value: previousConnectionString);
     }
 
     private static string CreateConnectionString()
@@ -97,37 +101,37 @@ public partial class AccountLifecycleTests : IDisposable
 
     private async ValueTask<(SSOUser User, string Token)> RegisterAsync(RegisterUser user)
     {
-        HttpResponseMessage response = await api.PostAsJsonAsync("/Api/Account/Register", user);
+        HttpResponseMessage response = await api.PostAsJsonAsync(requestUri: "/Api/Account/Register", value: user);
         response.EnsureSuccessStatusCode();
 
-        return await ReadUserTokenResultAsync(response);
+        return await ReadUserTokenResultAsync(response: response);
     }
 
     private async ValueTask<(SSOUser User, string Token)> InviteAsync(RegisterUser user)
     {
-        HttpResponseMessage response = await api.PostAsJsonAsync("/Api/Account/Invite", user);
+        HttpResponseMessage response = await api.PostAsJsonAsync(requestUri: "/Api/Account/Invite", value: user);
         response.EnsureSuccessStatusCode();
 
-        return await ReadUserTokenResultAsync(response);
+        return await ReadUserTokenResultAsync(response: response);
     }
 
     private async ValueTask<string> ResendInviteAsync(string userId)
     {
         HttpResponseMessage response = await api.PostAsync(
-            $"/Api/Account/ResendInvite?userId={WebUtility.UrlEncode(userId)}",
+requestUri: $"/Api/Account/ResendInvite?userId={WebUtility.UrlEncode(userId)}",
             content: null);
 
         response.EnsureSuccessStatusCode();
 
-        using JsonDocument document = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        using JsonDocument document = JsonDocument.Parse(json: await response.Content.ReadAsStringAsync());
 
-        return document.RootElement.GetProperty("token").GetString();
+        return document.RootElement.GetProperty(propertyName: "token").GetString();
     }
 
     private async ValueTask ConfirmRegistrationAsync(string token)
     {
         HttpResponseMessage response = await api.PostAsync(
-            $"/Api/Account/ConfirmRegistration?confirmationToken={WebUtility.UrlEncode(token)}",
+requestUri: $"/Api/Account/ConfirmRegistration?confirmationToken={WebUtility.UrlEncode(token)}",
             content: null);
 
         response.EnsureSuccessStatusCode();
@@ -136,31 +140,31 @@ public partial class AccountLifecycleTests : IDisposable
     private async ValueTask AcceptInviteAsync(string userId, string token, RegisterUser user)
     {
         HttpResponseMessage response = await api.PostAsJsonAsync(
-            $"/Api/Account/AcceptInvite?userId={WebUtility.UrlEncode(userId)}&inviteToken={WebUtility.UrlEncode(token)}",
-            user);
+requestUri: $"/Api/Account/AcceptInvite?userId={WebUtility.UrlEncode(userId)}&inviteToken={WebUtility.UrlEncode(token)}",
+value: user);
 
         response.EnsureSuccessStatusCode();
     }
 
     private async ValueTask<Token> LoginAsync(Auth auth)
     {
-        HttpResponseMessage response = await api.PostAsJsonAsync("/Api/Account/Login", auth);
+        HttpResponseMessage response = await api.PostAsJsonAsync(requestUri: "/Api/Account/Login", value: auth);
         response.EnsureSuccessStatusCode();
 
-        return await response.Content.ReadFromJsonAsync<Token>(JsonOptions);
+        return await response.Content.ReadFromJsonAsync<Token>(options: JsonOptions);
     }
 
     private async ValueTask LogoutAsync()
     {
-        HttpResponseMessage response = await api.PostAsync("/Api/Account/Logout", content: null);
+        HttpResponseMessage response = await api.PostAsync(requestUri: "/Api/Account/Logout", content: null);
         response.EnsureSuccessStatusCode();
     }
 
     private async ValueTask RequestPasswordResetAsync(string email)
     {
         HttpResponseMessage response = await api.PostAsJsonAsync(
-            "/Api/Account/ForgotPassword",
-            new ForgotPasswordRequest { Email = email });
+requestUri: "/Api/Account/ForgotPassword",
+value: new ForgotPasswordRequest { Email = email });
 
         response.EnsureSuccessStatusCode();
     }
@@ -176,18 +180,18 @@ public partial class AccountLifecycleTests : IDisposable
         };
 
         HttpResponseMessage response = await api.PostAsJsonAsync(
-            "/Api/Account/ConfirmForgotPassword",
-            request);
+requestUri: "/Api/Account/ConfirmForgotPassword",
+value: request);
 
         response.EnsureSuccessStatusCode();
     }
 
     private async ValueTask<HttpResponseMessage> TryLoginAsync(Auth auth) =>
-        await api.PostAsJsonAsync("/Api/Account/Login", auth);
+        await api.PostAsJsonAsync(requestUri: "/Api/Account/Login", value: auth);
 
     private async ValueTask AssertLoginRejectedAsync(Auth auth)
     {
-        HttpResponseMessage response = await TryLoginAsync(auth);
+        HttpResponseMessage response = await TryLoginAsync(auth: auth);
 
         response.IsSuccessStatusCode.Should().BeFalse();
     }
@@ -201,7 +205,7 @@ public partial class AccountLifecycleTests : IDisposable
             .Where(token =>
                 token.UserName == userId
                 && token.Reason == (int)tokenUse)
-            .OrderByDescending(token => token.Expires)
+            .OrderByDescending(keySelector: token => token.Expires)
             .First();
     }
 
@@ -211,19 +215,19 @@ public partial class AccountLifecycleTests : IDisposable
 
         return database.Users
             .IgnoreQueryFilters()
-            .First(user => user.Id == userId);
+            .First(predicate: user => user.Id == userId);
     }
 
     private async ValueTask<(SSOUser User, string Token)> ReadUserTokenResultAsync(
         HttpResponseMessage response)
     {
-        using JsonDocument document = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        using JsonDocument document = JsonDocument.Parse(json: await response.Content.ReadAsStringAsync());
 
         SSOUser user = JsonSerializer.Deserialize<SSOUser>(
-            document.RootElement.GetProperty("user").GetRawText(),
-            JsonOptions);
+json: document.RootElement.GetProperty("user").GetRawText(),
+options: JsonOptions);
 
-        string token = document.RootElement.GetProperty("token").GetString();
+        string token = document.RootElement.GetProperty(propertyName: "token").GetString();
 
         return (user, token);
     }

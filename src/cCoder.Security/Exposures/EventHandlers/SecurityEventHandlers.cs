@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Services.Foundations.Events;
 
 namespace cCoder.Security.Exposures.EventHandlers;

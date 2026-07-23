@@ -1,4 +1,8 @@
-﻿namespace cCoder.Security.Data;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+namespace cCoder.Security.Data;
 
 public interface ISymmetricCrypto<T>
 {

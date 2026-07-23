@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Processings.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +16,7 @@ public class SSOPrivilegeController(ISSOPrivilegeProcessingService privilegeProc
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<SSOPrivilege> queryOptions) =>
-        Ok(privilegeProcessingService.GetAllSSOPrivileges());
+        Ok(value: privilegeProcessingService.GetAllSSOPrivileges());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
@@ -20,10 +24,10 @@ public class SSOPrivilegeController(ISSOPrivilegeProcessingService privilegeProc
     {
         IQueryable<SSOPrivilege> result = privilegeProcessingService
             .GetAllSSOPrivileges()
-            .Where(i => i.Id == key);
+            .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(result))
             : NotFound();
     }
 }

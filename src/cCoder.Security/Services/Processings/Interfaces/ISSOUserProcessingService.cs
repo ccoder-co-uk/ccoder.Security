@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Processings.Interfaces;
+
 internal interface ISSOUserProcessingService
 {
     ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser item);
@@ -21,4 +26,3 @@ internal interface ISSOUserProcessingService
 
     void ValidatePassword(string password);
 }
-

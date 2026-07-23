@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Exposures.EDM;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
@@ -31,18 +35,18 @@ public static class IServiceCollectionExtensions
     public static void AddSecurityApi(
         this IServiceCollection services,
         Action<IServiceCollection, SecurityConfiguration> configAction) =>
-        services.AddSecurityWeb(configAction);
+        services.AddSecurityWeb(configAction: configAction);
 
     public static SecurityConfiguration AddSecurityWeb(
         this IServiceCollection services,
         Action<IServiceCollection, SecurityConfiguration> configAction) =>
-        services.AddSecurity(configAction);
+        services.AddSecurity(configAction: configAction);
 
     public static SecurityConfiguration AddSecurityHostedServices(
         this IServiceCollection services,
         Action<IServiceCollection, SecurityConfiguration> configAction)
     {
-        SecurityConfiguration securityConfiguration = services.AddSecurity(configAction);
+        SecurityConfiguration securityConfiguration = services.AddSecurity(configAction: configAction);
         services.AddSecurityHostedServiceExposures();
 
         return securityConfiguration;
@@ -53,8 +57,8 @@ public static class IServiceCollectionExtensions
         Action<IServiceCollection, SecurityConfiguration> configAction)
     {
         SecurityConfiguration securityConfiguration = new();
-        configAction(services, securityConfiguration);
-        services.AddSingleton(securityConfiguration);
+        configAction(arg1: services, arg2: securityConfiguration);
+        services.AddSingleton(implementationInstance: securityConfiguration);
 
         services.AddEventing();
         services.AddEventingTypes();
@@ -66,8 +70,8 @@ public static class IServiceCollectionExtensions
         services.AddExposures();
         services.AddEventHandlers();
 
-        if (!string.IsNullOrWhiteSpace(securityConfiguration.RootPath))
-            services.AddSecurityApiLayer(securityConfiguration.RootPath);
+        if (!string.IsNullOrWhiteSpace(value: securityConfiguration.RootPath))
+            services.AddSecurityApiLayer(atPath: securityConfiguration.RootPath);
 
         return securityConfiguration;
     }
@@ -101,10 +105,10 @@ public static class IServiceCollectionExtensions
 
     private static void AddFoundations(this IServiceCollection services)
     {
-        services.AddTransient(async provider =>
+        services.AddTransient(implementationFactory: async provider =>
             await provider.GetRequiredService<ISSOAuthInfoOrchestrationService>().GetSSOAuthInfoAsync());
 
-        services.AddTransient(provider =>
+        services.AddTransient(implementationFactory: provider =>
         {
             Task<ISSOAuthInfo> authInfoTask = provider.GetRequiredService<Task<ISSOAuthInfo>>();
             authInfoTask.Wait();
@@ -163,7 +167,7 @@ public static class IServiceCollectionExtensions
     private static void AddSecurityHostedServiceExposures(this IServiceCollection services)
     {
         services.AddSingleton<ITokenCleaner, TokenCleaner>();
-        services.AddSingleton<IHostedService>(serviceProvider =>
+        services.AddSingleton<IHostedService>(implementationFactory: serviceProvider =>
             serviceProvider.GetRequiredService<ITokenCleaner>());
     }
 
@@ -173,19 +177,17 @@ public static class IServiceCollectionExtensions
     private static void AddAspNet(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
-        services.AddTransient(ctx => ctx.GetService<IHttpContextAccessor>()?.HttpContext);
-        services.AddTransient(ctx => ctx.GetService<HttpContext>()?.Request);
-        services.AddTransient(ctx => ctx.GetService<HttpContext>()?.Session);
+        services.AddTransient(implementationFactory: ctx => ctx.GetService<IHttpContextAccessor>()?.HttpContext);
+        services.AddTransient(implementationFactory: ctx => ctx.GetService<HttpContext>()?.Request);
+        services.AddTransient(implementationFactory: ctx => ctx.GetService<HttpContext>()?.Session);
         services.AddSession();
     }
 
     public static void AddSecurityApiLayer(this IServiceCollection services, string atPath) =>
         services.AddControllers()
-            .AddOData(options =>
+            .AddOData(setupAction: options =>
             {
                 options.Expand().Count().Filter().Select().OrderBy().SetMaxTop(1000);
                 options.AddRouteComponents(atPath, new SecurityModelBuilder().Build().EDMModel);
             });
 }
-
-

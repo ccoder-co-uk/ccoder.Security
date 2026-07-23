@@ -1,14 +1,19 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
+
 internal class SSORoleService(
-    ISSORoleBroker roleBroker) 
+    ISSORoleBroker roleBroker)
         : ISSORoleService
 {
     public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
-        roleBroker.GetAllSSORoles(ignoreFilters);
+        roleBroker.GetAllSSORoles(ignoreFilters: ignoreFilters);
 
     public async ValueTask<SSORole> AddSSORoleAsync(SSORole item)
     {
@@ -22,7 +27,7 @@ internal class SSORoleService(
             TenantId = item.TenantId
         };
 
-        SSORole result = await roleBroker.AddSSORoleAsync(storageRole);
+        SSORole result = await roleBroker.AddSSORoleAsync(SSORole: storageRole);
         item.Id = result.Id;
         item.UsersArePortalAdmins = result.UsersArePortalAdmins;
         item.Name = result.Name;
@@ -44,7 +49,7 @@ internal class SSORoleService(
             TenantId = item.TenantId
         };
 
-        SSORole result = await roleBroker.UpdateSSORoleAsync(storageRole);
+        SSORole result = await roleBroker.UpdateSSORoleAsync(SSORole: storageRole);
         item.Id = result.Id;
         item.UsersArePortalAdmins = result.UsersArePortalAdmins;
         item.Name = result.Name;
@@ -55,8 +60,5 @@ internal class SSORoleService(
     }
 
     public async ValueTask DeleteSSORoleAsync(SSORole item) =>
-        await roleBroker.DeleteSSORoleAsync(item);
+        await roleBroker.DeleteSSORoleAsync(SSORole: item);
 }
-
-
-

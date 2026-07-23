@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations;
@@ -18,18 +22,17 @@ public partial class SSOUserServiceTests
         userService = new SSOUserService(userBrokerMock.Object);
     }
 
-    private static string RandomString() => 
-        new RandomGenerator().NextString(5, 12);
+    private static string RandomString() =>
+        new RandomGenerator().NextString(minLength: 5, maxLength: 12);
 
-    private static IQueryable<SSOUser> RandomUsers() => 
+    private static IQueryable<SSOUser> RandomUsers() =>
         Enumerable.Range(0, new Random().Next(100))
-            .Select(i => RandomUser(RandomString()))
+            .Select(selector: i => RandomUser(RandomString()))
             .AsQueryable();
 
-    private static SSOUser RandomUser(string id) => 
+    private static SSOUser RandomUser(string id) =>
         Builder<SSOUser>
             .CreateNew()
-            .With(i => i.Id = id)
+            .With(func: i => i.Id = id)
             .Build();
 }
-

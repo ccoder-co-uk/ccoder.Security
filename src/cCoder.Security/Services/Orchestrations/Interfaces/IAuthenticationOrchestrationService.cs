@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Orchestrations.Interfaces;
+
 public interface IAuthenticationOrchestrationService
 {
     SSOUser Me();
@@ -17,4 +22,3 @@ public interface IAuthenticationOrchestrationService
 
     ValueTask ConfirmForgotPasswordAsync(string tokenId, string userId, string newPassword, string confirmNewPassword);
 }
-

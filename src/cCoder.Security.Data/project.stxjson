@@ -1,0 +1,1189 @@
+{
+  "Classes": [
+    {
+      "Name": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Decrypt",
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "System.String"
+            },
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "T"
+        },
+        {
+          "Name": "Decrypt",
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "T"
+        },
+        {
+          "Name": "Encrypt",
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "T"
+            },
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "Encrypt",
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "T"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Data.Dependencies.AesThenHmac",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "BlockBitSize",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Iterations",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "KeyBitSize",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "KeyByteSize",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "MinPasswordLength",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "SaltBitSize",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "SaltByteSize",
+          "Type": "System.Int32"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "NewKey",
+          "Inputs": [],
+          "ReturnType": "System.Byte[]"
+        },
+        {
+          "Name": "SimpleDecrypt",
+          "Inputs": [
+            {
+              "Name": "encryptedMessage",
+              "Type": "System.String"
+            },
+            {
+              "Name": "cryptKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "authKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "nonSecretPayloadLength",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "SimpleDecrypt",
+          "Inputs": [
+            {
+              "Name": "encryptedMessage",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "cryptKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "authKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "nonSecretPayloadLength",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.Byte[]"
+        },
+        {
+          "Name": "SimpleDecryptWithPassword",
+          "Inputs": [
+            {
+              "Name": "encryptedMessage",
+              "Type": "System.String"
+            },
+            {
+              "Name": "password",
+              "Type": "System.String"
+            },
+            {
+              "Name": "nonSecretPayloadLength",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "SimpleDecryptWithPassword",
+          "Inputs": [
+            {
+              "Name": "encryptedMessage",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "password",
+              "Type": "System.String"
+            },
+            {
+              "Name": "nonSecretPayloadLength",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.Byte[]"
+        },
+        {
+          "Name": "SimpleEncrypt",
+          "Inputs": [
+            {
+              "Name": "secretMessage",
+              "Type": "System.String"
+            },
+            {
+              "Name": "cryptKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "authKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "nonSecretPayload",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "SimpleEncrypt",
+          "Inputs": [
+            {
+              "Name": "secretMessage",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "cryptKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "authKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "nonSecretPayload",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Byte[]"
+        },
+        {
+          "Name": "SimpleEncryptWithPassword",
+          "Inputs": [
+            {
+              "Name": "secretMessage",
+              "Type": "System.String"
+            },
+            {
+              "Name": "password",
+              "Type": "System.String"
+            },
+            {
+              "Name": "nonSecretPayload",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.String"
+        },
+        {
+          "Name": "SimpleEncryptWithPassword",
+          "Inputs": [
+            {
+              "Name": "secretMessage",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "password",
+              "Type": "System.String"
+            },
+            {
+              "Name": "nonSecretPayload",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Byte[]"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "GetAuthInfo",
+          "Type": "System.Func\u003CSystem.Boolean, cCoder.Security.Objects.ISSOAuthInfo\u003E"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "CreateDbContext",
+          "Inputs": [
+            {
+              "Name": "ignoreAuthInfo",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext"
+        },
+        {
+          "Name": "CreateDbContext",
+          "Inputs": [
+            {
+              "Name": "args",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Dependencies.SecurityMSSQLModelBuildProvider",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Configure",
+          "Inputs": [
+            {
+              "Name": "optionsBuilder",
+              "Type": "DbContextOptionsBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSecurityColumns",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSecurityForeignKeys",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSecurityModel",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ConfigureSecurityTables",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "Create",
+          "Inputs": [
+            {
+              "Name": "modelBuilder",
+              "Type": "ModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "MigrateDatabase",
+          "Inputs": [
+            {
+              "Name": "database",
+              "Type": "DatabaseFacade"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.MSSQLSecurityConfigurationExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddMSSQLModelProvider",
+          "Inputs": [
+            {
+              "Name": "config",
+              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+            },
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "connectionString",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.AddRolesAndPrivs",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.AddSessions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.AddTenancy",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.AddTenantAnalysis",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.AddTokenStorage",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.AddValueToUserEvents",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.Initial",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.MembershipDataContextModelSnapshot",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.RetireGenericAuditing",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.RetireOldLoggingTables",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.Migrations.ReturePrivsTableAndLinkTokensToUsers",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Data.EF.SecurityDbContext",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Roles",
+          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "Sessions",
+          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.Session\u003E"
+        },
+        {
+          "Name": "TenantAnalysis",
+          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "Tenants",
+          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+        },
+        {
+          "Name": "Tokens",
+          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "UserEvents",
+          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        },
+        {
+          "Name": "UserRoles",
+          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        },
+        {
+          "Name": "Users",
+          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "GetCurrentUser",
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "GetPrivileges",
+          "Inputs": [],
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+        },
+        {
+          "Name": "GetUserActivity",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserActivity\u003E"
+        },
+        {
+          "Name": "Migrate",
+          "Inputs": [],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "UserHasPrivilege",
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tenantId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "UserIsPortalAdminWithPrivilege",
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Data.Models.SetupDetails",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Tenant",
+          "Type": "cCoder.Security.Objects.Entities.Tenant"
+        },
+        {
+          "Name": "User",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.DTOs.Auth",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Pass",
+          "Type": "System.String"
+        },
+        {
+          "Name": "User",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.DTOs.ChangePasswordRequest",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "NewPassword",
+          "Type": "System.String"
+        },
+        {
+          "Name": "OldPassword",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Token",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.DTOs.ConfirmForgotPasswordRequest",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "ConfirmPassword",
+          "Type": "System.String"
+        },
+        {
+          "Name": "NewPassword",
+          "Type": "System.String"
+        },
+        {
+          "Name": "SourceAppId",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Token",
+          "Type": "System.String"
+        },
+        {
+          "Name": "UserId",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.DTOs.ForgotPasswordRequest",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "AppId",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Email",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.DTOs.RegisterUser",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "AppId",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Culture",
+          "Type": "System.String"
+        },
+        {
+          "Name": "DisplayName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Email",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Password",
+          "Type": "System.String"
+        },
+        {
+          "Name": "PhoneNumber",
+          "Type": "System.String"
+        },
+        {
+          "Name": "TenantId",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.SSOPrivilege",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Description",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Operation",
+          "Type": "System.String"
+        },
+        {
+          "Name": "PortalAdminsOnly",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "Type",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.SSORole",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Description",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.Guid"
+        },
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Privs",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Tenant",
+          "Type": "cCoder.Security.Objects.Entities.Tenant"
+        },
+        {
+          "Name": "TenantId",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Users",
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        },
+        {
+          "Name": "UsersArePortalAdmins",
+          "Type": "System.Boolean"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.SSOUser",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "AccessFailedCount",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "DisplayName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Email",
+          "Type": "System.String"
+        },
+        {
+          "Name": "EmailConfirmed",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "LockoutEnabled",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "LockoutEndDateUtc",
+          "Type": "System.DateTime?"
+        },
+        {
+          "Name": "PasswordHash",
+          "Type": "System.String"
+        },
+        {
+          "Name": "PhoneNumber",
+          "Type": "System.String"
+        },
+        {
+          "Name": "PhoneNumberConfirmed",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "Roles",
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+        },
+        {
+          "Name": "Tokens",
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "UserEvents",
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.SSOUserRole",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Role",
+          "Type": "cCoder.Security.Objects.Entities.SSORole"
+        },
+        {
+          "Name": "RoleId",
+          "Type": "System.Guid"
+        },
+        {
+          "Name": "User",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "UserId",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.Session",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "AbsoluteExpiration",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "ExpiresAtTime",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "SlidingExpirationInSeconds",
+          "Type": "System.Int64"
+        },
+        {
+          "Name": "UserEvents",
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        },
+        {
+          "Name": "Value",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.Tenant",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Analysis",
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+        },
+        {
+          "Name": "CreatedBy",
+          "Type": "System.String"
+        },
+        {
+          "Name": "CreatedOn",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "Description",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "LastUpdated",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "LastUpdatedBy",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Roles",
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+        },
+        {
+          "Name": "UserEvents",
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.TenantAnalysis",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "CreatedOn",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.Guid"
+        },
+        {
+          "Name": "Key",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Tenant",
+          "Type": "cCoder.Security.Objects.Entities.Tenant"
+        },
+        {
+          "Name": "TenantId",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Value",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.Token",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Expires",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Reason",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "User",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "UserName",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.UserActivity",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "EventCreatedOn",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "EventId",
+          "Type": "System.Guid"
+        },
+        {
+          "Name": "EventName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "EventValue",
+          "Type": "System.String"
+        },
+        {
+          "Name": "SessionExpiresAtTime",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "SessionId",
+          "Type": "System.String"
+        },
+        {
+          "Name": "TenantCreatedBy",
+          "Type": "System.String"
+        },
+        {
+          "Name": "TenantCreatedOn",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "TenantDescription",
+          "Type": "System.String"
+        },
+        {
+          "Name": "TenantId",
+          "Type": "System.String"
+        },
+        {
+          "Name": "TenantLastUpdated",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "TenantLastUpdatedBy",
+          "Type": "System.String"
+        },
+        {
+          "Name": "TenantName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "UserDisplayName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "UserEmail",
+          "Type": "System.String"
+        },
+        {
+          "Name": "UserId",
+          "Type": "System.String"
+        },
+        {
+          "Name": "UserPhoneNumber",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Entities.UserEvent",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "CreatedBy",
+          "Type": "System.String"
+        },
+        {
+          "Name": "CreatedByUser",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+        },
+        {
+          "Name": "CreatedOn",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "EventName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.Guid"
+        },
+        {
+          "Name": "Session",
+          "Type": "cCoder.Security.Objects.Entities.Session"
+        },
+        {
+          "Name": "SessionId",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Tenant",
+          "Type": "cCoder.Security.Objects.Entities.Tenant"
+        },
+        {
+          "Name": "TenantId",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Value",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Events.SecurityAccountEvent",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Culture",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Kind",
+          "Type": "cCoder.Security.Objects.Events.SecurityAccountEventKind"
+        },
+        {
+          "Name": "RequestDomain",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Tenant",
+          "Type": "cCoder.Security.Objects.Entities.Tenant"
+        },
+        {
+          "Name": "Token",
+          "Type": "System.String"
+        },
+        {
+          "Name": "User",
+          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.Events.SecurityAccountEventNames",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.HttpClientExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Authenticate",
+          "Inputs": [
+            {
+              "Name": "client",
+              "Type": "HttpClient"
+            },
+            {
+              "Name": "user",
+              "Type": "System.String"
+            },
+            {
+              "Name": "pass",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CcCoder.Security.Objects.Entities.Token\u003E"
+        },
+        {
+          "Name": "ReadAsAsync",
+          "Inputs": [
+            {
+              "Name": "content",
+              "Type": "HttpContent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CT\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Objects.SSOAuthInfo",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "SSOUserId",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Objects.SecurityConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "IsMigrating",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "RootPath",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    }
+  ],
+  "Links": [
+    {
+      "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
+      "ToType": "cCoder.Security.Data.EF.Dependencies.SecurityMSSQLModelBuildProvider"
+    },
+    {
+      "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
+      "ToType": "cCoder.Security.Objects.SSOAuthInfo"
+    }
+  ],
+  "AnalysisItems": []
+}

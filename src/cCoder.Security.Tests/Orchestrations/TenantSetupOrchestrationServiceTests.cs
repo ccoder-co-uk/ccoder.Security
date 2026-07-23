@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.Models;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
@@ -24,4 +28,3 @@ public partial class TenantSetupOrchestrationServiceTests
             ssoUserOrchestrationServiceMock.Object);
     }
 }
-

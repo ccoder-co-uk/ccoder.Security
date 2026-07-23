@@ -1,9 +1,14 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;
-internal class SSOUserService(ISSOUserBroker ssoUserBroker) 
+
+internal class SSOUserService(ISSOUserBroker ssoUserBroker)
     : ISSOUserService
 {
     public async ValueTask<SSOUser> AddSSOUserAsync(SSOUser newUser)
@@ -22,7 +27,7 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
             PhoneNumberConfirmed = newUser.PhoneNumberConfirmed
         };
 
-        SSOUser result = await ssoUserBroker.AddSSOUserAsync(storageUser);
+        SSOUser result = await ssoUserBroker.AddSSOUserAsync(user: storageUser);
         newUser.Id = result.Id;
         newUser.DisplayName = result.DisplayName;
         newUser.Email = result.Email;
@@ -36,8 +41,8 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
         return newUser;
     }
 
-    public async ValueTask DeleteSSOUserAsync(SSOUser item) => 
-        await ssoUserBroker.DeleteSSOUserAsync(item);
+    public async ValueTask DeleteSSOUserAsync(SSOUser item) =>
+        await ssoUserBroker.DeleteSSOUserAsync(SSOUser: item);
 
     public async ValueTask<SSOUser> UpdateSSOUserAsync(SSOUser item)
     {
@@ -55,7 +60,7 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
             PhoneNumberConfirmed = item.PhoneNumberConfirmed
         };
 
-        SSOUser result = await ssoUserBroker.UpdateSSOUserAsync(storageUser);
+        SSOUser result = await ssoUserBroker.UpdateSSOUserAsync(user: storageUser);
         item.Id = result.Id;
         item.DisplayName = result.DisplayName;
         item.Email = result.Email;
@@ -69,12 +74,9 @@ internal class SSOUserService(ISSOUserBroker ssoUserBroker)
         return item;
     }
 
-    public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) => 
-        ssoUserBroker.GetAllSSOUsers(ignoreFilters);
+    public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>
+        ssoUserBroker.GetAllSSOUsers(ignoreFilters: ignoreFilters);
 
-    public SSOUser Me() => 
+    public SSOUser Me() =>
         ssoUserBroker.Me();
 }
-
-
-

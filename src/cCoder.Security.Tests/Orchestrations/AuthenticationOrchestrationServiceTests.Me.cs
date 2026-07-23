@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -28,13 +32,13 @@ public partial class AuthenticationOrchestrationServiceTests
 
         ssoUserProcessingServiceMock
             .Setup(service => service.Me())
-            .Returns(storedUser);
+            .Returns(value: storedUser);
 
         //when
         SSOUser actualUser = authenticationOrchestrationService.Me();
 
         //then
-        actualUser.Should().BeEquivalentTo(new SSOUser
+        actualUser.Should().BeEquivalentTo(expectation: new SSOUser
         {
             Id = storedUser.Id,
             DisplayName = storedUser.DisplayName,
@@ -47,6 +51,6 @@ public partial class AuthenticationOrchestrationServiceTests
             PhoneNumberConfirmed = storedUser.PhoneNumberConfirmed
         });
 
-        ssoUserProcessingServiceMock.Verify(service => service.Me(), Times.Once);
+        ssoUserProcessingServiceMock.Verify(expression: service => service.Me(), times: Times.Once);
     }
 }

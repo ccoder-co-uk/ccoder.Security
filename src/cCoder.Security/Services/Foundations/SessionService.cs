@@ -1,18 +1,23 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Serialization;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 namespace cCoder.Security.Services.Foundations;
-internal class SessionService(ISession session, ISerializationBroker serilizationBroker) 
+
+internal class SessionService(ISession session, ISerializationBroker serilizationBroker)
     : ISessionService
 {
     public void SetString(string key, string value)
     {
         if (value is null)
-            RemoveKey(key);
+            RemoveKey(key: key);
         else
-            session.SetString(key, value);
+            session.SetString(key: key, value: value);
     }
 
     public void Clear() =>
@@ -22,7 +27,7 @@ internal class SessionService(ISession session, ISerializationBroker serilizatio
     {
         try
         {
-            return session?.GetString(key);
+            return session?.GetString(key: key);
         }
         catch (NullReferenceException)
         {
@@ -32,23 +37,21 @@ internal class SessionService(ISession session, ISerializationBroker serilizatio
 
     public SSOUser GetUser()
     {
-        string userJson = GetString("ssoUser");
+        string userJson = GetString(key: "ssoUser");
 
-        return !string.IsNullOrEmpty(userJson)
-            ? serilizationBroker.Deserialize<SSOUser>(userJson)
+        return !string.IsNullOrEmpty(value: userJson)
+            ? serilizationBroker.Deserialize<SSOUser>(input: userJson)
             : null;
     }
 
     public void SetUser(SSOUser user)
     {
         if (user != null)
-            session?.SetString("ssoUser", System.Text.Json.JsonSerializer.Serialize(user));
+            session?.SetString(key: "ssoUser", value: System.Text.Json.JsonSerializer.Serialize(user));
         else
-            session?.Remove("ssoUser");
+            session?.Remove(key: "ssoUser");
     }
 
-    public void RemoveKey(string key) => 
-        session.Remove(key);
+    public void RemoveKey(string key) =>
+        session.Remove(key: key);
 }
-
-

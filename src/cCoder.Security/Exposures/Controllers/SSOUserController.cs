@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +16,7 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get(ODataQueryOptions<SSOUser> queryOptions) =>
-        Ok(ssoUserOrchestrationService.GetAllSSOUsers());
+        Ok(value: ssoUserOrchestrationService.GetAllSSOUsers());
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
@@ -20,10 +24,10 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
     {
         IQueryable<SSOUser> result = ssoUserOrchestrationService
             .GetAllSSOUsers()
-            .Where(i => i.Id == key);
+            .Where(predicate: i => i.Id == key);
 
         return result.Any()
-            ? Ok(SingleResult.Create(result))
+            ? Ok(value: SingleResult.Create(result))
             : NotFound();
     }
 
@@ -31,21 +35,20 @@ public class SSOUserController(ISSOUserOrchestrationService ssoUserOrchestration
     [EnableQuery]
     public virtual async ValueTask<IActionResult> Put([FromRoute] string key, [FromBody] SSOUser ssoUser) =>
         ModelState.IsValid
-            ? Get((await ssoUserOrchestrationService.UpdateSSOUserAsync(key, ssoUser)).Id)
-            : BadRequest(ModelState);
+            ? Get(key: (await ssoUserOrchestrationService.UpdateSSOUserAsync(key, ssoUser)).Id)
+            : BadRequest(modelState: ModelState);
 
     [HttpDelete]
     public virtual async ValueTask<IActionResult> Delete([FromRoute] string key, string reference = null)
     {
         SSOUser origentity = ssoUserOrchestrationService
             .GetAllSSOUsers()
-            .FirstOrDefault(i => i.Id == key);
+            .FirstOrDefault(predicate: i => i.Id == key);
 
         if (origentity == null)
             return NotFound();
 
-        await ssoUserOrchestrationService.DeleteSSOUserAsync(origentity);
+        await ssoUserOrchestrationService.DeleteSSOUserAsync(item: origentity);
         return Ok();
     }
 }
-

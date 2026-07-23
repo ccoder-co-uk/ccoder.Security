@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Encryption;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
@@ -10,41 +14,38 @@ namespace cCoder.Security.Tests.Processings;
 
 public partial class SSOUserProcessingServiceTests
 {
-	private readonly Mock<IPasswordEncryptionBroker> passwordEncryptionBrokerMock;
-	private readonly Mock<ISSOUserService> ssoUserServiceMock;
-	private readonly ISSOUserProcessingService ssoUserProcessingService;
+    private readonly Mock<IPasswordEncryptionBroker> passwordEncryptionBrokerMock;
+    private readonly Mock<ISSOUserService> ssoUserServiceMock;
+    private readonly ISSOUserProcessingService ssoUserProcessingService;
 
-	public SSOUserProcessingServiceTests()
-	{
-		passwordEncryptionBrokerMock = new Mock<IPasswordEncryptionBroker>();
-		ssoUserServiceMock = new Mock<ISSOUserService>();
-		ssoUserProcessingService = new SSOUserProcessingService(ssoUserServiceMock.Object,
-			passwordEncryptionBrokerMock.Object);
-	}
+    public SSOUserProcessingServiceTests()
+    {
+        passwordEncryptionBrokerMock = new Mock<IPasswordEncryptionBroker>();
+        ssoUserServiceMock = new Mock<ISSOUserService>();
+        ssoUserProcessingService = new SSOUserProcessingService(ssoUserServiceMock.Object,
+            passwordEncryptionBrokerMock.Object);
+    }
 
-    private static string RandomString() => 
-		new MnemonicString().GetValue();
+    private static string RandomString() =>
+        new MnemonicString().GetValue();
 
-    private static SSOUser[] RandomSSOUsers() => 
-		Enumerable.Range(1, new Random().Next(10, 20))
-			.Select(_ => RandomSSOUser())
-			.ToArray();
+    private static SSOUser[] RandomSSOUsers() =>
+        Enumerable.Range(1, new Random().Next(10, 20))
+            .Select(selector: _ => RandomSSOUser())
+            .ToArray();
 
-    private static SSOUser RandomSSOUser() => 
-		GetSSOUserFiller().Create();
+    private static SSOUser RandomSSOUser() =>
+        GetSSOUserFiller().Create();
 
     private static Filler<SSOUser> GetSSOUserFiller()
-	{
+    {
         Filler<SSOUser> filler = new();
 
-		filler.Setup()
-			.OnProperty(p => p.Roles).IgnoreIt()
-			.OnProperty(p => p.Tokens).IgnoreIt()
-			.OnProperty(p => p.UserEvents).IgnoreIt();
+        filler.Setup()
+            .OnProperty(p => p.Roles).IgnoreIt()
+            .OnProperty(p => p.Tokens).IgnoreIt()
+            .OnProperty(property: p => p.UserEvents).IgnoreIt();
 
-		return filler;
-	}
+        return filler;
+    }
 }
-
-
-

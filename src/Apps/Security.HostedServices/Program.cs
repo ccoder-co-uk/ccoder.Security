@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security;
 using cCoder.Security.Data.EF;
 
@@ -7,14 +11,14 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
         IConfigurationRoot config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
             .AddEnvironmentVariables(prefix: "ENV_")
             .Build();
 
-        builder.Services.AddSecurityHostedServices((services, securityConfig) =>
+        builder.Services.AddSecurityHostedServices(configAction: (services, securityConfig) =>
         {
             securityConfig.AddMSSQLModelProvider(
                 services,
@@ -33,9 +37,9 @@ public class Program
         builder.Logging.AddSimpleConsole();
 
         WebApplication app = builder.Build();
-        app.MapGet("/", (IHostEnvironment environment) =>
+        app.MapGet(pattern: "/", handler: (IHostEnvironment environment) =>
             Results.Text(BuildHostedServicesReport(environment), "text/plain"));
-        app.MapGet("/Health", () => Results.Text("Healthy"));
+        app.MapGet(pattern: "/Health", handler: () => Results.Text("Healthy"));
         app.StartSecurityHostedServices();
         app.Run();
     }

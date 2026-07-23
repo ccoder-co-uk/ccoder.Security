@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -23,7 +27,7 @@ public partial class RegisterApiTests
             LockoutEndDateUtc = null,
             PhoneNumber = inputRegisterUser1.PhoneNumber,
             PhoneNumberConfirmed = false,
-            Id = inputRegisterUser1.Email.Split('@')[0]
+            Id = inputRegisterUser1.Email.Split(separator: '@')[0]
         };
 
         RegisterUser inputRegisterUser2 = RandomRegisterUser();
@@ -58,13 +62,13 @@ public partial class RegisterApiTests
 
         // When.
         RegistrationResult result1 = await userApiClient
-            .RegisterAsync(inputRegisterUser1);
+            .RegisterAsync(registerUser: inputRegisterUser1);
 
         RegistrationResult result2 = await userApiClient
-            .RegisterAsync(inputRegisterUser2);
+            .RegisterAsync(registerUser: inputRegisterUser2);
 
         RegistrationResult result3 = await userApiClient
-            .RegisterAsync(inputRegisterUser3);
+            .RegisterAsync(registerUser: inputRegisterUser3);
 
         SSOUser actualSSOUser1 = result1.User;
         SSOUser actualSSOUser2 = result2.User;
@@ -75,12 +79,12 @@ public partial class RegisterApiTests
         expectedSSOUser3.PasswordHash = actualSSOUser3.PasswordHash;
 
         // Then.
-        actualSSOUser1.Should().BeEquivalentTo(expectedSSOUser1);
-        actualSSOUser2.Should().BeEquivalentTo(expectedSSOUser2);
-        actualSSOUser3.Should().BeEquivalentTo(expectedSSOUser3);
+        actualSSOUser1.Should().BeEquivalentTo(expectation: expectedSSOUser1);
+        actualSSOUser2.Should().BeEquivalentTo(expectation: expectedSSOUser2);
+        actualSSOUser3.Should().BeEquivalentTo(expectation: expectedSSOUser3);
 
-        await TearDownUserAsync(actualSSOUser1.Id);
-        await TearDownUserAsync(actualSSOUser2.Id);
-        await TearDownUserAsync(actualSSOUser3.Id);
+        await TearDownUserAsync(userId: actualSSOUser1.Id);
+        await TearDownUserAsync(userId: actualSSOUser2.Id);
+        await TearDownUserAsync(userId: actualSSOUser3.Id);
     }
 }

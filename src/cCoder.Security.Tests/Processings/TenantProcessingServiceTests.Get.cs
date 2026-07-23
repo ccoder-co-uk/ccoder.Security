@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Moq;
 using Xunit;
@@ -15,17 +19,16 @@ public partial class TenantProcessingServiceTests
 
         tenantServiceMock.Setup(tenantServiceMock =>
             tenantServiceMock.GetAllTenants())
-            .Returns(expectedTenants);
+            .Returns(value: expectedTenants);
 
         //when
         IQueryable<Tenant> actualTenants = tenantProcessingService.GetAllTenants();
 
         //then
-        tenantServiceMock.Verify(tenantServiceMock =>
+        tenantServiceMock.Verify(expression: tenantServiceMock =>
             tenantServiceMock.GetAllTenants(),
-            Times.Once());
+times: Times.Once());
 
         tenantServiceMock.VerifyNoOtherCalls();
     }
 }
-

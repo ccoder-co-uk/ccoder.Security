@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestrations;
@@ -31,5 +35,3 @@ public partial class TenantOrchestrationServiceTests
             authorizationBrokerMock.Object);
     }
 }
-
-

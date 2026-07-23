@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -16,19 +20,18 @@ public partial class UserEventServiceTests
 
         userEventBrokerMock.Setup(userEventBrokerMock =>
             userEventBrokerMock.GetAllUserEvents())
-            .Returns(expectedUserEvents);
+            .Returns(value: expectedUserEvents);
 
         //when
         IQueryable<UserEvent> actualUserEvents = userEventService.GetAllUserEvents();
 
         //then
-        actualUserEvents.Should().BeEquivalentTo(expectedUserEvents);
+        actualUserEvents.Should().BeEquivalentTo(expectation: expectedUserEvents);
 
-        userEventBrokerMock.Verify(userEventBrokerMock =>
+        userEventBrokerMock.Verify(expression: userEventBrokerMock =>
             userEventBrokerMock.GetAllUserEvents(),
-            Times.Once());
+times: Times.Once());
 
         userEventBrokerMock.VerifyNoOtherCalls();
     }
 }
-

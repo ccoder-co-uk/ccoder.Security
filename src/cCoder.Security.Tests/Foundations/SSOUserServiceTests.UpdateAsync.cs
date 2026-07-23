@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -12,27 +16,27 @@ public partial class SSOUserServiceTests
     public async Task ShouldUpdateSSOUserAsync()
     {
         // given
-        SSOUser inputSSOUser = RandomUser(RandomString());
+        SSOUser inputSSOUser = RandomUser(id: RandomString());
         SSOUser expectedSSOUser = inputSSOUser.DeepClone();
 
         SSOUser submitted = null;
         userBrokerMock
             .Setup(broker => broker.UpdateSSOUserAsync(It.IsAny<SSOUser>()))
             .Callback<SSOUser>(candidate => submitted = candidate)
-            .ReturnsAsync(expectedSSOUser);
+            .ReturnsAsync(value: expectedSSOUser);
 
         // when
-        SSOUser actualSSOUser = await userService.UpdateSSOUserAsync(inputSSOUser);
+        SSOUser actualSSOUser = await userService.UpdateSSOUserAsync(item: inputSSOUser);
 
         // then
-        actualSSOUser.Should().BeSameAs(inputSSOUser);
-        submitted.Should().NotBeSameAs(inputSSOUser);
-        actualSSOUser.Should().NotBeSameAs(submitted);
-        actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
+        actualSSOUser.Should().BeSameAs(expected: inputSSOUser);
+        submitted.Should().NotBeSameAs(unexpected: inputSSOUser);
+        actualSSOUser.Should().NotBeSameAs(unexpected: submitted);
+        actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
 
-        userBrokerMock.Verify(broker => 
-            broker.UpdateSSOUserAsync(It.IsAny<SSOUser>()), 
-            Times.Once);
+        userBrokerMock.Verify(expression: broker =>
+            broker.UpdateSSOUserAsync(It.IsAny<SSOUser>()),
+times: Times.Once);
 
         userBrokerMock.VerifyNoOtherCalls();
     }

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.Security;
 using Xunit;
 
@@ -13,7 +17,6 @@ public partial class AuthenticationOrchestrationServiceTests
         string password = RandomString();
 
         //when & then
-        await Assert.ThrowsAsync<SecurityException>(async() => await authenticationOrchestrationService.LoginAsync(username, password));
+        await Assert.ThrowsAsync<SecurityException>(testCode: async () => await authenticationOrchestrationService.LoginAsync(username, password));
     }
 }
-

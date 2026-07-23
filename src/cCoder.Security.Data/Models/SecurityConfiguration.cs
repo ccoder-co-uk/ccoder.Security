@@ -1,4 +1,8 @@
-﻿namespace cCoder.Security.Objects;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+namespace cCoder.Security.Objects;
 
 public class SecurityConfiguration
 {

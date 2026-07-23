@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -22,26 +26,25 @@ public partial class UserEventServiceTests
         userEventBrokerMock.Setup(userEventBrokerMock =>
             userEventBrokerMock.AddUserEventAsync(It.IsAny<UserEvent>()))
             .Callback<UserEvent>(candidate => submitted = candidate)
-            .ReturnsAsync(inputUserEvent);
+            .ReturnsAsync(value: inputUserEvent);
 
         dateTimeOffsetBrokerMock.Setup(dateTimeOffsetBrokerMock =>
             dateTimeOffsetBrokerMock.GetCurrentTime())
-            .Returns(expectedTime);
+            .Returns(value: expectedTime);
 
         //when
-        UserEvent actualUserEvent = await userEventService.AddUserEventAsync(inputUserEvent);
+        UserEvent actualUserEvent = await userEventService.AddUserEventAsync(userEvent: inputUserEvent);
 
         //then
-        actualUserEvent.Should().BeSameAs(inputUserEvent);
-        submitted.Should().NotBeSameAs(inputUserEvent);
-        actualUserEvent.Should().NotBeSameAs(submitted);
-        actualUserEvent.Should().BeEquivalentTo(expectedUserEvent);
+        actualUserEvent.Should().BeSameAs(expected: inputUserEvent);
+        submitted.Should().NotBeSameAs(unexpected: inputUserEvent);
+        actualUserEvent.Should().NotBeSameAs(unexpected: submitted);
+        actualUserEvent.Should().BeEquivalentTo(expectation: expectedUserEvent);
 
-        userEventBrokerMock.Verify(userEventBrokerMock =>
+        userEventBrokerMock.Verify(expression: userEventBrokerMock =>
             userEventBrokerMock.AddUserEventAsync(It.IsAny<UserEvent>()),
-            Times.Once());
+times: Times.Once());
 
         userEventBrokerMock.VerifyNoOtherCalls();
     }
 }
-

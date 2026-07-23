@@ -1,9 +1,14 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Processings;
+
 internal class SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleService)
     : ISSOUserRoleProcessingService
 {
@@ -11,10 +16,8 @@ internal class SSOUserRoleProcessingService(ISSOUserRoleService ssoUserRoleServi
         ssoUserRoleService.GetAllSSOUserRoles();
 
     public async ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole item) =>
-        await ssoUserRoleService.AddSSOUserRoleAsync(item);
+        await ssoUserRoleService.AddSSOUserRoleAsync(item: item);
 
-    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) => 
-        await ssoUserRoleService.DeleteSSOUserRoleAsync(item);
+    public async ValueTask DeleteSSOUserRoleAsync(SSOUserRole item) =>
+        await ssoUserRoleService.DeleteSSOUserRoleAsync(item: item);
 }
-
-

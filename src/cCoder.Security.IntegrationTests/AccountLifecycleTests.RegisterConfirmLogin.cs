@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
@@ -11,17 +15,17 @@ public partial class AccountLifecycleTests
     public async Task ShouldRegisterConfirmAndLoginAsync()
     {
         // given
-        RegisterUser user = CreateRegisterUser("registration");
+        RegisterUser user = CreateRegisterUser(name: "registration");
 
         // when
-        (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user);
-        await ConfirmRegistrationAsync(confirmationToken);
-        Token token = await LoginAsync(CreateAuth(user));
+        (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user: user);
+        await ConfirmRegistrationAsync(token: confirmationToken);
+        Token token = await LoginAsync(auth: CreateAuth(user));
         await LogoutAsync();
 
         // then
-        registeredUser.Email.Should().Be(user.Email);
-        token.UserName.Should().Be(registeredUser.Id);
-        FindUser(registeredUser.Id).EmailConfirmed.Should().BeTrue();
+        registeredUser.Email.Should().Be(expected: user.Email);
+        token.UserName.Should().Be(expected: registeredUser.Id);
+        FindUser(userId: registeredUser.Id).EmailConfirmed.Should().BeTrue();
     }
 }

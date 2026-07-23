@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -7,44 +11,44 @@ using Xunit;
 namespace cCoder.Security.Tests.Processings;
 
 public partial class SSOUserProcessingServiceTests
-	{
-		[Fact]
-		public async Task FindByUserAndPasswordWorksAsExpected()
-		{
-			//given
-			string inputPassword = RandomString();
+{
+    [Fact]
+    public async Task FindByUserAndPasswordWorksAsExpected()
+    {
+        //given
+        string inputPassword = RandomString();
 
-			IQueryable<SSOUser> ssoUsersInService = RandomSSOUsers()
-				.AsQueryable();
+        IQueryable<SSOUser> ssoUsersInService = RandomSSOUsers()
+            .AsQueryable();
 
-			foreach (SSOUser user in ssoUsersInService)
-				user.LockoutEnabled = false;
+        foreach (SSOUser user in ssoUsersInService)
+            user.LockoutEnabled = false;
 
-			ssoUserServiceMock.Setup(ssoUserServiceMock =>
-				ssoUserServiceMock.GetAllSSOUsers(true))
-				.Returns(ssoUsersInService);
+        ssoUserServiceMock.Setup(ssoUserServiceMock =>
+            ssoUserServiceMock.GetAllSSOUsers(true))
+            .Returns(value: ssoUsersInService);
 
         SSOUser expectedSSOUser = ssoUsersInService.First();
 
         passwordEncryptionBrokerMock.Setup(passwordEncryptionBrokerMock =>
-				passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword))
-				.Returns(true);
+                passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword))
+                .Returns(value: true);
 
-			//when
-			SSOUser actualSSOUser = await ssoUserProcessingService
-				.FindByUserAndPasswordAsync(expectedSSOUser.Id, inputPassword);
+        //when
+        SSOUser actualSSOUser = await ssoUserProcessingService
+            .FindByUserAndPasswordAsync(username: expectedSSOUser.Id, password: inputPassword);
 
-			//then
-			actualSSOUser.Should().BeEquivalentTo(expectedSSOUser);
+        //then
+        actualSSOUser.Should().BeEquivalentTo(expectation: expectedSSOUser);
 
-			ssoUserServiceMock.Verify(ssoUserServiceMock =>
-				ssoUserServiceMock.GetAllSSOUsers(true),
-				Times.Exactly(2));
+        ssoUserServiceMock.Verify(expression: ssoUserServiceMock =>
+            ssoUserServiceMock.GetAllSSOUsers(true),
+times: Times.Exactly(2));
 
-			passwordEncryptionBrokerMock.Verify(passwordEncryptionBrokerMock =>
-				passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword),
-				Times.Once);
-		}
+        passwordEncryptionBrokerMock.Verify(expression: passwordEncryptionBrokerMock =>
+            passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword),
+times: Times.Once);
+    }
 
     [Fact]
     public async Task FindByUserAndPasswordNotWorksForLockoutAsExpected()
@@ -57,7 +61,7 @@ public partial class SSOUserProcessingServiceTests
 
         ssoUserServiceMock.Setup(ssoUserServiceMock =>
             ssoUserServiceMock.GetAllSSOUsers(true))
-            .Returns(ssoUsersInService);
+            .Returns(value: ssoUsersInService);
 
         SSOUser expectedSSOUser = ssoUsersInService.First();
 
@@ -65,10 +69,10 @@ public partial class SSOUserProcessingServiceTests
 
         passwordEncryptionBrokerMock.Setup(passwordEncryptionBrokerMock =>
             passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(expectedSSOUser.PasswordHash, inputPassword))
-            .Returns(true);
+            .Returns(value: true);
 
         //when & then
-        await Assert.ThrowsAsync<SecurityException>(async () => await ssoUserProcessingService
-			.FindByUserAndPasswordAsync(expectedSSOUser.Id, inputPassword));
+        await Assert.ThrowsAsync<SecurityException>(testCode: async () => await ssoUserProcessingService
+            .FindByUserAndPasswordAsync(expectedSSOUser.Id, inputPassword));
     }
 }

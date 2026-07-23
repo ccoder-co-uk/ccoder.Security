@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security;
 using cCoder.Security.Exposures;
 using cCoder.Security.Data.EF;
@@ -8,10 +12,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
         IConfigurationRoot config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
             .AddEnvironmentVariables(prefix: "ENV_")
             .Build();
 
@@ -19,7 +23,7 @@ public class Program
         builder.Services.AddAspNetCore();
         builder.Services.AddMetadata();
 
-        builder.Services.AddSecurityWeb((services, securityConfig) =>
+        builder.Services.AddSecurityWeb(configAction: (services, securityConfig) =>
         {
             securityConfig.RootPath = "Api/Security";
 
@@ -41,7 +45,7 @@ public class Program
 
         WebApplication app = builder.Build();
         app.InitialiseSecurityDatabase();
-        app.MapGet("/Health", () => Results.Text("Healthy"));
+        app.MapGet(pattern: "/Health", handler: () => Results.Text("Healthy"));
         app.UseSession();
         app.StartSecurityWeb();
         app.UseTheFramework();

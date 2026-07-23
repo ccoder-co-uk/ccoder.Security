@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
@@ -21,12 +25,12 @@ public partial class TenantServiceTests
         tenantService = new TenantService(tenantBrokerMock.Object);
     }
 
-    private Tenant[] RandomTenants() => 
+    private Tenant[] RandomTenants() =>
         Enumerable.Range(1, new Random().Next(10, 20))
-            .Select(_ => RandomTenant())
+            .Select(selector: _ => RandomTenant())
             .ToArray();
 
-    private Tenant RandomTenant() => 
+    private Tenant RandomTenant() =>
         GetTenantFiller().Create();
 
     private Filler<Tenant> GetTenantFiller()
@@ -37,10 +41,8 @@ public partial class TenantServiceTests
             .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)
             .OnProperty(t => t.Analysis).IgnoreIt()
             .OnProperty(t => t.UserEvents).IgnoreIt()
-            .OnProperty(t => t.Roles).IgnoreIt();
+            .OnProperty(property: t => t.Roles).IgnoreIt();
 
         return filler;
     }
 }
-
-

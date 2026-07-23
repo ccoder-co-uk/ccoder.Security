@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
@@ -5,15 +9,16 @@ using cCoder.Security.Objects.Entities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace cCoder.Security.Brokers.Storage;
-internal class TenantBroker(ISecurityDbContextFactory contextFactory) 
+
+internal class TenantBroker(ISecurityDbContextFactory contextFactory)
     : ITenantBroker
 {
     public async ValueTask<Tenant> AddTenantAsync(Tenant tenant)
     {
         using SecurityDbContext context = contextFactory.CreateDbContext();
 
-        EntityEntry<Tenant> entityEntry = 
-            await context.Tenants.AddAsync(tenant);
+        EntityEntry<Tenant> entityEntry =
+            await context.Tenants.AddAsync(entity: tenant);
 
         await context.SaveChangesAsync();
 
@@ -22,11 +27,11 @@ internal class TenantBroker(ISecurityDbContextFactory contextFactory)
 
     public async ValueTask<Tenant> UpdateTenantAsync(Tenant tenant)
     {
-        using SecurityDbContext context = 
+        using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
-        EntityEntry<Tenant> entityEntry = 
-            context.Tenants.Update(tenant);
+        EntityEntry<Tenant> entityEntry =
+            context.Tenants.Update(entity: tenant);
 
         await context.SaveChangesAsync();
 
@@ -35,24 +40,20 @@ internal class TenantBroker(ISecurityDbContextFactory contextFactory)
 
     public async ValueTask DeleteTenantAsync(Tenant tenant)
     {
-        using SecurityDbContext context = 
+        using SecurityDbContext context =
             contextFactory.CreateDbContext();
 
-        EntityEntry<Tenant> entityEntry = 
-            context.Tenants.Remove(tenant);
+        EntityEntry<Tenant> entityEntry =
+            context.Tenants.Remove(entity: tenant);
 
         await context.SaveChangesAsync();
     }
 
     public IQueryable<Tenant> GetAllTenants()
     {
-        SecurityDbContext context = 
+        SecurityDbContext context =
             contextFactory.CreateDbContext();
 
         return context.Tenants;
     }
 }
-
-
-
-

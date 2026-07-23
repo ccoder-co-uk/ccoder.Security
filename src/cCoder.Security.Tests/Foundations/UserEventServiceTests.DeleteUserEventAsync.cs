@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Moq;
 using Xunit;
@@ -13,14 +17,13 @@ public partial class UserEventServiceTests
         UserEvent inputUserEvent = RandomUserEvent();
 
         //when
-        await userEventService.DeleteUserEventAsync(inputUserEvent);
+        await userEventService.DeleteUserEventAsync(userEvent: inputUserEvent);
 
         //then
-        userEventBrokerMock.Verify(userEventBrokerMock =>
+        userEventBrokerMock.Verify(expression: userEventBrokerMock =>
             userEventBrokerMock.DeleteUserEventAsync(inputUserEvent),
-            Times.Once());
+times: Times.Once());
 
         userEventBrokerMock.VerifyNoOtherCalls();
     }
 }
-

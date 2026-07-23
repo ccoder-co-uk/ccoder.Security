@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
@@ -12,14 +16,14 @@ public class HealthTests
         using WebApplicationFactory<AcceptanceHost> factory = new();
         using HttpClient client = factory.CreateClient();
 
-        HttpResponseMessage response = await client.GetAsync("/");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/");
 
         response.EnsureSuccessStatusCode();
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("cCoder.Security Hosted Services");
-        content.Should().Contain("TokenCleaner");
-        content.Should().NotContain("tenant_setup");
-        content.Should().NotContain("Hosted event listeners");
+        content.Should().Contain(expected: "cCoder.Security Hosted Services");
+        content.Should().Contain(expected: "TokenCleaner");
+        content.Should().NotContain(unexpected: "tenant_setup");
+        content.Should().NotContain(unexpected: "Hosted event listeners");
     }
 
     [Fact]
@@ -28,10 +32,10 @@ public class HealthTests
         using WebApplicationFactory<AcceptanceHost> factory = new();
         using HttpClient client = factory.CreateClient();
 
-        HttpResponseMessage response = await client.GetAsync("/Health");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/Health");
 
         response.EnsureSuccessStatusCode();
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Be("Healthy");
+        content.Should().Be(expected: "Healthy");
     }
 }

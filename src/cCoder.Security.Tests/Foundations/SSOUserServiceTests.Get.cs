@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -12,14 +16,14 @@ public partial class SSOUserServiceTests
     {
         // given
         IQueryable<SSOUser> expectedSSOUsers = RandomUsers();
-        userBrokerMock.Setup(broker => broker.GetAllSSOUsers(false)).Returns(expectedSSOUsers);
+        userBrokerMock.Setup(broker => broker.GetAllSSOUsers(false)).Returns(value: expectedSSOUsers);
 
         // when
         IEnumerable<SSOUser> actualSSOUsers = userService.GetAllSSOUsers();
 
         // then
-        actualSSOUsers.Should().BeEquivalentTo(expectedSSOUsers);
-        userBrokerMock.Verify(broker => broker.GetAllSSOUsers(false), Times.Once);
+        actualSSOUsers.Should().BeEquivalentTo(expectation: expectedSSOUsers);
+        userBrokerMock.Verify(expression: broker => broker.GetAllSSOUsers(false), times: Times.Once);
         userBrokerMock.VerifyNoOtherCalls();
     }
 }

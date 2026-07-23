@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Moq;
 using Xunit;
@@ -6,27 +10,25 @@ namespace cCoder.Security.Tests.Processings;
 
 public partial class SSOUserProcessingServiceTests
 {
-	[Fact]
-	public void MeShouldWorkAsExpected()
-	{
-		//given
-		SSOUser expectedSSOUser = RandomSSOUser();
+    [Fact]
+    public void MeShouldWorkAsExpected()
+    {
+        //given
+        SSOUser expectedSSOUser = RandomSSOUser();
 
-            ssoUserServiceMock.Setup(identityBrokerMock =>
-			identityBrokerMock.Me())
-			.Returns(expectedSSOUser);
+        ssoUserServiceMock.Setup(identityBrokerMock =>
+        identityBrokerMock.Me())
+        .Returns(value: expectedSSOUser);
 
-		//when
-		SSOUser actualSSOUser = ssoUserProcessingService.Me();
+        //when
+        SSOUser actualSSOUser = ssoUserProcessingService.Me();
 
-            //then
-            ssoUserServiceMock.Verify(identityBrokerMock =>
-			identityBrokerMock.Me(),
-			Times.Once());
+        //then
+        ssoUserServiceMock.Verify(expression: identityBrokerMock =>
+        identityBrokerMock.Me(),
+times: Times.Once());
 
-		ssoUserServiceMock.VerifyNoOtherCalls();
-		passwordEncryptionBrokerMock.VerifyNoOtherCalls();
-	}
+        ssoUserServiceMock.VerifyNoOtherCalls();
+        passwordEncryptionBrokerMock.VerifyNoOtherCalls();
+    }
 }
-
-

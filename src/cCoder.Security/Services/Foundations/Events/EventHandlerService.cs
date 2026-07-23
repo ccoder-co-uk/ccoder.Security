@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Services.Processings.Events;
@@ -8,7 +12,6 @@ internal class EventHandlerService(IEventHubBroker eventHubBroker) : IEventHandl
 {
     public void ListenToAllEvents() =>
         eventHubBroker.ListenToEvent(
-            "tenant_setup",
-            (ITenantSetupEventProcessingService service, SetupDetails details) => service.SetupAsync(details));
+eventName: "tenant_setup",
+handler: (ITenantSetupEventProcessingService service, SetupDetails details) => service.SetupAsync(details));
 }
-

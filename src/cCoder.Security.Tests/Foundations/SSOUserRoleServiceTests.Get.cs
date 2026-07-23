@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -12,14 +16,14 @@ public partial class SSOUserRoleServiceTests
     {
         // given
         IQueryable<SSOUserRole> expectedSSOUserRoles = RandomUserRoles();
-        userRoleBrokerMock.Setup(broker => broker.GetAllSSOUserRoles()).Returns(expectedSSOUserRoles);
+        userRoleBrokerMock.Setup(broker => broker.GetAllSSOUserRoles()).Returns(value: expectedSSOUserRoles);
 
         // when
         IEnumerable<SSOUserRole> actualSSOUserRoles = userRoleService.GetAllSSOUserRoles();
 
         // then
-        actualSSOUserRoles.Should().BeEquivalentTo(expectedSSOUserRoles);
-        userRoleBrokerMock.Verify(broker => broker.GetAllSSOUserRoles(), Times.Once);
+        actualSSOUserRoles.Should().BeEquivalentTo(expectation: expectedSSOUserRoles);
+        userRoleBrokerMock.Verify(expression: broker => broker.GetAllSSOUserRoles(), times: Times.Once);
         userRoleBrokerMock.VerifyNoOtherCalls();
     }
 }

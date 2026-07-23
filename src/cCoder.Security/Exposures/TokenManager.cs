@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 
@@ -7,5 +11,5 @@ internal class TokenManager(IAuthenticationOrchestrationService authenticationOr
     : ITokenManager
 {
     public async ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse) =>
-        await authenticationOrchestrationService.IssueTokenAsync(userId, tokenUse);
+        await authenticationOrchestrationService.IssueTokenAsync(userId: userId, tokenUse: tokenUse);
 }

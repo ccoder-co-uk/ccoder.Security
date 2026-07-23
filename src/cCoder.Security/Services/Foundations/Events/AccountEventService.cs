@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.Requests;
@@ -17,48 +21,48 @@ internal class AccountEventService(
 {
     public ValueTask RaiseRegistrationCreatedEventAsync(SSOUser user, RegisterUser registerForm, string token) =>
         RaiseAsync(
-            SecurityAccountEventNames.RegistrationCreated,
-            SecurityAccountEventKind.RegistrationCreated,
-            user,
-            ResolveTenant(registerForm?.TenantId),
-            token,
-            registerForm?.Culture);
+eventName: SecurityAccountEventNames.RegistrationCreated,
+kind: SecurityAccountEventKind.RegistrationCreated,
+user: user,
+tenant: ResolveTenant(registerForm?.TenantId),
+token: token,
+culture: registerForm?.Culture);
 
     public ValueTask RaiseRegistrationConfirmedEventAsync(SSOUser user, string token) =>
         RaiseAsync(
-            SecurityAccountEventNames.RegistrationConfirmed,
-            SecurityAccountEventKind.RegistrationConfirmed,
-            user,
-            ResolveTenant(user),
-            token,
-            null);
+eventName: SecurityAccountEventNames.RegistrationConfirmed,
+kind: SecurityAccountEventKind.RegistrationConfirmed,
+user: user,
+tenant: ResolveTenant(user),
+token: token,
+culture: null);
 
     public ValueTask RaiseInvitationCreatedEventAsync(SSOUser user, RegisterUser registerForm, string token) =>
         RaiseAsync(
-            SecurityAccountEventNames.InvitationCreated,
-            SecurityAccountEventKind.InvitationCreated,
-            user,
-            ResolveTenant(registerForm?.TenantId),
-            token,
-            registerForm?.Culture);
+eventName: SecurityAccountEventNames.InvitationCreated,
+kind: SecurityAccountEventKind.InvitationCreated,
+user: user,
+tenant: ResolveTenant(registerForm?.TenantId),
+token: token,
+culture: registerForm?.Culture);
 
     public ValueTask RaiseInvitationAcceptedEventAsync(SSOUser user, RegisterUser registerForm, string token) =>
         RaiseAsync(
-            SecurityAccountEventNames.InvitationAccepted,
-            SecurityAccountEventKind.InvitationAccepted,
-            user,
-            ResolveTenant(registerForm?.TenantId) ?? ResolveTenant(user),
-            token,
-            registerForm?.Culture);
+eventName: SecurityAccountEventNames.InvitationAccepted,
+kind: SecurityAccountEventKind.InvitationAccepted,
+user: user,
+tenant: ResolveTenant(registerForm?.TenantId) ?? ResolveTenant(user),
+token: token,
+culture: registerForm?.Culture);
 
     public ValueTask RaisePasswordResetRequestedEventAsync(SSOUser user, string token) =>
         RaiseAsync(
-            SecurityAccountEventNames.PasswordResetRequested,
-            SecurityAccountEventKind.PasswordResetRequested,
-            user,
-            ResolveTenant(user),
-            token,
-            null);
+eventName: SecurityAccountEventNames.PasswordResetRequested,
+kind: SecurityAccountEventKind.PasswordResetRequested,
+user: user,
+tenant: ResolveTenant(user),
+token: token,
+culture: null);
 
     private ValueTask RaiseAsync(
         string eventName,
@@ -68,32 +72,32 @@ internal class AccountEventService(
         string token,
         string culture) =>
         accountEventBroker.RaiseAccountEventAsync(
-            eventName,
-            new EventMessage<SecurityAccountEvent>
-            {
-                AuthInfo = new EventAuthInfo
-                {
-                    SSOUserId = authInfo?.SSOUserId ?? "Guest"
-                },
-                Data = new SecurityAccountEvent
-                {
-                    Kind = kind,
-                    User = user,
-                    Tenant = tenant,
-                    RequestDomain = requestBroker.GetRequestDomain(),
-                    Token = token,
-                    Culture = culture
-                }
-            });
+eventName: eventName,
+message: new EventMessage<SecurityAccountEvent>
+{
+    AuthInfo = new EventAuthInfo
+    {
+        SSOUserId = authInfo?.SSOUserId ?? "Guest"
+    },
+    Data = new SecurityAccountEvent
+    {
+        Kind = kind,
+        User = user,
+        Tenant = tenant,
+        RequestDomain = requestBroker.GetRequestDomain(),
+        Token = token,
+        Culture = culture
+    }
+});
 
     private Tenant ResolveTenant(string tenantId) =>
-        string.IsNullOrWhiteSpace(tenantId)
+        string.IsNullOrWhiteSpace(value: tenantId)
             ? null
             : tenantProcessingService.GetAllTenants()
-                .FirstOrDefault(tenant => tenant.Id == tenantId);
+                .FirstOrDefault(predicate: tenant => tenant.Id == tenantId);
 
     private Tenant ResolveTenant(SSOUser user) =>
         user?.Roles?
             .Select(userRole => userRole.Role?.Tenant)
-            .FirstOrDefault(tenant => tenant is not null);
+            .FirstOrDefault(predicate: tenant => tenant is not null);
 }

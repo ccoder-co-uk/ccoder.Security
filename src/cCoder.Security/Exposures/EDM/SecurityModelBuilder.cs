@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Microsoft.OData.Edm;
 
@@ -16,14 +20,14 @@ public class SecurityModelBuilder : ODataModelBuilder
     {
         var userType = Builder.EntityType<SSOUser>();
 
-        userType.Ignore(u => u.PasswordHash);
-        userType.Ignore(u => u.AccessFailedCount);
-        userType.Ignore(u => u.Tokens);
-        userType.Ignore(u => u.LockoutEnabled);
-        userType.Ignore(u => u.LockoutEndDateUtc);
+        userType.Ignore(propertyExpression: u => u.PasswordHash);
+        userType.Ignore(propertyExpression: u => u.AccessFailedCount);
+        userType.Ignore(propertyExpression: u => u.Tokens);
+        userType.Ignore(propertyExpression: u => u.LockoutEnabled);
+        userType.Ignore(propertyExpression: u => u.LockoutEndDateUtc);
 
         var userEventType = Builder.EntityType<UserEvent>();
-        userEventType.Ignore(u => u.Session);
+        userEventType.Ignore(propertyExpression: u => u.Session);
 
         // Security
         AddSet<SSOUser, string>();
@@ -33,7 +37,7 @@ public class SecurityModelBuilder : ODataModelBuilder
         AddSet<TenantAnalysis, Guid>();
         AddSet<UserEvent, Guid>();
 
-        AddJoinSet<SSOUserRole, object>(ur => new { ur.UserId, ur.RoleId });
+        AddJoinSet<SSOUserRole, object>(key: ur => new { ur.UserId, ur.RoleId });
 
         return Builder.GetEdmModel();
     }

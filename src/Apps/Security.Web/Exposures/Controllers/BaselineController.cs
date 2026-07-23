@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Microsoft.AspNetCore.Mvc;
 using Security.Web.Exposures.Setup;
 
@@ -9,5 +13,5 @@ public sealed class BaselineController : ControllerBase
 {
     [HttpGet]
     public IActionResult Get() =>
-        Ok(UIBaseline.Packages);
+        Ok(value: UIBaseline.Packages);
 }

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
 using Moq;
@@ -24,20 +28,20 @@ public partial class AuthenticationOrchestrationServiceTests
 
         ssoUserProcessingServiceMock
             .Setup(service => service.GetAllSSOUsers(true))
-            .Returns(new[] { user }.AsQueryable());
+            .Returns(value: new[] { user }.AsQueryable());
         tokenProcessingServiceMock
             .Setup(service => service.GenerateForgottenPasswordToken(user.Id))
-            .ReturnsAsync(token);
+            .ReturnsAsync(value: token);
         accountEventServiceMock
             .Setup(service => service.RaisePasswordResetRequestedEventAsync(user, token.Id))
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value: ValueTask.CompletedTask);
 
         Token actualToken =
-            await authenticationOrchestrationService.ForgotPasswordAsync(user.Email);
+            await authenticationOrchestrationService.ForgotPasswordAsync(email: user.Email);
 
-        actualToken.Should().BeSameAs(token);
+        actualToken.Should().BeSameAs(expected: token);
         accountEventServiceMock.Verify(
-            service => service.RaisePasswordResetRequestedEventAsync(user, token.Id),
-            Times.Once);
+expression: service => service.RaisePasswordResetRequestedEventAsync(user, token.Id),
+times: Times.Once);
     }
 }

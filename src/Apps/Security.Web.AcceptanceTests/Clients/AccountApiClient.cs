@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Objects.DTOs;
@@ -35,7 +39,7 @@ public class AccountApiClient : IDisposable
         api = webApplicationFactory.CreateClient();
 
         if (authenticate)
-            api.Authenticate("TestUser", "TestPass01!").Wait();
+            api.Authenticate(user: "TestUser", pass: "TestPass01!").Wait();
 
         using IServiceScope scope = webApplicationFactory.Services.CreateScope();
         IServiceProvider scopedServices = scope.ServiceProvider;
@@ -48,7 +52,7 @@ public class AccountApiClient : IDisposable
         new(authenticate: false, dropAcceptanceDatabaseOnDispose: false);
 
     public HttpClient UseNoCookiesApiClient() =>
-        api = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions { HandleCookies = false });
+        api = webApplicationFactory.CreateClient(options: new WebApplicationFactoryClientOptions { HandleCookies = false });
 
     public void AddBearerAuthentication(string bearer)
     {
@@ -66,7 +70,7 @@ public class AccountApiClient : IDisposable
         else
         {
             string encoded =
-                Convert.ToBase64String(Encoding.UTF8.GetBytes(auth.User + ":" + auth.Pass));
+                Convert.ToBase64String(inArray: Encoding.UTF8.GetBytes(auth.User + ":" + auth.Pass));
 
             api.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("basic", encoded);
@@ -75,7 +79,7 @@ public class AccountApiClient : IDisposable
 
     public async ValueTask PostAsync(string query, object content)
     {
-        HttpResponseMessage request = await api.PostAsync(endpoint + query, new StringContent(content.ToJson(), Encoding.UTF8, "application/json"));
+        HttpResponseMessage request = await api.PostAsync(requestUri: endpoint + query, content: new StringContent(content.ToJson(), Encoding.UTF8, "application/json"));
 
         if ((int)request.StatusCode == 500)
             throw new InternalServerErrorException(await request.Content.ReadAsStringAsync());
@@ -89,14 +93,14 @@ public class AccountApiClient : IDisposable
     public async ValueTask<Token> LoginAsync(Auth auth, string query = "")
     {
         StringContent content = new(auth.ToJson(), Encoding.UTF8, "application/json");
-        HttpResponseMessage request = await api.PostAsync(endpoint + "Login" + query, content);
+        HttpResponseMessage request = await api.PostAsync(requestUri: endpoint + "Login" + query, content: content);
         request.EnsureSuccessStatusCode();
         return await request.Content.ReadAsAsync<Token>();
     }
 
     public async ValueTask<SSOUser> Me(string query = "")
     {
-        HttpResponseMessage response = await api.GetAsync(endpoint + "Me" + query);
+        HttpResponseMessage response = await api.GetAsync(requestUri: endpoint + "Me" + query);
         return await response.Content.ReadAsAsync<SSOUser>();
     }
 
@@ -104,21 +108,21 @@ public class AccountApiClient : IDisposable
     {
         SSOUser user = Database.Users
             .IgnoreQueryFilters()
-            .FirstOrDefault(u => u.Id == ssoUserId);
+            .FirstOrDefault(predicate: u => u.Id == ssoUserId);
 
         if (user != null)
         {
             List<Token> tokens = [.. Database.Tokens
                 .IgnoreQueryFilters()
-                .Where(t => t.UserName == user.Id)];
+                .Where(predicate:t => t.UserName == user.Id)];
 
             List<SSOUserRole> userRoles = [.. Database.UserRoles
                 .IgnoreQueryFilters()
-                .Where(r => r.UserId == user.Id)];
+                .Where(predicate:r => r.UserId == user.Id)];
 
-            Database.Tokens.RemoveRange(tokens);
-            Database.UserRoles.RemoveRange(userRoles);
-            Database.Users.Remove(user);
+            Database.Tokens.RemoveRange(entities: tokens);
+            Database.UserRoles.RemoveRange(entities: userRoles);
+            Database.Users.Remove(entity: user);
             await Database.SaveChangesAsync();
         }
     }
@@ -133,4 +137,3 @@ public class AccountApiClient : IDisposable
             SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting();
     }
 }
-

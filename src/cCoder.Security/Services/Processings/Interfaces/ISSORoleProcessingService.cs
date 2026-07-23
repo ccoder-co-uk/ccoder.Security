@@ -1,6 +1,11 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 
 namespace cCoder.Security.Services.Processings.Interfaces;
+
 internal interface ISSORoleProcessingService
 {
     IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false);
@@ -11,5 +16,3 @@ internal interface ISSORoleProcessingService
 
     ValueTask DeleteSSORoleAsync(SSORole item);
 }
-
-

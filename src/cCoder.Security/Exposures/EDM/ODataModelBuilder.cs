@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Microsoft.OData.ModelBuilder;
 using System.Linq.Expressions;
 
@@ -16,27 +20,27 @@ public abstract class ODataModelBuilder
     /// <returns></returns>
     public abstract ODataModel Build();
 
-    protected virtual EntitySetConfiguration<T> AddSet<T, TKey>(bool enableBatchingToo = false, string setName = null) 
+    protected virtual EntitySetConfiguration<T> AddSet<T, TKey>(bool enableBatchingToo = false, string setName = null)
         where T : class
     {
         setName ??= typeof(T).Name;
-        EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(setName);
+        EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(name: setName);
 
         // register base OData controller defined functions
-        StructuralTypeConfiguration typeInfo = Builder.StructuralTypes.First(t => t.ClrType == typeof(T));
+        StructuralTypeConfiguration typeInfo = Builder.StructuralTypes.First(predicate: t => t.ClrType == typeof(T));
 
         return setConfig;
     }
 
-    protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> key) 
+    protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> key)
         where T : class
     {
         string setName = typeof(T).Name;
         // register basic CRUD endpoint
-        EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(setName);
+        EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(name: setName);
 
         // register base OData controller defined functions
-        _ = Builder.EntityType<T>().HasKey(key);
+        _ = Builder.EntityType<T>().HasKey(keyDefinitionExpression: key);
 
         return setConfig;
     }

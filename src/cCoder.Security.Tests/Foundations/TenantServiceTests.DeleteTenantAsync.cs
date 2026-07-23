@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Objects.Entities;
 using Moq;
 using Xunit;
@@ -13,14 +17,13 @@ public partial class TenantServiceTests
         Tenant inputTenant = RandomTenant();
 
         //when
-        await tenantService.DeleteTenantAsync(inputTenant);
+        await tenantService.DeleteTenantAsync(tenant: inputTenant);
 
         //then
-        tenantBrokerMock.Verify(tenantBrokerMock =>
+        tenantBrokerMock.Verify(expression: tenantBrokerMock =>
             tenantBrokerMock.DeleteTenantAsync(inputTenant),
-            Times.Once());
+times: Times.Once());
 
         tenantBrokerMock.VerifyNoOtherCalls();
     }
 }
-

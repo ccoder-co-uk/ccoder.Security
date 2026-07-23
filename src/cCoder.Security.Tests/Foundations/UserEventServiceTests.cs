@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Objects.Entities;
@@ -21,12 +25,12 @@ public partial class UserEventServiceTests
         userEventService = new UserEventService(userEventBrokerMock.Object, dateTimeOffsetBrokerMock.Object);
     }
 
-    private UserEvent[] RandomUserEvents() => 
+    private UserEvent[] RandomUserEvents() =>
         Enumerable.Range(1, new Random().Next(10, 20))
-            .Select(_ => RandomUserEvent())
+            .Select(selector: _ => RandomUserEvent())
             .ToArray();
 
-    private UserEvent RandomUserEvent() => 
+    private UserEvent RandomUserEvent() =>
         GetUserEventFiller().Create();
 
     private Filler<UserEvent> GetUserEventFiller()
@@ -37,10 +41,8 @@ public partial class UserEventServiceTests
             .OnType<DateTimeOffset>().Use(DateTimeOffset.Now)
             .OnProperty(ue => ue.Session).IgnoreIt()
             .OnProperty(ue => ue.CreatedByUser).IgnoreIt()
-            .OnProperty(ue => ue.Tenant).IgnoreIt();
+            .OnProperty(property: ue => ue.Tenant).IgnoreIt();
 
         return filler;
     }
 }
-
-

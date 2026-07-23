@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Security.Data.Models;
 using cCoder.Security.Objects.DTOs;
 using cCoder.Security.Objects.Entities;
@@ -12,10 +16,10 @@ internal class TenantSetupOrchestrationService(
 {
     public async ValueTask SetupAsync(SetupDetails setupDetails)
     {
-        await tenantOrchestrationService.AddTenantAsync(setupDetails.Tenant);
+        await tenantOrchestrationService.AddTenantAsync(item: setupDetails.Tenant);
         (SSOUser _, string confirmationToken) =
-            await ssoUserOrchestrationService.Register(MapRegisterUser(setupDetails));
-        await ssoUserOrchestrationService.ConfirmRegistration(confirmationToken);
+            await ssoUserOrchestrationService.Register(registerForm: MapRegisterUser(setupDetails));
+        await ssoUserOrchestrationService.ConfirmRegistration(tokenId: confirmationToken);
     }
 
     private static RegisterUser MapRegisterUser(SetupDetails setupDetails) => new()
@@ -29,4 +33,3 @@ internal class TenantSetupOrchestrationService(
         TenantId = setupDetails.Tenant.Id
     };
 }
-
