@@ -7,19 +7,42 @@ using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Processings;
 
-internal class TenantAnalysisProcessingService(ITenantAnalysisService tenantAnalysisService)
+internal sealed partial class TenantAnalysisProcessingService(
+    ITenantAnalysisService tenantAnalysisService)
     : ITenantAnalysisProcessingService
-
 {
     public ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis newTenantAnalysis) =>
-        tenantAnalysisService.AddTenantAnalysisAsync(tenant: newTenantAnalysis);
+        TryCatch<TenantAnalysis>(operation: async () =>
+        {
+            ValidateTenantAnalysisOnAdd(newTenantAnalysis: newTenantAnalysis);
+
+            return await tenantAnalysisService.AddTenantAnalysisAsync(
+                tenant: newTenantAnalysis);
+        });
 
     public ValueTask DeleteTenantAnalysisAsync(TenantAnalysis deletedTenantAnalysis) =>
-        tenantAnalysisService.DeleteTenantAnalysisAsync(tenant: deletedTenantAnalysis);
+        TryCatch(operation: async () =>
+        {
+            ValidateTenantAnalysisOnDelete(deletedTenantAnalysis: deletedTenantAnalysis);
+
+            await tenantAnalysisService.DeleteTenantAnalysisAsync(
+                tenant: deletedTenantAnalysis);
+        });
 
     public IQueryable<TenantAnalysis> GetAllTenantAnalysis() =>
-        tenantAnalysisService.GetAllTenantAnalysis();
+        TryCatch(operation: () =>
+        {
+            ValidateTenantAnalysisOnGet();
+
+            return tenantAnalysisService.GetAllTenantAnalysis();
+        });
 
     public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis) =>
-        tenantAnalysisService.UpdateTenantAnalysisAsync(tenant: updatedTenantAnalysis);
+        TryCatch<TenantAnalysis>(operation: async () =>
+        {
+            ValidateTenantAnalysisOnUpdate(updatedTenantAnalysis: updatedTenantAnalysis);
+
+            return await tenantAnalysisService.UpdateTenantAnalysisAsync(
+                tenant: updatedTenantAnalysis);
+        });
 }
