@@ -8,18 +8,38 @@ using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Processings;
 
-internal class SSORoleProcessingService(ISSORoleService ssoRoleService)
+internal sealed partial class SSORoleProcessingService(ISSORoleService ssoRoleService)
     : ISSORoleProcessingService
 {
     public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
-        ssoRoleService.GetAllSSORoles(ignoreFilters: ignoreFilters);
+        TryCatch(operation: () =>
+        {
+            ValidateSSORolesOnGet(ignoreFilters: ignoreFilters);
+
+            return ssoRoleService.GetAllSSORoles(ignoreFilters: ignoreFilters);
+        });
 
     public ValueTask<SSORole> AddSSORoleAsync(SSORole newSSORole) =>
-        ssoRoleService.AddSSORoleAsync(item: newSSORole);
+        TryCatch<SSORole>(operation: async () =>
+        {
+            ValidateSSORoleOnAdd(newSSORole: newSSORole);
+
+            return await ssoRoleService.AddSSORoleAsync(item: newSSORole);
+        });
 
     public ValueTask DeleteSSORoleAsync(SSORole deletedSSORole) =>
-        ssoRoleService.DeleteSSORoleAsync(item: deletedSSORole);
+        TryCatch(operation: async () =>
+        {
+            ValidateSSORoleOnDelete(deletedSSORole: deletedSSORole);
+
+            await ssoRoleService.DeleteSSORoleAsync(item: deletedSSORole);
+        });
 
     public ValueTask<SSORole> UpdateSSORoleAsync(SSORole updatedSSORole) =>
-        ssoRoleService.UpdateSSORoleAsync(item: updatedSSORole);
+        TryCatch<SSORole>(operation: async () =>
+        {
+            ValidateSSORoleOnUpdate(updatedSSORole: updatedSSORole);
+
+            return await ssoRoleService.UpdateSSORoleAsync(item: updatedSSORole);
+        });
 }
