@@ -642,7 +642,12 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "ConfirmForgotPassword",
+          "Name": "GetMe",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "PostConfirmForgotPassword",
           "Inputs": [
             {
               "Name": "request",
@@ -652,7 +657,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         },
         {
-          "Name": "ForgotPassword",
+          "Name": "PostForgotPassword",
           "Inputs": [
             {
               "Name": "request",
@@ -662,7 +667,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         },
         {
-          "Name": "Login",
+          "Name": "PostLogin",
           "Inputs": [
             {
               "Name": "auth",
@@ -672,14 +677,9 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         },
         {
-          "Name": "Logout",
+          "Name": "PostLogout",
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
-        },
-        {
-          "Name": "Me",
-          "Inputs": [],
-          "ReturnType": "IActionResult"
         }
       ]
     },
@@ -689,7 +689,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AcceptInvite",
+          "Name": "PostAcceptInvite",
           "Inputs": [
             {
               "Name": "userId",
@@ -707,7 +707,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         },
         {
-          "Name": "ConfirmRegistration",
+          "Name": "PostConfirmRegistration",
           "Inputs": [
             {
               "Name": "confirmationToken",
@@ -717,7 +717,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         },
         {
-          "Name": "Invite",
+          "Name": "PostInvite",
           "Inputs": [
             {
               "Name": "inviteForm",
@@ -727,7 +727,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         },
         {
-          "Name": "Register",
+          "Name": "PostRegister",
           "Inputs": [
             {
               "Name": "registerForm",
@@ -737,7 +737,7 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
         },
         {
-          "Name": "ResendInvite",
+          "Name": "PostResendInvite",
           "Inputs": [
             {
               "Name": "userId",
@@ -3218,74 +3218,46 @@
       "LineNumber": 11
     },
     {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 14
+      "LineNumber": 15
     },
     {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 20
+      "LineNumber": 32
     },
     {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 27
+      "LineNumber": 50
     },
     {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 31
-    },
-    {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 48
-    },
-    {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 16
+      "LineNumber": 17
     },
     {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 31
+      "LineNumber": 39
     },
     {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Code": "STX0019",
+      "Description": "create model parameters must use the new prefix.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 38
-    },
-    {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 53
-    },
-    {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.RegistrationController",
-      "LineNumber": 60
+      "LineNumber": 64
     },
     {
       "Code": "STX0019",
