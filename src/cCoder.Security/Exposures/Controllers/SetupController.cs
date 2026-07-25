@@ -15,7 +15,7 @@ public sealed class SetupController(ITenantManager tenantManager)
 {
     [HttpPost]
     public async ValueTask<IActionResult> PostSetup(
-        [FromBody] SetupDetails setupDetails)
+        [FromBody] SetupDetails newSetupDetails)
     {
         if (!ModelState.IsValid)
         {
@@ -24,7 +24,7 @@ public sealed class SetupController(ITenantManager tenantManager)
 
         try
         {
-            await tenantManager.SetupAsync(setupDetails: setupDetails);
+            await tenantManager.SetupAsync(setupDetails: newSetupDetails);
         }
         catch (SecurityAggregationValidationException exception)
         {
