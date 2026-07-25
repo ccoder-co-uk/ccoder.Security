@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Objects.Exceptions;
+using System.ComponentModel.DataAnnotations;
 
 namespace cCoder.Security.Services.Aggregations;
 
@@ -15,6 +16,10 @@ internal sealed partial class RegistrationAggregationService
             return operation();
         }
         catch (ArgumentException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
+        catch (ValidationException innerException)
         {
             throw new SecurityAggregationValidationException(innerException: innerException);
         }
@@ -42,6 +47,10 @@ internal sealed partial class RegistrationAggregationService
         {
             throw new SecurityAggregationValidationException(innerException: innerException);
         }
+        catch (ValidationException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
         catch (SecurityProcessingValidationException innerException)
         {
             throw new SecurityAggregationValidationException(innerException: innerException);
@@ -63,6 +72,10 @@ internal sealed partial class RegistrationAggregationService
             return await operation();
         }
         catch (ArgumentException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
+        catch (ValidationException innerException)
         {
             throw new SecurityAggregationValidationException(innerException: innerException);
         }
