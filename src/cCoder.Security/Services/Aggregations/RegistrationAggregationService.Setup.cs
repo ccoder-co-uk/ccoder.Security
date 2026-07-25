@@ -13,15 +13,14 @@ internal sealed partial class RegistrationAggregationService
     private async ValueTask AddBootstrapTenantAsync(
         RegisterUser newRegisterUser)
     {
-        Tenant existingTenant = tenantProcessingService
+        bool tenantExists = tenantProcessingService
             .GetAllTenants()
-            .FirstOrDefault(predicate: tenant =>
-                tenant.Id == newRegisterUser.Tenant.Id);
+            .Any();
 
-        if (existingTenant is not null)
+        if (tenantExists)
         {
             throw new ValidationException(
-                $"Tenant '{newRegisterUser.Tenant.Id}' already exists.");
+                "First-time setup has already been completed.");
         }
 
         await tenantProcessingService.AddTenantAsync(
@@ -40,6 +39,8 @@ internal sealed partial class RegistrationAggregationService
 
     private static void NormalizeRegisterUser(RegisterUser registerUser)
     {
+        registerUser.Tenant.Id = "Default";
+        registerUser.TenantId = registerUser.Tenant.Id;
         registerUser.User.Id = ResolveUserId(user: registerUser.User);
 
         registerUser.Tenant.CreatedBy = string.IsNullOrWhiteSpace(

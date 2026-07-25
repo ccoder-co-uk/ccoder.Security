@@ -1157,6 +1157,23 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Exposures.Controllers.SetupController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "PostSetup",
+          "Inputs": [
+            {
+              "Name": "newSetupDetails",
+              "Type": "cCoder.Security.Data.Models.SetupDetails"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
       "StandardElementType": "Exposure",
       "Properties": [],
@@ -3091,6 +3108,10 @@
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
       "ToType": "cCoder.Security.Services.Orchestrations.SSOUserRoleOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SetupController",
+      "ToType": "cCoder.Security.Exposures.TenantManager"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
