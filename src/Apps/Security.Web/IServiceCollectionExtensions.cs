@@ -55,7 +55,6 @@ public static partial class IServiceCollectionExtensions
 
         services.AddControllersWithViews();
         services.ConfigureSessions();
-        services.AddTransient<IUIBaselineManager, UIBaselineManager>();
         services.AddTransient<IHomeManager, HomeManager>();
         services.AddTransient<ICurrentUserManager, CurrentUserManager>();
     }

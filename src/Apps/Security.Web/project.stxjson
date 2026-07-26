@@ -25,18 +25,6 @@
       ]
     },
     {
-      "Name": "Security.Web.Exposures.Controllers.BaselineController",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "Get",
-          "Inputs": [],
-          "ReturnType": "IActionResult"
-        }
-      ]
-    },
-    {
       "Name": "Security.Web.Exposures.CurrentUserManager",
       "StandardElementType": "Exposure",
       "Properties": [],
@@ -57,29 +45,6 @@
           "Name": "GetIndexPath",
           "Inputs": [],
           "ReturnType": "System.String"
-        }
-      ]
-    },
-    {
-      "Name": "Security.Web.Exposures.Setup.UIBaseline",
-      "StandardElementType": "Dependency",
-      "Properties": [
-        {
-          "Name": "Packages",
-          "Type": "cCoder.Data.Models.Packaging.Package[]"
-        }
-      ],
-      "Methods": []
-    },
-    {
-      "Name": "Security.Web.Exposures.UIBaselineManager",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "GetPackages",
-          "Inputs": [],
-          "ReturnType": "System.Object"
         }
       ]
     },
@@ -197,10 +162,6 @@
     {
       "FromType": "Security.Web.Controllers.HomeController",
       "ToType": "Security.Web.Exposures.HomeManager"
-    },
-    {
-      "FromType": "Security.Web.Exposures.Controllers.BaselineController",
-      "ToType": "Security.Web.Exposures.UIBaselineManager"
     }
   ],
   "AnalysisItems": []
