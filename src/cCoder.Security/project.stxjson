@@ -3171,6 +3171,10 @@
     },
     {
       "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
+      "ToType": "cCoder.Security.Services.Processings.AuthorizationProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.RegistrationAggregationService",
       "ToType": "cCoder.Security.Services.Processings.LoggingProcessingService"
     },
     {
