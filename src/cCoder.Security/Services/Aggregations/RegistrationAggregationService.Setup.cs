@@ -39,7 +39,7 @@ internal sealed partial class RegistrationAggregationService
 
     private static void NormalizeRegisterUser(RegisterUser registerUser)
     {
-        registerUser.Tenant.Id = "Default";
+        registerUser.Tenant.Id = "default";
         registerUser.TenantId = registerUser.Tenant.Id;
         registerUser.User.Id = ResolveUserId(user: registerUser.User);
 
