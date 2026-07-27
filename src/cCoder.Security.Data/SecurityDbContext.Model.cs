@@ -49,6 +49,11 @@ public partial class SecurityDbContext
             .Property(propertyExpression: ssoRole => ssoRole.Name)
             .IsRequired();
 
+        modelBuilder.Entity<SSORole>()
+            .Property(propertyExpression: ssoRole => ssoRole.TenantId)
+            .HasMaxLength(maxLength: 50)
+            .IsRequired();
+
         modelBuilder.Entity<SSOUser>()
             .HasKey(keyExpression: ssoUser => ssoUser.Id);
 
