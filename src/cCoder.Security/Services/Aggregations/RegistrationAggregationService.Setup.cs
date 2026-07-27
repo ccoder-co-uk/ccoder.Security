@@ -26,13 +26,18 @@ internal sealed partial class RegistrationAggregationService
         await tenantProcessingService.AddTenantAsync(
             item: newRegisterUser.Tenant);
 
+        string[] rolePrivileges = [.. authorizationProcessingService
+            .GetAuthorizationContext()
+            .Privileges
+            .Select(selector: privilege => privilege.Id)];
+
         await roleProcessingService.AddSSORoleAsync(
             item: new SSORole
             {
                 UsersArePortalAdmins = true,
                 Name = "Administrators",
                 Description = "Bootstrap tenant administrators",
-                Privs = string.Empty,
+                Privs = string.Join(separator: ',', value: rolePrivileges),
                 TenantId = newRegisterUser.Tenant.Id
             });
     }
