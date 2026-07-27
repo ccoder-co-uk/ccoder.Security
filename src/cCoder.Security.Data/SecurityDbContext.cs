@@ -64,7 +64,11 @@ public partial class SecurityDbContext(
         builder.Entity<Session>().HasQueryFilter(filter: s => s.UserEvents.Any());
         builder.Entity<UserEvent>().HasQueryFilter(filter: u => u.CreatedByUser != null);
 
-        builder.Entity<Tenant>().HasQueryFilter(filter: t => t.Roles.Any(predicate: r => r.Privs.Contains("tenant_read")));
+        builder.Entity<Tenant>().HasQueryFilter(filter: t =>
+            UserIsPortalAdmin
+            || t.Roles.Any(predicate: r =>
+                r.Users.Any(userRole => userRole.UserId == authInfo.SSOUserId)
+                && r.Privs.Contains("tenant_read")));
         builder.Entity<TenantAnalysis>().HasQueryFilter(filter: t => t.Tenant != null);
     }
 

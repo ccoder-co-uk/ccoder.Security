@@ -79,13 +79,13 @@ value: acceptanceConnectionString);
                                        .Single();
 
             tenant.Id.Should()
-                .Be(expected: "Default");
+                .Be(expected: "default");
 
             role.Name.Should()
                 .Be(expected: "Administrators");
 
             role.TenantId.Should()
-                .Be(expected: "Default");
+                .Be(expected: "default");
 
             role.UsersArePortalAdmins.Should()
                 .BeTrue();
@@ -104,7 +104,7 @@ value: acceptanceConnectionString);
 
             assertDb.Roles.IgnoreQueryFilters()
                 .Should()
-                .OnlyContain(predicate: foundRole => foundRole.TenantId == "Default");
+                .OnlyContain(predicate: foundRole => foundRole.TenantId == "default");
         }
         finally
         {

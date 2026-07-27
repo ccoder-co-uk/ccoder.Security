@@ -362,6 +362,12 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Data.EF.Migrations.RequireRoleTenantOwnership",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.Data.EF.Migrations.RetireGenericAuditing",
       "StandardElementType": "Dependency",
       "Properties": [],
