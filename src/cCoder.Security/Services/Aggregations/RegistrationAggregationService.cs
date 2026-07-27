@@ -19,6 +19,7 @@ internal sealed partial class RegistrationAggregationService(
     ISSORoleProcessingService roleProcessingService,
     ISSOUserRoleProcessingService userRoleProcessingService,
     IAccountEventProcessingService accountEventProcessingService,
+    IAuthorizationProcessingService authorizationProcessingService,
     ILoggingProcessingService loggingProcessingService)
         : IRegistrationAggregationService
 {

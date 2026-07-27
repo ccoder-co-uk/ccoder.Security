@@ -20,6 +20,7 @@ public partial class RegistrationAggregationServiceTests
     private readonly Mock<ISSORoleProcessingService> roleProcessingServiceMock;
     private readonly Mock<ISSOUserRoleProcessingService> userRoleProcessingServiceMock;
     private readonly Mock<IAccountEventProcessingService> accountEventProcessingServiceMock;
+    private readonly Mock<IAuthorizationProcessingService> authorizationProcessingServiceMock;
     private readonly Mock<ILoggingProcessingService> loggingProcessingServiceMock;
     private readonly IRegistrationAggregationService registrationAggregationService;
 
@@ -34,6 +35,9 @@ public partial class RegistrationAggregationServiceTests
         accountEventProcessingServiceMock =
             new Mock<IAccountEventProcessingService>(MockBehavior.Strict);
 
+        authorizationProcessingServiceMock =
+            new Mock<IAuthorizationProcessingService>(MockBehavior.Strict);
+
         loggingProcessingServiceMock =
             new Mock<ILoggingProcessingService>(MockBehavior.Strict);
 
@@ -45,6 +49,8 @@ public partial class RegistrationAggregationServiceTests
             userRoleProcessingService: userRoleProcessingServiceMock.Object,
             accountEventProcessingService:
                 accountEventProcessingServiceMock.Object,
+            authorizationProcessingService:
+                authorizationProcessingServiceMock.Object,
             loggingProcessingService: loggingProcessingServiceMock.Object);
     }
 

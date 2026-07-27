@@ -90,6 +90,12 @@ value: acceptanceConnectionString);
             role.UsersArePortalAdmins.Should()
                 .BeTrue();
 
+            role.Privs.Split(
+                separator: ',',
+                options: StringSplitOptions.RemoveEmptyEntries)
+                .Should()
+                .Contain(expected: ["security_admin", "tenant_read", "tenant_admin"]);
+
             user.Id.Should()
                 .Be(expected: "admin");
 
