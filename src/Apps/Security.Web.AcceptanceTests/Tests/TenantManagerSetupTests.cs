@@ -7,9 +7,9 @@ using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Objects.Entities;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Security.AcceptanceTests;
 using Xunit;
 
 namespace cCoder.Security.AcceptanceTests.Tests;
@@ -20,120 +20,87 @@ public partial class TenantManagerSetupTests
     public async Task ShouldBootstrapFirstTenantRoleUserAndMembership()
     {
         // Given
-        string originalConnectionString =
-            Environment.GetEnvironmentVariable(variable: "Security__ConnectionString");
-
-        string acceptanceConnectionString = CreateIsolatedAcceptanceConnectionString();
+        using SecurityWebApplicationFactory appFactory = new();
 
         // When
-        Environment.SetEnvironmentVariable(
-variable: "Security__ConnectionString",
-value: acceptanceConnectionString);
+        using IServiceScope scope = appFactory.Services.CreateScope();
+        IServiceProvider services = scope.ServiceProvider;
+
+        ISecurityDbContextFactory dbContextFactory =
+            services.GetRequiredService<ISecurityDbContextFactory>();
+
+        using (cCoder.Security.Data.EF.SecurityDbContext db = dbContextFactory.CreateDbContext())
+        {
+            db.Database.EnsureDeleted();
+            db.Migrate();
+        }
+
+        ITenantManager tenantManager = services.GetRequiredService<ITenantManager>();
+
+        await tenantManager.SetupAsync(setupDetails: new SetupDetails
+        {
+            Tenant = new Tenant
+            {
+                Id = "default",
+                Name = "Default"
+            },
+            User = new SSOUser
+            {
+                Id = "admin",
+                DisplayName = "Admin User",
+                Email = "admin@example.com",
+                PasswordHash = "TestPass01!"
+            }
+        });
 
         // Then
-        try
-        {
-            using WebApplicationFactory<AcceptanceHost> appFactory = new();
-            using IServiceScope scope = appFactory.Services.CreateScope();
-            IServiceProvider services = scope.ServiceProvider;
+        using cCoder.Security.Data.EF.SecurityDbContext assertDb =
+            dbContextFactory.CreateDbContext();
 
-            ISecurityDbContextFactory dbContextFactory =
-                services.GetRequiredService<ISecurityDbContextFactory>();
+        Tenant tenant = assertDb.Tenants.IgnoreQueryFilters()
+                            .Single();
 
-            using (cCoder.Security.Data.EF.SecurityDbContext db = dbContextFactory.CreateDbContext())
-            {
-                db.Database.EnsureDeleted();
-                db.Migrate();
-            }
+        SSORole role = assertDb.Roles.IgnoreQueryFilters()
+                           .Single();
 
-            ITenantManager tenantManager = services.GetRequiredService<ITenantManager>();
+        SSOUser user = assertDb.Users.IgnoreQueryFilters()
+                           .Single();
 
-            await tenantManager.SetupAsync(setupDetails: new SetupDetails
-            {
-                Tenant = new Tenant
-                {
-                    Id = "default",
-                    Name = "Default"
-                },
-                User = new SSOUser
-                {
-                    Id = "admin",
-                    DisplayName = "Admin User",
-                    Email = "admin@example.com",
-                    PasswordHash = "TestPass01!"
-                }
-            });
+        SSOUserRole userRole = assertDb.UserRoles.IgnoreQueryFilters()
+                                   .Single();
 
-            using cCoder.Security.Data.EF.SecurityDbContext assertDb = dbContextFactory.CreateDbContext();
+        tenant.Id.Should()
+            .Be(expected: "default");
 
-            Tenant tenant = assertDb.Tenants.IgnoreQueryFilters()
-                                .Single();
+        role.Name.Should()
+            .Be(expected: "Administrators");
 
-            SSORole role = assertDb.Roles.IgnoreQueryFilters()
-                               .Single();
+        role.TenantId.Should()
+            .Be(expected: "default");
 
-            SSOUser user = assertDb.Users.IgnoreQueryFilters()
-                               .Single();
+        role.UsersArePortalAdmins.Should()
+            .BeTrue();
 
-            SSOUserRole userRole = assertDb.UserRoles.IgnoreQueryFilters()
-                                       .Single();
+        role.Privs.Split(
+            separator: ',',
+            options: StringSplitOptions.RemoveEmptyEntries)
+            .Should()
+            .Contain(expected: ["security_admin", "tenant_read", "tenant_admin"]);
 
-            tenant.Id.Should()
-                .Be(expected: "default");
+        user.Id.Should()
+            .Be(expected: "admin");
 
-            role.Name.Should()
-                .Be(expected: "Administrators");
+        user.EmailConfirmed.Should()
+            .BeTrue();
 
-            role.TenantId.Should()
-                .Be(expected: "default");
+        userRole.UserId.Should()
+            .Be(expected: "admin");
 
-            role.UsersArePortalAdmins.Should()
-                .BeTrue();
+        userRole.RoleId.Should()
+            .Be(expected: role.Id);
 
-            role.Privs.Split(
-                separator: ',',
-                options: StringSplitOptions.RemoveEmptyEntries)
-                .Should()
-                .Contain(expected: ["security_admin", "tenant_read", "tenant_admin"]);
-
-            user.Id.Should()
-                .Be(expected: "admin");
-
-            user.EmailConfirmed.Should()
-                .BeTrue();
-
-            userRole.UserId.Should()
-                .Be(expected: "admin");
-
-            userRole.RoleId.Should()
-                .Be(expected: role.Id);
-
-            assertDb.Roles.IgnoreQueryFilters()
-                .Should()
-                .OnlyContain(predicate: foundRole => foundRole.TenantId == "default");
-        }
-        finally
-        {
-            global::Security.AcceptanceTests.SecurityWebApplicationFactoryExtensions
-                .DropDatabaseForTesting(connectionString: acceptanceConnectionString);
-
-            Environment.SetEnvironmentVariable(variable: "Security__ConnectionString", value: originalConnectionString);
-        }
-    }
-
-    private static string CreateIsolatedAcceptanceConnectionString()
-    {
-        string connectionString = Environment.GetEnvironmentVariable(
-            variable: "Security__ConnectionString")
-            ?? throw new InvalidOperationException(
-                message: "Security__ConnectionString is required.");
-
-        Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder =
-            new(connectionString);
-
-        builder.InitialCatalog =
-            $"{builder.InitialCatalog}-acceptance-{Guid.NewGuid():N}";
-
-        return builder.ConnectionString;
+        assertDb.Roles.IgnoreQueryFilters()
+            .Should()
+            .OnlyContain(predicate: foundRole => foundRole.TenantId == "default");
     }
 }

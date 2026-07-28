@@ -16,25 +16,25 @@ namespace Security.AcceptanceTests.Clients;
 
 public class AccountApiClient : IDisposable
 {
-    private readonly WebApplicationFactory<AcceptanceHost> webApplicationFactory;
-    private readonly bool dropAcceptanceDatabaseOnDispose;
+    private readonly SecurityWebApplicationFactory webApplicationFactory;
     private HttpClient api;
     public SecurityDbContext Database { get; set; }
 
     private const string endpoint = "Api/Account/";
 
-    public AccountApiClient()
-        : this(authenticate: true, dropAcceptanceDatabaseOnDispose: true)
+    public AccountApiClient(
+        SecurityWebApplicationFactory webApplicationFactory)
+        : this(
+            webApplicationFactory: webApplicationFactory,
+            authenticate: true)
     {
     }
 
     private AccountApiClient(
-        bool authenticate,
-        bool dropAcceptanceDatabaseOnDispose)
+        SecurityWebApplicationFactory webApplicationFactory,
+        bool authenticate)
     {
-        this.dropAcceptanceDatabaseOnDispose = dropAcceptanceDatabaseOnDispose;
-        webApplicationFactory = new();
-        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
+        this.webApplicationFactory = webApplicationFactory;
 
         api = webApplicationFactory.CreateClient();
 
@@ -49,8 +49,11 @@ public class AccountApiClient : IDisposable
             .CreateDbContext();
     }
 
-    public static AccountApiClient CreateUnauthenticated() =>
-        new(authenticate: false, dropAcceptanceDatabaseOnDispose: false);
+    public static AccountApiClient CreateUnauthenticated(
+        SecurityWebApplicationFactory webApplicationFactory) =>
+        new(
+            webApplicationFactory: webApplicationFactory,
+            authenticate: false);
 
     public HttpClient UseNoCookiesApiClient() =>
         api = webApplicationFactory.CreateClient(options: new WebApplicationFactoryClientOptions { HandleCookies = false });
@@ -134,9 +137,5 @@ public class AccountApiClient : IDisposable
     {
         Database?.Dispose();
         api?.Dispose();
-        webApplicationFactory?.Dispose();
-
-        if (dropAcceptanceDatabaseOnDispose)
-        { SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting(); }
     }
 }

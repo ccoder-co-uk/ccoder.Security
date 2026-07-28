@@ -12,9 +12,14 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 
 [Collection(nameof(AllTestsCollection))]
 public partial class RegisterApiTests(
-    RegisterApiClient userApiClient,
-    AccountApiClient accountApiClient)
+    SecurityAcceptanceTestFixture fixture)
 {
+    private readonly RegisterApiClient userApiClient =
+        fixture.RegisterApiClient;
+
+    private readonly AccountApiClient accountApiClient =
+        fixture.AccountApiClient;
+
     private static RegisterUser RandomRegisterUser()
         =>
         GetRegisterUserFiller()

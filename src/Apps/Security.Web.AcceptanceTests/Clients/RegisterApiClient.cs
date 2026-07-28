@@ -16,17 +16,17 @@ namespace Security.AcceptanceTests.Clients;
 
 public class RegisterApiClient : IDisposable
 {
-    private readonly WebApplicationFactory<AcceptanceHost> webApplicationFactory;
+    private readonly SecurityWebApplicationFactory webApplicationFactory;
     private readonly HttpClient api;
 
     public SecurityDbContext Database { get; set; }
 
     private const string endpoint = "Api/Account/";
 
-    public RegisterApiClient()
+    public RegisterApiClient(
+        SecurityWebApplicationFactory webApplicationFactory)
     {
-        webApplicationFactory = new();
-        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
+        this.webApplicationFactory = webApplicationFactory;
 
         api = webApplicationFactory.CreateClient();
 
@@ -95,7 +95,5 @@ public class RegisterApiClient : IDisposable
     {
         Database?.Dispose();
         api?.Dispose();
-        webApplicationFactory?.Dispose();
-        SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting();
     }
 }
