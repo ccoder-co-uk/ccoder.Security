@@ -109,9 +109,9 @@ SQLite support has been retired; SQL Server is the only supported EF provider.
 ## Build And Test
 
 ```powershell
-dotnet restore src\cCoder.Security.sln
-dotnet build src\cCoder.Security.sln --no-restore
-dotnet test src\cCoder.Security.sln --no-restore --no-build
+dotnet restore src\cCoder.Security.slnx
+dotnet build src\cCoder.Security.slnx --no-restore
+dotnet test src\cCoder.Security.slnx --no-restore --no-build
 ```
 
 Before submitting changes, run both apps locally and confirm there are no startup errors:

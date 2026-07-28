@@ -36,13 +36,13 @@ jobs:
           "value=$(Get-Date -Format 'yyyy.M.d.HHmm')" >> $env:GITHUB_OUTPUT
 
       - name: Restore
-        run: dotnet restore src/cCoder.Security.sln
+        run: dotnet restore src/cCoder.Security.slnx
 
       - name: Build
-        run: dotnet build src/cCoder.Security.sln -c Release --no-restore /p:Version="${{ steps.version.outputs.value }}"
+        run: dotnet build src/cCoder.Security.slnx -c Release --no-restore /p:Version="${{ steps.version.outputs.value }}"
 
       - name: Test
-        run: dotnet test src/cCoder.Security.sln -c Release --no-build
+        run: dotnet test src/cCoder.Security.slnx -c Release --no-build
 
       - name: Pack
         run: |
