@@ -12,9 +12,17 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 
 [Collection(nameof(AllTestsCollection))]
 public partial class AccountApiTests(
-    AccountApiClient userApiClient,
-    RegisterApiClient registerApiClient)
+    SecurityAcceptanceTestFixture fixture)
 {
+    private readonly AccountApiClient userApiClient =
+        fixture.AccountApiClient;
+
+    private readonly RegisterApiClient registerApiClient =
+        fixture.RegisterApiClient;
+
+    private readonly SecurityWebApplicationFactory webApplicationFactory =
+        fixture.WebApplicationFactory;
+
     private static Auth RandomAuth(RegisterUser user) =>
         new()
         {
@@ -38,6 +46,8 @@ public partial class AccountApiTests(
         return filler;
     }
 
-    private Task TearDownUserAsync(string userId) =>
-        userApiClient.TearDown(ssoUserId: userId);
+    private Task TearDownUserAsync(string userId)
+    {
+        return userApiClient.TearDown(ssoUserId: userId);
+    }
 }

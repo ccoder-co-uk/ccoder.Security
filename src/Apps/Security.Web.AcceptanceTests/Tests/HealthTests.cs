@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Security.AcceptanceTests;
 using Xunit;
 
@@ -15,7 +14,7 @@ public partial class HealthTests
     public async Task ShouldReturnHealthyForGetHealth()
     {
         // Given
-        using WebApplicationFactory<AcceptanceHost> factory = new();
+        using SecurityWebApplicationFactory factory = new();
         using HttpClient client = factory.CreateClient();
 
         HttpResponseMessage response = await client.GetAsync(requestUri: "/Health");
@@ -33,7 +32,7 @@ public partial class HealthTests
     public async Task ShouldServeSecurityUiForGetRoot()
     {
         // Given
-        using WebApplicationFactory<AcceptanceHost> factory = new();
+        using SecurityWebApplicationFactory factory = new();
         using HttpClient client = factory.CreateClient();
 
         HttpResponseMessage response = await client.GetAsync(requestUri: "/");
@@ -51,39 +50,18 @@ public partial class HealthTests
     public async Task ShouldInitialiseDatabaseBackedSessionCacheForCurrentUser()
     {
         // Given
-        string previousConnectionString = Environment.GetEnvironmentVariable(variable: "Security__ConnectionString");
-
-        Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder =
-            new(previousConnectionString);
-
-        builder.InitialCatalog =
-            $"{builder.InitialCatalog}-acceptance-{Guid.NewGuid():N}";
-
-        string acceptanceConnectionString = builder.ConnectionString;
+        using SecurityWebApplicationFactory factory = new();
+        using HttpClient client = factory.CreateClient();
 
         // When
-        Environment.SetEnvironmentVariable(
-variable: "Security__ConnectionString",
-value: acceptanceConnectionString);
+        HttpResponseMessage response =
+            await client.GetAsync(requestUri: "/CurrentUser");
 
         // Then
-        try
-        {
-            using WebApplicationFactory<AcceptanceHost> factory = new();
-            using HttpClient client = factory.CreateClient();
+        response.EnsureSuccessStatusCode();
+        string content = await response.Content.ReadAsStringAsync();
 
-            HttpResponseMessage response = await client.GetAsync(requestUri: "/CurrentUser");
-
-            response.EnsureSuccessStatusCode();
-            string content = await response.Content.ReadAsStringAsync();
-
-            content.Should()
-                .Be(expected: "Guest");
-        }
-        finally
-        {
-            SecurityWebApplicationFactoryExtensions.DropDatabaseForTesting(connectionString: acceptanceConnectionString);
-            Environment.SetEnvironmentVariable(variable: "Security__ConnectionString", value: previousConnectionString);
-        }
+        content.Should()
+            .Be(expected: "Guest");
     }
 }
