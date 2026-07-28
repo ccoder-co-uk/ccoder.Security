@@ -1,0 +1,26 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+namespace cCoder.Security.Objects.Events;
+
+public static class SecurityAccountEventKindExtensions
+{
+    public static string ToEventName(
+        this SecurityAccountEventKind securityAccountEventKind) =>
+        securityAccountEventKind switch
+        {
+            SecurityAccountEventKind.RegistrationCreated =>
+                "security_account_registration_created",
+            SecurityAccountEventKind.RegistrationConfirmed =>
+                "security_account_registration_confirmed",
+            SecurityAccountEventKind.InvitationCreated =>
+                "security_account_invitation_created",
+            SecurityAccountEventKind.InvitationAccepted =>
+                "security_account_invitation_accepted",
+            SecurityAccountEventKind.PasswordResetRequested =>
+                "security_account_password_reset_requested",
+            _ => throw new ArgumentOutOfRangeException(
+                paramName: nameof(securityAccountEventKind))
+        };
+}

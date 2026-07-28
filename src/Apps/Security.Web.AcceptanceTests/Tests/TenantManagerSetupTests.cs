@@ -21,13 +21,13 @@ public partial class TenantManagerSetupTests
     {
         // Given
         string originalConnectionString =
-            Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
+            Environment.GetEnvironmentVariable(variable: "Security__ConnectionString");
 
         string acceptanceConnectionString = CreateIsolatedAcceptanceConnectionString();
 
         // When
         Environment.SetEnvironmentVariable(
-variable: "ENV_ConnectionStrings__SSO",
+variable: "Security__ConnectionString",
 value: acceptanceConnectionString);
 
         // Then
@@ -117,14 +117,23 @@ value: acceptanceConnectionString);
             global::Security.AcceptanceTests.SecurityWebApplicationFactoryExtensions
                 .DropDatabaseForTesting(connectionString: acceptanceConnectionString);
 
-            Environment.SetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO", value: originalConnectionString);
+            Environment.SetEnvironmentVariable(variable: "Security__ConnectionString", value: originalConnectionString);
         }
     }
 
     private static string CreateIsolatedAcceptanceConnectionString()
     {
-        string uniqueSuffix = $"{Environment.ProcessId}_{Guid.NewGuid():N}";
+        string connectionString = Environment.GetEnvironmentVariable(
+            variable: "Security__ConnectionString")
+            ?? throw new InvalidOperationException(
+                message: "Security__ConnectionString is required.");
 
-        return $"Data Source=.;Initial Catalog=SSOAcceptanceTenantSetup_{uniqueSuffix};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
+        Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder =
+            new(connectionString);
+
+        builder.InitialCatalog =
+            $"{builder.InitialCatalog}-acceptance-{Guid.NewGuid():N}";
+
+        return builder.ConnectionString;
     }
 }

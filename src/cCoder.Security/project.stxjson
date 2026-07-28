@@ -734,7 +734,7 @@
     },
     {
       "Name": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -745,16 +745,10 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Dependencies.EDM.SecurityModelBuilder",
+      "Name": "cCoder.Security.Dependencies.HostedServices.TokenCleaner",
       "StandardElementType": "Dependency",
       "Properties": [],
-      "Methods": [
-        {
-          "Name": "Build",
-          "Inputs": [],
-          "ReturnType": "cCoder.Security.Models.ODataModel"
-        }
-      ]
+      "Methods": []
     },
     {
       "Name": "cCoder.Security.Dependencies.Sessions.NullSession",
@@ -1296,14 +1290,8 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Exposures.HostedServices.TokenCleaner",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Exposures.SecurityApiModelBuilderExtensions",
-      "StandardElementType": "Dependency",
+      "Name": "cCoder.Security.Exposures.SecurityApiConfigurationExtensions",
+      "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": []
     },
@@ -1351,43 +1339,15 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddSecurity",
+          "Name": "AddSecurityHostedServices",
           "Inputs": [
             {
               "Name": "services",
               "Type": "IServiceCollection"
             },
             {
-              "Name": "configAction",
-              "Type": "System.Action\u003CIServiceCollection, cCoder.Security.Objects.SecurityConfiguration\u003E"
-            }
-          ],
-          "ReturnType": "cCoder.Security.Objects.SecurityConfiguration"
-        },
-        {
-          "Name": "AddSecurityApi",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            },
-            {
-              "Name": "configAction",
-              "Type": "System.Action\u003CIServiceCollection, cCoder.Security.Objects.SecurityConfiguration\u003E"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "AddSecurityApiLayer",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            },
-            {
-              "Name": "atPath",
-              "Type": "System.String"
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Security.Objects.SecurityConfiguration\u003E"
             }
           ],
           "ReturnType": "System.Void"
@@ -1400,11 +1360,11 @@
               "Type": "IServiceCollection"
             },
             {
-              "Name": "configAction",
-              "Type": "System.Action\u003CIServiceCollection, cCoder.Security.Objects.SecurityConfiguration\u003E"
+              "Name": "configuration",
+              "Type": "cCoder.Security.Objects.SecurityConfiguration"
             }
           ],
-          "ReturnType": "cCoder.Security.Objects.SecurityConfiguration"
+          "ReturnType": "System.Void"
         },
         {
           "Name": "AddSecurityWeb",
@@ -1414,11 +1374,25 @@
               "Type": "IServiceCollection"
             },
             {
-              "Name": "configAction",
-              "Type": "System.Action\u003CIServiceCollection, cCoder.Security.Objects.SecurityConfiguration\u003E"
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Security.Objects.SecurityConfiguration\u003E"
             }
           ],
-          "ReturnType": "cCoder.Security.Objects.SecurityConfiguration"
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddSecurityWeb",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
         }
       ]
     },
@@ -1571,7 +1545,7 @@
     },
     {
       "Name": "cCoder.Security.SecurityConfigurationExtensions",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": [
         {
@@ -3018,7 +2992,7 @@
     },
     {
       "Name": "cCoder.Security.WebApplicationExtensions",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -3074,6 +3048,10 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Security.Dependencies.HostedServices.TokenCleaner",
+      "ToType": "cCoder.Security.Services.Foundations.TokenService"
+    },
+    {
       "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
     },
@@ -3128,10 +3106,6 @@
     {
       "FromType": "cCoder.Security.Exposures.EventHandlers.SecurityEventHandlers",
       "ToType": "cCoder.Security.Services.Foundations.Events.EventHandlerService"
-    },
-    {
-      "FromType": "cCoder.Security.Exposures.HostedServices.TokenCleaner",
-      "ToType": "cCoder.Security.Services.Foundations.TokenService"
     },
     {
       "FromType": "cCoder.Security.Exposures.TenantManager",

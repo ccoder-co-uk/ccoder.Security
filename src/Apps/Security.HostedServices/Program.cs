@@ -10,14 +10,8 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 
-        IConfigurationRoot config = new ConfigurationBuilder()
-            .SetBasePath(basePath: Directory.GetCurrentDirectory())
-            .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
-            .AddEnvironmentVariables(prefix: "ENV_")
-            .Build();
-
-        builder.Services.AddSecurityHostedServicesApplication(
-            configuration: config);
+        builder.Services.AddSecurityHostedServices(
+            configuration: builder.Configuration);
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSimpleConsole();

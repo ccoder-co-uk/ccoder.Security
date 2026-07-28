@@ -11,7 +11,7 @@ using Security.Web.Exposures;
 
 namespace Security.Web;
 
-public static class IApplicationBuilderExtensions
+public static class WebApplicationExtensions
 {
     public static IApplicationBuilder UseSecurityWebApplication(
         this WebApplication app)
@@ -27,9 +27,10 @@ public static class IApplicationBuilderExtensions
         return app;
     }
 
-    public static IApplicationBuilder InitialiseSecurityDatabase(this IApplicationBuilder app)
+    public static WebApplication InitialiseSecurityDatabase(
+        this WebApplication app)
     {
-        using IServiceScope scope = app.ApplicationServices.CreateScope();
+        using IServiceScope scope = app.Services.CreateScope();
         using var db = scope.ServiceProvider
             .GetRequiredService<ISecurityDbContextFactory>()
             .CreateDbContext(ignoreAuthInfo: true);
