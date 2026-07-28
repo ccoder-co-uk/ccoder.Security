@@ -51,15 +51,19 @@ public partial class HealthTests
     public async Task ShouldInitialiseDatabaseBackedSessionCacheForCurrentUser()
     {
         // Given
-        string previousConnectionString = Environment.GetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO");
-        string databaseName = $"SSOAcceptanceStartupCacheTests_{Environment.ProcessId}_{Guid.NewGuid():N}";
+        string previousConnectionString = Environment.GetEnvironmentVariable(variable: "Security__ConnectionString");
 
-        string acceptanceConnectionString =
-            $"Data Source=.;Initial Catalog={databaseName};MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true";
+        Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder =
+            new(previousConnectionString);
+
+        builder.InitialCatalog =
+            $"{builder.InitialCatalog}-acceptance-{Guid.NewGuid():N}";
+
+        string acceptanceConnectionString = builder.ConnectionString;
 
         // When
         Environment.SetEnvironmentVariable(
-variable: "ENV_ConnectionStrings__SSO",
+variable: "Security__ConnectionString",
 value: acceptanceConnectionString);
 
         // Then
@@ -79,7 +83,7 @@ value: acceptanceConnectionString);
         finally
         {
             SecurityWebApplicationFactoryExtensions.DropDatabaseForTesting(connectionString: acceptanceConnectionString);
-            Environment.SetEnvironmentVariable(variable: "ENV_ConnectionStrings__SSO", value: previousConnectionString);
+            Environment.SetEnvironmentVariable(variable: "Security__ConnectionString", value: previousConnectionString);
         }
     }
 }

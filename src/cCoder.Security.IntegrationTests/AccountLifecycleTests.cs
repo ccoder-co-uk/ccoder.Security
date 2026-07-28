@@ -20,7 +20,8 @@ namespace cCoder.Security.IntegrationTests;
 [Collection(nameof(AllTestsCollection))]
 public partial class AccountLifecycleTests : IDisposable
 {
-    private const string ConnectionStringEnvironmentVariableName = "ENV_ConnectionStrings__SSO";
+    private const string ConnectionStringEnvironmentVariableName =
+        "Security__ConnectionString";
     private const string DefaultPassword = "TestPass01!";
     private const string UpdatedPassword = "ChangedPass01!";
 
@@ -64,13 +65,19 @@ value: previousConnectionString);
 
     private static string CreateConnectionString()
     {
-        string databaseName = $"SSOIntegrationTests_{Environment.ProcessId}_{Guid.NewGuid():N}";
+        string connectionString = Environment.GetEnvironmentVariable(
+            variable: ConnectionStringEnvironmentVariableName)
+            ?? throw new InvalidOperationException(
+                message:
+                    $"{ConnectionStringEnvironmentVariableName} is required.");
 
-        return "Data Source=.;" +
-            $"Initial Catalog={databaseName};" +
-            "MultipleActiveResultSets=True;" +
-            "Trusted_Connection=True;" +
-            "Trust Server Certificate=true";
+        Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder =
+            new(connectionString);
+
+        builder.InitialCatalog =
+            $"{builder.InitialCatalog}-integration-{Guid.NewGuid():N}";
+
+        return builder.ConnectionString;
     }
 
     private SecurityDbContext CreateSecurityDbContext()

@@ -21,6 +21,7 @@ public static class SecurityWebApplicationFactoryExtensions
     private static bool setupComplete = false;
     private static bool ownsAcceptanceDatabase = false;
     private static string acceptanceConnectionString;
+    private static string configuredConnectionString;
 
     public static void EnsureDatabasesAreSetupForTesting(this WebApplicationFactory<AcceptanceHost> appFactory)
     {
@@ -49,8 +50,11 @@ public static class SecurityWebApplicationFactoryExtensions
 
         if (typeof(AcceptanceHost).Namespace == "Security.Web")
         {
-            acceptanceConnectionString = Environment.GetEnvironmentVariable(
-                variable: "ConnectionStrings__SSO");
+
+            configuredConnectionString = Environment.GetEnvironmentVariable(
+                variable: "Security__ConnectionString");
+
+            acceptanceConnectionString = configuredConnectionString;
 
             if (!string.IsNullOrWhiteSpace(value: acceptanceConnectionString))
             {
@@ -58,13 +62,14 @@ public static class SecurityWebApplicationFactoryExtensions
                     new(connectionString: acceptanceConnectionString);
 
                 connectionStringBuilder.InitialCatalog =
-                    $"{connectionStringBuilder.InitialCatalog}-AcceptanceTests-{Environment.ProcessId}";
+                    $"{connectionStringBuilder.InitialCatalog}" +
+                    $"-acceptance-{Guid.NewGuid():N}";
 
                 acceptanceConnectionString =
                     connectionStringBuilder.ConnectionString;
 
                 Environment.SetEnvironmentVariable(
-                    variable: "ENV_ConnectionStrings__SSO",
+                    variable: "Security__ConnectionString",
                     value: acceptanceConnectionString);
 
                 acceptanceEnvironmentConfigured = true;
@@ -73,7 +78,7 @@ public static class SecurityWebApplicationFactoryExtensions
             }
 
             throw new InvalidOperationException(
-                "ConnectionStrings__SSO must be configured for acceptance tests.");
+                "Security__ConnectionString must be configured for acceptance tests.");
         }
 
         acceptanceEnvironmentConfigured = true;
@@ -133,6 +138,10 @@ public static class SecurityWebApplicationFactoryExtensions
         { return; }
 
         DropDatabaseForTesting(connectionString: acceptanceConnectionString);
+
+        Environment.SetEnvironmentVariable(
+            variable: "Security__ConnectionString",
+            value: configuredConnectionString);
     }
 
     internal static void DropDatabaseForTesting(string connectionString)

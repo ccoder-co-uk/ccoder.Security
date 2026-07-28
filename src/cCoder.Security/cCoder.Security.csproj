@@ -1,5 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
+    <LocalEventingProject>..\..\..\ccoder.Eventing\src\cCoder.Eventing\cCoder.Eventing.csproj</LocalEventingProject>
+    <UseLocalEventing Condition="'$(UseLocalEventing)' == ''">false</UseLocalEventing>
+    <UseLocalEventing Condition="'$(UseLocalEventing)' == 'true' and !Exists('$(LocalEventingProject)')">false</UseLocalEventing>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(UseLocalEventing)' == 'true'">
+    <ProjectReference Include="$(LocalEventingProject)" />
+  </ItemGroup>
+  <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -30,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="cCoder.Eventing" Version="2026.7.23.1424" />
+    <PackageReference Include="cCoder.Eventing" Version="2026.7.23.1424" Condition="'$(UseLocalEventing)' != 'true'" />
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
   </ItemGroup>
 </Project>

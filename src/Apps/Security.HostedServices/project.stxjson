@@ -1,29 +1,12 @@
 {
   "Classes": [
     {
-      "Name": "Security.HostedServices.IApplicationBuilderExtensions",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "UseSecurityHostedServicesApplication",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "IApplicationBuilder"
-        }
-      ]
-    },
-    {
       "Name": "Security.HostedServices.IServiceCollectionExtensions",
       "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddSecurityHostedServicesApplication",
+          "Name": "AddSecurityHostedServices",
           "Inputs": [
             {
               "Name": "services",
@@ -32,11 +15,26 @@
             {
               "Name": "configuration",
               "Type": "IConfiguration"
+            },
+            {
+              "Name": "configure",
+              "Type": "System.Action\u003CSecurity.HostedServices.Models.SecurityHostedServicesConfiguration\u003E"
             }
           ],
           "ReturnType": "System.Void"
         }
       ]
+    },
+    {
+      "Name": "Security.HostedServices.Models.SecurityHostedServicesConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Security",
+          "Type": "cCoder.Security.Objects.SecurityConfiguration"
+        }
+      ],
+      "Methods": []
     },
     {
       "Name": "Security.HostedServices.Program",
@@ -52,6 +50,23 @@
             }
           ],
           "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "Security.HostedServices.WebApplicationExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "UseSecurityHostedServicesApplication",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
         }
       ]
     }
