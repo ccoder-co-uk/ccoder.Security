@@ -13,17 +13,17 @@ namespace Security.AcceptanceTests.Clients;
 
 public class SSOUserApiClient : IDisposable
 {
-    private readonly WebApplicationFactory<AcceptanceHost> webApplicationFactory;
+    private readonly SecurityWebApplicationFactory webApplicationFactory;
     private readonly HttpClient api;
 
     public SecurityDbContext Database { get; set; }
 
     private const string Endpoint = "Api/Security/SSOUser/";
 
-    public SSOUserApiClient()
+    public SSOUserApiClient(
+        SecurityWebApplicationFactory webApplicationFactory)
     {
-        webApplicationFactory = new();
-        webApplicationFactory.EnsureDatabasesAreSetupForTesting();
+        this.webApplicationFactory = webApplicationFactory;
 
         api = webApplicationFactory.CreateClient();
 
@@ -44,7 +44,5 @@ public class SSOUserApiClient : IDisposable
     {
         Database?.Dispose();
         api?.Dispose();
-        webApplicationFactory?.Dispose();
-        SecurityWebApplicationFactoryExtensions.DropAcceptanceDatabaseForTesting();
     }
 }

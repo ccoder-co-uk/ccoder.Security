@@ -7,7 +7,6 @@ using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Objects.Entities;
 using cCoder.Security.Services.Aggregations.Interfaces;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,72 +15,15 @@ namespace Security.AcceptanceTests;
 
 public static class SecurityWebApplicationFactoryExtensions
 {
-    private static readonly object SetupLock = new();
-    private static bool acceptanceEnvironmentConfigured = false;
-    private static bool setupComplete = false;
-    private static bool ownsAcceptanceDatabase = false;
-    private static string acceptanceConnectionString;
-    private static string configuredConnectionString;
-
-    public static void EnsureDatabasesAreSetupForTesting(this WebApplicationFactory<AcceptanceHost> appFactory)
+    public static void EnsureDatabasesAreSetupForTesting(
+        this SecurityWebApplicationFactory appFactory)
     {
-        lock (SetupLock)
-        {
-            if (setupComplete)
-            { return; }
+        using IServiceScope scope = appFactory.Services.CreateScope();
+        IServiceProvider scopedServices = scope.ServiceProvider;
 
-            ConfigureAcceptanceEnvironment();
-
-            using IServiceScope scope = appFactory.Services.CreateScope();
-            IServiceProvider scopedServices = scope.ServiceProvider;
-
-            EnsureSSOSetupForTesting(scopedServices: scopedServices)
-                .AsTask()
-                .Wait();
-
-            setupComplete = true;
-        }
-    }
-
-    private static void ConfigureAcceptanceEnvironment()
-    {
-        if (acceptanceEnvironmentConfigured)
-        { return; }
-
-        if (typeof(AcceptanceHost).Namespace == "Security.Web")
-        {
-
-            configuredConnectionString = Environment.GetEnvironmentVariable(
-                variable: "Security__ConnectionString");
-
-            acceptanceConnectionString = configuredConnectionString;
-
-            if (!string.IsNullOrWhiteSpace(value: acceptanceConnectionString))
-            {
-                SqlConnectionStringBuilder connectionStringBuilder =
-                    new(connectionString: acceptanceConnectionString);
-
-                connectionStringBuilder.InitialCatalog =
-                    $"{connectionStringBuilder.InitialCatalog}" +
-                    $"-acceptance-{Guid.NewGuid():N}";
-
-                acceptanceConnectionString =
-                    connectionStringBuilder.ConnectionString;
-
-                Environment.SetEnvironmentVariable(
-                    variable: "Security__ConnectionString",
-                    value: acceptanceConnectionString);
-
-                acceptanceEnvironmentConfigured = true;
-                ownsAcceptanceDatabase = true;
-                return;
-            }
-
-            throw new InvalidOperationException(
-                "Security__ConnectionString must be configured for acceptance tests.");
-        }
-
-        acceptanceEnvironmentConfigured = true;
+        EnsureSSOSetupForTesting(scopedServices: scopedServices)
+            .AsTask()
+            .Wait();
     }
 
     private static async ValueTask EnsureSSOSetupForTesting(IServiceProvider scopedServices)
@@ -130,18 +72,6 @@ public static class SecurityWebApplicationFactoryExtensions
 
         await tenantManager.SetupAsync(
             setupDetails: setupDetails);
-    }
-
-    public static void DropAcceptanceDatabaseForTesting()
-    {
-        if (!ownsAcceptanceDatabase)
-        { return; }
-
-        DropDatabaseForTesting(connectionString: acceptanceConnectionString);
-
-        Environment.SetEnvironmentVariable(
-            variable: "Security__ConnectionString",
-            value: configuredConnectionString);
     }
 
     internal static void DropDatabaseForTesting(string connectionString)
