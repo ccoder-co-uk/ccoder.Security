@@ -12,10 +12,17 @@ namespace cCoder.Security.AcceptanceTests.Tests;
 
 [Collection(nameof(AllTestsCollection))]
 public partial class SSOUserApiTests(
-    RegisterApiClient registerApiClient,
-    SSOUserApiClient ssoUserApiClient,
-    AccountApiClient accountApiClient)
+    SecurityAcceptanceTestFixture fixture)
 {
+    private readonly RegisterApiClient registerApiClient =
+        fixture.RegisterApiClient;
+
+    private readonly SSOUserApiClient ssoUserApiClient =
+        fixture.SSOUserApiClient;
+
+    private readonly AccountApiClient accountApiClient =
+        fixture.AccountApiClient;
+
     private static Auth RandomAuth(RegisterUser user)
                 =>
         new()
