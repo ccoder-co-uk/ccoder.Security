@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Brokers.Authentication;
-using cCoder.Security.Dependencies.EDM;
 using cCoder.Security.Dependencies.Sessions;
 using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Events;
@@ -17,9 +16,11 @@ using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Brokers.Utility;
 using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Data.Models;
+using cCoder.Security.Data.EF;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.EventHandlers;
 using cCoder.Security.Exposures.HostedServices;
+using cCoder.Security.Dependencies.HostedServices;
 using cCoder.Security.Objects;
 using cCoder.Security.Objects.Events;
 using cCoder.Security.Services.Foundations;
@@ -33,53 +34,93 @@ using cCoder.Security.Services.Aggregations;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
+using Microsoft.OData.ModelBuilder;
 
 namespace cCoder.Security;
 
 public static class IServiceCollectionExtensions
 {
-    public static void AddSecurityApi(
+    public static void AddSecurityWeb(
         this IServiceCollection services,
-        Action<IServiceCollection, SecurityConfiguration> configAction) =>
-        services.AddSecurityWeb(configAction: configAction);
-
-    public static SecurityConfiguration AddSecurityWeb(
-        this IServiceCollection services,
-        Action<IServiceCollection, SecurityConfiguration> configAction) =>
-        services.AddSecurity(configAction: configAction);
-
-    public static SecurityConfiguration AddSecurityHostedServices(
-        this IServiceCollection services,
-        Action<IServiceCollection, SecurityConfiguration> configAction)
+        Action<SecurityConfiguration> configure)
     {
-        SecurityConfiguration securityConfiguration = services.AddSecurity(configAction: configAction);
-        services.AddSecurityHostedServiceExposures();
-
-        return securityConfiguration;
+        SecurityConfiguration configuration = new();
+        configure?.Invoke(configuration);
+        services.AddSecurityWeb(configuration: configuration);
     }
 
-    public static SecurityConfiguration AddSecurity(
+    public static void AddSecurityWeb(
         this IServiceCollection services,
-        Action<IServiceCollection, SecurityConfiguration> configAction)
+        SecurityConfiguration configuration)
     {
-        SecurityConfiguration securityConfiguration = new();
-        configAction(arg1: services, arg2: securityConfiguration);
-        services.AddSingleton(implementationInstance: securityConfiguration);
+        ArgumentNullException.ThrowIfNull(argument: configuration);
 
-        services.AddEventing();
-        services.AddEventingTypes();
-        services.AddAspNet();
+        services.AddDependencies(configuration);
         services.AddBrokers();
         services.AddFoundations();
         services.AddProcessings();
         services.AddOrchestrations();
         services.AddExposures();
+
+        if (!string.IsNullOrWhiteSpace(value: configuration.RootPath))
+        {
+            services.AddSecurityApiLayer(atPath: configuration.RootPath);
+        }
+    }
+
+    public static void AddSecurityHostedServices(
+        this IServiceCollection services,
+        Action<SecurityConfiguration> configure)
+    {
+        SecurityConfiguration configuration = new();
+        configure?.Invoke(configuration);
+        services.AddSecurityHostedServices(configuration: configuration);
+    }
+
+    public static void AddSecurityHostedServices(
+        this IServiceCollection services,
+        SecurityConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(argument: configuration);
+
+        services.AddDependencies(configuration);
+        services.AddBrokers();
+        services.AddFoundations();
+        services.AddProcessings();
+        services.AddOrchestrations();
+        services.AddExposures();
+        services.AddHostedDependencies();
+
+        if (!string.IsNullOrWhiteSpace(value: configuration.RootPath))
+        {
+            services.AddSecurityApiLayer(atPath: configuration.RootPath);
+        }
+    }
+
+    private static void AddDependencies(
+        this IServiceCollection services,
+        SecurityConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(argument: configuration);
+
+        if (!string.IsNullOrWhiteSpace(value: configuration.ConnectionString))
+        {
+            services.AddSecurityData(configuration);
+        }
+
+        if (!string.IsNullOrWhiteSpace(value: configuration.DecryptionKey))
+        {
+            configuration.UseAESHMMACPasswordEncryption(
+                services: services,
+                decryptionKey: configuration.DecryptionKey);
+        }
+
+        services.AddSingleton(implementationInstance: configuration);
+
+        services.AddEventing();
+        services.AddEventingTypes();
+        services.AddAspNet();
         services.AddEventHandlers();
-
-        if (!string.IsNullOrWhiteSpace(value: securityConfiguration.RootPath))
-        { services.AddSecurityApiLayer(atPath: securityConfiguration.RootPath); }
-
-        return securityConfiguration;
     }
 
     private static void AddEventingTypes(this IServiceCollection services)
@@ -181,7 +222,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ITenantManager, TenantManager>();
     }
 
-    private static void AddSecurityHostedServiceExposures(this IServiceCollection services)
+    private static void AddHostedDependencies(this IServiceCollection services)
     {
         services.AddSingleton<ITokenCleaner, TokenCleaner>();
 
@@ -203,9 +244,15 @@ public static class IServiceCollectionExtensions
         services.AddSession();
     }
 
-    public static void AddSecurityApiLayer(this IServiceCollection services, string atPath) =>
-        services.AddControllers()
-            .AddOData(setupAction: options =>
+    private static void AddSecurityApiLayer(
+        this IServiceCollection services,
+        string atPath)
+    {
+        ODataConventionModelBuilder modelBuilder = new();
+        modelBuilder.ConfigureSecurityApiModel();
+
+        IMvcBuilder mvcBuilder = services.AddControllers();
+        mvcBuilder.AddOData(setupAction: options =>
             {
                 options
                     .Expand()
@@ -217,8 +264,7 @@ public static class IServiceCollectionExtensions
 
                 options.AddRouteComponents(
                     routePrefix: atPath,
-                    model: new SecurityModelBuilder()
-                        .Build()
-                        .EDMModel);
+                    model: modelBuilder.GetEdmModel());
             });
+    }
 }

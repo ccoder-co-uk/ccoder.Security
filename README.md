@@ -1,6 +1,19 @@
 # cCoder.Security
 
+`cCoder.Security.Data` exposes its supporting persistence services through
+`services.AddSecurityData(configuration.Security)`. The same strongly typed
+`SecurityConfiguration` instance is passed onward to `cCoder.Security`; no
+flat `ConnectionStrings` compatibility configuration is required.
+
 `cCoder.Security` owns the SSO security boundary for the cCoder platform. It manages tenants, SSO users, registrations, invitations, password reset tokens, login sessions, and the Security account lifecycle events consumed by downstream domains.
+
+## Local Configuration
+
+Configuration binds directly into `SecurityConfiguration`. Leave secrets empty
+in appsettings and define `Security__ConnectionString` and
+`Security__DecryptionKey` as user-level or machine-level environment variables.
+Restart Visual Studio, select the Web and HostedServices startup projects, and
+press F5. No configuration conversion step is required.
 
 ## Repository Layout
 
@@ -76,7 +89,13 @@ Downstream ownership:
 Set SQL Server connection strings through appsettings or environment variables:
 
 ```powershell
-$env:ConnectionStrings__SSO = "Data Source=.;Initial Catalog=cCoder-SSO;MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true;Encrypt=True"
+Required secret environment variables:
+
+- `Security__ConnectionString`
+- `Security__DecryptionKey`
+
+Leave their matching `appsettings.json` values empty, define them as user- or
+machine-level environment variables, restart Visual Studio, and run with F5.
 ```
 
 Acceptance tests also read:

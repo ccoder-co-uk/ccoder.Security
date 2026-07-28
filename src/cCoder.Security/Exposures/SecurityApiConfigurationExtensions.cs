@@ -7,7 +7,7 @@ using Microsoft.OData.ModelBuilder;
 
 namespace cCoder.Security.Exposures;
 
-internal static class SecurityApiModelBuilderExtensions
+internal static class SecurityApiConfigurationExtensions
 {
     internal static void ConfigureSecurityApiModel(this ODataConventionModelBuilder builder)
     {
@@ -29,7 +29,15 @@ internal static class SecurityApiModelBuilderExtensions
         builder.EntitySet<TenantAnalysis>(name: "TenantAnalysis");
         builder.EntitySet<UserEvent>(name: "UserEvent");
         builder.EntitySet<SSOUserRole>(name: "SSOUserRole");
-        builder.EntityType<SSOUserRole>().HasKey(keyDefinitionExpression: ur => new { ur.UserId, ur.RoleId });
-    }
 
+        builder
+            .EntityType<SSOUserRole>()
+            .HasKey(
+                keyDefinitionExpression: ur =>
+                    new
+                    {
+                        ur.UserId,
+                        ur.RoleId
+                    });
+    }
 }

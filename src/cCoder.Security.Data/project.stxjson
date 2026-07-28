@@ -2,7 +2,7 @@
   "Classes": [
     {
       "Name": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -57,7 +57,7 @@
     },
     {
       "Name": "cCoder.Security.Data.Dependencies.AesThenHmac",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [
         {
           "Name": "BlockBitSize",
@@ -258,7 +258,7 @@
     },
     {
       "Name": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [
         {
           "Name": "GetAuthInfo",
@@ -289,24 +289,34 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Data.EF.MSSQLSecurityConfigurationExtensions",
-      "StandardElementType": "Dependency",
+      "Name": "cCoder.Security.Data.EF.IServiceCollectionExtensions",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddMSSQLModelProvider",
+          "Name": "AddSecurityData",
           "Inputs": [
-            {
-              "Name": "config",
-              "Type": "cCoder.Security.Objects.SecurityConfiguration"
-            },
             {
               "Name": "services",
               "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
             },
             {
-              "Name": "connectionString",
-              "Type": "System.String"
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Security.Objects.SecurityConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddSecurityData",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "cCoder.Security.Objects.SecurityConfiguration"
             }
           ],
           "ReturnType": "System.Void"
@@ -351,12 +361,6 @@
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.Initial",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Data.EF.Migrations.MembershipDataContextModelSnapshot",
       "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": []
@@ -1089,14 +1093,25 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Events.SecurityAccountEventNames",
-      "StandardElementType": "Dependency",
+      "Name": "cCoder.Security.Objects.Events.SecurityAccountEventKindExtensions",
+      "StandardElementType": "Exposure",
       "Properties": [],
-      "Methods": []
+      "Methods": [
+        {
+          "Name": "ToEventName",
+          "Inputs": [
+            {
+              "Name": "securityAccountEventKind",
+              "Type": "cCoder.Security.Objects.Events.SecurityAccountEventKind"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
     },
     {
       "Name": "cCoder.Security.Objects.HttpClientExtensions",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": [
         {
@@ -1144,6 +1159,14 @@
       "Name": "cCoder.Security.Objects.SecurityConfiguration",
       "StandardElementType": "Model",
       "Properties": [
+        {
+          "Name": "ConnectionString",
+          "Type": "System.String"
+        },
+        {
+          "Name": "DecryptionKey",
+          "Type": "System.String"
+        },
         {
           "Name": "IsMigrating",
           "Type": "System.Boolean"

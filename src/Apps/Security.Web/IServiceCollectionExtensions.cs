@@ -3,28 +3,48 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security;
-using cCoder.Security.Data.EF;
 using cCoder.Security.Exposures;
 using Security.Web.Exposures;
+using Security.Web.Models;
 
 namespace Security.Web;
 
 public static partial class IServiceCollectionExtensions
 {
-    public static string SSOUserId = "TestUser1";
+    public static void AddSecurityWeb(
+        this IServiceCollection services,
+        IConfiguration configuration,
+        Action<SecurityWebConfiguration> configure = null)
+    {
+        SecurityWebConfiguration applicationConfiguration = new();
+        configuration.Bind(applicationConfiguration);
+        configure?.Invoke(applicationConfiguration);
 
-    public static void AddAspNetCore(this IServiceCollection services)
+        services.AddAspNetCore();
+        services.AddMetadata();
+        services.AddSecurityWeb(applicationConfiguration.Security);
+        services.AddControllersWithViews();
+        services.AddSessions();
+        services.AddTransient<IHomeManager, HomeManager>();
+        services.AddTransient<ICurrentUserManager, CurrentUserManager>();
+    }
+
+    private static void AddAspNetCore(this IServiceCollection services)
     {
         _ = services.AddResponseCompression();
 
-        _ = services.AddMvcCore(setupAction: options =>
+        IMvcCoreBuilder mvcCoreBuilder =
+            services.AddMvcCore(setupAction: options =>
         {
             options.MaxIAsyncEnumerableBufferLimit = int.MaxValue;
             options.MaxModelBindingCollectionSize = 10000;
             options.MaxModelBindingRecursionDepth = 10;
-        })
-            .AddDataAnnotations()
-            .AddCors(setupAction: options => options.AddDefaultPolicy(configurePolicy: builder =>
+        });
+
+        mvcCoreBuilder.AddDataAnnotations();
+        mvcCoreBuilder.AddCors(
+            setupAction: options =>
+                options.AddDefaultPolicy(configurePolicy: builder =>
             {
                 _ = builder.AllowAnyHeader();
                 _ = builder.AllowAnyMethod();
@@ -33,39 +53,13 @@ public static partial class IServiceCollectionExtensions
             }));
     }
 
-    public static void AddSecurityWebApplication(
-        this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        services.AddAspNetCore();
-        services.AddMetadata();
-
-        services.AddSecurityWeb(configAction: (serviceCollection, securityConfig) =>
-        {
-            securityConfig.RootPath = "Api/Security";
-
-            securityConfig.AddMSSQLModelProvider(
-                services: serviceCollection,
-                connectionString: configuration.GetConnectionString("SSO"));
-
-            securityConfig.UseAESHMMACPasswordEncryption(
-                services: serviceCollection,
-                decryptionKey: configuration.GetSection("settings")["DecryptionKey"]);
-        });
-
-        services.AddControllersWithViews();
-        services.ConfigureSessions();
-        services.AddTransient<IHomeManager, HomeManager>();
-        services.AddTransient<ICurrentUserManager, CurrentUserManager>();
-    }
-
-    public static void AddMetadata(this IServiceCollection services)
+    private static void AddMetadata(this IServiceCollection services)
     {
         _ = services.AddEndpointsApiExplorer();
         _ = services.AddSwaggerGen();
     }
 
-    public static void ConfigureSessions(this IServiceCollection services)
+    private static void AddSessions(this IServiceCollection services)
     {
         services.Configure<CookiePolicyOptions>(configureOptions: options =>
         {
