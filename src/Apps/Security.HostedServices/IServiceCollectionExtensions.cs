@@ -3,30 +3,22 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security;
-using cCoder.Security.Data.EF;
+using Security.HostedServices.Models;
 
 namespace Security.HostedServices;
 
 public static class IServiceCollectionExtensions
 {
-    public static void AddSecurityHostedServicesApplication(
+    public static void AddSecurityHostedServices(
         this IServiceCollection services,
-        IConfiguration configuration) =>
+        IConfiguration configuration,
+        Action<SecurityHostedServicesConfiguration> configure = null)
+    {
+        SecurityHostedServicesConfiguration applicationConfiguration = new();
+        configuration.Bind(applicationConfiguration);
+        configure?.Invoke(applicationConfiguration);
+
         services.AddSecurityHostedServices(
-            configAction: (serviceCollection, securityConfig) =>
-            {
-                securityConfig.AddMSSQLModelProvider(
-                    services: serviceCollection,
-                    connectionString: configuration.GetConnectionString("SSO"));
-
-                securityConfig.UseAESHMMACPasswordEncryption(
-                    services: serviceCollection,
-                    decryptionKey: configuration
-                        .GetSection("settings")["DecryptionKey"]);
-
-                securityConfig.IsMigrating =
-                    configuration.GetValue<int?>(key: "MIGRATING") == 1 ||
-                    configuration.GetValue<bool?>(
-                        key: "Security:IsMigrating") == true;
-            });
+            applicationConfiguration.Security);
+    }
 }

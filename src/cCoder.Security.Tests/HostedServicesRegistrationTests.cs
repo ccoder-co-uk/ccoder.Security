@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Exposures.HostedServices;
+using cCoder.Security.Dependencies.HostedServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Xunit;
@@ -18,7 +19,7 @@ public partial class HostedServicesRegistrationTests
         IServiceCollection services = new ServiceCollection();
 
         // When
-        services.AddSecurityHostedServices(configAction: (_, _) => { });
+        services.AddSecurityHostedServices(configure: _ => { });
 
         // Then
         Assert.Contains(

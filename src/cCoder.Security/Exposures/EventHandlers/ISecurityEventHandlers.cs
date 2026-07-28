@@ -4,7 +4,7 @@
 
 namespace cCoder.Security.Exposures.EventHandlers;
 
-internal interface ISecurityEventHandlers
+public interface ISecurityEventHandlers
 {
     void ListenToAllEvents();
 }

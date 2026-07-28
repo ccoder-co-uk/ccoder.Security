@@ -75,18 +75,5 @@ internal sealed partial class AccountEventService(
     }
 
     private static string ResolveEventName(SecurityAccountEventKind kind) =>
-        kind switch
-        {
-            SecurityAccountEventKind.RegistrationCreated =>
-                SecurityAccountEventNames.RegistrationCreated,
-            SecurityAccountEventKind.RegistrationConfirmed =>
-                SecurityAccountEventNames.RegistrationConfirmed,
-            SecurityAccountEventKind.InvitationCreated =>
-                SecurityAccountEventNames.InvitationCreated,
-            SecurityAccountEventKind.InvitationAccepted =>
-                SecurityAccountEventNames.InvitationAccepted,
-            SecurityAccountEventKind.PasswordResetRequested =>
-                SecurityAccountEventNames.PasswordResetRequested,
-            _ => throw new ArgumentOutOfRangeException(nameof(kind))
-        };
+        kind.ToEventName();
 }

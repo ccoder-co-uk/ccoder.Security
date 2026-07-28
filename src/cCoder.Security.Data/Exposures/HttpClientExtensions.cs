@@ -23,14 +23,23 @@ public static class HttpClientExtensions
     {
         try
         {
-            var auth = new { User = user, Pass = pass };
+            var auth = new
+            {
+                User = user,
+                Pass = pass
+            };
+
             HttpResponseMessage response = await client.PostAsync(requestUri: "Account/Login", content: new StringContent(Json(source: auth), Encoding.UTF8, "application/json"));
             _ = response.EnsureSuccessStatusCode();
             Token token = await ReadAsAsync<Token>(content: response.Content);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Id);
+
             return token;
         }
-        catch { /* if we get here the server returned a json response but it wasn't a token, it was more than likely an auth failure. */ }
+        catch
+        {
+        }
+
         return null;
     }
 
@@ -38,7 +47,7 @@ public static class HttpClientExtensions
         =>
         JsonConvert.DeserializeObject<T>(value: await content.ReadAsStringAsync());
 
-    static string Json(object source) =>
+    private static string Json(object source) =>
         JsonConvert.SerializeObject(value: source, settings: new JsonSerializerSettings
         {
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore,

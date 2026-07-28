@@ -49,8 +49,61 @@
       ]
     },
     {
-      "Name": "Security.Web.IApplicationBuilderExtensions",
-      "StandardElementType": "Dependency",
+      "Name": "Security.Web.IServiceCollectionExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddSecurityWeb",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "IConfiguration"
+            },
+            {
+              "Name": "configure",
+              "Type": "System.Action\u003CSecurity.Web.Models.SecurityWebConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Models.SecurityWebConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Security",
+          "Type": "cCoder.Security.Objects.SecurityConfiguration"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "Security.Web.Program",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Main",
+          "Inputs": [
+            {
+              "Name": "args",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.WebApplicationExtensions",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -58,10 +111,10 @@
           "Inputs": [
             {
               "Name": "app",
-              "Type": "IApplicationBuilder"
+              "Type": "WebApplication"
             }
           ],
-          "ReturnType": "IApplicationBuilder"
+          "ReturnType": "WebApplication"
         },
         {
           "Name": "UseSecurityWebApplication",
@@ -82,74 +135,6 @@
             }
           ],
           "ReturnType": "IApplicationBuilder"
-        }
-      ]
-    },
-    {
-      "Name": "Security.Web.IServiceCollectionExtensions",
-      "StandardElementType": "App",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "AddAspNetCore",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "AddMetadata",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "AddSecurityWebApplication",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            },
-            {
-              "Name": "configuration",
-              "Type": "IConfiguration"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "ConfigureSessions",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            }
-          ],
-          "ReturnType": "System.Void"
-        }
-      ]
-    },
-    {
-      "Name": "Security.Web.Program",
-      "StandardElementType": "App",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "Main",
-          "Inputs": [
-            {
-              "Name": "args",
-              "Type": "System.String[]"
-            }
-          ],
-          "ReturnType": "System.Void"
         }
       ]
     }
