@@ -2,16 +2,20 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Dependencies;
-using cCoder.Security.Objects.DTOs;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.DTOs;
+using cCoder.Security.Models.Entities;
 
 namespace cCoder.Security.Services.Aggregations;
 
 internal sealed partial class RegistrationAggregationService
 {
-    private static void Validate(params object[] inputs) =>
-        ValidationRulesEngine.Validate(inputs: inputs);
+    private static void Validate(params object[] inputs)
+    {
+        if (inputs.Any(predicate: input => input is null))
+        {
+            throw new ArgumentNullException(nameof(inputs));
+        }
+    }
 
     private static void ValidateRegistrationOnRegister(
         RegisterUser registerForm) =>

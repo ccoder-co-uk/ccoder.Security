@@ -5,7 +5,7 @@
 using cCoder.Security.Data;
 using cCoder.Security.Data.Dependencies;
 using cCoder.Security.Brokers.Encryption;
-using cCoder.Security.Objects;
+using cCoder.Security.Models;
 
 namespace cCoder.Security;
 

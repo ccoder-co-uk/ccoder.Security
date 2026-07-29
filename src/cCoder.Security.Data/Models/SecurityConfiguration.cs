@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Security.Objects;
+namespace cCoder.Security.Models;
 
 public class SecurityConfiguration
 {

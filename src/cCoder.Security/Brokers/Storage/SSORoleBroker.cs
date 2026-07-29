@@ -5,7 +5,7 @@
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 
 using Microsoft.EntityFrameworkCore;
 

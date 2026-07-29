@@ -2,8 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.DTOs;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.DTOs;
+using cCoder.Security.Models.Entities;
 using FluentAssertions;
 using Security.AcceptanceTests.Clients;
 using Security.AcceptanceTests.Tests.Models;

@@ -2,8 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.Entities;
-using cCoder.Security.Objects.Events;
+using cCoder.Security.Models.Entities;
+using cCoder.Security.Models.Events;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 using System.Security;

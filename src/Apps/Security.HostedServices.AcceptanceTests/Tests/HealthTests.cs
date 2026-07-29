@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace Security.HostedServices.AcceptanceTests.Tests;
@@ -14,7 +13,7 @@ public partial class HealthTests
     public async Task ShouldReturnHostedServicesReportForGetRoot()
     {
         // Given
-        using WebApplicationFactory<AcceptanceHost> factory = new();
+        using SecurityHostedServicesApplicationFactory factory = new();
         using HttpClient client = factory.CreateClient();
 
         HttpResponseMessage response = await client.GetAsync(requestUri: "/");
@@ -41,7 +40,7 @@ public partial class HealthTests
     public async Task ShouldReturnHealthyForGetHealth()
     {
         // Given
-        using WebApplicationFactory<AcceptanceHost> factory = new();
+        using SecurityHostedServicesApplicationFactory factory = new();
         using HttpClient client = factory.CreateClient();
 
         HttpResponseMessage response = await client.GetAsync(requestUri: "/Health");
