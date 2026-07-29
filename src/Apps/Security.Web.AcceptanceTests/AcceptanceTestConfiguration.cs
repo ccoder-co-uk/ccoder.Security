@@ -12,6 +12,12 @@ internal sealed class AcceptanceTestConfiguration
     {
         string sourceConnectionString = Environment.GetEnvironmentVariable(
             variable: "Security__ConnectionString")
+            ?? Environment.GetEnvironmentVariable(
+                variable: "Security__ConnectionString",
+                target: EnvironmentVariableTarget.User)
+            ?? Environment.GetEnvironmentVariable(
+                variable: "Security__ConnectionString",
+                target: EnvironmentVariableTarget.Machine)
             ?? throw new InvalidOperationException(
                 message: "Security__ConnectionString is required.");
 
