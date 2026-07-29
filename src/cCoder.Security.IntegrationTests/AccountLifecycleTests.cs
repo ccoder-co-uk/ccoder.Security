@@ -20,8 +20,6 @@ namespace cCoder.Security.IntegrationTests;
 [Collection(nameof(AllTestsCollection))]
 public partial class AccountLifecycleTests : IDisposable
 {
-    private const string ConnectionStringEnvironmentVariableName =
-        "Security__ConnectionString";
     private const string DefaultPassword = "TestPass01!";
     private const string UpdatedPassword = "ChangedPass01!";
 
@@ -31,16 +29,32 @@ public partial class AccountLifecycleTests : IDisposable
     };
 
     private readonly string previousConnectionString;
+    private readonly string previousDecryptionKey;
     private readonly WebApplicationFactory<AcceptanceHost> webApplicationFactory;
     private readonly HttpClient api;
 
     public AccountLifecycleTests()
     {
-        previousConnectionString = Environment.GetEnvironmentVariable(variable: ConnectionStringEnvironmentVariableName);
+        IntegrationTestConfiguration configuration =
+            IntegrationTestConfiguration.Load();
 
         Environment.SetEnvironmentVariable(
-variable: ConnectionStringEnvironmentVariableName,
-value: CreateConnectionString());
+            variable:
+                IntegrationTestConfiguration
+                    .ConnectionStringVariableName,
+            value: configuration.AcceptanceConnectionString);
+
+        previousConnectionString =
+            configuration.ProcessConnectionString;
+
+        Environment.SetEnvironmentVariable(
+            variable:
+                IntegrationTestConfiguration
+                    .DecryptionKeyVariableName,
+            value: configuration.DecryptionKey);
+
+        previousDecryptionKey =
+            configuration.ProcessDecryptionKey;
 
         webApplicationFactory = new WebApplicationFactory<AcceptanceHost>();
 
@@ -59,25 +73,22 @@ value: CreateConnectionString());
         webApplicationFactory.Dispose();
 
         Environment.SetEnvironmentVariable(
-variable: ConnectionStringEnvironmentVariableName,
-value: previousConnectionString);
-    }
+            variable:
+                IntegrationTestConfiguration
+                    .ConnectionStringVariableName,
+            value: string.IsNullOrEmpty(
+                value: previousConnectionString)
+                ? null
+                : previousConnectionString);
 
-    private static string CreateConnectionString()
-    {
-        string connectionString = Environment.GetEnvironmentVariable(
-            variable: ConnectionStringEnvironmentVariableName)
-            ?? throw new InvalidOperationException(
-                message:
-                    $"{ConnectionStringEnvironmentVariableName} is required.");
-
-        Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder =
-            new(connectionString);
-
-        builder.InitialCatalog =
-            $"{builder.InitialCatalog}-integration-{Guid.NewGuid():N}";
-
-        return builder.ConnectionString;
+        Environment.SetEnvironmentVariable(
+            variable:
+                IntegrationTestConfiguration
+                    .DecryptionKeyVariableName,
+            value: string.IsNullOrEmpty(
+                value: previousDecryptionKey)
+                ? null
+                : previousDecryptionKey);
     }
 
     private SecurityDbContext CreateSecurityDbContext()
