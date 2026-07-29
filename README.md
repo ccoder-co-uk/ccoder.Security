@@ -101,7 +101,7 @@ machine-level environment variables, restart Visual Studio, and run with F5.
 Acceptance tests also read:
 
 ```powershell
-$env:CCODER_ACCEPTANCE_SSO_CONNECTION_STRING = "Data Source=.;Initial Catalog=sso-acceptance;MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true;Encrypt=True"
+$env:Security__ConnectionString = "Data Source=.;Initial Catalog=dev-Members;MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true;Encrypt=True"
 ```
 
 SQLite support has been retired; SQL Server is the only supported EF provider.
