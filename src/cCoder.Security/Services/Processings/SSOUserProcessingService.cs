@@ -59,44 +59,44 @@ internal sealed partial class SSOUserProcessingService(
         string password) =>
         TryCatch<SSOUser>(operation: async () =>
         {
-                ValidateCredentialsOnFind(username: username, password: password);
+            ValidateCredentialsOnFind(username: username, password: password);
 
-                SSOUser user = FindSSOUserById(ssoUserId: username);
+            SSOUser user = FindSSOUserById(ssoUserId: username);
 
-                if (user is null)
+            if (user is null)
+            {
+                throw new SecurityException("Access Denied!");
+            }
+
+            bool passwordMatches = encryptionBroker.EncryptedAndPlainTextAreEqual(
+                encrypted: user.PasswordHash,
+                plainText: password);
+
+            if (!passwordMatches)
+            {
+                user.AccessFailedCount++;
+
+                if (user.AccessFailedCount > 10)
                 {
-                    throw new SecurityException("Access Denied!");
+                    user.LockoutEnabled = true;
                 }
 
-                bool passwordMatches = encryptionBroker.EncryptedAndPlainTextAreEqual(
-                    encrypted: user.PasswordHash,
-                    plainText: password);
+                await UpdateSSOUserCoreAsync(updatedSSOUser: user);
+                throw new SecurityException("Access Denied!");
+            }
 
-                if (!passwordMatches)
-                {
-                    user.AccessFailedCount++;
+            if (user.AccessFailedCount > 0)
+            {
+                user.AccessFailedCount = 0;
+                await UpdateSSOUserCoreAsync(updatedSSOUser: user);
+            }
 
-                    if (user.AccessFailedCount > 10)
-                    {
-                        user.LockoutEnabled = true;
-                    }
+            if (user.LockoutEnabled)
+            {
+                throw new SecurityException("Account locked!");
+            }
 
-                    await UpdateSSOUserCoreAsync(updatedSSOUser: user);
-                    throw new SecurityException("Access Denied!");
-                }
-
-                if (user.AccessFailedCount > 0)
-                {
-                    user.AccessFailedCount = 0;
-                    await UpdateSSOUserCoreAsync(updatedSSOUser: user);
-                }
-
-                if (user.LockoutEnabled)
-                {
-                    throw new SecurityException("Account locked!");
-                }
-
-                return user;
+            return user;
         });
 
     public SSOUser FindById(string ssoUserId) =>
