@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Security.Objects.DTOs;
+namespace cCoder.Security.Models.DTOs;
 
 public class ChangePasswordRequest
 {

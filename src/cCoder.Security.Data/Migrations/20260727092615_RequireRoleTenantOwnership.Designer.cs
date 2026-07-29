@@ -25,7 +25,7 @@ namespace cCoder.Security.Data.EF.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.SSORole", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.SSORole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.ToTable("Roles", (string)null);
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.SSOUser", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.SSOUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -93,7 +93,7 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.SSOUserRole", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.SSOUserRole", b =>
                 {
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
@@ -108,7 +108,7 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.ToTable("UserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.Session", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.Session", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -130,7 +130,7 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.Tenant", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.Tenant", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(50)
@@ -165,7 +165,7 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.ToTable("Tenants", (string)null);
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.TenantAnalysis", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.TenantAnalysis", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,7 +193,7 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.ToTable("TenantAnalysis", (string)null);
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.Token", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.Token", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(64)
@@ -215,7 +215,7 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.ToTable("Tokens", (string)null);
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.UserEvent", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.UserEvent", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -250,9 +250,9 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.ToTable("UserEvents", (string)null);
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.SSORole", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.SSORole", b =>
                 {
-                    b.HasOne("cCoder.Security.Objects.Entities.Tenant", "Tenant")
+                    b.HasOne("cCoder.Security.Models.Entities.Tenant", "Tenant")
                         .WithMany("Roles")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -261,15 +261,15 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.SSOUserRole", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.SSOUserRole", b =>
                 {
-                    b.HasOne("cCoder.Security.Objects.Entities.SSORole", "Role")
+                    b.HasOne("cCoder.Security.Models.Entities.SSORole", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("cCoder.Security.Objects.Entities.SSOUser", "User")
+                    b.HasOne("cCoder.Security.Models.Entities.SSOUser", "User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -280,35 +280,35 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.TenantAnalysis", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.TenantAnalysis", b =>
                 {
-                    b.HasOne("cCoder.Security.Objects.Entities.Tenant", "Tenant")
+                    b.HasOne("cCoder.Security.Models.Entities.Tenant", "Tenant")
                         .WithMany("Analysis")
                         .HasForeignKey("TenantId");
 
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.Token", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.Token", b =>
                 {
-                    b.HasOne("cCoder.Security.Objects.Entities.SSOUser", "User")
+                    b.HasOne("cCoder.Security.Models.Entities.SSOUser", "User")
                         .WithMany("Tokens")
                         .HasForeignKey("UserName");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.UserEvent", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.UserEvent", b =>
                 {
-                    b.HasOne("cCoder.Security.Objects.Entities.SSOUser", "CreatedByUser")
+                    b.HasOne("cCoder.Security.Models.Entities.SSOUser", "CreatedByUser")
                         .WithMany("UserEvents")
                         .HasForeignKey("CreatedBy");
 
-                    b.HasOne("cCoder.Security.Objects.Entities.Session", "Session")
+                    b.HasOne("cCoder.Security.Models.Entities.Session", "Session")
                         .WithMany("UserEvents")
                         .HasForeignKey("SessionId");
 
-                    b.HasOne("cCoder.Security.Objects.Entities.Tenant", "Tenant")
+                    b.HasOne("cCoder.Security.Models.Entities.Tenant", "Tenant")
                         .WithMany("UserEvents")
                         .HasForeignKey("TenantId");
 
@@ -319,12 +319,12 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.SSORole", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.SSORole", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.SSOUser", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.SSOUser", b =>
                 {
                     b.Navigation("Roles");
 
@@ -333,12 +333,12 @@ namespace cCoder.Security.Data.EF.Migrations
                     b.Navigation("UserEvents");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.Session", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.Session", b =>
                 {
                     b.Navigation("UserEvents");
                 });
 
-            modelBuilder.Entity("cCoder.Security.Objects.Entities.Tenant", b =>
+            modelBuilder.Entity("cCoder.Security.Models.Entities.Tenant", b =>
                 {
                     b.Navigation("Analysis");
 

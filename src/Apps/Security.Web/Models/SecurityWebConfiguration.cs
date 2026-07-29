@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects;
+using cCoder.Security.Models;
 
 namespace Security.Web.Models;
 

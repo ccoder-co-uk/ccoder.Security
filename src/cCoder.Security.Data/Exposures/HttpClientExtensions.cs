@@ -2,13 +2,13 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace cCoder.Security.Objects;
+namespace cCoder.Security.Models;
 
 public static class HttpClientExtensions
 {

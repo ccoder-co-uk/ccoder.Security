@@ -2,7 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects;
+using cCoder.Security.Models;
+using cCoder.Security.Models.Configurations;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 using System.Text;
@@ -47,7 +48,7 @@ internal sealed partial class SSOAuthInfoAggregationService(
 
     private ISSOAuthInfo GetFromSession()
     {
-        Objects.Entities.SSOUser user = sessionService.GetUser();
+        Models.Entities.SSOUser user = sessionService.GetUser();
 
         if (user == null)
         { return null; }
@@ -62,7 +63,7 @@ internal sealed partial class SSOAuthInfoAggregationService(
         if (tokenId == null)
         { return null; }
 
-        Objects.Entities.Token token = tokenService.GetAllTokens(ignoreFilters: true)
+        Models.Entities.Token token = tokenService.GetAllTokens(ignoreFilters: true)
             .FirstOrDefault(predicate: t => t.Id == tokenId);
 
         if (token == null)
@@ -85,7 +86,7 @@ internal sealed partial class SSOAuthInfoAggregationService(
     {
         (string username, string password) = ParseBasicAuthDetails(auth: auth);
 
-        Objects.Entities.SSOUser user = await userService
+        Models.Entities.SSOUser user = await userService
             .FindByUserAndPasswordAsync(username: username, password: password);
 
         return new SSOAuthInfo { SSOUserId = user.Id };

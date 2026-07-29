@@ -4,7 +4,7 @@
 
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
-using cCoder.Security.Objects.Exceptions;
+using cCoder.Security.Models.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Security.Exposures.Controllers;

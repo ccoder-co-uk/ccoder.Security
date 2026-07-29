@@ -3,7 +3,8 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Data.EF.Interfaces;
-using cCoder.Security.Objects;
+using cCoder.Security.Models;
+using cCoder.Security.Models.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

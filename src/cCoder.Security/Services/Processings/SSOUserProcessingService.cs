@@ -4,7 +4,7 @@
 
 using System.Security;
 using cCoder.Security.Brokers.Encryption;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 

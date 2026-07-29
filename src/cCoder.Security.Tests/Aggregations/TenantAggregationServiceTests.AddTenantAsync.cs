@@ -2,9 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.Entities;
-using cCoder.Security.Objects.Exceptions;
-using cCoder.Security.Objects.Models;
+using cCoder.Security.Models.Entities;
+using cCoder.Security.Models.Exceptions;
+using cCoder.Security.Models;
 using FluentAssertions;
 using Moq;
 using Xunit;

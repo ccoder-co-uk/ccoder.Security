@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Data.Models;
-using cCoder.Security.Objects.DTOs;
+using cCoder.Security.Models.DTOs;
 using cCoder.Security.Services.Aggregations.Interfaces;
 
 namespace cCoder.Security.Exposures;

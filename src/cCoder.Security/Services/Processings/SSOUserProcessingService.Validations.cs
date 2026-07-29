@@ -3,15 +3,19 @@
 // ---------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
-using cCoder.Security.Dependencies;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 
 namespace cCoder.Security.Services.Processings;
 
 internal sealed partial class SSOUserProcessingService
 {
-    private static void Validate(params object[] inputs) =>
-        ValidationRulesEngine.Validate(inputs: inputs);
+    private static void Validate(params object[] inputs)
+    {
+        if (inputs.Any(predicate: input => input is null))
+        {
+            throw new ArgumentNullException(nameof(inputs));
+        }
+    }
 
     private void ValidateSSOUserOnRegister(SSOUser user)
     {
