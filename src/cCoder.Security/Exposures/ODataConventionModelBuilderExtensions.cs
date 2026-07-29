@@ -7,7 +7,7 @@ using Microsoft.OData.ModelBuilder;
 
 namespace cCoder.Security.Exposures;
 
-internal static class SecurityApiConfigurationExtensions
+internal static class ODataConventionModelBuilderExtensions
 {
     internal static void ConfigureSecurityApiModel(this ODataConventionModelBuilder builder)
     {
