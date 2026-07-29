@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Security.Objects.Events;
+namespace cCoder.Security.Models.Events;
 
 public static class SecurityAccountEventKindExtensions
 {

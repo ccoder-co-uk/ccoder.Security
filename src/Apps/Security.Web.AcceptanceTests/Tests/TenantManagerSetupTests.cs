@@ -5,7 +5,7 @@
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

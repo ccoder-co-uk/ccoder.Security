@@ -152,7 +152,7 @@
             },
             {
               "Name": "message",
-              "Type": "EventMessage\u003CcCoder.Security.Objects.Events.SecurityAccountEvent\u003E"
+              "Type": "EventMessage\u003CcCoder.Security.Models.Events.SecurityAccountEvent\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -327,7 +327,7 @@
         {
           "Name": "SelectPrivileges",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E"
         }
       ]
     },
@@ -341,7 +341,7 @@
           "Inputs": [
             {
               "Name": "deletedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -351,30 +351,30 @@
           "Inputs": [
             {
               "Name": "newSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "SelectAllSSORoles",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "SelectAllSSORolesIgnoringFilters",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "UpdateSSORoleAsync",
           "Inputs": [
             {
               "Name": "updatedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         }
       ]
     },
@@ -388,7 +388,7 @@
           "Inputs": [
             {
               "Name": "deletedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -398,35 +398,35 @@
           "Inputs": [
             {
               "Name": "newSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "SelectAllSSOUsers",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "SelectAllSSOUsersIgnoringFilters",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "SelectCurrentSSOUser",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "UpdateSSOUserAsync",
           "Inputs": [
             {
               "Name": "updatedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         }
       ]
     },
@@ -440,7 +440,7 @@
           "Inputs": [
             {
               "Name": "deletedSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -450,15 +450,15 @@
           "Inputs": [
             {
               "Name": "newSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         },
         {
           "Name": "SelectAllSSOUserRoles",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         }
       ]
     },
@@ -472,7 +472,7 @@
           "Inputs": [
             {
               "Name": "deletedSession",
-              "Type": "cCoder.Security.Objects.Entities.Session"
+              "Type": "cCoder.Security.Models.Entities.Session"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -482,25 +482,25 @@
           "Inputs": [
             {
               "Name": "newSession",
-              "Type": "cCoder.Security.Objects.Entities.Session"
+              "Type": "cCoder.Security.Models.Entities.Session"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Session\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Session\u003E"
         },
         {
           "Name": "SelectAllSessions",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Session\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Session\u003E"
         },
         {
           "Name": "UpdateSessionAsync",
           "Inputs": [
             {
               "Name": "updatedSession",
-              "Type": "cCoder.Security.Objects.Entities.Session"
+              "Type": "cCoder.Security.Models.Entities.Session"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Session\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Session\u003E"
         }
       ]
     },
@@ -514,7 +514,7 @@
           "Inputs": [
             {
               "Name": "deletedTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -524,25 +524,25 @@
           "Inputs": [
             {
               "Name": "newTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "SelectAllTenantAnalysis",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "UpdateTenantAnalysisAsync",
           "Inputs": [
             {
               "Name": "updatedTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         }
       ]
     },
@@ -556,7 +556,7 @@
           "Inputs": [
             {
               "Name": "deletedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -566,25 +566,25 @@
           "Inputs": [
             {
               "Name": "newTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "SelectAllTenants",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
               "Name": "updatedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         }
       ]
     },
@@ -612,7 +612,7 @@
           "Inputs": [
             {
               "Name": "deletedToken",
-              "Type": "cCoder.Security.Objects.Entities.Token"
+              "Type": "cCoder.Security.Models.Entities.Token"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -622,30 +622,30 @@
           "Inputs": [
             {
               "Name": "newToken",
-              "Type": "cCoder.Security.Objects.Entities.Token"
+              "Type": "cCoder.Security.Models.Entities.Token"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "SelectAllTokens",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "SelectAllTokensIgnoringFilters",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "UpdateTokenAsync",
           "Inputs": [
             {
               "Name": "updatedToken",
-              "Type": "cCoder.Security.Objects.Entities.Token"
+              "Type": "cCoder.Security.Models.Entities.Token"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         }
       ]
     },
@@ -659,7 +659,7 @@
           "Inputs": [
             {
               "Name": "deletedUserEvent",
-              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+              "Type": "cCoder.Security.Models.Entities.UserEvent"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -669,25 +669,25 @@
           "Inputs": [
             {
               "Name": "newUserEvent",
-              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+              "Type": "cCoder.Security.Models.Entities.UserEvent"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         },
         {
           "Name": "SelectAllUserEvents",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         },
         {
           "Name": "UpdateUserEventAsync",
           "Inputs": [
             {
               "Name": "updatedUserEvent",
-              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+              "Type": "cCoder.Security.Models.Entities.UserEvent"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         }
       ]
     },
@@ -699,12 +699,12 @@
         {
           "Name": "GetAllPrivileges",
           "Inputs": [],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E"
         },
         {
           "Name": "GetCurrentUser",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "UserHasPrivilege",
@@ -843,7 +843,7 @@
           "Inputs": [
             {
               "Name": "newAuth",
-              "Type": "cCoder.Security.Objects.DTOs.Auth"
+              "Type": "cCoder.Security.Models.DTOs.Auth"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -865,7 +865,7 @@
           "Inputs": [
             {
               "Name": "newConfirmForgotPasswordRequest",
-              "Type": "cCoder.Security.Objects.DTOs.ConfirmForgotPasswordRequest"
+              "Type": "cCoder.Security.Models.DTOs.ConfirmForgotPasswordRequest"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -894,7 +894,7 @@
           "Inputs": [
             {
               "Name": "newForgotPasswordRequest",
-              "Type": "cCoder.Security.Objects.DTOs.ForgotPasswordRequest"
+              "Type": "cCoder.Security.Models.DTOs.ForgotPasswordRequest"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -919,7 +919,7 @@
             },
             {
               "Name": "newRegisterUser",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+              "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -939,7 +939,7 @@
           "Inputs": [
             {
               "Name": "newRegisterUser",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+              "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -949,7 +949,7 @@
           "Inputs": [
             {
               "Name": "newRegisterUser",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+              "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -976,7 +976,7 @@
           "Inputs": [
             {
               "Name": "queryOptions",
-              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E"
             }
           ],
           "ReturnType": "IActionResult"
@@ -1013,7 +1013,7 @@
           "Inputs": [
             {
               "Name": "queryOptions",
-              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSORole\u003E"
             }
           ],
           "ReturnType": "IActionResult"
@@ -1033,7 +1033,7 @@
           "Inputs": [
             {
               "Name": "newSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -1047,7 +1047,7 @@
             },
             {
               "Name": "updatedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -1078,7 +1078,7 @@
           "Inputs": [
             {
               "Name": "queryOptions",
-              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
             }
           ],
           "ReturnType": "IActionResult"
@@ -1102,7 +1102,7 @@
             },
             {
               "Name": "updatedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -1133,7 +1133,7 @@
           "Inputs": [
             {
               "Name": "queryOptions",
-              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
             }
           ],
           "ReturnType": "IActionResult"
@@ -1143,7 +1143,7 @@
           "Inputs": [
             {
               "Name": "newSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -1209,7 +1209,7 @@
           "Inputs": [
             {
               "Name": "queryOptions",
-              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Models.Entities.Tenant\u003E"
             }
           ],
           "ReturnType": "IActionResult"
@@ -1229,7 +1229,7 @@
           "Inputs": [
             {
               "Name": "newTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -1243,7 +1243,7 @@
             },
             {
               "Name": "updatedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
@@ -1260,7 +1260,7 @@
           "Inputs": [
             {
               "Name": "queryOptions",
-              "Type": "ODataQueryOptions\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+              "Type": "ODataQueryOptions\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
             }
           ],
           "ReturnType": "IActionResult"
@@ -1326,10 +1326,10 @@
             },
             {
               "Name": "tokenUse",
-              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+              "Type": "cCoder.Security.Models.Entities.TokenUse"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         }
       ]
     },
@@ -1347,7 +1347,7 @@
             },
             {
               "Name": "configure",
-              "Type": "System.Action\u003CcCoder.Security.Objects.SecurityConfiguration\u003E"
+              "Type": "System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E"
             }
           ],
           "ReturnType": "System.Void"
@@ -1361,7 +1361,7 @@
             },
             {
               "Name": "configuration",
-              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+              "Type": "cCoder.Security.Models.SecurityConfiguration"
             }
           ],
           "ReturnType": "System.Void"
@@ -1375,7 +1375,7 @@
             },
             {
               "Name": "configure",
-              "Type": "System.Action\u003CcCoder.Security.Objects.SecurityConfiguration\u003E"
+              "Type": "System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E"
             }
           ],
           "ReturnType": "System.Void"
@@ -1389,12 +1389,140 @@
             },
             {
               "Name": "configuration",
-              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+              "Type": "cCoder.Security.Models.SecurityConfiguration"
             }
           ],
           "ReturnType": "System.Void"
         }
       ]
+    },
+    {
+      "Name": "cCoder.Security.Models.AuthorizationContext",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "CurrentUser",
+          "Type": "cCoder.Security.Models.Entities.SSOUser"
+        },
+        {
+          "Name": "Privileges",
+          "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Events.SecurityAccountEventRequest",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Kind",
+          "Type": "cCoder.Security.Models.Events.SecurityAccountEventKind"
+        },
+        {
+          "Name": "RegisterForm",
+          "Type": "cCoder.Security.Models.DTOs.RegisterUser"
+        },
+        {
+          "Name": "Token",
+          "Type": "System.String"
+        },
+        {
+          "Name": "User",
+          "Type": "cCoder.Security.Models.Entities.SSOUser"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityManagementDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityManagementServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityManagementValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityOrchestrationDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityOrchestrationServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityOrchestrationValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
     },
     {
       "Name": "cCoder.Security.Models.ODataModel",
@@ -1416,134 +1544,6 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Events.SecurityAccountEventRequest",
-      "StandardElementType": "Model",
-      "Properties": [
-        {
-          "Name": "Kind",
-          "Type": "cCoder.Security.Objects.Events.SecurityAccountEventKind"
-        },
-        {
-          "Name": "RegisterForm",
-          "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
-        },
-        {
-          "Name": "Token",
-          "Type": "System.String"
-        },
-        {
-          "Name": "User",
-          "Type": "cCoder.Security.Objects.Entities.SSOUser"
-        }
-      ],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationDependencyException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationServiceException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityAggregationValidationException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityDependencyException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementDependencyException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementServiceException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityManagementValidationException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityOrchestrationDependencyException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityOrchestrationServiceException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityOrchestrationValidationException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityProcessingDependencyException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityProcessingServiceException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityProcessingValidationException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityServiceException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Exceptions.SecurityValidationException",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.Models.AuthorizationContext",
-      "StandardElementType": "Model",
-      "Properties": [
-        {
-          "Name": "CurrentUser",
-          "Type": "cCoder.Security.Objects.Entities.SSOUser"
-        },
-        {
-          "Name": "Privileges",
-          "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
-        }
-      ],
-      "Methods": []
-    },
-    {
       "Name": "cCoder.Security.SecurityConfigurationExtensions",
       "StandardElementType": "Exposure",
       "Properties": [],
@@ -1553,7 +1553,7 @@
           "Inputs": [
             {
               "Name": "config",
-              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+              "Type": "cCoder.Security.Models.SecurityConfiguration"
             },
             {
               "Name": "services",
@@ -1571,7 +1571,7 @@
           "Inputs": [
             {
               "Name": "config",
-              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+              "Type": "cCoder.Security.Models.SecurityConfiguration"
             },
             {
               "Name": "services",
@@ -1585,7 +1585,7 @@
           "Inputs": [
             {
               "Name": "config",
-              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+              "Type": "cCoder.Security.Models.SecurityConfiguration"
             },
             {
               "Name": "services",
@@ -1649,7 +1649,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "IssueTokenAsync",
@@ -1660,10 +1660,10 @@
             },
             {
               "Name": "tokenUse",
-              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+              "Type": "cCoder.Security.Models.Entities.TokenUse"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "LoginAsync",
@@ -1677,7 +1677,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "LogoutAsync",
@@ -1694,7 +1694,7 @@
         {
           "Name": "GetCurrentUser",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         }
       ]
     },
@@ -1708,7 +1708,7 @@
           "Inputs": [
             {
               "Name": "registerForm",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+              "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             },
             {
               "Name": "userId",
@@ -1719,7 +1719,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.DTOs.RegisterUser\u003E"
         },
         {
           "Name": "ConfirmRegistration",
@@ -1736,10 +1736,10 @@
           "Inputs": [
             {
               "Name": "registerForm",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+              "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.DTOs.RegisterUser\u003E"
         },
         {
           "Name": "RegenerateUserInviteToken",
@@ -1756,17 +1756,17 @@
           "Inputs": [
             {
               "Name": "registerForm",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+              "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.DTOs.RegisterUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.DTOs.RegisterUser\u003E"
         },
         {
           "Name": "SetupRegisterUserAsync",
           "Inputs": [
             {
               "Name": "newRegisterUser",
-              "Type": "cCoder.Security.Objects.DTOs.RegisterUser"
+              "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1781,7 +1781,7 @@
         {
           "Name": "GetSSOAuthInfoAsync",
           "Inputs": [],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.ISSOAuthInfo\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Configurations.ISSOAuthInfo\u003E"
         }
       ]
     },
@@ -1795,7 +1795,7 @@
           "Inputs": [
             {
               "Name": "deletedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1803,7 +1803,7 @@
         {
           "Name": "GetAllSSOUsers",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "UpdateSSOUserAsync",
@@ -1814,10 +1814,10 @@
             },
             {
               "Name": "updatedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         }
       ]
     },
@@ -1831,17 +1831,17 @@
           "Inputs": [
             {
               "Name": "newTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
               "Name": "deletedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1849,17 +1849,17 @@
         {
           "Name": "GetAllTenants",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
               "Name": "updatedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         }
       ]
     },
@@ -1895,7 +1895,7 @@
         {
           "Name": "GetAuthorizationContext",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Models.AuthorizationContext"
+          "ReturnType": "cCoder.Security.Models.AuthorizationContext"
         }
       ]
     },
@@ -1909,7 +1909,7 @@
           "Inputs": [
             {
               "Name": "accountEventRequest",
-              "Type": "cCoder.Security.Objects.Events.SecurityAccountEventRequest"
+              "Type": "cCoder.Security.Models.Events.SecurityAccountEventRequest"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1987,7 +1987,7 @@
         {
           "Name": "GetAllSSOPrivileges",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E"
         }
       ]
     },
@@ -2001,17 +2001,17 @@
           "Inputs": [
             {
               "Name": "newSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "DeleteSSORoleAsync",
           "Inputs": [
             {
               "Name": "deletedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2024,17 +2024,17 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "UpdateSSORoleAsync",
           "Inputs": [
             {
               "Name": "updatedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         }
       ]
     },
@@ -2048,17 +2048,17 @@
           "Inputs": [
             {
               "Name": "newSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         },
         {
           "Name": "DeleteSSOUserRoleAsync",
           "Inputs": [
             {
               "Name": "deletedSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2066,7 +2066,7 @@
         {
           "Name": "GetAllSSOUserRoles",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         }
       ]
     },
@@ -2080,17 +2080,17 @@
           "Inputs": [
             {
               "Name": "newUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "DeleteSSOUserAsync",
           "Inputs": [
             {
               "Name": "deletedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2103,22 +2103,22 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "Me",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "UpdateSSOUserAsync",
           "Inputs": [
             {
               "Name": "updatedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         }
       ]
     },
@@ -2145,7 +2145,7 @@
         {
           "Name": "GetUser",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "RemoveKey",
@@ -2162,7 +2162,7 @@
           "Inputs": [
             {
               "Name": "user",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
           "ReturnType": "System.Void"
@@ -2193,17 +2193,17 @@
           "Inputs": [
             {
               "Name": "newTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "DeleteTenantAnalysisAsync",
           "Inputs": [
             {
               "Name": "deletedTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2211,17 +2211,17 @@
         {
           "Name": "GetAllTenantAnalysis",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "UpdateTenantAnalysisAsync",
           "Inputs": [
             {
               "Name": "updatedTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         }
       ]
     },
@@ -2235,17 +2235,17 @@
           "Inputs": [
             {
               "Name": "newTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
               "Name": "deletedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2253,17 +2253,17 @@
         {
           "Name": "GetAllTenants",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
               "Name": "updatedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         }
       ]
     },
@@ -2281,14 +2281,14 @@
             },
             {
               "Name": "tokenUse",
-              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+              "Type": "cCoder.Security.Models.Entities.TokenUse"
             },
             {
               "Name": "timeout",
               "Type": "System.Int32?"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "DeleteExpiredAsync",
@@ -2305,7 +2305,7 @@
           "Inputs": [
             {
               "Name": "deletedToken",
-              "Type": "cCoder.Security.Objects.Entities.Token"
+              "Type": "cCoder.Security.Models.Entities.Token"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2318,7 +2318,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Token\u003E"
         }
       ]
     },
@@ -2332,17 +2332,17 @@
           "Inputs": [
             {
               "Name": "newUserEvent",
-              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+              "Type": "cCoder.Security.Models.Entities.UserEvent"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         },
         {
           "Name": "DeleteUserEventAsync",
           "Inputs": [
             {
               "Name": "deletedUserEvent",
-              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+              "Type": "cCoder.Security.Models.Entities.UserEvent"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2350,7 +2350,7 @@
         {
           "Name": "GetAllUserEvents",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         }
       ]
     },
@@ -2364,17 +2364,17 @@
           "Inputs": [
             {
               "Name": "newSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "DeleteSSORoleAsync",
           "Inputs": [
             {
               "Name": "deletedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2382,17 +2382,17 @@
         {
           "Name": "GetAllSSORoles",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "UpdateSSORoleAsync",
           "Inputs": [
             {
               "Name": "updatedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         }
       ]
     },
@@ -2406,17 +2406,17 @@
           "Inputs": [
             {
               "Name": "newSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         },
         {
           "Name": "DeleteSSOUserRoleAsync",
           "Inputs": [
             {
               "Name": "deletedSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2424,7 +2424,7 @@
         {
           "Name": "GetAllSSOUserRoles",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         }
       ]
     },
@@ -2438,7 +2438,7 @@
           "Inputs": [
             {
               "Name": "accountEventRequest",
-              "Type": "cCoder.Security.Objects.Events.SecurityAccountEventRequest"
+              "Type": "cCoder.Security.Models.Events.SecurityAccountEventRequest"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2477,7 +2477,7 @@
         {
           "Name": "GetAuthorizationContext",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Models.AuthorizationContext"
+          "ReturnType": "cCoder.Security.Models.AuthorizationContext"
         }
       ]
     },
@@ -2523,7 +2523,7 @@
         {
           "Name": "GetAllSSOPrivileges",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E"
         }
       ]
     },
@@ -2537,17 +2537,17 @@
           "Inputs": [
             {
               "Name": "newSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "DeleteSSORoleAsync",
           "Inputs": [
             {
               "Name": "deletedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2560,17 +2560,17 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "UpdateSSORoleAsync",
           "Inputs": [
             {
               "Name": "updatedSSORole",
-              "Type": "cCoder.Security.Objects.Entities.SSORole"
+              "Type": "cCoder.Security.Models.Entities.SSORole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         }
       ]
     },
@@ -2584,7 +2584,7 @@
           "Inputs": [
             {
               "Name": "deletedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2597,7 +2597,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "FindByUserAndPasswordAsync",
@@ -2611,7 +2611,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "GetAllSSOUsers",
@@ -2621,42 +2621,42 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "InviteSSOUserAsync",
           "Inputs": [
             {
               "Name": "user",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "Me",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "RegisterSSOUserAsync",
           "Inputs": [
             {
               "Name": "user",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "UpdateSSOUserAsync",
           "Inputs": [
             {
               "Name": "updatedSSOUser",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         },
         {
           "Name": "ValidatePassword",
@@ -2680,17 +2680,17 @@
           "Inputs": [
             {
               "Name": "newSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         },
         {
           "Name": "DeleteSSOUserRoleAsync",
           "Inputs": [
             {
               "Name": "deletedSSOUserRole",
-              "Type": "cCoder.Security.Objects.Entities.SSOUserRole"
+              "Type": "cCoder.Security.Models.Entities.SSOUserRole"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2698,7 +2698,7 @@
         {
           "Name": "GetAllSSOUserRoles",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         }
       ]
     },
@@ -2725,7 +2725,7 @@
         {
           "Name": "GetUser",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "Remove",
@@ -2742,7 +2742,7 @@
           "Inputs": [
             {
               "Name": "user",
-              "Type": "cCoder.Security.Objects.Entities.SSOUser"
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
           "ReturnType": "System.Void"
@@ -2773,17 +2773,17 @@
           "Inputs": [
             {
               "Name": "newTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "DeleteTenantAnalysisAsync",
           "Inputs": [
             {
               "Name": "deletedTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2791,17 +2791,17 @@
         {
           "Name": "GetAllTenantAnalysis",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "UpdateTenantAnalysisAsync",
           "Inputs": [
             {
               "Name": "updatedTenantAnalysis",
-              "Type": "cCoder.Security.Objects.Entities.TenantAnalysis"
+              "Type": "cCoder.Security.Models.Entities.TenantAnalysis"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         }
       ]
     },
@@ -2815,17 +2815,17 @@
           "Inputs": [
             {
               "Name": "newTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "DeleteTenantAsync",
           "Inputs": [
             {
               "Name": "deletedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2833,17 +2833,17 @@
         {
           "Name": "GetAllTenants",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "UpdateTenantAsync",
           "Inputs": [
             {
               "Name": "updatedTenant",
-              "Type": "cCoder.Security.Objects.Entities.Tenant"
+              "Type": "cCoder.Security.Models.Entities.Tenant"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         }
       ]
     },
@@ -2861,10 +2861,10 @@
             },
             {
               "Name": "tokenUse",
-              "Type": "cCoder.Security.Objects.Entities.TokenUse"
+              "Type": "cCoder.Security.Models.Entities.TokenUse"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "DeleteTokenAsync",
@@ -2884,7 +2884,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "GenerateForgottenPasswordToken",
@@ -2894,7 +2894,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "GenerateInvitationToken",
@@ -2904,7 +2904,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "GetAllTokens",
@@ -2914,7 +2914,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "GetConfirmationToken",
@@ -2924,7 +2924,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "cCoder.Security.Objects.Entities.Token"
+          "ReturnType": "cCoder.Security.Models.Entities.Token"
         },
         {
           "Name": "GetForgottenPasswordToken",
@@ -2934,7 +2934,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "cCoder.Security.Objects.Entities.Token"
+          "ReturnType": "cCoder.Security.Models.Entities.Token"
         },
         {
           "Name": "GetInvitationToken",
@@ -2944,7 +2944,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "cCoder.Security.Objects.Entities.Token"
+          "ReturnType": "cCoder.Security.Models.Entities.Token"
         },
         {
           "Name": "GetTokenById",
@@ -2954,7 +2954,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "cCoder.Security.Objects.Entities.Token"
+          "ReturnType": "cCoder.Security.Models.Entities.Token"
         }
       ]
     },
@@ -2968,17 +2968,17 @@
           "Inputs": [
             {
               "Name": "newUserEvent",
-              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+              "Type": "cCoder.Security.Models.Entities.UserEvent"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         },
         {
           "Name": "DeleteUserEventAsync",
           "Inputs": [
             {
               "Name": "deletedUserEvent",
-              "Type": "cCoder.Security.Objects.Entities.UserEvent"
+              "Type": "cCoder.Security.Models.Entities.UserEvent"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2986,7 +2986,7 @@
         {
           "Name": "GetAllUserEvents",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         }
       ]
     },
@@ -3047,10 +3047,6 @@
     }
   ],
   "Links": [
-    {
-      "FromType": "cCoder.Security.Dependencies.HostedServices.TokenCleaner",
-      "ToType": "cCoder.Security.Services.Foundations.TokenService"
-    },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"

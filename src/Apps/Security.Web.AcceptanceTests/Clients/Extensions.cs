@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 using Security.AcceptanceTests.Tests.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

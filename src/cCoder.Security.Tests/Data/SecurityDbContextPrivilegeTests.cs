@@ -3,8 +3,9 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Data.EF;
-using cCoder.Security.Objects;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models;
+using cCoder.Security.Models.Configurations;
+using cCoder.Security.Models.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;

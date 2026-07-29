@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Brokers.Utility.Interfaces;
-using cCoder.Security.Objects.Models;
+using cCoder.Security.Models;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;

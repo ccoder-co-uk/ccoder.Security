@@ -4,7 +4,7 @@
 
 using cCoder.Security.Brokers.Serialization;
 using cCoder.Security.Brokers.Sessions;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Services.Foundations;

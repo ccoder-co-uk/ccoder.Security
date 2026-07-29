@@ -4,7 +4,7 @@
 
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Brokers.Storage.Interfaces;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations;
 using cCoder.Security.Services.Foundations.Interfaces;
 using Moq;

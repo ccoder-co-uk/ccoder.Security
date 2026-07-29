@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Models;
-using cCoder.Security.Objects.Events;
+using cCoder.Security.Models.Events;
 
 namespace cCoder.Security.Brokers.Events;
 

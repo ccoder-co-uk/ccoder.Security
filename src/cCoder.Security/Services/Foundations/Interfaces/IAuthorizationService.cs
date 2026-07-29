@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.Models;
+using cCoder.Security.Models;
 
 namespace cCoder.Security.Services.Foundations.Interfaces;
 

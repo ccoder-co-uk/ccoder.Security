@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using Bogus;
-using cCoder.Security.Objects.DTOs;
+using cCoder.Security.Models.DTOs;
 using Security.AcceptanceTests;
 using Security.AcceptanceTests.Clients;
 using Xunit;

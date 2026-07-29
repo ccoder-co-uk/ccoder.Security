@@ -7,8 +7,8 @@ using cCoder.Security.Brokers.Authentication;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.Requests;
 using cCoder.Security.Brokers.Storage.Interfaces;
-using cCoder.Security.Objects.Entities;
-using cCoder.Security.Objects.Events;
+using cCoder.Security.Models.Entities;
+using cCoder.Security.Models.Events;
 
 namespace cCoder.Security.Services.Foundations.Events;
 

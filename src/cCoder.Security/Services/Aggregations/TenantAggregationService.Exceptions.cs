@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.Exceptions;
+using cCoder.Security.Models.Exceptions;
 
 namespace cCoder.Security.Services.Aggregations;
 

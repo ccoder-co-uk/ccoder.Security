@@ -4,7 +4,8 @@
 
 using cCoder.Security.Data.EF.Dependencies;
 using cCoder.Security.Data.EF.Interfaces;
-using cCoder.Security.Objects;
+using cCoder.Security.Models;
+using cCoder.Security.Models.Configurations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Security.Data.EF;

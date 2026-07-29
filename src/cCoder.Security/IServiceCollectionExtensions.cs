@@ -21,8 +21,9 @@ using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.EventHandlers;
 using cCoder.Security.Exposures.HostedServices;
 using cCoder.Security.Dependencies.HostedServices;
-using cCoder.Security.Objects;
-using cCoder.Security.Objects.Events;
+using cCoder.Security.Models;
+using cCoder.Security.Models.Configurations;
+using cCoder.Security.Models.Events;
 using cCoder.Security.Services.Foundations;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Foundations.Events;
@@ -163,18 +164,6 @@ public static class IServiceCollectionExtensions
 
     private static void AddFoundations(this IServiceCollection services)
     {
-        services.AddTransient(implementationFactory: async provider =>
-            await provider
-                .GetRequiredService<ISSOAuthInfoAggregationService>()
-                .GetSSOAuthInfoAsync());
-
-        services.AddTransient(implementationFactory: provider =>
-        {
-            Task<ISSOAuthInfo> authInfoTask = provider.GetRequiredService<Task<ISSOAuthInfo>>();
-            authInfoTask.Wait();
-            return authInfoTask.Result;
-        });
-
         services.AddTransient<ISSOUserService, SSOUserService>();
         services.AddTransient<ISSOPrivilegeService, SSOPrivilegeService>();
         services.AddTransient<ISSOUserRoleService, SSOUserRoleService>();
@@ -218,6 +207,18 @@ public static class IServiceCollectionExtensions
 
     private static void AddExposures(this IServiceCollection services)
     {
+        services.AddTransient(implementationFactory: async provider =>
+            await provider
+                .GetRequiredService<ISSOAuthInfoAggregationService>()
+                .GetSSOAuthInfoAsync());
+
+        services.AddTransient(implementationFactory: provider =>
+        {
+            Task<ISSOAuthInfo> authInfoTask = provider.GetRequiredService<Task<ISSOAuthInfo>>();
+            authInfoTask.Wait();
+            return authInfoTask.Result;
+        });
+
         services.AddTransient<ITokenManager, TokenManager>();
         services.AddTransient<ITenantManager, TenantManager>();
     }
