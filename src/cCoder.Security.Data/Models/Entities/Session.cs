@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Security.Objects.Entities;
+namespace cCoder.Security.Models.Entities;
 
 public class Session
 {

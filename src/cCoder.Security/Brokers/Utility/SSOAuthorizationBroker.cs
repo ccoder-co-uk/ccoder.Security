@@ -4,7 +4,7 @@
 
 using cCoder.Security.Brokers.Utility.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 
 namespace cCoder.Security.Brokers.Utility;
 

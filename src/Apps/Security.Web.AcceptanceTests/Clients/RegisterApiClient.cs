@@ -4,7 +4,7 @@
 
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
-using cCoder.Security.Objects.DTOs;
+using cCoder.Security.Models.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -70,17 +70,17 @@ public class RegisterApiClient : IDisposable
 
     public async Task TearDown(string ssoUserId)
     {
-        cCoder.Security.Objects.Entities.SSOUser user = Database.Users
+        cCoder.Security.Models.Entities.SSOUser user = Database.Users
             .IgnoreQueryFilters()
             .FirstOrDefault(predicate: u => u.Id == ssoUserId);
 
         if (user != null)
         {
-            List<cCoder.Security.Objects.Entities.Token> tokens = [.. Database.Tokens
+            List<cCoder.Security.Models.Entities.Token> tokens = [.. Database.Tokens
                 .IgnoreQueryFilters()
                 .Where(predicate:t => t.UserName == user.Id)];
 
-            List<cCoder.Security.Objects.Entities.SSOUserRole> userRoles = [.. Database.UserRoles
+            List<cCoder.Security.Models.Entities.SSOUserRole> userRoles = [.. Database.UserRoles
                 .IgnoreQueryFilters()
                 .Where(predicate:r => r.UserId == user.Id)];
 

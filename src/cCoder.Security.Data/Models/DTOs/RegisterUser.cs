@@ -2,9 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Objects.Entities;
+using cCoder.Security.Models.Entities;
 
-namespace cCoder.Security.Objects.DTOs;
+namespace cCoder.Security.Models.DTOs;
 
 public class RegisterUser
 {

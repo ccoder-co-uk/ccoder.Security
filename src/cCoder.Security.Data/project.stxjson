@@ -262,7 +262,7 @@
       "Properties": [
         {
           "Name": "GetAuthInfo",
-          "Type": "System.Func\u003CSystem.Boolean, cCoder.Security.Objects.ISSOAuthInfo\u003E"
+          "Type": "System.Func\u003CSystem.Boolean, cCoder.Security.Models.Configurations.ISSOAuthInfo\u003E"
         }
       ],
       "Methods": [
@@ -302,7 +302,7 @@
             },
             {
               "Name": "configure",
-              "Type": "System.Action\u003CcCoder.Security.Objects.SecurityConfiguration\u003E"
+              "Type": "System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E"
             }
           ],
           "ReturnType": "System.Void"
@@ -316,7 +316,7 @@
             },
             {
               "Name": "configuration",
-              "Type": "cCoder.Security.Objects.SecurityConfiguration"
+              "Type": "cCoder.Security.Models.SecurityConfiguration"
             }
           ],
           "ReturnType": "System.Void"
@@ -395,35 +395,35 @@
       "Properties": [
         {
           "Name": "Roles",
-          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "Type": "DbSet\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "Sessions",
-          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.Session\u003E"
+          "Type": "DbSet\u003CcCoder.Security.Models.Entities.Session\u003E"
         },
         {
           "Name": "TenantAnalysis",
-          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "Type": "DbSet\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "Tenants",
-          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.Tenant\u003E"
+          "Type": "DbSet\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "Tokens",
-          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "Type": "DbSet\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "UserEvents",
-          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "Type": "DbSet\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         },
         {
           "Name": "UserRoles",
-          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "Type": "DbSet\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         },
         {
           "Name": "Users",
-          "Type": "DbSet\u003CcCoder.Security.Objects.Entities.SSOUser\u003E"
+          "Type": "DbSet\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         }
       ],
       "Methods": [
@@ -470,17 +470,17 @@
         {
           "Name": "GetCurrentUser",
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Objects.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "GetPrivileges",
           "Inputs": [],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Objects.Entities.SSOPrivilege\u003E"
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E"
         },
         {
           "Name": "GetUserActivity",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Objects.Entities.UserActivity\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.UserActivity\u003E"
         },
         {
           "Name": "Migrate",
@@ -519,17 +519,28 @@
       "Properties": [
         {
           "Name": "Tenant",
-          "Type": "cCoder.Security.Objects.Entities.Tenant"
+          "Type": "cCoder.Security.Models.Entities.Tenant"
         },
         {
           "Name": "User",
-          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+          "Type": "cCoder.Security.Models.Entities.SSOUser"
         }
       ],
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.DTOs.Auth",
+      "Name": "cCoder.Security.Models.Configurations.SSOAuthInfo",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "SSOUserId",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.DTOs.Auth",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -544,7 +555,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.DTOs.ChangePasswordRequest",
+      "Name": "cCoder.Security.Models.DTOs.ChangePasswordRequest",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -563,7 +574,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.DTOs.ConfirmForgotPasswordRequest",
+      "Name": "cCoder.Security.Models.DTOs.ConfirmForgotPasswordRequest",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -590,7 +601,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.DTOs.ForgotPasswordRequest",
+      "Name": "cCoder.Security.Models.DTOs.ForgotPasswordRequest",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -605,7 +616,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.DTOs.RegisterUser",
+      "Name": "cCoder.Security.Models.DTOs.RegisterUser",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -634,7 +645,7 @@
         },
         {
           "Name": "Tenant",
-          "Type": "cCoder.Security.Objects.Entities.Tenant"
+          "Type": "cCoder.Security.Models.Entities.Tenant"
         },
         {
           "Name": "TenantId",
@@ -646,13 +657,13 @@
         },
         {
           "Name": "User",
-          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+          "Type": "cCoder.Security.Models.Entities.SSOUser"
         }
       ],
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.SSOPrivilege",
+      "Name": "cCoder.Security.Models.Entities.SSOPrivilege",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -679,7 +690,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.SSORole",
+      "Name": "cCoder.Security.Models.Entities.SSORole",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -700,7 +711,7 @@
         },
         {
           "Name": "Tenant",
-          "Type": "cCoder.Security.Objects.Entities.Tenant"
+          "Type": "cCoder.Security.Models.Entities.Tenant"
         },
         {
           "Name": "TenantId",
@@ -708,7 +719,7 @@
         },
         {
           "Name": "Users",
-          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         },
         {
           "Name": "UsersArePortalAdmins",
@@ -718,7 +729,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.SSOUser",
+      "Name": "cCoder.Security.Models.Entities.SSOUser",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -763,26 +774,26 @@
         },
         {
           "Name": "Roles",
-          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.SSOUserRole\u003E"
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         },
         {
           "Name": "Tokens",
-          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "UserEvents",
-          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         }
       ],
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.SSOUserRole",
+      "Name": "cCoder.Security.Models.Entities.SSOUserRole",
       "StandardElementType": "Model",
       "Properties": [
         {
           "Name": "Role",
-          "Type": "cCoder.Security.Objects.Entities.SSORole"
+          "Type": "cCoder.Security.Models.Entities.SSORole"
         },
         {
           "Name": "RoleId",
@@ -790,7 +801,7 @@
         },
         {
           "Name": "User",
-          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+          "Type": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "UserId",
@@ -800,7 +811,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.Session",
+      "Name": "cCoder.Security.Models.Entities.Session",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -821,7 +832,7 @@
         },
         {
           "Name": "UserEvents",
-          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         },
         {
           "Name": "Value",
@@ -831,12 +842,12 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.Tenant",
+      "Name": "cCoder.Security.Models.Entities.Tenant",
       "StandardElementType": "Model",
       "Properties": [
         {
           "Name": "Analysis",
-          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.TenantAnalysis\u003E"
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "CreatedBy",
@@ -868,17 +879,17 @@
         },
         {
           "Name": "Roles",
-          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.SSORole\u003E"
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "UserEvents",
-          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Objects.Entities.UserEvent\u003E"
+          "Type": "System.Collections.Generic.ICollection\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         }
       ],
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.TenantAnalysis",
+      "Name": "cCoder.Security.Models.Entities.TenantAnalysis",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -899,7 +910,7 @@
         },
         {
           "Name": "Tenant",
-          "Type": "cCoder.Security.Objects.Entities.Tenant"
+          "Type": "cCoder.Security.Models.Entities.Tenant"
         },
         {
           "Name": "TenantId",
@@ -913,7 +924,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.Token",
+      "Name": "cCoder.Security.Models.Entities.Token",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -930,7 +941,7 @@
         },
         {
           "Name": "User",
-          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+          "Type": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "UserName",
@@ -940,7 +951,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.UserActivity",
+      "Name": "cCoder.Security.Models.Entities.UserActivity",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -1015,7 +1026,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Entities.UserEvent",
+      "Name": "cCoder.Security.Models.Entities.UserEvent",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -1024,7 +1035,7 @@
         },
         {
           "Name": "CreatedByUser",
-          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+          "Type": "cCoder.Security.Models.Entities.SSOUser"
         },
         {
           "Name": "CreatedOn",
@@ -1040,7 +1051,7 @@
         },
         {
           "Name": "Session",
-          "Type": "cCoder.Security.Objects.Entities.Session"
+          "Type": "cCoder.Security.Models.Entities.Session"
         },
         {
           "Name": "SessionId",
@@ -1048,7 +1059,7 @@
         },
         {
           "Name": "Tenant",
-          "Type": "cCoder.Security.Objects.Entities.Tenant"
+          "Type": "cCoder.Security.Models.Entities.Tenant"
         },
         {
           "Name": "TenantId",
@@ -1062,7 +1073,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Events.SecurityAccountEvent",
+      "Name": "cCoder.Security.Models.Events.SecurityAccountEvent",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -1071,7 +1082,7 @@
         },
         {
           "Name": "Kind",
-          "Type": "cCoder.Security.Objects.Events.SecurityAccountEventKind"
+          "Type": "cCoder.Security.Models.Events.SecurityAccountEventKind"
         },
         {
           "Name": "RequestDomain",
@@ -1079,7 +1090,7 @@
         },
         {
           "Name": "Tenant",
-          "Type": "cCoder.Security.Objects.Entities.Tenant"
+          "Type": "cCoder.Security.Models.Entities.Tenant"
         },
         {
           "Name": "Token",
@@ -1087,13 +1098,13 @@
         },
         {
           "Name": "User",
-          "Type": "cCoder.Security.Objects.Entities.SSOUser"
+          "Type": "cCoder.Security.Models.Entities.SSOUser"
         }
       ],
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.Objects.Events.SecurityAccountEventKindExtensions",
+      "Name": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions",
       "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": [
@@ -1102,7 +1113,7 @@
           "Inputs": [
             {
               "Name": "securityAccountEventKind",
-              "Type": "cCoder.Security.Objects.Events.SecurityAccountEventKind"
+              "Type": "cCoder.Security.Models.Events.SecurityAccountEventKind"
             }
           ],
           "ReturnType": "System.String"
@@ -1110,7 +1121,7 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Objects.HttpClientExtensions",
+      "Name": "cCoder.Security.Models.HttpClientExtensions",
       "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": [
@@ -1130,7 +1141,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.Task\u003CcCoder.Security.Objects.Entities.Token\u003E"
+          "ReturnType": "System.Threading.Tasks.Task\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "ReadAsAsync",
@@ -1145,18 +1156,7 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Objects.SSOAuthInfo",
-      "StandardElementType": "Model",
-      "Properties": [
-        {
-          "Name": "SSOUserId",
-          "Type": "System.String"
-        }
-      ],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Objects.SecurityConfiguration",
+      "Name": "cCoder.Security.Models.SecurityConfiguration",
       "StandardElementType": "Model",
       "Properties": [
         {
@@ -1182,7 +1182,7 @@
   "Links": [
     {
       "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
-      "ToType": "cCoder.Security.Objects.SSOAuthInfo"
+      "ToType": "cCoder.Security.Models.Configurations.SSOAuthInfo"
     }
   ],
   "AnalysisItems": []
