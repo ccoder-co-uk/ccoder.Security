@@ -1290,7 +1290,7 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Exposures.SecurityApiConfigurationExtensions",
+      "Name": "cCoder.Security.Exposures.ODataConventionModelBuilderExtensions",
       "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": []
