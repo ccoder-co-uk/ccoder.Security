@@ -36,7 +36,7 @@ jobs:
           "value=$(Get-Date -Format 'yyyy.M.d.HHmm')" >> $env:GITHUB_OUTPUT
 
       - name: Restore
-        run: dotnet restore src/cCoder.Security.slnx
+        run: dotnet restore src/cCoder.Security.slnx --no-http-cache
 
       - name: Build
         run: dotnet build src/cCoder.Security.slnx -c Release --no-restore /p:Version="${{ steps.version.outputs.value }}"
