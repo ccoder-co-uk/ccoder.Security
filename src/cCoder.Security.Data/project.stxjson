@@ -1121,41 +1121,6 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Models.HttpClientExtensions",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "Authenticate",
-          "Inputs": [
-            {
-              "Name": "client",
-              "Type": "HttpClient"
-            },
-            {
-              "Name": "user",
-              "Type": "System.String"
-            },
-            {
-              "Name": "pass",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.Task\u003CcCoder.Security.Models.Entities.Token\u003E"
-        },
-        {
-          "Name": "ReadAsAsync",
-          "Inputs": [
-            {
-              "Name": "content",
-              "Type": "HttpContent"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.Task\u003CT\u003E"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Security.Models.SecurityConfiguration",
       "StandardElementType": "Model",
       "Properties": [
