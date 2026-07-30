@@ -152,7 +152,7 @@
             },
             {
               "Name": "message",
-              "Type": "EventMessage\u003CcCoder.Security.Models.Events.SecurityAccountEvent\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Security.Models.Events.SecurityAccountEvent\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -190,7 +190,7 @@
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003CcCoder.Security.Data.Models.SetupDetails\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Security.Data.Models.SetupDetails\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
