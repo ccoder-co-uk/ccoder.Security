@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSOUserController(ISSOUserAggregationService ssoUserAggregationService)
+public class SSOUserController(ISSOUserManager ssoUserAggregationService)
         : Controller
 {
     [HttpGet()]

@@ -4,9 +4,8 @@
 
 using cCoder.Security.Models.Entities;
 
+using cCoder.Security.Exposures;
+
 namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-public interface ICurrentUserAggregationService
-{
-    SSOUser GetCurrentUser();
-}
+internal interface ICurrentUserAggregationService : ISecurityCurrentUserManager { }
