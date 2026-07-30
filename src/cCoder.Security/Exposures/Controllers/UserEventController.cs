@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class UserEventController(IUserEventProcessingService userEventProcessingService)
+public class UserEventController(IUserEventManager userEventProcessingService)
     : Controller
 {
     [HttpGet()]

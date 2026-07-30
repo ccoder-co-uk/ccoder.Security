@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class TenantController(ITenantAggregationService tenantAggregationService)
+public class TenantController(ITenantAdministrationManager tenantAggregationService)
     : Controller
 {
     [HttpGet()]

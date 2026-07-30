@@ -4,15 +4,8 @@
 
 using cCoder.Security.Models.Entities;
 
+using cCoder.Security.Exposures;
+
 namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-public interface ISSOUserAggregationService
-{
-    IQueryable<SSOUser> GetAllSSOUsers();
-
-    ValueTask<SSOUser> UpdateSSOUserAsync(
-        string username,
-        SSOUser updatedSSOUser);
-
-    ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser);
-}
+internal interface ISSOUserAggregationService : ISSOUserManager { }

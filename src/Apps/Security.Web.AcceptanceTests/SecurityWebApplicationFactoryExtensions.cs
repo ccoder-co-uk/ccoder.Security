@@ -28,8 +28,8 @@ public static class SecurityWebApplicationFactoryExtensions
 
     private static async ValueTask EnsureSSOSetupForTesting(IServiceProvider scopedServices)
     {
-        IAuthenticationAggregationService authenticationAggregationService =
-            scopedServices.GetRequiredService<IAuthenticationAggregationService>();
+        IAuthenticationManager authenticationAggregationService =
+            scopedServices.GetRequiredService<IAuthenticationManager>();
 
         ITenantManager tenantManager = scopedServices.GetRequiredService<ITenantManager>();
 

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSOPrivilegeController(ISSOPrivilegeProcessingService privilegeProcessingService)
+public class SSOPrivilegeController(ISSOPrivilegeManager privilegeProcessingService)
     : Controller
 {
     [HttpGet()]

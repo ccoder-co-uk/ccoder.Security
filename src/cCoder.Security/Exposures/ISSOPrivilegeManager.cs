@@ -4,8 +4,9 @@
 
 using cCoder.Security.Models.Entities;
 
-using cCoder.Security.Exposures;
+namespace cCoder.Security.Exposures;
 
-namespace cCoder.Security.Services.Aggregations.Interfaces;
-
-internal interface ITenantAggregationService : ITenantAdministrationManager { }
+public interface ISSOPrivilegeManager
+{
+    public IQueryable<SSOPrivilege> GetAllSSOPrivileges();
+}

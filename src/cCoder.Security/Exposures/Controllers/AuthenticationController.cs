@@ -10,7 +10,7 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class AuthenticationController(
-    IAuthenticationAggregationService authenticationAggregationService)
+    IAuthenticationManager authenticationAggregationService)
         : Controller
 {
     [HttpPost("Login")]

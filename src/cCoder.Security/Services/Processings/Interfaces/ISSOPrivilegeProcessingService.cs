@@ -4,9 +4,8 @@
 
 using cCoder.Security.Models.Entities;
 
+using cCoder.Security.Exposures;
+
 namespace cCoder.Security.Services.Processings.Interfaces;
 
-public interface ISSOPrivilegeProcessingService
-{
-    public IQueryable<SSOPrivilege> GetAllSSOPrivileges();
-}
+internal interface ISSOPrivilegeProcessingService : ISSOPrivilegeManager { }

@@ -5,22 +5,8 @@
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;
 
+using cCoder.Security.Exposures;
+
 namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-public interface IRegistrationAggregationService
-{
-    ValueTask<RegisterUser> RegisterUserAsync(RegisterUser registerForm);
-
-    ValueTask<RegisterUser> InviteRegisterUserAsync(RegisterUser registerForm);
-
-    ValueTask<RegisterUser> AcceptRegisterUserInviteAsync(
-        RegisterUser registerForm,
-        string userId,
-        string tokenId);
-
-    ValueTask<string> RegenerateUserInviteToken(string userId);
-
-    ValueTask ConfirmRegistration(string tokenId);
-
-    ValueTask SetupRegisterUserAsync(RegisterUser newRegisterUser);
-}
+internal interface IRegistrationAggregationService : IRegistrationManager { }

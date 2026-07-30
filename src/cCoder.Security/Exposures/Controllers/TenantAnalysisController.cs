@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class TenantAnalysisController(ITenantAnalysisProcessingService tenantAnalysisProcessingService)
+public class TenantAnalysisController(ITenantAnalysisManager tenantAnalysisProcessingService)
     : Controller
 {
     [HttpGet]
