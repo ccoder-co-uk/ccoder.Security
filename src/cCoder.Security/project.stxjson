@@ -1376,6 +1376,10 @@
             {
               "Name": "configure",
               "Type": "System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E"
+            },
+            {
+              "Name": "builder",
+              "Type": "ODataConventionModelBuilder"
             }
           ],
           "ReturnType": "System.Void"
@@ -1390,6 +1394,10 @@
             {
               "Name": "configuration",
               "Type": "cCoder.Security.Models.SecurityConfiguration"
+            },
+            {
+              "Name": "builder",
+              "Type": "ODataConventionModelBuilder"
             }
           ],
           "ReturnType": "System.Void"
