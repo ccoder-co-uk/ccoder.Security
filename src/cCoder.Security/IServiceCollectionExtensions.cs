@@ -43,16 +43,20 @@ public static class IServiceCollectionExtensions
 {
     public static void AddSecurityWeb(
         this IServiceCollection services,
-        Action<SecurityConfiguration> configure)
+        Action<SecurityConfiguration> configure,
+        ODataConventionModelBuilder builder = null)
     {
         SecurityConfiguration configuration = new();
         configure?.Invoke(configuration);
-        services.AddSecurityWeb(configuration: configuration);
+        services.AddSecurityWeb(
+            configuration: configuration,
+            builder: builder);
     }
 
     public static void AddSecurityWeb(
         this IServiceCollection services,
-        SecurityConfiguration configuration)
+        SecurityConfiguration configuration,
+        ODataConventionModelBuilder builder = null)
     {
         ArgumentNullException.ThrowIfNull(argument: configuration);
 
@@ -65,7 +69,9 @@ public static class IServiceCollectionExtensions
 
         if (!string.IsNullOrWhiteSpace(value: configuration.RootPath))
         {
-            services.AddSecurityApiLayer(atPath: configuration.RootPath);
+            services.AddSecurityApiLayer(
+                atPath: configuration.RootPath,
+                aggregateModelBuilder: builder);
         }
     }
 
@@ -257,10 +263,12 @@ public static class IServiceCollectionExtensions
 
     private static void AddSecurityApiLayer(
         this IServiceCollection services,
-        string atPath)
+        string atPath,
+        ODataConventionModelBuilder aggregateModelBuilder = null)
     {
         ODataConventionModelBuilder modelBuilder = new();
         modelBuilder.ConfigureSecurityApiModel();
+        aggregateModelBuilder?.ConfigureSecurityApiModel();
 
         IMvcBuilder mvcBuilder = services.AddControllers();
         mvcBuilder.AddOData(setupAction: options =>
