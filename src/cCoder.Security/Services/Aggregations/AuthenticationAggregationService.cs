@@ -141,6 +141,10 @@ internal sealed partial class AuthenticationAggregationService(
         user.PasswordHash = newPassword;
 
         await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
+
+        await tokenProcessingService.DeleteTokensForUserAsync(
+            userId: user.Id,
+            tokenUse: TokenUse.Auth);
     }
 
     private async ValueTask<Token> ForgotPasswordCoreAsync(string email)
@@ -205,6 +209,10 @@ internal sealed partial class AuthenticationAggregationService(
 
         await ssoUserProcessingService.UpdateSSOUserAsync(item: user);
         await tokenProcessingService.DeleteTokenAsync(tokenId: token.Id);
+
+        await tokenProcessingService.DeleteTokensForUserAsync(
+            userId: user.Id,
+            tokenUse: TokenUse.Auth);
     }
 
 }

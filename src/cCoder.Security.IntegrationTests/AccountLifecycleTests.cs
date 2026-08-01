@@ -5,8 +5,10 @@
 using cCoder.Security.Data.EF;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;
+using cCoder.Security.Exposures;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -137,6 +139,16 @@ value: new ForgotPasswordRequest { Email = email });
         response.EnsureSuccessStatusCode();
     }
 
+    private async ValueTask<Token> RequestPasswordResetTokenAsync(string email)
+    {
+        using IServiceScope scope = fixture.WebApplicationFactory.Services.CreateScope();
+
+        IAuthenticationManager authenticationManager = scope.ServiceProvider
+            .GetRequiredService<IAuthenticationManager>();
+
+        return await authenticationManager.ForgotPasswordAsync(email: email);
+    }
+
     private async ValueTask ConfirmForgotPasswordAsync(string token, string userId, string password)
     {
         ConfirmForgotPasswordRequest request = new()
@@ -168,19 +180,6 @@ value: request);
             .Be(expected: HttpStatusCode.Unauthorized);
     }
 
-    private Token FindToken(string userId, TokenUse tokenUse)
-    {
-        using SecurityDbContext database = CreateSecurityDbContext();
-
-        return database.Tokens
-            .IgnoreQueryFilters()
-            .Where(predicate: token =>
-                token.UserName == userId
-                && token.Reason == (int)tokenUse)
-            .OrderByDescending(keySelector: token => token.Expires)
-            .First();
-    }
-
     private SSOUser FindUser(string userId)
     {
         using SecurityDbContext database = CreateSecurityDbContext();
@@ -188,6 +187,15 @@ value: request);
         return database.Users
             .IgnoreQueryFilters()
             .First(predicate: user => user.Id == userId);
+    }
+
+    private Token FindStoredToken(string selector)
+    {
+        using SecurityDbContext database = CreateSecurityDbContext();
+
+        return database.Tokens
+            .IgnoreQueryFilters()
+            .First(predicate: token => token.Id == selector);
     }
 
     private async ValueTask<(SSOUser User, string Token)> ReadUserTokenResultAsync(

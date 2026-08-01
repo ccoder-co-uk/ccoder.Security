@@ -4,6 +4,9 @@
 
 using System.Security;
 using cCoder.Security.Brokers.Encryption;
+using cCoder.Security.Brokers.DateTime;
+using cCoder.Security.Brokers.Encryption.Interfaces;
+using cCoder.Security.Models;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
@@ -12,7 +15,10 @@ namespace cCoder.Security.Services.Processings;
 
 internal sealed partial class SSOUserProcessingService(
     ISSOUserService ssoUserService,
-    IPasswordEncryptionBroker encryptionBroker)
+    IPasswordHashingBroker passwordHashingBroker,
+    ISecurityDateTimeOffsetBroker dateTimeOffsetBroker,
+    SecurityConfiguration securityConfiguration,
+    ILegacyPasswordEncryptionBroker legacyEncryptionBroker = null)
         : ISSOUserProcessingService
 {
     public ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser user) =>
@@ -21,7 +27,9 @@ internal sealed partial class SSOUserProcessingService(
             ValidateSSOUserOnRegister(user: user);
 
             user.Id = GetNextAvailableUserId(user: user);
-            user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
+
+            user.PasswordHash = passwordHashingBroker.HashPassword(
+                password: user.PasswordHash);
 
             return await ssoUserService.AddSSOUserAsync(item: user);
         });
@@ -40,7 +48,9 @@ internal sealed partial class SSOUserProcessingService(
                     .ToString(format: "N") + "Aa1!";
             }
 
-            user.PasswordHash = encryptionBroker.Encrypt(password: user.PasswordHash);
+            user.PasswordHash = passwordHashingBroker.HashPassword(
+                password: user.PasswordHash);
+
             user.LockoutEnabled = true;
 
             return await ssoUserService.AddSSOUserAsync(item: user);
@@ -65,20 +75,32 @@ internal sealed partial class SSOUserProcessingService(
 
             if (user is null)
             {
+                passwordHashingBroker.PerformDummyVerification(
+                    providedPassword: password);
+
                 throw new SecurityException("Access Denied!");
             }
 
-            bool passwordMatches = encryptionBroker.EncryptedAndPlainTextAreEqual(
-                encrypted: user.PasswordHash,
-                plainText: password);
+            await EnsureAccountIsNotLockedAsync(user: user, password: password);
 
-            if (!passwordMatches)
+            PasswordVerificationOutcome passwordVerification = VerifyPassword(
+                encryptedPassword: user.PasswordHash,
+                plainTextPassword: password);
+
+            if (passwordVerification == PasswordVerificationOutcome.Failed)
             {
                 user.AccessFailedCount++;
 
-                if (user.AccessFailedCount > 10)
+                if (user.AccessFailedCount >= securityConfiguration.MaxFailedAccessAttempts)
                 {
                     user.LockoutEnabled = true;
+
+                    user.LockoutEndDateUtc = dateTimeOffsetBroker
+                        .GetCurrentTime()
+                        .UtcDateTime
+                        .AddMinutes(
+                            value: securityConfiguration.LockoutDurationMinutes);
+
                 }
 
                 await UpdateSSOUserCoreAsync(updatedSSOUser: user);
@@ -91,9 +113,12 @@ internal sealed partial class SSOUserProcessingService(
                 await UpdateSSOUserCoreAsync(updatedSSOUser: user);
             }
 
-            if (user.LockoutEnabled)
+            if (passwordVerification == PasswordVerificationOutcome.SuccessRehashNeeded)
             {
-                throw new SecurityException("Account locked!");
+                user.PasswordHash = passwordHashingBroker.HashPassword(
+                    password: password);
+
+                await ssoUserService.UpdateSSOUserAsync(item: user);
             }
 
             return user;
@@ -175,10 +200,57 @@ internal sealed partial class SSOUserProcessingService(
         {
             EnsurePasswordIsValid(password: updatedSSOUser.PasswordHash);
 
-            updatedSSOUser.PasswordHash = encryptionBroker.Encrypt(
+            updatedSSOUser.PasswordHash = passwordHashingBroker.HashPassword(
                 password: updatedSSOUser.PasswordHash);
         }
 
         return await ssoUserService.UpdateSSOUserAsync(item: updatedSSOUser);
+    }
+
+    private PasswordVerificationOutcome VerifyPassword(
+        string encryptedPassword,
+        string plainTextPassword)
+    {
+        try
+        {
+            return passwordHashingBroker.VerifyHashedPassword(
+                hashedPassword: encryptedPassword,
+                providedPassword: plainTextPassword);
+        }
+        catch (FormatException) when (legacyEncryptionBroker is not null)
+        {
+            string legacyPassword = legacyEncryptionBroker.Decrypt(
+                encryptedPassword: encryptedPassword);
+
+            return legacyPassword == plainTextPassword
+                ? PasswordVerificationOutcome.SuccessRehashNeeded
+                : PasswordVerificationOutcome.Failed;
+        }
+    }
+
+    private async ValueTask EnsureAccountIsNotLockedAsync(
+        SSOUser user,
+        string password)
+    {
+        if (!user.LockoutEnabled)
+        {
+            return;
+        }
+
+        DateTimeOffset currentTime = dateTimeOffsetBroker.GetCurrentTime();
+
+        if (user.LockoutEndDateUtc is null
+            || user.LockoutEndDateUtc > currentTime.UtcDateTime)
+        {
+            passwordHashingBroker.PerformDummyVerification(
+                providedPassword: password);
+
+            throw new SecurityException("Access Denied!");
+        }
+
+        user.LockoutEnabled = false;
+        user.LockoutEndDateUtc = null;
+        user.AccessFailedCount = 0;
+        await UpdateSSOUserCoreAsync(updatedSSOUser: user);
     }
 }

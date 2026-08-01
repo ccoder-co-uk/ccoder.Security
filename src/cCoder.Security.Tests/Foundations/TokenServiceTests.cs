@@ -4,6 +4,7 @@
 
 using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Storage.Interfaces;
+using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations;
 using cCoder.Security.Services.Foundations.Interfaces;
@@ -16,16 +17,22 @@ public partial class TokenServiceTests
 {
     private readonly Mock<ITokenBroker> tokenBrokerMock;
     private readonly Mock<ISecurityConfigurationBroker> configurationBrokerMock;
+    private readonly Mock<ITokenGenerationBroker> tokenGenerationBrokerMock;
+    private readonly Mock<IPasswordHashingBroker> passwordHashingBrokerMock;
     private readonly ITokenService tokenService;
 
     public TokenServiceTests()
     {
         tokenBrokerMock = new Mock<ITokenBroker>();
         configurationBrokerMock = new Mock<ISecurityConfigurationBroker>();
+        tokenGenerationBrokerMock = new Mock<ITokenGenerationBroker>();
+        passwordHashingBrokerMock = new Mock<IPasswordHashingBroker>();
 
         tokenService = new TokenService(
             tokenBroker: tokenBrokerMock.Object,
-            configurationBroker: configurationBrokerMock.Object);
+            configurationBroker: configurationBrokerMock.Object,
+            tokenGenerationBroker: tokenGenerationBrokerMock.Object,
+            passwordHashingBroker: passwordHashingBrokerMock.Object);
     }
 
     private static string RandomString() =>
