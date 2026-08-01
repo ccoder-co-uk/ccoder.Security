@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models.DTOs;
+using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,15 +18,34 @@ public class ConfirmForgotPasswordController(
     public async ValueTask<IActionResult> PostConfirmForgotPassword(
         [FromBody] ConfirmForgotPasswordRequest newConfirmForgotPasswordRequest)
     {
-        if (!ModelState.IsValid)
-        { return BadRequest(modelState: ModelState); }
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(modelState: ModelState);
+            }
 
-        await authenticationAggregationService.ConfirmForgotPasswordAsync(
-            tokenId: newConfirmForgotPasswordRequest.Token,
-            userId: newConfirmForgotPasswordRequest.UserId,
-            newPassword: newConfirmForgotPasswordRequest.NewPassword,
-            confirmNewPassword: newConfirmForgotPasswordRequest.ConfirmPassword);
+            await authenticationAggregationService.ConfirmForgotPasswordAsync(
+                tokenId: newConfirmForgotPasswordRequest.Token,
+                userId: newConfirmForgotPasswordRequest.UserId,
+                newPassword: newConfirmForgotPasswordRequest.NewPassword,
+                confirmNewPassword: newConfirmForgotPasswordRequest.ConfirmPassword);
 
-        return Ok();
+            return Ok();
+        }
+        catch (SecurityAggregationValidationException)
+        {
+            return BadRequest(error: "The password reset request is invalid.");
+        }
+        catch (SecurityAggregationDependencyException)
+        {
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The security operation failed.");
+        }
     }
 }

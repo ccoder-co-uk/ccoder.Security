@@ -17,30 +17,32 @@ public sealed class SetupController(ITenantManager tenantManager)
     public async ValueTask<IActionResult> PostSetup(
         [FromBody] SetupDetails newSetupDetails)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(modelState: ModelState);
-        }
-
         try
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(modelState: ModelState);
+            }
+
             await tenantManager.SetupAsync(setupDetails: newSetupDetails);
+
+            return Ok();
         }
-        catch (SecurityAggregationValidationException exception)
+        catch (SecurityAggregationValidationException)
         {
-            return Conflict(error: exception.InnerException?.Message);
+            return BadRequest(error: "The setup request is invalid.");
         }
         catch (SecurityAggregationDependencyException)
         {
-            return Problem(
-                statusCode: StatusCodes.Status503ServiceUnavailable);
+            return StatusCode(
+                statusCode: StatusCodes.Status503ServiceUnavailable,
+                value: "The security service is unavailable.");
         }
         catch (SecurityAggregationServiceException)
         {
-            return Problem(
-                statusCode: StatusCodes.Status500InternalServerError);
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The security operation failed.");
         }
-
-        return Ok();
     }
 }
