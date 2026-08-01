@@ -13,6 +13,17 @@ public class CurrentUserController(
         : Controller
 {
     [HttpGet]
-    public IActionResult Get() =>
-        Ok(value: currentUserManager.GetCurrentUserId());
+    public IActionResult Get()
+    {
+        try
+        {
+            return Ok(value: currentUserManager.GetCurrentUserId());
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The current user operation failed.");
+        }
+    }
 }
