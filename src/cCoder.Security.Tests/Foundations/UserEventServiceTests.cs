@@ -26,7 +26,7 @@ public partial class UserEventServiceTests
     }
 
     private UserEvent[] RandomUserEvents() =>
-        Enumerable.Range(start: 1, count: new Random().Next(minValue: 10, maxValue: 20))
+        Enumerable.Range(start: 1, count: new Random().Next(minValue:10, maxValue:20))
             .Select(selector: _ => RandomUserEvent())
             .ToArray();
 
@@ -40,8 +40,8 @@ public partial class UserEventServiceTests
 
         filler.Setup()
             .OnType<DateTimeOffset>()
-            .Use(valueToUse: DateTimeOffset.Now)
-            .OnProperty(property: ue => ue.Session)
+            .Use(valueToUse:DateTimeOffset.Now)
+            .OnProperty(property:ue => ue.Session)
             .IgnoreIt()
             .OnProperty(property: ue => ue.CreatedByUser)
             .IgnoreIt()

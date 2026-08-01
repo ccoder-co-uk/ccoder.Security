@@ -29,16 +29,16 @@ public partial class AuthenticationAggregationServiceTests
         };
 
         ssoUserProcessingServiceMock
-            .Setup(expression: service => service.GetAllSSOUsers(ignoreFilters: true))
+            .Setup(expression: service => service.GetAllSSOUsers(ignoreFilters:true))
             .Returns(value: new[] { user }.AsQueryable());
 
         tokenProcessingServiceMock
-            .Setup(expression: service => service.GenerateForgottenPasswordToken(userId: user.Id))
+            .Setup(expression: service => service.GenerateForgottenPasswordToken(userId:user.Id))
             .ReturnsAsync(value: token);
 
         accountEventProcessingServiceMock
             .Setup(expression: service => service.RaiseSecurityAccountEventRequestAsync(
-accountEventRequest: It.Is<SecurityAccountEventRequest>(match: request =>
+accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:request =>
                     request.Kind == SecurityAccountEventKind.PasswordResetRequested
                     && request.User == user
                     && request.Token == token.Id)))
@@ -55,7 +55,7 @@ accountEventRequest: It.Is<SecurityAccountEventRequest>(match: request =>
 
         accountEventProcessingServiceMock.Verify(
             expression: service => service.RaiseSecurityAccountEventRequestAsync(
-accountEventRequest: It.Is<SecurityAccountEventRequest>(match: request =>
+accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:request =>
                     request.Kind == SecurityAccountEventKind.PasswordResetRequested
                     && request.User == user
                     && request.Token == token.Id)),

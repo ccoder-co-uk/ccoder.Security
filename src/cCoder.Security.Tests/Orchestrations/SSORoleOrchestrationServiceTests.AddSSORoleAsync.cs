@@ -27,7 +27,7 @@ public partial class SSORoleOrchestrationServiceTests
                                 .AsQueryable());
 
         roleProcessingServiceMock
-            .Setup(expression: x => x.AddSSORoleAsync(item: inputRole))
+            .Setup(expression: x => x.AddSSORoleAsync(item:inputRole))
             .ReturnsAsync(value: inputRole);
 
         // When
@@ -62,7 +62,7 @@ times: Times.Never);
                     privilege: "tenant_admin"));
 
         roleProcessingServiceMock
-            .Setup(expression: x => x.AddSSORoleAsync(item: inputRole))
+            .Setup(expression: x => x.AddSSORoleAsync(item:inputRole))
             .ReturnsAsync(value: inputRole);
 
         // When

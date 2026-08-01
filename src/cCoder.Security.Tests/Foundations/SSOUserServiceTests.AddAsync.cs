@@ -22,7 +22,7 @@ public partial class SSOUserServiceTests
         SSOUser submitted = null;
 
         userBrokerMock
-            .Setup(expression: broker => broker.InsertSSOUserAsync(user: It.IsAny<SSOUser>()))
+            .Setup(expression:broker => broker.InsertSSOUserAsync(user:It.IsAny<SSOUser>()))
             .Callback<SSOUser>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSOUser);
 
