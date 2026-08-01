@@ -2891,6 +2891,26 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Dependencies.Authentication.SecurityBearerAuthenticationDependency",
+      "StandardElementType": "Dependency",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security:AuthenticationHandler\u003CAuthenticationSchemeOptions\u003E",
+        "FullName": "AuthenticationHandler\u003CAuthenticationSchemeOptions\u003E",
+        "Name": "AuthenticationHandler",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
       "StandardElementType": "Unknown",
       "LineNumber": 14,
@@ -3962,9 +3982,11 @@
           ],
           "PossibleExceptionTypes": [
             "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
@@ -3973,6 +3995,7 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "ThrowsExceptionTypes": [],
@@ -3987,6 +4010,15 @@
               "IsExceptionPath": false,
               "IsNullPath": false,
               "HasBody": true,
+              "ExposesExceptionDetails": false
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Challenge",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
               "ExposesExceptionDetails": false
             }
           ],
@@ -6835,7 +6867,7 @@
     {
       "Name": "cCoder.Security.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 47,
+      "LineNumber": 49,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -6845,7 +6877,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityHostedServices(IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E)",
           "Name": "AddSecurityHostedServices",
-          "LineNumber": 83,
+          "LineNumber": 85,
           "Inputs": [
             {
               "Name": "services",
@@ -6896,7 +6928,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityHostedServices(IServiceCollection,cCoder.Security.Models.SecurityConfiguration)",
           "Name": "AddSecurityHostedServices",
-          "LineNumber": 92,
+          "LineNumber": 94,
           "Inputs": [
             {
               "Name": "services",
@@ -6940,7 +6972,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E,ODataConventionModelBuilder)",
           "Name": "AddSecurityWeb",
-          "LineNumber": 49,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "services",
@@ -6995,7 +7027,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,cCoder.Security.Models.SecurityConfiguration,ODataConventionModelBuilder)",
           "Name": "AddSecurityWeb",
-          "LineNumber": 61,
+          "LineNumber": 63,
           "Inputs": [
             {
               "Name": "services",
@@ -7091,6 +7123,26 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+      "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "System.Private.CoreLib:System.Exception",
+        "FullName": "System.Exception",
+        "Name": "Exception",
+        "Namespace": "System",
+        "AssemblyName": "System.Private.CoreLib",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
       "StandardElementType": "Dependency",
       "LineNumber": 7,
@@ -7135,6 +7187,26 @@
       "StandardElementType": "Dependency",
       "LineNumber": 7,
       "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "System.Private.CoreLib:System.Exception",
+        "FullName": "System.Exception",
+        "Name": "Exception",
+        "Namespace": "System",
+        "AssemblyName": "System.Private.CoreLib",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
+      "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
         "Id": "System.Private.CoreLib:System.Exception",
@@ -7754,7 +7826,7 @@
     {
       "Name": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService",
       "StandardElementType": "AggregationService",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -7775,7 +7847,7 @@
         {
           "Id": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService.GetCurrentUser()",
           "Name": "GetCurrentUser",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "cCoder.Security.Models.Entities.SSOUser",
           "Implements": [
@@ -7792,9 +7864,11 @@
           ],
           "PossibleExceptionTypes": [
             "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
@@ -7805,9 +7879,11 @@
           "IncomingExceptionTypes": [
             "System.ArgumentNullException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
@@ -8175,11 +8251,25 @@
           ],
           "Calls": [
             {
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrEmpty",
+              "MethodId": "System.String.IsNullOrEmpty(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Models.Configurations.SSOAuthInfo",
               "MethodName": ".ctor",
               "MethodId": "cCoder.Security.Models.Configurations.SSOAuthInfo..ctor()",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IRequestProcessingService",
+              "MethodName": "GetHeader",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IRequestProcessingService.GetHeader(System.String)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [
