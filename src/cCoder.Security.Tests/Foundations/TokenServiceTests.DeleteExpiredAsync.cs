@@ -17,8 +17,8 @@ public partial class TokenServiceTests
 
         tokenBrokerMock
             .Setup(expression: broker => broker.DeleteExpiredAsync(
-expiresBefore:                It.IsAny<DateTimeOffset>(),
-cancellationToken:                It.IsAny<CancellationToken>()))
+expiresBefore: It.IsAny<DateTimeOffset>(),
+cancellationToken: It.IsAny<CancellationToken>()))
             .ReturnsAsync(value: expectedDeletedTokenCount);
 
         // When

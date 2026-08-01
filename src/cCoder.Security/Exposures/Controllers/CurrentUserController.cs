@@ -20,11 +20,9 @@ public class CurrentUserController(
         {
             return Ok(value: currentUserAggregationService.GetCurrentUser());
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationAuthenticationException)
         {
-            return StatusCode(
-                statusCode: StatusCodes.Status401Unauthorized,
-                value: "A current user is not available.");
+            return Challenge();
         }
         catch (SecurityAggregationDependencyException)
         {

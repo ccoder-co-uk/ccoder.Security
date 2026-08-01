@@ -3,19 +3,21 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models.Entities;
+using cCoder.Security.Models.Configurations;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Aggregations;
 
 internal sealed partial class CurrentUserAggregationService(
-    ISSOUserProcessingService ssoUserProcessingService)
+    ISSOUserProcessingService ssoUserProcessingService,
+    ISSOAuthInfo authInfo)
         : ICurrentUserAggregationService
 {
     public SSOUser GetCurrentUser() =>
         TryCatch(operation: () =>
         {
-            ValidateCurrentUserOnGet();
+            ValidateCurrentUserOnGet(authInfo: authInfo);
 
             return Sanitize(user: ssoUserProcessingService.Me());
         });

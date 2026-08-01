@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models.Entities;
+using cCoder.Security.Models.Configurations;
+using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
@@ -14,6 +16,33 @@ namespace cCoder.Security.Tests.Aggregations;
 
 public partial class CurrentUserAggregationServiceTests
 {
+    [Fact]
+    public void InvalidAuthenticationIsRejectedBeforeUserLookup()
+    {
+        // Given
+        Mock<ISSOUserProcessingService> ssoUserProcessingServiceMock =
+            new(MockBehavior.Strict);
+
+        ICurrentUserAggregationService currentUserAggregationService =
+            new CurrentUserAggregationService(
+                ssoUserProcessingService:
+                    ssoUserProcessingServiceMock.Object,
+                authInfo: new SSOAuthInfo
+                {
+                    AuthenticationFailed = true
+                });
+
+        // When
+        Action getCurrentUser = () =>
+            currentUserAggregationService.GetCurrentUser();
+
+        // Then
+        getCurrentUser.Should()
+            .Throw<SecurityAggregationAuthenticationException>();
+
+        ssoUserProcessingServiceMock.VerifyNoOtherCalls();
+    }
+
     [Fact]
     public void MeReturnsCurrentUserWithoutProtectedFields()
     {
@@ -39,7 +68,8 @@ public partial class CurrentUserAggregationServiceTests
         ICurrentUserAggregationService currentUserAggregationService =
             new CurrentUserAggregationService(
                 ssoUserProcessingService:
-                    ssoUserProcessingServiceMock.Object);
+                    ssoUserProcessingServiceMock.Object,
+                authInfo: new SSOAuthInfo());
 
         ssoUserProcessingServiceMock
             .Setup(expression: service => service.Me())
@@ -51,17 +81,17 @@ public partial class CurrentUserAggregationServiceTests
         // Then
         actualUser.Should()
             .BeEquivalentTo(expectation: new SSOUser
-        {
-            Id = storedUser.Id,
-            DisplayName = storedUser.DisplayName,
-            Email = storedUser.Email,
-            PhoneNumber = storedUser.PhoneNumber,
-            AccessFailedCount = storedUser.AccessFailedCount,
-            EmailConfirmed = storedUser.EmailConfirmed,
-            LockoutEnabled = storedUser.LockoutEnabled,
-            LockoutEndDateUtc = storedUser.LockoutEndDateUtc,
-            PhoneNumberConfirmed = storedUser.PhoneNumberConfirmed
-        });
+            {
+                Id = storedUser.Id,
+                DisplayName = storedUser.DisplayName,
+                Email = storedUser.Email,
+                PhoneNumber = storedUser.PhoneNumber,
+                AccessFailedCount = storedUser.AccessFailedCount,
+                EmailConfirmed = storedUser.EmailConfirmed,
+                LockoutEnabled = storedUser.LockoutEnabled,
+                LockoutEndDateUtc = storedUser.LockoutEndDateUtc,
+                PhoneNumberConfirmed = storedUser.PhoneNumberConfirmed
+            });
 
         ssoUserProcessingServiceMock.Verify(expression: service => service.Me(), times: Times.Once);
     }

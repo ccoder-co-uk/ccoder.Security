@@ -26,8 +26,8 @@ public partial class TenantServiceTests
 
         Tenant submitted = null;
 
-        tenantBrokerMock.Setup(expression:tenantBrokerMock =>
-            tenantBrokerMock.InsertTenantAsync(tenant:It.IsAny<Tenant>()))
+        tenantBrokerMock.Setup(expression: tenantBrokerMock =>
+            tenantBrokerMock.InsertTenantAsync(tenant: It.IsAny<Tenant>()))
             .Callback<Tenant>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: inputTenant);
 

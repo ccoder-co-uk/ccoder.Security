@@ -24,8 +24,8 @@ public partial class UserEventServiceTests
 
         UserEvent submitted = null;
 
-        userEventBrokerMock.Setup(expression:userEventBrokerMock =>
-            userEventBrokerMock.InsertUserEventAsync(userEvent:It.IsAny<UserEvent>()))
+        userEventBrokerMock.Setup(expression: userEventBrokerMock =>
+            userEventBrokerMock.InsertUserEventAsync(userEvent: It.IsAny<UserEvent>()))
             .Callback<UserEvent>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: inputUserEvent);
 

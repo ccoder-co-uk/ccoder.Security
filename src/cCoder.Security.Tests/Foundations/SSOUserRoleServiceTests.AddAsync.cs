@@ -26,7 +26,7 @@ public partial class SSOUserRoleServiceTests
         SSOUserRole submitted = null;
 
         userRoleBrokerMock
-            .Setup(expression:broker => broker.InsertSSOUserRoleAsync(userRole:It.IsAny<SSOUserRole>()))
+            .Setup(expression: broker => broker.InsertSSOUserRoleAsync(userRole: It.IsAny<SSOUserRole>()))
             .Callback<SSOUserRole>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSOUserRole);
 
