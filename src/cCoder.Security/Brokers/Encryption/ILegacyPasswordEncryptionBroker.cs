@@ -4,8 +4,7 @@
 
 namespace cCoder.Security.Brokers.Encryption;
 
-internal interface IPasswordEncryptionBroker
+internal interface ILegacyPasswordEncryptionBroker
 {
-    string Encrypt(string password);
-    bool EncryptedAndPlainTextAreEqual(string encrypted, string plainText);
+    string Decrypt(string encryptedPassword);
 }

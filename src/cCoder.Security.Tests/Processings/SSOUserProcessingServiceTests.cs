@@ -2,29 +2,40 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Brokers.Encryption;
+using cCoder.Security.Brokers.Encryption.Interfaces;
+using cCoder.Security.Brokers.DateTime;
+using cCoder.Security.Models;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
 using Moq;
 using Tynamix.ObjectFiller;
+using PasswordHashingBrokerMock =
+    Moq.Mock<cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker>;
 
 namespace cCoder.Security.Tests.Processings;
 
+#pragma warning disable STXFORMAT008 // Long utility-broker test doubles trigger a formatting false positive.
 public partial class SSOUserProcessingServiceTests
 {
-    private readonly Mock<IPasswordEncryptionBroker> passwordEncryptionBrokerMock;
+    private readonly PasswordHashingBrokerMock passwordHashingBrokerMock;
     private readonly Mock<ISSOUserService> ssoUserServiceMock;
+    private readonly Mock<ISecurityDateTimeOffsetBroker> dateTimeOffsetBrokerMock;
+    private readonly SecurityConfiguration securityConfiguration;
     private readonly ISSOUserProcessingService ssoUserProcessingService;
 
     public SSOUserProcessingServiceTests()
     {
-        passwordEncryptionBrokerMock = new Mock<IPasswordEncryptionBroker>();
+        passwordHashingBrokerMock = new PasswordHashingBrokerMock();
         ssoUserServiceMock = new Mock<ISSOUserService>();
+        dateTimeOffsetBrokerMock = new Mock<ISecurityDateTimeOffsetBroker>();
+        securityConfiguration = new SecurityConfiguration();
 
         ssoUserProcessingService = new SSOUserProcessingService(ssoUserServiceMock.Object,
-            passwordEncryptionBrokerMock.Object);
+            passwordHashingBrokerMock.Object,
+            dateTimeOffsetBrokerMock.Object,
+            securityConfiguration);
     }
 
     private static string RandomString() =>
@@ -54,3 +65,4 @@ public partial class SSOUserProcessingServiceTests
         return filler;
     }
 }
+#pragma warning restore STXFORMAT008

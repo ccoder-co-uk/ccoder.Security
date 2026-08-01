@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Security.Brokers.Encryption.Interfaces;
+using cCoder.Security.Models;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using FluentAssertions;
@@ -10,6 +12,7 @@ using Xunit;
 
 namespace cCoder.Security.Tests.Processings;
 
+#pragma warning disable STXFORMAT008 // Long utility-broker verification expressions trigger a formatting false positive.
 public partial class SSOUserProcessingServiceTests
 {
     [Fact]
@@ -30,9 +33,11 @@ public partial class SSOUserProcessingServiceTests
 
         SSOUser expectedSSOUser = ssoUsersInService.First();
 
-        passwordEncryptionBrokerMock.Setup(expression: passwordEncryptionBrokerMock =>
-                passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(encrypted:expectedSSOUser.PasswordHash, plainText:inputPassword))
-                .Returns(value: true);
+        passwordHashingBrokerMock.Setup(expression: passwordHashingBrokerMock =>
+                passwordHashingBrokerMock.VerifyHashedPassword(
+                    hashedPassword: expectedSSOUser.PasswordHash,
+                    providedPassword: inputPassword))
+                .Returns(value: PasswordVerificationOutcome.Success);
 
         // When
         SSOUser actualSSOUser = await ssoUserProcessingService
@@ -46,8 +51,10 @@ public partial class SSOUserProcessingServiceTests
             ssoUserServiceMock.GetAllSSOUsers(ignoreFilters: true),
 times: Times.Exactly(callCount: 2));
 
-        passwordEncryptionBrokerMock.Verify(expression: passwordEncryptionBrokerMock =>
-            passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(encrypted: expectedSSOUser.PasswordHash, plainText: inputPassword),
+        passwordHashingBrokerMock.Verify(expression: passwordHashingBrokerMock =>
+            passwordHashingBrokerMock.VerifyHashedPassword(
+                hashedPassword: expectedSSOUser.PasswordHash,
+                providedPassword: inputPassword),
 times: Times.Once);
     }
 
@@ -68,12 +75,15 @@ times: Times.Once);
 
         expectedSSOUser.LockoutEnabled = true;
 
-        passwordEncryptionBrokerMock.Setup(expression: passwordEncryptionBrokerMock =>
-            passwordEncryptionBrokerMock.EncryptedAndPlainTextAreEqual(encrypted:expectedSSOUser.PasswordHash, plainText:inputPassword))
-            .Returns(value: true);
+        passwordHashingBrokerMock.Setup(expression: passwordHashingBrokerMock =>
+            passwordHashingBrokerMock.VerifyHashedPassword(
+                hashedPassword: expectedSSOUser.PasswordHash,
+                providedPassword: inputPassword))
+            .Returns(value: PasswordVerificationOutcome.Success);
 
         // When
         // Then
+
         SecurityProcessingServiceException actualException =
             await Assert.ThrowsAsync<SecurityProcessingServiceException>(
                 testCode: async () =>
@@ -81,7 +91,10 @@ times: Times.Once);
                         username: expectedSSOUser.Id,
                         password: inputPassword));
 
+
         actualException.InnerException.Should()
             .BeOfType<System.Security.SecurityException>();
+
     }
 }
+#pragma warning restore STXFORMAT008

@@ -4,7 +4,7 @@
 
 using cCoder.Security.Models.Entities;
 
-namespace cCoder.Security.Brokers.Utility.Interfaces;
+namespace cCoder.Security.Brokers.Encryption.Interfaces;
 
 internal interface ISSOAuthorizationBroker
 {

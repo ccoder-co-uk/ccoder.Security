@@ -29,9 +29,7 @@ public partial class AccountLifecycleTests
             .BeTrue();
 
         // When
-        await RequestPasswordResetAsync(email: user.Email);
-
-        Token resetToken = FindToken(userId: registeredUser.Id, tokenUse: TokenUse.PasswordReset);
+        Token resetToken = await RequestPasswordResetTokenAsync(email: user.Email);
 
         await ConfirmForgotPasswordAsync(token: resetToken.Id, userId: registeredUser.Id, password: UpdatedPassword);
         Token loginToken = await LoginAsync(auth: CreateAuth(user: user, password: UpdatedPassword));

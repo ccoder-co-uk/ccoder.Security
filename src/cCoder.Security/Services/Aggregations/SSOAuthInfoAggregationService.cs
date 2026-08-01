@@ -4,6 +4,7 @@
 
 using cCoder.Security.Models;
 using cCoder.Security.Models.Configurations;
+using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 using System.Text;
@@ -49,8 +50,16 @@ internal sealed partial class SSOAuthInfoAggregationService(
     private ISSOAuthInfo GetFromSession()
     {
         Models.Entities.SSOUser user = sessionService.GetUser();
+        string tokenId = sessionService.GetString(key: "token");
 
-        if (user == null)
+        if (user == null || string.IsNullOrEmpty(value: tokenId))
+        { return null; }
+
+        Token token = tokenService.GetTokenById(tokenId: tokenId);
+
+        if (token is null
+            || token.Reason != (int)TokenUse.Auth
+            || token.UserName != user.Id)
         { return null; }
 
         return new SSOAuthInfo { SSOUserId = user.Id };
@@ -63,10 +72,9 @@ internal sealed partial class SSOAuthInfoAggregationService(
         if (tokenId == null)
         { return null; }
 
-        Models.Entities.Token token = tokenService.GetAllTokens(ignoreFilters: true)
-            .FirstOrDefault(predicate: t => t.Id == tokenId);
+        Models.Entities.Token token = tokenService.GetTokenById(tokenId: tokenId);
 
-        if (token == null)
+        if (token == null || token.Reason != (int)TokenUse.Auth)
         { return null; }
 
         return new SSOAuthInfo { SSOUserId = token.UserName };
