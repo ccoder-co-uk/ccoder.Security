@@ -1,12 +1,108 @@
 {
+  "SchemaVersion": 2,
+  "Project": {
+    "Id": "cCoder.Security.Data",
+    "Name": "cCoder.Security.Data",
+    "AssemblyName": "cCoder.Security.Data"
+  },
   "Classes": [
     {
       "Name": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
       "StandardElementType": "Unknown",
+      "LineNumber": 11,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security.Data:cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E",
+          "FullName": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E",
+          "Name": "ISymmetricCrypto",
+          "Namespace": "cCoder.Security.Data",
+          "AssemblyName": "cCoder.Security.Data",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Unknown"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String)",
           "Name": "Decrypt",
+          "LineNumber": 43,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "T",
+          "Implements": [
+            "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "FromBase64String",
+              "MethodId": "System.Convert.FromBase64String(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.InvalidOperationException",
+              "MethodName": ".ctor",
+              "MethodId": "System.InvalidOperationException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetString",
+              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Deserialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleDecryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String,System.String)",
+          "Name": "Decrypt",
+          "LineNumber": 36,
           "Inputs": [
             {
               "Name": "source",
@@ -17,20 +113,134 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "T"
+          "ReturnType": "T",
+          "Implements": [
+            "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String,System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "FromBase64String",
+              "MethodId": "System.Convert.FromBase64String(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetString",
+              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Deserialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleDecryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
-          "Name": "Decrypt",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Encrypt(T)",
+          "Name": "Encrypt",
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "source",
-              "Type": "System.String"
+              "Type": "T"
             }
           ],
-          "ReturnType": "T"
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "ToBase64String",
+              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.InvalidOperationException",
+              "MethodName": ".ctor",
+              "MethodId": "System.InvalidOperationException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Serialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleEncryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Encrypt(T,System.String)",
           "Name": "Encrypt",
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "source",
@@ -41,23 +251,68 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.String"
-        },
-        {
-          "Name": "Encrypt",
-          "Inputs": [
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T,System.String)"
+          ],
+          "Calls": [
             {
-              "Name": "source",
-              "Type": "T"
+              "TypeName": "System.Convert",
+              "MethodName": "ToBase64String",
+              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Serialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleEncryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
             }
           ],
-          "ReturnType": "System.String"
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Security.Data.Dependencies.AesThenHmac",
       "StandardElementType": "Unknown",
+      "LineNumber": 20,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "BlockBitSize",
@@ -90,16 +345,41 @@
       ],
       "Methods": [
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.NewKey()",
           "Name": "NewKey",
+          "LineNumber": 53,
           "Inputs": [],
-          "ReturnType": "System.Byte[]"
+          "ReturnType": "System.Byte[]",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Security.Cryptography.RandomNumberGenerator",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
           "Name": "SimpleDecrypt",
+          "LineNumber": 163,
           "Inputs": [
             {
               "Name": "encryptedMessage",
-              "Type": "System.String"
+              "Type": "System.Byte[]"
             },
             {
               "Name": "cryptKey",
@@ -114,14 +394,120 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "System.String"
+          "ReturnType": "System.Byte[]",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentException..ctor(System.String?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Array",
+              "MethodName": "Copy",
+              "MethodId": "System.Array.Copy(System.Array,System.Int32,System.Array,System.Int32,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.BinaryWriter",
+              "MethodName": ".ctor",
+              "MethodId": "System.IO.BinaryWriter..ctor(System.IO.Stream)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.BinaryWriter",
+              "MethodName": "Write",
+              "MethodId": "System.IO.BinaryWriter.Write(System.Byte[],System.Int32,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.MemoryStream",
+              "MethodName": ".ctor",
+              "MethodId": "System.IO.MemoryStream..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.MemoryStream",
+              "MethodName": "ToArray",
+              "MethodId": "System.IO.MemoryStream.ToArray()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.Aes",
+              "MethodName": "Create",
+              "MethodId": "System.Security.Cryptography.Aes.Create()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.CryptoStream",
+              "MethodName": ".ctor",
+              "MethodId": "System.Security.Cryptography.CryptoStream..ctor(System.IO.Stream,System.Security.Cryptography.ICryptoTransform,System.Security.Cryptography.CryptoStreamMode)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.HMACSHA256",
+              "MethodName": ".ctor",
+              "MethodId": "System.Security.Cryptography.HMACSHA256..ctor(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.HashAlgorithm",
+              "MethodName": "ComputeHash",
+              "MethodId": "System.Security.Cryptography.HashAlgorithm.ComputeHash(System.Byte[],System.Int32,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.SymmetricAlgorithm",
+              "MethodName": "CreateDecryptor",
+              "MethodId": "System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor(System.Byte[],System.Byte[]?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "Format",
+              "MethodId": "System.String.Format(System.String,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.String,System.Byte[],System.Byte[],System.Int32)",
           "Name": "SimpleDecrypt",
+          "LineNumber": 153,
           "Inputs": [
             {
               "Name": "encryptedMessage",
-              "Type": "System.Byte[]"
+              "Type": "System.String"
             },
             {
               "Name": "cryptKey",
@@ -136,14 +522,71 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "System.Byte[]"
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentException..ctor(System.String?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "FromBase64String",
+              "MethodId": "System.Convert.FromBase64String(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrWhiteSpace",
+              "MethodId": "System.String.IsNullOrWhiteSpace(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetString",
+              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleDecrypt",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
           "Name": "SimpleDecryptWithPassword",
+          "LineNumber": 300,
           "Inputs": [
             {
               "Name": "encryptedMessage",
-              "Type": "System.String"
+              "Type": "System.Byte[]"
             },
             {
               "Name": "password",
@@ -154,14 +597,78 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "System.String"
+          "ReturnType": "System.Byte[]",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentException..ctor(System.String?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "Skip",
+              "MethodId": "System.Linq.Enumerable.Skip(System.Collections.Generic.IEnumerable\u003CTSource\u003E,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "Take",
+              "MethodId": "System.Linq.Enumerable.Take(System.Collections.Generic.IEnumerable\u003CTSource\u003E,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "Format",
+              "MethodId": "System.String.Format(System.String,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrWhiteSpace",
+              "MethodId": "System.String.IsNullOrWhiteSpace(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleDecrypt",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.String,System.String,System.Int32)",
           "Name": "SimpleDecryptWithPassword",
+          "LineNumber": 290,
           "Inputs": [
             {
               "Name": "encryptedMessage",
-              "Type": "System.Byte[]"
+              "Type": "System.String"
             },
             {
               "Name": "password",
@@ -172,10 +679,202 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "System.Byte[]"
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentException..ctor(System.String?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "FromBase64String",
+              "MethodId": "System.Convert.FromBase64String(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrWhiteSpace",
+              "MethodId": "System.String.IsNullOrWhiteSpace(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetString",
+              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleDecryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
           "Name": "SimpleEncrypt",
+          "LineNumber": 84,
+          "Inputs": [
+            {
+              "Name": "secretMessage",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "cryptKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "authKey",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "nonSecretPayload",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Byte[]",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentException..ctor(System.String?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.BinaryWriter",
+              "MethodName": ".ctor",
+              "MethodId": "System.IO.BinaryWriter..ctor(System.IO.Stream)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.BinaryWriter",
+              "MethodName": "Flush",
+              "MethodId": "System.IO.BinaryWriter.Flush()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.BinaryWriter",
+              "MethodName": "Write",
+              "MethodId": "System.IO.BinaryWriter.Write(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.MemoryStream",
+              "MethodName": ".ctor",
+              "MethodId": "System.IO.MemoryStream..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.IO.MemoryStream",
+              "MethodName": "ToArray",
+              "MethodId": "System.IO.MemoryStream.ToArray()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.Aes",
+              "MethodName": "Create",
+              "MethodId": "System.Security.Cryptography.Aes.Create()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.CryptoStream",
+              "MethodName": ".ctor",
+              "MethodId": "System.Security.Cryptography.CryptoStream..ctor(System.IO.Stream,System.Security.Cryptography.ICryptoTransform,System.Security.Cryptography.CryptoStreamMode)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.HMACSHA256",
+              "MethodName": ".ctor",
+              "MethodId": "System.Security.Cryptography.HMACSHA256..ctor(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.HashAlgorithm",
+              "MethodName": "ComputeHash",
+              "MethodId": "System.Security.Cryptography.HashAlgorithm.ComputeHash(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.SymmetricAlgorithm",
+              "MethodName": "CreateEncryptor",
+              "MethodId": "System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor(System.Byte[],System.Byte[]?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.SymmetricAlgorithm",
+              "MethodName": "GenerateIV",
+              "MethodId": "System.Security.Cryptography.SymmetricAlgorithm.GenerateIV()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "Format",
+              "MethodId": "System.String.Format(System.String,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.String,System.Byte[],System.Byte[],System.Byte[])",
+          "Name": "SimpleEncrypt",
+          "LineNumber": 74,
           "Inputs": [
             {
               "Name": "secretMessage",
@@ -194,32 +893,149 @@
               "Type": "System.Byte[]"
             }
           ],
-          "ReturnType": "System.String"
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentException..ctor(System.String?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "ToBase64String",
+              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrEmpty",
+              "MethodId": "System.String.IsNullOrEmpty(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleEncrypt",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
-          "Name": "SimpleEncrypt",
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
+          "Name": "SimpleEncryptWithPassword",
+          "LineNumber": 246,
           "Inputs": [
             {
               "Name": "secretMessage",
               "Type": "System.Byte[]"
             },
             {
-              "Name": "cryptKey",
-              "Type": "System.Byte[]"
-            },
-            {
-              "Name": "authKey",
-              "Type": "System.Byte[]"
+              "Name": "password",
+              "Type": "System.String"
             },
             {
               "Name": "nonSecretPayload",
               "Type": "System.Byte[]"
             }
           ],
-          "ReturnType": "System.Byte[]"
+          "ReturnType": "System.Byte[]",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentException..ctor(System.String?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Array",
+              "MethodName": "Copy",
+              "MethodId": "System.Array.Copy(System.Array,System.Array,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Array",
+              "MethodName": "Copy",
+              "MethodId": "System.Array.Copy(System.Array,System.Int32,System.Array,System.Int32,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "Format",
+              "MethodId": "System.String.Format(System.String,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrWhiteSpace",
+              "MethodId": "System.String.IsNullOrWhiteSpace(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleEncrypt",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.String,System.String,System.Byte[])",
           "Name": "SimpleEncryptWithPassword",
+          "LineNumber": 236,
           "Inputs": [
             {
               "Name": "secretMessage",
@@ -234,31 +1050,84 @@
               "Type": "System.Byte[]"
             }
           ],
-          "ReturnType": "System.String"
-        },
-        {
-          "Name": "SimpleEncryptWithPassword",
-          "Inputs": [
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [
             {
-              "Name": "secretMessage",
-              "Type": "System.Byte[]"
+              "TypeName": "System.ArgumentException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentException..ctor(System.String?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             },
             {
-              "Name": "password",
-              "Type": "System.String"
+              "TypeName": "System.Convert",
+              "MethodName": "ToBase64String",
+              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             },
             {
-              "Name": "nonSecretPayload",
-              "Type": "System.Byte[]"
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrEmpty",
+              "MethodId": "System.String.IsNullOrEmpty(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "MethodName": "SimpleEncryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
             }
           ],
-          "ReturnType": "System.Byte[]"
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
       "StandardElementType": "Unknown",
+      "LineNumber": 13,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security.Data:cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory",
+          "FullName": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory",
+          "Name": "ISecurityDbContextFactory",
+          "Namespace": "cCoder.Security.Data.EF.Interfaces",
+          "AssemblyName": "cCoder.Security.Data",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Dependency"
+        }
+      ],
       "Properties": [
         {
           "Name": "GetAuthInfo",
@@ -267,34 +1136,103 @@
       ],
       "Methods": [
         {
+          "Id": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory.CreateDbContext(System.Boolean)",
           "Name": "CreateDbContext",
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "ignoreAuthInfo",
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext"
+          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext",
+          "Implements": [
+            "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory.CreateDbContext(System.Boolean)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CT, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT, TResult\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Reflection.Assembly",
+              "MethodName": "GetExecutingAssembly",
+              "MethodId": "System.Reflection.Assembly.GetExecutingAssembly()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Reflection.Assembly",
+              "MethodName": "GetName",
+              "MethodId": "System.Reflection.Assembly.GetName()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory.CreateDbContext(System.String[])",
           "Name": "CreateDbContext",
+          "LineNumber": 41,
           "Inputs": [
             {
               "Name": "args",
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext"
+          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
+              "MethodName": "CreateDbContext",
+              "MethodId": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory.CreateDbContext(System.Boolean)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Security.Data.EF.IServiceCollectionExtensions",
       "StandardElementType": "App",
+      "LineNumber": 13,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E)",
           "Name": "AddSecurityData",
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "services",
@@ -305,10 +1243,40 @@
               "Type": "System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Action\u003CT\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Action\u003CT\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.IServiceCollectionExtensions",
+              "MethodName": "AddSecurityData",
+              "MethodId": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityConfiguration)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityConfiguration)",
           "Name": "AddSecurityData",
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "services",
@@ -319,79 +1287,279 @@
               "Type": "cCoder.Security.Models.SecurityConfiguration"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentNullException",
+              "MethodName": "ThrowIfNull",
+              "MethodId": "System.ArgumentNullException.ThrowIfNull(System.Object?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddRolesAndPrivs",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddSessions",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddTenancy",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddTenantAnalysis",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddTokenStorage",
       "StandardElementType": "Dependency",
+      "LineNumber": 5,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddValueToUserEvents",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.Initial",
       "StandardElementType": "Dependency",
+      "LineNumber": 6,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.RequireRoleTenantOwnership",
       "StandardElementType": "Dependency",
+      "LineNumber": 8,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.RetireGenericAuditing",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.RetireOldLoggingTables",
       "StandardElementType": "Dependency",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.Migrations.ReturePrivsTableAndLinkTokensToUsers",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.EF.SecurityDbContext",
       "StandardElementType": "Dependency",
+      "LineNumber": 13,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:DbContext",
+        "FullName": "DbContext",
+        "Name": "DbContext",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security.Data:DbContext",
+          "FullName": "DbContext",
+          "Name": "DbContext",
+          "Namespace": "\u003Cglobal namespace\u003E",
+          "AssemblyName": "cCoder.Security.Data",
+          "Kind": "Class",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Dependency"
+        }
+      ],
       "Properties": [
         {
           "Name": "Roles",
@@ -428,67 +1596,219 @@
       ],
       "Methods": [
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityColumns(ModelBuilder)",
           "Name": "ConfigureSecurityColumns",
+          "LineNumber": 43,
           "Inputs": [
             {
               "Name": "modelBuilder",
               "Type": "ModelBuilder"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityForeignKeys(ModelBuilder)",
           "Name": "ConfigureSecurityForeignKeys",
+          "LineNumber": 102,
           "Inputs": [
             {
               "Name": "modelBuilder",
               "Type": "ModelBuilder"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityModel(ModelBuilder)",
           "Name": "ConfigureSecurityModel",
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "modelBuilder",
               "Type": "ModelBuilder"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
+              "MethodName": "ConfigureSecurityColumns",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityColumns(ModelBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
+              "MethodName": "ConfigureSecurityForeignKeys",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityForeignKeys(ModelBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
+              "MethodName": "ConfigureSecurityTables",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityTables(ModelBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityTables(ModelBuilder)",
           "Name": "ConfigureSecurityTables",
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "modelBuilder",
               "Type": "ModelBuilder"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.GetCurrentUser()",
           "Name": "GetCurrentUser",
+          "LineNumber": 76,
           "Inputs": [],
-          "ReturnType": "cCoder.Security.Models.Entities.SSOUser"
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Array",
+              "MethodName": "Empty",
+              "MethodId": "System.Array.Empty()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.GetPrivileges()",
           "Name": "GetPrivileges",
+          "LineNumber": 28,
           "Inputs": [],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E"
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.GetUserActivity()",
           "Name": "GetUserActivity",
+          "LineNumber": 135,
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.UserActivity\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.UserActivity\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.Migrate()",
           "Name": "Migrate",
+          "LineNumber": 36,
           "Inputs": [],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.UserHasPrivilege(System.String,System.String)",
           "Name": "UserHasPrivilege",
+          "LineNumber": 123,
           "Inputs": [
             {
               "Name": "privilege",
@@ -499,23 +1819,119 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.MemoryExtensions",
+              "MethodName": "Contains",
+              "MethodId": "System.MemoryExtensions.Contains(System.Span\u003CT\u003E,T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.SecurityException",
+              "MethodName": ".ctor",
+              "MethodId": "System.Security.SecurityException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrWhiteSpace",
+              "MethodId": "System.String.IsNullOrWhiteSpace(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
+              "MethodName": "GetCurrentUser",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.GetCurrentUser()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.Security.SecurityException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.Security.SecurityException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.Security.SecurityException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.UserIsPortalAdminWithPrivilege(System.String)",
           "Name": "UserIsPortalAdminWithPrivilege",
+          "LineNumber": 108,
           "Inputs": [
             {
               "Name": "privilege",
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.MemoryExtensions",
+              "MethodName": "Contains",
+              "MethodId": "System.MemoryExtensions.Contains(System.Span\u003CT\u003E,T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.SecurityException",
+              "MethodName": ".ctor",
+              "MethodId": "System.Security.SecurityException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
+              "MethodName": "GetCurrentUser",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.GetCurrentUser()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.Security.SecurityException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.Security.SecurityException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.Security.SecurityException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Security.Data.Models.SetupDetails",
       "StandardElementType": "Model",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Tenant",
@@ -531,6 +1947,22 @@
     {
       "Name": "cCoder.Security.Models.Configurations.SSOAuthInfo",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security.Data:cCoder.Security.Models.Configurations.ISSOAuthInfo",
+          "FullName": "cCoder.Security.Models.Configurations.ISSOAuthInfo",
+          "Name": "ISSOAuthInfo",
+          "Namespace": "cCoder.Security.Models.Configurations",
+          "AssemblyName": "cCoder.Security.Data",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Model"
+        }
+      ],
       "Properties": [
         {
           "Name": "SSOUserId",
@@ -542,6 +1974,11 @@
     {
       "Name": "cCoder.Security.Models.DTOs.Auth",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Pass",
@@ -557,6 +1994,11 @@
     {
       "Name": "cCoder.Security.Models.DTOs.ChangePasswordRequest",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "NewPassword",
@@ -576,6 +2018,11 @@
     {
       "Name": "cCoder.Security.Models.DTOs.ConfirmForgotPasswordRequest",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "ConfirmPassword",
@@ -603,6 +2050,11 @@
     {
       "Name": "cCoder.Security.Models.DTOs.ForgotPasswordRequest",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "AppId",
@@ -618,6 +2070,11 @@
     {
       "Name": "cCoder.Security.Models.DTOs.RegisterUser",
       "StandardElementType": "Model",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "AppId",
@@ -665,6 +2122,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.SSOPrivilege",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Description",
@@ -692,6 +2154,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.SSORole",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Description",
@@ -731,6 +2198,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.SSOUser",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "AccessFailedCount",
@@ -790,6 +2262,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.SSOUserRole",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Role",
@@ -813,6 +2290,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.Session",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "AbsoluteExpiration",
@@ -844,6 +2326,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.Tenant",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Analysis",
@@ -891,6 +2378,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.TenantAnalysis",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "CreatedOn",
@@ -926,6 +2418,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.Token",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Expires",
@@ -953,6 +2450,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.UserActivity",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "EventCreatedOn",
@@ -1028,6 +2530,11 @@
     {
       "Name": "cCoder.Security.Models.Entities.UserEvent",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "CreatedBy",
@@ -1075,6 +2582,11 @@
     {
       "Name": "cCoder.Security.Models.Events.SecurityAccountEvent",
       "StandardElementType": "Model",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Culture",
@@ -1106,23 +2618,62 @@
     {
       "Name": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions",
       "StandardElementType": "Exposure",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions.ToEventName(cCoder.Security.Models.Events.SecurityAccountEventKind)",
           "Name": "ToEventName",
+          "LineNumber": 9,
           "Inputs": [
             {
               "Name": "securityAccountEventKind",
               "Type": "cCoder.Security.Models.Events.SecurityAccountEventKind"
             }
           ],
-          "ReturnType": "System.String"
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentOutOfRangeException",
+              "MethodName": ".ctor",
+              "MethodId": "System.ArgumentOutOfRangeException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentOutOfRangeException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentOutOfRangeException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentOutOfRangeException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Security.Models.SecurityConfiguration",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "ConnectionString",
@@ -1138,6 +2689,192 @@
         },
         {
           "Name": "RootPath",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    }
+  ],
+  "Interfaces": [
+    {
+      "Name": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory",
+      "StandardElementType": "Dependency",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security.Data:IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E",
+          "FullName": "IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E",
+          "Name": "IDesignTimeDbContextFactory",
+          "Namespace": "\u003Cglobal namespace\u003E",
+          "AssemblyName": "cCoder.Security.Data",
+          "Kind": "Class",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Dependency"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory.CreateDbContext(System.Boolean)",
+          "Name": "CreateDbContext",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "ignoreAuthInfo",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E",
+      "StandardElementType": "Unknown",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String)",
+          "Name": "Decrypt",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "T",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String,System.String)",
+          "Name": "Decrypt",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "System.String"
+            },
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "T",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T)",
+          "Name": "Encrypt",
+          "LineNumber": 10,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "T"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T,System.String)",
+          "Name": "Encrypt",
+          "LineNumber": 9,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "T"
+            },
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Models.Configurations.ISSOAuthInfo",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "SSOUserId",
           "Type": "System.String"
         }
       ],
