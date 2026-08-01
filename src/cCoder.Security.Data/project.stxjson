@@ -2017,6 +2017,10 @@
       ],
       "Properties": [
         {
+          "Name": "AuthenticationFailed",
+          "Type": "System.Boolean"
+        },
+        {
           "Name": "SSOUserId",
           "Type": "System.String"
         }
@@ -2941,6 +2945,10 @@
       "BaseType": null,
       "Interfaces": [],
       "Properties": [
+        {
+          "Name": "AuthenticationFailed",
+          "Type": "System.Boolean"
+        },
         {
           "Name": "SSOUserId",
           "Type": "System.String"

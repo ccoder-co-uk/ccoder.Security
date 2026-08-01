@@ -23,18 +23,29 @@ internal sealed partial class SSOAuthInfoAggregationService(
         {
             ValidateSSOAuthInfoOnGet();
 
-            ISSOAuthInfo authInfo =
-                await GetFromAuthenticationHeaderAsync() ??
-                GetFromSession();
+            string authHeaderValue = requestProcessingService.GetHeader(
+                key: "Authorization");
+
+            ISSOAuthInfo authInfo = await GetFromAuthenticationHeaderAsync(
+                authHeaderValue: authHeaderValue);
+
+            if (!string.IsNullOrEmpty(value: authHeaderValue)
+                && authInfo is null)
+            {
+                return new SSOAuthInfo
+                {
+                    AuthenticationFailed = true
+                };
+            }
+
+            authInfo ??= GetFromSession();
 
             return authInfo ?? new SSOAuthInfo { SSOUserId = "Guest" };
         });
 
-    private async ValueTask<ISSOAuthInfo> GetFromAuthenticationHeaderAsync()
+    private async ValueTask<ISSOAuthInfo> GetFromAuthenticationHeaderAsync(
+        string authHeaderValue)
     {
-        string authHeaderValue = requestProcessingService.GetHeader(
-            key: "Authorization");
-
         if (string.IsNullOrEmpty(value: authHeaderValue))
         { return null; }
 
