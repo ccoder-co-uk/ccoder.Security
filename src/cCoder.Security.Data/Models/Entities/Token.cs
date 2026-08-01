@@ -14,6 +14,9 @@ public class Token
 
     public string UserName { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
+    public string SecretHash { get; set; }
+
     public virtual SSOUser User { get; set; }
 }
 

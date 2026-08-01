@@ -27,4 +27,6 @@ internal interface ITokenProcessingService
     ValueTask<Token> AddTokenForUserIdAsync(string userId, TokenUse tokenUse);
 
     ValueTask DeleteTokenAsync(string tokenId);
+
+    ValueTask DeleteTokensForUserAsync(string userId, TokenUse tokenUse);
 }

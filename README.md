@@ -15,6 +15,20 @@ in appsettings and define `Security__ConnectionString` and
 Restart Visual Studio, select the Web and HostedServices startup projects, and
 press F5. No configuration conversion step is required.
 
+Non-secret Argon2id password hashing parameters bind from `Security__Argon`.
+The checked-in defaults use the OWASP minimum profile and the application
+rejects weaker runtime values:
+
+```json
+"Argon": {
+  "MemorySizeInKilobytes": 19456,
+  "Iterations": 2,
+  "DegreeOfParallelism": 1,
+  "SaltSizeInBytes": 16,
+  "HashSizeInBytes": 32
+}
+```
+
 ## Repository Layout
 
 - `src/cCoder.Security`

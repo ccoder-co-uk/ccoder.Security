@@ -21,7 +21,6 @@ public partial class AccountLifecycleTests
         (SSOUser registeredUser, string confirmationToken) = await RegisterAsync(user: user);
         await ConfirmRegistrationAsync(token: confirmationToken);
         Token token = await LoginAsync(auth: CreateAuth(user: user));
-        await LogoutAsync();
 
         // Then
         registeredUser.Email.Should()
@@ -30,8 +29,26 @@ public partial class AccountLifecycleTests
         token.UserName.Should()
             .Be(expected: registeredUser.Id);
 
-        FindUser(userId: registeredUser.Id)
-            .EmailConfirmed.Should()
+        SSOUser storedUser = FindUser(userId: registeredUser.Id);
+
+        storedUser.EmailConfirmed.Should()
             .BeTrue();
+
+        storedUser.PasswordHash.Should()
+            .StartWith(expected: "$argon2id$v=19$m=19456,t=2,p=1$");
+
+        storedUser.PasswordHash.Should()
+            .NotContain(unexpected: user.Password);
+
+        string tokenSelector = token.Id.Split(separator: '.')[0];
+        Token storedToken = FindStoredToken(selector: tokenSelector);
+
+        storedToken.Id.Should()
+            .NotBe(unexpected: token.Id);
+
+        storedToken.SecretHash.Should()
+            .NotBeNullOrWhiteSpace();
+
+        await LogoutAsync();
     }
 }

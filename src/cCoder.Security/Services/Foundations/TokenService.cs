@@ -4,6 +4,7 @@
 
 using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Storage.Interfaces;
+using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 
@@ -11,7 +12,9 @@ namespace cCoder.Security.Services.Foundations;
 
 internal sealed partial class TokenService(
     ITokenBroker tokenBroker,
-    ISecurityConfigurationBroker configurationBroker)
+    ISecurityConfigurationBroker configurationBroker,
+    ITokenGenerationBroker tokenGenerationBroker,
+    IPasswordHashingBroker passwordHashingBroker)
     : ITokenService
 {
     public ValueTask<Token> AddTokenAsync(
@@ -27,19 +30,12 @@ internal sealed partial class TokenService(
 
             int tokenTimeout = GetTokenTimeout();
 
-            string value = Guid
-                .NewGuid()
-                .ToString()
-                .Replace(oldValue: "-", newValue: "")
-                + Guid
-                    .NewGuid()
-                    .ToString()
-                    .Replace(oldValue: "-", newValue: "");
+            string selector = tokenGenerationBroker.GenerateSelector();
+            string secret = tokenGenerationBroker.GenerateSecret();
 
-            if (value.StartsWith(value: 'a'))
-            {
-                value = value[1..] + "a";
-            }
+            string value = tokenGenerationBroker.Combine(
+                selector: selector,
+                secret: secret);
 
             Token token = new()
             {
@@ -51,14 +47,15 @@ internal sealed partial class TokenService(
 
             Token storageToken = new()
             {
-                Id = token.Id,
+                Id = selector,
                 Expires = token.Expires,
                 Reason = token.Reason,
-                UserName = token.UserName
+                UserName = token.UserName,
+                SecretHash = passwordHashingBroker.HashTokenSecret(
+                    secret: secret)
             };
 
             Token result = await tokenBroker.InsertTokenAsync(token: storageToken);
-            token.Id = result.Id;
             token.Expires = result.Expires;
             token.Reason = result.Reason;
             token.UserName = result.UserName;

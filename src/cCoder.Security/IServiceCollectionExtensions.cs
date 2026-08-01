@@ -13,8 +13,12 @@ using cCoder.Security.Brokers.Serialization;
 using cCoder.Security.Brokers.Sessions;
 using cCoder.Security.Brokers.Storage;
 using cCoder.Security.Brokers.Storage.Interfaces;
+using cCoder.Security.Brokers.Encryption;
+using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Brokers.Utility;
-using cCoder.Security.Brokers.Utility.Interfaces;
+using cCoder.Security.Dependencies.Encryption;
+using cCoder.Security.Data;
+using cCoder.Security.Data.Dependencies;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Exposures;
@@ -36,6 +40,7 @@ using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.ModelBuilder;
+using System.Security.Cryptography;
 
 namespace cCoder.Security;
 
@@ -117,12 +122,23 @@ public static class IServiceCollectionExtensions
 
         if (!string.IsNullOrWhiteSpace(value: configuration.DecryptionKey))
         {
-            configuration.UseAESHMMACPasswordEncryption(
-                services: services,
-                decryptionKey: configuration.DecryptionKey);
+            services.AddTransient<ISymmetricCrypto<string>>(
+                implementationFactory: _ =>
+                    new AesCrypto<string>(configuration.DecryptionKey));
+            services.AddTransient<ILegacyPasswordEncryptionBroker,
+                LegacyPasswordEncryptionBroker>();
         }
 
+        services.AddTransient<IPasswordHashingDependency,
+            PasswordHashingDependency>();
+        services.AddTransient<ITokenGenerationDependency,
+            TokenGenerationDependency>();
+        services.AddTransient(
+            implementationFactory: _ => RandomNumberGenerator.Create());
+
         services.AddSingleton(implementationInstance: configuration);
+        services.AddSingleton(
+            implementationInstance: configuration.Argon);
 
         services.AddEventing();
         services.AddEventingTypes();
@@ -138,6 +154,10 @@ public static class IServiceCollectionExtensions
 
     private static void AddBrokers(this IServiceCollection services)
     {
+        services.AddTransient<IPasswordHashingBroker,
+            PasswordHashingBroker>();
+        services.AddTransient<ITokenGenerationBroker,
+            TokenGenerationBroker>();
         services.AddSingleton<ISecurityConfigurationBroker, SecurityConfigurationBroker>();
         services.AddTransient<IAuthenticationContextBroker, AuthenticationContextBroker>();
         services.AddTransient<IWebSessionBroker, WebSessionBroker>();
