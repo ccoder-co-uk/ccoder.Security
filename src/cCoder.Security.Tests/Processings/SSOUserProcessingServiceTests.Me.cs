@@ -29,6 +29,6 @@ public partial class SSOUserProcessingServiceTests
 times: Times.Once());
 
         ssoUserServiceMock.VerifyNoOtherCalls();
-        passwordEncryptionBrokerMock.VerifyNoOtherCalls();
+        passwordHashingBrokerMock.VerifyNoOtherCalls();
     }
 }

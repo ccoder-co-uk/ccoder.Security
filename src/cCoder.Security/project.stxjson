@@ -159,7 +159,7 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerAESHMAC",
+      "Name": "cCoder.Security.Brokers.Encryption.LegacyPasswordEncryptionBroker",
       "StandardElementType": "Broker",
       "LineNumber": 9,
       "IsPublic": false,
@@ -167,9 +167,9 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-          "FullName": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-          "Name": "IPasswordEncryptionBroker",
+          "Id": "cCoder.Security:cCoder.Security.Brokers.Encryption.ILegacyPasswordEncryptionBroker",
+          "FullName": "cCoder.Security.Brokers.Encryption.ILegacyPasswordEncryptionBroker",
+          "Name": "ILegacyPasswordEncryptionBroker",
           "Namespace": "cCoder.Security.Brokers.Encryption",
           "AssemblyName": "cCoder.Security",
           "Kind": "Interface",
@@ -180,57 +180,18 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerAESHMAC.Encrypt(System.String)",
-          "Name": "Encrypt",
-          "LineNumber": 12,
+          "Id": "cCoder.Security.Brokers.Encryption.LegacyPasswordEncryptionBroker.Decrypt(System.String)",
+          "Name": "Decrypt",
+          "LineNumber": 13,
           "Inputs": [
             {
-              "Name": "password",
+              "Name": "encryptedPassword",
               "Type": "System.String"
             }
           ],
           "ReturnType": "System.String",
           "Implements": [
-            "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.Encrypt(System.String)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E",
-              "MethodName": "Encrypt",
-              "MethodId": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerAESHMAC.EncryptedAndPlainTextAreEqual(System.String,System.String)",
-          "Name": "EncryptedAndPlainTextAreEqual",
-          "LineNumber": 15,
-          "Inputs": [
-            {
-              "Name": "encrypted",
-              "Type": "System.String"
-            },
-            {
-              "Name": "plainText",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Boolean",
-          "Implements": [
-            "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.EncryptedAndPlainTextAreEqual(System.String,System.String)"
+            "cCoder.Security.Brokers.Encryption.ILegacyPasswordEncryptionBroker.Decrypt(System.String)"
           ],
           "Calls": [
             {
@@ -256,18 +217,18 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerHasher",
+      "Name": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-          "FullName": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-          "Name": "IPasswordEncryptionBroker",
-          "Namespace": "cCoder.Security.Brokers.Encryption",
+          "Id": "cCoder.Security:cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
+          "FullName": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
+          "Name": "IPasswordHashingBroker",
+          "Namespace": "cCoder.Security.Brokers.Encryption.Interfaces",
           "AssemblyName": "cCoder.Security",
           "Kind": "Interface",
           "IsInCurrentProject": true,
@@ -277,9 +238,9 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerHasher.Encrypt(System.String)",
-          "Name": "Encrypt",
-          "LineNumber": 13,
+          "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.HashPassword(System.String)",
+          "Name": "HashPassword",
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "password",
@@ -288,15 +249,15 @@
           ],
           "ReturnType": "System.String",
           "Implements": [
-            "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.Encrypt(System.String)"
+            "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashPassword(System.String)"
           ],
           "Calls": [
             {
-              "TypeName": "System.Object",
-              "MethodName": ".ctor",
-              "MethodId": "System.Object..ctor()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "MethodName": "HashPassword",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashPassword(System.String)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [],
@@ -312,30 +273,143 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerHasher.EncryptedAndPlainTextAreEqual(System.String,System.String)",
-          "Name": "EncryptedAndPlainTextAreEqual",
-          "LineNumber": 16,
+          "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.HashTokenSecret(System.String)",
+          "Name": "HashTokenSecret",
+          "LineNumber": 29,
           "Inputs": [
             {
-              "Name": "encrypted",
+              "Name": "secret",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashTokenSecret(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "MethodName": "HashTokenSecret",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashTokenSecret(System.String)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.PerformDummyVerification(System.String)",
+          "Name": "PerformDummyVerification",
+          "LineNumber": 25,
+          "Inputs": [
+            {
+              "Name": "providedPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.PerformDummyVerification(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "MethodName": "PerformDummyVerification",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.PerformDummyVerification(System.String)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.FormatException"
+          ],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.VerifyHashedPassword(System.String,System.String)",
+          "Name": "VerifyHashedPassword",
+          "LineNumber": 18,
+          "Inputs": [
+            {
+              "Name": "hashedPassword",
               "Type": "System.String"
             },
             {
-              "Name": "plainText",
+              "Name": "providedPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Models.PasswordVerificationOutcome",
+          "Implements": [
+            "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.VerifyHashedPassword(System.String,System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "MethodName": "VerifyHashedPassword",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.FormatException"
+          ],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.VerifyTokenSecret(System.String,System.String)",
+          "Name": "VerifyTokenSecret",
+          "LineNumber": 32,
+          "Inputs": [
+            {
+              "Name": "secretHash",
+              "Type": "System.String"
+            },
+            {
+              "Name": "providedSecret",
               "Type": "System.String"
             }
           ],
           "ReturnType": "System.Boolean",
           "Implements": [
-            "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.EncryptedAndPlainTextAreEqual(System.String,System.String)"
+            "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.VerifyTokenSecret(System.String,System.String)"
           ],
           "Calls": [
             {
-              "TypeName": "System.Object",
-              "MethodName": ".ctor",
-              "MethodId": "System.Object..ctor()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "MethodName": "VerifyTokenSecret",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyTokenSecret(System.String,System.String)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [],
@@ -353,7 +427,7 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerSHA512",
+      "Name": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker",
       "StandardElementType": "Broker",
       "LineNumber": 10,
       "IsPublic": false,
@@ -361,10 +435,10 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-          "FullName": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-          "Name": "IPasswordEncryptionBroker",
-          "Namespace": "cCoder.Security.Brokers.Encryption",
+          "Id": "cCoder.Security:cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker",
+          "FullName": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker",
+          "Name": "ITokenGenerationBroker",
+          "Namespace": "cCoder.Security.Brokers.Encryption.Interfaces",
           "AssemblyName": "cCoder.Security",
           "Kind": "Interface",
           "IsInCurrentProject": true,
@@ -374,40 +448,52 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerSHA512.Encrypt(System.String)",
-          "Name": "Encrypt",
-          "LineNumber": 12,
+          "Id": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker.Combine(System.String,System.String)",
+          "Name": "Combine",
+          "LineNumber": 20,
           "Inputs": [
             {
-              "Name": "password",
+              "Name": "selector",
+              "Type": "System.String"
+            },
+            {
+              "Name": "secret",
               "Type": "System.String"
             }
           ],
           "ReturnType": "System.String",
           "Implements": [
-            "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.Encrypt(System.String)"
+            "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.Combine(System.String,System.String)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker.GenerateSecret()",
+          "Name": "GenerateSecret",
+          "LineNumber": 17,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSecret()"
           ],
           "Calls": [
             {
-              "TypeName": "System.Security.Cryptography.SHA512",
-              "MethodName": "HashData",
-              "MethodId": "System.Security.Cryptography.SHA512.HashData(System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Encoding",
-              "MethodName": "GetBytes",
-              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Encoding",
-              "MethodName": "GetString",
-              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
+              "MethodName": "GenerateSecret",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSecret()",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [],
@@ -423,42 +509,54 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Brokers.Encryption.PasswordEncryptionBrokerSHA512.EncryptedAndPlainTextAreEqual(System.String,System.String)",
-          "Name": "EncryptedAndPlainTextAreEqual",
-          "LineNumber": 19,
-          "Inputs": [
-            {
-              "Name": "encrypted",
-              "Type": "System.String"
-            },
-            {
-              "Name": "plainText",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Boolean",
+          "Id": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker.GenerateSelector()",
+          "Name": "GenerateSelector",
+          "LineNumber": 14,
+          "Inputs": [],
+          "ReturnType": "System.String",
           "Implements": [
-            "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.EncryptedAndPlainTextAreEqual(System.String,System.String)"
+            "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSelector()"
           ],
           "Calls": [
             {
-              "TypeName": "System.Security.Cryptography.SHA512",
-              "MethodName": "HashData",
-              "MethodId": "System.Security.Cryptography.SHA512.HashData(System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
+              "TypeName": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
+              "MethodName": "GenerateSelector",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSelector()",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker.Split(System.String)",
+          "Name": "Split",
+          "LineNumber": 23,
+          "Inputs": [
             {
-              "TypeName": "System.Text.Encoding",
-              "MethodName": "GetBytes",
-              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
+              "Name": "token",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String[]",
+          "Implements": [
+            "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.Split(System.String)"
+          ],
+          "Calls": [
             {
-              "TypeName": "System.Text.Encoding",
-              "MethodName": "GetString",
-              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
+              "TypeName": "System.String",
+              "MethodName": "Split",
+              "MethodId": "System.String.Split(System.Char,System.Int32,System.StringSplitOptions)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
@@ -2616,10 +2714,10 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker",
-          "FullName": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker",
+          "Id": "cCoder.Security:cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker",
+          "FullName": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker",
           "Name": "ISSOAuthorizationBroker",
-          "Namespace": "cCoder.Security.Brokers.Utility.Interfaces",
+          "Namespace": "cCoder.Security.Brokers.Encryption.Interfaces",
           "AssemblyName": "cCoder.Security",
           "Kind": "Interface",
           "IsInCurrentProject": true,
@@ -2635,7 +2733,7 @@
           "Inputs": [],
           "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E",
           "Implements": [
-            "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.GetAllPrivileges()"
+            "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.GetAllPrivileges()"
           ],
           "Calls": [
             {
@@ -2672,7 +2770,7 @@
           "Inputs": [],
           "ReturnType": "cCoder.Security.Models.Entities.SSOUser",
           "Implements": [
-            "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.GetCurrentUser()"
+            "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.GetCurrentUser()"
           ],
           "Calls": [
             {
@@ -2718,7 +2816,7 @@
           ],
           "ReturnType": "System.Void",
           "Implements": [
-            "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.UserHasPrivilege(System.String,System.String)"
+            "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.UserHasPrivilege(System.String,System.String)"
           ],
           "Calls": [
             {
@@ -2760,7 +2858,7 @@
           ],
           "ReturnType": "System.Void",
           "Implements": [
-            "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.UserIsPortalAdminWithPrivilege(System.String)"
+            "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.UserIsPortalAdminWithPrivilege(System.String)"
           ],
           "Calls": [
             {
@@ -2809,6 +2907,536 @@
           "Inputs": [],
           "ReturnType": "cCoder.Security.Models.ODataModel",
           "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
+      "StandardElementType": "Unknown",
+      "LineNumber": 16,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+          "FullName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+          "Name": "IPasswordHashingDependency",
+          "Namespace": "cCoder.Security.Dependencies.Encryption",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Unknown"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.HashPassword(System.String)",
+          "Name": "HashPassword",
+          "LineNumber": 38,
+          "Inputs": [
+            {
+              "Name": "password",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashPassword(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "ToBase64String",
+              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.RandomNumberGenerator",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.HashTokenSecret(System.String)",
+          "Name": "HashTokenSecret",
+          "LineNumber": 105,
+          "Inputs": [
+            {
+              "Name": "secret",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashTokenSecret(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "ToHexString",
+              "MethodId": "System.Convert.ToHexString(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.SHA256",
+              "MethodName": "HashData",
+              "MethodId": "System.Security.Cryptography.SHA256.HashData(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.PerformDummyVerification(System.String)",
+          "Name": "PerformDummyVerification",
+          "LineNumber": 100,
+          "Inputs": [
+            {
+              "Name": "providedPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.PerformDummyVerification(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
+              "MethodName": "VerifyHashedPassword",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
+              "StandardElementType": "Unknown",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.FormatException"
+          ],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
+          "Name": "VerifyHashedPassword",
+          "LineNumber": 54,
+          "Inputs": [
+            {
+              "Name": "hashedPassword",
+              "Type": "System.String"
+            },
+            {
+              "Name": "providedPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Models.PasswordVerificationOutcome",
+          "Implements": [
+            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyHashedPassword(System.String,System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Object",
+              "MethodName": ".ctor",
+              "MethodId": "System.Object..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.CryptographicOperations",
+              "MethodName": "FixedTimeEquals",
+              "MethodId": "System.Security.Cryptography.CryptographicOperations.FixedTimeEquals(System.ReadOnlySpan\u003CSystem.Byte\u003E,System.ReadOnlySpan\u003CSystem.Byte\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "StartsWith",
+              "MethodId": "System.String.StartsWith(System.String,System.StringComparison)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.FormatException"
+          ],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyTokenSecret(System.String,System.String)",
+          "Name": "VerifyTokenSecret",
+          "LineNumber": 110,
+          "Inputs": [
+            {
+              "Name": "secretHash",
+              "Type": "System.String"
+            },
+            {
+              "Name": "providedSecret",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean",
+          "Implements": [
+            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyTokenSecret(System.String,System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "FromHexString",
+              "MethodId": "System.Convert.FromHexString(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.CryptographicOperations",
+              "MethodName": "FixedTimeEquals",
+              "MethodId": "System.Security.Cryptography.CryptographicOperations.FixedTimeEquals(System.ReadOnlySpan\u003CSystem.Byte\u003E,System.ReadOnlySpan\u003CSystem.Byte\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Security.Cryptography.SHA256",
+              "MethodName": "HashData",
+              "MethodId": "System.Security.Cryptography.SHA256.HashData(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
+      "StandardElementType": "Dependency",
+      "LineNumber": 264,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "System.Private.CoreLib:System.IEquatable\u003CcCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters\u003E",
+          "FullName": "System.IEquatable\u003CcCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters\u003E",
+          "Name": "IEquatable",
+          "Namespace": "System",
+          "AssemblyName": "System.Private.CoreLib",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
+      "Properties": [
+        {
+          "Name": "DegreeOfParallelism",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Hash",
+          "Type": "System.Byte[]"
+        },
+        {
+          "Name": "Iterations",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "MemorySizeInKilobytes",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Salt",
+          "Type": "System.Byte[]"
+        }
+      ],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.\u003CClone\u003E$()",
+          "Name": "\u003CClone\u003E$",
+          "LineNumber": 264,
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.Deconstruct(System.Int32,System.Int32,System.Int32,System.Byte[],System.Byte[])",
+          "Name": "Deconstruct",
+          "LineNumber": 264,
+          "Inputs": [
+            {
+              "Name": "MemorySizeInKilobytes",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "Iterations",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "DegreeOfParallelism",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "Salt",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "Hash",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.Equals(System.Object?)",
+          "Name": "Equals",
+          "LineNumber": 264,
+          "Inputs": [
+            {
+              "Name": "obj",
+              "Type": "System.Object?"
+            }
+          ],
+          "ReturnType": "System.Boolean",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.Equals(cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters?)",
+          "Name": "Equals",
+          "LineNumber": 264,
+          "Inputs": [
+            {
+              "Name": "other",
+              "Type": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters?"
+            }
+          ],
+          "ReturnType": "System.Boolean",
+          "Implements": [
+            "System.IEquatable\u003CcCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters\u003E.Equals(cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters?)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.GetHashCode()",
+          "Name": "GetHashCode",
+          "LineNumber": 264,
+          "Inputs": [],
+          "ReturnType": "System.Int32",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.ToString()",
+          "Name": "ToString",
+          "LineNumber": 264,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency",
+      "StandardElementType": "Unknown",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
+          "FullName": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
+          "Name": "ITokenGenerationDependency",
+          "Namespace": "cCoder.Security.Dependencies.Encryption",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Unknown"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency.GenerateSecret()",
+          "Name": "GenerateSecret",
+          "LineNumber": 20,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSecret()"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency.GenerateSelector()",
+          "Name": "GenerateSelector",
+          "LineNumber": 17,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSelector()"
+          ],
           "Calls": [],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
@@ -3086,6 +3714,7 @@
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
             "System.ComponentModel.DataAnnotations.ValidationException",
+            "System.FormatException",
             "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
@@ -3954,7 +4583,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -4041,7 +4670,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         }
@@ -4229,7 +4858,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -4319,7 +4948,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -4651,7 +5280,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -4741,7 +5370,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -5016,7 +5645,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -5352,7 +5981,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         }
@@ -5540,7 +6169,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -5630,7 +6259,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -5865,7 +6494,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         },
@@ -5952,7 +6581,7 @@
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
-          "HasKeyParameter": true,
+          "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
         }
@@ -6206,7 +6835,7 @@
     {
       "Name": "cCoder.Security.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 42,
+      "LineNumber": 47,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -6216,7 +6845,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityHostedServices(IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E)",
           "Name": "AddSecurityHostedServices",
-          "LineNumber": 78,
+          "LineNumber": 83,
           "Inputs": [
             {
               "Name": "services",
@@ -6267,7 +6896,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityHostedServices(IServiceCollection,cCoder.Security.Models.SecurityConfiguration)",
           "Name": "AddSecurityHostedServices",
-          "LineNumber": 87,
+          "LineNumber": 92,
           "Inputs": [
             {
               "Name": "services",
@@ -6311,7 +6940,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E,ODataConventionModelBuilder)",
           "Name": "AddSecurityWeb",
-          "LineNumber": 44,
+          "LineNumber": 49,
           "Inputs": [
             {
               "Name": "services",
@@ -6366,7 +6995,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,cCoder.Security.Models.SecurityConfiguration,ODataConventionModelBuilder)",
           "Name": "AddSecurityWeb",
-          "LineNumber": 56,
+          "LineNumber": 61,
           "Inputs": [
             {
               "Name": "services",
@@ -6786,117 +7415,6 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Security.SecurityConfigurationExtensions",
-      "StandardElementType": "Exposure",
-      "LineNumber": 12,
-      "IsPublic": true,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Security.SecurityConfigurationExtensions.UseAESHMMACPasswordEncryption(cCoder.Security.Models.SecurityConfiguration,IServiceCollection,System.String)",
-          "Name": "UseAESHMMACPasswordEncryption",
-          "LineNumber": 19,
-          "Inputs": [
-            {
-              "Name": "config",
-              "Type": "cCoder.Security.Models.SecurityConfiguration"
-            },
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            },
-            {
-              "Name": "decryptionKey",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
-              "MethodName": ".ctor",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E..ctor(System.String)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.SecurityConfigurationExtensions.UsePasswordHasherHashing(cCoder.Security.Models.SecurityConfiguration,IServiceCollection)",
-          "Name": "UsePasswordHasherHashing",
-          "LineNumber": 28,
-          "Inputs": [
-            {
-              "Name": "config",
-              "Type": "cCoder.Security.Models.SecurityConfiguration"
-            },
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.SecurityConfigurationExtensions.UseSHA512PasswordEncryption(cCoder.Security.Models.SecurityConfiguration,IServiceCollection)",
-          "Name": "UseSHA512PasswordEncryption",
-          "LineNumber": 14,
-          "Inputs": [
-            {
-              "Name": "config",
-              "Type": "cCoder.Security.Models.SecurityConfiguration"
-            },
-            {
-              "Name": "services",
-              "Type": "IServiceCollection"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
       "StandardElementType": "AggregationService",
       "LineNumber": 13,
@@ -6944,6 +7462,7 @@
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
             "System.ComponentModel.DataAnnotations.ValidationException",
+            "System.FormatException",
             "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
@@ -7160,6 +7679,7 @@
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
             "System.ComponentModel.DataAnnotations.ValidationException",
+            "System.FormatException",
             "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
@@ -7626,7 +8146,7 @@
     {
       "Name": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
       "StandardElementType": "AggregationService",
-      "LineNumber": 13,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -7647,7 +8167,7 @@
         {
           "Id": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService.GetSSOAuthInfoAsync()",
           "Name": "GetSSOAuthInfoAsync",
-          "LineNumber": 20,
+          "LineNumber": 21,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Configurations.ISSOAuthInfo\u003E",
           "Implements": [
@@ -7666,6 +8186,7 @@
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
             "System.ComponentModel.DataAnnotations.ValidationException",
+            "System.FormatException",
             "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
@@ -8147,9 +8668,9 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker",
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker",
               "MethodName": "UserHasPrivilege",
-              "MethodId": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.UserHasPrivilege(System.String,System.String)",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.UserHasPrivilege(System.String,System.String)",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -8192,9 +8713,9 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker",
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker",
               "MethodName": "UserIsPortalAdminWithPrivilege",
-              "MethodId": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.UserIsPortalAdminWithPrivilege(System.String)",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.UserIsPortalAdminWithPrivilege(System.String)",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -8232,16 +8753,16 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker",
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker",
               "MethodName": "GetAllPrivileges",
-              "MethodId": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.GetAllPrivileges()",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.GetAllPrivileges()",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
             {
-              "TypeName": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker",
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker",
               "MethodName": "GetCurrentUser",
-              "MethodId": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.GetCurrentUser()",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.GetCurrentUser()",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -10093,7 +10614,7 @@
     {
       "Name": "cCoder.Security.Services.Foundations.TokenService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -10114,7 +10635,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.TokenService.AddTokenAsync(System.String,cCoder.Security.Models.Entities.TokenUse,System.Int32?)",
           "Name": "AddTokenAsync",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "userId",
@@ -10142,32 +10663,32 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "System.Guid",
-              "MethodName": "NewGuid",
-              "MethodId": "System.Guid.NewGuid()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
+              "MethodName": "HashTokenSecret",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashTokenSecret(System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
-              "TypeName": "System.Guid",
-              "MethodName": "ToString",
-              "MethodId": "System.Guid.ToString()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker",
+              "MethodName": "Combine",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.Combine(System.String,System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
-              "TypeName": "System.String",
-              "MethodName": "Replace",
-              "MethodId": "System.String.Replace(System.String,System.String?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker",
+              "MethodName": "GenerateSecret",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSecret()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
-              "TypeName": "System.String",
-              "MethodName": "StartsWith",
-              "MethodId": "System.String.StartsWith(System.Char)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker",
+              "MethodName": "GenerateSelector",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSelector()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Brokers.Storage.Interfaces.ITokenBroker",
@@ -10211,7 +10732,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.TokenService.DeleteExpiredAsync(System.Threading.CancellationToken)",
           "Name": "DeleteExpiredAsync",
-          "LineNumber": 77,
+          "LineNumber": 74,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -10256,7 +10777,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.TokenService.DeleteTokenAsync(cCoder.Security.Models.Entities.Token)",
           "Name": "DeleteTokenAsync",
-          "LineNumber": 69,
+          "LineNumber": 66,
           "Inputs": [
             {
               "Name": "deletedToken",
@@ -10303,7 +10824,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.TokenService.GetAllTokens(System.Boolean)",
           "Name": "GetAllTokens",
-          "LineNumber": 87,
+          "LineNumber": 84,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -11675,7 +12196,7 @@
     {
       "Name": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 13,
+      "LineNumber": 16,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -11696,7 +12217,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.DeleteSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
           "Name": "DeleteSSOUserAsync",
-          "LineNumber": 49,
+          "LineNumber": 59,
           "Inputs": [
             {
               "Name": "deletedSSOUser",
@@ -11746,7 +12267,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.FindById(System.String)",
           "Name": "FindById",
-          "LineNumber": 102,
+          "LineNumber": 127,
           "Inputs": [
             {
               "Name": "ssoUserId",
@@ -11787,7 +12308,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.FindByUserAndPasswordAsync(System.String,System.String)",
           "Name": "FindByUserAndPasswordAsync",
-          "LineNumber": 57,
+          "LineNumber": 67,
           "Inputs": [
             {
               "Name": "username",
@@ -11804,6 +12325,13 @@
           ],
           "Calls": [
             {
+              "TypeName": "System.DateTime",
+              "MethodName": "AddMinutes",
+              "MethodId": "System.DateTime.AddMinutes(System.Double)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Security.SecurityException",
               "MethodName": ".ctor",
               "MethodId": "System.Security.SecurityException..ctor(System.String?)",
@@ -11811,10 +12339,31 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-              "MethodName": "EncryptedAndPlainTextAreEqual",
-              "MethodId": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.EncryptedAndPlainTextAreEqual(System.String,System.String)",
+              "TypeName": "cCoder.Security.Brokers.DateTime.ISecurityDateTimeOffsetBroker",
+              "MethodName": "GetCurrentTime",
+              "MethodId": "cCoder.Security.Brokers.DateTime.ISecurityDateTimeOffsetBroker.GetCurrentTime()",
               "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
+              "MethodName": "HashPassword",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashPassword(System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
+              "MethodName": "PerformDummyVerification",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.PerformDummyVerification(System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ISSOUserService",
+              "MethodName": "UpdateSSOUserAsync",
+              "MethodId": "cCoder.Security.Services.Foundations.Interfaces.ISSOUserService.UpdateSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
+              "StandardElementType": "FoundationService",
               "IsDependencyBoundary": false
             }
           ],
@@ -11822,6 +12371,7 @@
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
             "System.ComponentModel.DataAnnotations.ValidationException",
+            "System.FormatException",
             "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
@@ -11852,7 +12402,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.GetAllSSOUsers(System.Boolean)",
           "Name": "GetAllSSOUsers",
-          "LineNumber": 110,
+          "LineNumber": 135,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -11901,7 +12451,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.InviteSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
           "Name": "InviteSSOUserAsync",
-          "LineNumber": 29,
+          "LineNumber": 37,
           "Inputs": [
             {
               "Name": "user",
@@ -11935,9 +12485,9 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-              "MethodName": "Encrypt",
-              "MethodId": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.Encrypt(System.String)",
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
+              "MethodName": "HashPassword",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashPassword(System.String)",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -11981,7 +12531,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.Me()",
           "Name": "Me",
-          "LineNumber": 126,
+          "LineNumber": 151,
           "Inputs": [],
           "ReturnType": "cCoder.Security.Models.Entities.SSOUser",
           "Implements": [
@@ -12025,7 +12575,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.RegisterSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
           "Name": "RegisterSSOUserAsync",
-          "LineNumber": 18,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "user",
@@ -12038,9 +12588,9 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
-              "MethodName": "Encrypt",
-              "MethodId": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.Encrypt(System.String)",
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
+              "MethodName": "HashPassword",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashPassword(System.String)",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -12084,7 +12634,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.UpdateSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
           "Name": "UpdateSSOUserAsync",
-          "LineNumber": 118,
+          "LineNumber": 143,
           "Inputs": [
             {
               "Name": "updatedSSOUser",
@@ -12128,7 +12678,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.SSOUserProcessingService.ValidatePassword(System.String)",
           "Name": "ValidatePassword",
-          "LineNumber": 134,
+          "LineNumber": 159,
           "Inputs": [
             {
               "Name": "password",
@@ -13095,7 +13645,7 @@
     {
       "Name": "cCoder.Security.Services.Processings.TokenProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -13116,7 +13666,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.AddTokenForUserIdAsync(System.String,cCoder.Security.Models.Entities.TokenUse)",
           "Name": "AddTokenForUserIdAsync",
-          "LineNumber": 14,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "userId",
@@ -13170,7 +13720,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.DeleteTokenAsync(System.String)",
           "Name": "DeleteTokenAsync",
-          "LineNumber": 24,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -13183,9 +13733,70 @@
           ],
           "Calls": [
             {
+              "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ITokenService",
+              "MethodName": "DeleteTokenAsync",
+              "MethodId": "cCoder.Security.Services.Foundations.Interfaces.ITokenService.DeleteTokenAsync(cCoder.Security.Models.Entities.Token)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Services.Processings.TokenProcessingService.DeleteTokensForUserAsync(System.String,cCoder.Security.Models.Entities.TokenUse)",
+          "Name": "DeleteTokensForUserAsync",
+          "LineNumber": 49,
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenUse",
+              "Type": "cCoder.Security.Models.Entities.TokenUse"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.DeleteTokensForUserAsync(System.String,cCoder.Security.Models.Entities.TokenUse)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "ToArray",
+              "MethodId": "System.Linq.Enumerable.ToArray(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
-              "MethodName": "FirstOrDefault",
-              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
+              "MethodName": "Where",
+              "MethodId": "System.Linq.Queryable.Where(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -13234,7 +13845,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateConfirmationToken(System.String)",
           "Name": "GenerateConfirmationToken",
-          "LineNumber": 61,
+          "LineNumber": 81,
           "Inputs": [
             {
               "Name": "userId",
@@ -13276,7 +13887,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateForgottenPasswordToken(System.String)",
           "Name": "GenerateForgottenPasswordToken",
-          "LineNumber": 86,
+          "LineNumber": 106,
           "Inputs": [
             {
               "Name": "userId",
@@ -13318,7 +13929,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateInvitationToken(System.String)",
           "Name": "GenerateInvitationToken",
-          "LineNumber": 73,
+          "LineNumber": 93,
           "Inputs": [
             {
               "Name": "userId",
@@ -13360,7 +13971,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetAllTokens(System.Boolean)",
           "Name": "GetAllTokens",
-          "LineNumber": 39,
+          "LineNumber": 41,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -13409,7 +14020,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetConfirmationToken(System.String)",
           "Name": "GetConfirmationToken",
-          "LineNumber": 108,
+          "LineNumber": 128,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -13450,7 +14061,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetForgottenPasswordToken(System.String)",
           "Name": "GetForgottenPasswordToken",
-          "LineNumber": 98,
+          "LineNumber": 118,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -13491,7 +14102,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetInvitationToken(System.String)",
           "Name": "GetInvitationToken",
-          "LineNumber": 118,
+          "LineNumber": 138,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -13532,7 +14143,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetTokenById(System.String)",
           "Name": "GetTokenById",
-          "LineNumber": 47,
+          "LineNumber": 69,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -13543,22 +14154,7 @@
           "Implements": [
             "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.GetTokenById(System.String)"
           ],
-          "Calls": [
-            {
-              "TypeName": "System.Linq.Queryable",
-              "MethodName": "FirstOrDefault",
-              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ITokenService",
-              "MethodName": "GetAllTokens",
-              "MethodId": "cCoder.Security.Services.Foundations.Interfaces.ITokenService.GetAllTokens(System.Boolean)",
-              "StandardElementType": "FoundationService",
-              "IsDependencyBoundary": false
-            }
-          ],
+          "Calls": [],
           "PossibleExceptionTypes": [
             "System.ArgumentNullException",
             "cCoder.Security.Models.Exceptions.SecurityDependencyException",
@@ -14042,7 +14638,7 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker",
+      "Name": "cCoder.Security.Brokers.Encryption.ILegacyPasswordEncryptionBroker",
       "StandardElementType": "Broker",
       "LineNumber": 7,
       "IsPublic": false,
@@ -14052,9 +14648,46 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.Encrypt(System.String)",
-          "Name": "Encrypt",
+          "Id": "cCoder.Security.Brokers.Encryption.ILegacyPasswordEncryptionBroker.Decrypt(System.String)",
+          "Name": "Decrypt",
           "LineNumber": 9,
+          "Inputs": [
+            {
+              "Name": "encryptedPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashPassword(System.String)",
+          "Name": "HashPassword",
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "password",
@@ -14077,20 +14710,311 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Brokers.Encryption.IPasswordEncryptionBroker.EncryptedAndPlainTextAreEqual(System.String,System.String)",
-          "Name": "EncryptedAndPlainTextAreEqual",
-          "LineNumber": 10,
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashTokenSecret(System.String)",
+          "Name": "HashTokenSecret",
+          "LineNumber": 19,
           "Inputs": [
             {
-              "Name": "encrypted",
+              "Name": "secret",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.PerformDummyVerification(System.String)",
+          "Name": "PerformDummyVerification",
+          "LineNumber": 17,
+          "Inputs": [
+            {
+              "Name": "providedPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.VerifyHashedPassword(System.String,System.String)",
+          "Name": "VerifyHashedPassword",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "hashedPassword",
               "Type": "System.String"
             },
             {
-              "Name": "plainText",
+              "Name": "providedPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Models.PasswordVerificationOutcome",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.VerifyTokenSecret(System.String,System.String)",
+          "Name": "VerifyTokenSecret",
+          "LineNumber": 21,
+          "Inputs": [
+            {
+              "Name": "secretHash",
+              "Type": "System.String"
+            },
+            {
+              "Name": "providedSecret",
               "Type": "System.String"
             }
           ],
           "ReturnType": "System.Boolean",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.GetAllPrivileges()",
+          "Name": "GetAllPrivileges",
+          "LineNumber": 13,
+          "Inputs": [],
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.GetCurrentUser()",
+          "Name": "GetCurrentUser",
+          "LineNumber": 11,
+          "Inputs": [],
+          "ReturnType": "cCoder.Security.Models.Entities.SSOUser",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.UserHasPrivilege(System.String,System.String)",
+          "Name": "UserHasPrivilege",
+          "LineNumber": 15,
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tenantId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.UserIsPortalAdminWithPrivilege(System.String)",
+          "Name": "UserIsPortalAdminWithPrivilege",
+          "LineNumber": 17,
+          "Inputs": [
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.Combine(System.String,System.String)",
+          "Name": "Combine",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "selector",
+              "Type": "System.String"
+            },
+            {
+              "Name": "secret",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSecret()",
+          "Name": "GenerateSecret",
+          "LineNumber": 11,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSelector()",
+          "Name": "GenerateSelector",
+          "LineNumber": 9,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.Split(System.String)",
+          "Name": "Split",
+          "LineNumber": 15,
+          "Inputs": [
+            {
+              "Name": "token",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String[]",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -15491,8 +16415,8 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker",
-      "StandardElementType": "Broker",
+      "Name": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+      "StandardElementType": "Unknown",
       "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
@@ -15501,60 +16425,16 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.GetAllPrivileges()",
-          "Name": "GetAllPrivileges",
-          "LineNumber": 13,
-          "Inputs": [],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.GetCurrentUser()",
-          "Name": "GetCurrentUser",
+          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashPassword(System.String)",
+          "Name": "HashPassword",
           "LineNumber": 11,
-          "Inputs": [],
-          "ReturnType": "cCoder.Security.Models.Entities.SSOUser",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.UserHasPrivilege(System.String,System.String)",
-          "Name": "UserHasPrivilege",
-          "LineNumber": 15,
           "Inputs": [
             {
-              "Name": "privilege",
-              "Type": "System.String"
-            },
-            {
-              "Name": "tenantId",
+              "Name": "password",
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Void",
+          "ReturnType": "System.String",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -15570,16 +16450,151 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Brokers.Utility.Interfaces.ISSOAuthorizationBroker.UserIsPortalAdminWithPrivilege(System.String)",
-          "Name": "UserIsPortalAdminWithPrivilege",
+          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashTokenSecret(System.String)",
+          "Name": "HashTokenSecret",
+          "LineNumber": 19,
+          "Inputs": [
+            {
+              "Name": "secret",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.PerformDummyVerification(System.String)",
+          "Name": "PerformDummyVerification",
           "LineNumber": 17,
           "Inputs": [
             {
-              "Name": "privilege",
+              "Name": "providedPassword",
               "Type": "System.String"
             }
           ],
           "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
+          "Name": "VerifyHashedPassword",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "hashedPassword",
+              "Type": "System.String"
+            },
+            {
+              "Name": "providedPassword",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Models.PasswordVerificationOutcome",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyTokenSecret(System.String,System.String)",
+          "Name": "VerifyTokenSecret",
+          "LineNumber": 21,
+          "Inputs": [
+            {
+              "Name": "secretHash",
+              "Type": "System.String"
+            },
+            {
+              "Name": "providedSecret",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
+      "StandardElementType": "Unknown",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSecret()",
+          "Name": "GenerateSecret",
+          "LineNumber": 11,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSelector()",
+          "Name": "GenerateSelector",
+          "LineNumber": 9,
+          "Inputs": [],
+          "ReturnType": "System.String",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -19099,6 +20114,35 @@
           "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.DeleteTokensForUserAsync(System.String,cCoder.Security.Models.Entities.TokenUse)",
+          "Name": "DeleteTokensForUserAsync",
+          "LineNumber": 31,
+          "Inputs": [
+            {
+              "Name": "userId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "tokenUse",
+              "Type": "cCoder.Security.Models.Entities.TokenUse"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.GenerateConfirmationToken(System.String)",
           "Name": "GenerateConfirmationToken",
           "LineNumber": 23,
@@ -19324,6 +20368,18 @@
     }
   ],
   "Links": [
+    {
+      "FromType": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker",
+      "ToType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker",
+      "ToType": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
+      "ToType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters"
+    },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
@@ -19570,6 +20626,14 @@
     },
     {
       "FromType": "cCoder.Security.Services.Foundations.TokenService",
+      "ToType": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.TokenService",
+      "ToType": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Foundations.TokenService",
       "ToType": "cCoder.Security.Brokers.Storage.TokenBroker"
     },
     {
@@ -19622,6 +20686,18 @@
     },
     {
       "FromType": "cCoder.Security.Services.Processings.SSOUserProcessingService",
+      "ToType": "cCoder.Security.Brokers.DateTime.SecurityDateTimeOffsetBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SSOUserProcessingService",
+      "ToType": "cCoder.Security.Brokers.Encryption.LegacyPasswordEncryptionBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SSOUserProcessingService",
+      "ToType": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.SSOUserService"
     },
     {
@@ -19639,6 +20715,14 @@
     {
       "FromType": "cCoder.Security.Services.Processings.TenantProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.TenantService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.TokenProcessingService",
+      "ToType": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.TokenProcessingService",
+      "ToType": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker"
     },
     {
       "FromType": "cCoder.Security.Services.Processings.TokenProcessingService",

@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Brokers.Utility.Interfaces;
+using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Models.Entities;
 

@@ -1433,6 +1433,26 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Data.EF.Migrations.HashTokenSecrets",
+      "StandardElementType": "Dependency",
+      "LineNumber": 8,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.Data.EF.Migrations.Initial",
       "StandardElementType": "Dependency",
       "LineNumber": 6,
@@ -1945,6 +1965,38 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Models.Configurations.ArgonConfiguration",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "DegreeOfParallelism",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "HashSizeInBytes",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Iterations",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "MemorySizeInKilobytes",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "SaltSizeInBytes",
+          "Type": "System.Int32"
+        }
+      ],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.Models.Configurations.SSOAuthInfo",
       "StandardElementType": "Model",
       "LineNumber": 7,
@@ -2437,6 +2489,10 @@
           "Type": "System.Int32"
         },
         {
+          "Name": "SecretHash",
+          "Type": "System.String"
+        },
+        {
           "Name": "User",
           "Type": "cCoder.Security.Models.Entities.SSOUser"
         },
@@ -2669,12 +2725,16 @@
     {
       "Name": "cCoder.Security.Models.SecurityConfiguration",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
       "Interfaces": [],
       "Properties": [
+        {
+          "Name": "Argon",
+          "Type": "cCoder.Security.Models.Configurations.ArgonConfiguration"
+        },
         {
           "Name": "ConnectionString",
           "Type": "System.String"
@@ -2686,6 +2746,14 @@
         {
           "Name": "IsMigrating",
           "Type": "System.Boolean"
+        },
+        {
+          "Name": "LockoutDurationMinutes",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "MaxFailedAccessAttempts",
+          "Type": "System.Int32"
         },
         {
           "Name": "RootPath",

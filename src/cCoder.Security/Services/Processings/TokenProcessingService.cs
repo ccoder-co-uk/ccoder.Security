@@ -4,11 +4,15 @@
 
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
+using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Processings;
 
-internal sealed partial class TokenProcessingService(ITokenService tokenService)
+internal sealed partial class TokenProcessingService(
+    ITokenService tokenService,
+    ITokenGenerationBroker tokenGenerationBroker,
+    IPasswordHashingBroker passwordHashingBroker)
     : ITokenProcessingService
 {
     public ValueTask<Token> AddTokenForUserIdAsync(string userId, TokenUse tokenUse) =>
@@ -26,9 +30,7 @@ internal sealed partial class TokenProcessingService(ITokenService tokenService)
         {
             ValidateTokenOnDelete(tokenId: tokenId);
 
-            Token token = tokenService
-                .GetAllTokens(ignoreFilters: true)
-                .FirstOrDefault(predicate: token => token.Id == tokenId);
+            Token token = GetStoredToken(tokenId: tokenId);
 
             if (token is not null)
             {
@@ -44,14 +46,32 @@ internal sealed partial class TokenProcessingService(ITokenService tokenService)
             return tokenService.GetAllTokens(ignoreFilters: ignoreFilters);
         });
 
+    public ValueTask DeleteTokensForUserAsync(
+        string userId,
+        TokenUse tokenUse) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateTokenOnGenerate(userId: userId, tokenUse: tokenUse);
+
+            Token[] tokens = tokenService
+                .GetAllTokens(ignoreFilters: true)
+                .Where(predicate: token =>
+                    token.UserName == userId
+                    && token.Reason == (int)tokenUse)
+                .ToArray();
+
+            foreach (Token token in tokens)
+            {
+                await tokenService.DeleteTokenAsync(item: token);
+            }
+        });
+
     public Token GetTokenById(string tokenId) =>
         TryCatch(operation: () =>
         {
             ValidateTokenOnGet(tokenId: tokenId);
 
-            Token token = tokenService
-                .GetAllTokens()
-                .FirstOrDefault(predicate: token => token.Id == tokenId);
+            Token token = GetStoredToken(tokenId: tokenId);
 
             return token is null || token.Expires < DateTimeOffset.Now
                 ? null
@@ -129,23 +149,72 @@ internal sealed partial class TokenProcessingService(ITokenService tokenService)
         string userId,
         TokenUse tokenUse,
         int? timeout = null) =>
-        tokenService.AddTokenAsync(
+        ReplaceTokenAsync(
             userId: userId,
             tokenUse: tokenUse,
             timeout: timeout);
 
+    private async ValueTask<Token> ReplaceTokenAsync(
+        string userId,
+        TokenUse tokenUse,
+        int? timeout)
+    {
+        Token[] existingTokens = tokenService
+            .GetAllTokens(ignoreFilters: true)
+            .Where(predicate: token =>
+                token.UserName == userId
+                && token.Reason == (int)tokenUse)
+            .ToArray();
+
+        foreach (Token existingToken in existingTokens)
+        {
+            await tokenService.DeleteTokenAsync(item: existingToken);
+        }
+
+        return await tokenService.AddTokenAsync(
+            userId: userId,
+            tokenUse: tokenUse,
+            timeout: timeout);
+    }
+
     private Token GetToken(string tokenId, TokenUse tokenUse)
     {
         int reasonCode = (int)tokenUse;
+        Token token = GetStoredToken(tokenId: tokenId);
 
-        Token token = tokenService
-            .GetAllTokens(ignoreFilters: true)
-            .FirstOrDefault(predicate: token =>
-                token.Reason == reasonCode &&
-                token.Id == tokenId);
-
-        return token is null || token.Expires < DateTimeOffset.Now
+        return token is null
+            || token.Reason != reasonCode
+            || token.Expires < DateTimeOffset.Now
             ? null
             : token;
+    }
+
+    private Token GetStoredToken(string tokenId)
+    {
+        string[] tokenParts = tokenGenerationBroker.Split(token: tokenId);
+        bool isModernToken = tokenParts.Length == 2;
+        string selector = isModernToken ? tokenParts[0] : tokenId;
+
+        Token storedToken = tokenService
+            .GetAllTokens(ignoreFilters: true)
+            .FirstOrDefault(predicate: token => token.Id == selector);
+
+        if (storedToken is null)
+        {
+            return null;
+        }
+
+        if (!isModernToken)
+        {
+            return string.IsNullOrEmpty(value: storedToken.SecretHash)
+                ? storedToken
+                : null;
+        }
+
+        bool secretMatches = passwordHashingBroker.VerifyTokenSecret(
+            secretHash: storedToken.SecretHash,
+            providedSecret: tokenParts[1]);
+
+        return secretMatches ? storedToken : null;
     }
 }
