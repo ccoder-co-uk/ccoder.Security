@@ -22,7 +22,7 @@ public partial class SSORoleServiceTests
         SSORole submitted = null;
 
         roleBrokerMock
-            .Setup(expression:broker => broker.UpdateSSORoleAsync(SSORole:It.IsAny<SSORole>()))
+            .Setup(expression: broker => broker.UpdateSSORoleAsync(SSORole: It.IsAny<SSORole>()))
             .Callback<SSORole>(action: candidate => submitted = candidate)
             .ReturnsAsync(value: expectedSSORole);
 

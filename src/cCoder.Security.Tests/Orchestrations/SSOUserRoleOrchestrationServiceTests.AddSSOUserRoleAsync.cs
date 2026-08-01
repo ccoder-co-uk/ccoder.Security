@@ -26,7 +26,7 @@ public partial class SSOUserRoleOrchestrationServiceTests
                                 .AsQueryable());
 
         userRoleProcessingServiceMock
-            .Setup(expression: x => x.AddSSOUserRoleAsync(item:inputUserRole))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(item: inputUserRole))
             .ReturnsAsync(value: inputUserRole);
 
         // When
@@ -60,7 +60,7 @@ times: Times.Never);
                     privilege: "userrole_create"));
 
         userRoleProcessingServiceMock
-            .Setup(expression: x => x.AddSSOUserRoleAsync(item:inputUserRole))
+            .Setup(expression: x => x.AddSSOUserRoleAsync(item: inputUserRole))
             .ReturnsAsync(value: inputUserRole);
 
         // When

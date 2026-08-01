@@ -42,7 +42,7 @@ public partial class SSOUserProcessingServiceTests
         new MnemonicString().GetValue();
 
     private static SSOUser[] RandomSSOUsers() =>
-        Enumerable.Range(start: 1, count: new Random().Next(minValue:10, maxValue:20))
+        Enumerable.Range(start: 1, count: new Random().Next(minValue: 10, maxValue: 20))
             .Select(selector: _ => RandomSSOUser())
             .ToArray();
 
@@ -55,7 +55,7 @@ public partial class SSOUserProcessingServiceTests
         Filler<SSOUser> filler = new();
 
         filler.Setup()
-            .OnProperty(property:p => p.Roles)
+            .OnProperty(property: p => p.Roles)
             .IgnoreIt()
             .OnProperty(property: p => p.Tokens)
             .IgnoreIt()

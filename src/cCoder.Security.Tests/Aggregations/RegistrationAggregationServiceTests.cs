@@ -57,7 +57,7 @@ public partial class RegistrationAggregationServiceTests
     private void SetupRegistrationCreatedEvent(SSOUser user, RegisterUser registerForm, string token) =>
         accountEventProcessingServiceMock
             .Setup(expression: service => service.RaiseSecurityAccountEventRequestAsync(
-accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:request =>
+accountEventRequest: It.Is<SecurityAccountEventRequest>(match: request =>
                     request.Kind == SecurityAccountEventKind.RegistrationCreated
                     && request.User == user
                     && request.RegisterForm == registerForm

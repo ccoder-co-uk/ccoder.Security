@@ -20,7 +20,7 @@ public partial class UserEventProcessingServiceTests
         UserEvent expectedUserEvent = inputUserEvent.DeepClone();
 
         userEventServiceMock.Setup(expression: userEventServiceMock =>
-            userEventServiceMock.AddUserEventAsync(userEvent:inputUserEvent))
+            userEventServiceMock.AddUserEventAsync(userEvent: inputUserEvent))
             .ReturnsAsync(value: expectedUserEvent);
 
         // When

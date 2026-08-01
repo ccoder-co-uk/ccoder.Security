@@ -4,6 +4,7 @@
 
 using cCoder.Security.Brokers.Authentication;
 using cCoder.Security.Dependencies.Sessions;
+using cCoder.Security.Dependencies.Authentication;
 using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Brokers.DateTime;
@@ -39,6 +40,7 @@ using cCoder.Security.Services.Aggregations;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.OData.ModelBuilder;
 using System.Security.Cryptography;
 
@@ -114,6 +116,16 @@ public static class IServiceCollectionExtensions
         SecurityConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(argument: configuration);
+
+        AuthenticationBuilder authenticationBuilder =
+            services.AddAuthentication(configureOptions: options =>
+                options.DefaultChallengeScheme = "Bearer");
+
+        authenticationBuilder.AddScheme<
+                AuthenticationSchemeOptions,
+                SecurityBearerAuthenticationDependency>(
+                    authenticationScheme: "Bearer",
+                    configureOptions: null);
 
         if (!string.IsNullOrWhiteSpace(value: configuration.ConnectionString))
         {

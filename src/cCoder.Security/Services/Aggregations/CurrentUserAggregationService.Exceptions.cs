@@ -14,6 +14,11 @@ internal sealed partial class CurrentUserAggregationService
         {
             return operation();
         }
+        catch (SecurityAuthenticationException innerException)
+        {
+            throw new SecurityAggregationAuthenticationException(
+                innerException: innerException);
+        }
         catch (ArgumentException innerException)
         {
             throw new SecurityAggregationValidationException(innerException: innerException);
