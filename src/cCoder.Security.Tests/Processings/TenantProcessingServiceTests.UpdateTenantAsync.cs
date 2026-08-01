@@ -20,7 +20,7 @@ public partial class TenantProcessingServiceTests
         Tenant expectedTenant = inputTenant.DeepClone();
 
         tenantServiceMock.Setup(expression: tenantServiceMock =>
-            tenantServiceMock.UpdateTenantAsync(tenant: inputTenant))
+            tenantServiceMock.UpdateTenantAsync(tenant:inputTenant))
             .ReturnsAsync(value: expectedTenant);
 
         // When

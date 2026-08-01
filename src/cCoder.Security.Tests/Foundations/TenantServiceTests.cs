@@ -26,7 +26,7 @@ public partial class TenantServiceTests
     }
 
     private Tenant[] RandomTenants() =>
-        Enumerable.Range(start: 1, count: new Random().Next(minValue: 10, maxValue: 20))
+        Enumerable.Range(start: 1, count: new Random().Next(minValue:10, maxValue:20))
             .Select(selector: _ => RandomTenant())
             .ToArray();
 
@@ -40,8 +40,8 @@ public partial class TenantServiceTests
 
         filler.Setup()
             .OnType<DateTimeOffset>()
-            .Use(valueToUse: DateTimeOffset.Now)
-            .OnProperty(property: t => t.Analysis)
+            .Use(valueToUse:DateTimeOffset.Now)
+            .OnProperty(property:t => t.Analysis)
             .IgnoreIt()
             .OnProperty(property: t => t.UserEvents)
             .IgnoreIt()

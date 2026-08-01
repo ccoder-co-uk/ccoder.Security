@@ -28,7 +28,7 @@ public partial class SSOUserProcessingServiceTests
         { user.LockoutEnabled = false; }
 
         ssoUserServiceMock.Setup(expression: ssoUserServiceMock =>
-            ssoUserServiceMock.GetAllSSOUsers(ignoreFilters: true))
+            ssoUserServiceMock.GetAllSSOUsers(ignoreFilters:true))
             .Returns(value: ssoUsersInService);
 
         SSOUser expectedSSOUser = ssoUsersInService.First();
@@ -68,7 +68,7 @@ times: Times.Once);
             .AsQueryable();
 
         ssoUserServiceMock.Setup(expression: ssoUserServiceMock =>
-            ssoUserServiceMock.GetAllSSOUsers(ignoreFilters: true))
+            ssoUserServiceMock.GetAllSSOUsers(ignoreFilters:true))
             .Returns(value: ssoUsersInService);
 
         SSOUser expectedSSOUser = ssoUsersInService.First();

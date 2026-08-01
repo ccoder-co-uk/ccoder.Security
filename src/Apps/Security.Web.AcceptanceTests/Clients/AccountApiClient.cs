@@ -39,10 +39,8 @@ public class AccountApiClient : IDisposable
         api = webApplicationFactory.CreateClient();
 
         if (authenticate)
-        {
-            api.Authenticate(user: "TestUser", pass: "TestPass01!")
-              .Wait();
-        }
+        { api.Authenticate(user: "TestUser", pass: "TestPass01!")
+              .Wait(); }
 
         using IServiceScope scope = webApplicationFactory.Services.CreateScope();
         IServiceProvider scopedServices = scope.ServiceProvider;
