@@ -11,8 +11,19 @@ namespace Security.Web.Controllers;
 public class HomeController(IHomeManager homeManager) : Controller
 {
     [HttpGet]
-    public IActionResult Get() =>
-        PhysicalFile(
-            physicalPath: homeManager.GetIndexPath(),
-            contentType: "text/html");
+    public IActionResult Get()
+    {
+        try
+        {
+            return PhysicalFile(
+                physicalPath: homeManager.GetIndexPath(),
+                contentType: "text/html");
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The home page operation failed.");
+        }
+    }
 }

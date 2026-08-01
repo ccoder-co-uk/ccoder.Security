@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models.Entities;
+using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -15,46 +16,123 @@ public class SSOUserController(ISSOUserManager ssoUserAggregationService)
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
-    public virtual IActionResult Get(ODataQueryOptions<SSOUser> queryOptions) =>
-        Ok(value: ssoUserAggregationService.GetAllSSOUsers());
+    public virtual IActionResult Get(ODataQueryOptions<SSOUser> queryOptions)
+    {
+        try
+        {
+            return Ok(value: ssoUserAggregationService.GetAllSSOUsers());
+        }
+        catch (SecurityAggregationValidationException)
+        {
+            return BadRequest(error: "The user request is invalid.");
+        }
+        catch (SecurityAggregationDependencyException)
+        {
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The security operation failed.");
+        }
+    }
 
     [HttpGet]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]
     public virtual IActionResult Get([FromRoute] string key)
     {
-        IQueryable<SSOUser> result = ssoUserAggregationService
-            .GetAllSSOUsers()
-            .Where(predicate: i => i.Id == key);
+        try
+        {
+            IQueryable<SSOUser> result = ssoUserAggregationService
+                .GetAllSSOUsers()
+                .Where(predicate: user => user.Id == key);
 
-        return result.Any()
-            ? Ok(value: SingleResult.Create(queryable: result))
-            : NotFound();
+            return result.Any()
+                ? Ok(value: SingleResult.Create(queryable: result))
+                : NotFound();
+        }
+        catch (SecurityAggregationValidationException)
+        {
+            return BadRequest(error: "The user request is invalid.");
+        }
+        catch (SecurityAggregationDependencyException)
+        {
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The security operation failed.");
+        }
     }
 
     [HttpPut]
     [EnableQuery]
     public virtual async ValueTask<IActionResult> Put(
         [FromRoute] string key,
-        [FromBody] SSOUser updatedSSOUser) =>
-        ModelState.IsValid
-            ? Get(key: (await ssoUserAggregationService.UpdateSSOUserAsync(
+        [FromBody] SSOUser updatedSSOUser)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(modelState: ModelState);
+            }
+
+            return Ok(value: await ssoUserAggregationService.UpdateSSOUserAsync(
                 username: key,
-                updatedSSOUser: updatedSSOUser)).Id)
-            : BadRequest(modelState: ModelState);
+                updatedSSOUser: updatedSSOUser));
+        }
+        catch (SecurityAggregationValidationException)
+        {
+            return BadRequest(error: "The user request is invalid.");
+        }
+        catch (SecurityAggregationDependencyException)
+        {
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The security operation failed.");
+        }
+    }
 
     [HttpDelete]
     public virtual async ValueTask<IActionResult> Delete([FromRoute] string key, string reference = null)
     {
-        SSOUser origentity = ssoUserAggregationService
-            .GetAllSSOUsers()
-            .FirstOrDefault(predicate: i => i.Id == key);
+        try
+        {
+            SSOUser originalUser = ssoUserAggregationService
+                .GetAllSSOUsers()
+                .FirstOrDefault(predicate: user => user.Id == key);
 
-        if (origentity == null)
-        { return NotFound(); }
+            if (originalUser is null)
+            {
+                return NotFound();
+            }
 
-        await ssoUserAggregationService.DeleteSSOUserAsync(
-            deletedSSOUser: origentity);
+            await ssoUserAggregationService.DeleteSSOUserAsync(
+                deletedSSOUser: originalUser);
 
-        return Ok();
+            return NoContent();
+        }
+        catch (SecurityAggregationValidationException)
+        {
+            return BadRequest(error: "The user request is invalid.");
+        }
+        catch (SecurityAggregationDependencyException)
+        {
+            return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The security operation failed.");
+        }
     }
 }

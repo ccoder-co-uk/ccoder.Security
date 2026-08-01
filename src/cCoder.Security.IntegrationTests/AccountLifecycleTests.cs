@@ -3,13 +3,10 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Data.EF;
-using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -18,7 +15,7 @@ using Xunit;
 namespace cCoder.Security.IntegrationTests;
 
 [Collection(nameof(AllTestsCollection))]
-public partial class AccountLifecycleTests : IDisposable
+public partial class AccountLifecycleTests
 {
     private const string DefaultPassword = "TestPass01!";
     private const string UpdatedPassword = "ChangedPass01!";
@@ -28,76 +25,18 @@ public partial class AccountLifecycleTests : IDisposable
         PropertyNameCaseInsensitive = true
     };
 
-    private readonly string previousConnectionString;
-    private readonly string previousDecryptionKey;
-    private readonly WebApplicationFactory<AcceptanceHost> webApplicationFactory;
+    private readonly AccountLifecycleFixture fixture;
     private readonly HttpClient api;
 
-    public AccountLifecycleTests()
+    public AccountLifecycleTests(AccountLifecycleFixture fixture)
     {
-        IntegrationTestConfiguration configuration =
-            IntegrationTestConfiguration.Load();
-
-        Environment.SetEnvironmentVariable(
-            variable:
-                IntegrationTestConfiguration
-                    .ConnectionStringVariableName,
-            value: configuration.AcceptanceConnectionString);
-
-        previousConnectionString =
-            configuration.ProcessConnectionString;
-
-        Environment.SetEnvironmentVariable(
-            variable:
-                IntegrationTestConfiguration
-                    .DecryptionKeyVariableName,
-            value: configuration.DecryptionKey);
-
-        previousDecryptionKey =
-            configuration.ProcessDecryptionKey;
-
-        webApplicationFactory = new WebApplicationFactory<AcceptanceHost>();
-
-        api = webApplicationFactory.CreateClient(options: new WebApplicationFactoryClientOptions
-        {
-            BaseAddress = new Uri("https://localhost")
-        });
-    }
-
-    public void Dispose()
-    {
-        using SecurityDbContext database = CreateSecurityDbContext();
-
-        database.Database.EnsureDeleted();
-        api.Dispose();
-        webApplicationFactory.Dispose();
-
-        Environment.SetEnvironmentVariable(
-            variable:
-                IntegrationTestConfiguration
-                    .ConnectionStringVariableName,
-            value: string.IsNullOrEmpty(
-                value: previousConnectionString)
-                ? null
-                : previousConnectionString);
-
-        Environment.SetEnvironmentVariable(
-            variable:
-                IntegrationTestConfiguration
-                    .DecryptionKeyVariableName,
-            value: string.IsNullOrEmpty(
-                value: previousDecryptionKey)
-                ? null
-                : previousDecryptionKey);
+        this.fixture = fixture;
+        api = fixture.Api;
     }
 
     private SecurityDbContext CreateSecurityDbContext()
     {
-        using IServiceScope scope = webApplicationFactory.Services.CreateScope();
-
-        return scope.ServiceProvider
-            .GetRequiredService<ISecurityDbContextFactory>()
-            .CreateDbContext(ignoreAuthInfo: true);
+        return fixture.CreateSecurityDbContext();
     }
 
     private static RegisterUser CreateRegisterUser(string name, string password = DefaultPassword) =>
@@ -120,6 +59,11 @@ public partial class AccountLifecycleTests : IDisposable
     private async ValueTask<(SSOUser User, string Token)> RegisterAsync(RegisterUser user)
     {
         HttpResponseMessage response = await api.PostAsJsonAsync(requestUri: "/Api/Account/Register", value: user);
+
+        response.StatusCode
+            .Should()
+            .Be(expected: HttpStatusCode.Created);
+
         response.EnsureSuccessStatusCode();
 
         return await ReadUserTokenResultAsync(response: response);
@@ -128,6 +72,11 @@ public partial class AccountLifecycleTests : IDisposable
     private async ValueTask<(SSOUser User, string Token)> InviteAsync(RegisterUser user)
     {
         HttpResponseMessage response = await api.PostAsJsonAsync(requestUri: "/Api/Account/Invite", value: user);
+
+        response.StatusCode
+            .Should()
+            .Be(expected: HttpStatusCode.Created);
+
         response.EnsureSuccessStatusCode();
 
         return await ReadUserTokenResultAsync(response: response);
@@ -214,6 +163,9 @@ value: request);
 
         response.IsSuccessStatusCode.Should()
             .BeFalse();
+
+        response.StatusCode.Should()
+            .Be(expected: HttpStatusCode.Unauthorized);
     }
 
     private Token FindToken(string userId, TokenUse tokenUse)

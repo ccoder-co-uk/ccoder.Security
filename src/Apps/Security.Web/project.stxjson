@@ -1,60 +1,235 @@
 {
+  "SchemaVersion": 2,
+  "Project": {
+    "Id": "Security.Web",
+    "Name": "Security.Web",
+    "AssemblyName": "Security.Web"
+  },
   "Classes": [
     {
       "Name": "Security.Web.Controllers.CurrentUserController",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "HttpExposure",
+      "LineNumber": 10,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "Security.Web:Controller",
+        "FullName": "Controller",
+        "Name": "Controller",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "Security.Web",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Security.Web.Controllers.CurrentUserController.Get()",
           "Name": "Get",
+          "LineNumber": 16,
           "Inputs": [],
-          "ReturnType": "IActionResult"
+          "ReturnType": "IActionResult",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "Security.Web.Exposures.ICurrentUserManager",
+              "MethodName": "GetCurrentUserId",
+              "MethodId": "Security.Web.Exposures.ICurrentUserManager.GetCurrentUserId()",
+              "StandardElementType": "Exposure",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [
+            "GET"
+          ],
+          "HttpResponses": [
+            {
+              "StatusCode": 200,
+              "ResultMethod": "Ok",
+              "ExceptionType": "",
+              "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false
+            }
+          ],
+          "IsHttpRequestHandler": true,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": true
         }
       ]
     },
     {
       "Name": "Security.Web.Controllers.HomeController",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "HttpExposure",
+      "LineNumber": 10,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "Security.Web:Controller",
+        "FullName": "Controller",
+        "Name": "Controller",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "Security.Web",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Security.Web.Controllers.HomeController.Get()",
           "Name": "Get",
+          "LineNumber": 14,
           "Inputs": [],
-          "ReturnType": "IActionResult"
+          "ReturnType": "IActionResult",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "Security.Web.Exposures.IHomeManager",
+              "MethodName": "GetIndexPath",
+              "MethodId": "Security.Web.Exposures.IHomeManager.GetIndexPath()",
+              "StandardElementType": "Exposure",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [
+            "GET"
+          ],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": true,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": true
         }
       ]
     },
     {
       "Name": "Security.Web.Exposures.CurrentUserManager",
       "StandardElementType": "Exposure",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Security.Web:Security.Web.Exposures.ICurrentUserManager",
+          "FullName": "Security.Web.Exposures.ICurrentUserManager",
+          "Name": "ICurrentUserManager",
+          "Namespace": "Security.Web.Exposures",
+          "AssemblyName": "Security.Web",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Security.Web.Exposures.CurrentUserManager.GetCurrentUserId()",
           "Name": "GetCurrentUserId",
+          "LineNumber": 14,
           "Inputs": [],
-          "ReturnType": "System.String"
+          "ReturnType": "System.String",
+          "Implements": [
+            "Security.Web.Exposures.ICurrentUserManager.GetCurrentUserId()"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "Security.Web.Exposures.HomeManager",
       "StandardElementType": "Exposure",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Security.Web:Security.Web.Exposures.IHomeManager",
+          "FullName": "Security.Web.Exposures.IHomeManager",
+          "Name": "IHomeManager",
+          "Namespace": "Security.Web.Exposures",
+          "AssemblyName": "Security.Web",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Security.Web.Exposures.HomeManager.GetIndexPath()",
           "Name": "GetIndexPath",
+          "LineNumber": 11,
           "Inputs": [],
-          "ReturnType": "System.String"
+          "ReturnType": "System.String",
+          "Implements": [
+            "Security.Web.Exposures.IHomeManager.GetIndexPath()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.IO.Path",
+              "MethodName": "Combine",
+              "MethodId": "System.IO.Path.Combine(System.String,System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "Security.Web.IServiceCollectionExtensions",
       "StandardElementType": "App",
+      "LineNumber": 12,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Security.Web.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,IConfiguration,System.Action\u003CSecurity.Web.Models.SecurityWebConfiguration\u003E)",
           "Name": "AddSecurityWeb",
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "services",
@@ -69,13 +244,46 @@
               "Type": "System.Action\u003CSecurity.Web.Models.SecurityWebConfiguration\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "Security.Web.IServiceCollectionExtensions",
+              "MethodName": "AddSecurityWeb",
+              "MethodId": "Security.Web.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,IConfiguration,System.Action\u003CSecurity.Web.Models.SecurityWebConfiguration\u003E)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "System.Action\u003CT\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Action\u003CT\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "Security.Web.Models.SecurityWebConfiguration",
       "StandardElementType": "Model",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Security",
@@ -87,54 +295,206 @@
     {
       "Name": "Security.Web.Program",
       "StandardElementType": "App",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Security.Web.Program.Main(System.String[])",
           "Name": "Main",
+          "LineNumber": 9,
           "Inputs": [
             {
               "Name": "args",
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "Security.Web.WebApplicationExtensions",
+              "MethodName": "UseSecurityWebApplication",
+              "MethodId": "Security.Web.WebApplicationExtensions.UseSecurityWebApplication(WebApplication)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "Security.Web.WebApplicationExtensions",
       "StandardElementType": "App",
+      "LineNumber": 14,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Security.Web.WebApplicationExtensions.InitialiseSecurityDatabase(WebApplication)",
           "Name": "InitialiseSecurityDatabase",
+          "LineNumber": 30,
           "Inputs": [
             {
               "Name": "app",
               "Type": "WebApplication"
             }
           ],
-          "ReturnType": "WebApplication"
+          "ReturnType": "WebApplication",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "Security.Web.WebApplicationExtensions.UseSecurityWebApplication(WebApplication)",
           "Name": "UseSecurityWebApplication",
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "app",
               "Type": "WebApplication"
             }
           ],
-          "ReturnType": "IApplicationBuilder"
+          "ReturnType": "IApplicationBuilder",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "Security.Web.WebApplicationExtensions",
+              "MethodName": "InitialiseSecurityDatabase",
+              "MethodId": "Security.Web.WebApplicationExtensions.InitialiseSecurityDatabase(WebApplication)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "Security.Web.WebApplicationExtensions.UseTheFramework(IApplicationBuilder)",
           "Name": "UseTheFramework",
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "app",
               "Type": "IApplicationBuilder"
             }
           ],
-          "ReturnType": "IApplicationBuilder"
+          "ReturnType": "IApplicationBuilder",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    }
+  ],
+  "Interfaces": [
+    {
+      "Name": "Security.Web.Exposures.ICurrentUserManager",
+      "StandardElementType": "Exposure",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "Security.Web.Exposures.ICurrentUserManager.GetCurrentUserId()",
+          "Name": "GetCurrentUserId",
+          "LineNumber": 9,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Exposures.IHomeManager",
+      "StandardElementType": "Exposure",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "Security.Web.Exposures.IHomeManager.GetIndexPath()",
+          "Name": "GetIndexPath",
+          "LineNumber": 9,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     }
@@ -149,5 +509,20 @@
       "ToType": "Security.Web.Exposures.HomeManager"
     }
   ],
-  "AnalysisItems": []
+  "AnalysisItems": [
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Controllers.CurrentUserController",
+      "LineNumber": 16
+    },
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
+      "Type": "Security.Web.Controllers.HomeController",
+      "LineNumber": 14
+    }
+  ]
 }
