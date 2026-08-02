@@ -4,6 +4,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.1.1820" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.1.1857" />
   </ItemGroup>
 </Project>
