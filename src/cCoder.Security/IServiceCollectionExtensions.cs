@@ -187,6 +187,9 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();
         services.AddTransient<ISSOAuthorizationBroker, SSOAuthorizationBroker>();
         services.AddTransient<IAuthorizationService, AuthorizationService>();
+        services.AddTransient<
+            IApiMetadataAuthorizationManager,
+            AuthorizationService>();
         services.AddTransient<IAuthorizationProcessingService, AuthorizationProcessingService>();
         services.AddTransient<IRequestService, RequestService>();
         services.AddTransient<IRequestProcessingService, RequestProcessingService>();

@@ -231,7 +231,7 @@ times: Times.Once);
 expression: x => x.AddSSORoleAsync(item: It.Is<SSORole>(match:role =>
                 role.Name == "Tenant Two Admins"
                 && !role.UsersArePortalAdmins
-                && role.Privs == "tenant_read,tenant_admin")),
+                && role.Privs == "api_metadata_read,tenant_read,tenant_admin")),
 times: Times.Once);
 
         userRoleProcessingServiceMock.Verify(
