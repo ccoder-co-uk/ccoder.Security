@@ -24,6 +24,20 @@ internal sealed partial class AuthorizationService(
             };
         });
 
+    public void EnsureUserCanReadApiMetadata() =>
+        TryCatch(operation: () =>
+        {
+            const string privilege = "api_metadata_read";
+
+            ValidatePrivilegeOnEnsure(
+                privilege: privilege,
+                tenantId: null);
+
+            authorizationBroker.UserHasPrivilege(
+                privilege: privilege,
+                tenantId: null);
+        });
+
     public void EnsureUserHasPrivilege(string privilege, string tenantId = null) =>
         TryCatch(operation: () =>
         {

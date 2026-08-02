@@ -10,6 +10,7 @@ namespace cCoder.Security.Data.EF;
 public partial class SecurityDbContext : DbContext
 {
     readonly IEnumerable<SSOPrivilege> privileges = [
+        Privilege(id:"api_metadata_read", type:"ApiMetadata", operation:"Read", description:"Allows users to read API metadata."),
         Privilege(id:"security_admin", type:"Security", operation:"Admin", description:"Allows users to grant and administer security privileges.", portalAdminsOnly:true),
         Privilege(id:"tenant_create", type:"Tenant", operation:"Create", description:"Allows users to create tenants.", portalAdminsOnly:true),
         Privilege(id:"tenant_read", type:"Tenant", operation:"Read", description:"Allows users to read tenants."),

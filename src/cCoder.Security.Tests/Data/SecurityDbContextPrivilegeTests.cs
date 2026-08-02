@@ -25,6 +25,7 @@ public partial class SecurityDbContextPrivilegeTests
 
         string[] expectedPrivilegeIds =
         [
+            "api_metadata_read",
             "security_admin",
             "tenant_create",
             "tenant_read",

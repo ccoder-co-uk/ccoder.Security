@@ -3,10 +3,12 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models;
+using cCoder.Security.Exposures;
 
 namespace cCoder.Security.Services.Foundations.Interfaces;
 
 internal interface IAuthorizationService
+    : IApiMetadataAuthorizationManager
 {
     AuthorizationContext GetAuthorizationContext();
 
