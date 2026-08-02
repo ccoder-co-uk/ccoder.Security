@@ -258,17 +258,14 @@ public static class IServiceCollectionExtensions
 
     private static void AddExposures(this IServiceCollection services)
     {
-        services.AddTransient(implementationFactory: async provider =>
-            await provider
-                .GetRequiredService<ISSOAuthInfoAggregationService>()
-                .GetSSOAuthInfoAsync());
+        services.AddScoped(implementationFactory: _ =>
+            new SSOAuthInfo
+            {
+                SSOUserId = "Guest"
+            });
 
-        services.AddTransient(implementationFactory: provider =>
-        {
-            Task<ISSOAuthInfo> authInfoTask = provider.GetRequiredService<Task<ISSOAuthInfo>>();
-            authInfoTask.Wait();
-            return authInfoTask.Result;
-        });
+        services.AddScoped<ISSOAuthInfo>(implementationFactory: provider =>
+            provider.GetRequiredService<SSOAuthInfo>());
 
         services.AddTransient<ITokenManager, TokenManager>();
         services.AddTransient<ITenantManager, TenantManager>();

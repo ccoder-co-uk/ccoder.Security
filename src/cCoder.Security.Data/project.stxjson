@@ -74,7 +74,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleDecryptWithPassword",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -143,7 +143,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleDecryptWithPassword",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -212,7 +212,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleEncryptWithPassword",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -281,7 +281,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleEncryptWithPassword",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -307,7 +307,7 @@
     },
     {
       "Name": "cCoder.Security.Data.Dependencies.AesThenHmac",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 20,
       "IsPublic": false,
       "Kind": "Class",
@@ -557,7 +557,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleDecrypt",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -639,7 +639,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleDecrypt",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -714,7 +714,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleDecryptWithPassword",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -928,7 +928,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleEncrypt",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -1010,7 +1010,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleEncrypt",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -1085,7 +1085,7 @@
               "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
               "MethodName": "SimpleEncryptWithPassword",
               "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -1111,7 +1111,7 @@
     },
     {
       "Name": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
@@ -1201,7 +1201,7 @@
               "TypeName": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
               "MethodName": "CreateDbContext",
               "MethodId": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory.CreateDbContext(System.Boolean)",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -1768,7 +1768,7 @@
         {
           "Id": "cCoder.Security.Data.EF.SecurityDbContext.GetPrivileges()",
           "Name": "GetPrivileges",
-          "LineNumber": 28,
+          "LineNumber": 29,
           "Inputs": [],
           "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E",
           "Implements": [],
@@ -1943,6 +1943,26 @@
           "HasTryCatch": false
         }
       ]
+    },
+    {
+      "Name": "cCoder.Security.Data.Migrations.AddApiMetadataPrivilege",
+      "StandardElementType": "Dependency",
+      "LineNumber": 8,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Security.Data:Migration",
+        "FullName": "Migration",
+        "Name": "Migration",
+        "Namespace": "\u003Cglobal namespace\u003E",
+        "AssemblyName": "cCoder.Security.Data",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
     },
     {
       "Name": "cCoder.Security.Data.Models.SetupDetails",
@@ -2648,6 +2668,10 @@
       "BaseType": null,
       "Interfaces": [],
       "Properties": [
+        {
+          "Name": "ActorUserId",
+          "Type": "System.String"
+        },
         {
           "Name": "Culture",
           "Type": "System.String"
