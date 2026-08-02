@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Exposures.EventHandlers;
+using cCoder.Security.Models.Configurations;
+using cCoder.Security.Services.Aggregations.Interfaces;
 
 namespace cCoder.Security;
 
@@ -17,7 +19,26 @@ public static class WebApplicationExtensions
     public static WebApplication UseSecurityExposure(this WebApplication app, ILogger log = null)
     {
         log?.LogInformation(message: "Initialising Security");
+        app.Use(middleware: ResolveAuthenticationAsync);
         return app;
+    }
+
+    private static async Task ResolveAuthenticationAsync(
+        HttpContext context,
+        RequestDelegate next)
+    {
+        SSOAuthInfo requestAuthInfo = context.RequestServices
+            .GetRequiredService<SSOAuthInfo>();
+
+        ISSOAuthInfo resolvedAuthInfo = await context.RequestServices
+            .GetRequiredService<ISSOAuthInfoAggregationService>()
+            .GetSSOAuthInfoAsync();
+
+        requestAuthInfo.SSOUserId = resolvedAuthInfo.SSOUserId;
+        requestAuthInfo.AuthenticationFailed =
+            resolvedAuthInfo.AuthenticationFailed;
+
+        await next(context: context);
     }
 
     public static WebApplication ListenToSecurityEvents(this WebApplication app)

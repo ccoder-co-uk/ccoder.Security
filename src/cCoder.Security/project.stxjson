@@ -2912,7 +2912,7 @@
     },
     {
       "Name": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 14,
       "IsPublic": true,
       "Kind": "Class",
@@ -2944,7 +2944,7 @@
     },
     {
       "Name": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 16,
       "IsPublic": false,
       "Kind": "Class",
@@ -3073,7 +3073,7 @@
               "TypeName": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
               "MethodName": "VerifyHashedPassword",
               "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
-              "StandardElementType": "Unknown",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -3407,7 +3407,7 @@
     },
     {
       "Name": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
@@ -7510,7 +7510,7 @@
         {
           "Id": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService.ChangePasswordAsync(System.String,System.String,System.String)",
           "Name": "ChangePasswordAsync",
-          "LineNumber": 49,
+          "LineNumber": 57,
           "Inputs": [
             {
               "Name": "username",
@@ -7567,7 +7567,7 @@
         {
           "Id": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService.ConfirmForgotPasswordAsync(System.String,System.String,System.String,System.String)",
           "Name": "ConfirmForgotPasswordAsync",
-          "LineNumber": 74,
+          "LineNumber": 82,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -7627,7 +7627,7 @@
         {
           "Id": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService.ForgotPasswordAsync(System.String)",
           "Name": "ForgotPasswordAsync",
-          "LineNumber": 66,
+          "LineNumber": 74,
           "Inputs": [
             {
               "Name": "email",
@@ -7691,6 +7691,13 @@
           ],
           "Calls": [
             {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.ISSOUserProcessingService",
+              "MethodName": "FindById",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.ISSOUserProcessingService.FindById(System.String)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            },
+            {
               "TypeName": "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService",
               "MethodName": "AddTokenForUserIdAsync",
               "MethodId": "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.AddTokenForUserIdAsync(System.String,cCoder.Security.Models.Entities.TokenUse)",
@@ -7731,7 +7738,7 @@
         {
           "Id": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService.LoginAsync(System.String,System.String)",
           "Name": "LoginAsync",
-          "LineNumber": 31,
+          "LineNumber": 39,
           "Inputs": [
             {
               "Name": "username",
@@ -7784,7 +7791,7 @@
         {
           "Id": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService.LogoutAsync()",
           "Name": "LogoutAsync",
-          "LineNumber": 41,
+          "LineNumber": 49,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask",
           "Implements": [
@@ -8739,9 +8746,49 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Security.Services.Foundations.AuthorizationService.EnsureUserCanReadApiMetadata()",
+          "Name": "EnsureUserCanReadApiMetadata",
+          "LineNumber": 27,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.IApiMetadataAuthorizationManager.EnsureUserCanReadApiMetadata()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker",
+              "MethodName": "UserHasPrivilege",
+              "MethodId": "cCoder.Security.Brokers.Encryption.Interfaces.ISSOAuthorizationBroker.UserHasPrivilege(System.String,System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Security.Services.Foundations.AuthorizationService.EnsureUserHasPrivilege(System.String,System.String)",
           "Name": "EnsureUserHasPrivilege",
-          "LineNumber": 27,
+          "LineNumber": 41,
           "Inputs": [
             {
               "Name": "privilege",
@@ -8790,7 +8837,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.AuthorizationService.EnsureUserIsPortalAdminWithPrivilege(System.String)",
           "Name": "EnsureUserIsPortalAdminWithPrivilege",
-          "LineNumber": 37,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "privilege",
@@ -8918,13 +8965,6 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Brokers.Authentication.IAuthenticationContextBroker",
-              "MethodName": "GetSSOUserId",
-              "MethodId": "cCoder.Security.Brokers.Authentication.IAuthenticationContextBroker.GetSSOUserId()",
-              "StandardElementType": "Broker",
-              "IsDependencyBoundary": false
-            },
-            {
               "TypeName": "cCoder.Security.Brokers.Events.IAccountEventBroker",
               "MethodName": "RaiseAccountEventAsync",
               "MethodId": "cCoder.Security.Brokers.Events.IAccountEventBroker.RaiseAccountEventAsync(System.String,EventMessage\u003CcCoder.Security.Models.Events.SecurityAccountEvent\u003E)",
@@ -8966,7 +9006,7 @@
     {
       "Name": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 11,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -8987,13 +9027,20 @@
         {
           "Id": "cCoder.Security.Services.Foundations.Events.EventHandlerService.ListenToAllEvents()",
           "Name": "ListenToAllEvents",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "System.Void",
           "Implements": [
             "cCoder.Security.Services.Foundations.Events.IEventHandlerService.ListenToAllEvents()"
           ],
           "Calls": [
+            {
+              "TypeName": "System.Enum",
+              "MethodName": "GetValues",
+              "MethodId": "System.Enum.GetValues()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
               "MethodName": "ListenToEvent",
@@ -9007,6 +9054,13 @@
               "MethodId": "cCoder.Security.Exposures.ITenantManager.SetupAsync(cCoder.Security.Data.Models.SetupDetails)",
               "StandardElementType": "Exposure",
               "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions",
+              "MethodName": "ToEventName",
+              "MethodId": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions.ToEventName(cCoder.Security.Models.Events.SecurityAccountEventKind)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             }
           ],
           "PossibleExceptionTypes": [
@@ -9027,6 +9081,7 @@
           "IncomingExceptionTypes": [
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
             "cCoder.Security.Models.Exceptions.SecurityServiceException"
           ],
           "ThrowsExceptionTypes": [
@@ -14443,7 +14498,7 @@
     {
       "Name": "cCoder.Security.WebApplicationExtensions",
       "StandardElementType": "App",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -14453,7 +14508,7 @@
         {
           "Id": "cCoder.Security.WebApplicationExtensions.ListenToSecurityEvents(WebApplication)",
           "Name": "ListenToSecurityEvents",
-          "LineNumber": 23,
+          "LineNumber": 44,
           "Inputs": [
             {
               "Name": "app",
@@ -14504,7 +14559,7 @@
         {
           "Id": "cCoder.Security.WebApplicationExtensions.StartSecurityHostedServices(WebApplication)",
           "Name": "StartSecurityHostedServices",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "app",
@@ -14555,7 +14610,7 @@
         {
           "Id": "cCoder.Security.WebApplicationExtensions.StartSecurityWeb(WebApplication,ILogger)",
           "Name": "StartSecurityWeb",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "app",
@@ -14592,7 +14647,7 @@
         {
           "Id": "cCoder.Security.WebApplicationExtensions.UseSecurityExposure(WebApplication,ILogger)",
           "Name": "UseSecurityExposure",
-          "LineNumber": 17,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "app",
@@ -16756,6 +16811,38 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Exposures.IApiMetadataAuthorizationManager",
+      "StandardElementType": "Exposure",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.IApiMetadataAuthorizationManager.EnsureUserCanReadApiMetadata()",
+          "Name": "EnsureUserCanReadApiMetadata",
+          "LineNumber": 9,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Exposures.IAuthenticationManager",
       "StandardElementType": "Exposure",
       "LineNumber": 9,
@@ -18074,17 +18161,28 @@
     {
       "Name": "cCoder.Security.Services.Foundations.Interfaces.IAuthorizationService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IApiMetadataAuthorizationManager",
+          "FullName": "cCoder.Security.Exposures.IApiMetadataAuthorizationManager",
+          "Name": "IApiMetadataAuthorizationManager",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Services.Foundations.Interfaces.IAuthorizationService.EnsureUserHasPrivilege(System.String,System.String)",
           "Name": "EnsureUserHasPrivilege",
-          "LineNumber": 13,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "privilege",
@@ -18113,7 +18211,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.Interfaces.IAuthorizationService.EnsureUserIsPortalAdminWithPrivilege(System.String)",
           "Name": "EnsureUserIsPortalAdminWithPrivilege",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "privilege",
@@ -18138,7 +18236,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.Interfaces.IAuthorizationService.GetAuthorizationContext()",
           "Name": "GetAuthorizationContext",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [],
           "ReturnType": "cCoder.Security.Models.AuthorizationContext",
           "Implements": [],

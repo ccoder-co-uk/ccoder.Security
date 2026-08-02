@@ -20,6 +20,14 @@ public static class SecurityAccountEventKindExtensions
                 "security_account_invitation_accepted",
             SecurityAccountEventKind.PasswordResetRequested =>
                 "security_account_password_reset_requested",
+            SecurityAccountEventKind.TokenIssued =>
+                "security_token_issued",
+            SecurityAccountEventKind.LoginSucceeded =>
+                "security_authentication_login_succeeded",
+            SecurityAccountEventKind.LogoutSucceeded =>
+                "security_authentication_logout_succeeded",
+            SecurityAccountEventKind.AuthenticationFailed =>
+                "security_authentication_failed",
             _ => throw new ArgumentOutOfRangeException(
                 paramName: nameof(securityAccountEventKind))
         };

@@ -10,6 +10,8 @@ public class SecurityAccountEvent
 {
     public SecurityAccountEventKind Kind { get; set; }
 
+    public string ActorUserId { get; set; }
+
     public SSOUser User { get; set; }
 
     public Tenant Tenant { get; set; }

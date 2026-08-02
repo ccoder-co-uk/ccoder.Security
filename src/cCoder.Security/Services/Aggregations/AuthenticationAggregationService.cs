@@ -23,9 +23,17 @@ internal sealed partial class AuthenticationAggregationService(
         {
             ValidateTokenOnIssue(userId: userId, tokenUse: tokenUse);
 
-            return await tokenProcessingService.AddTokenForUserIdAsync(
+            Token token = await tokenProcessingService.AddTokenForUserIdAsync(
                 userId: userId,
                 tokenUse: tokenUse);
+
+            SSOUser user = ssoUserProcessingService.FindById(ssoUserId: userId);
+
+            await RaiseAccountEventAsync(
+                kind: SecurityAccountEventKind.TokenIssued,
+                user: user);
+
+            return token;
         });
 
     public ValueTask<Token> LoginAsync(string username, string password) =>
@@ -99,7 +107,13 @@ internal sealed partial class AuthenticationAggregationService(
             .FindByUserAndPasswordAsync(username: username, password: password);
 
         if (user == null)
-        { throw new SecurityException("Access Denied!"); }
+        {
+            await RaiseAccountEventAsync(
+                kind: SecurityAccountEventKind.AuthenticationFailed,
+                user: null);
+
+            throw new SecurityException("Access Denied!");
+        }
 
         sessionProcessingService.SetSSOUser(user: user);
 
@@ -110,14 +124,23 @@ internal sealed partial class AuthenticationAggregationService(
             key: "token",
             value: token.Id);
 
+        await RaiseAccountEventAsync(
+            kind: SecurityAccountEventKind.LoginSucceeded,
+            user: user);
+
         return token;
     }
 
     private async ValueTask LogoutCoreAsync()
     {
+        SSOUser user = sessionProcessingService.GetUser();
         string tokenId = sessionProcessingService.GetString(key: "token");
         await tokenProcessingService.DeleteTokenAsync(tokenId: tokenId);
         sessionProcessingService.Clear();
+
+        await RaiseAccountEventAsync(
+            kind: SecurityAccountEventKind.LogoutSucceeded,
+            user: user);
     }
 
     private async ValueTask ChangePasswordCoreAsync(
@@ -214,5 +237,15 @@ internal sealed partial class AuthenticationAggregationService(
             userId: user.Id,
             tokenUse: TokenUse.Auth);
     }
+
+    private ValueTask RaiseAccountEventAsync(
+        SecurityAccountEventKind kind,
+        SSOUser user) =>
+        accountEventProcessingService.RaiseSecurityAccountEventRequestAsync(
+            accountEventRequest: new SecurityAccountEventRequest
+            {
+                Kind = kind,
+                User = user
+            });
 
 }
