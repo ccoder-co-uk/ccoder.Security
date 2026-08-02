@@ -88,7 +88,7 @@ internal sealed partial class TenantAggregationService(
                 .GetAuthorizationContext()
                 .Privileges
                 .Select(selector: privilege => privilege.Id)]
-            : ["tenant_read", "tenant_admin"];
+            : ["api_metadata_read", "tenant_read", "tenant_admin"];
 
         var role = await roleProcessingService.AddSSORoleAsync(item: new SSORole()
         {
