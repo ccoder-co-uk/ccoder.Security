@@ -10,5 +10,9 @@ public enum SecurityAccountEventKind
     RegistrationConfirmed,
     InvitationCreated,
     InvitationAccepted,
-    PasswordResetRequested
+    PasswordResetRequested,
+    TokenIssued,
+    LoginSucceeded,
+    LogoutSucceeded,
+    AuthenticationFailed
 }

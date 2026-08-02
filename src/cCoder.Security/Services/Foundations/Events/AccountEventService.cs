@@ -28,6 +28,7 @@ internal sealed partial class AccountEventService(
             SecurityAccountEvent accountEvent = new()
             {
                 Kind = accountEventRequest.Kind,
+                ActorUserId = ResolveActorUserId(),
                 User = accountEventRequest.User,
                 Tenant = ResolveTenant(accountEventRequest: accountEventRequest),
                 RequestDomain = ResolveRequestDomain(),
@@ -39,7 +40,7 @@ internal sealed partial class AccountEventService(
             {
                 AuthInfo = new EventAuthInfo
                 {
-                    SSOUserId = authenticationContextBroker.GetSSOUserId()
+                    SSOUserId = accountEvent.ActorUserId
                 },
                 Data = accountEvent
             };
@@ -56,6 +57,18 @@ internal sealed partial class AccountEventService(
         return string.IsNullOrWhiteSpace(value: forwardedHost)
             ? requestBroker.RequestHost()
             : forwardedHost;
+    }
+
+    private string ResolveActorUserId()
+    {
+        string actorUserId = authenticationContextBroker.GetSSOUserId();
+
+        return string.Equals(
+            a: actorUserId,
+            b: "Guest",
+            comparisonType: StringComparison.OrdinalIgnoreCase)
+                ? null
+                : actorUserId;
     }
 
     private Tenant ResolveTenant(SecurityAccountEventRequest accountEventRequest)
