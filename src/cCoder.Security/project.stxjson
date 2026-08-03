@@ -14498,7 +14498,7 @@
     {
       "Name": "cCoder.Security.WebApplicationExtensions",
       "StandardElementType": "App",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -14508,7 +14508,7 @@
         {
           "Id": "cCoder.Security.WebApplicationExtensions.ListenToSecurityEvents(WebApplication)",
           "Name": "ListenToSecurityEvents",
-          "LineNumber": 44,
+          "LineNumber": 64,
           "Inputs": [
             {
               "Name": "app",
@@ -14559,7 +14559,7 @@
         {
           "Id": "cCoder.Security.WebApplicationExtensions.StartSecurityHostedServices(WebApplication)",
           "Name": "StartSecurityHostedServices",
-          "LineNumber": 16,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "app",
@@ -14610,7 +14610,7 @@
         {
           "Id": "cCoder.Security.WebApplicationExtensions.StartSecurityWeb(WebApplication,ILogger)",
           "Name": "StartSecurityWeb",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "app",
@@ -14647,7 +14647,7 @@
         {
           "Id": "cCoder.Security.WebApplicationExtensions.UseSecurityExposure(WebApplication,ILogger)",
           "Name": "UseSecurityExposure",
-          "LineNumber": 19,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "app",
