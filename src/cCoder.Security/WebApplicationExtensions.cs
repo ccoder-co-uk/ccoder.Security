@@ -5,6 +5,7 @@
 using cCoder.Security.Exposures.EventHandlers;
 using cCoder.Security.Models.Configurations;
 using cCoder.Security.Services.Aggregations.Interfaces;
+using System.Security.Claims;
 
 namespace cCoder.Security;
 
@@ -37,6 +38,25 @@ public static class WebApplicationExtensions
         requestAuthInfo.SSOUserId = resolvedAuthInfo.SSOUserId;
         requestAuthInfo.AuthenticationFailed =
             resolvedAuthInfo.AuthenticationFailed;
+
+        if (!requestAuthInfo.AuthenticationFailed
+            && !string.IsNullOrWhiteSpace(requestAuthInfo.SSOUserId)
+            && !string.Equals(
+                requestAuthInfo.SSOUserId,
+                "Guest",
+                StringComparison.OrdinalIgnoreCase))
+        {
+            ClaimsIdentity identity = new(
+                claims:
+                [
+                    new Claim(
+                        type: ClaimTypes.Name,
+                        value: requestAuthInfo.SSOUserId)
+                ],
+                authenticationType: "cCoder.Security");
+
+            context.User = new ClaimsPrincipal(identity);
+        }
 
         await next(context: context);
     }
