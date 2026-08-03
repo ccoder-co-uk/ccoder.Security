@@ -19,6 +19,7 @@ public class AccountApiClient : IDisposable
     private readonly SecurityWebApplicationFactory webApplicationFactory;
     private HttpClient api;
     public SecurityDbContext Database { get; set; }
+    public bool LastLoginIssuedSessionCookie { get; private set; }
 
     private const string endpoint = "Api/Account/";
 
@@ -36,11 +37,14 @@ public class AccountApiClient : IDisposable
     {
         this.webApplicationFactory = webApplicationFactory;
 
-        api = webApplicationFactory.CreateClient();
+        api = webApplicationFactory.CreateClient(
+            options: CreateClientOptions());
 
         if (authenticate)
-        { api.Authenticate(user: "TestUser", pass: "TestPass01!")
-              .Wait(); }
+        {
+            api.Authenticate(user: "TestUser", pass: "TestPass01!")
+              .Wait();
+        }
 
         using IServiceScope scope = webApplicationFactory.Services.CreateScope();
         IServiceProvider scopedServices = scope.ServiceProvider;
@@ -56,7 +60,16 @@ public class AccountApiClient : IDisposable
             authenticate: false);
 
     public HttpClient UseNoCookiesApiClient() =>
-        api = webApplicationFactory.CreateClient(options: new WebApplicationFactoryClientOptions { HandleCookies = false });
+        api = webApplicationFactory.CreateClient(
+            options: CreateClientOptions(handleCookies: false));
+
+    private static WebApplicationFactoryClientOptions CreateClientOptions(
+        bool handleCookies = true) =>
+        new()
+        {
+            BaseAddress = new Uri(uriString: "https://localhost"),
+            HandleCookies = handleCookies
+        };
 
     public void AddBearerAuthentication(string bearer)
     {
@@ -101,6 +114,14 @@ public class AccountApiClient : IDisposable
         StringContent content = new(auth.ToJson(), Encoding.UTF8, "application/json");
         HttpResponseMessage request = await api.PostAsync(requestUri: endpoint + "Login" + query, content: content);
         request.EnsureSuccessStatusCode();
+
+        LastLoginIssuedSessionCookie = request.Headers.TryGetValues(
+            name: "Set-Cookie",
+            values: out IEnumerable<string> cookieHeaders)
+            && cookieHeaders.Any(predicate: value => value.Contains(
+                value: ".AspNetCore.Session",
+                comparisonType: StringComparison.Ordinal));
+
         return await request.Content.ReadTokenAsync();
     }
 
