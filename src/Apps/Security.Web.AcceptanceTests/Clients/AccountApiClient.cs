@@ -37,7 +37,8 @@ public class AccountApiClient : IDisposable
     {
         this.webApplicationFactory = webApplicationFactory;
 
-        api = webApplicationFactory.CreateClient();
+        api = webApplicationFactory.CreateClient(
+            options: CreateClientOptions());
 
         if (authenticate)
         {
@@ -59,7 +60,16 @@ public class AccountApiClient : IDisposable
             authenticate: false);
 
     public HttpClient UseNoCookiesApiClient() =>
-        api = webApplicationFactory.CreateClient(options: new WebApplicationFactoryClientOptions { HandleCookies = false });
+        api = webApplicationFactory.CreateClient(
+            options: CreateClientOptions(handleCookies: false));
+
+    private static WebApplicationFactoryClientOptions CreateClientOptions(
+        bool handleCookies = true) =>
+        new()
+        {
+            BaseAddress = new Uri(uriString: "https://localhost"),
+            HandleCookies = handleCookies
+        };
 
     public void AddBearerAuthentication(string bearer)
     {

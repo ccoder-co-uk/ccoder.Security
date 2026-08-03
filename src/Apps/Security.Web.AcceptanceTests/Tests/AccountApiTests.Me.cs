@@ -31,16 +31,13 @@ public partial class AccountApiTests
         SSOUser existingSSOUser = result.User;
 
         Auth inputAuth = RandomAuth(user: existingRegisterUser);
-        _ = await accountClient.LoginAsync(auth: inputAuth);
+        Token token = await accountClient.LoginAsync(auth: inputAuth);
 
         // When
+        accountClient.AddBearerAuthentication(bearer: token.Id);
         SSOUser actualSSOUser = await accountClient.Me();
 
         // Then
-        accountClient.LastLoginIssuedSessionCookie
-            .Should()
-            .BeTrue();
-
         actualSSOUser.Should()
             .BeEquivalentTo(expectation: existingSSOUser);
 
@@ -63,13 +60,16 @@ public partial class AccountApiTests
         SSOUser existingSSOUser = result.User;
 
         Auth inputAuth = RandomAuth(user: existingRegisterUser);
-        Token token = await accountClient.LoginAsync(auth: inputAuth);
+        _ = await accountClient.LoginAsync(auth: inputAuth);
 
         // When
-        accountClient.AddBearerAuthentication(bearer: token.Id);
         SSOUser actualSSOUser = await accountClient.Me();
 
         // Then
+        accountClient.LastLoginIssuedSessionCookie
+            .Should()
+            .BeTrue();
+
         actualSSOUser.Should()
             .BeEquivalentTo(expectation: existingSSOUser);
 
