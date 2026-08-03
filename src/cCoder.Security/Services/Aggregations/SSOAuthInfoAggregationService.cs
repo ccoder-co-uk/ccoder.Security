@@ -85,7 +85,9 @@ internal sealed partial class SSOAuthInfoAggregationService(
 
         Models.Entities.Token token = tokenService.GetTokenById(tokenId: tokenId);
 
-        if (token == null || token.Reason != (int)TokenUse.Auth)
+        if (token == null
+            || token.Reason != (int)TokenUse.Auth
+            && token.Reason != (int)TokenUse.WorkflowExecution)
         { return null; }
 
         return new SSOAuthInfo { SSOUserId = token.UserName };
