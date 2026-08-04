@@ -1,5 +1,7 @@
 # cCoder.Security
 
+[View the latest code coverage report](https://ccoder-co-uk.github.io/cCoder.Security/)
+
 `cCoder.Security.Data` exposes its supporting persistence services through
 `services.AddSecurityData(configuration.Security)`. The same strongly typed
 `SecurityConfiguration` instance is passed onward to `cCoder.Security`; no
