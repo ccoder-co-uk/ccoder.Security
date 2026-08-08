@@ -210,4 +210,27 @@ public sealed partial class PasswordHashingDependencyTests
             .Should()
             .BeFalse();
     }
+
+    [Theory]
+    [InlineData("$argon2id$v=18$m=19456,t=2,p=1$AA==$AA==")]
+    [InlineData("$argon2id$v=19$m=bad,t=2,p=1$AA==$AA==")]
+    [InlineData("$argon2id$v=19$m=19456,x=2,p=1$AA==$AA==")]
+    [InlineData("$argon2id$v=19$m=19456,t=2,p=1$not-base64$AA==")]
+    [InlineData("$argon2id$v=19$m=0,t=2,p=1$AA==$AA==")]
+    public void ShouldRejectMalformedArgonHashes(string malformedHash)
+    {
+        // Given
+
+        // When
+
+        PasswordVerificationOutcome result = broker.VerifyHashedPassword(
+            hashedPassword: malformedHash,
+            providedPassword: Password);
+
+        // Then
+
+        result
+            .Should()
+            .Be(expected: PasswordVerificationOutcome.Failed);
+    }
 }
