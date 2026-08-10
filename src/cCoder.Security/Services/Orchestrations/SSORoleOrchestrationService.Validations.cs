@@ -16,9 +16,6 @@ internal sealed partial class SSORoleOrchestrationService
         }
     }
 
-    private static void ValidateSSORolesOnGet() =>
-        Validate(inputs: []);
-
     private static void ValidateSSORoleOnAdd(SSORole newSSORole) =>
         Validate(inputs: newSSORole);
 

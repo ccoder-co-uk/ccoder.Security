@@ -30,8 +30,6 @@ internal sealed partial class TenantProcessingService(ITenantService tenantServi
     public IQueryable<Tenant> GetAllTenants() =>
         TryCatch(operation: () =>
         {
-            ValidateTenantsOnGet();
-
             return tenantService.GetAllTenants();
         });
 

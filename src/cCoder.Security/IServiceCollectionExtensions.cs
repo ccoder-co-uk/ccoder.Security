@@ -223,8 +223,7 @@ public static class IServiceCollectionExtensions
     private static void AddProcessings(this IServiceCollection services)
     {
         services.AddTransient<ISSOUserProcessingService, SSOUserProcessingService>();
-        services.AddTransient<ISSOPrivilegeProcessingService, SSOPrivilegeProcessingService>();
-        services.AddTransient<ISSOPrivilegeManager, SSOPrivilegeProcessingService>();
+        services.AddTransient<ISSOPrivilegeManager, SSOPrivilegeService>();
         services.AddTransient<ISSOUserRoleProcessingService, SSOUserRoleProcessingService>();
         services.AddTransient<ISSORoleProcessingService, SSORoleProcessingService>();
         services.AddTransient<ITokenProcessingService, TokenProcessingService>();

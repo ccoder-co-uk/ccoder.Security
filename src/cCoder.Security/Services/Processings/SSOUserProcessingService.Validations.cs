@@ -44,9 +44,6 @@ internal sealed partial class SSOUserProcessingService
     private static void ValidateSSOUserOnUpdate(SSOUser updatedSSOUser) =>
         Validate(inputs: updatedSSOUser);
 
-    private static void ValidateSSOUserOnGetCurrent() =>
-        Validate(inputs: []);
-
     private static void ValidatePasswordInput(string password) =>
         Validate(inputs: password);
 

@@ -17,8 +17,6 @@ internal sealed partial class SSOUserAggregationService(
     public IQueryable<SSOUser> GetAllSSOUsers() =>
         TryCatch(operation: () =>
         {
-            ValidateSSOUsersOnGet();
-
             return ssoUserProcessingService.GetAllSSOUsers();
         });
 

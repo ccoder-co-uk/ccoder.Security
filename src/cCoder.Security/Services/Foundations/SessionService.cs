@@ -43,7 +43,6 @@ internal sealed partial class SessionService(
     public SSOUser GetUser() =>
         TryCatch(operation: () =>
         {
-            ValidateUserOnGet();
             string userJson = sessionBroker.GetString(key: "ssoUser");
 
             return !string.IsNullOrEmpty(value: userJson)

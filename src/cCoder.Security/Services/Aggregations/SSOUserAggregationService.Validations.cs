@@ -16,9 +16,6 @@ internal sealed partial class SSOUserAggregationService
         }
     }
 
-    private static void ValidateSSOUsersOnGet() =>
-        Validate(inputs: []);
-
     private static void ValidateSSOUserOnUpdate(
         string username,
         SSOUser updatedSSOUser) =>

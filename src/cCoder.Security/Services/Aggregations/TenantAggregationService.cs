@@ -22,8 +22,6 @@ internal sealed partial class TenantAggregationService(
     public IQueryable<Tenant> GetAllTenants() =>
         TryCatch(operation: () =>
         {
-            ValidateTenantsOnGet();
-
             return GetAllTenantsCore();
         });
 

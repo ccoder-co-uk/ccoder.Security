@@ -151,8 +151,6 @@ internal sealed partial class SSOUserProcessingService(
     public SSOUser Me() =>
         TryCatch(operation: () =>
         {
-            ValidateSSOUserOnGetCurrent();
-
             return ssoUserService.Me();
         });
 

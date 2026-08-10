@@ -2,33 +2,38 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Models.Exceptions;
+using cCoder.Security.Models;
+using cCoder.Security.Services.Foundations.Interfaces;
+using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Processings;
 
-internal sealed partial class SSOPrivilegeProcessingService
+internal sealed partial class AuthorizationProcessingService(
+    IAuthorizationService authorizationService)
+        : IAuthorizationProcessingService
 {
-    private static T TryCatch<T>(Func<T> operation)
-    {
-        try
+    public AuthorizationContext GetAuthorizationContext() =>
+        TryCatch(operation: () =>
         {
-            return operation();
-        }
-        catch (ArgumentException innerException)
+            return authorizationService.GetAuthorizationContext();
+        });
+
+    public void EnsureUserHasPrivilege(string privilege, string tenantId = null) =>
+        TryCatch(operation: () =>
         {
-            throw new SecurityProcessingValidationException(innerException: innerException);
-        }
-        catch (SecurityValidationException innerException)
+            ValidatePrivilegeOnEnsure(privilege: privilege, tenantId: tenantId);
+
+            authorizationService.EnsureUserHasPrivilege(
+                privilege: privilege,
+                tenantId: tenantId);
+        });
+
+    public void EnsureUserIsPortalAdminWithPrivilege(string privilege) =>
+        TryCatch(operation: () =>
         {
-            throw new SecurityProcessingValidationException(innerException: innerException);
-        }
-        catch (SecurityDependencyException innerException)
-        {
-            throw new SecurityProcessingDependencyException(innerException: innerException);
-        }
-        catch (Exception innerException)
-        {
-            throw new SecurityProcessingServiceException(innerException: innerException);
-        }
-    }
+            ValidatePortalPrivilegeOnEnsure(privilege: privilege);
+
+            authorizationService.EnsureUserIsPortalAdminWithPrivilege(
+                privilege: privilege);
+        });
 }

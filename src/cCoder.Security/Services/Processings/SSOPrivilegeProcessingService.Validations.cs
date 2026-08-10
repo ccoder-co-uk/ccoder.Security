@@ -2,19 +2,38 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Security.Models;
+using cCoder.Security.Services.Foundations.Interfaces;
+using cCoder.Security.Services.Processings.Interfaces;
 
 namespace cCoder.Security.Services.Processings;
 
-internal sealed partial class SSOPrivilegeProcessingService
+internal sealed partial class AuthorizationProcessingService(
+    IAuthorizationService authorizationService)
+        : IAuthorizationProcessingService
 {
-    private static void Validate(params object[] inputs)
-    {
-        if (inputs.Any(predicate: input => input is null))
+    public AuthorizationContext GetAuthorizationContext() =>
+        TryCatch(operation: () =>
         {
-            throw new ArgumentNullException(nameof(inputs));
-        }
-    }
+            return authorizationService.GetAuthorizationContext();
+        });
 
-    private static void ValidateSSOPrivilegesOnGet() =>
-        Validate(inputs: []);
+    public void EnsureUserHasPrivilege(string privilege, string tenantId = null) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePrivilegeOnEnsure(privilege: privilege, tenantId: tenantId);
+
+            authorizationService.EnsureUserHasPrivilege(
+                privilege: privilege,
+                tenantId: tenantId);
+        });
+
+    public void EnsureUserIsPortalAdminWithPrivilege(string privilege) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePortalPrivilegeOnEnsure(privilege: privilege);
+
+            authorizationService.EnsureUserIsPortalAdminWithPrivilege(
+                privilege: privilege);
+        });
 }

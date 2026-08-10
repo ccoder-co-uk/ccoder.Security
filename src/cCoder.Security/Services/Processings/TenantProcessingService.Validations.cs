@@ -22,9 +22,6 @@ internal sealed partial class TenantProcessingService
     private static void ValidateTenantOnDelete(Tenant deletedTenant) =>
         Validate(inputs: deletedTenant);
 
-    private static void ValidateTenantsOnGet() =>
-        Validate(inputs: []);
-
     private static void ValidateTenantOnUpdate(Tenant updatedTenant) =>
         Validate(inputs: updatedTenant);
 }

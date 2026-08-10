@@ -19,9 +19,6 @@ internal sealed partial class SessionProcessingService
     private static void ValidateStringOnGet(string key) =>
         Validate(inputs: key);
 
-    private static void ValidateUserOnGet() =>
-        Validate(inputs: []);
-
     private static void ValidateStringOnSet(string key, string value)
     {
         Validate(inputs: key);
@@ -38,15 +35,9 @@ internal sealed partial class SessionProcessingService
         {
             Validate(inputs: user);
         }
-        else
-        {
-            Validate(inputs: []);
-        }
     }
 
     private static void ValidateSessionOnRemove(string key) =>
         Validate(inputs: key);
 
-    private static void ValidateSessionOnClear() =>
-        Validate(inputs: []);
 }

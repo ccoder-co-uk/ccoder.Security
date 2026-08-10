@@ -16,9 +16,6 @@ internal sealed partial class SSOUserRoleProcessingService
         }
     }
 
-    private static void ValidateSSOUserRolesOnGet() =>
-        Validate(inputs: []);
-
     private static void ValidateSSOUserRoleOnAdd(SSOUserRole newSSOUserRole) =>
         Validate(inputs: newSSOUserRole);
 
