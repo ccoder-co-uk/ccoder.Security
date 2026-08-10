@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-
 namespace cCoder.Security.Services.Aggregations;
 
 internal sealed partial class SSOAuthInfoAggregationService
@@ -15,6 +14,4 @@ internal sealed partial class SSOAuthInfoAggregationService
         }
     }
 
-    private static void ValidateSSOAuthInfoOnGet() =>
-        Validate(inputs: []);
 }

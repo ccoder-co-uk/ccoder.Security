@@ -26,9 +26,6 @@ internal sealed partial class AuthenticationAggregationService
         string password) =>
         Validate(inputs: [username, password]);
 
-    private static void ValidateAuthenticationOnLogout() =>
-        Validate(inputs: []);
-
     private static void ValidatePasswordOnChange(
         string username,
         string oldPassword,

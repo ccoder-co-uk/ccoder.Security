@@ -30,8 +30,6 @@ internal sealed partial class UserEventProcessingService(IUserEventService userE
     public IQueryable<UserEvent> GetAllUserEvents() =>
         TryCatch(operation: () =>
         {
-            ValidateUserEventsOnGet();
-
             return userEventService.GetAllUserEvents();
         });
 }

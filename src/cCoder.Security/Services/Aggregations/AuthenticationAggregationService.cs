@@ -49,8 +49,6 @@ internal sealed partial class AuthenticationAggregationService(
     public ValueTask LogoutAsync() =>
         TryCatch(operation: async () =>
         {
-            ValidateAuthenticationOnLogout();
-
             await LogoutCoreAsync();
         });
 
