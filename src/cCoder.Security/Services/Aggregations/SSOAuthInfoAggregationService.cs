@@ -21,8 +21,6 @@ internal sealed partial class SSOAuthInfoAggregationService(
     public ValueTask<ISSOAuthInfo> GetSSOAuthInfoAsync() =>
         TryCatch<ISSOAuthInfo>(operation: async () =>
         {
-            ValidateSSOAuthInfoOnGet();
-
             string authHeaderValue = requestProcessingService.GetHeader(
                 key: "Authorization");
 

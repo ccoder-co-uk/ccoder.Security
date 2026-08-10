@@ -22,9 +22,6 @@ internal sealed partial class TenantAnalysisProcessingService
     private static void ValidateTenantAnalysisOnDelete(TenantAnalysis deletedTenantAnalysis) =>
         Validate(inputs: deletedTenantAnalysis);
 
-    private static void ValidateTenantAnalysisOnGet() =>
-        Validate(inputs: []);
-
     private static void ValidateTenantAnalysisOnUpdate(TenantAnalysis updatedTenantAnalysis) =>
         Validate(inputs: updatedTenantAnalysis);
 }

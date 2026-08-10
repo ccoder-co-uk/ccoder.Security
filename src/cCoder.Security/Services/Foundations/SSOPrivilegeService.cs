@@ -14,8 +14,6 @@ internal sealed partial class SSOPrivilegeService(ISSOPrivilegeBroker privBroker
     public IQueryable<SSOPrivilege> GetAllSSOPrivileges() =>
         TryCatch(operation: () =>
         {
-            ValidatePrivilegesOnGet();
-
             return privBroker.SelectPrivileges();
         });
 }

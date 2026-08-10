@@ -16,8 +16,6 @@ internal sealed partial class SSORoleOrchestrationService(
     public IQueryable<SSORole> GetAllSSORoles() =>
         TryCatch(operation: () =>
         {
-            ValidateSSORolesOnGet();
-
             return roleProcessingService.GetAllSSORoles();
         });
 

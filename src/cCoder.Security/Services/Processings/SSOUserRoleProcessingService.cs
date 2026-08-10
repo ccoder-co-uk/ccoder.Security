@@ -14,8 +14,6 @@ internal sealed partial class SSOUserRoleProcessingService(ISSOUserRoleService s
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
         TryCatch(operation: () =>
         {
-            ValidateSSOUserRolesOnGet();
-
             return ssoUserRoleService.GetAllSSOUserRoles();
         });
 

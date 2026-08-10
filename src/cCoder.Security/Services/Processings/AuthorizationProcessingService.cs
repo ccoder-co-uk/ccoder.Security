@@ -15,8 +15,6 @@ internal sealed partial class AuthorizationProcessingService(
     public AuthorizationContext GetAuthorizationContext() =>
         TryCatch(operation: () =>
         {
-            ValidateAuthorizationContextOnGet();
-
             return authorizationService.GetAuthorizationContext();
         });
 

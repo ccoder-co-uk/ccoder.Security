@@ -16,8 +16,6 @@ internal sealed partial class SSOUserRoleOrchestrationService(
     public IQueryable<SSOUserRole> GetAllSSOUserRoles() =>
         TryCatch(operation: () =>
         {
-            ValidateSSOUserRolesOnGet();
-
             authorizationProcessingService.EnsureUserHasPrivilege(
                 privilege: "userrole_read");
 

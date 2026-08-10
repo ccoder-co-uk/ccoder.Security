@@ -22,8 +22,6 @@ internal sealed partial class SessionProcessingService(ISessionService sessionSe
     public SSOUser GetUser() =>
         TryCatch(operation: () =>
         {
-            ValidateUserOnGet();
-
             return sessionService.GetUser();
         });
 
@@ -57,7 +55,6 @@ internal sealed partial class SessionProcessingService(ISessionService sessionSe
     public void Clear() =>
         TryCatch(operation: () =>
         {
-            ValidateSessionOnClear();
             sessionService.Clear();
         });
 }

@@ -16,9 +16,6 @@ internal sealed partial class TenantAggregationService
         }
     }
 
-    private static void ValidateTenantsOnGet() =>
-        Validate(inputs: []);
-
     private static void ValidateTenantOnAdd(Tenant newTenant) =>
         Validate(inputs: newTenant);
 

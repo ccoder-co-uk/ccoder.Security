@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-
 namespace cCoder.Security.Services.Foundations;
 
 internal sealed partial class AuthorizationService
@@ -14,9 +13,6 @@ internal sealed partial class AuthorizationService
             throw new ArgumentNullException(nameof(inputs));
         }
     }
-
-    private static void ValidateAuthorizationContextOnGet() =>
-        Validate(inputs: []);
 
     private static void ValidatePrivilegeOnEnsure(
         string privilege,

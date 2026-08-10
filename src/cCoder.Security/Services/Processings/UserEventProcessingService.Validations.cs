@@ -22,6 +22,4 @@ internal sealed partial class UserEventProcessingService
     private static void ValidateUserEventOnDelete(UserEvent deletedUserEvent) =>
         Validate(inputs: deletedUserEvent);
 
-    private static void ValidateUserEventsOnGet() =>
-        Validate(inputs: []);
 }

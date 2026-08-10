@@ -15,8 +15,6 @@ internal sealed partial class AuthorizationService(
     public AuthorizationContext GetAuthorizationContext() =>
         TryCatch(operation: () =>
         {
-            ValidateAuthorizationContextOnGet();
-
             return new AuthorizationContext
             {
                 CurrentUser = authorizationBroker.GetCurrentUser(),

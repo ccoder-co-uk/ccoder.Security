@@ -29,18 +29,11 @@ internal sealed partial class SessionService
     private static void ValidateStringOnGet(string key) =>
         Validate(inputs: key);
 
-    private static void ValidateUserOnGet() =>
-        Validate(inputs: []);
-
     private static void ValidateSSOUserOnSet(SSOUser user)
     {
         if (user is not null)
         {
             Validate(inputs: user);
-        }
-        else
-        {
-            Validate(inputs: []);
         }
     }
 
