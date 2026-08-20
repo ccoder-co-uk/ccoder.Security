@@ -2077,6 +2077,10 @@
       "Interfaces": [],
       "Properties": [
         {
+          "Name": "ConfirmPassword",
+          "Type": "System.String"
+        },
+        {
           "Name": "NewPassword",
           "Type": "System.String"
         },
