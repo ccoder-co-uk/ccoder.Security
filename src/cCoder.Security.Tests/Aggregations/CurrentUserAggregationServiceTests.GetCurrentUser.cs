@@ -95,4 +95,119 @@ public partial class CurrentUserAggregationServiceTests
 
         ssoUserProcessingServiceMock.Verify(expression: service => service.Me(), times: Times.Once);
     }
+
+    [Fact]
+    public async Task UpdateMeChangesOnlyEditableProfileFields()
+    {
+        // Given
+        SSOUser storedUser = new()
+        {
+            Id = "existing.user",
+            DisplayName = "Old name",
+            Email = "old@example.com",
+            PhoneNumber = "0123",
+            PasswordHash = "stored-hash",
+            AccessFailedCount = 2,
+            EmailConfirmed = true,
+            LockoutEnabled = false
+        };
+
+        SSOUser request = new()
+        {
+            Id = "attempted.identity.change",
+            DisplayName = "New name",
+            Email = "new@example.com",
+            PhoneNumber = "0456",
+            PasswordHash = "attempted-password-change",
+            AccessFailedCount = 99,
+            LockoutEnabled = true
+        };
+
+        Mock<ISSOUserProcessingService> service = new(MockBehavior.Strict);
+
+        service
+            .Setup(expression: item => item.Me())
+            .Returns(value: storedUser);
+
+        service
+            .Setup(expression: item => item.UpdateSSOUserAsync(
+                item: It.IsAny<SSOUser>()))
+            .Returns(value: new ValueTask<SSOUser>(result: storedUser));
+
+        ICurrentUserAggregationService manager =
+            new CurrentUserAggregationService(
+                ssoUserProcessingService: service.Object,
+                authInfo: new SSOAuthInfo
+                {
+                    SSOUserId = storedUser.Id
+                });
+
+        // When
+        SSOUser result = await manager.UpdateCurrentSSOUserAsync(
+            updatedUser: request);
+
+        // Then
+        storedUser.Id
+            .Should()
+            .Be(expected: "existing.user");
+
+        storedUser.PasswordHash
+            .Should()
+            .Be(expected: "stored-hash");
+
+        storedUser.AccessFailedCount
+            .Should()
+            .Be(expected: 2);
+
+        storedUser.LockoutEnabled
+            .Should()
+            .BeFalse();
+
+        result.DisplayName
+            .Should()
+            .Be(expected: "New name");
+
+        result.Email
+            .Should()
+            .Be(expected: "new@example.com");
+
+        result.PhoneNumber
+            .Should()
+            .Be(expected: "0456");
+
+        result.PasswordHash
+            .Should()
+            .BeNull();
+    }
+
+    [Fact]
+    public async Task UpdateMeRejectsGuestBeforeUserLookup()
+    {
+        // Given
+        Mock<ISSOUserProcessingService> service = new(MockBehavior.Strict);
+
+        ICurrentUserAggregationService manager =
+            new CurrentUserAggregationService(
+                ssoUserProcessingService: service.Object,
+                authInfo: new SSOAuthInfo
+                {
+                    SSOUserId = "Guest"
+                });
+
+        // When
+        Func<Task> updateCurrentUser = async () =>
+            await manager.UpdateCurrentSSOUserAsync(
+                updatedUser: new SSOUser
+                {
+                    DisplayName = "Guest",
+                    Email = "guest@example.com"
+                });
+
+        // Then
+        await updateCurrentUser
+            .Should()
+            .ThrowAsync<SecurityAggregationAuthenticationException>();
+
+        service.VerifyNoOtherCalls();
+    }
 }

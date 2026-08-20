@@ -22,6 +22,25 @@ internal sealed partial class CurrentUserAggregationService(
             return Sanitize(user: ssoUserProcessingService.Me());
         });
 
+    public ValueTask<SSOUser> UpdateCurrentSSOUserAsync(SSOUser updatedUser) =>
+        TryCatch<SSOUser>(operation: async () =>
+        {
+            ValidateCurrentUserOnUpdate(
+                updatedUser: updatedUser,
+                authInfo: authInfo);
+
+            SSOUser currentUser = ssoUserProcessingService.Me();
+
+            currentUser.DisplayName = updatedUser.DisplayName;
+            currentUser.Email = updatedUser.Email;
+            currentUser.PhoneNumber = updatedUser.PhoneNumber;
+
+            SSOUser result = await ssoUserProcessingService
+                .UpdateSSOUserAsync(item: currentUser);
+
+            return Sanitize(user: result);
+        });
+
     private static SSOUser Sanitize(SSOUser user) =>
         user is null
             ? null
