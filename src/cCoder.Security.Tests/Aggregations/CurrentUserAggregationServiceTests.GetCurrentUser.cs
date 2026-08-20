@@ -137,7 +137,10 @@ public partial class CurrentUserAggregationServiceTests
         ICurrentUserAggregationService manager =
             new CurrentUserAggregationService(
                 ssoUserProcessingService: service.Object,
-                authInfo: new SSOAuthInfo());
+                authInfo: new SSOAuthInfo
+                {
+                    SSOUserId = storedUser.Id
+                });
 
         // When
         SSOUser result = await manager.UpdateCurrentSSOUserAsync(
@@ -175,5 +178,36 @@ public partial class CurrentUserAggregationServiceTests
         result.PasswordHash
             .Should()
             .BeNull();
+    }
+
+    [Fact]
+    public async Task UpdateMeRejectsGuestBeforeUserLookup()
+    {
+        // Given
+        Mock<ISSOUserProcessingService> service = new(MockBehavior.Strict);
+
+        ICurrentUserAggregationService manager =
+            new CurrentUserAggregationService(
+                ssoUserProcessingService: service.Object,
+                authInfo: new SSOAuthInfo
+                {
+                    SSOUserId = "Guest"
+                });
+
+        // When
+        Func<Task> updateCurrentUser = async () =>
+            await manager.UpdateCurrentSSOUserAsync(
+                updatedUser: new SSOUser
+                {
+                    DisplayName = "Guest",
+                    Email = "guest@example.com"
+                });
+
+        // Then
+        await updateCurrentUser
+            .Should()
+            .ThrowAsync<SecurityAggregationAuthenticationException>();
+
+        service.VerifyNoOtherCalls();
     }
 }
