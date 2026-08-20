@@ -91,6 +91,11 @@ public class AuthenticationController(
     {
         try
         {
+            if (User.Identity?.IsAuthenticated != true)
+            {
+                return Challenge();
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(modelState: ModelState);
