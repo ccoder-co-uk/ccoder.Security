@@ -10,6 +10,7 @@ using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using FluentAssertions;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -135,6 +136,14 @@ public sealed partial class ControllerHttpComplianceTests
             authenticationAggregationService: authenticationManager.Object,
             currentUserManager: currentUserManager.Object);
 
+        controller.ControllerContext.HttpContext = new DefaultHttpContext
+        {
+            User = new ClaimsPrincipal(
+                identity: new ClaimsIdentity(
+                    claims: [],
+                    authenticationType: "Test"))
+        };
+
         ChangePasswordRequest request = new()
         {
             OldPassword = "old-password",
@@ -158,6 +167,47 @@ public sealed partial class ControllerHttpComplianceTests
                     oldPassword: "old-password",
                     newPassword: "new-password"),
                 times: Times.Once);
+    }
+
+    [Fact]
+    public async Task PostChangePassword_WhenAnonymous_ShouldReturnChallenge()
+    {
+        // Given
+        Mock<IAuthenticationManager> authenticationManager = new();
+        Mock<ISecurityCurrentUserManager> currentUserManager = new();
+
+        AuthenticationController controller = new(
+            authenticationAggregationService: authenticationManager.Object,
+            currentUserManager: currentUserManager.Object);
+
+        controller.ControllerContext.HttpContext = new DefaultHttpContext();
+
+        ChangePasswordRequest request = new()
+        {
+            OldPassword = "old-password",
+            NewPassword = "new-password",
+            ConfirmPassword = "new-password"
+        };
+
+        // When
+        IActionResult result = await controller.PostChangePassword(
+            newChangePasswordRequest: request);
+
+        // Then
+        result
+            .Should()
+            .BeOfType<ChallengeResult>();
+
+        currentUserManager.Verify(
+            expression: manager => manager.GetCurrentUser(),
+            times: Times.Never);
+
+        authenticationManager.Verify(
+            expression: manager => manager.ChangePasswordAsync(
+                username: It.IsAny<string>(),
+                oldPassword: It.IsAny<string>(),
+                newPassword: It.IsAny<string>()),
+            times: Times.Never);
     }
 
     [Fact]
