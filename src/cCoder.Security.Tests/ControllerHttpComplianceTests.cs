@@ -34,7 +34,9 @@ public sealed partial class ControllerHttpComplianceTests
                     innerException: new Exception(message: "sensitive"))));
 
         AuthenticationController controller =
-            new(authenticationAggregationService: authenticationManager.Object);
+            new(
+                authenticationAggregationService: authenticationManager.Object,
+                currentUserManager: Mock.Of<ISecurityCurrentUserManager>());
 
         // When
         IActionResult result = await controller.PostLogin(
@@ -116,5 +118,79 @@ public sealed partial class ControllerHttpComplianceTests
         response.Value
             .Should()
             .BeSameAs(expected: tenant);
+    }
+
+    [Fact]
+    public async Task PostChangePasswordUsesAuthenticatedCurrentUser()
+    {
+        // Given
+        Mock<IAuthenticationManager> authenticationManager = new();
+        Mock<ISecurityCurrentUserManager> currentUserManager = new();
+
+        currentUserManager
+            .Setup(expression: manager => manager.GetCurrentUser())
+            .Returns(value: new SSOUser { Id = "current.user" });
+
+        AuthenticationController controller = new(
+            authenticationAggregationService: authenticationManager.Object,
+            currentUserManager: currentUserManager.Object);
+
+        ChangePasswordRequest request = new()
+        {
+            OldPassword = "old-password",
+            NewPassword = "new-password",
+            ConfirmPassword = "new-password"
+        };
+
+        // When
+        IActionResult result = await controller.PostChangePassword(
+            newChangePasswordRequest: request);
+
+        // Then
+        result
+            .Should()
+            .BeOfType<OkResult>();
+
+        authenticationManager
+            .Verify(expression: manager =>
+                manager.ChangePasswordAsync(
+                    username: "current.user",
+                    oldPassword: "old-password",
+                    newPassword: "new-password"),
+                times: Times.Once);
+    }
+
+    [Fact]
+    public async Task PutMeUsesSelfServiceManager()
+    {
+        // Given
+        SSOUser request = new()
+        {
+            DisplayName = "New name",
+            Email = "new@example.com"
+        };
+
+        Mock<ISecurityCurrentUserManager> currentUserManager = new();
+
+        currentUserManager
+            .Setup(expression: manager => manager.UpdateCurrentSSOUserAsync(
+                updatedUser: request))
+            .ReturnsAsync(value: request);
+
+        CurrentUserController controller = new(
+            currentUserAggregationService: currentUserManager.Object);
+
+        // When
+        IActionResult result = await controller.PutMe(updatedUser: request);
+
+        // Then
+        result
+            .Should()
+            .BeOfType<OkObjectResult>();
+
+        currentUserManager
+            .Verify(expression: manager =>
+                manager.UpdateCurrentSSOUserAsync(updatedUser: request),
+                times: Times.Once);
     }
 }
