@@ -36,4 +36,38 @@ internal sealed partial class CurrentUserAggregationService
             throw new SecurityAggregationServiceException(innerException: innerException);
         }
     }
+
+    private static async ValueTask<T> TryCatch<T>(
+        Func<ValueTask<T>> operation)
+    {
+        try
+        {
+            return await operation();
+        }
+        catch (SecurityAuthenticationException innerException)
+        {
+            throw new SecurityAggregationAuthenticationException(
+                innerException: innerException);
+        }
+        catch (ArgumentException innerException)
+        {
+            throw new SecurityAggregationValidationException(
+                innerException: innerException);
+        }
+        catch (SecurityProcessingValidationException innerException)
+        {
+            throw new SecurityAggregationValidationException(
+                innerException: innerException);
+        }
+        catch (SecurityProcessingDependencyException innerException)
+        {
+            throw new SecurityAggregationDependencyException(
+                innerException: innerException);
+        }
+        catch (Exception innerException)
+        {
+            throw new SecurityAggregationServiceException(
+                innerException: innerException);
+        }
+    }
 }
