@@ -10,6 +10,7 @@ using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using FluentAssertions;
+using System.Security;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -274,6 +275,44 @@ public sealed partial class ControllerHttpComplianceTests
                 newPassword: "new-password",
                 confirmNewPassword: "new-password"),
             times: Times.Once);
+    }
+
+    [Fact]
+    public async Task PostConfirmForgotPassword_WhenTokenIsInvalid_ShouldReturnBadRequest()
+    {
+        // Given
+        Mock<IAuthenticationManager> authenticationManager = new();
+
+        authenticationManager
+            .Setup(expression: manager => manager.ConfirmForgotPasswordAsync(
+                tokenId: "invalid-token",
+                userId: "current.user",
+                newPassword: "new-password",
+                confirmNewPassword: "new-password"))
+            .Returns(value: ValueTask.FromException(
+                exception: new SecurityAggregationServiceException(
+                    innerException: new SecurityException())));
+
+        ConfirmForgotPasswordController controller = new(
+            authenticationAggregationService: authenticationManager.Object);
+
+        ConfirmForgotPasswordRequest request = new()
+        {
+            ConfirmPassword = "new-password",
+            NewPassword = "new-password",
+            SourceAppId = 21,
+            Token = "invalid-token",
+            UserId = "current.user"
+        };
+
+        // When
+        IActionResult result = await controller.PostConfirmForgotPassword(
+            newConfirmForgotPasswordRequest: request);
+
+        // Then
+        result
+            .Should()
+            .BeOfType<BadRequestObjectResult>();
     }
 
     [Fact]

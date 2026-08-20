@@ -3972,7 +3972,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -3991,7 +3991,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController.PostConfirmForgotPassword(cCoder.Security.Models.DTOs.ConfirmForgotPasswordRequest)",
           "Name": "PostConfirmForgotPassword",
-          "LineNumber": 18,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "newConfirmForgotPasswordRequest",
@@ -4056,6 +4056,16 @@
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
@@ -21232,18 +21242,11 @@
       "LineNumber": 89
     },
     {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
-      "LineNumber": 18
-    },
-    {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
-      "LineNumber": 18
+      "LineNumber": 19
     },
     {
       "Code": "STXAPI005",
