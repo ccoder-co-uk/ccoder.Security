@@ -6,6 +6,7 @@ using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security;
 
 namespace cCoder.Security.Exposures.Controllers;
 
@@ -37,6 +38,11 @@ public class ConfirmForgotPasswordController(
         {
             return BadRequest(error: "The password reset request is invalid.");
         }
+        catch (SecurityAggregationServiceException exception)
+            when (ContainsSecurityException(exception: exception))
+        {
+            return BadRequest(error: "The password reset request is invalid.");
+        }
         catch (SecurityAggregationDependencyException)
         {
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
@@ -48,4 +54,9 @@ public class ConfirmForgotPasswordController(
                 value: "The security operation failed.");
         }
     }
+
+    private static bool ContainsSecurityException(Exception exception) =>
+        exception is SecurityException
+        || exception.InnerException is not null
+            && ContainsSecurityException(exception: exception.InnerException);
 }
