@@ -211,6 +211,72 @@ public sealed partial class ControllerHttpComplianceTests
     }
 
     [Fact]
+    public async Task PostForgotPassword_ShouldQueueTokenBackedReset()
+    {
+        // Given
+        Mock<IAuthenticationManager> authenticationManager = new();
+
+        ForgotPasswordController controller = new(
+            authenticationAggregationService: authenticationManager.Object);
+
+        ForgotPasswordRequest request = new()
+        {
+            AppId = 21,
+            Email = "user@example.test"
+        };
+
+        // When
+        IActionResult result = await controller.PostForgotPassword(
+            newForgotPasswordRequest: request);
+
+        // Then
+        result
+            .Should()
+            .BeOfType<OkResult>();
+
+        authenticationManager.Verify(
+            expression: manager => manager.ForgotPasswordAsync(
+                email: "user@example.test"),
+            times: Times.Once);
+    }
+
+    [Fact]
+    public async Task PostConfirmForgotPassword_ShouldConsumeToken()
+    {
+        // Given
+        Mock<IAuthenticationManager> authenticationManager = new();
+
+        ConfirmForgotPasswordController controller = new(
+            authenticationAggregationService: authenticationManager.Object);
+
+        ConfirmForgotPasswordRequest request = new()
+        {
+            ConfirmPassword = "new-password",
+            NewPassword = "new-password",
+            SourceAppId = 21,
+            Token = "reset-token",
+            UserId = "current.user"
+        };
+
+        // When
+        IActionResult result = await controller.PostConfirmForgotPassword(
+            newConfirmForgotPasswordRequest: request);
+
+        // Then
+        result
+            .Should()
+            .BeOfType<OkResult>();
+
+        authenticationManager.Verify(
+            expression: manager => manager.ConfirmForgotPasswordAsync(
+                tokenId: "reset-token",
+                userId: "current.user",
+                newPassword: "new-password",
+                confirmNewPassword: "new-password"),
+            times: Times.Once);
+    }
+
+    [Fact]
     public async Task PutMeUsesSelfServiceManager()
     {
         // Given
