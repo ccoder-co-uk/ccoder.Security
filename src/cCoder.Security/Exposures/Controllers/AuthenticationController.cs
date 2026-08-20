@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models.DTOs;
+using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,8 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class AuthenticationController(
-    IAuthenticationManager authenticationAggregationService)
+    IAuthenticationManager authenticationAggregationService,
+    ISecurityCurrentUserManager currentUserManager)
         : Controller
 {
     [HttpPost("Login")]
@@ -68,6 +70,68 @@ public class AuthenticationController(
         catch (SecurityAggregationValidationException)
         {
             return BadRequest(error: "The logout request is invalid.");
+        }
+        catch (SecurityAggregationDependencyException)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status503ServiceUnavailable,
+                value: "The security service is unavailable.");
+        }
+        catch (Exception)
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The security operation failed.");
+        }
+    }
+
+    [HttpPost("ChangePassword")]
+    public async ValueTask<IActionResult> PostChangePassword(
+        [FromBody] ChangePasswordRequest newChangePasswordRequest)
+    {
+        try
+        {
+            if (User.Identity?.IsAuthenticated != true)
+            {
+                return Challenge();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(modelState: ModelState);
+            }
+
+            if (!string.Equals(
+                a: newChangePasswordRequest.NewPassword,
+                b: newChangePasswordRequest.ConfirmPassword,
+                comparisonType: StringComparison.Ordinal))
+            {
+                return BadRequest(error: "The password confirmation does not match.");
+            }
+
+            SSOUser currentUser = currentUserManager.GetCurrentUser();
+
+            await authenticationAggregationService.ChangePasswordAsync(
+                username: currentUser.Id,
+                oldPassword: newChangePasswordRequest.OldPassword,
+                newPassword: newChangePasswordRequest.NewPassword);
+
+            return Ok();
+        }
+        catch (SecurityAggregationAuthenticationException)
+        {
+            return Challenge();
+        }
+        catch (SecurityAggregationValidationException)
+        {
+            return BadRequest(error: "The password change is invalid.");
+        }
+        catch (SecurityAggregationServiceException exception)
+            when (ContainsSecurityException(exception: exception))
+        {
+            return StatusCode(
+                statusCode: StatusCodes.Status401Unauthorized,
+                value: "The supplied credentials are invalid.");
         }
         catch (SecurityAggregationDependencyException)
         {

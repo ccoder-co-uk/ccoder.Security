@@ -3693,7 +3693,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 13,
+      "LineNumber": 14,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -3710,9 +3710,129 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostChangePassword(cCoder.Security.Models.DTOs.ChangePasswordRequest)",
+          "Name": "PostChangePassword",
+          "LineNumber": 89,
+          "Inputs": [
+            {
+              "Name": "newChangePasswordRequest",
+              "Type": "cCoder.Security.Models.DTOs.ChangePasswordRequest"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.String",
+              "MethodName": "Equals",
+              "MethodId": "System.String.Equals(System.String?,System.String?,System.StringComparison)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Exposures.IAuthenticationManager",
+              "MethodName": "ChangePasswordAsync",
+              "MethodId": "cCoder.Security.Exposures.IAuthenticationManager.ChangePasswordAsync(System.String,System.String,System.String)",
+              "StandardElementType": "Exposure",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Exposures.ISecurityCurrentUserManager",
+              "MethodName": "GetCurrentUser",
+              "MethodId": "cCoder.Security.Exposures.ISecurityCurrentUserManager.GetCurrentUser()",
+              "StandardElementType": "Exposure",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentNullException",
+            "System.ComponentModel.DataAnnotations.ValidationException",
+            "System.FormatException",
+            "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+          ],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [
+            "POST"
+          ],
+          "HttpResponses": [
+            {
+              "StatusCode": 200,
+              "ResultMethod": "Ok",
+              "ExceptionType": "",
+              "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "",
+              "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Challenge",
+              "ExceptionType": "",
+              "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Challenge",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            }
+          ],
+          "IsHttpRequestHandler": true,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": true
+        },
+        {
           "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostLogin(cCoder.Security.Models.DTOs.Auth)",
           "Name": "PostLogin",
-          "LineNumber": 19,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "newAuth",
@@ -3785,7 +3905,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostLogout()",
           "Name": "PostLogout",
-          "LineNumber": 60,
+          "LineNumber": 62,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E",
           "Implements": [],
@@ -3852,7 +3972,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -3871,7 +3991,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController.PostConfirmForgotPassword(cCoder.Security.Models.DTOs.ConfirmForgotPasswordRequest)",
           "Name": "PostConfirmForgotPassword",
-          "LineNumber": 18,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "newConfirmForgotPasswordRequest",
@@ -3941,6 +4061,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             }
           ],
           "IsHttpRequestHandler": true,
@@ -3955,7 +4085,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.CurrentUserController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -3974,7 +4104,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.CurrentUserController.GetMe()",
           "Name": "GetMe",
-          "LineNumber": 17,
+          "LineNumber": 18,
           "Inputs": [],
           "ReturnType": "IActionResult",
           "Implements": [],
@@ -4015,6 +4145,102 @@
               "ResultMethod": "Ok",
               "ExceptionType": "",
               "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Challenge",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            }
+          ],
+          "IsHttpRequestHandler": true,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": true
+        },
+        {
+          "Id": "cCoder.Security.Exposures.Controllers.CurrentUserController.PutMe(cCoder.Security.Models.Entities.SSOUser)",
+          "Name": "PutMe",
+          "LineNumber": 43,
+          "Inputs": [
+            {
+              "Name": "updatedUser",
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Exposures.ISecurityCurrentUserManager",
+              "MethodName": "UpdateCurrentSSOUserAsync",
+              "MethodId": "cCoder.Security.Exposures.ISecurityCurrentUserManager.UpdateCurrentSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
+              "StandardElementType": "Exposure",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.ComponentModel.DataAnnotations.ValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
+          ],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [
+            "PUT"
+          ],
+          "HttpResponses": [
+            {
+              "StatusCode": 200,
+              "ResultMethod": "Ok",
+              "ExceptionType": "",
+              "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "",
+              "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -7969,6 +8195,74 @@
           "ThrowsExceptionTypes": [
             "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService.UpdateCurrentSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
+          "Name": "UpdateCurrentSSOUserAsync",
+          "LineNumber": 25,
+          "Inputs": [
+            {
+              "Name": "updatedUser",
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E",
+          "Implements": [
+            "cCoder.Security.Exposures.ISecurityCurrentUserManager.UpdateCurrentSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.ISSOUserProcessingService",
+              "MethodName": "Me",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.ISSOUserProcessingService.Me()",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.ISSOUserProcessingService",
+              "MethodName": "UpdateSSOUserAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.ISSOUserProcessingService.UpdateSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.ComponentModel.DataAnnotations.ValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -17516,6 +17810,31 @@
           "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Exposures.ISecurityCurrentUserManager.UpdateCurrentSSOUserAsync(cCoder.Security.Models.Entities.SSOUser)",
+          "Name": "UpdateCurrentSSOUserAsync",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "updatedUser",
+              "Type": "cCoder.Security.Models.Entities.SSOUser"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Entities.SSOUser\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
@@ -20524,6 +20843,10 @@
       "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
     },
     {
+      "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "ToType": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService"
+    },
+    {
       "FromType": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
       "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
     },
@@ -20870,38 +21193,73 @@
   ],
   "AnalysisItems": [
     {
+      "Code": "STXAPI001",
+      "Description": "An API controller must have exactly one business dependency.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "LineNumber": 14
+    },
+    {
+      "Code": "STXAPI002",
+      "Description": "An API controller must expose a single model contract.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "LineNumber": 14
+    },
+    {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "LineNumber": 21
+    },
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "LineNumber": 62
+    },
+    {
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "LineNumber": 62
+    },
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "LineNumber": 89
+    },
+    {
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "LineNumber": 89
+    },
+    {
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
       "LineNumber": 19
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 60
-    },
-    {
-      "Code": "STXAPI006",
-      "Description": "An HTTP failure response must log the caught exception before returning it.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.AuthenticationController",
-      "LineNumber": 60
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
+      "Type": "cCoder.Security.Exposures.Controllers.CurrentUserController",
       "LineNumber": 18
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
+      "Type": "cCoder.Security.Exposures.Controllers.CurrentUserController",
       "LineNumber": 18
     },
     {
@@ -20909,14 +21267,14 @@
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.CurrentUserController",
-      "LineNumber": 17
+      "LineNumber": 43
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.CurrentUserController",
-      "LineNumber": 17
+      "LineNumber": 43
     },
     {
       "Code": "STXAPI005",

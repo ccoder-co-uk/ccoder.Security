@@ -9,4 +9,6 @@ namespace cCoder.Security.Exposures;
 public interface ISecurityCurrentUserManager
 {
     SSOUser GetCurrentUser();
+
+    ValueTask<SSOUser> UpdateCurrentSSOUserAsync(SSOUser updatedUser);
 }
