@@ -40,6 +40,16 @@ internal sealed partial class CurrentUserAggregationService
                 message: "The supplied authentication credentials are invalid.");
         }
 
+        if (string.IsNullOrWhiteSpace(value: authInfo.SSOUserId)
+            || string.Equals(
+                a: authInfo.SSOUserId,
+                b: "Guest",
+                comparisonType: StringComparison.OrdinalIgnoreCase))
+        {
+            throw new SecurityAuthenticationException(
+                message: "An authenticated user is required.");
+        }
+
         if (string.IsNullOrWhiteSpace(value: updatedUser.DisplayName)
             || string.IsNullOrWhiteSpace(value: updatedUser.Email))
         {
