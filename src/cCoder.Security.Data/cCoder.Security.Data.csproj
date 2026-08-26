@@ -11,23 +11,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="10.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.3.11" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.3.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.10">
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.26.1209" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.3.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.3.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.10" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.11" />
   </ItemGroup>
 	
 	<PropertyGroup>
