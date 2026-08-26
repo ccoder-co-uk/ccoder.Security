@@ -8,7 +8,7 @@
 
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'Security' " />
 	<ItemGroup>
-		<PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.26.1209" PrivateAssets="all" />
+		<PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.26.2138" PrivateAssets="all" />
 		<PackageReference Include="cCoder.Data" Version="2026.8.12.1324" />
 		<PackageReference Include="Microsoft.AspNetCore.OData" Version="9.5.0" />
 		<PackageReference Include="Microsoft.OpenApi" Version="3.10.2" />
