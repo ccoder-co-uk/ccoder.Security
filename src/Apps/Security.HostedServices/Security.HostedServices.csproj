@@ -2,9 +2,11 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.26.1209" PrivateAssets="all" />
     <ProjectReference Include="..\..\cCoder.Security\cCoder.Security.csproj" />
     <ProjectReference Include="..\..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
   </ItemGroup>
