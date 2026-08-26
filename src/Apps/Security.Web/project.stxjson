@@ -55,7 +55,8 @@
               "IsExceptionPath": false,
               "IsNullPath": false,
               "HasBody": true,
-              "ExposesExceptionDetails": false
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             }
           ],
           "IsHttpRequestHandler": true,
