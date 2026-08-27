@@ -2793,6 +2793,26 @@
         }
       ],
       "Methods": []
+    },
+    {
+      "Name": "cCoder.Security.Models.SecurityDataConfiguration",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "AdminConnectionString",
+          "Type": "System.String"
+        },
+        {
+          "Name": "ConnectionString",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
     }
   ],
   "Interfaces": [
