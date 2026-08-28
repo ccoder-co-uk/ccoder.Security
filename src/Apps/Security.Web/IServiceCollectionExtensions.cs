@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security;
+using cCoder.Security.Data.EF;
 using cCoder.Security.Exposures;
 using Security.Web.Exposures;
 using Security.Web.Models;
@@ -11,15 +12,16 @@ namespace Security.Web;
 
 public static partial class IServiceCollectionExtensions
 {
-    public static void AddSecurityWeb(
+    public static void AddWeb(
         this IServiceCollection services,
         IConfiguration configuration,
-        Action<SecurityWebConfiguration> configure = null)
+        Action<AppConfiguration> configure = null)
     {
-        SecurityWebConfiguration applicationConfiguration = new();
+        AppConfiguration applicationConfiguration = new();
         configuration.Bind(applicationConfiguration);
         configure?.Invoke(applicationConfiguration);
 
+        services.AddSecurityData(applicationConfiguration.SecurityData);
         services.AddAspNetCore();
         services.AddMetadata();
         services.AddSecurityWeb(applicationConfiguration.Security);
