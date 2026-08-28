@@ -50,7 +50,12 @@ jobs:
         run: dotnet build src/cCoder.Security.slnx -c Release --no-restore -m /p:BuildInParallel=true /p:UseSharedCompilation=true /p:Version="${{ steps.version.outputs.value }}"
 
       - name: Test and collect coverage
-        run: dotnet test src/cCoder.Security.slnx -c Release --no-build --no-restore -m --settings src/cCoder.Security.runsettings --results-directory "${{ env.TEST_RESULTS_DIRECTORY }}" --logger trx --collect:"XPlat Code Coverage"
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:SecurityData__ConnectionString)) {
+            $env:SecurityData__ConnectionString = $env:Security__ConnectionString
+          }
+
+          dotnet test src/cCoder.Security.slnx -c Release --no-build --no-restore -m --settings src/cCoder.Security.runsettings --results-directory "${{ env.TEST_RESULTS_DIRECTORY }}" --logger trx --collect:"XPlat Code Coverage"
 
       - name: Enforce services and exposures coverage gate
         run: |
