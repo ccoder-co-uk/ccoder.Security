@@ -21,7 +21,6 @@ using cCoder.Security.Dependencies.Encryption;
 using cCoder.Security.Data;
 using cCoder.Security.Data.Dependencies;
 using cCoder.Security.Data.Models;
-using cCoder.Security.Data.EF;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.EventHandlers;
 using cCoder.Security.Exposures.HostedServices;
@@ -126,11 +125,6 @@ public static class IServiceCollectionExtensions
                 SecurityBearerAuthenticationDependency>(
                     authenticationScheme: "Bearer",
                     configureOptions: null);
-
-        if (!string.IsNullOrWhiteSpace(value: configuration.ConnectionString))
-        {
-            services.AddSecurityData(configuration);
-        }
 
         if (!string.IsNullOrWhiteSpace(value: configuration.DecryptionKey))
         {

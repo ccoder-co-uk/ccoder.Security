@@ -220,7 +220,7 @@
     {
       "Name": "Security.Web.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -228,9 +228,9 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "Security.Web.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,IConfiguration,System.Action\u003CSecurity.Web.Models.SecurityWebConfiguration\u003E)",
-          "Name": "AddSecurityWeb",
-          "LineNumber": 14,
+          "Id": "Security.Web.IServiceCollectionExtensions.AddWeb(IServiceCollection,IConfiguration,System.Action\u003CSecurity.Web.Models.AppConfiguration\u003E)",
+          "Name": "AddWeb",
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "services",
@@ -242,19 +242,12 @@
             },
             {
               "Name": "configure",
-              "Type": "System.Action\u003CSecurity.Web.Models.SecurityWebConfiguration\u003E"
+              "Type": "System.Action\u003CSecurity.Web.Models.AppConfiguration\u003E"
             }
           ],
           "ReturnType": "System.Void",
           "Implements": [],
           "Calls": [
-            {
-              "TypeName": "Security.Web.IServiceCollectionExtensions",
-              "MethodName": "AddSecurityWeb",
-              "MethodId": "Security.Web.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,IConfiguration,System.Action\u003CSecurity.Web.Models.SecurityWebConfiguration\u003E)",
-              "StandardElementType": "App",
-              "IsDependencyBoundary": false
-            },
             {
               "TypeName": "System.Action\u003CT\u003E",
               "MethodName": "Invoke",
@@ -278,7 +271,7 @@
       ]
     },
     {
-      "Name": "Security.Web.Models.SecurityWebConfiguration",
+      "Name": "Security.Web.Models.AppConfiguration",
       "StandardElementType": "Model",
       "LineNumber": 9,
       "IsPublic": true,
@@ -289,6 +282,10 @@
         {
           "Name": "Security",
           "Type": "cCoder.Security.Models.SecurityConfiguration"
+        },
+        {
+          "Name": "SecurityData",
+          "Type": "cCoder.Security.Models.SecurityDataConfiguration"
         }
       ],
       "Methods": []

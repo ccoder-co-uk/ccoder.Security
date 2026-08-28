@@ -3,12 +3,36 @@
 // ---------------------------------------------------------------
 
 using FluentAssertions;
+using cCoder.Security.Models;
 using Xunit;
 
 namespace Security.HostedServices.AcceptanceTests.Tests;
 
 public partial class HealthTests
 {
+    [Fact]
+    public void ShouldExposeAppConfigurationForRequiredDomains()
+    {
+        // Given
+        const string typeName =
+            "Security.HostedServices.Models.AppConfiguration, Security.HostedServices";
+
+        // When
+        Type configurationType = Type.GetType(typeName: typeName);
+
+        // Then
+        configurationType.Should()
+            .NotBeNull();
+
+        configurationType.GetProperty(name: "Security")
+            .PropertyType.Should()
+            .Be(expected: typeof(SecurityConfiguration));
+
+        configurationType.GetProperty(name: "SecurityData")
+            .PropertyType.Should()
+            .Be(expected: typeof(SecurityDataConfiguration));
+    }
+
     [Fact]
     public async Task ShouldReturnHostedServicesReportForGetRoot()
     {

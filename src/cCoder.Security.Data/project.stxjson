@@ -1230,7 +1230,7 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E)",
+          "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityDataConfiguration\u003E)",
           "Name": "AddSecurityData",
           "LineNumber": 15,
           "Inputs": [
@@ -1240,7 +1240,7 @@
             },
             {
               "Name": "configure",
-              "Type": "System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E"
+              "Type": "System.Action\u003CcCoder.Security.Models.SecurityDataConfiguration\u003E"
             }
           ],
           "ReturnType": "System.Void",
@@ -1256,7 +1256,7 @@
             {
               "TypeName": "cCoder.Security.Data.EF.IServiceCollectionExtensions",
               "MethodName": "AddSecurityData",
-              "MethodId": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityConfiguration)",
+              "MethodId": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityDataConfiguration)",
               "StandardElementType": "App",
               "IsDependencyBoundary": false
             }
@@ -1274,7 +1274,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityConfiguration)",
+          "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityDataConfiguration)",
           "Name": "AddSecurityData",
           "LineNumber": 24,
           "Inputs": [
@@ -1284,7 +1284,7 @@
             },
             {
               "Name": "configuration",
-              "Type": "cCoder.Security.Models.SecurityConfiguration"
+              "Type": "cCoder.Security.Models.SecurityDataConfiguration"
             }
           ],
           "ReturnType": "System.Void",
@@ -2766,10 +2766,6 @@
         {
           "Name": "Argon",
           "Type": "cCoder.Security.Models.Configurations.ArgonConfiguration"
-        },
-        {
-          "Name": "ConnectionString",
-          "Type": "System.String"
         },
         {
           "Name": "DecryptionKey",
