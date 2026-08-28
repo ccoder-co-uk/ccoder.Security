@@ -4,12 +4,17 @@
 
 using cCoder.Security.Models;
 
-namespace Security.HostedServices.Models;
+namespace Security.Web.Models;
 
-public sealed class SecurityHostedServicesConfiguration
+public sealed class AppConfiguration
 {
-    public SecurityHostedServicesConfiguration() =>
+    public AppConfiguration()
+    {
         Security = new SecurityConfiguration();
+        SecurityData = new SecurityDataConfiguration();
+    }
 
     public SecurityConfiguration Security { get; set; }
+
+    public SecurityDataConfiguration SecurityData { get; set; }
 }

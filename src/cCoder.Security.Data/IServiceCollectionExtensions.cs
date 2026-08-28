@@ -14,16 +14,16 @@ public static class IServiceCollectionExtensions
 {
     public static void AddSecurityData(
         this IServiceCollection services,
-        Action<SecurityConfiguration> configure)
+        Action<SecurityDataConfiguration> configure)
     {
-        SecurityConfiguration configuration = new();
+        SecurityDataConfiguration configuration = new();
         configure?.Invoke(configuration);
         services.AddSecurityData(configuration);
     }
 
     public static void AddSecurityData(
         this IServiceCollection services,
-        SecurityConfiguration configuration)
+        SecurityDataConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(configuration);
         services.AddDependencies(configuration);
@@ -31,7 +31,7 @@ public static class IServiceCollectionExtensions
 
     private static void AddDependencies(
         this IServiceCollection services,
-        SecurityConfiguration configuration)
+        SecurityDataConfiguration configuration)
     {
         services.AddTransient<ISecurityDbContextFactory>(
             implementationFactory: serviceProvider =>

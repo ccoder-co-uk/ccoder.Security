@@ -2,20 +2,25 @@
 
 [View the latest code coverage report](https://ccoder-co-uk.github.io/ccoder.Security/)
 
-`cCoder.Security.Data` exposes its supporting persistence services through
-`services.AddSecurityData(configuration.Security)`. The same strongly typed
-`SecurityConfiguration` instance is passed onward to `cCoder.Security`; no
-flat `ConnectionStrings` compatibility configuration is required.
+`cCoder.Security.Data` owns Security persistence and exposes it through
+`services.AddSecurityData(configuration.SecurityData)`. `cCoder.Security` owns
+the business and API stack; it does not register its persistence dependency.
+An executable application composes both domains explicitly, while
+`cCoder.Core` performs that composition for applications that consume Core.
 
 `cCoder.Security` owns the SSO security boundary for the cCoder platform. It manages tenants, SSO users, registrations, invitations, password reset tokens, login sessions, and the Security account lifecycle events consumed by downstream domains.
 
 ## Local Configuration
 
-Configuration binds directly into `SecurityConfiguration`. Leave secrets empty
-in appsettings and define `Security__ConnectionString` and
-`Security__DecryptionKey` as user-level or machine-level environment variables.
-Restart Visual Studio, select the Web and HostedServices startup projects, and
-press F5. No configuration conversion step is required.
+Each executable app defines an `AppConfiguration` root with `Security` and
+`SecurityData` properties. The app binds the complete `IConfiguration` root to
+that type, so appsettings and environment variables use the same object graph.
+Leave secrets empty in appsettings and define
+`SecurityData__ConnectionString` and `Security__DecryptionKey` as user-level or
+machine-level environment variables. `SecurityData__AdminConnectionString` is
+an optional migration-only override; when omitted, migrations use the regular
+SecurityData connection. Restart Visual Studio, select the Web and
+HostedServices startup projects, and press F5.
 
 Non-secret Argon2id password hashing parameters bind from `Security__Argon`.
 The checked-in defaults use the OWASP minimum profile and the application
@@ -54,12 +59,19 @@ rejects weaker runtime values:
 
 `Security.HostedServices` is the background/event host. It registers Security event handlers and exposes `/Health` for runner and deployment health checks.
 
-Consumers should use the shared service collection extensions:
+Standalone hosts compose the persistence and business domains side by side:
 
 ```csharp
-services.AddSecurityWeb(configuration);
-services.AddSecurityHostedServices(configuration);
+services.AddSecurityData(configuration.SecurityData);
+services.AddSecurityWeb(configuration.Security);
+// or: services.AddSecurityHostedServices(configuration.Security);
 ```
+
+The repository apps expose `AddWeb(IConfiguration, Action<AppConfiguration>)`
+and `AddHostedServices(IConfiguration, Action<AppConfiguration>)` as their
+application composition entry points. Applications that reference
+`cCoder.Core` should use Core's composite application API instead of composing
+Security directly.
 
 ## Account Lifecycle
 
@@ -102,22 +114,36 @@ Downstream ownership:
 
 ## Configuration
 
-Set SQL Server connection strings through appsettings or environment variables:
+The required configuration shape is:
 
-```powershell
+```json
+{
+  "Security": {
+    "DecryptionKey": ""
+  },
+  "SecurityData": {
+    "ConnectionString": "",
+    "AdminConnectionString": ""
+  }
+}
+```
+
 Required secret environment variables:
 
-- `Security__ConnectionString`
+- `SecurityData__ConnectionString`
 - `Security__DecryptionKey`
 
 Leave their matching `appsettings.json` values empty, define them as user- or
 machine-level environment variables, restart Visual Studio, and run with F5.
-```
+
+Optional migration-only secret:
+
+- `SecurityData__AdminConnectionString`
 
 Acceptance tests also read:
 
 ```powershell
-$env:Security__ConnectionString = "Data Source=.;Initial Catalog=dev-Members;MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true;Encrypt=True"
+$env:SecurityData__ConnectionString = "Data Source=.;Initial Catalog=dev-Members;MultipleActiveResultSets=True;Trusted_Connection=True;Trust Server Certificate=true;Encrypt=True"
 ```
 
 SQLite support has been retired; SQL Server is the only supported EF provider.

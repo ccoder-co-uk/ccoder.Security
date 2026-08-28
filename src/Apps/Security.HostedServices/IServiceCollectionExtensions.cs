@@ -3,21 +3,23 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security;
+using cCoder.Security.Data.EF;
 using Security.HostedServices.Models;
 
 namespace Security.HostedServices;
 
 public static class IServiceCollectionExtensions
 {
-    public static void AddSecurityHostedServices(
+    public static void AddHostedServices(
         this IServiceCollection services,
         IConfiguration configuration,
-        Action<SecurityHostedServicesConfiguration> configure = null)
+        Action<AppConfiguration> configure = null)
     {
-        SecurityHostedServicesConfiguration applicationConfiguration = new();
+        AppConfiguration applicationConfiguration = new();
         configuration.Bind(applicationConfiguration);
         configure?.Invoke(applicationConfiguration);
 
+        services.AddSecurityData(applicationConfiguration.SecurityData);
         services.AddSecurityHostedServices(
             applicationConfiguration.Security);
     }
