@@ -9,7 +9,7 @@ namespace cCoder.Security.IntegrationTests;
 internal sealed class IntegrationTestConfiguration
 {
     internal const string ConnectionStringVariableName =
-        "Security__ConnectionString";
+        "SecurityData__ConnectionString";
 
     internal const string DecryptionKeyVariableName =
         "Security__DecryptionKey";

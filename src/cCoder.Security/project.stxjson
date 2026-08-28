@@ -7171,7 +7171,7 @@
     {
       "Name": "cCoder.Security.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 49,
+      "LineNumber": 48,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -7181,7 +7181,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityHostedServices(IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E)",
           "Name": "AddSecurityHostedServices",
-          "LineNumber": 85,
+          "LineNumber": 84,
           "Inputs": [
             {
               "Name": "services",
@@ -7232,7 +7232,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityHostedServices(IServiceCollection,cCoder.Security.Models.SecurityConfiguration)",
           "Name": "AddSecurityHostedServices",
-          "LineNumber": 94,
+          "LineNumber": 93,
           "Inputs": [
             {
               "Name": "services",
@@ -7276,7 +7276,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E,ODataConventionModelBuilder)",
           "Name": "AddSecurityWeb",
-          "LineNumber": 51,
+          "LineNumber": 50,
           "Inputs": [
             {
               "Name": "services",
@@ -7331,7 +7331,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(IServiceCollection,cCoder.Security.Models.SecurityConfiguration,ODataConventionModelBuilder)",
           "Name": "AddSecurityWeb",
-          "LineNumber": 63,
+          "LineNumber": 62,
           "Inputs": [
             {
               "Name": "services",

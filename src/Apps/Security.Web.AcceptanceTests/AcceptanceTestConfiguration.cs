@@ -9,7 +9,7 @@ namespace Security.AcceptanceTests;
 internal sealed class AcceptanceTestConfiguration
 {
     internal const string ConnectionStringVariableName =
-        "Security__ConnectionString";
+        "SecurityData__ConnectionString";
 
     internal const string DecryptionKeyVariableName =
         "Security__DecryptionKey";

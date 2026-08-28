@@ -10,7 +10,7 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 
-        builder.Services.AddSecurityWeb(
+        builder.Services.AddWeb(
             configuration: builder.Configuration);
 
         builder.Logging.ClearProviders();

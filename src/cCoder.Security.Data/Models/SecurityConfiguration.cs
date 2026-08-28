@@ -10,7 +10,6 @@ public class SecurityConfiguration
 {
     public SecurityConfiguration()
     {
-        ConnectionString = string.Empty;
         DecryptionKey = string.Empty;
         RootPath = "Api/Security";
         MaxFailedAccessAttempts = 10;
@@ -18,7 +17,6 @@ public class SecurityConfiguration
         Argon = new ArgonConfiguration();
     }
 
-    public string ConnectionString { get; set; }
     public string DecryptionKey { get; set; }
     public string RootPath { get; set; }
     public bool IsMigrating { get; set; }

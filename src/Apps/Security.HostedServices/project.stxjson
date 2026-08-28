@@ -9,7 +9,7 @@
     {
       "Name": "Security.HostedServices.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -17,9 +17,9 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "Security.HostedServices.IServiceCollectionExtensions.AddSecurityHostedServices(IServiceCollection,IConfiguration,System.Action\u003CSecurity.HostedServices.Models.SecurityHostedServicesConfiguration\u003E)",
-          "Name": "AddSecurityHostedServices",
-          "LineNumber": 12,
+          "Id": "Security.HostedServices.IServiceCollectionExtensions.AddHostedServices(IServiceCollection,IConfiguration,System.Action\u003CSecurity.HostedServices.Models.AppConfiguration\u003E)",
+          "Name": "AddHostedServices",
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "services",
@@ -31,19 +31,12 @@
             },
             {
               "Name": "configure",
-              "Type": "System.Action\u003CSecurity.HostedServices.Models.SecurityHostedServicesConfiguration\u003E"
+              "Type": "System.Action\u003CSecurity.HostedServices.Models.AppConfiguration\u003E"
             }
           ],
           "ReturnType": "System.Void",
           "Implements": [],
           "Calls": [
-            {
-              "TypeName": "Security.HostedServices.IServiceCollectionExtensions",
-              "MethodName": "AddSecurityHostedServices",
-              "MethodId": "Security.HostedServices.IServiceCollectionExtensions.AddSecurityHostedServices(IServiceCollection,IConfiguration,System.Action\u003CSecurity.HostedServices.Models.SecurityHostedServicesConfiguration\u003E)",
-              "StandardElementType": "App",
-              "IsDependencyBoundary": false
-            },
             {
               "TypeName": "System.Action\u003CT\u003E",
               "MethodName": "Invoke",
@@ -67,7 +60,7 @@
       ]
     },
     {
-      "Name": "Security.HostedServices.Models.SecurityHostedServicesConfiguration",
+      "Name": "Security.HostedServices.Models.AppConfiguration",
       "StandardElementType": "Model",
       "LineNumber": 9,
       "IsPublic": true,
@@ -78,6 +71,10 @@
         {
           "Name": "Security",
           "Type": "cCoder.Security.Models.SecurityConfiguration"
+        },
+        {
+          "Name": "SecurityData",
+          "Type": "cCoder.Security.Models.SecurityDataConfiguration"
         }
       ],
       "Methods": []
