@@ -3003,6 +3003,18 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
+      "ToType": "System.String"
+    },
+    {
+      "FromType": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
+      "ToType": "System.String"
+    },
+    {
+      "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
+      "ToType": "DbContextOptions\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E"
+    },
+    {
       "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
       "ToType": "cCoder.Security.Models.Configurations.SSOAuthInfo"
     }

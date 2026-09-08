@@ -505,6 +505,14 @@
     {
       "FromType": "Security.Web.Controllers.HomeController",
       "ToType": "Security.Web.Exposures.HomeManager"
+    },
+    {
+      "FromType": "Security.Web.Exposures.CurrentUserManager",
+      "ToType": "cCoder.Security.Models.Configurations.ISSOAuthInfo"
+    },
+    {
+      "FromType": "Security.Web.Exposures.HomeManager",
+      "ToType": "IWebHostEnvironment"
     }
   ],
   "AnalysisItems": [
