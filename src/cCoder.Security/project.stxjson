@@ -2912,7 +2912,7 @@
     },
     {
       "Name": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "LineNumber": 14,
       "IsPublic": true,
       "Kind": "Class",
@@ -7428,7 +7428,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7448,7 +7448,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7468,7 +7468,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7488,7 +7488,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7508,7 +7508,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
@@ -7528,7 +7528,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityDependencyException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7548,7 +7548,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityManagementDependencyException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7568,7 +7568,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityManagementServiceException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7588,7 +7588,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityManagementValidationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7608,7 +7608,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityOrchestrationDependencyException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7628,7 +7628,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityOrchestrationServiceException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7648,7 +7648,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityOrchestrationValidationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7668,7 +7668,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7688,7 +7688,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7708,7 +7708,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7728,7 +7728,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityServiceException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -7748,7 +7748,7 @@
     },
     {
       "Name": "cCoder.Security.Models.Exceptions.SecurityValidationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
@@ -20827,6 +20827,18 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Security.Brokers.Authentication.AuthenticationContextBroker",
+      "ToType": "cCoder.Security.Models.Configurations.ISSOAuthInfo"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Configuration.SecurityConfigurationBroker",
+      "ToType": "Microsoft.Extensions.Configuration.IConfiguration"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Encryption.LegacyPasswordEncryptionBroker",
+      "ToType": "cCoder.Security.Data.ISymmetricCrypto\u003CSystem.String\u003E"
+    },
+    {
       "FromType": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker",
       "ToType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency"
     },
@@ -20835,8 +20847,108 @@
       "ToType": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency"
     },
     {
+      "FromType": "cCoder.Security.Brokers.Events.AccountEventBroker",
+      "ToType": "IEventHub"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Events.EventHubBroker",
+      "ToType": "IEventHub"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Events.TenantSetupEventBroker",
+      "ToType": "IEventHub"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Logging.LoggingBroker",
+      "ToType": "ILogger\u003CcCoder.Security.Brokers.Logging.LoggingBroker\u003E"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Requests.HttpRequestBroker",
+      "ToType": "HttpRequest"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Sessions.WebSessionBroker",
+      "ToType": "ISession"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.SSOPrivilegeBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.SSORoleBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.SSOUserBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.SSOUserRoleBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.SessionBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.TenantBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.TokenBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Storage.UserEventBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Brokers.Utility.SSOAuthorizationBroker",
+      "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.Authentication.SecurityBearerAuthenticationDependency",
+      "ToType": "ILoggerFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.Authentication.SecurityBearerAuthenticationDependency",
+      "ToType": "Microsoft.Extensions.Options.IOptionsMonitor\u003CAuthenticationSchemeOptions\u003E"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.Authentication.SecurityBearerAuthenticationDependency",
+      "ToType": "System.Text.Encodings.Web.UrlEncoder"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
+      "ToType": "cCoder.Security.Models.Configurations.ArgonConfiguration"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
+      "ToType": "System.Byte[]"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
+      "ToType": "System.Int32"
+    },
+    {
       "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
       "ToType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency",
+      "ToType": "System.Security.Cryptography.RandomNumberGenerator"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.HostedServices.TokenCleaner",
+      "ToType": "Microsoft.Extensions.DependencyInjection.IServiceScopeFactory"
+    },
+    {
+      "FromType": "cCoder.Security.Dependencies.HostedServices.TokenCleaner",
+      "ToType": "cCoder.Security.Models.SecurityConfiguration"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
@@ -20907,6 +21019,74 @@
       "ToType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService"
     },
     {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityAuthenticationException",
+      "ToType": "System.String"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityManagementDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityManagementServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityManagementValidationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityOrchestrationDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityOrchestrationServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityOrchestrationValidationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Security.Models.Exceptions.SecurityValidationException",
+      "ToType": "System.Exception"
+    },
+    {
       "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
       "ToType": "cCoder.Security.Services.Processings.AccountEventProcessingService"
     },
@@ -20925,6 +21105,10 @@
     {
       "FromType": "cCoder.Security.Services.Aggregations.AuthenticationAggregationService",
       "ToType": "cCoder.Security.Services.Processings.TokenProcessingService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService",
+      "ToType": "cCoder.Security.Models.Configurations.ISSOAuthInfo"
     },
     {
       "FromType": "cCoder.Security.Services.Aggregations.CurrentUserAggregationService",
@@ -21156,6 +21340,10 @@
     },
     {
       "FromType": "cCoder.Security.Services.Processings.SSOUserProcessingService",
+      "ToType": "cCoder.Security.Models.SecurityConfiguration"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.SSOUserProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.SSOUserService"
     },
     {
@@ -21192,6 +21380,27 @@
     }
   ],
   "AnalysisItems": [
+    {
+      "Code": "STXSTRUCT001",
+      "Description": "The source file must live in the standard folder for its element type.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
+      "LineNumber": 14
+    },
+    {
+      "Code": "STXE005",
+      "Description": "An exposure must not sequence multiple routine calls.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
+      "LineNumber": 24
+    },
+    {
+      "Code": "STXE005",
+      "Description": "An exposure must not sequence multiple routine calls.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Dependencies.EDM.ODataModelBuilder",
+      "LineNumber": 35
+    },
     {
       "Code": "STXAPI001",
       "Description": "An API controller must have exactly one business dependency.",
