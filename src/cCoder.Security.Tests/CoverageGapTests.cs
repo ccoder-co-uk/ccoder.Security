@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Dependencies.EDM;
+using cCoder.Security.Exposures.EDM;
 using cCoder.Security.Dependencies.HostedServices;
 using cCoder.Security.Models;
 using cCoder.Security.Models.Entities;
