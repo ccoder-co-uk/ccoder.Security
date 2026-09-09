@@ -6,7 +6,7 @@ using cCoder.Security.Models;
 using Microsoft.OData.ModelBuilder;
 using System.Linq.Expressions;
 
-namespace cCoder.Security.Dependencies.EDM;
+namespace cCoder.Security.Exposures.EDM;
 
 /// <summary>
 /// Base model builder class for all OData model builders
@@ -25,23 +25,15 @@ public abstract class ODataModelBuilder
         where T : class
     {
         setName ??= typeof(T).Name;
-        EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(name: setName);
-
-        StructuralTypeConfiguration typeInfo = Builder.StructuralTypes.First(predicate: t => t.ClrType == typeof(T));
-
-        return setConfig;
+        return Builder.EntitySet<T>(name: setName);
     }
 
     protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> key)
-        where T : class
-    {
-        string setName = typeof(T).Name;
-        EntitySetConfiguration<T> setConfig = Builder.EntitySet<T>(name: setName);
-
-        _ = Builder
-            .EntityType<T>()
-            .HasKey(keyDefinitionExpression: key);
-
-        return setConfig;
-    }
+        where T : class =>
+        (
+            Set: Builder.EntitySet<T>(name: typeof(T).Name),
+            Key: Builder.EntityType<T>()
+                .HasKey(keyDefinitionExpression: key)
+        )
+            .Set;
 }
