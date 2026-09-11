@@ -21,39 +21,39 @@ internal sealed partial class SSOUserProcessingService(
     ILegacyPasswordEncryptionBroker legacyEncryptionBroker = null)
         : ISSOUserProcessingService
 {
-    public ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser user) =>
+    public ValueTask<SSOUser> RegisterSSOUserAsync(SSOUser sSOUser) =>
         TryCatch<SSOUser>(operation: async () =>
         {
-            ValidateSSOUserOnRegister(user: user);
+            ValidateSSOUserOnRegister(user: sSOUser);
 
-            user.Id = GetNextAvailableUserId(user: user);
+            sSOUser.Id = GetNextAvailableUserId(user: sSOUser);
 
-            user.PasswordHash = passwordHashingBroker.HashPassword(
-                password: user.PasswordHash);
+            sSOUser.PasswordHash = passwordHashingBroker.HashPassword(
+                password: sSOUser.PasswordHash);
 
-            return await ssoUserService.AddSSOUserAsync(item: user);
+            return await ssoUserService.AddSSOUserAsync(item: sSOUser);
         });
 
-    public ValueTask<SSOUser> InviteSSOUserAsync(SSOUser user) =>
+    public ValueTask<SSOUser> InviteSSOUserAsync(SSOUser sSOUser) =>
         TryCatch<SSOUser>(operation: async () =>
         {
-            ValidateSSOUserOnInvite(user: user);
+            ValidateSSOUserOnInvite(user: sSOUser);
 
-            user.Id = GetNextAvailableUserId(user: user);
+            sSOUser.Id = GetNextAvailableUserId(user: sSOUser);
 
-            if (string.IsNullOrWhiteSpace(value: user.PasswordHash))
+            if (string.IsNullOrWhiteSpace(value: sSOUser.PasswordHash))
             {
-                user.PasswordHash = Guid
+                sSOUser.PasswordHash = Guid
                     .NewGuid()
                     .ToString(format: "N") + "Aa1!";
             }
 
-            user.PasswordHash = passwordHashingBroker.HashPassword(
-                password: user.PasswordHash);
+            sSOUser.PasswordHash = passwordHashingBroker.HashPassword(
+                password: sSOUser.PasswordHash);
 
-            user.LockoutEnabled = true;
+            sSOUser.LockoutEnabled = true;
 
-            return await ssoUserService.AddSSOUserAsync(item: user);
+            return await ssoUserService.AddSSOUserAsync(item: sSOUser);
         });
 
     public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>

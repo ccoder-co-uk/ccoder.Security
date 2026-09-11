@@ -7,7 +7,6 @@ using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Processings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
@@ -48,9 +47,11 @@ public class TenantAnalysisController(ITenantAnalysisManager tenantAnalysisProce
                 .GetAllTenantAnalysis()
                 .Where(predicate: i => i.Id == key);
 
-            return result.Any()
-                ? Ok(value: SingleResult.Create(queryable: result))
-                : NotFound();
+            TenantAnalysis tenantAnalysis = result.FirstOrDefault();
+
+            return tenantAnalysis is null
+                ? NotFound()
+                : Ok(value: tenantAnalysis);
         }
         catch (SecurityProcessingValidationException)
         {

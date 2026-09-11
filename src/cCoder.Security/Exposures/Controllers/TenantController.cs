@@ -7,7 +7,6 @@ using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
@@ -48,9 +47,11 @@ public class TenantController(ITenantAdministrationManager tenantAggregationServ
                 .GetAllTenants()
                 .Where(predicate: tenant => tenant.Id == key);
 
-            return result.Any()
-                ? Ok(value: SingleResult.Create(queryable: result))
-                : NotFound();
+            Tenant tenant = result.FirstOrDefault();
+
+            return tenant is null
+                ? NotFound()
+                : Ok(value: tenant);
         }
         catch (SecurityAggregationValidationException)
         {

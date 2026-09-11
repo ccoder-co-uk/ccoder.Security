@@ -7,7 +7,6 @@ using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
@@ -48,9 +47,11 @@ public class SSORoleController(ISSORoleManager roleOrchestrationService)
                 .GetAllSSORoles()
                 .Where(predicate: i => i.Id == key);
 
-            return result.Any()
-                ? Ok(value: SingleResult.Create(queryable: result))
-                : NotFound();
+            SSORole ssoRole = result.FirstOrDefault();
+
+            return ssoRole is null
+                ? NotFound()
+                : Ok(value: ssoRole);
         }
         catch (SecurityOrchestrationValidationException)
         {

@@ -11,16 +11,16 @@ namespace cCoder.Security.Services.Foundations;
 internal sealed partial class SSOUserService(ISSOUserBroker ssoUserBroker)
     : ISSOUserService
 {
-    public ValueTask<SSOUser> AddSSOUserAsync(SSOUser newUser) =>
+    public ValueTask<SSOUser> AddSSOUserAsync(SSOUser newSSOUser) =>
         TryCatch<SSOUser>(operation: async () =>
         {
-            ValidateSSOUserOnAdd(newUser: newUser);
+            ValidateSSOUserOnAdd(newUser: newSSOUser);
 
-            SSOUser storageUser = CreateStorageSSOUser(ssoUser: newUser);
+            SSOUser storageUser = CreateStorageSSOUser(ssoUser: newSSOUser);
             SSOUser result = await ssoUserBroker.InsertSSOUserAsync(user: storageUser);
-            CopySSOUser(sourceSSOUser: result, targetSSOUser: newUser);
+            CopySSOUser(sourceSSOUser: result, targetSSOUser: newSSOUser);
 
-            return newUser;
+            return newSSOUser;
         });
 
     public ValueTask DeleteSSOUserAsync(SSOUser deletedSSOUser) =>
