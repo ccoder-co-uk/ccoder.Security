@@ -336,7 +336,7 @@ public sealed partial class ControllerHttpComplianceTests
             currentUserAggregationService: currentUserManager.Object);
 
         // When
-        IActionResult result = await controller.PutMe(updatedUser: request);
+        IActionResult result = await controller.PutMe(updatedSSOUser: request);
 
         // Then
         result
