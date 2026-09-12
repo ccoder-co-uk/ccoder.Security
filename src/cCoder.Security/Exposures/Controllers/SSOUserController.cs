@@ -7,7 +7,6 @@ using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Results;
 
 namespace cCoder.Security.Exposures.Controllers;
 
@@ -48,9 +47,11 @@ public class SSOUserController(ISSOUserManager ssoUserAggregationService)
                 .GetAllSSOUsers()
                 .Where(predicate: user => user.Id == key);
 
-            return result.Any()
-                ? Ok(value: SingleResult.Create(queryable: result))
-                : NotFound();
+            SSOUser ssoUser = result.FirstOrDefault();
+
+            return ssoUser is null
+                ? NotFound()
+                : Ok(value: ssoUser);
         }
         catch (SecurityAggregationValidationException)
         {

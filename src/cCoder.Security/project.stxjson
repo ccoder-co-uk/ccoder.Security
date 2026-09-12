@@ -4142,7 +4142,7 @@
           "LineNumber": 43,
           "Inputs": [
             {
-              "Name": "updatedUser",
+              "Name": "updatedSSOUser",
               "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
@@ -4758,7 +4758,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 14,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -4777,7 +4777,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController.Get(ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E)",
           "Name": "Get",
-          "LineNumber": 19,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -4839,7 +4839,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 43,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "key",
@@ -4851,8 +4851,8 @@
           "Calls": [
             {
               "TypeName": "System.Linq.Queryable",
-              "MethodName": "Any",
-              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E)",
+              "MethodName": "FirstOrDefault",
+              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -4909,7 +4909,7 @@
               "ResultMethod": "NotFound",
               "ExceptionType": "",
               "IsExceptionPath": false,
-              "IsNullPath": false,
+              "IsNullPath": true,
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": false
@@ -4919,7 +4919,7 @@
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
           "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
+          "HandlesNullWithNotFound": true,
           "HasTryCatch": true
         }
       ]
@@ -4927,7 +4927,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.SSORoleController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 14,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -4946,7 +4946,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Delete(System.Guid)",
           "Name": "Delete",
-          "LineNumber": 135,
+          "LineNumber": 136,
           "Inputs": [
             {
               "Name": "key",
@@ -5050,7 +5050,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Get(ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSORole\u003E)",
           "Name": "Get",
-          "LineNumber": 19,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -5119,7 +5119,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 43,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "key",
@@ -5131,8 +5131,8 @@
           "Calls": [
             {
               "TypeName": "System.Linq.Queryable",
-              "MethodName": "Any",
-              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E)",
+              "MethodName": "FirstOrDefault",
+              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -5196,7 +5196,7 @@
               "ResultMethod": "NotFound",
               "ExceptionType": "",
               "IsExceptionPath": false,
-              "IsNullPath": false,
+              "IsNullPath": true,
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": false
@@ -5206,13 +5206,13 @@
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
           "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
+          "HandlesNullWithNotFound": true,
           "HasTryCatch": true
         },
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Post(cCoder.Security.Models.Entities.SSORole)",
           "Name": "Post",
-          "LineNumber": 72,
+          "LineNumber": 73,
           "Inputs": [
             {
               "Name": "newSSORole",
@@ -5282,7 +5282,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Put(System.Guid,cCoder.Security.Models.Entities.SSORole)",
           "Name": "Put",
-          "LineNumber": 102,
+          "LineNumber": 103,
           "Inputs": [
             {
               "Name": "key",
@@ -5368,7 +5368,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.SSOUserController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 14,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -5387,7 +5387,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Delete(System.String,System.String)",
           "Name": "Delete",
-          "LineNumber": 105,
+          "LineNumber": 106,
           "Inputs": [
             {
               "Name": "key",
@@ -5485,7 +5485,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Get(ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSOUser\u003E)",
           "Name": "Get",
-          "LineNumber": 19,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -5554,7 +5554,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 43,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "key",
@@ -5566,8 +5566,8 @@
           "Calls": [
             {
               "TypeName": "System.Linq.Queryable",
-              "MethodName": "Any",
-              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E)",
+              "MethodName": "FirstOrDefault",
+              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -5631,7 +5631,7 @@
               "ResultMethod": "NotFound",
               "ExceptionType": "",
               "IsExceptionPath": false,
-              "IsNullPath": false,
+              "IsNullPath": true,
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": false
@@ -5641,13 +5641,13 @@
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
           "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
+          "HandlesNullWithNotFound": true,
           "HasTryCatch": true
         },
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Put(System.String,cCoder.Security.Models.Entities.SSOUser)",
           "Name": "Put",
-          "LineNumber": 73,
+          "LineNumber": 74,
           "Inputs": [
             {
               "Name": "key",
@@ -6107,7 +6107,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 14,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -6126,7 +6126,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantAnalysisController.Get()",
           "Name": "Get",
-          "LineNumber": 19,
+          "LineNumber": 18,
           "Inputs": [],
           "ReturnType": "IActionResult",
           "Implements": [],
@@ -6186,7 +6186,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantAnalysisController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 43,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "key",
@@ -6198,8 +6198,8 @@
           "Calls": [
             {
               "TypeName": "System.Linq.Queryable",
-              "MethodName": "Any",
-              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E)",
+              "MethodName": "FirstOrDefault",
+              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -6259,7 +6259,7 @@
               "ResultMethod": "NotFound",
               "ExceptionType": "",
               "IsExceptionPath": false,
-              "IsNullPath": false,
+              "IsNullPath": true,
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": false
@@ -6269,7 +6269,7 @@
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
           "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
+          "HandlesNullWithNotFound": true,
           "HasTryCatch": true
         }
       ]
@@ -6277,7 +6277,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.TenantController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 14,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -6296,7 +6296,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Delete(System.String)",
           "Name": "Delete",
-          "LineNumber": 135,
+          "LineNumber": 136,
           "Inputs": [
             {
               "Name": "key",
@@ -6400,7 +6400,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Get(ODataQueryOptions\u003CcCoder.Security.Models.Entities.Tenant\u003E)",
           "Name": "Get",
-          "LineNumber": 19,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -6469,7 +6469,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 43,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "key",
@@ -6481,8 +6481,8 @@
           "Calls": [
             {
               "TypeName": "System.Linq.Queryable",
-              "MethodName": "Any",
-              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E)",
+              "MethodName": "FirstOrDefault",
+              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -6546,7 +6546,7 @@
               "ResultMethod": "NotFound",
               "ExceptionType": "",
               "IsExceptionPath": false,
-              "IsNullPath": false,
+              "IsNullPath": true,
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": false
@@ -6556,13 +6556,13 @@
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
           "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
+          "HandlesNullWithNotFound": true,
           "HasTryCatch": true
         },
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Post(cCoder.Security.Models.Entities.Tenant)",
           "Name": "Post",
-          "LineNumber": 72,
+          "LineNumber": 73,
           "Inputs": [
             {
               "Name": "newTenant",
@@ -6633,7 +6633,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Put(System.String,cCoder.Security.Models.Entities.Tenant)",
           "Name": "Put",
-          "LineNumber": 102,
+          "LineNumber": 103,
           "Inputs": [
             {
               "Name": "key",
@@ -6719,7 +6719,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.UserEventController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 14,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -6738,7 +6738,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.UserEventController.Get(ODataQueryOptions\u003CcCoder.Security.Models.Entities.UserEvent\u003E)",
           "Name": "Get",
-          "LineNumber": 19,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -6803,7 +6803,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.UserEventController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 43,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "key",
@@ -6815,8 +6815,8 @@
           "Calls": [
             {
               "TypeName": "System.Linq.Queryable",
-              "MethodName": "Any",
-              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E)",
+              "MethodName": "FirstOrDefault",
+              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -6876,7 +6876,7 @@
               "ResultMethod": "NotFound",
               "ExceptionType": "",
               "IsExceptionPath": false,
-              "IsNullPath": false,
+              "IsNullPath": true,
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": false
@@ -6886,7 +6886,7 @@
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
           "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
+          "HandlesNullWithNotFound": true,
           "HasTryCatch": true
         }
       ]
@@ -8211,7 +8211,7 @@
           "LineNumber": 25,
           "Inputs": [
             {
-              "Name": "updatedUser",
+              "Name": "updatedSSOUser",
               "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
@@ -8302,7 +8302,7 @@
           "LineNumber": 45,
           "Inputs": [
             {
-              "Name": "registerForm",
+              "Name": "registerUser",
               "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             },
             {
@@ -8408,7 +8408,7 @@
           "LineNumber": 35,
           "Inputs": [
             {
-              "Name": "registerForm",
+              "Name": "registerUser",
               "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
@@ -8503,7 +8503,7 @@
           "LineNumber": 26,
           "Inputs": [
             {
-              "Name": "registerForm",
+              "Name": "registerUser",
               "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
@@ -8551,7 +8551,7 @@
           "LineNumber": 78,
           "Inputs": [
             {
-              "Name": "newRegisterUser",
+              "Name": "registerUser",
               "Type": "cCoder.Security.Models.DTOs.RegisterUser"
             }
           ],
@@ -9321,7 +9321,7 @@
           "LineNumber": 22,
           "Inputs": [
             {
-              "Name": "accountEventRequest",
+              "Name": "securityAccountEventRequest",
               "Type": "cCoder.Security.Models.Events.SecurityAccountEventRequest"
             }
           ],
@@ -10155,7 +10155,7 @@
           "LineNumber": 14,
           "Inputs": [
             {
-              "Name": "newUser",
+              "Name": "newSSOUser",
               "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
@@ -10541,7 +10541,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.SessionService.RemoveKey(System.String)",
           "Name": "RemoveKey",
-          "LineNumber": 69,
+          "LineNumber": 71,
           "Inputs": [
             {
               "Name": "key",
@@ -10589,7 +10589,7 @@
           "LineNumber": 53,
           "Inputs": [
             {
-              "Name": "user",
+              "Name": "sSOUser",
               "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
@@ -12051,7 +12051,7 @@
           "LineNumber": 15,
           "Inputs": [
             {
-              "Name": "accountEventRequest",
+              "Name": "securityAccountEventRequest",
               "Type": "cCoder.Security.Models.Events.SecurityAccountEventRequest"
             }
           ],
@@ -12890,7 +12890,7 @@
           "LineNumber": 37,
           "Inputs": [
             {
-              "Name": "user",
+              "Name": "sSOUser",
               "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
@@ -13012,7 +13012,7 @@
           "LineNumber": 24,
           "Inputs": [
             {
-              "Name": "user",
+              "Name": "sSOUser",
               "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
@@ -13524,7 +13524,7 @@
           "LineNumber": 35,
           "Inputs": [
             {
-              "Name": "user",
+              "Name": "sSOUser",
               "Type": "cCoder.Security.Models.Entities.SSOUser"
             }
           ],
@@ -21546,154 +21546,154 @@
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
-      "LineNumber": 43
+      "LineNumber": 42
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
-      "LineNumber": 43
+      "LineNumber": 42
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 43
+      "LineNumber": 42
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 43
+      "LineNumber": 42
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 72
-    },
-    {
-      "Code": "STXAPI006",
-      "Description": "An HTTP failure response must log the caught exception before returning it.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 72
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 102
-    },
-    {
-      "Code": "STXAPI006",
-      "Description": "An HTTP failure response must log the caught exception before returning it.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 102
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 135
-    },
-    {
-      "Code": "STXAPI006",
-      "Description": "An HTTP failure response must log the caught exception before returning it.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
-      "LineNumber": 135
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STXAPI006",
-      "Description": "An HTTP failure response must log the caught exception before returning it.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 43
-    },
-    {
-      "Code": "STXAPI006",
-      "Description": "An HTTP failure response must log the caught exception before returning it.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 43
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
       "LineNumber": 73
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
       "LineNumber": 73
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
+      "LineNumber": 103
+    },
+    {
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
+      "LineNumber": 103
+    },
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
+      "LineNumber": 136
+    },
+    {
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSORoleController",
+      "LineNumber": 136
+    },
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 105
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
-      "LineNumber": 105
+      "LineNumber": 18
+    },
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "LineNumber": 42
+    },
+    {
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "LineNumber": 42
+    },
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "LineNumber": 74
+    },
+    {
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "LineNumber": 74
+    },
+    {
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "LineNumber": 106
+    },
+    {
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
+      "Severity": "Warning",
+      "Type": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "LineNumber": 106
     },
     {
       "Code": "STXAPI005",
@@ -21756,140 +21756,126 @@
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
-      "LineNumber": 43
+      "LineNumber": 42
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
-      "LineNumber": 43
+      "LineNumber": 42
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 19
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 43
+      "LineNumber": 42
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 43
+      "LineNumber": 42
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 72
+      "LineNumber": 73
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 72
+      "LineNumber": 73
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 102
+      "LineNumber": 103
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 102
+      "LineNumber": 103
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 135
+      "LineNumber": 136
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.TenantController",
-      "LineNumber": 135
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.UserEventController",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STXAPI006",
-      "Description": "An HTTP failure response must log the caught exception before returning it.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.Controllers.UserEventController",
-      "LineNumber": 19
+      "LineNumber": 136
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.UserEventController",
-      "LineNumber": 43
+      "LineNumber": 18
     },
     {
       "Code": "STXAPI006",
       "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
       "Type": "cCoder.Security.Exposures.Controllers.UserEventController",
-      "LineNumber": 43
+      "LineNumber": 18
     },
     {
-      "Code": "STXFORMAT013",
-      "Description": "C# source files must use one consistent line-ending style throughout the project.",
+      "Code": "STXAPI005",
+      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 1
+      "Type": "cCoder.Security.Exposures.Controllers.UserEventController",
+      "LineNumber": 42
     },
     {
-      "Code": "STXFORMAT001",
-      "Description": "Source files must not contain newline characters after the final code token.",
+      "Code": "STXAPI006",
+      "Description": "An HTTP failure response must log the caught exception before returning it.",
       "Severity": "Warning",
-      "Type": "cCoder.Security.Exposures.EDM.ODataModelBuilder",
-      "LineNumber": 39
+      "Type": "cCoder.Security.Exposures.Controllers.UserEventController",
+      "LineNumber": 42
     }
   ]
 }

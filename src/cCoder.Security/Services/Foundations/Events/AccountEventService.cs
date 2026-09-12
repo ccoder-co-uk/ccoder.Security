@@ -20,20 +20,22 @@ internal sealed partial class AccountEventService(
         : IAccountEventService
 {
     public ValueTask RaiseSecurityAccountEventRequestAsync(
-        SecurityAccountEventRequest accountEventRequest) =>
+        SecurityAccountEventRequest securityAccountEventRequest) =>
         TryCatch(operation: async () =>
         {
-            ValidateSecurityAccountEventOnRaise(accountEventRequest: accountEventRequest);
+            ValidateSecurityAccountEventOnRaise(
+                accountEventRequest: securityAccountEventRequest);
 
             SecurityAccountEvent accountEvent = new()
             {
-                Kind = accountEventRequest.Kind,
+                Kind = securityAccountEventRequest.Kind,
                 ActorUserId = ResolveActorUserId(),
-                User = accountEventRequest.User,
-                Tenant = ResolveTenant(accountEventRequest: accountEventRequest),
+                User = securityAccountEventRequest.User,
+                Tenant = ResolveTenant(
+                    accountEventRequest: securityAccountEventRequest),
                 RequestDomain = ResolveRequestDomain(),
-                Token = accountEventRequest.Token,
-                Culture = accountEventRequest.RegisterForm?.Culture
+                Token = securityAccountEventRequest.Token,
+                Culture = securityAccountEventRequest.RegisterForm?.Culture
             };
 
             EventMessage<SecurityAccountEvent> message = new()
@@ -46,7 +48,8 @@ internal sealed partial class AccountEventService(
             };
 
             await accountEventBroker.RaiseAccountEventAsync(
-                eventName: ResolveEventName(kind: accountEventRequest.Kind),
+                eventName: ResolveEventName(
+                    kind: securityAccountEventRequest.Kind),
                 message: message);
         });
 

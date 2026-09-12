@@ -24,37 +24,37 @@ internal sealed partial class RegistrationAggregationService(
         : IRegistrationAggregationService
 {
     public ValueTask<RegisterUser> RegisterUserAsync(
-        RegisterUser registerForm) =>
+        RegisterUser registerUser) =>
         TryCatch<RegisterUser>(operation: async () =>
         {
-            ValidateRegistrationOnRegister(registerForm: registerForm);
+            ValidateRegistrationOnRegister(registerForm: registerUser);
 
-            return await RegisterUserCoreAsync(registerForm: registerForm);
+            return await RegisterUserCoreAsync(registerForm: registerUser);
         });
 
     public ValueTask<RegisterUser> InviteRegisterUserAsync(
-        RegisterUser registerForm) =>
+        RegisterUser registerUser) =>
         TryCatch<RegisterUser>(operation: async () =>
         {
-            ValidateRegistrationOnInvite(registerForm: registerForm);
+            ValidateRegistrationOnInvite(registerForm: registerUser);
 
             return await InviteRegisterUserCoreAsync(
-                registerForm: registerForm);
+                registerForm: registerUser);
         });
 
     public ValueTask<RegisterUser> AcceptRegisterUserInviteAsync(
-        RegisterUser registerForm,
+        RegisterUser registerUser,
         string userId,
         string tokenId) =>
         TryCatch<RegisterUser>(operation: async () =>
         {
             ValidateRegistrationOnAccept(
-                registerForm: registerForm,
+                registerForm: registerUser,
                 userId: userId,
                 tokenId: tokenId);
 
             return await AcceptRegisterUserInviteCoreAsync(
-                registerForm: registerForm,
+                registerForm: registerUser,
                 userId: userId,
                 tokenId: tokenId);
         });
@@ -75,18 +75,18 @@ internal sealed partial class RegistrationAggregationService(
             await ConfirmRegistrationCoreAsync(tokenId: tokenId);
         });
 
-    public ValueTask SetupRegisterUserAsync(RegisterUser newRegisterUser) =>
+    public ValueTask SetupRegisterUserAsync(RegisterUser registerUser) =>
         TryCatch(operation: async () =>
         {
-            Validate(inputs: newRegisterUser);
-            NormalizeRegisterUser(registerUser: newRegisterUser);
+            Validate(inputs: registerUser);
+            NormalizeRegisterUser(registerUser: registerUser);
 
             await AddBootstrapTenantAsync(
-                newRegisterUser: newRegisterUser);
+                newRegisterUser: registerUser);
 
             RegisterUser registration =
                 await RegisterUserCoreAsync(
-                    registerForm: newRegisterUser);
+                    registerForm: registerUser);
 
             await ConfirmRegistrationCoreAsync(
                 tokenId: registration.Token);

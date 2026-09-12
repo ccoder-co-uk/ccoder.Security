@@ -110,7 +110,7 @@ public sealed partial class ServiceSuccessCoverageTests
             confirmNewPassword: password);
 
         RegisterUser accepted = await registrations.AcceptRegisterUserInviteAsync(
-            registerForm: registration,
+            registerUser: registration,
             userId: userId,
             tokenId: invitationToken.Id);
 

@@ -26,6 +26,7 @@ public partial class SSOUserProcessingServiceTests
             minute: 0,
             second: 0,
             offset: TimeSpan.Zero);
+
         string password = RandomString();
         SSOUser user = RandomSSOUser();
         user.AccessFailedCount = securityConfiguration.MaxFailedAccessAttempts - 1;
@@ -35,14 +36,17 @@ public partial class SSOUserProcessingServiceTests
         ssoUserServiceMock
             .Setup(expression: service => service.GetAllSSOUsers(ignoreFilters: true))
             .Returns(value: users);
+
         ssoUserServiceMock
             .Setup(expression: service => service.UpdateSSOUserAsync(item: user))
             .ReturnsAsync(value: user);
+
         passwordHashingBrokerMock
             .Setup(expression: broker => broker.VerifyHashedPassword(
                 hashedPassword: user.PasswordHash,
                 providedPassword: password))
             .Returns(value: PasswordVerificationOutcome.Failed);
+
         dateTimeOffsetBrokerMock
             .Setup(expression: broker => broker.GetCurrentTime())
             .Returns(value: currentTime);
@@ -59,12 +63,15 @@ public partial class SSOUserProcessingServiceTests
         exception.InnerException
             .Should()
             .BeOfType<System.Security.SecurityException>();
+
         user.AccessFailedCount
             .Should()
             .Be(expected: securityConfiguration.MaxFailedAccessAttempts);
+
         user.LockoutEnabled
             .Should()
             .BeTrue();
+
         user.LockoutEndDateUtc
             .Should()
             .Be(expected: currentTime.UtcDateTime.AddMinutes(
@@ -86,9 +93,11 @@ public partial class SSOUserProcessingServiceTests
         ssoUserServiceMock
             .Setup(expression: service => service.GetAllSSOUsers(ignoreFilters: true))
             .Returns(value: users);
+
         ssoUserServiceMock
             .Setup(expression: service => service.UpdateSSOUserAsync(item: user))
             .ReturnsAsync(value: user);
+
         passwordHashingBrokerMock
             .Setup(expression: broker => broker.VerifyHashedPassword(
                 hashedPassword: user.PasswordHash,
