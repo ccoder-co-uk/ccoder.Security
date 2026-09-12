@@ -32,17 +32,17 @@ internal sealed partial class SessionProcessingService(ISessionService sessionSe
             sessionService.SetString(key: key, value: value);
         });
 
-    public void SetSSOUser(SSOUser user) =>
+    public void SetSSOUser(SSOUser sSOUser) =>
         TryCatch(operation: () =>
         {
-            ValidateSSOUserOnSet(user: user);
+            ValidateSSOUserOnSet(user: sSOUser);
 
             if (sessionService.GetString(key: "ssoUser") != null)
             {
                 sessionService.RemoveKey(key: "ssoUser");
             }
 
-            sessionService.SetSSOUser(user: user);
+            sessionService.SetSSOUser(user: sSOUser);
         });
 
     public void Remove(string key) =>

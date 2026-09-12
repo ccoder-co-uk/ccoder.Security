@@ -40,7 +40,7 @@ public class CurrentUserController(
     }
 
     [HttpPut("Me")]
-    public async ValueTask<IActionResult> PutMe([FromBody] SSOUser updatedUser)
+    public async ValueTask<IActionResult> PutMe([FromBody] SSOUser updatedSSOUser)
     {
         try
         {
@@ -50,7 +50,7 @@ public class CurrentUserController(
             }
 
             return Ok(value: await currentUserAggregationService
-                .UpdateCurrentSSOUserAsync(updatedUser: updatedUser));
+                .UpdateCurrentSSOUserAsync(updatedUser: updatedSSOUser));
         }
         catch (SecurityAggregationAuthenticationException)
         {

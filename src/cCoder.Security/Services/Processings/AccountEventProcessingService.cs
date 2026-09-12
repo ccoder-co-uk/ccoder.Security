@@ -13,13 +13,13 @@ internal sealed partial class AccountEventProcessingService(
         : IAccountEventProcessingService
 {
     public ValueTask RaiseSecurityAccountEventRequestAsync(
-        SecurityAccountEventRequest accountEventRequest) =>
+        SecurityAccountEventRequest securityAccountEventRequest) =>
         TryCatch(operation: async () =>
         {
             ValidateAccountEventRequestOnRaise(
-                accountEventRequest: accountEventRequest);
+                accountEventRequest: securityAccountEventRequest);
 
             await accountEventService.RaiseSecurityAccountEventRequestAsync(
-                accountEventRequest: accountEventRequest);
+                accountEventRequest: securityAccountEventRequest);
         });
 }

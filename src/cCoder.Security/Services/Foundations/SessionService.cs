@@ -50,14 +50,16 @@ internal sealed partial class SessionService(
                 : null;
         });
 
-    public void SetSSOUser(SSOUser user) =>
+    public void SetSSOUser(SSOUser sSOUser) =>
         TryCatch(operation: () =>
         {
-            ValidateSSOUserOnSet(user: user);
+            ValidateSSOUserOnSet(user: sSOUser);
 
-            if (user != null)
+            if (sSOUser != null)
             {
-                string serializedUser = System.Text.Json.JsonSerializer.Serialize(value: user);
+                string serializedUser = System.Text.Json.JsonSerializer.Serialize(
+                    value: sSOUser);
+
                 sessionBroker.SetString(key: "ssoUser", value: serializedUser);
             }
             else
