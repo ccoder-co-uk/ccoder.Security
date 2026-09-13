@@ -2,14 +2,13 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using Security.Web.Services.Foundations;
+
 namespace Security.Web.Exposures;
 
-internal sealed class HomeManager(
-    IWebHostEnvironment environment)
-        : IHomeManager
+internal sealed class HomeManager(IHomeService homeService)
+    : IHomeManager
 {
     public string GetIndexPath() =>
-        Path.Combine(
-            path1: environment.WebRootPath,
-            path2: "index.html");
+        homeService.GetIndexPath();
 }

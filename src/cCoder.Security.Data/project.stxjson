@@ -8,7 +8,7 @@
   "Classes": [
     {
       "Name": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 11,
       "IsPublic": true,
       "Kind": "Class",
@@ -1151,6 +1151,27 @@
           ],
           "Calls": [
             {
+              "TypeName": "Microsoft.EntityFrameworkCore.DbContextOptionsBuilder\u003CTContext\u003E",
+              "MethodName": ".ctor",
+              "MethodId": "Microsoft.EntityFrameworkCore.DbContextOptionsBuilder\u003CTContext\u003E..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Infrastructure.RelationalDbContextOptionsBuilder\u003CTBuilder, TExtension\u003E",
+              "MethodName": "MigrationsAssembly",
+              "MethodId": "Microsoft.EntityFrameworkCore.Infrastructure.RelationalDbContextOptionsBuilder\u003CTBuilder, TExtension\u003E.MigrationsAssembly(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions",
+              "MethodName": "UseSqlServer",
+              "MethodId": "Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder\u003CTContext\u003E,System.String?,System.Action\u003CMicrosoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder\u003E?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Func\u003CT, TResult\u003E",
               "MethodName": "Invoke",
               "MethodId": "System.Func\u003CT, TResult\u003E.Invoke(T)",
@@ -1195,7 +1216,9 @@
             }
           ],
           "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext",
-          "Implements": [],
+          "Implements": [
+            "Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E.CreateDbContext(System.String[])"
+          ],
           "Calls": [
             {
               "TypeName": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
@@ -1319,13 +1342,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1339,13 +1362,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1359,13 +1382,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1379,13 +1402,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1399,13 +1422,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1419,13 +1442,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1439,13 +1462,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1459,13 +1482,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1479,13 +1502,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1499,13 +1522,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1519,13 +1542,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1539,13 +1562,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1559,75 +1582,100 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:DbContext",
-        "FullName": "DbContext",
+        "Id": "Microsoft.EntityFrameworkCore:Microsoft.EntityFrameworkCore.DbContext",
+        "FullName": "Microsoft.EntityFrameworkCore.DbContext",
         "Name": "DbContext",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore",
+        "AssemblyName": "Microsoft.EntityFrameworkCore",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
-      "Interfaces": [
-        {
-          "Id": "cCoder.Security.Data:DbContext",
-          "FullName": "DbContext",
-          "Name": "DbContext",
-          "Namespace": "\u003Cglobal namespace\u003E",
-          "AssemblyName": "cCoder.Security.Data",
-          "Kind": "Class",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Dependency"
-        }
-      ],
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Roles",
-          "Type": "DbSet\u003CcCoder.Security.Models.Entities.SSORole\u003E"
+          "Type": "Microsoft.EntityFrameworkCore.DbSet\u003CcCoder.Security.Models.Entities.SSORole\u003E"
         },
         {
           "Name": "Sessions",
-          "Type": "DbSet\u003CcCoder.Security.Models.Entities.Session\u003E"
+          "Type": "Microsoft.EntityFrameworkCore.DbSet\u003CcCoder.Security.Models.Entities.Session\u003E"
         },
         {
           "Name": "TenantAnalysis",
-          "Type": "DbSet\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
+          "Type": "Microsoft.EntityFrameworkCore.DbSet\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E"
         },
         {
           "Name": "Tenants",
-          "Type": "DbSet\u003CcCoder.Security.Models.Entities.Tenant\u003E"
+          "Type": "Microsoft.EntityFrameworkCore.DbSet\u003CcCoder.Security.Models.Entities.Tenant\u003E"
         },
         {
           "Name": "Tokens",
-          "Type": "DbSet\u003CcCoder.Security.Models.Entities.Token\u003E"
+          "Type": "Microsoft.EntityFrameworkCore.DbSet\u003CcCoder.Security.Models.Entities.Token\u003E"
         },
         {
           "Name": "UserEvents",
-          "Type": "DbSet\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
+          "Type": "Microsoft.EntityFrameworkCore.DbSet\u003CcCoder.Security.Models.Entities.UserEvent\u003E"
         },
         {
           "Name": "UserRoles",
-          "Type": "DbSet\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
+          "Type": "Microsoft.EntityFrameworkCore.DbSet\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E"
         },
         {
           "Name": "Users",
-          "Type": "DbSet\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
+          "Type": "Microsoft.EntityFrameworkCore.DbSet\u003CcCoder.Security.Models.Entities.SSOUser\u003E"
         }
       ],
       "Methods": [
         {
-          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityColumns(ModelBuilder)",
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityColumns(Microsoft.EntityFrameworkCore.ModelBuilder)",
           "Name": "ConfigureSecurityColumns",
           "LineNumber": 43,
           "Inputs": [
             {
               "Name": "modelBuilder",
-              "Type": "ModelBuilder"
+              "Type": "Microsoft.EntityFrameworkCore.ModelBuilder"
             }
           ],
           "ReturnType": "System.Void",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E",
+              "MethodName": "HasKey",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E.HasKey(System.Linq.Expressions.Expression\u003CSystem.Func\u003CTEntity, System.Object?\u003E\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E",
+              "MethodName": "Property",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E.Property(System.Linq.Expressions.Expression\u003CSystem.Func\u003CTEntity, TProperty\u003E\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder\u003CTProperty\u003E",
+              "MethodName": "HasMaxLength",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder\u003CTProperty\u003E.HasMaxLength(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder\u003CTProperty\u003E",
+              "MethodName": "IsRequired",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder\u003CTProperty\u003E.IsRequired(System.Boolean)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.ModelBuilder",
+              "MethodName": "Entity",
+              "MethodId": "Microsoft.EntityFrameworkCore.ModelBuilder.Entity()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -1641,18 +1689,61 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityForeignKeys(ModelBuilder)",
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityForeignKeys(Microsoft.EntityFrameworkCore.ModelBuilder)",
           "Name": "ConfigureSecurityForeignKeys",
           "LineNumber": 102,
           "Inputs": [
             {
               "Name": "modelBuilder",
-              "Type": "ModelBuilder"
+              "Type": "Microsoft.EntityFrameworkCore.ModelBuilder"
             }
           ],
           "ReturnType": "System.Void",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.CollectionNavigationBuilder\u003CTEntity, TRelatedEntity\u003E",
+              "MethodName": "WithOne",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.CollectionNavigationBuilder\u003CTEntity, TRelatedEntity\u003E.WithOne(System.Linq.Expressions.Expression\u003CSystem.Func\u003CTRelatedEntity, TEntity?\u003E\u003E?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E",
+              "MethodName": "HasMany",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E.HasMany(System.Linq.Expressions.Expression\u003CSystem.Func\u003CTEntity, System.Collections.Generic.IEnumerable\u003CTRelatedEntity\u003E?\u003E\u003E?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E",
+              "MethodName": "HasOne",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E.HasOne(System.Linq.Expressions.Expression\u003CSystem.Func\u003CTEntity, TRelatedEntity?\u003E\u003E?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.ReferenceCollectionBuilder\u003CTPrincipalEntity, TDependentEntity\u003E",
+              "MethodName": "HasForeignKey",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.ReferenceCollectionBuilder\u003CTPrincipalEntity, TDependentEntity\u003E.HasForeignKey(System.Linq.Expressions.Expression\u003CSystem.Func\u003CTDependentEntity, System.Object?\u003E\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.Metadata.Builders.ReferenceNavigationBuilder\u003CTEntity, TRelatedEntity\u003E",
+              "MethodName": "WithMany",
+              "MethodId": "Microsoft.EntityFrameworkCore.Metadata.Builders.ReferenceNavigationBuilder\u003CTEntity, TRelatedEntity\u003E.WithMany(System.Linq.Expressions.Expression\u003CSystem.Func\u003CTRelatedEntity, System.Collections.Generic.IEnumerable\u003CTEntity\u003E?\u003E\u003E?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.ModelBuilder",
+              "MethodName": "Entity",
+              "MethodId": "Microsoft.EntityFrameworkCore.ModelBuilder.Entity()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -1666,13 +1757,13 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityModel(ModelBuilder)",
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityModel(Microsoft.EntityFrameworkCore.ModelBuilder)",
           "Name": "ConfigureSecurityModel",
           "LineNumber": 12,
           "Inputs": [
             {
               "Name": "modelBuilder",
-              "Type": "ModelBuilder"
+              "Type": "Microsoft.EntityFrameworkCore.ModelBuilder"
             }
           ],
           "ReturnType": "System.Void",
@@ -1681,21 +1772,21 @@
             {
               "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
               "MethodName": "ConfigureSecurityColumns",
-              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityColumns(ModelBuilder)",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityColumns(Microsoft.EntityFrameworkCore.ModelBuilder)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
               "MethodName": "ConfigureSecurityForeignKeys",
-              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityForeignKeys(ModelBuilder)",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityForeignKeys(Microsoft.EntityFrameworkCore.ModelBuilder)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
               "MethodName": "ConfigureSecurityTables",
-              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityTables(ModelBuilder)",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityTables(Microsoft.EntityFrameworkCore.ModelBuilder)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
@@ -1713,18 +1804,33 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityTables(ModelBuilder)",
+          "Id": "cCoder.Security.Data.EF.SecurityDbContext.ConfigureSecurityTables(Microsoft.EntityFrameworkCore.ModelBuilder)",
           "Name": "ConfigureSecurityTables",
           "LineNumber": 19,
           "Inputs": [
             {
               "Name": "modelBuilder",
-              "Type": "ModelBuilder"
+              "Type": "Microsoft.EntityFrameworkCore.ModelBuilder"
             }
           ],
           "ReturnType": "System.Void",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.ModelBuilder",
+              "MethodName": "Entity",
+              "MethodId": "Microsoft.EntityFrameworkCore.ModelBuilder.Entity()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.RelationalEntityTypeBuilderExtensions",
+              "MethodName": "ToTable",
+              "MethodId": "Microsoft.EntityFrameworkCore.RelationalEntityTypeBuilderExtensions.ToTable(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder\u003CTEntity\u003E,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -1746,9 +1852,44 @@
           "Implements": [],
           "Calls": [
             {
+              "TypeName": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions",
+              "MethodName": "AsNoTracking",
+              "MethodId": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.AsNoTracking(System.Linq.IQueryable\u003CTEntity\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions",
+              "MethodName": "IgnoreQueryFilters",
+              "MethodId": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.IgnoreQueryFilters(System.Linq.IQueryable\u003CTEntity\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions",
+              "MethodName": "Include",
+              "MethodId": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Include(System.Linq.IQueryable\u003CTEntity\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTEntity, TProperty\u003E\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions",
+              "MethodName": "ThenInclude",
+              "MethodId": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ThenInclude(Microsoft.EntityFrameworkCore.Query.IIncludableQueryable\u003CTEntity, System.Collections.Generic.IEnumerable\u003CTPreviousProperty\u003E\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTPreviousProperty, TProperty\u003E\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Array",
               "MethodName": "Empty",
               "MethodId": "System.Array.Empty()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Queryable",
+              "MethodName": "FirstOrDefault",
+              "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
@@ -1792,7 +1933,22 @@
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.UserActivity\u003E",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions",
+              "MethodName": "IgnoreQueryFilters",
+              "MethodId": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.IgnoreQueryFilters(System.Linq.IQueryable\u003CTEntity\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Queryable",
+              "MethodName": "Select",
+              "MethodId": "System.Linq.Queryable.Select(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, TResult\u003E\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -1812,7 +1968,15 @@
           "Inputs": [],
           "ReturnType": "System.Void",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions",
+              "MethodName": "Migrate",
+              "MethodId": "Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.Migrate(Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -1843,9 +2007,16 @@
           "Implements": [],
           "Calls": [
             {
+              "TypeName": "System.Linq.Queryable",
+              "MethodName": "Any",
+              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.MemoryExtensions",
               "MethodName": "Contains",
-              "MethodId": "System.MemoryExtensions.Contains(System.Span\u003CT\u003E,T)",
+              "MethodId": "System.MemoryExtensions.Contains(System.ReadOnlySpan\u003CT\u003E,T)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -1853,6 +2024,13 @@
               "TypeName": "System.Security.SecurityException",
               "MethodName": ".ctor",
               "MethodId": "System.Security.SecurityException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "Contains",
+              "MethodId": "System.String.Contains(System.String)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -1903,9 +2081,30 @@
           "Implements": [],
           "Calls": [
             {
+              "TypeName": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions",
+              "MethodName": "IgnoreQueryFilters",
+              "MethodId": "Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.IgnoreQueryFilters(System.Linq.IQueryable\u003CTEntity\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Queryable",
+              "MethodName": "Any",
+              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Queryable",
+              "MethodName": "Any",
+              "MethodId": "System.Linq.Queryable.Any(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.MemoryExtensions",
               "MethodName": "Contains",
-              "MethodId": "System.MemoryExtensions.Contains(System.Span\u003CT\u003E,T)",
+              "MethodId": "System.MemoryExtensions.Contains(System.ReadOnlySpan\u003CT\u003E,T)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -1913,6 +2112,13 @@
               "TypeName": "System.Security.SecurityException",
               "MethodName": ".ctor",
               "MethodId": "System.Security.SecurityException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.String",
+              "MethodName": "Contains",
+              "MethodId": "System.String.Contains(System.String)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -1951,13 +2157,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Security.Data:Migration",
-        "FullName": "Migration",
+        "Id": "Microsoft.EntityFrameworkCore.Relational:Microsoft.EntityFrameworkCore.Migrations.Migration",
+        "FullName": "Microsoft.EntityFrameworkCore.Migrations.Migration",
         "Name": "Migration",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Security.Data",
+        "Namespace": "Microsoft.EntityFrameworkCore.Migrations",
+        "AssemblyName": "Microsoft.EntityFrameworkCore.Relational",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -2821,13 +3027,13 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security.Data:IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E",
-          "FullName": "IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E",
+          "Id": "Microsoft.EntityFrameworkCore:Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E",
+          "FullName": "Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E",
           "Name": "IDesignTimeDbContextFactory",
-          "Namespace": "\u003Cglobal namespace\u003E",
-          "AssemblyName": "cCoder.Security.Data",
-          "Kind": "Class",
-          "IsInCurrentProject": true,
+          "Namespace": "Microsoft.EntityFrameworkCore.Design",
+          "AssemblyName": "Microsoft.EntityFrameworkCore",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
           "StandardElementType": "Dependency"
         }
       ],
@@ -3012,7 +3218,7 @@
     },
     {
       "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
-      "ToType": "DbContextOptions\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E"
+      "ToType": "Microsoft.EntityFrameworkCore.DbContextOptions\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E"
     },
     {
       "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
