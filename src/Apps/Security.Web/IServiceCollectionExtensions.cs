@@ -5,8 +5,10 @@
 using cCoder.Security;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Exposures;
+using Security.Web.Brokers;
 using Security.Web.Exposures;
 using Security.Web.Models;
+using Security.Web.Services.Foundations;
 
 namespace Security.Web;
 
@@ -27,6 +29,8 @@ public static partial class IServiceCollectionExtensions
         services.AddSecurityWeb(applicationConfiguration.Security);
         services.AddControllersWithViews();
         services.AddSessions();
+        services.AddTransient<IHomeEnvironmentBroker, HomeEnvironmentBroker>();
+        services.AddTransient<IHomeService, HomeService>();
         services.AddTransient<IHomeManager, HomeManager>();
         services.AddTransient<ICurrentUserManager, CurrentUserManager>();
     }
