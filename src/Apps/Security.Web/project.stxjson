@@ -7,19 +7,72 @@
   },
   "Classes": [
     {
+      "Name": "Security.Web.Brokers.HomeEnvironmentBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Security.Web:Security.Web.Brokers.IHomeEnvironmentBroker",
+          "FullName": "Security.Web.Brokers.IHomeEnvironmentBroker",
+          "Name": "IHomeEnvironmentBroker",
+          "Namespace": "Security.Web.Brokers",
+          "AssemblyName": "Security.Web",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "Security.Web.Brokers.HomeEnvironmentBroker.GetIndexPath()",
+          "Name": "GetIndexPath",
+          "LineNumber": 11,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [
+            "Security.Web.Brokers.IHomeEnvironmentBroker.GetIndexPath()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.IO.Path",
+              "MethodName": "Combine",
+              "MethodId": "System.IO.Path.Combine(System.String,System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "Security.Web.Controllers.CurrentUserController",
       "StandardElementType": "HttpExposure",
       "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "Security.Web:Controller",
-        "FullName": "Controller",
+        "Id": "Microsoft.AspNetCore.Mvc.ViewFeatures:Microsoft.AspNetCore.Mvc.Controller",
+        "FullName": "Microsoft.AspNetCore.Mvc.Controller",
         "Name": "Controller",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "Security.Web",
+        "Namespace": "Microsoft.AspNetCore.Mvc",
+        "AssemblyName": "Microsoft.AspNetCore.Mvc.ViewFeatures",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -30,9 +83,23 @@
           "Name": "Get",
           "LineNumber": 16,
           "Inputs": [],
-          "ReturnType": "IActionResult",
+          "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Ok",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Ok(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "Security.Web.Exposures.ICurrentUserManager",
               "MethodName": "GetCurrentUserId",
@@ -57,6 +124,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
+            },
+            {
+              "StatusCode": 500,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Exception",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             }
           ],
           "IsHttpRequestHandler": true,
@@ -75,13 +152,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "Security.Web:Controller",
-        "FullName": "Controller",
+        "Id": "Microsoft.AspNetCore.Mvc.ViewFeatures:Microsoft.AspNetCore.Mvc.Controller",
+        "FullName": "Microsoft.AspNetCore.Mvc.Controller",
         "Name": "Controller",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "Security.Web",
+        "Namespace": "Microsoft.AspNetCore.Mvc",
+        "AssemblyName": "Microsoft.AspNetCore.Mvc.ViewFeatures",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -92,9 +169,23 @@
           "Name": "Get",
           "LineNumber": 14,
           "Inputs": [],
-          "ReturnType": "IActionResult",
+          "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "PhysicalFile",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.PhysicalFile(System.String,System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "Security.Web.Exposures.IHomeManager",
               "MethodName": "GetIndexPath",
@@ -103,13 +194,30 @@
               "IsDependencyBoundary": false
             }
           ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
+          "PossibleExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
           "ThrowsExceptionTypes": [],
           "HttpMethods": [
             "GET"
           ],
-          "HttpResponses": [],
+          "HttpResponses": [
+            {
+              "StatusCode": 500,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Exception",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            }
+          ],
           "IsHttpRequestHandler": true,
           "IsODataControllerAction": false,
           "HasFromBodyParameter": false,
@@ -167,7 +275,7 @@
     {
       "Name": "Security.Web.Exposures.HomeManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -188,7 +296,7 @@
         {
           "Id": "Security.Web.Exposures.HomeManager.GetIndexPath()",
           "Name": "GetIndexPath",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [
@@ -196,16 +304,24 @@
           ],
           "Calls": [
             {
-              "TypeName": "System.IO.Path",
-              "MethodName": "Combine",
-              "MethodId": "System.IO.Path.Combine(System.String,System.String)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "Security.Web.Services.Foundations.IHomeService",
+              "MethodName": "GetIndexPath",
+              "MethodId": "Security.Web.Services.Foundations.IHomeService.GetIndexPath()",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
             }
           ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
+          "PossibleExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
           "HttpMethods": [],
           "HttpResponses": [],
           "IsHttpRequestHandler": false,
@@ -220,7 +336,7 @@
     {
       "Name": "Security.Web.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 13,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -228,17 +344,17 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "Security.Web.IServiceCollectionExtensions.AddWeb(IServiceCollection,IConfiguration,System.Action\u003CSecurity.Web.Models.AppConfiguration\u003E)",
+          "Id": "Security.Web.IServiceCollectionExtensions.AddWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CSecurity.Web.Models.AppConfiguration\u003E)",
           "Name": "AddWeb",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "services",
-              "Type": "IServiceCollection"
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
             },
             {
               "Name": "configuration",
-              "Type": "IConfiguration"
+              "Type": "Microsoft.Extensions.Configuration.IConfiguration"
             },
             {
               "Name": "configure",
@@ -249,9 +365,44 @@
           "Implements": [],
           "Calls": [
             {
+              "TypeName": "Microsoft.Extensions.Configuration.ConfigurationBinder",
+              "MethodName": "Bind",
+              "MethodId": "Microsoft.Extensions.Configuration.ConfigurationBinder.Bind(Microsoft.Extensions.Configuration.IConfiguration,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions",
+              "MethodName": "AddControllersWithViews",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions",
+              "MethodName": "AddTransient",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Action\u003CT\u003E",
               "MethodName": "Invoke",
               "MethodId": "System.Action\u003CT\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.IServiceCollectionExtensions",
+              "MethodName": "AddSecurityData",
+              "MethodId": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityDataConfiguration)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.IServiceCollectionExtensions",
+              "MethodName": "AddSecurityWeb",
+              "MethodId": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityConfiguration,Microsoft.OData.ModelBuilder.ODataConventionModelBuilder)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
@@ -314,9 +465,51 @@
           "Implements": [],
           "Calls": [
             {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
+              "MethodName": "CreateBuilder",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(System.String[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
+              "MethodName": "Run",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.Run(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplicationBuilder",
+              "MethodName": "Build",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Logging.ConsoleLoggerExtensions",
+              "MethodName": "AddSimpleConsole",
+              "MethodId": "Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddSimpleConsole(Microsoft.Extensions.Logging.ILoggingBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggingBuilderExtensions",
+              "MethodName": "ClearProviders",
+              "MethodId": "Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders(Microsoft.Extensions.Logging.ILoggingBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Security.Web.IServiceCollectionExtensions",
+              "MethodName": "AddWeb",
+              "MethodId": "Security.Web.IServiceCollectionExtensions.AddWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CSecurity.Web.Models.AppConfiguration\u003E)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            },
+            {
               "TypeName": "Security.Web.WebApplicationExtensions",
               "MethodName": "UseSecurityWebApplication",
-              "MethodId": "Security.Web.WebApplicationExtensions.UseSecurityWebApplication(WebApplication)",
+              "MethodId": "Security.Web.WebApplicationExtensions.UseSecurityWebApplication(Microsoft.AspNetCore.Builder.WebApplication)",
               "StandardElementType": "App",
               "IsDependencyBoundary": false
             }
@@ -324,6 +517,67 @@
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Services.Foundations.HomeService",
+      "StandardElementType": "FoundationService",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Security.Web:Security.Web.Services.Foundations.IHomeService",
+          "FullName": "Security.Web.Services.Foundations.IHomeService",
+          "Name": "IHomeService",
+          "Namespace": "Security.Web.Services.Foundations",
+          "AssemblyName": "Security.Web",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "FoundationService"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "Security.Web.Services.Foundations.HomeService.GetIndexPath()",
+          "Name": "GetIndexPath",
+          "LineNumber": 13,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [
+            "Security.Web.Services.Foundations.IHomeService.GetIndexPath()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Security.Web.Brokers.IHomeEnvironmentBroker",
+              "MethodName": "GetIndexPath",
+              "MethodId": "Security.Web.Brokers.IHomeEnvironmentBroker.GetIndexPath()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
           "HttpMethods": [],
           "HttpResponses": [],
           "IsHttpRequestHandler": false,
@@ -346,18 +600,47 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "Security.Web.WebApplicationExtensions.InitialiseSecurityDatabase(WebApplication)",
+          "Id": "Security.Web.WebApplicationExtensions.InitialiseSecurityDatabase(Microsoft.AspNetCore.Builder.WebApplication)",
           "Name": "InitialiseSecurityDatabase",
           "LineNumber": 30,
           "Inputs": [
             {
               "Name": "app",
-              "Type": "WebApplication"
+              "Type": "Microsoft.AspNetCore.Builder.WebApplication"
             }
           ],
-          "ReturnType": "WebApplication",
+          "ReturnType": "Microsoft.AspNetCore.Builder.WebApplication",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions",
+              "MethodName": "CreateScope",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.CreateScope(System.IServiceProvider)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions",
+              "MethodName": "GetRequiredService",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(System.IServiceProvider)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory",
+              "MethodName": "CreateDbContext",
+              "MethodId": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory.CreateDbContext(System.Boolean)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.SecurityDbContext",
+              "MethodName": "Migrate",
+              "MethodId": "cCoder.Security.Data.EF.SecurityDbContext.Migrate()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -371,24 +654,59 @@
           "HasTryCatch": false
         },
         {
-          "Id": "Security.Web.WebApplicationExtensions.UseSecurityWebApplication(WebApplication)",
+          "Id": "Security.Web.WebApplicationExtensions.UseSecurityWebApplication(Microsoft.AspNetCore.Builder.WebApplication)",
           "Name": "UseSecurityWebApplication",
           "LineNumber": 16,
           "Inputs": [
             {
               "Name": "app",
-              "Type": "WebApplication"
+              "Type": "Microsoft.AspNetCore.Builder.WebApplication"
             }
           ],
-          "ReturnType": "IApplicationBuilder",
+          "ReturnType": "Microsoft.AspNetCore.Builder.IApplicationBuilder",
           "Implements": [],
           "Calls": [
             {
+              "TypeName": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions",
+              "MethodName": "MapGet",
+              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,System.Delegate)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions",
+              "MethodName": "UseSession",
+              "MethodId": "Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Http.Results",
+              "MethodName": "Text",
+              "MethodId": "Microsoft.AspNetCore.Http.Results.Text(System.String?,System.String?,System.Text.Encoding?,System.Int32?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "Security.Web.WebApplicationExtensions",
               "MethodName": "InitialiseSecurityDatabase",
-              "MethodId": "Security.Web.WebApplicationExtensions.InitialiseSecurityDatabase(WebApplication)",
+              "MethodId": "Security.Web.WebApplicationExtensions.InitialiseSecurityDatabase(Microsoft.AspNetCore.Builder.WebApplication)",
               "StandardElementType": "App",
               "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "Security.Web.WebApplicationExtensions",
+              "MethodName": "UseTheFramework",
+              "MethodId": "Security.Web.WebApplicationExtensions.UseTheFramework(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.WebApplicationExtensions",
+              "MethodName": "StartSecurityWeb",
+              "MethodId": "cCoder.Security.WebApplicationExtensions.StartSecurityWeb(Microsoft.AspNetCore.Builder.WebApplication,Microsoft.Extensions.Logging.ILogger)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             }
           ],
           "PossibleExceptionTypes": [],
@@ -404,18 +722,131 @@
           "HasTryCatch": false
         },
         {
-          "Id": "Security.Web.WebApplicationExtensions.UseTheFramework(IApplicationBuilder)",
+          "Id": "Security.Web.WebApplicationExtensions.UseTheFramework(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
           "Name": "UseTheFramework",
           "LineNumber": 42,
           "Inputs": [
             {
               "Name": "app",
-              "Type": "IApplicationBuilder"
+              "Type": "Microsoft.AspNetCore.Builder.IApplicationBuilder"
             }
           ],
-          "ReturnType": "IApplicationBuilder",
+          "ReturnType": "Microsoft.AspNetCore.Builder.IApplicationBuilder",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions",
+              "MethodName": "MapControllerRoute",
+              "MethodId": "Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,System.String,System.Object?,System.Object?,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions",
+              "MethodName": "MapControllers",
+              "MethodId": "Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions",
+              "MethodName": "UseCors",
+              "MethodId": "Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CMicrosoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions",
+              "MethodName": "UseDeveloperExceptionPage",
+              "MethodId": "Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions",
+              "MethodName": "UseEndpoints",
+              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CMicrosoft.AspNetCore.Routing.IEndpointRouteBuilder\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions",
+              "MethodName": "UseRouting",
+              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions",
+              "MethodName": "UseHttpsRedirection",
+              "MethodId": "Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.StaticFileExtensions",
+              "MethodName": "UseStaticFiles",
+              "MethodId": "Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions",
+              "MethodName": "UseSwagger",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions.UseSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CSwashbuckle.AspNetCore.Swagger.SwaggerOptions\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions",
+              "MethodName": "UseSwaggerUI",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions.UseSwaggerUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CSwashbuckle.AspNetCore.SwaggerUI.SwaggerUIOptions\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder",
+              "MethodName": "AllowAnyHeader",
+              "MethodId": "Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder",
+              "MethodName": "AllowAnyMethod",
+              "MethodId": "Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder",
+              "MethodName": "AllowCredentials",
+              "MethodId": "Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowCredentials()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder",
+              "MethodName": "SetIsOriginAllowed",
+              "MethodId": "Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowed(System.Func\u003CSystem.String, System.Boolean\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions",
+              "MethodName": "UseODataBatching",
+              "MethodId": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions.UseODataBatching(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions",
+              "MethodName": "UseODataRouteDebug",
+              "MethodId": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions.UseODataRouteDebug(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -432,6 +863,38 @@
     }
   ],
   "Interfaces": [
+    {
+      "Name": "Security.Web.Brokers.IHomeEnvironmentBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "Security.Web.Brokers.IHomeEnvironmentBroker.GetIndexPath()",
+          "Name": "GetIndexPath",
+          "LineNumber": 9,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
     {
       "Name": "Security.Web.Exposures.ICurrentUserManager",
       "StandardElementType": "Exposure",
@@ -495,9 +958,45 @@
           "HasTryCatch": false
         }
       ]
+    },
+    {
+      "Name": "Security.Web.Services.Foundations.IHomeService",
+      "StandardElementType": "FoundationService",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "Security.Web.Services.Foundations.IHomeService.GetIndexPath()",
+          "Name": "GetIndexPath",
+          "LineNumber": 9,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
     }
   ],
   "Links": [
+    {
+      "FromType": "Security.Web.Brokers.HomeEnvironmentBroker",
+      "ToType": "Microsoft.AspNetCore.Hosting.IWebHostEnvironment"
+    },
     {
       "FromType": "Security.Web.Controllers.CurrentUserController",
       "ToType": "Security.Web.Exposures.CurrentUserManager"
@@ -512,23 +1011,12 @@
     },
     {
       "FromType": "Security.Web.Exposures.HomeManager",
-      "ToType": "IWebHostEnvironment"
-    }
-  ],
-  "AnalysisItems": [
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Controllers.CurrentUserController",
-      "LineNumber": 16
+      "ToType": "Security.Web.Services.Foundations.HomeService"
     },
     {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "Security.Web.Controllers.HomeController",
-      "LineNumber": 14
+      "FromType": "Security.Web.Services.Foundations.HomeService",
+      "ToType": "Security.Web.Brokers.HomeEnvironmentBroker"
     }
-  ]
+  ],
+  "AnalysisItems": []
 }
