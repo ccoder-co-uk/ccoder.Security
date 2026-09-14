@@ -16,6 +16,7 @@ using cCoder.Security.Brokers.Storage;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Brokers.Encryption;
 using cCoder.Security.Brokers.Encryption.Interfaces;
+using cCoder.Security.Brokers.Encoding;
 using cCoder.Security.Brokers.Utility;
 using cCoder.Security.Dependencies.Encryption;
 using cCoder.Security.Data;
@@ -162,6 +163,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddTransient<IPasswordHashingBroker,
             PasswordHashingBroker>();
+        services.AddTransient<IEncodingBroker, EncodingBroker>();
         services.AddTransient<ITokenGenerationBroker,
             TokenGenerationBroker>();
         services.AddSingleton<ISecurityConfigurationBroker, SecurityConfigurationBroker>();
@@ -209,7 +211,6 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISessionService, SessionService>();
         services.AddTransient<IUserEventService, UserEventService>();
 
-        services.AddTransient<IEventHandlerService, EventHandlerService>();
         services.AddTransient<IAccountEventService, AccountEventService>();
         services.AddTransient<ITenantSetupEventService, TenantSetupEventService>();
     }
@@ -227,6 +228,8 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISessionProcessingService, SessionProcessingService>();
         services.AddTransient<IUserEventProcessingService, UserEventProcessingService>();
         services.AddTransient<IUserEventManager, UserEventProcessingService>();
+        services.AddTransient<IAccountAuditUserEventProcessingService,
+            AccountAuditUserEventProcessingService>();
 
     }
 
@@ -272,8 +275,29 @@ public static class IServiceCollectionExtensions
             serviceProvider.GetRequiredService<ITokenCleaner>());
     }
 
-    private static void AddEventHandlers(this IServiceCollection services) =>
-        services.AddTransient<ISecurityEventHandlers, SecurityEventHandlers>();
+    private static void AddEventHandlers(this IServiceCollection services)
+    {
+        services.AddTransient<ISecurityEventHandlers,
+            TenantSetupEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            RegistrationCreatedEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            RegistrationConfirmedEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            InvitationCreatedEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            InvitationAcceptedEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            PasswordResetRequestedEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            TokenIssuedEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            LoginSucceededEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            LogoutSucceededEventHandlers>();
+        services.AddTransient<ISecurityEventHandlers,
+            AuthenticationFailedEventHandlers>();
+    }
 
     private static void AddAspNet(this IServiceCollection services)
     {

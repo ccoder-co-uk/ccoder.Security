@@ -34,6 +34,8 @@ public partial class RegistrationAggregationServiceTests
             Email = input.Email
         };
 
+        Tenant tenant = new() { Id = input.TenantId };
+
         SSORole bootstrapRole = new()
         {
             Id = Guid.NewGuid(),
@@ -54,6 +56,10 @@ public partial class RegistrationAggregationServiceTests
             .Setup(expression: x => x.GetAllSSORoles(ignoreFilters:true))
             .Returns(value: new[] { bootstrapRole }.AsQueryable());
 
+        tenantProcessingServiceMock
+            .Setup(expression: service => service.GetAllTenants())
+            .Returns(value: new[] { tenant }.AsQueryable());
+
         userRoleProcessingServiceMock
             .Setup(expression: x => x.AddSSOUserRoleAsync(item:It.IsAny<SSOUserRole>()))
             .ReturnsAsync(valueFunction: (SSOUserRole userRole) => userRole);
@@ -62,7 +68,11 @@ public partial class RegistrationAggregationServiceTests
             .Setup(expression: x => x.GenerateConfirmationToken(userId:storedUser.Id))
             .ReturnsAsync(value: new Token { Id = "token-1" });
 
-        SetupRegistrationCreatedEvent(user: storedUser, registerForm: input, token: "token-1");
+        SetupRegistrationCreatedEvent(
+            user: storedUser,
+            registerForm: input,
+            token: "token-1",
+            tenant: tenant);
 
         // When
         RegisterUser registration =
@@ -88,6 +98,7 @@ accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:req
                     request.Kind == SecurityAccountEventKind.RegistrationCreated
                     && request.User == storedUser
                     && request.RegisterForm == input
+                    && request.Tenant == tenant
                     && request.Token == "token-1")),
             times: Times.Once);
     }
@@ -112,6 +123,8 @@ accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:req
             Email = input.Email
         };
 
+        Tenant tenant = new() { Id = input.TenantId };
+
         ssoUserProcessingServiceMock
             .Setup(expression: x => x.RegisterSSOUserAsync(item:It.IsAny<SSOUser>()))
             .ReturnsAsync(value: storedUser);
@@ -120,11 +133,19 @@ accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:req
             .Setup(expression: x => x.GetAllSSOUserRoles())
             .Returns(value: new[] { new SSOUserRole { UserId = "existing-admin" } }.AsQueryable());
 
+        tenantProcessingServiceMock
+            .Setup(expression: service => service.GetAllTenants())
+            .Returns(value: new[] { tenant }.AsQueryable());
+
         tokenProcessingServiceMock
             .Setup(expression: x => x.GenerateConfirmationToken(userId:storedUser.Id))
             .ReturnsAsync(value: new Token { Id = "token-1" });
 
-        SetupRegistrationCreatedEvent(user: storedUser, registerForm: input, token: "token-1");
+        SetupRegistrationCreatedEvent(
+            user: storedUser,
+            registerForm: input,
+            token: "token-1",
+            tenant: tenant);
 
         // When
         await registrationAggregationService.RegisterUserAsync(
@@ -143,6 +164,7 @@ accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:req
                     request.Kind == SecurityAccountEventKind.RegistrationCreated
                     && request.User == storedUser
                     && request.RegisterForm == input
+                    && request.Tenant == tenant
                     && request.Token == "token-1")),
             times: Times.Once);
     }

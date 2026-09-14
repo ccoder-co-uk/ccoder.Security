@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Security.Services.Foundations.Events;
+namespace cCoder.Security.Exposures;
 
-internal sealed partial class EventHandlerService;
+public interface IUtilityBroker
+{
+}
