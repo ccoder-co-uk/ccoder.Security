@@ -2,51 +2,19 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Exposures;
-using cCoder.Security.Brokers.Events;
-using cCoder.Security.Data.Models;
+using cCoder.Security.Brokers.Serialization;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Events;
-using cCoder.Security.Services.Foundations.Events;
+using cCoder.Security.Services.Foundations.Interfaces;
+using cCoder.Security.Services.Processings;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace cCoder.Security.Tests.Foundations;
+namespace cCoder.Security.Tests.Processings;
 
-public partial class EventHandlerServiceTests
+public sealed partial class AccountAuditUserEventProcessingServiceTests
 {
-    [Fact]
-    public void ShouldOnlySubscribeAuditStorageToExplicitSecurityEvents()
-    {
-        // Given
-        Mock<IEventHubBroker> eventHubBrokerMock = new(behavior: MockBehavior.Default);
-        EventHandlerService service = new(eventHubBroker: eventHubBrokerMock.Object);
-
-        // When
-        service.ListenToAllEvents();
-
-        // Then
-        eventHubBrokerMock.Verify(expression: broker =>
-            broker.ListenToEvent<SetupDetails, ITenantManager>(
-                eventName: "tenant_setup",
-                handler: It.IsAny<Func<ITenantManager, SetupDetails, ValueTask>>()),
-            times: Times.Once());
-
-        foreach (SecurityAccountEventKind kind in Enum.GetValues<SecurityAccountEventKind>())
-        {
-            string eventName = kind.ToEventName();
-
-            eventHubBrokerMock.Verify(expression: broker =>
-                broker.ListenToEvent<SecurityAccountEvent, IUserEventManager>(
-                    eventName: eventName,
-                    handler: It.IsAny<Func<IUserEventManager, SecurityAccountEvent, ValueTask>>()),
-                times: Times.Once());
-        }
-
-        eventHubBrokerMock.VerifyNoOtherCalls();
-    }
-
     [Theory]
     [InlineData(SecurityAccountEventKind.RegistrationCreated)]
     [InlineData(SecurityAccountEventKind.RegistrationConfirmed)]
@@ -57,7 +25,7 @@ public partial class EventHandlerServiceTests
     [InlineData(SecurityAccountEventKind.LoginSucceeded)]
     [InlineData(SecurityAccountEventKind.LogoutSucceeded)]
     [InlineData(SecurityAccountEventKind.AuthenticationFailed)]
-    public async Task ShouldStoreRedactedAuditForEveryAccountEvent(
+    public async Task StoreAccountAuditEventAsync_ShouldStoreRedactedAudit(
         SecurityAccountEventKind kind)
     {
         // Given
@@ -70,13 +38,20 @@ public partial class EventHandlerServiceTests
         const string culture = "en-GB";
         string eventName = kind.ToEventName();
         UserEvent storedUserEvent = null;
-        Mock<IUserEventManager> managerMock = new(behavior: MockBehavior.Default);
 
-        managerMock
-            .Setup(expression: manager => manager.AddUserEventAsync(
+        Mock<IUserEventService> serviceMock =
+            new(behavior: MockBehavior.Strict);
+
+        serviceMock
+            .Setup(expression: service => service.AddUserEventAsync(
                 userEvent: It.IsAny<UserEvent>()))
-            .Callback<UserEvent>(action: userEvent => storedUserEvent = userEvent)
+            .Callback<UserEvent>(action: userEvent =>
+                storedUserEvent = userEvent)
             .ReturnsAsync(value: new UserEvent());
+
+        AccountAuditUserEventProcessingService service = new(
+            userEventService: serviceMock.Object,
+            serializationBroker: new SerializationBroker());
 
         SecurityAccountEvent accountEvent = new()
         {
@@ -95,10 +70,9 @@ public partial class EventHandlerServiceTests
         };
 
         // When
-        await EventHandlerService.StoreAccountAuditEventAsync(
-            manager: managerMock.Object,
+        await service.StoreSecurityAccountEventAuditAsync(
             eventName: eventName,
-            accountEvent: accountEvent);
+            securityAccountEvent: accountEvent);
 
         // Then
         storedUserEvent.Should()
@@ -133,27 +107,36 @@ public partial class EventHandlerServiceTests
 
         storedUserEvent.Value.Should()
             .NotContain(unexpected: "sensitive@example.test");
+
+        serviceMock.VerifyAll();
     }
 
     [Fact]
-    public async Task ShouldUseSubjectAsActorForAnonymousAccountEvent()
+    public async Task StoreAccountAuditEventAsync_ShouldUseSubjectAsActor()
     {
         // Given
         const string subjectUserId = "self-registering-user";
-        Mock<IUserEventManager> managerMock = new(behavior: MockBehavior.Default);
         UserEvent storedUserEvent = null;
 
-        managerMock
-            .Setup(expression: manager => manager.AddUserEventAsync(
+        Mock<IUserEventService> serviceMock =
+            new(behavior: MockBehavior.Strict);
+
+        serviceMock
+            .Setup(expression: service => service.AddUserEventAsync(
                 userEvent: It.IsAny<UserEvent>()))
-            .Callback<UserEvent>(action: userEvent => storedUserEvent = userEvent)
+            .Callback<UserEvent>(action: userEvent =>
+                storedUserEvent = userEvent)
             .ReturnsAsync(value: new UserEvent());
 
+        AccountAuditUserEventProcessingService service = new(
+            userEventService: serviceMock.Object,
+            serializationBroker: new SerializationBroker());
+
         // When
-        await EventHandlerService.StoreAccountAuditEventAsync(
-            manager: managerMock.Object,
-            eventName: SecurityAccountEventKind.RegistrationCreated.ToEventName(),
-            accountEvent: new SecurityAccountEvent
+        await service.StoreSecurityAccountEventAuditAsync(
+            eventName:
+                SecurityAccountEventKind.RegistrationCreated.ToEventName(),
+            securityAccountEvent: new SecurityAccountEvent
             {
                 Kind = SecurityAccountEventKind.RegistrationCreated,
                 User = new SSOUser { Id = subjectUserId }
@@ -162,6 +145,7 @@ public partial class EventHandlerServiceTests
         // Then
         storedUserEvent.CreatedBy.Should()
             .Be(expected: subjectUserId);
-    }
 
+        serviceMock.VerifyAll();
+    }
 }

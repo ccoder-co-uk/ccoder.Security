@@ -15,5 +15,7 @@ public sealed class SecurityAccountEventRequest
 
     public RegisterUser RegisterForm { get; set; }
 
+    public Tenant Tenant { get; set; }
+
     public string Token { get; set; }
 }

@@ -16,16 +16,32 @@ internal sealed partial class TokenProcessingService
         }
     }
 
-    private static void ValidateTokenOnAdd(string userId, TokenUse tokenUse) =>
+    private static void ValidateTokenForUserIdOnAdd(
+        string userId,
+        TokenUse tokenUse) =>
         Validate(inputs: [userId, tokenUse]);
 
     private static void ValidateTokenOnDelete(string tokenId) =>
         Validate(inputs: tokenId);
 
-    private static void ValidateTokensOnGet(bool ignoreFilters) =>
+    private static void ValidateAllTokensOnGet(bool ignoreFilters) =>
         Validate(inputs: ignoreFilters);
 
-    private static void ValidateTokenOnGet(string tokenId) =>
+    private static void ValidateTokenByIdOnGet(string tokenId) =>
+        Validate(inputs: tokenId);
+
+    private static void ValidateTokensForUserOnDelete(
+        string userId,
+        TokenUse tokenUse) =>
+        Validate(inputs: [userId, tokenUse]);
+
+    private static void ValidateForgottenPasswordTokenOnGet(string tokenId) =>
+        Validate(inputs: tokenId);
+
+    private static void ValidateConfirmationTokenOnGet(string tokenId) =>
+        Validate(inputs: tokenId);
+
+    private static void ValidateInvitationTokenOnGet(string tokenId) =>
         Validate(inputs: tokenId);
 
     private static void ValidateTokenOnGenerate(string userId, TokenUse tokenUse) =>

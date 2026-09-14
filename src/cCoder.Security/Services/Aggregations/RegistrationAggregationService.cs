@@ -117,6 +117,7 @@ internal sealed partial class RegistrationAggregationService(
             Kind = SecurityAccountEventKind.RegistrationCreated,
             User = user,
             RegisterForm = registerForm,
+            Tenant = ResolveTenant(registerForm: registerForm),
             Token = confirmationToken.Id
         };
 
@@ -153,6 +154,7 @@ internal sealed partial class RegistrationAggregationService(
             Kind = SecurityAccountEventKind.InvitationCreated,
             User = user,
             RegisterForm = registerForm,
+            Tenant = ResolveTenant(registerForm: registerForm),
             Token = inviteToken.Id
         };
 
@@ -207,6 +209,7 @@ internal sealed partial class RegistrationAggregationService(
             Kind = SecurityAccountEventKind.InvitationAccepted,
             User = updatedUser,
             RegisterForm = registerForm,
+            Tenant = ResolveTenant(registerForm: registerForm),
             Token = tokenId
         };
 
@@ -376,4 +379,12 @@ internal sealed partial class RegistrationAggregationService(
             RoleId = role.Id
         });
     }
+
+    private Tenant ResolveTenant(RegisterUser registerForm) =>
+        string.IsNullOrWhiteSpace(value: registerForm?.TenantId)
+            ? null
+            : tenantProcessingService
+                .GetAllTenants()
+                .FirstOrDefault(predicate: tenant =>
+                    tenant.Id == registerForm.TenantId);
 }

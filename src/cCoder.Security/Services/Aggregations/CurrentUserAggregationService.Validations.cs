@@ -28,7 +28,7 @@ internal sealed partial class CurrentUserAggregationService
         }
     }
 
-    private static void ValidateCurrentUserOnUpdate(
+    private static void ValidateCurrentSSOUserOnUpdate(
         SSOUser updatedUser,
         ISSOAuthInfo authInfo)
     {

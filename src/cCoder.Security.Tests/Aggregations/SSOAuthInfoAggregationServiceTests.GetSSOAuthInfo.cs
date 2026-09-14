@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models.Configurations;
+using cCoder.Security.Brokers.Encoding;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations;
 using cCoder.Security.Services.Processings.Interfaces;
@@ -36,6 +37,9 @@ public sealed partial class SSOAuthInfoAggregationServiceTests
         Mock<IRequestProcessingService> requestProcessingServiceMock =
             new(MockBehavior.Strict);
 
+        Mock<IEncodingBroker> encodingBrokerMock =
+            new(MockBehavior.Strict);
+
         requestProcessingServiceMock
             .Setup(expression: service =>
                 service.GetHeader(key: "Authorization"))
@@ -56,7 +60,8 @@ public sealed partial class SSOAuthInfoAggregationServiceTests
             userService: ssoUserProcessingServiceMock.Object,
             tokenService: tokenProcessingServiceMock.Object,
             requestProcessingService:
-                requestProcessingServiceMock.Object);
+                requestProcessingServiceMock.Object,
+            encodingBroker: encodingBrokerMock.Object);
 
         // When
         ISSOAuthInfo authInfo = await service.GetSSOAuthInfoAsync();
@@ -72,6 +77,7 @@ public sealed partial class SSOAuthInfoAggregationServiceTests
         ssoUserProcessingServiceMock.VerifyNoOtherCalls();
         tokenProcessingServiceMock.VerifyAll();
         requestProcessingServiceMock.VerifyAll();
+        encodingBrokerMock.VerifyNoOtherCalls();
     }
 
     [Fact]
@@ -90,6 +96,9 @@ public sealed partial class SSOAuthInfoAggregationServiceTests
         Mock<IRequestProcessingService> requestProcessingServiceMock =
             new(MockBehavior.Strict);
 
+        Mock<IEncodingBroker> encodingBrokerMock =
+            new(MockBehavior.Strict);
+
         requestProcessingServiceMock
             .Setup(expression: service =>
                 service.GetHeader(key: "Authorization"))
@@ -105,7 +114,8 @@ public sealed partial class SSOAuthInfoAggregationServiceTests
             userService: ssoUserProcessingServiceMock.Object,
             tokenService: tokenProcessingServiceMock.Object,
             requestProcessingService:
-                requestProcessingServiceMock.Object);
+                requestProcessingServiceMock.Object,
+            encodingBroker: encodingBrokerMock.Object);
 
         // When
         ISSOAuthInfo authInfo = await service.GetSSOAuthInfoAsync();
@@ -123,5 +133,6 @@ public sealed partial class SSOAuthInfoAggregationServiceTests
         ssoUserProcessingServiceMock.VerifyNoOtherCalls();
         tokenProcessingServiceMock.VerifyAll();
         requestProcessingServiceMock.VerifyAll();
+        encodingBrokerMock.VerifyNoOtherCalls();
     }
 }

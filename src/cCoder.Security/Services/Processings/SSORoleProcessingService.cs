@@ -14,7 +14,7 @@ internal sealed partial class SSORoleProcessingService(ISSORoleService ssoRoleSe
     public IQueryable<SSORole> GetAllSSORoles(bool ignoreFilters = false) =>
         TryCatch(operation: () =>
         {
-            ValidateSSORolesOnGet(ignoreFilters: ignoreFilters);
+            ValidateAllSSORolesOnGet(ignoreFilters: ignoreFilters);
 
             return ssoRoleService.GetAllSSORoles(ignoreFilters: ignoreFilters);
         });
