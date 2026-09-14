@@ -38,7 +38,7 @@ internal sealed partial class SSOUserProcessingService
     private static void ValidateSSOUserOnFind(string ssoUserId) =>
         Validate(inputs: ssoUserId);
 
-    private static void ValidateSSOUsersOnGet(bool ignoreFilters) =>
+    private static void ValidateAllSSOUsersOnGet(bool ignoreFilters) =>
         Validate(inputs: ignoreFilters);
 
     private static void ValidateSSOUserOnUpdate(SSOUser updatedSSOUser) =>

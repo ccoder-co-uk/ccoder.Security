@@ -135,7 +135,7 @@ internal sealed partial class SSOUserProcessingService(
     public IQueryable<SSOUser> GetAllSSOUsers(bool ignoreFilters = false) =>
         TryCatch(operation: () =>
         {
-            ValidateSSOUsersOnGet(ignoreFilters: ignoreFilters);
+            ValidateAllSSOUsersOnGet(ignoreFilters: ignoreFilters);
 
             return ssoUserService.GetAllSSOUsers(ignoreFilters: ignoreFilters);
         });

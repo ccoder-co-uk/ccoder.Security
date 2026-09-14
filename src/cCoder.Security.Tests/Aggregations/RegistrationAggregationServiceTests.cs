@@ -54,13 +54,18 @@ public partial class RegistrationAggregationServiceTests
             loggingProcessingService: loggingProcessingServiceMock.Object);
     }
 
-    private void SetupRegistrationCreatedEvent(SSOUser user, RegisterUser registerForm, string token) =>
+    private void SetupRegistrationCreatedEvent(
+        SSOUser user,
+        RegisterUser registerForm,
+        string token,
+        Tenant tenant = null) =>
         accountEventProcessingServiceMock
             .Setup(expression: service => service.RaiseSecurityAccountEventRequestAsync(
 accountEventRequest:                It.Is<SecurityAccountEventRequest>(match:request =>
                     request.Kind == SecurityAccountEventKind.RegistrationCreated
                     && request.User == user
                     && request.RegisterForm == registerForm
+                    && request.Tenant == tenant
                     && request.Token == token)))
             .Returns(value: ValueTask.CompletedTask);
 }

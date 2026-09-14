@@ -2,9 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Security.Services.Foundations.Events;
+using cCoder.Security.Exposures;
 
-internal interface IEventHandlerService
+namespace cCoder.Security.Brokers.Encoding;
+
+internal interface IEncodingBroker : IUtilityBroker
 {
-    void ListenToAllEvents();
+    string GetString(byte[] bytes);
 }

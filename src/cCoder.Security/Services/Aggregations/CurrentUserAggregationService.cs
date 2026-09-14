@@ -25,7 +25,7 @@ internal sealed partial class CurrentUserAggregationService(
     public ValueTask<SSOUser> UpdateCurrentSSOUserAsync(SSOUser updatedSSOUser) =>
         TryCatch<SSOUser>(operation: async () =>
         {
-            ValidateCurrentUserOnUpdate(
+            ValidateCurrentSSOUserOnUpdate(
                 updatedUser: updatedSSOUser,
                 authInfo: authInfo);
 

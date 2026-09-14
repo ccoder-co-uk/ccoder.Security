@@ -18,7 +18,7 @@ internal sealed partial class TokenProcessingService(
     public ValueTask<Token> AddTokenForUserIdAsync(string userId, TokenUse tokenUse) =>
         TryCatch<Token>(operation: async () =>
         {
-            ValidateTokenOnAdd(userId: userId, tokenUse: tokenUse);
+            ValidateTokenForUserIdOnAdd(userId: userId, tokenUse: tokenUse);
 
             return await tokenService.AddTokenAsync(
                 userId: userId,
@@ -41,7 +41,7 @@ internal sealed partial class TokenProcessingService(
     public IQueryable<Token> GetAllTokens(bool ignoreFilters = false) =>
         TryCatch(operation: () =>
         {
-            ValidateTokensOnGet(ignoreFilters: ignoreFilters);
+            ValidateAllTokensOnGet(ignoreFilters: ignoreFilters);
 
             return tokenService.GetAllTokens(ignoreFilters: ignoreFilters);
         });
@@ -51,7 +51,7 @@ internal sealed partial class TokenProcessingService(
         TokenUse tokenUse) =>
         TryCatch(operation: async () =>
         {
-            ValidateTokenOnGenerate(userId: userId, tokenUse: tokenUse);
+            ValidateTokensForUserOnDelete(userId: userId, tokenUse: tokenUse);
 
             Token[] tokens = tokenService
                 .GetAllTokens(ignoreFilters: true)
@@ -69,7 +69,7 @@ internal sealed partial class TokenProcessingService(
     public Token GetTokenById(string tokenId) =>
         TryCatch(operation: () =>
         {
-            ValidateTokenOnGet(tokenId: tokenId);
+            ValidateTokenByIdOnGet(tokenId: tokenId);
 
             Token token = GetStoredToken(tokenId: tokenId);
 
@@ -118,7 +118,7 @@ internal sealed partial class TokenProcessingService(
     public Token GetForgottenPasswordToken(string tokenId) =>
         TryCatch(operation: () =>
         {
-            ValidateTokenOnGet(tokenId: tokenId);
+            ValidateForgottenPasswordTokenOnGet(tokenId: tokenId);
 
             return GetToken(
                 tokenId: tokenId,
@@ -128,7 +128,7 @@ internal sealed partial class TokenProcessingService(
     public Token GetConfirmationToken(string tokenId) =>
         TryCatch(operation: () =>
         {
-            ValidateTokenOnGet(tokenId: tokenId);
+            ValidateConfirmationTokenOnGet(tokenId: tokenId);
 
             return GetToken(
                 tokenId: tokenId,
@@ -138,7 +138,7 @@ internal sealed partial class TokenProcessingService(
     public Token GetInvitationToken(string tokenId) =>
         TryCatch(operation: () =>
         {
-            ValidateTokenOnGet(tokenId: tokenId);
+            ValidateInvitationTokenOnGet(tokenId: tokenId);
 
             return GetToken(
                 tokenId: tokenId,
