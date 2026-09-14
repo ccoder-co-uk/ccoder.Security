@@ -3,10 +3,11 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models;
+using cCoder.Security.Exposures;
 
 namespace cCoder.Security.Brokers.Encryption.Interfaces;
 
-internal interface IPasswordHashingBroker
+internal interface IPasswordHashingBroker : IUtilityBroker
 {
     string HashPassword(string password);
 

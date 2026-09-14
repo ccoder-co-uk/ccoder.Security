@@ -16,7 +16,7 @@ internal sealed partial class SSORoleProcessingService
         }
     }
 
-    private static void ValidateSSORolesOnGet(bool ignoreFilters) =>
+    private static void ValidateAllSSORolesOnGet(bool ignoreFilters) =>
         Validate(inputs: ignoreFilters);
 
     private static void ValidateSSORoleOnAdd(SSORole newSSORole) =>

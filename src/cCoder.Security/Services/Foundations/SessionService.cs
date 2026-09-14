@@ -57,8 +57,8 @@ internal sealed partial class SessionService(
 
             if (sSOUser != null)
             {
-                string serializedUser = System.Text.Json.JsonSerializer.Serialize(
-                    value: sSOUser);
+                string serializedUser = serializationBroker.Serialize(
+                    obj: sSOUser);
 
                 sessionBroker.SetString(key: "ssoUser", value: serializedUser);
             }

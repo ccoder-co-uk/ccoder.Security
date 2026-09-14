@@ -3,11 +3,11 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models;
+using cCoder.Security.Brokers.Encoding;
 using cCoder.Security.Models.Configurations;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
-using System.Text;
 
 namespace cCoder.Security.Services.Aggregations;
 
@@ -15,7 +15,8 @@ internal sealed partial class SSOAuthInfoAggregationService(
     ISessionProcessingService sessionService,
     ISSOUserProcessingService userService,
     ITokenProcessingService tokenService,
-    IRequestProcessingService requestProcessingService)
+    IRequestProcessingService requestProcessingService,
+    IEncodingBroker encodingBroker)
         : ISSOAuthInfoAggregationService
 {
     public ValueTask<ISSOAuthInfo> GetSSOAuthInfoAsync() =>
@@ -111,11 +112,11 @@ internal sealed partial class SSOAuthInfoAggregationService(
         return new SSOAuthInfo { SSOUserId = user.Id };
     }
 
-    static (string, string) ParseBasicAuthDetails(string auth)
+    (string, string) ParseBasicAuthDetails(string auth)
     {
         string base64AuthString = auth[6..];
         byte[] authBytes = Convert.FromBase64String(s: base64AuthString);
-        string authString = Encoding.UTF8.GetString(bytes: authBytes);
+        string authString = encodingBroker.GetString(bytes: authBytes);
 
         string separator = authString.Contains(value: '&')
             ? "&"
