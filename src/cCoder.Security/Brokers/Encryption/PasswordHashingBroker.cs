@@ -9,18 +9,22 @@ using cCoder.Security.Models;
 namespace cCoder.Security.Brokers.Encryption;
 
 internal sealed class PasswordHashingBroker(
-    IPasswordHashingDependency passwordHashingDependency)
+    PasswordHashingDependency passwordHashingDependency)
     : IPasswordHashingBroker
 {
     public string HashPassword(string password) =>
-        passwordHashingDependency.HashPassword(password: password);
+        passwordHashingDependency.HashPassword(
+            user: new object(),
+            password: password);
 
     public PasswordVerificationOutcome VerifyHashedPassword(
         string hashedPassword,
         string providedPassword) =>
-        passwordHashingDependency.VerifyHashedPassword(
-            hashedPassword: hashedPassword,
-            providedPassword: providedPassword);
+        (PasswordVerificationOutcome)
+            passwordHashingDependency.VerifyHashedPassword(
+                user: new object(),
+                hashedPassword: hashedPassword,
+                providedPassword: providedPassword);
 
     public void PerformDummyVerification(string providedPassword) =>
         passwordHashingDependency.PerformDummyVerification(

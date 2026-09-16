@@ -25,7 +25,6 @@ using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.EventHandlers;
 using cCoder.Security.Exposures.HostedServices;
-using cCoder.Security.Dependencies.HostedServices;
 using cCoder.Security.Models;
 using cCoder.Security.Models.Configurations;
 using cCoder.Security.Models.Events;
@@ -129,19 +128,31 @@ public static class IServiceCollectionExtensions
 
         if (!string.IsNullOrWhiteSpace(value: configuration.DecryptionKey))
         {
-            services.AddTransient<ISymmetricCrypto<string>>(
+            services.AddTransient<AesCrypto<string>>(
                 implementationFactory: _ =>
                     new AesCrypto<string>(configuration.DecryptionKey));
             services.AddTransient<ILegacyPasswordEncryptionBroker,
                 LegacyPasswordEncryptionBroker>();
         }
 
-        services.AddTransient<IPasswordHashingDependency,
-            PasswordHashingDependency>();
-        services.AddTransient<ITokenGenerationDependency,
-            TokenGenerationDependency>();
         services.AddTransient(
-            implementationFactory: _ => RandomNumberGenerator.Create());
+            implementationFactory: _ =>
+                new PasswordHashingDependency(
+                    memorySizeInKilobytes:
+                        configuration.Argon.MemorySizeInKilobytes,
+                    iterations: configuration.Argon.Iterations,
+                    degreeOfParallelism:
+                        configuration.Argon.DegreeOfParallelism,
+                    saltSizeInBytes:
+                        configuration.Argon.SaltSizeInBytes,
+                    hashSizeInBytes:
+                        configuration.Argon.HashSizeInBytes));
+
+        services.AddTransient(
+            implementationFactory: _ =>
+                new TokenGenerationDependency(
+                    randomNumberGenerator:
+                        RandomNumberGenerator.Create()));
 
         services.AddSingleton(implementationInstance: configuration);
         services.AddSingleton(
@@ -170,6 +181,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IAuthenticationContextBroker, AuthenticationContextBroker>();
         services.AddTransient<IWebSessionBroker, WebSessionBroker>();
         services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
+        services.AddSingleton<IServiceScopeBroker, ServiceScopeBroker>();
         services.AddTransient<ISessionBroker, SessionBroker>();
         services.AddTransient<ISSOPrivilegeBroker, SSOPrivilegeBroker>();
         services.AddTransient<ISSORoleBroker, SSORoleBroker>();

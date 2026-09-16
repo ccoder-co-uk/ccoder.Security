@@ -17,7 +17,7 @@ namespace cCoder.Security.Data.Dependencies;
 /// <summary>
 /// Use when signing data to encrypt the signature in a verifyable manner
 /// </summary>
-internal class AesThenHmac
+public partial class AesCrypto<T>
 {
     private static readonly RandomNumberGenerator Random = RandomNumberGenerator.Create();
 

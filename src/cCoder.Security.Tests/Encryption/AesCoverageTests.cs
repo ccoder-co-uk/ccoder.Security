@@ -19,7 +19,7 @@ public partial class AesCoverageTests
         // Given
 
         const string message = "coverage-message";
-        AesThenHmac crypto = new();
+        AesCrypto<string> crypto = new(decryptionKey: null);
         byte[] cryptKey = crypto.NewKey();
         byte[] authKey = crypto.NewKey();
         byte[] payload = [1, 2, 3];
@@ -68,7 +68,7 @@ public partial class AesCoverageTests
         // Given
 
         const string message = "coverage-message";
-        AesThenHmac crypto = new();
+        AesCrypto<string> crypto = new(decryptionKey: null);
         byte[] payload = [4, 5, 6];
 
         // When
@@ -110,7 +110,7 @@ public partial class AesCoverageTests
     {
         // Given
 
-        AesThenHmac crypto = new();
+        AesCrypto<string> crypto = new(decryptionKey: null);
         byte[] cryptKey = crypto.NewKey();
         byte[] authKey = crypto.NewKey();
 
@@ -150,7 +150,7 @@ public partial class AesCoverageTests
     {
         // Given
 
-        AesThenHmac crypto = new();
+        AesCrypto<string> crypto = new(decryptionKey: null);
         byte[] key = crypto.NewKey();
         byte[] invalidKey = [1];
 

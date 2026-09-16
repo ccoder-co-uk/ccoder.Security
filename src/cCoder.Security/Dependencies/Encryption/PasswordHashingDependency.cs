@@ -2,8 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Models;
-using cCoder.Security.Models.Configurations;
 using Konscious.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -14,7 +12,7 @@ using System.Text;
 namespace cCoder.Security.Dependencies.Encryption;
 
 internal sealed class PasswordHashingDependency
-    : IPasswordHashingDependency
+    : IPasswordHasher<object>
 {
     internal const int MinimumMemorySizeInKilobytes = 19_456;
     internal const int MinimumIterations = 2;
@@ -22,36 +20,57 @@ internal sealed class PasswordHashingDependency
     internal const int MinimumSaltSizeInBytes = 16;
     internal const int MinimumHashSizeInBytes = 32;
     private const string Prefix = "$argon2id$";
-    private readonly ArgonConfiguration configuration;
+    private readonly int memorySizeInKilobytes;
+    private readonly int iterations;
+    private readonly int degreeOfParallelism;
+    private readonly int saltSizeInBytes;
+    private readonly int hashSizeInBytes;
     private readonly PasswordHasher<object> identityHasher;
     private readonly string dummyHash;
 
-    public PasswordHashingDependency(ArgonConfiguration configuration)
+    public PasswordHashingDependency(
+        int memorySizeInKilobytes,
+        int iterations,
+        int degreeOfParallelism,
+        int saltSizeInBytes,
+        int hashSizeInBytes)
     {
-        this.configuration = ValidateConfiguration(
-            configuration: configuration);
+        ValidateConfiguration(
+            memorySizeInKilobytes: memorySizeInKilobytes,
+            iterations: iterations,
+            degreeOfParallelism: degreeOfParallelism,
+            saltSizeInBytes: saltSizeInBytes,
+            hashSizeInBytes: hashSizeInBytes);
+
+        this.memorySizeInKilobytes = memorySizeInKilobytes;
+        this.iterations = iterations;
+        this.degreeOfParallelism = degreeOfParallelism;
+        this.saltSizeInBytes = saltSizeInBytes;
+        this.hashSizeInBytes = hashSizeInBytes;
         identityHasher = CreateIdentityMigrationHasher();
         dummyHash = HashPassword(
+            user: new object(),
             password: "cCoder timing sentinel password");
     }
 
-    public string HashPassword(string password)
+    public string HashPassword(object user, string password)
     {
         byte[] salt = RandomNumberGenerator.GetBytes(
-            count: configuration.SaltSizeInBytes);
+            count: saltSizeInBytes);
 
         byte[] hash = DeriveHash(
             password: password,
             salt: salt,
-            memorySizeInKilobytes: configuration.MemorySizeInKilobytes,
-            iterations: configuration.Iterations,
-            degreeOfParallelism: configuration.DegreeOfParallelism,
-            hashSizeInBytes: configuration.HashSizeInBytes);
+            memorySizeInKilobytes: memorySizeInKilobytes,
+            iterations: iterations,
+            degreeOfParallelism: degreeOfParallelism,
+            hashSizeInBytes: hashSizeInBytes);
 
-        return $"{Prefix}v=19$m={configuration.MemorySizeInKilobytes},t={configuration.Iterations},p={configuration.DegreeOfParallelism}${Convert.ToBase64String(inArray: salt)}${Convert.ToBase64String(inArray: hash)}";
+        return $"{Prefix}v=19$m={memorySizeInKilobytes},t={iterations},p={degreeOfParallelism}${Convert.ToBase64String(inArray: salt)}${Convert.ToBase64String(inArray: hash)}";
     }
 
-    public PasswordVerificationOutcome VerifyHashedPassword(
+    public PasswordVerificationResult VerifyHashedPassword(
+        object user,
         string hashedPassword,
         string providedPassword)
     {
@@ -66,15 +85,15 @@ internal sealed class PasswordHashingDependency
                     providedPassword: providedPassword);
 
             return identityResult == PasswordVerificationResult.Failed
-                ? PasswordVerificationOutcome.Failed
-                : PasswordVerificationOutcome.SuccessRehashNeeded;
+                ? PasswordVerificationResult.Failed
+                : PasswordVerificationResult.SuccessRehashNeeded;
         }
 
         if (!TryParseHash(
             encodedHash: hashedPassword,
-            hashParameters: out ArgonHashParameters hashParameters))
+            hashParameters: out var hashParameters))
         {
-            return PasswordVerificationOutcome.Failed;
+            return PasswordVerificationResult.Failed;
         }
 
         byte[] providedHash = DeriveHash(
@@ -89,16 +108,17 @@ internal sealed class PasswordHashingDependency
             left: hashParameters.Hash,
             right: providedHash))
         {
-            return PasswordVerificationOutcome.Failed;
+            return PasswordVerificationResult.Failed;
         }
 
         return MeetsCurrentConfiguration(hashParameters: hashParameters)
-            ? PasswordVerificationOutcome.Success
-            : PasswordVerificationOutcome.SuccessRehashNeeded;
+            ? PasswordVerificationResult.Success
+            : PasswordVerificationResult.SuccessRehashNeeded;
     }
 
     public void PerformDummyVerification(string providedPassword) =>
         VerifyHashedPassword(
+            user: new object(),
             hashedPassword: dummyHash,
             providedPassword: providedPassword);
 
@@ -133,32 +153,32 @@ internal sealed class PasswordHashingDependency
         return argon.GetBytes(bc: hashSizeInBytes);
     }
 
-    private static ArgonConfiguration ValidateConfiguration(
-        ArgonConfiguration configuration)
+    private static void ValidateConfiguration(
+        int memorySizeInKilobytes,
+        int iterations,
+        int degreeOfParallelism,
+        int saltSizeInBytes,
+        int hashSizeInBytes)
     {
-        ArgumentNullException.ThrowIfNull(argument: configuration);
-
         ArgumentOutOfRangeException.ThrowIfLessThan(
-            value: configuration.MemorySizeInKilobytes,
+            value: memorySizeInKilobytes,
             other: MinimumMemorySizeInKilobytes);
 
         ArgumentOutOfRangeException.ThrowIfLessThan(
-            value: configuration.Iterations,
+            value: iterations,
             other: MinimumIterations);
 
         ArgumentOutOfRangeException.ThrowIfLessThan(
-            value: configuration.DegreeOfParallelism,
+            value: degreeOfParallelism,
             other: MinimumDegreeOfParallelism);
 
         ArgumentOutOfRangeException.ThrowIfLessThan(
-            value: configuration.SaltSizeInBytes,
+            value: saltSizeInBytes,
             other: MinimumSaltSizeInBytes);
 
         ArgumentOutOfRangeException.ThrowIfLessThan(
-            value: configuration.HashSizeInBytes,
+            value: hashSizeInBytes,
             other: MinimumHashSizeInBytes);
-
-        return configuration;
     }
 
     private static PasswordHasher<object> CreateIdentityMigrationHasher() =>
@@ -170,20 +190,28 @@ internal sealed class PasswordHashingDependency
             }));
 
     private bool MeetsCurrentConfiguration(
-        ArgonHashParameters hashParameters) =>
+        (int MemorySizeInKilobytes,
+         int Iterations,
+         int DegreeOfParallelism,
+         byte[] Salt,
+         byte[] Hash) hashParameters) =>
         hashParameters.MemorySizeInKilobytes
-            >= configuration.MemorySizeInKilobytes
-        && hashParameters.Iterations >= configuration.Iterations
+            >= memorySizeInKilobytes
+        && hashParameters.Iterations >= iterations
         && hashParameters.DegreeOfParallelism
-            >= configuration.DegreeOfParallelism
-        && hashParameters.Salt.Length >= configuration.SaltSizeInBytes
-        && hashParameters.Hash.Length >= configuration.HashSizeInBytes;
+            >= degreeOfParallelism
+        && hashParameters.Salt.Length >= saltSizeInBytes
+        && hashParameters.Hash.Length >= hashSizeInBytes;
 
     private static bool TryParseHash(
         string encodedHash,
-        out ArgonHashParameters hashParameters)
+        out (int MemorySizeInKilobytes,
+             int Iterations,
+             int DegreeOfParallelism,
+             byte[] Salt,
+             byte[] Hash) hashParameters)
     {
-        hashParameters = null;
+        hashParameters = default;
 
         try
         {
@@ -227,7 +255,7 @@ internal sealed class PasswordHashingDependency
                 return false;
             }
 
-            hashParameters = new ArgonHashParameters(
+            hashParameters = (
                 MemorySizeInKilobytes: memorySizeInKilobytes,
                 Iterations: iterations,
                 DegreeOfParallelism: degreeOfParallelism,
@@ -260,11 +288,4 @@ internal sealed class PasswordHashingDependency
             s: parameter[expectedPrefix.Length..],
             provider: CultureInfo.InvariantCulture);
     }
-
-    private sealed record ArgonHashParameters(
-        int MemorySizeInKilobytes,
-        int Iterations,
-        int DegreeOfParallelism,
-        byte[] Salt,
-        byte[] Hash);
 }

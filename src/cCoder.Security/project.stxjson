@@ -159,6 +159,64 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Brokers.Encoding.EncodingBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Brokers.Encoding.IEncodingBroker",
+          "FullName": "cCoder.Security.Brokers.Encoding.IEncodingBroker",
+          "Name": "IEncodingBroker",
+          "Namespace": "cCoder.Security.Brokers.Encoding",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Brokers.Encoding.EncodingBroker.GetString(System.Byte[])",
+          "Name": "GetString",
+          "LineNumber": 9,
+          "Inputs": [
+            {
+              "Name": "bytes",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Security.Brokers.Encoding.IEncodingBroker.GetString(System.Byte[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetString",
+              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Brokers.Encryption.LegacyPasswordEncryptionBroker",
       "StandardElementType": "Broker",
       "LineNumber": 9,
@@ -195,9 +253,9 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E",
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
               "MethodName": "Decrypt",
-              "MethodId": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String)",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
@@ -253,10 +311,17 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "TypeName": "System.Object",
+              "MethodName": ".ctor",
+              "MethodId": "System.Object..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
               "MethodName": "HashPassword",
-              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashPassword(System.String)",
-              "StandardElementType": "Unknown",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.HashPassword(System.Object,System.String)",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -275,7 +340,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.HashTokenSecret(System.String)",
           "Name": "HashTokenSecret",
-          "LineNumber": 29,
+          "LineNumber": 33,
           "Inputs": [
             {
               "Name": "secret",
@@ -288,10 +353,10 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "TypeName": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
               "MethodName": "HashTokenSecret",
-              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashTokenSecret(System.String)",
-              "StandardElementType": "Unknown",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.HashTokenSecret(System.String)",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -310,7 +375,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.PerformDummyVerification(System.String)",
           "Name": "PerformDummyVerification",
-          "LineNumber": 25,
+          "LineNumber": 29,
           "Inputs": [
             {
               "Name": "providedPassword",
@@ -323,10 +388,10 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "TypeName": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
               "MethodName": "PerformDummyVerification",
-              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.PerformDummyVerification(System.String)",
-              "StandardElementType": "Unknown",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.PerformDummyVerification(System.String)",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -347,7 +412,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.VerifyHashedPassword(System.String,System.String)",
           "Name": "VerifyHashedPassword",
-          "LineNumber": 18,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "hashedPassword",
@@ -364,10 +429,17 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "TypeName": "System.Object",
+              "MethodName": ".ctor",
+              "MethodId": "System.Object..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
               "MethodName": "VerifyHashedPassword",
-              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
-              "StandardElementType": "Unknown",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyHashedPassword(System.Object,System.String,System.String)",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -388,7 +460,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker.VerifyTokenSecret(System.String,System.String)",
           "Name": "VerifyTokenSecret",
-          "LineNumber": 32,
+          "LineNumber": 36,
           "Inputs": [
             {
               "Name": "secretHash",
@@ -405,10 +477,10 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
+              "TypeName": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
               "MethodName": "VerifyTokenSecret",
-              "MethodId": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyTokenSecret(System.String,System.String)",
-              "StandardElementType": "Unknown",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyTokenSecret(System.String,System.String)",
+              "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
           ],
@@ -429,7 +501,7 @@
     {
       "Name": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -450,7 +522,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker.Combine(System.String,System.String)",
           "Name": "Combine",
-          "LineNumber": 20,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "selector",
@@ -481,21 +553,13 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker.GenerateSecret()",
           "Name": "GenerateSecret",
-          "LineNumber": 17,
+          "LineNumber": 21,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [
             "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSecret()"
           ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
-              "MethodName": "GenerateSecret",
-              "MethodId": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSecret()",
-              "StandardElementType": "Unknown",
-              "IsDependencyBoundary": false
-            }
-          ],
+          "Calls": [],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -511,21 +575,13 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker.GenerateSelector()",
           "Name": "GenerateSelector",
-          "LineNumber": 14,
+          "LineNumber": 18,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [
             "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSelector()"
           ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
-              "MethodName": "GenerateSelector",
-              "MethodId": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSelector()",
-              "StandardElementType": "Unknown",
-              "IsDependencyBoundary": false
-            }
-          ],
+          "Calls": [],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -541,7 +597,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.TokenGenerationBroker.Split(System.String)",
           "Name": "Split",
-          "LineNumber": 23,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "token",
@@ -779,9 +835,44 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogException(System.Exception)",
+          "Name": "LogException",
+          "LineNumber": 10,
+          "Inputs": [
+            {
+              "Name": "exception",
+              "Type": "System.Exception"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Brokers.Logging.ILoggingBroker.LogException(System.Exception)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogError",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogWarning(System.String)",
           "Name": "LogWarning",
-          "LineNumber": 10,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "message",
@@ -1002,9 +1093,9 @@
           ],
           "Calls": [
             {
-              "TypeName": "Newtonsoft.Json.JsonConvert",
-              "MethodName": "SerializeObject",
-              "MethodId": "Newtonsoft.Json.JsonConvert.SerializeObject(System.Object?,Newtonsoft.Json.Formatting,Newtonsoft.Json.JsonSerializerSettings?)",
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Serialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
@@ -3335,6 +3426,88 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Brokers.Utility.ServiceScopeBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Brokers.Utility.IServiceScopeBroker",
+          "FullName": "cCoder.Security.Brokers.Utility.IServiceScopeBroker",
+          "Name": "IServiceScopeBroker",
+          "Namespace": "cCoder.Security.Brokers.Utility",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        },
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Brokers.Utility.ServiceScopeBroker.ExecuteInScopeAsync(System.Func\u003CTService, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "ExecuteInScopeAsync",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "operation",
+              "Type": "System.Func\u003CTService, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Security.Brokers.Utility.IServiceScopeBroker.ExecuteInScopeAsync(System.Func\u003CTService, System.Threading.Tasks.ValueTask\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.IServiceScopeFactory",
+              "MethodName": "CreateScope",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.IServiceScopeFactory.CreateScope()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions",
+              "MethodName": "GetRequiredService",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(System.IServiceProvider)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Func\u003CT, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT, TResult\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Dependencies.Authentication.SecurityBearerAuthenticationDependency",
       "StandardElementType": "Dependency",
       "LineNumber": 12,
@@ -3357,29 +3530,33 @@
     {
       "Name": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
       "StandardElementType": "Dependency",
-      "LineNumber": 16,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
-          "FullName": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
-          "Name": "IPasswordHashingDependency",
-          "Namespace": "cCoder.Security.Dependencies.Encryption",
-          "AssemblyName": "cCoder.Security",
+          "Id": "Microsoft.Extensions.Identity.Core:Microsoft.AspNetCore.Identity.IPasswordHasher\u003CSystem.Object\u003E",
+          "FullName": "Microsoft.AspNetCore.Identity.IPasswordHasher\u003CSystem.Object\u003E",
+          "Name": "IPasswordHasher",
+          "Namespace": "Microsoft.AspNetCore.Identity",
+          "AssemblyName": "Microsoft.Extensions.Identity.Core",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Unknown"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.HashPassword(System.String)",
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.HashPassword(System.Object,System.String)",
           "Name": "HashPassword",
-          "LineNumber": 38,
+          "LineNumber": 56,
           "Inputs": [
+            {
+              "Name": "user",
+              "Type": "System.Object"
+            },
             {
               "Name": "password",
               "Type": "System.String"
@@ -3387,7 +3564,7 @@
           ],
           "ReturnType": "System.String",
           "Implements": [
-            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashPassword(System.String)"
+            "Microsoft.AspNetCore.Identity.IPasswordHasher\u003CSystem.Object\u003E.HashPassword(System.Object,System.String)"
           ],
           "Calls": [
             {
@@ -3420,7 +3597,7 @@
         {
           "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.HashTokenSecret(System.String)",
           "Name": "HashTokenSecret",
-          "LineNumber": 105,
+          "LineNumber": 125,
           "Inputs": [
             {
               "Name": "secret",
@@ -3428,9 +3605,7 @@
             }
           ],
           "ReturnType": "System.String",
-          "Implements": [
-            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashTokenSecret(System.String)"
-          ],
+          "Implements": [],
           "Calls": [
             {
               "TypeName": "System.Convert",
@@ -3469,7 +3644,7 @@
         {
           "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.PerformDummyVerification(System.String)",
           "Name": "PerformDummyVerification",
-          "LineNumber": 100,
+          "LineNumber": 119,
           "Inputs": [
             {
               "Name": "providedPassword",
@@ -3477,14 +3652,19 @@
             }
           ],
           "ReturnType": "System.Void",
-          "Implements": [
-            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.PerformDummyVerification(System.String)"
-          ],
+          "Implements": [],
           "Calls": [
+            {
+              "TypeName": "System.Object",
+              "MethodName": ".ctor",
+              "MethodId": "System.Object..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
               "MethodName": "VerifyHashedPassword",
-              "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
+              "MethodId": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyHashedPassword(System.Object,System.String,System.String)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
@@ -3504,10 +3684,14 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
+          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyHashedPassword(System.Object,System.String,System.String)",
           "Name": "VerifyHashedPassword",
-          "LineNumber": 54,
+          "LineNumber": 72,
           "Inputs": [
+            {
+              "Name": "user",
+              "Type": "System.Object"
+            },
             {
               "Name": "hashedPassword",
               "Type": "System.String"
@@ -3517,9 +3701,9 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "cCoder.Security.Models.PasswordVerificationOutcome",
+          "ReturnType": "Microsoft.AspNetCore.Identity.PasswordVerificationResult",
           "Implements": [
-            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyHashedPassword(System.String,System.String)"
+            "Microsoft.AspNetCore.Identity.IPasswordHasher\u003CSystem.Object\u003E.VerifyHashedPassword(System.Object,System.String,System.String)"
           ],
           "Calls": [
             {
@@ -3568,7 +3752,7 @@
         {
           "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.VerifyTokenSecret(System.String,System.String)",
           "Name": "VerifyTokenSecret",
-          "LineNumber": 110,
+          "LineNumber": 130,
           "Inputs": [
             {
               "Name": "secretHash",
@@ -3580,9 +3764,7 @@
             }
           ],
           "ReturnType": "System.Boolean",
-          "Implements": [
-            "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyTokenSecret(System.String,System.String)"
-          ],
+          "Implements": [],
           "Calls": [
             {
               "TypeName": "System.Convert",
@@ -3628,121 +3810,45 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
+      "Name": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency",
       "StandardElementType": "Dependency",
-      "LineNumber": 264,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "System.Private.CoreLib:System.IEquatable\u003CcCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters\u003E",
-          "FullName": "System.IEquatable\u003CcCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters\u003E",
-          "Name": "IEquatable",
-          "Namespace": "System",
-          "AssemblyName": "System.Private.CoreLib",
-          "Kind": "Interface",
-          "IsInCurrentProject": false,
-          "StandardElementType": "Dependency"
-        }
-      ],
-      "Properties": [
-        {
-          "Name": "DegreeOfParallelism",
-          "Type": "System.Int32"
-        },
-        {
-          "Name": "Hash",
-          "Type": "System.Byte[]"
-        },
-        {
-          "Name": "Iterations",
-          "Type": "System.Int32"
-        },
-        {
-          "Name": "MemorySizeInKilobytes",
-          "Type": "System.Int32"
-        },
-        {
-          "Name": "Salt",
-          "Type": "System.Byte[]"
-        }
-      ],
+      "BaseType": {
+        "Id": "System.Security.Cryptography:System.Security.Cryptography.RandomNumberGenerator",
+        "FullName": "System.Security.Cryptography.RandomNumberGenerator",
+        "Name": "RandomNumberGenerator",
+        "Namespace": "System.Security.Cryptography",
+        "AssemblyName": "System.Security.Cryptography",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.\u003CClone\u003E$()",
-          "Name": "\u003CClone\u003E$",
-          "LineNumber": 264,
-          "Inputs": [],
-          "ReturnType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.Deconstruct(System.Int32,System.Int32,System.Int32,System.Byte[],System.Byte[])",
-          "Name": "Deconstruct",
-          "LineNumber": 264,
+          "Id": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency.GetBytes(System.Byte[])",
+          "Name": "GetBytes",
+          "LineNumber": 13,
           "Inputs": [
             {
-              "Name": "MemorySizeInKilobytes",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "Iterations",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "DegreeOfParallelism",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "Salt",
-              "Type": "System.Byte[]"
-            },
-            {
-              "Name": "Hash",
+              "Name": "data",
               "Type": "System.Byte[]"
             }
           ],
           "ReturnType": "System.Void",
           "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.Equals(System.Object?)",
-          "Name": "Equals",
-          "LineNumber": 264,
-          "Inputs": [
+          "Calls": [
             {
-              "Name": "obj",
-              "Type": "System.Object?"
+              "TypeName": "System.Security.Cryptography.RandomNumberGenerator",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             }
           ],
-          "ReturnType": "System.Boolean",
-          "Implements": [],
-          "Calls": [],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -3756,20 +3862,34 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.Equals(cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters?)",
-          "Name": "Equals",
-          "LineNumber": 264,
+          "Id": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency.GetBytes(System.Byte[],System.Int32,System.Int32)",
+          "Name": "GetBytes",
+          "LineNumber": 16,
           "Inputs": [
             {
-              "Name": "other",
-              "Type": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters?"
+              "Name": "data",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "offset",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "count",
+              "Type": "System.Int32"
             }
           ],
-          "ReturnType": "System.Boolean",
-          "Implements": [
-            "System.IEquatable\u003CcCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters\u003E.Equals(cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters?)"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Security.Cryptography.RandomNumberGenerator",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Byte[],System.Int32,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
           ],
-          "Calls": [],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -3783,33 +3903,26 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.GetHashCode()",
-          "Name": "GetHashCode",
-          "LineNumber": 264,
-          "Inputs": [],
-          "ReturnType": "System.Int32",
+          "Id": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency.GetNonZeroBytes(System.Byte[])",
+          "Name": "GetNonZeroBytes",
+          "LineNumber": 22,
+          "Inputs": [
+            {
+              "Name": "data",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.Void",
           "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters.ToString()",
-          "Name": "ToString",
-          "LineNumber": 264,
-          "Inputs": [],
-          "ReturnType": "System.String",
-          "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "System.Security.Cryptography.RandomNumberGenerator",
+              "MethodName": "GetNonZeroBytes",
+              "MethodId": "System.Security.Cryptography.RandomNumberGenerator.GetNonZeroBytes(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -3823,104 +3936,6 @@
           "HasTryCatch": false
         }
       ]
-    },
-    {
-      "Name": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency",
-      "StandardElementType": "Dependency",
-      "LineNumber": 10,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Security:cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
-          "FullName": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
-          "Name": "ITokenGenerationDependency",
-          "Namespace": "cCoder.Security.Dependencies.Encryption",
-          "AssemblyName": "cCoder.Security",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Unknown"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency.GenerateSecret()",
-          "Name": "GenerateSecret",
-          "LineNumber": 20,
-          "Inputs": [],
-          "ReturnType": "System.String",
-          "Implements": [
-            "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSecret()"
-          ],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency.GenerateSelector()",
-          "Name": "GenerateSelector",
-          "LineNumber": 17,
-          "Inputs": [],
-          "ReturnType": "System.String",
-          "Implements": [
-            "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSelector()"
-          ],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Dependencies.HostedServices.TokenCleaner",
-      "StandardElementType": "Dependency",
-      "LineNumber": 13,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": {
-        "Id": "Microsoft.Extensions.Hosting.Abstractions:Microsoft.Extensions.Hosting.BackgroundService",
-        "FullName": "Microsoft.Extensions.Hosting.BackgroundService",
-        "Name": "BackgroundService",
-        "Namespace": "Microsoft.Extensions.Hosting",
-        "AssemblyName": "Microsoft.Extensions.Hosting.Abstractions",
-        "Kind": "Class",
-        "IsInCurrentProject": false,
-        "StandardElementType": "Dependency"
-      },
-      "Interfaces": [
-        {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.HostedServices.ITokenCleaner",
-          "FullName": "cCoder.Security.Exposures.HostedServices.ITokenCleaner",
-          "Name": "ITokenCleaner",
-          "Namespace": "cCoder.Security.Exposures.HostedServices",
-          "AssemblyName": "cCoder.Security",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
-        }
-      ],
-      "Properties": [],
-      "Methods": []
     },
     {
       "Name": "cCoder.Security.Dependencies.Sessions.NullSession",
@@ -9009,9 +9024,9 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Exposures.EventHandlers.SecurityEventHandlers",
+      "Name": "cCoder.Security.Exposures.EventHandlers.AuthenticationFailedEventHandlers",
       "StandardElementType": "Exposure",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -9030,9 +9045,9 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Exposures.EventHandlers.SecurityEventHandlers.ListenToAllEvents()",
+          "Id": "cCoder.Security.Exposures.EventHandlers.AuthenticationFailedEventHandlers.ListenToAllEvents()",
           "Name": "ListenToAllEvents",
-          "LineNumber": 11,
+          "LineNumber": 26,
           "Inputs": [],
           "ReturnType": "System.Void",
           "Implements": [
@@ -9040,11 +9055,633 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Security.Services.Foundations.Events.IEventHandlerService",
-              "MethodName": "ListenToAllEvents",
-              "MethodId": "cCoder.Security.Services.Foundations.Events.IEventHandlerService.ListenToAllEvents()",
-              "StandardElementType": "FoundationService",
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
               "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.InvitationAcceptedEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.InvitationAcceptedEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 26,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.InvitationCreatedEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.InvitationCreatedEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 26,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.LoginSucceededEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.LoginSucceededEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 26,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.LogoutSucceededEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.LogoutSucceededEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 26,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.PasswordResetRequestedEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.PasswordResetRequestedEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 26,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.RegistrationConfirmedEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.RegistrationConfirmedEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 26,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.RegistrationCreatedEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.RegistrationCreatedEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 26,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.TenantSetupEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 13,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.TenantSetupEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 24,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Exposures.IRegistrationManager",
+              "MethodName": "SetupRegisterUserAsync",
+              "MethodId": "cCoder.Security.Exposures.IRegistrationManager.SetupRegisterUserAsync(cCoder.Security.Models.DTOs.RegisterUser)",
+              "StandardElementType": "Exposure",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Models.DTOs.RegisterUser",
+              "MethodName": ".ctor",
+              "MethodId": "cCoder.Security.Models.DTOs.RegisterUser..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             }
           ],
           "PossibleExceptionTypes": [
@@ -9063,6 +9700,8 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
             "cCoder.Security.Models.Exceptions.SecurityServiceException"
           ],
           "ThrowsExceptionTypes": [
@@ -9078,6 +9717,113 @@
           "HasTryCatch": false
         }
       ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.EventHandlers.TokenIssuedEventHandlers",
+      "StandardElementType": "Exposure",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "FullName": "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers",
+          "Name": "ISecurityEventHandlers",
+          "Namespace": "cCoder.Security.Exposures.EventHandlers",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Exposures.EventHandlers.TokenIssuedEventHandlers.ListenToAllEvents()",
+          "Name": "ListenToAllEvents",
+          "LineNumber": 25,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Exposures.EventHandlers.ISecurityEventHandlers.ListenToAllEvents()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+              "MethodName": "StoreSecurityAccountEventAuditAsync",
+              "MethodId": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Exposures.HostedServices.TokenCleaner",
+      "StandardElementType": "Exposure",
+      "LineNumber": 11,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "Microsoft.Extensions.Hosting.Abstractions:Microsoft.Extensions.Hosting.BackgroundService",
+        "FullName": "Microsoft.Extensions.Hosting.BackgroundService",
+        "Name": "BackgroundService",
+        "Namespace": "Microsoft.Extensions.Hosting",
+        "AssemblyName": "Microsoft.Extensions.Hosting.Abstractions",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.HostedServices.ITokenCleaner",
+          "FullName": "cCoder.Security.Exposures.HostedServices.ITokenCleaner",
+          "Name": "ITokenCleaner",
+          "Namespace": "cCoder.Security.Exposures.HostedServices",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": []
     },
     {
       "Name": "cCoder.Security.Exposures.ODataConventionModelBuilderExtensions",
@@ -9499,6 +10245,10 @@
         {
           "Name": "RegisterForm",
           "Type": "cCoder.Security.Models.DTOs.RegisterUser"
+        },
+        {
+          "Name": "Tenant",
+          "Type": "cCoder.Security.Models.Entities.Tenant"
         },
         {
           "Name": "Token",
@@ -10706,7 +11456,7 @@
         {
           "Id": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService.GetSSOAuthInfoAsync()",
           "Name": "GetSSOAuthInfoAsync",
-          "LineNumber": 21,
+          "LineNumber": 22,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Security.Models.Configurations.ISSOAuthInfo\u003E",
           "Implements": [
@@ -11382,7 +12132,7 @@
     {
       "Name": "cCoder.Security.Services.Foundations.Events.AccountEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 15,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -11403,7 +12153,7 @@
         {
           "Id": "cCoder.Security.Services.Foundations.Events.AccountEventService.RaiseSecurityAccountEventRequestAsync(cCoder.Security.Models.Events.SecurityAccountEventRequest)",
           "Name": "RaiseSecurityAccountEventRequestAsync",
-          "LineNumber": 22,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "securityAccountEventRequest",
@@ -11452,101 +12202,6 @@
           ],
           "IncomingExceptionTypes": [
             "System.ArgumentNullException",
-            "cCoder.Security.Models.Exceptions.SecurityServiceException"
-          ],
-          "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityServiceException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
-      "StandardElementType": "FoundationService",
-      "LineNumber": 14,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Security:cCoder.Security.Services.Foundations.Events.IEventHandlerService",
-          "FullName": "cCoder.Security.Services.Foundations.Events.IEventHandlerService",
-          "Name": "IEventHandlerService",
-          "Namespace": "cCoder.Security.Services.Foundations.Events",
-          "AssemblyName": "cCoder.Security",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "FoundationService"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Security.Services.Foundations.Events.EventHandlerService.ListenToAllEvents()",
-          "Name": "ListenToAllEvents",
-          "LineNumber": 17,
-          "Inputs": [],
-          "ReturnType": "System.Void",
-          "Implements": [
-            "cCoder.Security.Services.Foundations.Events.IEventHandlerService.ListenToAllEvents()"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Enum",
-              "MethodName": "GetValues",
-              "MethodId": "System.Enum.GetValues()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "cCoder.Security.Brokers.Events.IEventHubBroker",
-              "MethodName": "ListenToEvent",
-              "MethodId": "cCoder.Security.Brokers.Events.IEventHubBroker.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
-              "StandardElementType": "Broker",
-              "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Security.Exposures.ITenantManager",
-              "MethodName": "SetupAsync",
-              "MethodId": "cCoder.Security.Exposures.ITenantManager.SetupAsync(cCoder.Security.Data.Models.SetupDetails)",
-              "StandardElementType": "Exposure",
-              "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions",
-              "MethodName": "ToEventName",
-              "MethodId": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions.ToEventName(cCoder.Security.Models.Events.SecurityAccountEventKind)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
-            "System.ArgumentNullException",
-            "System.ComponentModel.DataAnnotations.ValidationException",
-            "System.Security.SecurityException",
-            "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
-            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
-            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
-            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
-            "cCoder.Security.Models.Exceptions.SecurityServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityValidationException"
-          ],
-          "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
-            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
             "cCoder.Security.Models.Exceptions.SecurityServiceException"
           ],
           "ThrowsExceptionTypes": [
@@ -12712,11 +13367,11 @@
           ],
           "Calls": [
             {
-              "TypeName": "System.Text.Json.JsonSerializer",
+              "TypeName": "cCoder.Security.Brokers.Serialization.ISerializationBroker",
               "MethodName": "Serialize",
-              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "MethodId": "cCoder.Security.Brokers.Serialization.ISerializationBroker.Serialize(System.Object)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Brokers.Sessions.IWebSessionBroker",
@@ -14125,6 +14780,114 @@
           ],
           "ThrowsExceptionTypes": [
             "cCoder.Security.Models.Exceptions.SecurityOrchestrationServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Services.Processings.AccountAuditUserEventProcessingService",
+      "StandardElementType": "ProcessingService",
+      "LineNumber": 13,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+          "FullName": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+          "Name": "IAccountAuditUserEventProcessingService",
+          "Namespace": "cCoder.Security.Services.Processings.Interfaces",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "ProcessingService"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Services.Processings.AccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+          "Name": "StoreSecurityAccountEventAuditAsync",
+          "LineNumber": 18,
+          "Inputs": [
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "securityAccountEvent",
+              "Type": "cCoder.Security.Models.Events.SecurityAccountEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Enum",
+              "MethodName": "ToString",
+              "MethodId": "System.Enum.ToString()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Guid",
+              "MethodName": "NewGuid",
+              "MethodId": "System.Guid.NewGuid()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Serialization.ISerializationBroker",
+              "MethodName": "Serialize",
+              "MethodId": "cCoder.Security.Brokers.Serialization.ISerializationBroker.Serialize(System.Object)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Models.Entities.UserEvent",
+              "MethodName": ".ctor",
+              "MethodId": "cCoder.Security.Models.Entities.UserEvent..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Foundations.Interfaces.IUserEventService",
+              "MethodName": "AddUserEventAsync",
+              "MethodId": "cCoder.Security.Services.Foundations.Interfaces.IUserEventService.AddUserEventAsync(cCoder.Security.Models.Entities.UserEvent)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -16182,7 +16945,7 @@
     {
       "Name": "cCoder.Security.Services.Processings.TokenProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -16203,7 +16966,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.AddTokenForUserIdAsync(System.String,cCoder.Security.Models.Entities.TokenUse)",
           "Name": "AddTokenForUserIdAsync",
-          "LineNumber": 18,
+          "LineNumber": 47,
           "Inputs": [
             {
               "Name": "userId",
@@ -16257,7 +17020,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.DeleteTokenAsync(System.String)",
           "Name": "DeleteTokenAsync",
-          "LineNumber": 28,
+          "LineNumber": 57,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -16307,7 +17070,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.DeleteTokensForUserAsync(System.String,cCoder.Security.Models.Entities.TokenUse)",
           "Name": "DeleteTokensForUserAsync",
-          "LineNumber": 49,
+          "LineNumber": 78,
           "Inputs": [
             {
               "Name": "userId",
@@ -16380,9 +17143,79 @@
           "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Services.Processings.TokenProcessingService.ExecuteCleanupAsync(System.Threading.CancellationToken)",
+          "Name": "ExecuteCleanupAsync",
+          "LineNumber": 20,
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.ExecuteCleanupAsync(System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Threading.PeriodicTimer",
+              "MethodName": ".ctor",
+              "MethodId": "System.Threading.PeriodicTimer..ctor(System.TimeSpan)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Threading.PeriodicTimer",
+              "MethodName": "WaitForNextTickAsync",
+              "MethodId": "System.Threading.PeriodicTimer.WaitForNextTickAsync(System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.TimeSpan",
+              "MethodName": "FromMinutes",
+              "MethodId": "System.TimeSpan.FromMinutes(System.Int64)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ITokenService",
+              "MethodName": "DeleteExpiredAsync",
+              "MethodId": "cCoder.Security.Services.Foundations.Interfaces.ITokenService.DeleteExpiredAsync(System.Threading.CancellationToken)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateConfirmationToken(System.String)",
           "Name": "GenerateConfirmationToken",
-          "LineNumber": 81,
+          "LineNumber": 110,
           "Inputs": [
             {
               "Name": "userId",
@@ -16424,7 +17257,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateForgottenPasswordToken(System.String)",
           "Name": "GenerateForgottenPasswordToken",
-          "LineNumber": 106,
+          "LineNumber": 135,
           "Inputs": [
             {
               "Name": "userId",
@@ -16466,7 +17299,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateInvitationToken(System.String)",
           "Name": "GenerateInvitationToken",
-          "LineNumber": 93,
+          "LineNumber": 122,
           "Inputs": [
             {
               "Name": "userId",
@@ -16508,7 +17341,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetAllTokens(System.Boolean)",
           "Name": "GetAllTokens",
-          "LineNumber": 41,
+          "LineNumber": 70,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -16557,7 +17390,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetConfirmationToken(System.String)",
           "Name": "GetConfirmationToken",
-          "LineNumber": 128,
+          "LineNumber": 157,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -16598,7 +17431,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetForgottenPasswordToken(System.String)",
           "Name": "GetForgottenPasswordToken",
-          "LineNumber": 118,
+          "LineNumber": 147,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -16639,7 +17472,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetInvitationToken(System.String)",
           "Name": "GetInvitationToken",
-          "LineNumber": 138,
+          "LineNumber": 167,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -16680,7 +17513,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetTokenById(System.String)",
           "Name": "GetTokenById",
-          "LineNumber": 69,
+          "LineNumber": 98,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -16932,6 +17765,7 @@
           ],
           "PossibleExceptionTypes": [
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
             "System.ArgumentNullException",
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.Security.SecurityException",
@@ -16983,6 +17817,7 @@
           ],
           "PossibleExceptionTypes": [
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
+            "System.ArgumentException",
             "System.ArgumentNullException",
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.Security.SecurityException",
@@ -17099,17 +17934,28 @@
     {
       "Name": "cCoder.Security.Brokers.Authentication.IAuthenticationContextBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Brokers.Authentication.IAuthenticationContextBroker.GetSSOUserId()",
           "Name": "GetSSOUserId",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [],
@@ -17131,17 +17977,28 @@
     {
       "Name": "cCoder.Security.Brokers.Configuration.ISecurityConfigurationBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Brokers.Configuration.ISecurityConfigurationBroker.GetValue(System.String,System.String)",
           "Name": "GetValue",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "section",
@@ -17172,17 +18029,28 @@
     {
       "Name": "cCoder.Security.Brokers.DateTime.ISecurityDateTimeOffsetBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Brokers.DateTime.ISecurityDateTimeOffsetBroker.GetCurrentTime()",
           "Name": "GetCurrentTime",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [],
           "ReturnType": "System.DateTimeOffset",
           "Implements": [],
@@ -17202,19 +18070,78 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Brokers.Encryption.ILegacyPasswordEncryptionBroker",
+      "Name": "cCoder.Security.Brokers.Encoding.IEncodingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Brokers.Encoding.IEncodingBroker.GetString(System.Byte[])",
+          "Name": "GetString",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "bytes",
+              "Type": "System.Byte[]"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Encryption.ILegacyPasswordEncryptionBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Brokers.Encryption.ILegacyPasswordEncryptionBroker.Decrypt(System.String)",
           "Name": "Decrypt",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "encryptedPassword",
@@ -17241,17 +18168,28 @@
     {
       "Name": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashPassword(System.String)",
           "Name": "HashPassword",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "password",
@@ -17276,7 +18214,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.HashTokenSecret(System.String)",
           "Name": "HashTokenSecret",
-          "LineNumber": 19,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "secret",
@@ -17301,7 +18239,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.PerformDummyVerification(System.String)",
           "Name": "PerformDummyVerification",
-          "LineNumber": 17,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "providedPassword",
@@ -17326,7 +18264,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.VerifyHashedPassword(System.String,System.String)",
           "Name": "VerifyHashedPassword",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "hashedPassword",
@@ -17355,7 +18293,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.IPasswordHashingBroker.VerifyTokenSecret(System.String,System.String)",
           "Name": "VerifyTokenSecret",
-          "LineNumber": 21,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "secretHash",
@@ -17492,17 +18430,28 @@
     {
       "Name": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.Combine(System.String,System.String)",
           "Name": "Combine",
-          "LineNumber": 13,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "selector",
@@ -17531,7 +18480,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSecret()",
           "Name": "GenerateSecret",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [],
@@ -17551,7 +18500,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.GenerateSelector()",
           "Name": "GenerateSelector",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [],
@@ -17571,7 +18520,7 @@
         {
           "Id": "cCoder.Security.Brokers.Encryption.Interfaces.ITokenGenerationBroker.Split(System.String)",
           "Name": "Split",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "token",
@@ -17725,9 +18674,34 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogException(System.Exception)",
+          "Name": "LogException",
+          "LineNumber": 9,
+          "Inputs": [
+            {
+              "Name": "exception",
+              "Type": "System.Exception"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String)",
           "Name": "LogWarning",
-          "LineNumber": 9,
+          "LineNumber": 10,
           "Inputs": [
             {
               "Name": "message",
@@ -17754,17 +18728,28 @@
     {
       "Name": "cCoder.Security.Brokers.Requests.IHttpRequestBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Brokers.Requests.IHttpRequestBroker.HasHeader(System.String)",
           "Name": "HasHeader",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "headerValue",
@@ -17789,7 +18774,7 @@
         {
           "Id": "cCoder.Security.Brokers.Requests.IHttpRequestBroker.Header(System.String)",
           "Name": "Header",
-          "LineNumber": 10,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "key",
@@ -17814,7 +18799,7 @@
         {
           "Id": "cCoder.Security.Brokers.Requests.IHttpRequestBroker.RequestHost()",
           "Name": "RequestHost",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [],
@@ -17836,17 +18821,28 @@
     {
       "Name": "cCoder.Security.Brokers.Serialization.ISerializationBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Security.Brokers.Serialization.ISerializationBroker.Deserialize(System.String)",
           "Name": "Deserialize",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "input",
@@ -17871,7 +18867,7 @@
         {
           "Id": "cCoder.Security.Brokers.Serialization.ISerializationBroker.Serialize(System.Object)",
           "Name": "Serialize",
-          "LineNumber": 10,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "obj",
@@ -18979,186 +19975,37 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency",
-      "StandardElementType": "Unknown",
+      "Name": "cCoder.Security.Brokers.Utility.IServiceScopeBroker",
+      "StandardElementType": "Broker",
       "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": [
+      "Interfaces": [
         {
-          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashPassword(System.String)",
-          "Name": "HashPassword",
-          "LineNumber": 11,
-          "Inputs": [
-            {
-              "Name": "password",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.String",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.HashTokenSecret(System.String)",
-          "Name": "HashTokenSecret",
-          "LineNumber": 19,
-          "Inputs": [
-            {
-              "Name": "secret",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.String",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.PerformDummyVerification(System.String)",
-          "Name": "PerformDummyVerification",
-          "LineNumber": 17,
-          "Inputs": [
-            {
-              "Name": "providedPassword",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyHashedPassword(System.String,System.String)",
-          "Name": "VerifyHashedPassword",
-          "LineNumber": 13,
-          "Inputs": [
-            {
-              "Name": "hashedPassword",
-              "Type": "System.String"
-            },
-            {
-              "Name": "providedPassword",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "cCoder.Security.Models.PasswordVerificationOutcome",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.IPasswordHashingDependency.VerifyTokenSecret(System.String,System.String)",
-          "Name": "VerifyTokenSecret",
-          "LineNumber": 21,
-          "Inputs": [
-            {
-              "Name": "secretHash",
-              "Type": "System.String"
-            },
-            {
-              "Name": "providedSecret",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Boolean",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
+          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
+          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.Security.Exposures",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
         }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency",
-      "StandardElementType": "Unknown",
-      "LineNumber": 7,
-      "IsPublic": false,
-      "Kind": "Interface",
-      "BaseType": null,
-      "Interfaces": [],
+      ],
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSecret()",
-          "Name": "GenerateSecret",
+          "Id": "cCoder.Security.Brokers.Utility.IServiceScopeBroker.ExecuteInScopeAsync(System.Func\u003CTService, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "ExecuteInScopeAsync",
           "LineNumber": 11,
-          "Inputs": [],
-          "ReturnType": "System.String",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Dependencies.Encryption.ITokenGenerationDependency.GenerateSelector()",
-          "Name": "GenerateSelector",
-          "LineNumber": 9,
-          "Inputs": [],
-          "ReturnType": "System.String",
+          "Inputs": [
+            {
+              "Name": "operation",
+              "Type": "System.Func\u003CTService, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -20355,6 +21202,17 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Exposures.IUtilityBroker",
+      "StandardElementType": "Exposure",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Security.Services.Aggregations.Interfaces.IAuthenticationAggregationService",
       "StandardElementType": "AggregationService",
       "LineNumber": 11,
@@ -20517,38 +21375,6 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Services.Foundations.Events.IEventHandlerService",
-      "StandardElementType": "FoundationService",
-      "LineNumber": 7,
-      "IsPublic": false,
-      "Kind": "Interface",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Security.Services.Foundations.Events.IEventHandlerService.ListenToAllEvents()",
-          "Name": "ListenToAllEvents",
-          "LineNumber": 9,
-          "Inputs": [],
-          "ReturnType": "System.Void",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -21760,6 +22586,47 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService",
+      "StandardElementType": "ProcessingService",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Services.Processings.Interfaces.IAccountAuditUserEventProcessingService.StoreSecurityAccountEventAuditAsync(System.String,cCoder.Security.Models.Events.SecurityAccountEvent)",
+          "Name": "StoreSecurityAccountEventAuditAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "securityAccountEvent",
+              "Type": "cCoder.Security.Models.Events.SecurityAccountEvent"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Services.Processings.Interfaces.IAccountEventProcessingService",
       "StandardElementType": "ProcessingService",
       "LineNumber": 9,
@@ -22743,6 +23610,31 @@
           "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.ExecuteCleanupAsync(System.Threading.CancellationToken)",
+          "Name": "ExecuteCleanupAsync",
+          "LineNumber": 33,
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.GenerateConfirmationToken(System.String)",
           "Name": "GenerateConfirmationToken",
           "LineNumber": 23,
@@ -22978,7 +23870,7 @@
     },
     {
       "FromType": "cCoder.Security.Brokers.Encryption.LegacyPasswordEncryptionBroker",
-      "ToType": "cCoder.Security.Data.ISymmetricCrypto\u003CSystem.String\u003E"
+      "ToType": "cCoder.Security.Data.Dependencies.AesCrypto\u003CSystem.String\u003E"
     },
     {
       "FromType": "cCoder.Security.Brokers.Encryption.PasswordHashingBroker",
@@ -23053,6 +23945,10 @@
       "ToType": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory"
     },
     {
+      "FromType": "cCoder.Security.Brokers.Utility.ServiceScopeBroker",
+      "ToType": "Microsoft.Extensions.DependencyInjection.IServiceScopeFactory"
+    },
+    {
       "FromType": "cCoder.Security.Dependencies.Authentication.SecurityBearerAuthenticationDependency",
       "ToType": "Microsoft.Extensions.Logging.ILoggerFactory"
     },
@@ -23066,31 +23962,11 @@
     },
     {
       "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency",
-      "ToType": "cCoder.Security.Models.Configurations.ArgonConfiguration"
-    },
-    {
-      "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
-      "ToType": "System.Byte"
-    },
-    {
-      "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
       "ToType": "System.Int32"
-    },
-    {
-      "FromType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters",
-      "ToType": "cCoder.Security.Dependencies.Encryption.PasswordHashingDependency.ArgonHashParameters"
     },
     {
       "FromType": "cCoder.Security.Dependencies.Encryption.TokenGenerationDependency",
       "ToType": "System.Security.Cryptography.RandomNumberGenerator"
-    },
-    {
-      "FromType": "cCoder.Security.Dependencies.HostedServices.TokenCleaner",
-      "ToType": "Microsoft.Extensions.DependencyInjection.IServiceScopeFactory"
-    },
-    {
-      "FromType": "cCoder.Security.Dependencies.HostedServices.TokenCleaner",
-      "ToType": "cCoder.Security.Models.SecurityConfiguration"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
@@ -23149,8 +24025,88 @@
       "ToType": "cCoder.Security.Services.Processings.UserEventProcessingService"
     },
     {
-      "FromType": "cCoder.Security.Exposures.EventHandlers.SecurityEventHandlers",
-      "ToType": "cCoder.Security.Services.Foundations.Events.EventHandlerService"
+      "FromType": "cCoder.Security.Exposures.EventHandlers.AuthenticationFailedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.AuthenticationFailedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.InvitationAcceptedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.InvitationAcceptedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.InvitationCreatedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.InvitationCreatedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.LoginSucceededEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.LoginSucceededEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.LogoutSucceededEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.LogoutSucceededEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.PasswordResetRequestedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.PasswordResetRequestedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.RegistrationConfirmedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.RegistrationConfirmedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.RegistrationCreatedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.RegistrationCreatedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.TenantSetupEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.TenantSetupEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.TokenIssuedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.EventHandlers.TokenIssuedEventHandlers",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.HostedServices.TokenCleaner",
+      "ToType": "cCoder.Security.Brokers.Utility.ServiceScopeBroker"
     },
     {
       "FromType": "cCoder.Security.Exposures.TenantManager",
@@ -23290,6 +24246,10 @@
     },
     {
       "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
+      "ToType": "cCoder.Security.Brokers.Encoding.EncodingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Aggregations.SSOAuthInfoAggregationService",
       "ToType": "cCoder.Security.Services.Processings.RequestProcessingService"
     },
     {
@@ -23351,14 +24311,6 @@
     {
       "FromType": "cCoder.Security.Services.Foundations.Events.AccountEventService",
       "ToType": "cCoder.Security.Brokers.Requests.HttpRequestBroker"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Foundations.Events.AccountEventService",
-      "ToType": "cCoder.Security.Brokers.Storage.TenantBroker"
-    },
-    {
-      "FromType": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
-      "ToType": "cCoder.Security.Brokers.Events.EventHubBroker"
     },
     {
       "FromType": "cCoder.Security.Services.Foundations.Events.TenantSetupEventService",
@@ -23449,6 +24401,14 @@
       "ToType": "cCoder.Security.Services.Processings.SSOUserRoleProcessingService"
     },
     {
+      "FromType": "cCoder.Security.Services.Processings.AccountAuditUserEventProcessingService",
+      "ToType": "cCoder.Security.Brokers.Serialization.SerializationBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.AccountAuditUserEventProcessingService",
+      "ToType": "cCoder.Security.Services.Foundations.UserEventService"
+    },
+    {
       "FromType": "cCoder.Security.Services.Processings.AccountEventProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.Events.AccountEventService"
     },
@@ -23514,6 +24474,10 @@
     },
     {
       "FromType": "cCoder.Security.Services.Processings.TokenProcessingService",
+      "ToType": "cCoder.Security.Models.SecurityConfiguration"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.TokenProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.TokenService"
     },
     {
@@ -23521,34 +24485,5 @@
       "ToType": "cCoder.Security.Services.Foundations.UserEventService"
     }
   ],
-  "AnalysisItems": [
-    {
-      "Code": "STXD005",
-      "Description": "External API call \u0027System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)\u0027 must be isolated behind a broker or dependency.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.Events.EventHandlerService",
-      "LineNumber": 52
-    },
-    {
-      "Code": "STXD005",
-      "Description": "External API call \u0027System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)\u0027 must be isolated behind a broker or dependency.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Foundations.SessionService",
-      "LineNumber": 60
-    },
-    {
-      "Code": "STXP001",
-      "Description": "A processing service may use only one foundation service and must not bypass its layer boundary.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.SSOUserProcessingService",
-      "LineNumber": 16
-    },
-    {
-      "Code": "STXP001",
-      "Description": "A processing service may use only one foundation service and must not bypass its layer boundary.",
-      "Severity": "Warning",
-      "Type": "cCoder.Security.Services.Processings.TokenProcessingService",
-      "LineNumber": 12
-    }
-  ]
+  "AnalysisItems": []
 }

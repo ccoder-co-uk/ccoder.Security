@@ -7,89 +7,52 @@
   },
   "Classes": [
     {
-      "Name": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
-      "StandardElementType": "Dependency",
-      "LineNumber": 11,
-      "IsPublic": true,
+      "Name": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory",
+      "StandardElementType": "Broker",
+      "LineNumber": 13,
+      "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security.Data:cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E",
-          "FullName": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E",
-          "Name": "ISymmetricCrypto",
-          "Namespace": "cCoder.Security.Data",
+          "Id": "cCoder.Security.Data:cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory",
+          "FullName": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory",
+          "Name": "ISecurityDbContextFactory",
+          "Namespace": "cCoder.Security.Data.EF.Interfaces",
           "AssemblyName": "cCoder.Security.Data",
           "Kind": "Interface",
           "IsInCurrentProject": true,
-          "StandardElementType": "Unknown"
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String)",
-          "Name": "Decrypt",
-          "LineNumber": 43,
+          "Id": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory.CreateDbContext(System.Boolean)",
+          "Name": "CreateDbContext",
+          "LineNumber": 29,
           "Inputs": [
             {
-              "Name": "source",
-              "Type": "System.String"
+              "Name": "ignoreAuthInfo",
+              "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "T",
+          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext",
           "Implements": [
-            "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String)"
+            "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory.CreateDbContext(System.Boolean)"
           ],
           "Calls": [
             {
-              "TypeName": "System.Convert",
-              "MethodName": "FromBase64String",
-              "MethodId": "System.Convert.FromBase64String(System.String)",
+              "TypeName": "System.Func\u003CT, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT, TResult\u003E.Invoke(T)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.InvalidOperationException",
-              "MethodName": ".ctor",
-              "MethodId": "System.InvalidOperationException..ctor(System.String?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Encoding",
-              "MethodName": "GetString",
-              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Json.JsonSerializer",
-              "MethodName": "Deserialize",
-              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Text.Json.JsonSerializerOptions?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
-              "MethodName": "SimpleDecryptWithPassword",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": false
             }
           ],
-          "PossibleExceptionTypes": [
-            "System.ArgumentException",
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.ArgumentException",
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.ArgumentException",
-            "System.InvalidOperationException"
-          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
           "HttpMethods": [],
           "HttpResponses": [],
           "IsHttpRequestHandler": false,
@@ -100,200 +63,31 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String,System.String)",
-          "Name": "Decrypt",
+          "Id": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory.CreateDbContext(System.String[])",
+          "Name": "CreateDbContext",
           "LineNumber": 36,
           "Inputs": [
             {
-              "Name": "source",
-              "Type": "System.String"
-            },
-            {
-              "Name": "key",
-              "Type": "System.String"
+              "Name": "args",
+              "Type": "System.String[]"
             }
           ],
-          "ReturnType": "T",
+          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext",
           "Implements": [
-            "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String,System.String)"
+            "Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E.CreateDbContext(System.String[])"
           ],
           "Calls": [
             {
-              "TypeName": "System.Convert",
-              "MethodName": "FromBase64String",
-              "MethodId": "System.Convert.FromBase64String(System.String)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Encoding",
-              "MethodName": "GetString",
-              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Json.JsonSerializer",
-              "MethodName": "Deserialize",
-              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Text.Json.JsonSerializerOptions?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
-              "MethodName": "SimpleDecryptWithPassword",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
-              "StandardElementType": "Dependency",
+              "TypeName": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory",
+              "MethodName": "CreateDbContext",
+              "MethodId": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory.CreateDbContext(System.Boolean)",
+              "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
           ],
-          "PossibleExceptionTypes": [
-            "System.ArgumentException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.ArgumentException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.ArgumentException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Encrypt(T)",
-          "Name": "Encrypt",
-          "LineNumber": 23,
-          "Inputs": [
-            {
-              "Name": "source",
-              "Type": "T"
-            }
-          ],
-          "ReturnType": "System.String",
-          "Implements": [
-            "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Convert",
-              "MethodName": "ToBase64String",
-              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.InvalidOperationException",
-              "MethodName": ".ctor",
-              "MethodId": "System.InvalidOperationException..ctor(System.String?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Encoding",
-              "MethodName": "GetBytes",
-              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Json.JsonSerializer",
-              "MethodName": "Serialize",
-              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
-              "MethodName": "SimpleEncryptWithPassword",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.ArgumentException",
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.ArgumentException",
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.ArgumentException",
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Encrypt(T,System.String)",
-          "Name": "Encrypt",
-          "LineNumber": 15,
-          "Inputs": [
-            {
-              "Name": "source",
-              "Type": "T"
-            },
-            {
-              "Name": "key",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.String",
-          "Implements": [
-            "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T,System.String)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Convert",
-              "MethodName": "ToBase64String",
-              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Encoding",
-              "MethodName": "GetBytes",
-              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Json.JsonSerializer",
-              "MethodName": "Serialize",
-              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
-              "MethodName": "SimpleEncryptWithPassword",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.ArgumentException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.ArgumentException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.ArgumentException"
-          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
           "HttpMethods": [],
           "HttpResponses": [],
           "IsHttpRequestHandler": false,
@@ -306,13 +100,24 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Data.Dependencies.AesThenHmac",
+      "Name": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
       "StandardElementType": "Dependency",
       "LineNumber": 20,
-      "IsPublic": false,
+      "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "Microsoft.AspNetCore.DataProtection.Abstractions:Microsoft.AspNetCore.DataProtection.IDataProtector",
+          "FullName": "Microsoft.AspNetCore.DataProtection.IDataProtector",
+          "Name": "IDataProtector",
+          "Namespace": "Microsoft.AspNetCore.DataProtection",
+          "AssemblyName": "Microsoft.AspNetCore.DataProtection.Abstractions",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
       "Properties": [
         {
           "Name": "BlockBitSize",
@@ -345,7 +150,275 @@
       ],
       "Methods": [
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.NewKey()",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String)",
+          "Name": "Decrypt",
+          "LineNumber": 50,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "T",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "FromBase64String",
+              "MethodId": "System.Convert.FromBase64String(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.InvalidOperationException",
+              "MethodName": ".ctor",
+              "MethodId": "System.InvalidOperationException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetString",
+              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Deserialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
+              "MethodName": "SimpleDecryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String,System.String)",
+          "Name": "Decrypt",
+          "LineNumber": 43,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "System.String"
+            },
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "T",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "FromBase64String",
+              "MethodId": "System.Convert.FromBase64String(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetString",
+              "MethodId": "System.Text.Encoding.GetString(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Deserialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
+              "MethodName": "SimpleDecryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Encrypt(T)",
+          "Name": "Encrypt",
+          "LineNumber": 30,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "T"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "ToBase64String",
+              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.InvalidOperationException",
+              "MethodName": ".ctor",
+              "MethodId": "System.InvalidOperationException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Serialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
+              "MethodName": "SimpleEncryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException",
+            "System.InvalidOperationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Encrypt(T,System.String)",
+          "Name": "Encrypt",
+          "LineNumber": 22,
+          "Inputs": [
+            {
+              "Name": "source",
+              "Type": "T"
+            },
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Convert",
+              "MethodName": "ToBase64String",
+              "MethodId": "System.Convert.ToBase64String(System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Encoding",
+              "MethodName": "GetBytes",
+              "MethodId": "System.Text.Encoding.GetBytes(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Serialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
+              "MethodName": "SimpleEncryptWithPassword",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.ArgumentException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.NewKey()",
           "Name": "NewKey",
           "LineNumber": 53,
           "Inputs": [],
@@ -373,7 +446,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
           "Name": "SimpleDecrypt",
           "LineNumber": 163,
           "Inputs": [
@@ -501,7 +574,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.String,System.Byte[],System.Byte[],System.Int32)",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecrypt(System.String,System.Byte[],System.Byte[],System.Int32)",
           "Name": "SimpleDecrypt",
           "LineNumber": 153,
           "Inputs": [
@@ -554,9 +627,9 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
               "MethodName": "SimpleDecrypt",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
@@ -580,7 +653,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
           "Name": "SimpleDecryptWithPassword",
           "LineNumber": 300,
           "Inputs": [
@@ -636,9 +709,9 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
               "MethodName": "SimpleDecrypt",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
@@ -662,7 +735,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.String,System.String,System.Int32)",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecryptWithPassword(System.String,System.String,System.Int32)",
           "Name": "SimpleDecryptWithPassword",
           "LineNumber": 290,
           "Inputs": [
@@ -711,9 +784,9 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
               "MethodName": "SimpleDecryptWithPassword",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
@@ -737,7 +810,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
           "Name": "SimpleEncrypt",
           "LineNumber": 84,
           "Inputs": [
@@ -872,7 +945,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.String,System.Byte[],System.Byte[],System.Byte[])",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncrypt(System.String,System.Byte[],System.Byte[],System.Byte[])",
           "Name": "SimpleEncrypt",
           "LineNumber": 74,
           "Inputs": [
@@ -925,9 +998,9 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
               "MethodName": "SimpleEncrypt",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
@@ -951,7 +1024,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
           "Name": "SimpleEncryptWithPassword",
           "LineNumber": 246,
           "Inputs": [
@@ -1007,9 +1080,9 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
               "MethodName": "SimpleEncrypt",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
@@ -1033,7 +1106,7 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.String,System.String,System.Byte[])",
+          "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncryptWithPassword(System.String,System.String,System.Byte[])",
           "Name": "SimpleEncryptWithPassword",
           "LineNumber": 236,
           "Inputs": [
@@ -1082,9 +1155,9 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Security.Data.Dependencies.AesThenHmac",
+              "TypeName": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
               "MethodName": "SimpleEncryptWithPassword",
-              "MethodId": "cCoder.Security.Data.Dependencies.AesThenHmac.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
+              "MethodId": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": false
             }
@@ -1098,139 +1171,6 @@
           "ThrowsExceptionTypes": [
             "System.ArgumentException"
           ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
-      "StandardElementType": "Dependency",
-      "LineNumber": 13,
-      "IsPublic": true,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Security.Data:cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory",
-          "FullName": "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory",
-          "Name": "ISecurityDbContextFactory",
-          "Namespace": "cCoder.Security.Data.EF.Interfaces",
-          "AssemblyName": "cCoder.Security.Data",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Dependency"
-        }
-      ],
-      "Properties": [
-        {
-          "Name": "GetAuthInfo",
-          "Type": "System.Func\u003CSystem.Boolean, cCoder.Security.Models.Configurations.ISSOAuthInfo\u003E"
-        }
-      ],
-      "Methods": [
-        {
-          "Id": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory.CreateDbContext(System.Boolean)",
-          "Name": "CreateDbContext",
-          "LineNumber": 24,
-          "Inputs": [
-            {
-              "Name": "ignoreAuthInfo",
-              "Type": "System.Boolean"
-            }
-          ],
-          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext",
-          "Implements": [
-            "cCoder.Security.Data.EF.Interfaces.ISecurityDbContextFactory.CreateDbContext(System.Boolean)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "Microsoft.EntityFrameworkCore.DbContextOptionsBuilder\u003CTContext\u003E",
-              "MethodName": ".ctor",
-              "MethodId": "Microsoft.EntityFrameworkCore.DbContextOptionsBuilder\u003CTContext\u003E..ctor()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "Microsoft.EntityFrameworkCore.Infrastructure.RelationalDbContextOptionsBuilder\u003CTBuilder, TExtension\u003E",
-              "MethodName": "MigrationsAssembly",
-              "MethodId": "Microsoft.EntityFrameworkCore.Infrastructure.RelationalDbContextOptionsBuilder\u003CTBuilder, TExtension\u003E.MigrationsAssembly(System.String?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions",
-              "MethodName": "UseSqlServer",
-              "MethodId": "Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder\u003CTContext\u003E,System.String?,System.Action\u003CMicrosoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder\u003E?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Func\u003CT, TResult\u003E",
-              "MethodName": "Invoke",
-              "MethodId": "System.Func\u003CT, TResult\u003E.Invoke(T)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Reflection.Assembly",
-              "MethodName": "GetExecutingAssembly",
-              "MethodId": "System.Reflection.Assembly.GetExecutingAssembly()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Reflection.Assembly",
-              "MethodName": "GetName",
-              "MethodId": "System.Reflection.Assembly.GetName()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory.CreateDbContext(System.String[])",
-          "Name": "CreateDbContext",
-          "LineNumber": 41,
-          "Inputs": [
-            {
-              "Name": "args",
-              "Type": "System.String[]"
-            }
-          ],
-          "ReturnType": "cCoder.Security.Data.EF.SecurityDbContext",
-          "Implements": [
-            "Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory\u003CcCoder.Security.Data.EF.SecurityDbContext\u003E.CreateDbContext(System.String[])"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
-              "MethodName": "CreateDbContext",
-              "MethodId": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory.CreateDbContext(System.Boolean)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
           "HttpMethods": [],
           "HttpResponses": [],
           "IsHttpRequestHandler": false,
@@ -3067,126 +3007,6 @@
       ]
     },
     {
-      "Name": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E",
-      "StandardElementType": "Unknown",
-      "LineNumber": 7,
-      "IsPublic": true,
-      "Kind": "Interface",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String)",
-          "Name": "Decrypt",
-          "LineNumber": 13,
-          "Inputs": [
-            {
-              "Name": "source",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "T",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Decrypt(System.String,System.String)",
-          "Name": "Decrypt",
-          "LineNumber": 12,
-          "Inputs": [
-            {
-              "Name": "source",
-              "Type": "System.String"
-            },
-            {
-              "Name": "key",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "T",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T)",
-          "Name": "Encrypt",
-          "LineNumber": 10,
-          "Inputs": [
-            {
-              "Name": "source",
-              "Type": "T"
-            }
-          ],
-          "ReturnType": "System.String",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Security.Data.ISymmetricCrypto\u003CT\u003E.Encrypt(T,System.String)",
-          "Name": "Encrypt",
-          "LineNumber": 9,
-          "Inputs": [
-            {
-              "Name": "source",
-              "Type": "T"
-            },
-            {
-              "Name": "key",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.String",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Security.Models.Configurations.ISSOAuthInfo",
       "StandardElementType": "Model",
       "LineNumber": 7,
@@ -3209,11 +3029,11 @@
   ],
   "Links": [
     {
-      "FromType": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
-      "ToType": "System.String"
+      "FromType": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory",
+      "ToType": "cCoder.Security.Models.SecurityDataConfiguration"
     },
     {
-      "FromType": "cCoder.Security.Data.EF.Dependencies.MSSQLSecurityDbContextFactory",
+      "FromType": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
       "ToType": "System.String"
     },
     {

@@ -6,15 +6,44 @@ using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
+using cCoder.Security.Models;
 
 namespace cCoder.Security.Services.Processings;
 
 internal sealed partial class TokenProcessingService(
     ITokenService tokenService,
     ITokenGenerationBroker tokenGenerationBroker,
-    IPasswordHashingBroker passwordHashingBroker)
+    IPasswordHashingBroker passwordHashingBroker,
+    SecurityConfiguration securityConfiguration = null)
     : ITokenProcessingService
 {
+    public ValueTask ExecuteCleanupAsync(
+        CancellationToken cancellationToken) =>
+        TryCatch(operation: async () =>
+        {
+            ValidateCleanupOnExecute(
+                cancellationToken: cancellationToken);
+
+            if (securityConfiguration?.IsMigrating == true)
+            {
+                return;
+            }
+
+            await tokenService.DeleteExpiredAsync(
+                cancellationToken: cancellationToken);
+
+            using PeriodicTimer timer = new(
+                period: TimeSpan.FromMinutes(minutes: 1));
+
+            while (!cancellationToken.IsCancellationRequested
+                && await timer.WaitForNextTickAsync(
+                    cancellationToken: cancellationToken))
+            {
+                await tokenService.DeleteExpiredAsync(
+                    cancellationToken: cancellationToken);
+            }
+        });
+
     public ValueTask<Token> AddTokenForUserIdAsync(string userId, TokenUse tokenUse) =>
         TryCatch<Token>(operation: async () =>
         {
