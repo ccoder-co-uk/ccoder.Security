@@ -2,12 +2,12 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Data;
+using cCoder.Security.Data.Dependencies;
 
 namespace cCoder.Security.Brokers.Encryption;
 
 internal sealed class LegacyPasswordEncryptionBroker(
-    ISymmetricCrypto<string> crypto)
+    AesCrypto<string> crypto)
     : ILegacyPasswordEncryptionBroker
 {
     public string Decrypt(string encryptedPassword) =>

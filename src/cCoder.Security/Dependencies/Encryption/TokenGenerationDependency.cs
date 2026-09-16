@@ -2,29 +2,33 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using Microsoft.AspNetCore.WebUtilities;
 using System.Security.Cryptography;
 
 namespace cCoder.Security.Dependencies.Encryption;
 
 internal sealed class TokenGenerationDependency(
     RandomNumberGenerator randomNumberGenerator)
-    : ITokenGenerationDependency
+    : RandomNumberGenerator
 {
-    private const int SelectorByteCount = 16;
-    private const int SecretByteCount = 32;
+    public override void GetBytes(byte[] data) =>
+        randomNumberGenerator.GetBytes(data: data);
 
-    public string GenerateSelector() =>
-        GenerateToken(byteCount: SelectorByteCount);
+    public override void GetBytes(byte[] data, int offset, int count) =>
+        randomNumberGenerator.GetBytes(
+            data: data,
+            offset: offset,
+            count: count);
 
-    public string GenerateSecret() =>
-        GenerateToken(byteCount: SecretByteCount);
+    public override void GetNonZeroBytes(byte[] data) =>
+        randomNumberGenerator.GetNonZeroBytes(data: data);
 
-    private string GenerateToken(int byteCount)
+    protected override void Dispose(bool disposing)
     {
-        byte[] bytes = new byte[byteCount];
-        randomNumberGenerator.GetBytes(data: bytes);
+        if (disposing)
+        {
+            randomNumberGenerator.Dispose();
+        }
 
-        return WebEncoders.Base64UrlEncode(input: bytes);
+        base.Dispose(disposing: disposing);
     }
 }
