@@ -46,4 +46,8 @@ internal sealed partial class TokenProcessingService
 
     private static void ValidateTokenOnGenerate(string userId, TokenUse tokenUse) =>
         Validate(inputs: [userId, tokenUse]);
+
+    private static void ValidateCleanupOnExecute(
+        CancellationToken cancellationToken) =>
+        Validate(inputs: cancellationToken);
 }

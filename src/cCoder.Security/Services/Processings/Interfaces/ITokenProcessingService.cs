@@ -29,4 +29,6 @@ internal interface ITokenProcessingService
     ValueTask DeleteTokenAsync(string tokenId);
 
     ValueTask DeleteTokensForUserAsync(string userId, TokenUse tokenUse);
+
+    ValueTask ExecuteCleanupAsync(CancellationToken cancellationToken);
 }

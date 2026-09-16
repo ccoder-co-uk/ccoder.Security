@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Exposures.HostedServices;
-using cCoder.Security.Dependencies.HostedServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Xunit;
