@@ -23,7 +23,6 @@ using cCoder.Security.Data;
 using cCoder.Security.Data.Dependencies;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
-using cCoder.Security.Exposures.EventHandlers;
 using cCoder.Security.Exposures.HostedServices;
 using cCoder.Security.Dependencies.HostedServices;
 using cCoder.Security.Models;
@@ -150,7 +149,6 @@ public static class IServiceCollectionExtensions
         services.AddEventing();
         services.AddEventingTypes();
         services.AddAspNet();
-        services.AddEventHandlers();
     }
 
     private static void AddEventingTypes(this IServiceCollection services)
@@ -194,7 +192,6 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ILoggingProcessingService, LoggingProcessingService>();
         services.AddTransient<IAccountEventProcessingService, AccountEventProcessingService>();
 
-        services.AddTransient<IEventHubBroker, EventHubBroker>();
         services.AddTransient<IAccountEventBroker, AccountEventBroker>();
         services.AddTransient<ITenantSetupEventBroker, TenantSetupEventBroker>();
     }
@@ -273,30 +270,6 @@ public static class IServiceCollectionExtensions
 
         services.AddSingleton<IHostedService>(implementationFactory: serviceProvider =>
             serviceProvider.GetRequiredService<ITokenCleaner>());
-    }
-
-    private static void AddEventHandlers(this IServiceCollection services)
-    {
-        services.AddTransient<ISecurityEventHandlers,
-            TenantSetupEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            RegistrationCreatedEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            RegistrationConfirmedEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            InvitationCreatedEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            InvitationAcceptedEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            PasswordResetRequestedEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            TokenIssuedEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            LoginSucceededEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            LogoutSucceededEventHandlers>();
-        services.AddTransient<ISecurityEventHandlers,
-            AuthenticationFailedEventHandlers>();
     }
 
     private static void AddAspNet(this IServiceCollection services)

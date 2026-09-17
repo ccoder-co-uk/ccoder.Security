@@ -2,9 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security;
-using cCoder.Security.Exposures.EventHandlers;
-
 namespace Security.HostedServices;
 
 public static class WebApplicationExtensions
@@ -12,9 +9,12 @@ public static class WebApplicationExtensions
     public static IApplicationBuilder UseSecurityHostedServicesApplication(
         this WebApplication app)
     {
+        IHostEnvironment environment = app.Services
+            .GetRequiredService<IHostEnvironment>();
+
         app.MapGet(
             pattern: "/",
-            handler: (IHostEnvironment environment) =>
+            handler: () =>
                 Results.Text(
                     content: BuildHostedServicesReport(
                         environment: environment),
@@ -23,15 +23,6 @@ public static class WebApplicationExtensions
         app.MapGet(
             pattern: "/Health",
             handler: () => Results.Text(content: "Healthy"));
-
-        using IServiceScope serviceScope = app.Services.CreateScope();
-        IServiceProvider services = serviceScope.ServiceProvider;
-
-        foreach (ISecurityEventHandlers handlers
-            in services.GetServices<ISecurityEventHandlers>())
-        {
-            handlers.ListenToAllEvents();
-        }
 
         return app;
     }
