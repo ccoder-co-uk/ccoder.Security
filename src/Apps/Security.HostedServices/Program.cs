@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Eventing;
+using cCoder.Security;
+
 namespace Security.HostedServices;
 
 public class Program
@@ -17,6 +20,10 @@ public class Program
         builder.Logging.AddSimpleConsole();
 
         WebApplication app = builder.Build();
+
+        app.Services
+            .GetRequiredService<IEventHub>()
+            .ListenToSecurityEvents();
 
         app.UseSecurityHostedServicesApplication();
         app.Run();
