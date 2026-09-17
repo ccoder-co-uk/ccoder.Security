@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Exposures.EventHandlers;
 using cCoder.Security.Models.Configurations;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using System.Security.Claims;
@@ -13,9 +12,6 @@ public static class WebApplicationExtensions
 {
     public static WebApplication StartSecurityWeb(this WebApplication app, ILogger log = null) =>
         app.UseSecurityExposure(log: log);
-
-    public static WebApplication StartSecurityHostedServices(this WebApplication app) =>
-        app.ListenToSecurityEvents();
 
     public static WebApplication UseSecurityExposure(this WebApplication app, ILogger log = null)
     {
@@ -59,16 +55,5 @@ public static class WebApplicationExtensions
         }
 
         await next(context: context);
-    }
-
-    public static WebApplication ListenToSecurityEvents(this WebApplication app)
-    {
-        using IServiceScope serviceScope = app.Services.CreateScope();
-        IServiceProvider services = serviceScope.ServiceProvider;
-
-        foreach (ISecurityEventHandlers handlers in services.GetServices<ISecurityEventHandlers>())
-        { handlers.ListenToAllEvents(); }
-
-        return app;
     }
 }
