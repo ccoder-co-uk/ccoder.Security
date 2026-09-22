@@ -2,8 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Services.Orchestrations.Interfaces;
+namespace Security.Web.Services.Foundations;
 
-namespace cCoder.Security.Exposures;
-
-public interface ISSOUserRoleManager : ISSOUserRoleOrchestrationService { }
+public interface ICurrentUserService
+{
+    string GetCurrentUserId();
+}

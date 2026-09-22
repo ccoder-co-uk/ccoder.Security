@@ -12,7 +12,7 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class ForgotPasswordController(
-    IAuthenticationManager authenticationAggregationService)
+    IAuthenticationAggregationService authenticationAggregationService)
         : Controller
 {
     [HttpPost("ForgotPassword")]

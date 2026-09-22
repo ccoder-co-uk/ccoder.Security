@@ -3,13 +3,13 @@
 // ---------------------------------------------------------------
 
 using Microsoft.AspNetCore.Mvc;
-using Security.Web.Exposures;
+using Security.Web.Services.Foundations;
 
 namespace Security.Web.Controllers;
 
 [Route("CurrentUser")]
 public class CurrentUserController(
-    ICurrentUserManager currentUserManager)
+    ICurrentUserService currentUserService)
         : Controller
 {
     [HttpGet]
@@ -17,7 +17,7 @@ public class CurrentUserController(
     {
         try
         {
-            return Ok(value: currentUserManager.GetCurrentUserId());
+            return Ok(value: currentUserService.GetCurrentUserId());
         }
         catch (Exception)
         {

@@ -3,12 +3,12 @@
 // ---------------------------------------------------------------
 
 using Microsoft.AspNetCore.Mvc;
-using Security.Web.Exposures;
+using Security.Web.Services.Foundations;
 
 namespace Security.Web.Controllers;
 
 [Route("")]
-public class HomeController(IHomeManager homeManager) : Controller
+public class HomeController(IHomeService homeService) : Controller
 {
     [HttpGet]
     public IActionResult Get()
@@ -16,7 +16,7 @@ public class HomeController(IHomeManager homeManager) : Controller
         try
         {
             return PhysicalFile(
-                physicalPath: homeManager.GetIndexPath(),
+                physicalPath: homeService.GetIndexPath(),
                 contentType: "text/html");
         }
         catch (Exception)

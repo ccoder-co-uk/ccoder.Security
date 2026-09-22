@@ -4,8 +4,30 @@
 
 using cCoder.Security.Models.Entities;
 
-using cCoder.Security.Exposures;
-
 namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-internal interface IAuthenticationAggregationService : IAuthenticationManager { }
+public interface IAuthenticationAggregationService
+{
+    ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse);
+
+    ValueTask<Token> LoginAsync(string username, string password);
+
+    ValueTask LogoutAsync();
+
+    ValueTask ChangePasswordAsync(
+        string username,
+        string oldPassword,
+        string newPassword);
+
+    ValueTask ChangeCurrentUserPasswordAsync(
+        string oldPassword,
+        string newPassword);
+
+    ValueTask<Token> ForgotPasswordAsync(string email);
+
+    ValueTask ConfirmForgotPasswordAsync(
+        string tokenId,
+        string userId,
+        string newPassword,
+        string confirmNewPassword);
+}

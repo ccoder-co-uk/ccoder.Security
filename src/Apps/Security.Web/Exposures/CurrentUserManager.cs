@@ -2,15 +2,14 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Models;
-using cCoder.Security.Models.Configurations;
+using Security.Web.Services.Foundations;
 
 namespace Security.Web.Exposures;
 
 internal sealed class CurrentUserManager(
-    ISSOAuthInfo authInfo)
+    ICurrentUserService currentUserService)
         : ICurrentUserManager
 {
     public string GetCurrentUserId() =>
-        authInfo.SSOUserId;
+        currentUserService.GetCurrentUserId();
 }

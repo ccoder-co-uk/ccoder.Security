@@ -3,14 +3,16 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Data.Models;
-using cCoder.Security.Exposures;
+using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Exceptions;
+using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Setup")]
-public sealed class SetupController(ITenantManager tenantManager)
+public sealed class SetupController(
+    IRegistrationAggregationService registrationAggregationService)
     : Controller
 {
     [HttpPost]
@@ -24,7 +26,21 @@ public sealed class SetupController(ITenantManager tenantManager)
                 return BadRequest(modelState: ModelState);
             }
 
-            await tenantManager.SetupAsync(setupDetails: newSetupDetails);
+            RegisterUser newRegisterUser = new()
+            {
+                DisplayName = newSetupDetails.User.DisplayName,
+                Email = newSetupDetails.User.Email,
+                Password = newSetupDetails.User.PasswordHash,
+                PhoneNumber = newSetupDetails.User.PhoneNumber,
+                Culture = string.Empty,
+                AppId = 0,
+                TenantId = newSetupDetails.Tenant.Id,
+                Tenant = newSetupDetails.Tenant,
+                User = newSetupDetails.User
+            };
+
+            await registrationAggregationService.SetupRegisterUserAsync(
+                newRegisterUser: newRegisterUser);
 
             return Ok();
         }

@@ -197,7 +197,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IAuthorizationService, AuthorizationService>();
         services.AddTransient<
             IApiMetadataAuthorizationManager,
-            AuthorizationService>();
+            ApiMetadataAuthorizationManager>();
         services.AddTransient<IAuthorizationProcessingService, AuthorizationProcessingService>();
         services.AddTransient<IRequestService, RequestService>();
         services.AddTransient<IRequestProcessingService, RequestProcessingService>();
@@ -230,16 +230,16 @@ public static class IServiceCollectionExtensions
     private static void AddProcessings(this IServiceCollection services)
     {
         services.AddTransient<ISSOUserProcessingService, SSOUserProcessingService>();
-        services.AddTransient<ISSOPrivilegeManager, SSOPrivilegeService>();
+        services.AddTransient<ISSOPrivilegeService, SSOPrivilegeService>();
         services.AddTransient<ISSOUserRoleProcessingService, SSOUserRoleProcessingService>();
         services.AddTransient<ISSORoleProcessingService, SSORoleProcessingService>();
         services.AddTransient<ITokenProcessingService, TokenProcessingService>();
         services.AddTransient<ITenantProcessingService, TenantProcessingService>();
         services.AddTransient<ITenantAnalysisProcessingService, TenantAnalysisProcessingService>();
-        services.AddTransient<ITenantAnalysisManager, TenantAnalysisProcessingService>();
+        services.AddTransient<ITenantAnalysisManager, TenantAnalysisManager>();
         services.AddTransient<ISessionProcessingService, SessionProcessingService>();
         services.AddTransient<IUserEventProcessingService, UserEventProcessingService>();
-        services.AddTransient<IUserEventManager, UserEventProcessingService>();
+        services.AddTransient<IUserEventManager, UserEventManager>();
         services.AddTransient<IAccountAuditUserEventProcessingService,
             AccountAuditUserEventProcessingService>();
 
@@ -249,19 +249,19 @@ public static class IServiceCollectionExtensions
     {
         services.AddTransient<ISSOAuthInfoAggregationService, SSOAuthInfoAggregationService>();
         services.AddTransient<IAuthenticationAggregationService, AuthenticationAggregationService>();
-        services.AddTransient<IAuthenticationManager, AuthenticationAggregationService>();
+        services.AddTransient<IAuthenticationManager, AuthenticationManager>();
         services.AddTransient<ICurrentUserAggregationService, CurrentUserAggregationService>();
-        services.AddTransient<ISecurityCurrentUserManager, CurrentUserAggregationService>();
+        services.AddTransient<ISecurityCurrentUserManager, SecurityCurrentUserManager>();
         services.AddTransient<ITenantAggregationService, TenantAggregationService>();
-        services.AddTransient<ITenantAdministrationManager, TenantAggregationService>();
+        services.AddTransient<ITenantAdministrationManager, TenantAdministrationManager>();
         services.AddTransient<ISSOUserAggregationService, SSOUserAggregationService>();
-        services.AddTransient<ISSOUserManager, SSOUserAggregationService>();
+        services.AddTransient<ISSOUserManager, SSOUserManager>();
         services.AddTransient<IRegistrationAggregationService, RegistrationAggregationService>();
-        services.AddTransient<IRegistrationManager, RegistrationAggregationService>();
+        services.AddTransient<IRegistrationManager, RegistrationManager>();
         services.AddTransient<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();
-        services.AddTransient<ISSOUserRoleManager, SSOUserRoleOrchestrationService>();
+        services.AddTransient<ISSOUserRoleManager, SSOUserRoleManager>();
         services.AddTransient<ISSORoleOrchestrationService, SSORoleOrchestrationService>();
-        services.AddTransient<ISSORoleManager, SSORoleOrchestrationService>();
+        services.AddTransient<ISSORoleManager, SSORoleManager>();
     }
 
     private static void AddExposures(this IServiceCollection services)
@@ -277,6 +277,7 @@ public static class IServiceCollectionExtensions
 
         services.AddTransient<ITokenManager, TokenManager>();
         services.AddTransient<ITenantManager, TenantManager>();
+        services.AddTransient<ISSOPrivilegeManager, SSOPrivilegeManager>();
     }
 
     private static void AddHostedDependencies(this IServiceCollection services)

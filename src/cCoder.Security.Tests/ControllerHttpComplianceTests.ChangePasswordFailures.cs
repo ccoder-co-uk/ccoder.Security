@@ -76,8 +76,7 @@ public sealed partial class ControllerHttpComplianceTests
         };
 
         manager
-            .Setup(expression: service => service.ChangePasswordAsync(
-                username: "current.user",
+            .Setup(expression: service => service.ChangeCurrentUserPasswordAsync(
                 oldPassword: "old-password",
                 newPassword: "new-password"))
             .Returns(value: ValueTask.FromException(exception: exception));
@@ -105,15 +104,9 @@ public sealed partial class ControllerHttpComplianceTests
         CreateAuthenticatedPasswordController()
     {
         Mock<IAuthenticationManager> authenticationManager = new();
-        Mock<ISecurityCurrentUserManager> currentUserManager = new();
-
-        currentUserManager
-            .Setup(expression: manager => manager.GetCurrentUser())
-            .Returns(value: new SSOUser { Id = "current.user" });
 
         AuthenticationController controller = new(
-            authenticationAggregationService: authenticationManager.Object,
-            currentUserManager: currentUserManager.Object);
+            authenticationAggregationService: authenticationManager.Object);
 
         controller.ControllerContext.HttpContext = new DefaultHttpContext
         {

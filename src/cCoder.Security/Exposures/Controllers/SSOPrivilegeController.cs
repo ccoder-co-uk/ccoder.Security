@@ -4,13 +4,13 @@
 
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
-using cCoder.Security.Services.Processings.Interfaces;
+using cCoder.Security.Services.Foundations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSOPrivilegeController(ISSOPrivilegeManager privilegeProcessingService)
+public class SSOPrivilegeController(ISSOPrivilegeService privilegeProcessingService)
     : Controller
 {
     [HttpGet()]

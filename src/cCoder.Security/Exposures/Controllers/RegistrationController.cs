@@ -12,7 +12,7 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class RegistrationController(
-    IRegistrationManager registrationAggregationService)
+    IRegistrationAggregationService registrationAggregationService)
     : Controller
 {
     [HttpPost("Register")]

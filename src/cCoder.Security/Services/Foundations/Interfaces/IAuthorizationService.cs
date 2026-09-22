@@ -3,13 +3,13 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models;
-using cCoder.Security.Exposures;
 
 namespace cCoder.Security.Services.Foundations.Interfaces;
 
 internal interface IAuthorizationService
-    : IApiMetadataAuthorizationManager
 {
+    void EnsureUserCanReadApiMetadata();
+
     AuthorizationContext GetAuthorizationContext();
 
     void EnsureUserHasPrivilege(string privilege, string tenantId = null);

@@ -6,4 +6,10 @@ using cCoder.Security.Services.Foundations.Interfaces;
 
 namespace cCoder.Security.Exposures;
 
-public interface ISSOPrivilegeManager : ISSOPrivilegeService { }
+internal sealed class ApiMetadataAuthorizationManager(
+    IAuthorizationService authorizationService)
+        : IApiMetadataAuthorizationManager
+{
+    public void EnsureUserCanReadApiMetadata() =>
+        authorizationService.EnsureUserCanReadApiMetadata();
+}

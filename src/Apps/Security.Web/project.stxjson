@@ -101,15 +101,21 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "Security.Web.Exposures.ICurrentUserManager",
+              "TypeName": "Security.Web.Services.Foundations.ICurrentUserService",
               "MethodName": "GetCurrentUserId",
-              "MethodId": "Security.Web.Exposures.ICurrentUserManager.GetCurrentUserId()",
-              "StandardElementType": "Exposure",
+              "MethodId": "Security.Web.Services.Foundations.ICurrentUserService.GetCurrentUserId()",
+              "StandardElementType": "FoundationService",
               "IsDependencyBoundary": false
             }
           ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
+          "PossibleExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
           "ThrowsExceptionTypes": [],
           "HttpMethods": [
             "GET"
@@ -187,10 +193,10 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "Security.Web.Exposures.IHomeManager",
+              "TypeName": "Security.Web.Services.Foundations.IHomeService",
               "MethodName": "GetIndexPath",
-              "MethodId": "Security.Web.Exposures.IHomeManager.GetIndexPath()",
-              "StandardElementType": "Exposure",
+              "MethodId": "Security.Web.Services.Foundations.IHomeService.GetIndexPath()",
+              "StandardElementType": "FoundationService",
               "IsDependencyBoundary": false
             }
           ],
@@ -230,7 +236,7 @@
     {
       "Name": "Security.Web.Exposures.CurrentUserManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 10,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -251,16 +257,32 @@
         {
           "Id": "Security.Web.Exposures.CurrentUserManager.GetCurrentUserId()",
           "Name": "GetCurrentUserId",
-          "LineNumber": 14,
+          "LineNumber": 13,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [
             "Security.Web.Exposures.ICurrentUserManager.GetCurrentUserId()"
           ],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
+          "Calls": [
+            {
+              "TypeName": "Security.Web.Services.Foundations.ICurrentUserService",
+              "MethodName": "GetCurrentUserId",
+              "MethodId": "Security.Web.Services.Foundations.ICurrentUserService.GetCurrentUserId()",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
           "HttpMethods": [],
           "HttpResponses": [],
           "IsHttpRequestHandler": false,
@@ -467,7 +489,7 @@
             {
               "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
               "MethodName": "CreateBuilder",
-              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(System.String[])",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder()",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -517,6 +539,59 @@
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "Security.Web.Services.Foundations.CurrentUserService",
+      "StandardElementType": "FoundationService",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Security.Web:Security.Web.Services.Foundations.ICurrentUserService",
+          "FullName": "Security.Web.Services.Foundations.ICurrentUserService",
+          "Name": "ICurrentUserService",
+          "Namespace": "Security.Web.Services.Foundations",
+          "AssemblyName": "Security.Web",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "FoundationService"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "Security.Web.Services.Foundations.CurrentUserService.GetCurrentUserId()",
+          "Name": "GetCurrentUserId",
+          "LineNumber": 14,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [
+            "Security.Web.Services.Foundations.ICurrentUserService.GetCurrentUserId()"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityDependencyException",
+            "cCoder.Security.Models.Exceptions.SecurityServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityServiceException"
+          ],
           "HttpMethods": [],
           "HttpResponses": [],
           "IsHttpRequestHandler": false,
@@ -669,7 +744,7 @@
             {
               "TypeName": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions",
               "MethodName": "MapGet",
-              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,System.Delegate)",
+              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,Microsoft.AspNetCore.Http.RequestDelegate)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -683,7 +758,7 @@
             {
               "TypeName": "Microsoft.AspNetCore.Http.Results",
               "MethodName": "Text",
-              "MethodId": "Microsoft.AspNetCore.Http.Results.Text(System.String?,System.String?,System.Text.Encoding?,System.Int32?)",
+              "MethodId": "Microsoft.AspNetCore.Http.Results.Text(System.String?,System.String?,System.Text.Encoding?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -751,7 +826,7 @@
             {
               "TypeName": "Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions",
               "MethodName": "UseCors",
-              "MethodId": "Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CMicrosoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder\u003E)",
+              "MethodId": "Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -793,14 +868,14 @@
             {
               "TypeName": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions",
               "MethodName": "UseSwagger",
-              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions.UseSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CSwashbuckle.AspNetCore.Swagger.SwaggerOptions\u003E)",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions.UseSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,Swashbuckle.AspNetCore.Swagger.SwaggerOptions)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
             {
               "TypeName": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions",
               "MethodName": "UseSwaggerUI",
-              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions.UseSwaggerUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CSwashbuckle.AspNetCore.SwaggerUI.SwaggerUIOptions\u003E)",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions.UseSwaggerUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIOptions)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -960,10 +1035,42 @@
       ]
     },
     {
+      "Name": "Security.Web.Services.Foundations.ICurrentUserService",
+      "StandardElementType": "FoundationService",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "Security.Web.Services.Foundations.ICurrentUserService.GetCurrentUserId()",
+          "Name": "GetCurrentUserId",
+          "LineNumber": 9,
+          "Inputs": [],
+          "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "Security.Web.Services.Foundations.IHomeService",
       "StandardElementType": "FoundationService",
       "LineNumber": 7,
-      "IsPublic": false,
+      "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
       "Interfaces": [],
@@ -995,23 +1102,27 @@
   "Links": [
     {
       "FromType": "Security.Web.Brokers.HomeEnvironmentBroker",
-      "ToType": "Microsoft.AspNetCore.Hosting.IWebHostEnvironment"
+      "ToType": "IWebHostEnvironment"
     },
     {
       "FromType": "Security.Web.Controllers.CurrentUserController",
-      "ToType": "Security.Web.Exposures.CurrentUserManager"
+      "ToType": "Security.Web.Services.Foundations.CurrentUserService"
     },
     {
       "FromType": "Security.Web.Controllers.HomeController",
-      "ToType": "Security.Web.Exposures.HomeManager"
+      "ToType": "Security.Web.Services.Foundations.HomeService"
     },
     {
       "FromType": "Security.Web.Exposures.CurrentUserManager",
-      "ToType": "cCoder.Security.Models.Configurations.ISSOAuthInfo"
+      "ToType": "Security.Web.Services.Foundations.CurrentUserService"
     },
     {
       "FromType": "Security.Web.Exposures.HomeManager",
       "ToType": "Security.Web.Services.Foundations.HomeService"
+    },
+    {
+      "FromType": "Security.Web.Services.Foundations.CurrentUserService",
+      "ToType": "cCoder.Security.Models.Configurations.ISSOAuthInfo"
     },
     {
       "FromType": "Security.Web.Services.Foundations.HomeService",
