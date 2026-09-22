@@ -11,7 +11,7 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class CurrentUserController(
-    ISecurityCurrentUserManager currentUserAggregationService)
+    ICurrentUserAggregationService currentUserAggregationService)
         : Controller
 {
     [HttpGet("Me")]

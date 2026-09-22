@@ -4,8 +4,15 @@
 
 using cCoder.Security.Models.Entities;
 
-using cCoder.Security.Exposures;
-
 namespace cCoder.Security.Services.Orchestrations.Interfaces;
 
-internal interface ISSORoleOrchestrationService : ISSORoleManager { }
+public interface ISSORoleOrchestrationService
+{
+    ValueTask<SSORole> AddSSORoleAsync(SSORole item);
+
+    ValueTask DeleteSSORoleAsync(SSORole item);
+
+    IQueryable<SSORole> GetAllSSORoles();
+
+    ValueTask<SSORole> UpdateSSORoleAsync(SSORole item);
+}

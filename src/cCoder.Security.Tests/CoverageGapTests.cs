@@ -3,10 +3,12 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Exposures.EDM;
-using cCoder.Security.Dependencies.HostedServices;
+using cCoder.Security.Exposures.HostedServices;
+using cCoder.Security.Brokers.Utility;
 using cCoder.Security.Models;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations;
+using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
@@ -139,19 +141,28 @@ public sealed partial class CoverageGapTests
             .Callback(callback: () => cleanupCompleted.SetResult())
             .Returns(value: new ValueTask<int>(result: 1));
 
-        ServiceProvider provider = new ServiceCollection()
-            .AddSingleton(implementationInstance: tokenService.Object)
-            .BuildServiceProvider();
-
         SecurityConfiguration configuration = new()
         {
             IsMigrating = false
         };
 
-        TokenCleaner cleaner = new(
-            serviceScopeFactory:
-                provider.GetRequiredService<IServiceScopeFactory>(),
+        TokenProcessingService processingService = new(
+            tokenService: tokenService.Object,
+            tokenGenerationBroker: Mock.Of<ITokenGenerationBroker>(),
+            passwordHashingBroker: Mock.Of<IPasswordHashingBroker>(),
             securityConfiguration: configuration);
+
+        using ServiceProvider serviceProvider = new ServiceCollection()
+            .AddScoped<ITokenProcessingService>(
+                implementationFactory: _ => processingService)
+            .BuildServiceProvider();
+
+        ServiceScopeBroker serviceScopeBroker = new(
+            serviceScopeFactory:
+                serviceProvider.GetRequiredService<IServiceScopeFactory>());
+
+        TokenCleaner cleaner = new(
+            serviceScopeBroker: serviceScopeBroker);
 
         using CancellationTokenSource cancellation = new();
 

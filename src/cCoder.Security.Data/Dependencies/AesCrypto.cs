@@ -4,19 +4,26 @@
 
 using System.Text;
 using System.Text.Json;
-using cCoder.Security.Data.Dependencies;
-
+using Microsoft.AspNetCore.DataProtection;
 namespace cCoder.Security.Data.Dependencies;
 
-public class AesCrypto<T>(string decryptionKey) : ISymmetricCrypto<T>
+public partial class AesCrypto<T>(string decryptionKey)
+    : IDataProtector
 {
-    private readonly AesThenHmac crypto = new();
+    IDataProtector IDataProtectionProvider.CreateProtector(
+        string purpose)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(argument: purpose);
+
+        return new AesCrypto<T>(
+            decryptionKey: $"{decryptionKey}:{purpose}");
+    }
 
     public string Encrypt(T source, string key)
     {
         Encoding e = Encoding.UTF8;
         byte[] rawData = e.GetBytes(s: JsonSerializer.Serialize(value: source));
-        byte[] cipherData = crypto.SimpleEncryptWithPassword(secretMessage: rawData, password: key, nonSecretPayload: null);
+        byte[] cipherData = SimpleEncryptWithPassword(secretMessage: rawData, password: key, nonSecretPayload: null);
         return Convert.ToBase64String(inArray: cipherData);
     }
 
@@ -29,14 +36,14 @@ public class AesCrypto<T>(string decryptionKey) : ISymmetricCrypto<T>
 
         Encoding e = Encoding.UTF8;
         byte[] rawData = e.GetBytes(s: System.Text.Json.JsonSerializer.Serialize(value: source));
-        byte[] cipherData = crypto.SimpleEncryptWithPassword(secretMessage: rawData, password: decryptionKey, nonSecretPayload: null);
+        byte[] cipherData = SimpleEncryptWithPassword(secretMessage: rawData, password: decryptionKey, nonSecretPayload: null);
         return Convert.ToBase64String(inArray: cipherData);
     }
 
     public T Decrypt(string source, string key)
     {
         Encoding e = Encoding.UTF8;
-        byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(encryptedMessage: Convert.FromBase64String(s: source), password: key);
+        byte[] decryptedBytes = SimpleDecryptWithPassword(encryptedMessage: Convert.FromBase64String(s: source), password: key);
         return JsonSerializer.Deserialize<T>(json: e.GetString(bytes: decryptedBytes));
     }
 
@@ -48,7 +55,18 @@ public class AesCrypto<T>(string decryptionKey) : ISymmetricCrypto<T>
         }
 
         Encoding e = Encoding.UTF8;
-        byte[] decryptedBytes = crypto.SimpleDecryptWithPassword(encryptedMessage: Convert.FromBase64String(s: source), password: decryptionKey);
+        byte[] decryptedBytes = SimpleDecryptWithPassword(encryptedMessage: Convert.FromBase64String(s: source), password: decryptionKey);
         return JsonSerializer.Deserialize<T>(json: e.GetString(bytes: decryptedBytes));
     }
+
+    byte[] IDataProtector.Protect(byte[] plaintext) =>
+        SimpleEncryptWithPassword(
+            secretMessage: plaintext,
+            password: decryptionKey,
+            nonSecretPayload: null);
+
+    byte[] IDataProtector.Unprotect(byte[] protectedData) =>
+        SimpleDecryptWithPassword(
+            encryptedMessage: protectedData,
+            password: decryptionKey);
 }

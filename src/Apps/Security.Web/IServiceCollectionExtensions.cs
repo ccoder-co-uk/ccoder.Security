@@ -31,6 +31,7 @@ public static partial class IServiceCollectionExtensions
         services.AddSessions();
         services.AddTransient<IHomeEnvironmentBroker, HomeEnvironmentBroker>();
         services.AddTransient<IHomeService, HomeService>();
+        services.AddTransient<ICurrentUserService, CurrentUserService>();
         services.AddTransient<IHomeManager, HomeManager>();
         services.AddTransient<ICurrentUserManager, CurrentUserManager>();
     }

@@ -2,11 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Security.Dependencies.Encryption;
+namespace Security.Web.Services.Foundations;
 
-internal interface ITokenGenerationDependency
+internal sealed partial class CurrentUserService
 {
-    string GenerateSelector();
-
-    string GenerateSecret();
 }

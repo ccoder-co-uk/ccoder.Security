@@ -4,7 +4,7 @@
 
 namespace Security.Web.Services.Foundations;
 
-internal interface IHomeService
+public interface IHomeService
 {
     string GetIndexPath();
 }

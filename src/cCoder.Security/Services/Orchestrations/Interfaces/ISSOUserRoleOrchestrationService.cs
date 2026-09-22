@@ -4,8 +4,13 @@
 
 using cCoder.Security.Models.Entities;
 
-using cCoder.Security.Exposures;
-
 namespace cCoder.Security.Services.Orchestrations.Interfaces;
 
-internal interface ISSOUserRoleOrchestrationService : ISSOUserRoleManager { }
+public interface ISSOUserRoleOrchestrationService
+{
+    IQueryable<SSOUserRole> GetAllSSOUserRoles();
+
+    ValueTask<SSOUserRole> AddSSOUserRoleAsync(SSOUserRole userRole);
+
+    ValueTask DeleteSSOUserRoleAsync(SSOUserRole userRole);
+}

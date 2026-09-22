@@ -2,13 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Models.Entities;
+using cCoder.Security.Services.Aggregations.Interfaces;
 
 namespace cCoder.Security.Exposures;
 
-public interface ISecurityCurrentUserManager
-{
-    SSOUser GetCurrentUser();
-
-    ValueTask<SSOUser> UpdateCurrentSSOUserAsync(SSOUser updatedUser);
-}
+public interface ISecurityCurrentUserManager : ICurrentUserAggregationService { }

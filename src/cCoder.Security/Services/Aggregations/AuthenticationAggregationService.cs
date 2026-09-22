@@ -69,6 +69,24 @@ internal sealed partial class AuthenticationAggregationService(
                 newPassword: newPassword);
         });
 
+    public ValueTask ChangeCurrentUserPasswordAsync(
+        string oldPassword,
+        string newPassword) =>
+        TryCatch(operation: async () =>
+        {
+            SSOUser currentUser = ssoUserProcessingService.Me();
+
+            ValidatePasswordOnChange(
+                username: currentUser?.Id,
+                oldPassword: oldPassword,
+                newPassword: newPassword);
+
+            await ChangePasswordCoreAsync(
+                username: currentUser.Id,
+                oldPassword: oldPassword,
+                newPassword: newPassword);
+        });
+
     public ValueTask<Token> ForgotPasswordAsync(string email) =>
         TryCatch<Token>(operation: async () =>
         {

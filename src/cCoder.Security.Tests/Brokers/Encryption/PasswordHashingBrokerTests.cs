@@ -2,8 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Security.Dependencies.Encryption;
 using cCoder.Security.Brokers.Encryption.Interfaces;
+using cCoder.Security.Brokers.Encryption;
+using cCoder.Security.Dependencies.Encryption;
 using cCoder.Security.Models;
 using cCoder.Security.Models.Configurations;
 using FluentAssertions;
@@ -11,12 +12,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Xunit;
 
-namespace cCoder.Security.Tests.Dependencies.Encryption;
+namespace cCoder.Security.Tests.Brokers.Encryption;
 
-public sealed partial class PasswordHashingDependencyTests
+public sealed partial class PasswordHashingBrokerTests
 {
     private const string Password = "Correct Horse Battery Staple 123";
-    private readonly PasswordHashingDependency broker = new(
+    private readonly PasswordHashingBroker broker = CreateBroker(
         configuration: new ArgonConfiguration());
 
     [Fact]
@@ -26,7 +27,7 @@ public sealed partial class PasswordHashingDependencyTests
         ArgonConfiguration configuration = new();
 
         // When
-        Action action = () => _ = new PasswordHashingDependency(
+        Action action = () => _ = CreateBroker(
             configuration: configuration);
 
         // Then
@@ -75,7 +76,7 @@ public sealed partial class PasswordHashingDependencyTests
         };
 
         // When
-        Action action = () => _ = new PasswordHashingDependency(
+        Action action = () => _ = CreateBroker(
             configuration: configuration);
 
         // Then
@@ -233,4 +234,16 @@ public sealed partial class PasswordHashingDependencyTests
             .Should()
             .Be(expected: PasswordVerificationOutcome.Failed);
     }
+
+    private static PasswordHashingBroker CreateBroker(
+        ArgonConfiguration configuration) =>
+        new(passwordHashingDependency:
+            new PasswordHashingDependency(
+                memorySizeInKilobytes:
+                    configuration.MemorySizeInKilobytes,
+                iterations: configuration.Iterations,
+                degreeOfParallelism:
+                    configuration.DegreeOfParallelism,
+                saltSizeInBytes: configuration.SaltSizeInBytes,
+                hashSizeInBytes: configuration.HashSizeInBytes));
 }

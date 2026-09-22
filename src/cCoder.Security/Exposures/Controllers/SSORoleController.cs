@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.OData.Query;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSORoleController(ISSORoleManager roleOrchestrationService)
+public class SSORoleController(ISSORoleOrchestrationService roleOrchestrationService)
     : Controller
 {
     [HttpGet()]

@@ -4,8 +4,15 @@
 
 using cCoder.Security.Models.Entities;
 
-using cCoder.Security.Exposures;
-
 namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-internal interface ITenantAggregationService : ITenantAdministrationManager { }
+public interface ITenantAggregationService
+{
+    ValueTask<Tenant> AddTenantAsync(Tenant item);
+
+    ValueTask DeleteTenantAsync(Tenant item);
+
+    IQueryable<Tenant> GetAllTenants();
+
+    ValueTask<Tenant> UpdateTenantAsync(Tenant item);
+}

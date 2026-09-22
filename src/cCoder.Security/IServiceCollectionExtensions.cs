@@ -24,7 +24,6 @@ using cCoder.Security.Data.Dependencies;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.HostedServices;
-using cCoder.Security.Dependencies.HostedServices;
 using cCoder.Security.Models;
 using cCoder.Security.Models.Configurations;
 using cCoder.Security.Models.Events;
@@ -128,19 +127,31 @@ public static class IServiceCollectionExtensions
 
         if (!string.IsNullOrWhiteSpace(value: configuration.DecryptionKey))
         {
-            services.AddTransient<ISymmetricCrypto<string>>(
+            services.AddTransient<AesCrypto<string>>(
                 implementationFactory: _ =>
                     new AesCrypto<string>(configuration.DecryptionKey));
             services.AddTransient<ILegacyPasswordEncryptionBroker,
                 LegacyPasswordEncryptionBroker>();
         }
 
-        services.AddTransient<IPasswordHashingDependency,
-            PasswordHashingDependency>();
-        services.AddTransient<ITokenGenerationDependency,
-            TokenGenerationDependency>();
         services.AddTransient(
-            implementationFactory: _ => RandomNumberGenerator.Create());
+            implementationFactory: _ =>
+                new PasswordHashingDependency(
+                    memorySizeInKilobytes:
+                        configuration.Argon.MemorySizeInKilobytes,
+                    iterations: configuration.Argon.Iterations,
+                    degreeOfParallelism:
+                        configuration.Argon.DegreeOfParallelism,
+                    saltSizeInBytes:
+                        configuration.Argon.SaltSizeInBytes,
+                    hashSizeInBytes:
+                        configuration.Argon.HashSizeInBytes));
+
+        services.AddTransient(
+            implementationFactory: _ =>
+                new TokenGenerationDependency(
+                    randomNumberGenerator:
+                        RandomNumberGenerator.Create()));
 
         services.AddSingleton(implementationInstance: configuration);
         services.AddSingleton(
@@ -168,6 +179,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IAuthenticationContextBroker, AuthenticationContextBroker>();
         services.AddTransient<IWebSessionBroker, WebSessionBroker>();
         services.AddTransient<IHttpRequestBroker, HttpRequestBroker>();
+        services.AddSingleton<IServiceScopeBroker, ServiceScopeBroker>();
         services.AddTransient<ISessionBroker, SessionBroker>();
         services.AddTransient<ISSOPrivilegeBroker, SSOPrivilegeBroker>();
         services.AddTransient<ISSORoleBroker, SSORoleBroker>();
@@ -183,7 +195,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IAuthorizationService, AuthorizationService>();
         services.AddTransient<
             IApiMetadataAuthorizationManager,
-            AuthorizationService>();
+            ApiMetadataAuthorizationManager>();
         services.AddTransient<IAuthorizationProcessingService, AuthorizationProcessingService>();
         services.AddTransient<IRequestService, RequestService>();
         services.AddTransient<IRequestProcessingService, RequestProcessingService>();
@@ -215,16 +227,16 @@ public static class IServiceCollectionExtensions
     private static void AddProcessings(this IServiceCollection services)
     {
         services.AddTransient<ISSOUserProcessingService, SSOUserProcessingService>();
-        services.AddTransient<ISSOPrivilegeManager, SSOPrivilegeService>();
+        services.AddTransient<ISSOPrivilegeService, SSOPrivilegeService>();
         services.AddTransient<ISSOUserRoleProcessingService, SSOUserRoleProcessingService>();
         services.AddTransient<ISSORoleProcessingService, SSORoleProcessingService>();
         services.AddTransient<ITokenProcessingService, TokenProcessingService>();
         services.AddTransient<ITenantProcessingService, TenantProcessingService>();
         services.AddTransient<ITenantAnalysisProcessingService, TenantAnalysisProcessingService>();
-        services.AddTransient<ITenantAnalysisManager, TenantAnalysisProcessingService>();
+        services.AddTransient<ITenantAnalysisManager, TenantAnalysisManager>();
         services.AddTransient<ISessionProcessingService, SessionProcessingService>();
         services.AddTransient<IUserEventProcessingService, UserEventProcessingService>();
-        services.AddTransient<IUserEventManager, UserEventProcessingService>();
+        services.AddTransient<IUserEventManager, UserEventManager>();
         services.AddTransient<IAccountAuditUserEventProcessingService,
             AccountAuditUserEventProcessingService>();
 
@@ -234,19 +246,19 @@ public static class IServiceCollectionExtensions
     {
         services.AddTransient<ISSOAuthInfoAggregationService, SSOAuthInfoAggregationService>();
         services.AddTransient<IAuthenticationAggregationService, AuthenticationAggregationService>();
-        services.AddTransient<IAuthenticationManager, AuthenticationAggregationService>();
+        services.AddTransient<IAuthenticationManager, AuthenticationManager>();
         services.AddTransient<ICurrentUserAggregationService, CurrentUserAggregationService>();
-        services.AddTransient<ISecurityCurrentUserManager, CurrentUserAggregationService>();
+        services.AddTransient<ISecurityCurrentUserManager, SecurityCurrentUserManager>();
         services.AddTransient<ITenantAggregationService, TenantAggregationService>();
-        services.AddTransient<ITenantAdministrationManager, TenantAggregationService>();
+        services.AddTransient<ITenantAdministrationManager, TenantAdministrationManager>();
         services.AddTransient<ISSOUserAggregationService, SSOUserAggregationService>();
-        services.AddTransient<ISSOUserManager, SSOUserAggregationService>();
+        services.AddTransient<ISSOUserManager, SSOUserManager>();
         services.AddTransient<IRegistrationAggregationService, RegistrationAggregationService>();
-        services.AddTransient<IRegistrationManager, RegistrationAggregationService>();
+        services.AddTransient<IRegistrationManager, RegistrationManager>();
         services.AddTransient<ISSOUserRoleOrchestrationService, SSOUserRoleOrchestrationService>();
-        services.AddTransient<ISSOUserRoleManager, SSOUserRoleOrchestrationService>();
+        services.AddTransient<ISSOUserRoleManager, SSOUserRoleManager>();
         services.AddTransient<ISSORoleOrchestrationService, SSORoleOrchestrationService>();
-        services.AddTransient<ISSORoleManager, SSORoleOrchestrationService>();
+        services.AddTransient<ISSORoleManager, SSORoleManager>();
     }
 
     private static void AddExposures(this IServiceCollection services)
@@ -262,6 +274,7 @@ public static class IServiceCollectionExtensions
 
         services.AddTransient<ITokenManager, TokenManager>();
         services.AddTransient<ITenantManager, TenantManager>();
+        services.AddTransient<ISSOPrivilegeManager, SSOPrivilegeManager>();
     }
 
     private static void AddHostedDependencies(this IServiceCollection services)

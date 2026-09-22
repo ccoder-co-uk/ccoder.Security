@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models.DTOs;
-using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +12,7 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class AuthenticationController(
-    IAuthenticationManager authenticationAggregationService,
-    ISecurityCurrentUserManager currentUserManager)
+    IAuthenticationAggregationService authenticationAggregationService)
         : Controller
 {
     [HttpPost("Login")]
@@ -109,10 +107,7 @@ public class AuthenticationController(
                 return BadRequest(error: "The password confirmation does not match.");
             }
 
-            SSOUser currentUser = currentUserManager.GetCurrentUser();
-
-            await authenticationAggregationService.ChangePasswordAsync(
-                username: currentUser.Id,
+            await authenticationAggregationService.ChangeCurrentUserPasswordAsync(
                 oldPassword: newChangePasswordRequest.OldPassword,
                 newPassword: newChangePasswordRequest.NewPassword);
 

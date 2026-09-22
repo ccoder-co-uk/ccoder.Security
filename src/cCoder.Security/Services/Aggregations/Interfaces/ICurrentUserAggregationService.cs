@@ -4,8 +4,11 @@
 
 using cCoder.Security.Models.Entities;
 
-using cCoder.Security.Exposures;
-
 namespace cCoder.Security.Services.Aggregations.Interfaces;
 
-internal interface ICurrentUserAggregationService : ISecurityCurrentUserManager { }
+public interface ICurrentUserAggregationService
+{
+    SSOUser GetCurrentUser();
+
+    ValueTask<SSOUser> UpdateCurrentSSOUserAsync(SSOUser updatedUser);
+}

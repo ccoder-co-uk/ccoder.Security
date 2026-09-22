@@ -4,8 +4,15 @@
 
 using cCoder.Security.Models.Entities;
 
-using cCoder.Security.Exposures;
-
 namespace cCoder.Security.Services.Processings;
 
-internal interface ITenantAnalysisProcessingService : ITenantAnalysisManager { }
+public interface ITenantAnalysisProcessingService
+{
+    ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis item);
+
+    ValueTask DeleteTenantAnalysisAsync(TenantAnalysis item);
+
+    IQueryable<TenantAnalysis> GetAllTenantAnalysis();
+
+    ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis item);
+}

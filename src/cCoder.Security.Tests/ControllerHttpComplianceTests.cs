@@ -37,8 +37,7 @@ public sealed partial class ControllerHttpComplianceTests
 
         AuthenticationController controller =
             new(
-                authenticationAggregationService: authenticationManager.Object,
-                currentUserManager: Mock.Of<ISecurityCurrentUserManager>());
+                authenticationAggregationService: authenticationManager.Object);
 
         // When
         IActionResult result = await controller.PostLogin(
@@ -63,20 +62,25 @@ public sealed partial class ControllerHttpComplianceTests
     public async Task PostSetup_WhenValidationFails_ShouldReturnSafeBadRequest()
     {
         // Given
-        Mock<ITenantManager> tenantManager = new();
+        Mock<IRegistrationAggregationService> registrationAggregationService = new();
 
-        tenantManager
-            .Setup(expression: manager => manager.SetupAsync(
-                setupDetails: It.IsAny<SetupDetails>()))
+        registrationAggregationService
+            .Setup(expression: service => service.SetupRegisterUserAsync(
+                newRegisterUser: It.IsAny<RegisterUser>()))
             .Returns(value: ValueTask.FromException(
                 exception: new SecurityAggregationValidationException(
                     innerException: new Exception(message: "sensitive"))));
 
-        SetupController controller = new(tenantManager: tenantManager.Object);
+        SetupController controller = new(
+            registrationAggregationService: registrationAggregationService.Object);
 
         // When
         IActionResult result = await controller.PostSetup(
-            newSetupDetails: new SetupDetails());
+            newSetupDetails: new SetupDetails
+            {
+                Tenant = new Tenant(),
+                User = new SSOUser()
+            });
 
         // Then
         BadRequestObjectResult response =
@@ -123,19 +127,13 @@ public sealed partial class ControllerHttpComplianceTests
     }
 
     [Fact]
-    public async Task PostChangePasswordUsesAuthenticatedCurrentUser()
+    public async Task PostChangePasswordUsesAuthenticationServiceCurrentUser()
     {
         // Given
         Mock<IAuthenticationManager> authenticationManager = new();
-        Mock<ISecurityCurrentUserManager> currentUserManager = new();
-
-        currentUserManager
-            .Setup(expression: manager => manager.GetCurrentUser())
-            .Returns(value: new SSOUser { Id = "current.user" });
 
         AuthenticationController controller = new(
-            authenticationAggregationService: authenticationManager.Object,
-            currentUserManager: currentUserManager.Object);
+            authenticationAggregationService: authenticationManager.Object);
 
         controller.ControllerContext.HttpContext = new DefaultHttpContext
         {
@@ -163,8 +161,7 @@ public sealed partial class ControllerHttpComplianceTests
 
         authenticationManager
             .Verify(expression: manager =>
-                manager.ChangePasswordAsync(
-                    username: "current.user",
+                manager.ChangeCurrentUserPasswordAsync(
                     oldPassword: "old-password",
                     newPassword: "new-password"),
                 times: Times.Once);
@@ -175,11 +172,9 @@ public sealed partial class ControllerHttpComplianceTests
     {
         // Given
         Mock<IAuthenticationManager> authenticationManager = new();
-        Mock<ISecurityCurrentUserManager> currentUserManager = new();
 
         AuthenticationController controller = new(
-            authenticationAggregationService: authenticationManager.Object,
-            currentUserManager: currentUserManager.Object);
+            authenticationAggregationService: authenticationManager.Object);
 
         controller.ControllerContext.HttpContext = new DefaultHttpContext();
 
@@ -199,13 +194,8 @@ public sealed partial class ControllerHttpComplianceTests
             .Should()
             .BeOfType<ChallengeResult>();
 
-        currentUserManager.Verify(
-            expression: manager => manager.GetCurrentUser(),
-            times: Times.Never);
-
         authenticationManager.Verify(
-            expression: manager => manager.ChangePasswordAsync(
-                username: It.IsAny<string>(),
+            expression: manager => manager.ChangeCurrentUserPasswordAsync(
                 oldPassword: It.IsAny<string>(),
                 newPassword: It.IsAny<string>()),
             times: Times.Never);
