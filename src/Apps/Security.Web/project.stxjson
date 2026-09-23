@@ -489,7 +489,7 @@
             {
               "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
               "MethodName": "CreateBuilder",
-              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder()",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(System.String[])",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -744,7 +744,7 @@
             {
               "TypeName": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions",
               "MethodName": "MapGet",
-              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,Microsoft.AspNetCore.Http.RequestDelegate)",
+              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,System.Delegate)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -758,7 +758,7 @@
             {
               "TypeName": "Microsoft.AspNetCore.Http.Results",
               "MethodName": "Text",
-              "MethodId": "Microsoft.AspNetCore.Http.Results.Text(System.String?,System.String?,System.Text.Encoding?)",
+              "MethodId": "Microsoft.AspNetCore.Http.Results.Text(System.String?,System.String?,System.Text.Encoding?,System.Int32?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -826,7 +826,7 @@
             {
               "TypeName": "Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions",
               "MethodName": "UseCors",
-              "MethodId": "Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "MethodId": "Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CMicrosoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -868,14 +868,14 @@
             {
               "TypeName": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions",
               "MethodName": "UseSwagger",
-              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions.UseSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,Swashbuckle.AspNetCore.Swagger.SwaggerOptions)",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions.UseSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CSwashbuckle.AspNetCore.Swagger.SwaggerOptions\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
             {
               "TypeName": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions",
               "MethodName": "UseSwaggerUI",
-              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions.UseSwaggerUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIOptions)",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions.UseSwaggerUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CSwashbuckle.AspNetCore.SwaggerUI.SwaggerUIOptions\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -1102,7 +1102,7 @@
   "Links": [
     {
       "FromType": "Security.Web.Brokers.HomeEnvironmentBroker",
-      "ToType": "IWebHostEnvironment"
+      "ToType": "Microsoft.AspNetCore.Hosting.IWebHostEnvironment"
     },
     {
       "FromType": "Security.Web.Controllers.CurrentUserController",
