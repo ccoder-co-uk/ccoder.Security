@@ -4059,7 +4059,7 @@
           ],
           "ReturnType": "System.Boolean",
           "Implements": [
-            "Microsoft.AspNetCore.Http.ISession.TryGetValue(System.String,System.Byte[])"
+            "Microsoft.AspNetCore.Http.ISession.TryGetValue(System.String,System.Byte[]?)"
           ],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -19254,9 +19254,9 @@
           "Implements": [],
           "Calls": [
             {
-              "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
+              "TypeName": "Microsoft.AspNetCore.Builder.UseExtensions",
               "MethodName": "Use",
-              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.Use(System.Func\u003CMicrosoft.AspNetCore.Http.RequestDelegate, Microsoft.AspNetCore.Http.RequestDelegate\u003E)",
+              "MethodId": "Microsoft.AspNetCore.Builder.UseExtensions.Use(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Func\u003CMicrosoft.AspNetCore.Http.HttpContext, Microsoft.AspNetCore.Http.RequestDelegate, System.Threading.Tasks.Task\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
