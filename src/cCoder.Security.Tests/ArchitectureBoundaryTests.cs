@@ -4,7 +4,7 @@
 
 using FluentAssertions;
 using cCoder.Security.Brokers.Events;
-using cCoder.Security.Exposures;
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models;
 using cCoder.Security.Services.Foundations.Events;
 using Xunit;

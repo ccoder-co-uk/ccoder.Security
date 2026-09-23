@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Security.Models;
-using cCoder.Security.Exposures;
+using cCoder.CodeAnalysis.Exposures;
 
 namespace cCoder.Security.Brokers.Encryption.Interfaces;
 

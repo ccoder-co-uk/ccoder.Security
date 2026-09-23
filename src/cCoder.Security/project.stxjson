@@ -3372,6 +3372,16 @@
       "BaseType": null,
       "Interfaces": [
         {
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        },
+        {
           "Id": "cCoder.Security:cCoder.Security.Brokers.Utility.IServiceScopeBroker",
           "FullName": "cCoder.Security.Brokers.Utility.IServiceScopeBroker",
           "Name": "IServiceScopeBroker",
@@ -3380,16 +3390,6 @@
           "Kind": "Interface",
           "IsInCurrentProject": true,
           "StandardElementType": "Broker"
-        },
-        {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
-          "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
         }
       ],
       "Properties": [],
@@ -19293,14 +19293,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -19336,14 +19336,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -19388,14 +19388,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -19431,14 +19431,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -19479,14 +19479,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -19527,14 +19527,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -19789,14 +19789,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -20046,14 +20046,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -20139,14 +20139,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -21295,14 +21295,14 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.Security:cCoder.Security.Exposures.IUtilityBroker",
-          "FullName": "cCoder.Security.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
-          "Namespace": "cCoder.Security.Exposures",
-          "AssemblyName": "cCoder.Security",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
         }
       ],
       "Properties": [],
@@ -21683,17 +21683,6 @@
           "StandardElementType": "ProcessingService"
         }
       ],
-      "Properties": [],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Security.Exposures.IUtilityBroker",
-      "StandardElementType": "Exposure",
-      "LineNumber": 7,
-      "IsPublic": true,
-      "Kind": "Interface",
-      "BaseType": null,
-      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
