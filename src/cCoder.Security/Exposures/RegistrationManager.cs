@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Services.Aggregations.Interfaces;
 
@@ -9,7 +10,7 @@ namespace cCoder.Security.Exposures;
 
 internal sealed class RegistrationManager(
     IRegistrationAggregationService registrationAggregationService)
-        : IRegistrationManager
+        : IRegistrationManager, ICompositionExposure
 {
     public ValueTask<RegisterUser> RegisterUserAsync(RegisterUser registerUser) =>
         registrationAggregationService.RegisterUserAsync(

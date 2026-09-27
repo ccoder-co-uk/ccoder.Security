@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
@@ -13,7 +14,7 @@ namespace cCoder.Security.Exposures.Controllers;
 [Route("Api/Account")]
 public class RegistrationController(
     IRegistrationAggregationService registrationAggregationService)
-    : Controller
+    : Controller, ICompositionExposure
 {
     [HttpPost("Register")]
     public async ValueTask<IActionResult> PostRegister([FromBody] RegisterUser newRegisterUser)

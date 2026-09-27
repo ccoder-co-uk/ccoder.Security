@@ -247,7 +247,6 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ISSOAuthInfoAggregationService, SSOAuthInfoAggregationService>();
         services.AddTransient<IAuthenticationAggregationService, AuthenticationAggregationService>();
         services.AddTransient<IAuthenticationManager, AuthenticationManager>();
-        services.AddTransient<ICurrentUserAggregationService, CurrentUserAggregationService>();
         services.AddTransient<ISecurityCurrentUserManager, SecurityCurrentUserManager>();
         services.AddTransient<ITenantAggregationService, TenantAggregationService>();
         services.AddTransient<ITenantAdministrationManager, TenantAdministrationManager>();

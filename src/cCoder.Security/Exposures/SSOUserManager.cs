@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations.Interfaces;
 
@@ -9,7 +10,7 @@ namespace cCoder.Security.Exposures;
 
 internal sealed class SSOUserManager(
     ISSOUserAggregationService ssoUserAggregationService)
-        : ISSOUserManager
+        : ISSOUserManager, ICompositionExposure
 {
     public IQueryable<SSOUser> GetAllSSOUsers() =>
         ssoUserAggregationService.GetAllSSOUsers();

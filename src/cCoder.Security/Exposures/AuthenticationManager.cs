@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations.Interfaces;
 
@@ -9,7 +10,7 @@ namespace cCoder.Security.Exposures;
 
 internal sealed class AuthenticationManager(
     IAuthenticationAggregationService authenticationAggregationService)
-        : IAuthenticationManager
+        : IAuthenticationManager, ICompositionExposure
 {
     public ValueTask<Token> IssueTokenAsync(string userId, TokenUse tokenUse) =>
         authenticationAggregationService.IssueTokenAsync(

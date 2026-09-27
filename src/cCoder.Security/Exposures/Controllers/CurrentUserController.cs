@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
@@ -11,15 +12,15 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class CurrentUserController(
-    ICurrentUserAggregationService currentUserAggregationService)
-        : Controller
+    ISSOUserAggregationService ssoUserAggregationService)
+        : Controller, ICompositionExposure
 {
     [HttpGet("Me")]
     public IActionResult GetMe()
     {
         try
         {
-            return Ok(value: currentUserAggregationService.GetCurrentUser());
+            return Ok(value: ssoUserAggregationService.GetCurrentUser());
         }
         catch (SecurityAggregationAuthenticationException)
         {
@@ -49,8 +50,8 @@ public class CurrentUserController(
                 return BadRequest(modelState: ModelState);
             }
 
-            return Ok(value: await currentUserAggregationService
-                .UpdateCurrentSSOUserAsync(updatedUser: updatedSSOUser));
+            return Ok(value: await ssoUserAggregationService
+                .UpdateCurrentSSOUserAsync(updatedSSOUser: updatedSSOUser));
         }
         catch (SecurityAggregationAuthenticationException)
         {

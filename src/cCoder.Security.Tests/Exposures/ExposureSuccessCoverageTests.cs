@@ -32,7 +32,7 @@ public sealed partial class ExposureSuccessCoverageTests
         };
 
         Mock<ISSORoleManager> roles = new();
-        Mock<ISSOUserManager> users = new();
+        Mock<ISSOUserAggregationService> users = new();
         Mock<ITenantAdministrationManager> tenants = new();
         Mock<ISSOUserRoleManager> userRoles = new();
 

@@ -315,15 +315,15 @@ public sealed partial class ControllerHttpComplianceTests
             Email = "new@example.com"
         };
 
-        Mock<ISecurityCurrentUserManager> currentUserManager = new();
+        Mock<ISSOUserAggregationService> ssoUserAggregationService = new();
 
-        currentUserManager
-            .Setup(expression: manager => manager.UpdateCurrentSSOUserAsync(
-                updatedUser: request))
+        ssoUserAggregationService
+            .Setup(expression: service => service.UpdateCurrentSSOUserAsync(
+                updatedSSOUser: request))
             .ReturnsAsync(value: request);
 
         CurrentUserController controller = new(
-            currentUserAggregationService: currentUserManager.Object);
+            ssoUserAggregationService: ssoUserAggregationService.Object);
 
         // When
         IActionResult result = await controller.PutMe(updatedSSOUser: request);
@@ -333,9 +333,9 @@ public sealed partial class ControllerHttpComplianceTests
             .Should()
             .BeOfType<OkObjectResult>();
 
-        currentUserManager
-            .Verify(expression: manager =>
-                manager.UpdateCurrentSSOUserAsync(updatedUser: request),
+        ssoUserAggregationService
+            .Verify(expression: service =>
+                service.UpdateCurrentSSOUserAsync(updatedSSOUser: request),
                 times: Times.Once);
     }
 }
