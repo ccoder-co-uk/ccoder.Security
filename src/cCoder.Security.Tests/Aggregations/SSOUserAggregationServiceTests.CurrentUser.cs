@@ -14,7 +14,7 @@ using Xunit;
 
 namespace cCoder.Security.Tests.Aggregations;
 
-public partial class CurrentUserAggregationServiceTests
+public partial class SSOUserAggregationServiceCurrentUserTests
 {
     [Fact]
     public void InvalidAuthenticationIsRejectedBeforeUserLookup()
@@ -23,10 +23,11 @@ public partial class CurrentUserAggregationServiceTests
         Mock<ISSOUserProcessingService> ssoUserProcessingServiceMock =
             new(MockBehavior.Strict);
 
-        ICurrentUserAggregationService currentUserAggregationService =
-            new CurrentUserAggregationService(
+        ISSOUserAggregationService ssoUserAggregationService =
+            new SSOUserAggregationService(
                 ssoUserProcessingService:
                     ssoUserProcessingServiceMock.Object,
+                loggingProcessingService: Mock.Of<ILoggingProcessingService>(),
                 authInfo: new SSOAuthInfo
                 {
                     AuthenticationFailed = true
@@ -34,7 +35,7 @@ public partial class CurrentUserAggregationServiceTests
 
         // When
         Action getCurrentUser = () =>
-            currentUserAggregationService.GetCurrentUser();
+            ssoUserAggregationService.GetCurrentUser();
 
         // Then
         getCurrentUser.Should()
@@ -65,10 +66,11 @@ public partial class CurrentUserAggregationServiceTests
         Mock<ISSOUserProcessingService> ssoUserProcessingServiceMock =
             new(MockBehavior.Strict);
 
-        ICurrentUserAggregationService currentUserAggregationService =
-            new CurrentUserAggregationService(
+        ISSOUserAggregationService ssoUserAggregationService =
+            new SSOUserAggregationService(
                 ssoUserProcessingService:
                     ssoUserProcessingServiceMock.Object,
+                loggingProcessingService: Mock.Of<ILoggingProcessingService>(),
                 authInfo: new SSOAuthInfo());
 
         ssoUserProcessingServiceMock
@@ -76,7 +78,7 @@ public partial class CurrentUserAggregationServiceTests
             .Returns(value: storedUser);
 
         // When
-        SSOUser actualUser = currentUserAggregationService.GetCurrentUser();
+        SSOUser actualUser = ssoUserAggregationService.GetCurrentUser();
 
         // Then
         actualUser.Should()
@@ -134,9 +136,10 @@ public partial class CurrentUserAggregationServiceTests
                 item: It.IsAny<SSOUser>()))
             .Returns(value: new ValueTask<SSOUser>(result: storedUser));
 
-        ICurrentUserAggregationService manager =
-            new CurrentUserAggregationService(
+        ISSOUserAggregationService manager =
+            new SSOUserAggregationService(
                 ssoUserProcessingService: service.Object,
+                loggingProcessingService: Mock.Of<ILoggingProcessingService>(),
                 authInfo: new SSOAuthInfo
                 {
                     SSOUserId = storedUser.Id
@@ -144,7 +147,7 @@ public partial class CurrentUserAggregationServiceTests
 
         // When
         SSOUser result = await manager.UpdateCurrentSSOUserAsync(
-            updatedUser: request);
+            updatedSSOUser: request);
 
         // Then
         storedUser.Id
@@ -186,9 +189,10 @@ public partial class CurrentUserAggregationServiceTests
         // Given
         Mock<ISSOUserProcessingService> service = new(MockBehavior.Strict);
 
-        ICurrentUserAggregationService manager =
-            new CurrentUserAggregationService(
+        ISSOUserAggregationService manager =
+            new SSOUserAggregationService(
                 ssoUserProcessingService: service.Object,
+                loggingProcessingService: Mock.Of<ILoggingProcessingService>(),
                 authInfo: new SSOAuthInfo
                 {
                     SSOUserId = "Guest"
@@ -197,7 +201,7 @@ public partial class CurrentUserAggregationServiceTests
         // When
         Func<Task> updateCurrentUser = async () =>
             await manager.UpdateCurrentSSOUserAsync(
-                updatedUser: new SSOUser
+                updatedSSOUser: new SSOUser
                 {
                     DisplayName = "Guest",
                     Email = "guest@example.com"

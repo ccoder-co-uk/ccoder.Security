@@ -73,7 +73,7 @@ public sealed partial class ControllerHttpComplianceTests
     {
         // Given
         SSOUser expectedSSOUser = new() { Id = "user" };
-        Mock<ISSOUserManager> manager = new();
+        Mock<ISSOUserAggregationService> manager = new();
 
         manager.Setup(expression: instance => instance.GetAllSSOUsers())
             .Returns(value: new[] { expectedSSOUser }.AsQueryable());

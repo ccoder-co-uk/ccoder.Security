@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Services.Aggregations.Interfaces;
@@ -9,7 +10,7 @@ using cCoder.Security.Services.Aggregations.Interfaces;
 namespace cCoder.Security.Exposures;
 
 internal class TenantManager(IRegistrationAggregationService registrationAggregationService)
-    : ITenantManager
+    : ITenantManager, ICompositionExposure
 {
     public ValueTask SetupAsync(SetupDetails setupDetails)
     {

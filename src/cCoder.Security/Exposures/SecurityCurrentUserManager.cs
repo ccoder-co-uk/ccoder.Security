@@ -2,19 +2,20 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations.Interfaces;
 
 namespace cCoder.Security.Exposures;
 
 internal sealed class SecurityCurrentUserManager(
-    ICurrentUserAggregationService currentUserAggregationService)
-        : ISecurityCurrentUserManager
+    ISSOUserAggregationService ssoUserAggregationService)
+        : ISecurityCurrentUserManager, ICompositionExposure
 {
     public SSOUser GetCurrentUser() =>
-        currentUserAggregationService.GetCurrentUser();
+        ssoUserAggregationService.GetCurrentUser();
 
     public ValueTask<SSOUser> UpdateCurrentSSOUserAsync(SSOUser updatedSSOUser) =>
-        currentUserAggregationService.UpdateCurrentSSOUserAsync(
-            updatedUser: updatedSSOUser);
+        ssoUserAggregationService.UpdateCurrentSSOUserAsync(
+            updatedSSOUser: updatedSSOUser);
 }

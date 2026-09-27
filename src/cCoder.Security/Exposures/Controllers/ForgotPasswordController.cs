@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
@@ -13,7 +14,7 @@ namespace cCoder.Security.Exposures.Controllers;
 [Route("Api/Account")]
 public class ForgotPasswordController(
     IAuthenticationAggregationService authenticationAggregationService)
-        : Controller
+        : Controller, ICompositionExposure
 {
     [HttpPost("ForgotPassword")]
     public async ValueTask<IActionResult> PostForgotPassword(

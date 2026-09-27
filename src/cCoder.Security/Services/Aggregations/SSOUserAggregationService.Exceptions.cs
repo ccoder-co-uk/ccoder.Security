@@ -14,6 +14,11 @@ internal sealed partial class SSOUserAggregationService
         {
             return operation();
         }
+        catch (SecurityAuthenticationException innerException)
+        {
+            throw new SecurityAggregationAuthenticationException(
+                innerException: innerException);
+        }
         catch (ArgumentException innerException)
         {
             throw new SecurityAggregationValidationException(innerException: innerException);
@@ -61,6 +66,11 @@ internal sealed partial class SSOUserAggregationService
         try
         {
             return await operation();
+        }
+        catch (SecurityAuthenticationException innerException)
+        {
+            throw new SecurityAggregationAuthenticationException(
+                innerException: innerException);
         }
         catch (ArgumentException innerException)
         {

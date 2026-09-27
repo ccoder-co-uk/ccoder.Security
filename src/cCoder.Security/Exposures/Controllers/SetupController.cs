@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Exceptions;
@@ -13,7 +14,7 @@ namespace cCoder.Security.Exposures.Controllers;
 [Route("Api/Setup")]
 public sealed class SetupController(
     IRegistrationAggregationService registrationAggregationService)
-    : Controller
+    : Controller, ICompositionExposure
 {
     [HttpPost]
     public async ValueTask<IActionResult> PostSetup(

@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.OData.Query;
 namespace cCoder.Security.Exposures.Controllers;
 
 public class SSOUserController(ISSOUserAggregationService ssoUserAggregationService)
-        : Controller
+        : Controller, ICompositionExposure
 {
     [HttpGet()]
     [EnableQuery(MaxExpansionDepth = 3, MaxAnyAllExpressionDepth = 3)]

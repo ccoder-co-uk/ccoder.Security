@@ -8,6 +8,10 @@ namespace cCoder.Security.Services.Aggregations.Interfaces;
 
 public interface ISSOUserAggregationService
 {
+    SSOUser GetCurrentUser();
+
+    ValueTask<SSOUser> UpdateCurrentSSOUserAsync(SSOUser updatedSSOUser);
+
     IQueryable<SSOUser> GetAllSSOUsers();
 
     ValueTask<SSOUser> UpdateSSOUserAsync(
