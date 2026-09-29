@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
     <IsPackable>false</IsPackable>
     <AssemblyName>cCoder.Security.Tests</AssemblyName>
     <RootNamespace>cCoder.Security.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.27.1258" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
-    <PackageReference Include="cCoder.CodeAnalysis.Contracts" Version="2026.9.27.1258" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.29.1241" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
+    <PackageReference Include="cCoder.CodeAnalysis.Contracts" Version="2026.9.29.1241" />
     <PackageReference Include="DeepCloner" Version="0.10.4" />
     <PackageReference Include="FluentAssertions" Version="8.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />

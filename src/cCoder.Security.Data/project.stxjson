@@ -9,7 +9,7 @@
     {
       "Name": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory",
       "StandardElementType": "Broker",
-      "LineNumber": 13,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -30,7 +30,7 @@
         {
           "Id": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory.CreateDbContext(System.Boolean)",
           "Name": "CreateDbContext",
-          "LineNumber": 29,
+          "LineNumber": 31,
           "Inputs": [
             {
               "Name": "ignoreAuthInfo",
@@ -65,7 +65,7 @@
         {
           "Id": "cCoder.Security.Data.Brokers.MSSQLSecurityDbContextFactory.CreateDbContext(System.String[])",
           "Name": "CreateDbContext",
-          "LineNumber": 36,
+          "LineNumber": 38,
           "Inputs": [
             {
               "Name": "args",
@@ -102,7 +102,7 @@
     {
       "Name": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
       "StandardElementType": "Dependency",
-      "LineNumber": 20,
+      "LineNumber": 23,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -152,7 +152,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String)",
           "Name": "Decrypt",
-          "LineNumber": 50,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "source",
@@ -222,7 +222,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Decrypt(System.String,System.String)",
           "Name": "Decrypt",
-          "LineNumber": 43,
+          "LineNumber": 44,
           "Inputs": [
             {
               "Name": "source",
@@ -286,7 +286,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Encrypt(T)",
           "Name": "Encrypt",
-          "LineNumber": 30,
+          "LineNumber": 31,
           "Inputs": [
             {
               "Name": "source",
@@ -356,7 +356,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.Encrypt(T,System.String)",
           "Name": "Encrypt",
-          "LineNumber": 22,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "source",
@@ -420,7 +420,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.NewKey()",
           "Name": "NewKey",
-          "LineNumber": 53,
+          "LineNumber": 56,
           "Inputs": [],
           "ReturnType": "System.Byte[]",
           "Implements": [],
@@ -448,7 +448,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecrypt(System.Byte[],System.Byte[],System.Byte[],System.Int32)",
           "Name": "SimpleDecrypt",
-          "LineNumber": 163,
+          "LineNumber": 166,
           "Inputs": [
             {
               "Name": "encryptedMessage",
@@ -576,7 +576,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecrypt(System.String,System.Byte[],System.Byte[],System.Int32)",
           "Name": "SimpleDecrypt",
-          "LineNumber": 153,
+          "LineNumber": 156,
           "Inputs": [
             {
               "Name": "encryptedMessage",
@@ -655,7 +655,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecryptWithPassword(System.Byte[],System.String,System.Int32)",
           "Name": "SimpleDecryptWithPassword",
-          "LineNumber": 300,
+          "LineNumber": 303,
           "Inputs": [
             {
               "Name": "encryptedMessage",
@@ -737,7 +737,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleDecryptWithPassword(System.String,System.String,System.Int32)",
           "Name": "SimpleDecryptWithPassword",
-          "LineNumber": 290,
+          "LineNumber": 293,
           "Inputs": [
             {
               "Name": "encryptedMessage",
@@ -812,7 +812,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncrypt(System.Byte[],System.Byte[],System.Byte[],System.Byte[])",
           "Name": "SimpleEncrypt",
-          "LineNumber": 84,
+          "LineNumber": 87,
           "Inputs": [
             {
               "Name": "secretMessage",
@@ -947,7 +947,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncrypt(System.String,System.Byte[],System.Byte[],System.Byte[])",
           "Name": "SimpleEncrypt",
-          "LineNumber": 74,
+          "LineNumber": 77,
           "Inputs": [
             {
               "Name": "secretMessage",
@@ -1026,7 +1026,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncryptWithPassword(System.Byte[],System.String,System.Byte[])",
           "Name": "SimpleEncryptWithPassword",
-          "LineNumber": 246,
+          "LineNumber": 249,
           "Inputs": [
             {
               "Name": "secretMessage",
@@ -1108,7 +1108,7 @@
         {
           "Id": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E.SimpleEncryptWithPassword(System.String,System.String,System.Byte[])",
           "Name": "SimpleEncryptWithPassword",
-          "LineNumber": 236,
+          "LineNumber": 239,
           "Inputs": [
             {
               "Name": "secretMessage",
@@ -1185,7 +1185,7 @@
     {
       "Name": "cCoder.Security.Data.EF.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 13,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -1195,7 +1195,7 @@
         {
           "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityDataConfiguration\u003E)",
           "Name": "AddSecurityData",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "services",
@@ -1239,7 +1239,7 @@
         {
           "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityDataConfiguration)",
           "Name": "AddSecurityData",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "services",
@@ -1278,7 +1278,7 @@
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddRolesAndPrivs",
       "StandardElementType": "Dependency",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1318,7 +1318,7 @@
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddTenancy",
       "StandardElementType": "Dependency",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1338,7 +1338,7 @@
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddTenantAnalysis",
       "StandardElementType": "Dependency",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1358,7 +1358,7 @@
     {
       "Name": "cCoder.Security.Data.EF.Migrations.AddTokenStorage",
       "StandardElementType": "Dependency",
-      "LineNumber": 5,
+      "LineNumber": 7,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1418,7 +1418,7 @@
     {
       "Name": "cCoder.Security.Data.EF.Migrations.Initial",
       "StandardElementType": "Dependency",
-      "LineNumber": 6,
+      "LineNumber": 8,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1458,7 +1458,7 @@
     {
       "Name": "cCoder.Security.Data.EF.Migrations.RetireGenericAuditing",
       "StandardElementType": "Dependency",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1518,7 +1518,7 @@
     {
       "Name": "cCoder.Security.Data.EF.SecurityDbContext",
       "StandardElementType": "Dependency",
-      "LineNumber": 13,
+      "LineNumber": 16,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1786,7 +1786,7 @@
         {
           "Id": "cCoder.Security.Data.EF.SecurityDbContext.GetCurrentUser()",
           "Name": "GetCurrentUser",
-          "LineNumber": 76,
+          "LineNumber": 79,
           "Inputs": [],
           "ReturnType": "cCoder.Security.Models.Entities.SSOUser",
           "Implements": [],
@@ -1849,7 +1849,7 @@
         {
           "Id": "cCoder.Security.Data.EF.SecurityDbContext.GetPrivileges()",
           "Name": "GetPrivileges",
-          "LineNumber": 29,
+          "LineNumber": 31,
           "Inputs": [],
           "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E",
           "Implements": [],
@@ -1869,7 +1869,7 @@
         {
           "Id": "cCoder.Security.Data.EF.SecurityDbContext.GetUserActivity()",
           "Name": "GetUserActivity",
-          "LineNumber": 135,
+          "LineNumber": 138,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.UserActivity\u003E",
           "Implements": [],
@@ -1904,7 +1904,7 @@
         {
           "Id": "cCoder.Security.Data.EF.SecurityDbContext.Migrate()",
           "Name": "Migrate",
-          "LineNumber": 36,
+          "LineNumber": 39,
           "Inputs": [],
           "ReturnType": "System.Void",
           "Implements": [],
@@ -1932,7 +1932,7 @@
         {
           "Id": "cCoder.Security.Data.EF.SecurityDbContext.UserHasPrivilege(System.String,System.String)",
           "Name": "UserHasPrivilege",
-          "LineNumber": 123,
+          "LineNumber": 126,
           "Inputs": [
             {
               "Name": "privilege",
@@ -2010,7 +2010,7 @@
         {
           "Id": "cCoder.Security.Data.EF.SecurityDbContext.UserIsPortalAdminWithPrivilege(System.String)",
           "Name": "UserIsPortalAdminWithPrivilege",
-          "LineNumber": 108,
+          "LineNumber": 111,
           "Inputs": [
             {
               "Name": "privilege",
@@ -2380,7 +2380,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.SSORole",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2424,7 +2424,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.SSOUser",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2488,7 +2488,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.SSOUserRole",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2516,7 +2516,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.Session",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2552,7 +2552,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.Tenant",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2604,7 +2604,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.TenantAnalysis",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2644,7 +2644,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.Token",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2680,7 +2680,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.UserActivity",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2760,7 +2760,7 @@
     {
       "Name": "cCoder.Security.Models.Entities.UserEvent",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2852,7 +2852,7 @@
     {
       "Name": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions",
       "StandardElementType": "Exposure",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -2862,7 +2862,7 @@
         {
           "Id": "cCoder.Security.Models.Events.SecurityAccountEventKindExtensions.ToEventName(cCoder.Security.Models.Events.SecurityAccountEventKind)",
           "Name": "ToEventName",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "securityAccountEventKind",

@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.Controllers;
 using cCoder.Security.Models.Entities;

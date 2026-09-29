@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+
 using cCoder.Security.Models;
 using Microsoft.OData.ModelBuilder;
 using System.Linq.Expressions;

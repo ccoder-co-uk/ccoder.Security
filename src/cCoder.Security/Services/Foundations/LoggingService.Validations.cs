@@ -3,6 +3,9 @@
 // ---------------------------------------------------------------
 
 
+using System;
+using System.Linq;
+
 namespace cCoder.Security.Services.Foundations;
 
 internal sealed partial class LoggingService

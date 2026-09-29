@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
 using Bogus;
 using cCoder.Security.Models.DTOs;
 using Security.AcceptanceTests;

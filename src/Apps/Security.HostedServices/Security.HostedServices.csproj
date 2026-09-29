@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.27.1258" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.29.1241" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
     <ProjectReference Include="..\..\cCoder.Security\cCoder.Security.csproj" />
     <ProjectReference Include="..\..\cCoder.Security.Data\cCoder.Security.Data.csproj" />
   </ItemGroup>

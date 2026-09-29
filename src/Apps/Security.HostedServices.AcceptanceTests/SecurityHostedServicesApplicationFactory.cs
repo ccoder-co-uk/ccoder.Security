@@ -2,7 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
 using Microsoft.AspNetCore.Mvc.Testing;
+using AcceptanceHost = Security.HostedServices.Program;
 using Microsoft.Data.SqlClient;
 using Security.AcceptanceTests;
 
@@ -49,25 +51,30 @@ internal sealed class SecurityHostedServicesApplicationFactory
 
         if (disposing)
         {
-            DropDatabase();
+            try
+            {
+                DropDatabase();
+            }
+            finally
+            {
+                Environment.SetEnvironmentVariable(
+                    variable:
+                        AcceptanceTestConfiguration
+                            .ConnectionStringVariableName,
+                    value: string.IsNullOrEmpty(
+                        value: previousConnectionString)
+                        ? null
+                        : previousConnectionString);
 
-            Environment.SetEnvironmentVariable(
-                variable:
-                    AcceptanceTestConfiguration
-                        .ConnectionStringVariableName,
-                value: string.IsNullOrEmpty(
-                    value: previousConnectionString)
-                    ? null
-                    : previousConnectionString);
-
-            Environment.SetEnvironmentVariable(
-                variable:
-                    AcceptanceTestConfiguration
-                        .DecryptionKeyVariableName,
-                value: string.IsNullOrEmpty(
-                    value: previousDecryptionKey)
-                    ? null
-                    : previousDecryptionKey);
+                Environment.SetEnvironmentVariable(
+                    variable:
+                        AcceptanceTestConfiguration
+                            .DecryptionKeyVariableName,
+                    value: string.IsNullOrEmpty(
+                        value: previousDecryptionKey)
+                        ? null
+                        : previousDecryptionKey);
+            }
         }
     }
 
@@ -79,12 +86,16 @@ internal sealed class SecurityHostedServicesApplicationFactory
         string databaseName = builder.InitialCatalog;
         builder.InitialCatalog = "master";
 
+        using SqlConnection databaseConnection = new(ConnectionString);
+        SqlConnection.ClearPool(connection: databaseConnection);
+
         using SqlConnection connection =
             new(connectionString: builder.ConnectionString);
 
         connection.Open();
 
         using SqlCommand command = connection.CreateCommand();
+        command.CommandTimeout = 120;
 
         command.CommandText =
             $"""

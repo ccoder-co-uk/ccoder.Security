@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;
@@ -99,10 +101,14 @@ public static class SecurityWebApplicationFactoryExtensions
 
         builder.InitialCatalog = "master";
 
+        using SqlConnection databaseConnection = new(connectionString);
+        SqlConnection.ClearPool(connection: databaseConnection);
+
         using SqlConnection connection = new(builder.ConnectionString);
         connection.Open();
 
         using SqlCommand command = connection.CreateCommand();
+        command.CommandTimeout = 120;
 
         command.CommandText = @"
 IF DB_ID(@databaseName) IS NOT NULL

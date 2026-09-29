@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Logging;
+
 namespace Security.Web;
 
 public class Program

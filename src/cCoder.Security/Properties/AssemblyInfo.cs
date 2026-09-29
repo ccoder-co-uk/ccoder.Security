@@ -5,4 +5,5 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("cCoder.Security.Tests")]
+[assembly: InternalsVisibleTo("Security.Web.AcceptanceTests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

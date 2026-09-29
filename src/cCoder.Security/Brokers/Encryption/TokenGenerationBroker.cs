@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
 using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Dependencies.Encryption;
 using Microsoft.AspNetCore.WebUtilities;

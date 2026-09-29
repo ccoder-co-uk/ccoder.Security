@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+using System;
+using System.Threading.Tasks;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures;

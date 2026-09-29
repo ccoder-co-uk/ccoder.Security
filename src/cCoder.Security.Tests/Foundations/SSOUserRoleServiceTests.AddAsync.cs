@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+using System;
+using System.Threading.Tasks;
 using cCoder.Security.Models.Entities;
 using FluentAssertions;
 using Force.DeepCloner;

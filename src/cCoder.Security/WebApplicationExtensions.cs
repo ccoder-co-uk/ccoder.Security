@@ -2,9 +2,19 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+
 using cCoder.Security.Models.Configurations;
 using cCoder.Security.Services.Aggregations.Interfaces;
-using System.Security.Claims;
 
 namespace cCoder.Security;
 

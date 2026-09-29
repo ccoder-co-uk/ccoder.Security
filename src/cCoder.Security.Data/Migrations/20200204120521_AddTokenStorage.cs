@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace cCoder.Security.Data.EF.Migrations;
 

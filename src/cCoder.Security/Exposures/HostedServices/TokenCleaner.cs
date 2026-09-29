@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
 using cCoder.Security.Brokers.Utility;
 using cCoder.Security.Services.Processings.Interfaces;
 using Microsoft.Extensions.Hosting;

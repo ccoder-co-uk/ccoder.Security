@@ -2,6 +2,12 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using Microsoft.AspNetCore.Http;
+using System;
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 using cCoder.Security.Brokers.Authentication;
 using cCoder.Security.Dependencies.Sessions;
 using cCoder.Security.Dependencies.Authentication;

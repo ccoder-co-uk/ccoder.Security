@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Configurations;
 using cCoder.Security.Models.Exceptions;

@@ -2,7 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
 using Microsoft.AspNetCore.Mvc.Testing;
+using AcceptanceHost = Security.Web.Program;
 namespace Security.AcceptanceTests;
 
 public sealed class SecurityWebApplicationFactory
@@ -46,26 +48,31 @@ public sealed class SecurityWebApplicationFactory
 
         if (disposing)
         {
-            SecurityWebApplicationFactoryExtensions.DropDatabaseForTesting(
-                connectionString: ConnectionString);
+            try
+            {
+                SecurityWebApplicationFactoryExtensions.DropDatabaseForTesting(
+                    connectionString: ConnectionString);
+            }
+            finally
+            {
+                Environment.SetEnvironmentVariable(
+                    variable:
+                        AcceptanceTestConfiguration
+                            .ConnectionStringVariableName,
+                    value: string.IsNullOrEmpty(
+                        value: previousConnectionString)
+                        ? null
+                        : previousConnectionString);
 
-            Environment.SetEnvironmentVariable(
-                variable:
-                    AcceptanceTestConfiguration
-                        .ConnectionStringVariableName,
-                value: string.IsNullOrEmpty(
-                    value: previousConnectionString)
-                    ? null
-                    : previousConnectionString);
-
-            Environment.SetEnvironmentVariable(
-                variable:
-                    AcceptanceTestConfiguration
-                        .DecryptionKeyVariableName,
-                value: string.IsNullOrEmpty(
-                    value: previousDecryptionKey)
-                    ? null
-                    : previousDecryptionKey);
+                Environment.SetEnvironmentVariable(
+                    variable:
+                        AcceptanceTestConfiguration
+                            .DecryptionKeyVariableName,
+                    value: string.IsNullOrEmpty(
+                        value: previousDecryptionKey)
+                        ? null
+                        : previousDecryptionKey);
+            }
         }
     }
 }

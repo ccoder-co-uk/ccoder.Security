@@ -2,10 +2,13 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Net.Http;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Data.EF.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using AcceptanceHost = Security.Web.Program;
 
 namespace cCoder.Security.IntegrationTests;
 
