@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+
 using cCoder.Security.Brokers.Serialization;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Events;

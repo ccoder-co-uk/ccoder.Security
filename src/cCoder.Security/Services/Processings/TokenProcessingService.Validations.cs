@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+using System;
+using System.Threading;
+
 using cCoder.Security.Models.Entities;
 
 namespace cCoder.Security.Services.Processings;

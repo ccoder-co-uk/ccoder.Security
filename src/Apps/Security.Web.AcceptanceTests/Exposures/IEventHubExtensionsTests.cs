@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using cCoder.Eventing;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Models.DTOs;

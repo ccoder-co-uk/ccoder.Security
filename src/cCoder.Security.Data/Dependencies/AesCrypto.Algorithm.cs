@@ -7,8 +7,11 @@
  * identified by James Tuley, is free of known copyright restrictions.
  * https://gist.github.com/4336842
  * http://creativecommons.org/publicdomain/mark/1.0/ 
- */
+*/
 
+using System;
+using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 

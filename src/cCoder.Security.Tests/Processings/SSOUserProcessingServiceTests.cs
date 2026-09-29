@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
 using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Brokers.DateTime;
 using cCoder.Security.Models;
@@ -42,7 +43,7 @@ public partial class SSOUserProcessingServiceTests
         new MnemonicString().GetValue();
 
     private static SSOUser[] RandomSSOUsers() =>
-        Enumerable.Range(start: 1, count: new Random().Next(minValue:10, maxValue:20))
+        Enumerable.Range(start: 1, count: new System.Random().Next(minValue:10, maxValue:20))
             .Select(selector: _ => RandomSSOUser())
             .ToArray();
 

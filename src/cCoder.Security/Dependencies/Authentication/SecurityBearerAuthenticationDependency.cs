@@ -2,6 +2,12 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Threading.Tasks;
+
+using Microsoft.Extensions.Logging;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;

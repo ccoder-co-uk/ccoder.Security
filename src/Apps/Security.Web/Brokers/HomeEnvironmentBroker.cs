@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.IO;
+using System;
+
+using Microsoft.AspNetCore.Hosting;
+
 namespace Security.Web.Brokers;
 
 internal sealed class HomeEnvironmentBroker(

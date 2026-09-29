@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using cCoder.Security.Models.Entities;
 using Security.AcceptanceTests.Tests.Models;
 using Newtonsoft.Json;

@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
 using cCoder.Security.Brokers.Configuration;
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Brokers.Encryption.Interfaces;

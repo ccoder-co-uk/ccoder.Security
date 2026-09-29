@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using cCoder.Security.Data.EF;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;

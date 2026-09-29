@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
+using System;
+using System.Threading.Tasks;
+
 using cCoder.Eventing.Models;
 using cCoder.Security.Brokers.Authentication;
 using cCoder.Security.Brokers.Events;

@@ -3,11 +3,12 @@
 // ---------------------------------------------------------------
 
 using System;
+
 using Microsoft.Data.SqlClient;
 
-namespace cCoder.Security.IntegrationTests;
+namespace Security.AcceptanceTests;
 
-internal sealed class IntegrationTestConfiguration
+internal sealed class AcceptanceTestConfiguration
 {
     internal const string ConnectionStringVariableName =
         "SecurityData__ConnectionString";
@@ -15,7 +16,7 @@ internal sealed class IntegrationTestConfiguration
     internal const string DecryptionKeyVariableName =
         "Security__DecryptionKey";
 
-    private IntegrationTestConfiguration(
+    private AcceptanceTestConfiguration(
         string processConnectionString,
         string acceptanceConnectionString,
         string processDecryptionKey,
@@ -35,7 +36,7 @@ internal sealed class IntegrationTestConfiguration
 
     internal string DecryptionKey { get; }
 
-    internal static IntegrationTestConfiguration Load()
+    internal static AcceptanceTestConfiguration Load()
     {
         string sourceConnectionString =
             ReadRequiredValue(
@@ -47,13 +48,13 @@ internal sealed class IntegrationTestConfiguration
         if (string.IsNullOrWhiteSpace(value: builder.InitialCatalog))
         {
             throw new InvalidOperationException(
-                "Integration test connection strings must name a database.");
+                "Acceptance test connection strings must name a database.");
         }
 
         builder.InitialCatalog =
             $"{builder.InitialCatalog}-acceptance-{Guid.NewGuid():N}";
 
-        return new IntegrationTestConfiguration(
+        return new AcceptanceTestConfiguration(
             processConnectionString:
                 Environment.GetEnvironmentVariable(
                     variable:

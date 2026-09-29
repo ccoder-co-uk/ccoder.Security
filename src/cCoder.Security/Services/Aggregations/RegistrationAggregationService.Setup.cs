@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
+using System;
+using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;

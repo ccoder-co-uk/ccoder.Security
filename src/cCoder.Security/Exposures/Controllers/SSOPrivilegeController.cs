@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
+
+using Microsoft.AspNetCore.Http;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Foundations.Interfaces;

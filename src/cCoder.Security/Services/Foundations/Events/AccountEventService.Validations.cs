@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
 using cCoder.Security.Models.Events;
 
 namespace cCoder.Security.Services.Foundations.Events;

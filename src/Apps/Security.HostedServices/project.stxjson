@@ -9,7 +9,7 @@
     {
       "Name": "Security.HostedServices.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 11,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -19,7 +19,7 @@
         {
           "Id": "Security.HostedServices.IServiceCollectionExtensions.AddHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CSecurity.HostedServices.Models.AppConfiguration\u003E)",
           "Name": "AddHostedServices",
-          "LineNumber": 13,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "services",
@@ -103,7 +103,7 @@
     {
       "Name": "Security.HostedServices.Program",
       "StandardElementType": "App",
-      "LineNumber": 10,
+      "LineNumber": 17,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -113,7 +113,7 @@
         {
           "Id": "Security.HostedServices.Program.Main(System.String[])",
           "Name": "Main",
-          "LineNumber": 12,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "args",
@@ -204,7 +204,7 @@
     {
       "Name": "Security.HostedServices.WebApplicationExtensions",
       "StandardElementType": "App",
-      "LineNumber": 7,
+      "LineNumber": 14,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -214,7 +214,7 @@
         {
           "Id": "Security.HostedServices.WebApplicationExtensions.UseSecurityHostedServicesApplication(Microsoft.AspNetCore.Builder.WebApplication)",
           "Name": "UseSecurityHostedServicesApplication",
-          "LineNumber": 9,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "app",

@@ -2,6 +2,13 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
+using Microsoft.AspNetCore.Builder;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security;
 using Microsoft.AspNetCore.Diagnostics;

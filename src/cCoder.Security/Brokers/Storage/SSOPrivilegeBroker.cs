@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
+
 using cCoder.Security.Brokers.Storage.Interfaces;
 using cCoder.Security.Data.EF.Interfaces;
 using cCoder.Security.Models.Entities;

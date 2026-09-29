@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+
 namespace cCoder.Security.Models.Entities;
 
 public class UserActivity

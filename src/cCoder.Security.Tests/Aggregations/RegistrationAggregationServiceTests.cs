@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Threading.Tasks;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Events;

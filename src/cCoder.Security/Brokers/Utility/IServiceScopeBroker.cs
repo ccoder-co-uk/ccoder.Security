@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+
 using cCoder.CodeAnalysis.Exposures;
 
 namespace cCoder.Security.Brokers.Utility;

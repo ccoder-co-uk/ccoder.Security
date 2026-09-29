@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+using System;
+using System.Threading.Tasks;
+
 using cCoder.Security.Models;
 using cCoder.Security.Brokers.Encoding;
 using cCoder.Security.Models.Configurations;

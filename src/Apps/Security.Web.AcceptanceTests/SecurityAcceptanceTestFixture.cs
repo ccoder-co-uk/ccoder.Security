@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
 using Security.AcceptanceTests.Clients;
 
 namespace Security.AcceptanceTests;
