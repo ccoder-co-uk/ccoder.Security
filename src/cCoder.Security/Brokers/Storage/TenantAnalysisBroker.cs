@@ -51,7 +51,7 @@ internal class TenantAnalysisBroker(
         await context.SaveChangesAsync();
     }
 
-    public IQueryable<TenantAnalysis> SelectAllTenantAnalysis()
+    public IQueryable<TenantAnalysis> SelectAllTenantAnalyses()
     {
         var context = contextFactory.CreateDbContext();
         return context.TenantAnalysis;

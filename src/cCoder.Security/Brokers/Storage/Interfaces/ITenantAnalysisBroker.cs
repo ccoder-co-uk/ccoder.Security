@@ -14,6 +14,6 @@ internal interface ITenantAnalysisBroker
 {
     ValueTask<TenantAnalysis> InsertTenantAnalysisAsync(TenantAnalysis tenantAnalysis);
     ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenantAnalysis);
-    IQueryable<TenantAnalysis> SelectAllTenantAnalysis();
+    IQueryable<TenantAnalysis> SelectAllTenantAnalyses();
     ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenantAnalysis);
 }

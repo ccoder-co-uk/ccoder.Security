@@ -14,6 +14,6 @@ internal interface ITenantAnalysisService
 {
     ValueTask<TenantAnalysis> AddTenantAnalysisAsync(TenantAnalysis tenant);
     ValueTask DeleteTenantAnalysisAsync(TenantAnalysis tenant);
-    IQueryable<TenantAnalysis> GetAllTenantAnalysis();
+    IQueryable<TenantAnalysis> GetAllTenantAnalyses();
     ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis tenant);
 }

@@ -74,7 +74,7 @@ public sealed partial class CoverageGapTests
             .Returns(value: new[] { userRole }.AsQueryable());
 
         analyses
-            .Setup(expression: service => service.GetAllTenantAnalysis())
+            .Setup(expression: service => service.GetAllTenantAnalyses())
             .Returns(value: new[] { analysis }.AsQueryable());
 
         analyses

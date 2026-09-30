@@ -131,7 +131,7 @@ internal sealed partial class TenantAggregationService(
             .ToArray();
 
         TenantAnalysis[] tenantAnalysis = tenantAnalysisProcessingService
-            .GetAllTenantAnalysis()
+            .GetAllTenantAnalyses()
             .Where(predicate: analysis =>
                 analysis.TenantId == deletedTenant.Id)
             .ToArray();

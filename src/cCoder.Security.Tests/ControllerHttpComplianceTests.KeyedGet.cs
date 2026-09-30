@@ -102,7 +102,7 @@ public sealed partial class ControllerHttpComplianceTests
         TenantAnalysis expectedTenantAnalysis = new() { Id = Guid.NewGuid() };
         Mock<ITenantAnalysisManager> manager = new();
 
-        manager.Setup(expression: instance => instance.GetAllTenantAnalysis())
+        manager.Setup(expression: instance => instance.GetAllTenantAnalyses())
             .Returns(value: new[] { expectedTenantAnalysis }.AsQueryable());
 
         TenantAnalysisController controller = new(

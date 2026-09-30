@@ -2341,13 +2341,13 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker.SelectAllTenantAnalysis()",
-          "Name": "SelectAllTenantAnalysis",
+          "Id": "cCoder.Security.Brokers.Storage.TenantAnalysisBroker.SelectAllTenantAnalyses()",
+          "Name": "SelectAllTenantAnalyses",
           "LineNumber": 54,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E",
           "Implements": [
-            "cCoder.Security.Brokers.Storage.Interfaces.ITenantAnalysisBroker.SelectAllTenantAnalysis()"
+            "cCoder.Security.Brokers.Storage.Interfaces.ITenantAnalysisBroker.SelectAllTenantAnalyses()"
           ],
           "Calls": [
             {
@@ -8374,8 +8374,8 @@
             },
             {
               "TypeName": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService",
-              "MethodName": "GetAllTenantAnalysis",
-              "MethodId": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalysis()",
+              "MethodName": "GetAllTenantAnalyses",
+              "MethodId": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalyses()",
               "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
             }
@@ -8498,8 +8498,8 @@
             },
             {
               "TypeName": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService",
-              "MethodName": "GetAllTenantAnalysis",
-              "MethodId": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalysis()",
+              "MethodName": "GetAllTenantAnalyses",
+              "MethodId": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalyses()",
               "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
             }
@@ -11078,19 +11078,19 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Exposures.TenantAnalysisManager.GetAllTenantAnalysis()",
-          "Name": "GetAllTenantAnalysis",
+          "Id": "cCoder.Security.Exposures.TenantAnalysisManager.GetAllTenantAnalyses()",
+          "Name": "GetAllTenantAnalyses",
           "LineNumber": 28,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E",
           "Implements": [
-            "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalysis()"
+            "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalyses()"
           ],
           "Calls": [
             {
               "TypeName": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService",
-              "MethodName": "GetAllTenantAnalysis",
-              "MethodId": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalysis()",
+              "MethodName": "GetAllTenantAnalyses",
+              "MethodId": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalyses()",
               "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
             }
@@ -15205,19 +15205,19 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Services.Foundations.TenantAnalysisService.GetAllTenantAnalysis()",
-          "Name": "GetAllTenantAnalysis",
+          "Id": "cCoder.Security.Services.Foundations.TenantAnalysisService.GetAllTenantAnalyses()",
+          "Name": "GetAllTenantAnalyses",
           "LineNumber": 52,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E",
           "Implements": [
-            "cCoder.Security.Services.Foundations.Interfaces.ITenantAnalysisService.GetAllTenantAnalysis()"
+            "cCoder.Security.Services.Foundations.Interfaces.ITenantAnalysisService.GetAllTenantAnalyses()"
           ],
           "Calls": [
             {
               "TypeName": "cCoder.Security.Brokers.Storage.Interfaces.ITenantAnalysisBroker",
-              "MethodName": "SelectAllTenantAnalysis",
-              "MethodId": "cCoder.Security.Brokers.Storage.Interfaces.ITenantAnalysisBroker.SelectAllTenantAnalysis()",
+              "MethodName": "SelectAllTenantAnalyses",
+              "MethodId": "cCoder.Security.Brokers.Storage.Interfaces.ITenantAnalysisBroker.SelectAllTenantAnalyses()",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -18248,19 +18248,19 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService.GetAllTenantAnalysis()",
-          "Name": "GetAllTenantAnalysis",
+          "Id": "cCoder.Security.Services.Processings.TenantAnalysisProcessingService.GetAllTenantAnalyses()",
+          "Name": "GetAllTenantAnalyses",
           "LineNumber": 36,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E",
           "Implements": [
-            "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalysis()"
+            "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalyses()"
           ],
           "Calls": [
             {
               "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ITenantAnalysisService",
-              "MethodName": "GetAllTenantAnalysis",
-              "MethodId": "cCoder.Security.Services.Foundations.Interfaces.ITenantAnalysisService.GetAllTenantAnalysis()",
+              "MethodName": "GetAllTenantAnalyses",
+              "MethodId": "cCoder.Security.Services.Foundations.Interfaces.ITenantAnalysisService.GetAllTenantAnalyses()",
               "StandardElementType": "FoundationService",
               "IsDependencyBoundary": false
             }
@@ -21013,8 +21013,8 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Brokers.Storage.Interfaces.ITenantAnalysisBroker.SelectAllTenantAnalysis()",
-          "Name": "SelectAllTenantAnalysis",
+          "Id": "cCoder.Security.Brokers.Storage.Interfaces.ITenantAnalysisBroker.SelectAllTenantAnalyses()",
+          "Name": "SelectAllTenantAnalyses",
           "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E",
@@ -23411,8 +23411,8 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Services.Foundations.Interfaces.ITenantAnalysisService.GetAllTenantAnalysis()",
-          "Name": "GetAllTenantAnalysis",
+          "Id": "cCoder.Security.Services.Foundations.Interfaces.ITenantAnalysisService.GetAllTenantAnalyses()",
+          "Name": "GetAllTenantAnalyses",
           "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E",
@@ -24016,8 +24016,8 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalysis()",
-          "Name": "GetAllTenantAnalysis",
+          "Id": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService.GetAllTenantAnalyses()",
+          "Name": "GetAllTenantAnalyses",
           "LineNumber": 19,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Security.Models.Entities.TenantAnalysis\u003E",

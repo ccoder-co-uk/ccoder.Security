@@ -25,8 +25,8 @@ internal sealed class TenantAnalysisManager(
         tenantAnalysisProcessingService.DeleteTenantAnalysisAsync(
             item: deletedTenantAnalysis);
 
-    public IQueryable<TenantAnalysis> GetAllTenantAnalysis() =>
-        tenantAnalysisProcessingService.GetAllTenantAnalysis();
+    public IQueryable<TenantAnalysis> GetAllTenantAnalyses() =>
+        tenantAnalysisProcessingService.GetAllTenantAnalyses();
 
     public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(
         TenantAnalysis updatedTenantAnalysis) =>

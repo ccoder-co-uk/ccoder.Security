@@ -16,7 +16,7 @@ public interface ITenantAnalysisProcessingService
 
     ValueTask DeleteTenantAnalysisAsync(TenantAnalysis item);
 
-    IQueryable<TenantAnalysis> GetAllTenantAnalysis();
+    IQueryable<TenantAnalysis> GetAllTenantAnalyses();
 
     ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis item);
 }

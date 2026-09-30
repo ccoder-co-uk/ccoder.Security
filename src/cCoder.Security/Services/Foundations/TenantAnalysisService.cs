@@ -49,8 +49,8 @@ internal sealed partial class TenantAnalysisService(ITenantAnalysisBroker broker
             await broker.DeleteTenantAnalysisAsync(tenantAnalysis: deletedTenantAnalysis);
         });
 
-    public IQueryable<TenantAnalysis> GetAllTenantAnalysis() =>
-        TryCatch(operation: () => broker.SelectAllTenantAnalysis());
+    public IQueryable<TenantAnalysis> GetAllTenantAnalyses() =>
+        TryCatch(operation: () => broker.SelectAllTenantAnalyses());
 
     public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis) =>
         TryCatch<TenantAnalysis>(operation: async () =>
