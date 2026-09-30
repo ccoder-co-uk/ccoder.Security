@@ -24,7 +24,7 @@ public class TenantAnalysisController(ITenantAnalysisProcessingService tenantAna
     {
         try
         {
-            return Ok(value: tenantAnalysisProcessingService.GetAllTenantAnalysis());
+            return Ok(value: tenantAnalysisProcessingService.GetAllTenantAnalyses());
         }
         catch (SecurityProcessingValidationException)
         {
@@ -49,7 +49,7 @@ public class TenantAnalysisController(ITenantAnalysisProcessingService tenantAna
         try
         {
             IQueryable<TenantAnalysis> result = tenantAnalysisProcessingService
-                .GetAllTenantAnalysis()
+                .GetAllTenantAnalyses()
                 .Where(predicate: i => i.Id == key);
 
             TenantAnalysis tenantAnalysis = result.FirstOrDefault();

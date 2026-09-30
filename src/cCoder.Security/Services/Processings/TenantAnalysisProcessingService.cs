@@ -33,10 +33,10 @@ internal sealed partial class TenantAnalysisProcessingService(
                 tenant: deletedTenantAnalysis);
         });
 
-    public IQueryable<TenantAnalysis> GetAllTenantAnalysis() =>
+    public IQueryable<TenantAnalysis> GetAllTenantAnalyses() =>
         TryCatch(operation: () =>
         {
-            return tenantAnalysisService.GetAllTenantAnalysis();
+            return tenantAnalysisService.GetAllTenantAnalyses();
         });
 
     public ValueTask<TenantAnalysis> UpdateTenantAnalysisAsync(TenantAnalysis updatedTenantAnalysis) =>
