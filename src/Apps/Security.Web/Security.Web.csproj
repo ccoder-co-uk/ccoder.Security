@@ -8,7 +8,7 @@
 
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'Security' " />
 	<ItemGroup>
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.30.1047" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.10.8.1211" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.AspNetCore.OData" Version="9.5.0" />
 		<PackageReference Include="Microsoft.OpenApi" Version="3.10.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.2.3" />
