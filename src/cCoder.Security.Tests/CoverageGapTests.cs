@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using cCoder.Security.Exposures.EDM;
 using cCoder.Security.Exposures.HostedServices;
 using cCoder.Security.Brokers.Utility;
+using cCoder.Security.Brokers.Caching;
 using cCoder.Security.Models;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations;
@@ -154,6 +155,8 @@ public sealed partial class CoverageGapTests
             tokenService: tokenService.Object,
             tokenGenerationBroker: Mock.Of<ITokenGenerationBroker>(),
             passwordHashingBroker: Mock.Of<IPasswordHashingBroker>(),
+            tokenValidationCacheBroker:
+                Mock.Of<ITokenValidationCacheBroker>(),
             securityConfiguration: configuration);
 
         using ServiceProvider serviceProvider = new ServiceCollection()

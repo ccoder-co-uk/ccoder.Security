@@ -12,6 +12,7 @@ using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Services.Processings.Interfaces;
 using cCoder.Security.Models;
+using cCoder.Security.Brokers.Caching;
 
 namespace cCoder.Security.Services.Processings;
 
@@ -19,6 +20,7 @@ internal sealed partial class TokenProcessingService(
     ITokenService tokenService,
     ITokenGenerationBroker tokenGenerationBroker,
     IPasswordHashingBroker passwordHashingBroker,
+    ITokenValidationCacheBroker tokenValidationCacheBroker,
     SecurityConfiguration securityConfiguration = null)
     : ITokenProcessingService
 {
@@ -69,6 +71,7 @@ internal sealed partial class TokenProcessingService(
             if (token is not null)
             {
                 await tokenService.DeleteTokenAsync(item: token);
+                tokenValidationCacheBroker.Remove(tokenId: tokenId);
             }
         });
 
@@ -98,6 +101,8 @@ internal sealed partial class TokenProcessingService(
             {
                 await tokenService.DeleteTokenAsync(item: token);
             }
+
+            tokenValidationCacheBroker.Clear();
         });
 
     public Token GetTokenById(string tokenId) =>
@@ -205,6 +210,8 @@ internal sealed partial class TokenProcessingService(
             await tokenService.DeleteTokenAsync(item: existingToken);
         }
 
+        tokenValidationCacheBroker.Clear();
+
         return await tokenService.AddTokenAsync(
             userId: userId,
             tokenUse: tokenUse,
@@ -225,6 +232,13 @@ internal sealed partial class TokenProcessingService(
 
     private Token GetStoredToken(string tokenId)
     {
+        Token cachedToken = tokenValidationCacheBroker.Get(tokenId: tokenId);
+
+        if (cachedToken is not null)
+        {
+            return cachedToken;
+        }
+
         string[] tokenParts = tokenGenerationBroker.Split(token: tokenId);
         bool isModernToken = tokenParts.Length == 2;
         string selector = isModernToken ? tokenParts[0] : tokenId;
@@ -240,15 +254,28 @@ internal sealed partial class TokenProcessingService(
 
         if (!isModernToken)
         {
-            return string.IsNullOrEmpty(value: storedToken.SecretHash)
-                ? storedToken
-                : null;
+            if (!string.IsNullOrEmpty(value: storedToken.SecretHash))
+            {
+                return null;
+            }
+
+            tokenValidationCacheBroker.Set(
+                tokenId: tokenId,
+                token: storedToken);
+
+            return storedToken;
         }
 
         bool secretMatches = passwordHashingBroker.VerifyTokenSecret(
             secretHash: storedToken.SecretHash,
             providedSecret: tokenParts[1]);
 
-        return secretMatches ? storedToken : null;
+        if (!secretMatches)
+        {
+            return null;
+        }
+
+        tokenValidationCacheBroker.Set(tokenId: tokenId, token: storedToken);
+        return storedToken;
     }
 }
