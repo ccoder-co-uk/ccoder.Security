@@ -24,6 +24,7 @@ using cCoder.Security.Brokers.Encryption;
 using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Brokers.Encoding;
 using cCoder.Security.Brokers.Utility;
+using cCoder.Security.Brokers.Caching;
 using cCoder.Security.Dependencies.Encryption;
 using cCoder.Security.Data;
 using cCoder.Security.Data.Dependencies;
@@ -165,6 +166,7 @@ public static class IServiceCollectionExtensions
 
         services.AddEventing();
         services.AddEventingTypes();
+        services.AddMemoryCache();
         services.AddAspNet();
     }
 
@@ -194,6 +196,8 @@ public static class IServiceCollectionExtensions
         services.AddTransient<ITenantBroker, TenantBroker>();
         services.AddTransient<ITenantAnalysisBroker, TenantAnalysisBroker>();
         services.AddTransient<ITokenBroker, TokenBroker>();
+        services.AddSingleton<ITokenValidationCacheBroker,
+            TokenValidationCacheBroker>();
         services.AddTransient<IUserEventBroker, UserEventBroker>();
         services.AddTransient<ISerializationBroker, SerializationBroker>();
         services.AddTransient<ISecurityDateTimeOffsetBroker, SecurityDateTimeOffsetBroker>();

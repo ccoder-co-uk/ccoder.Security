@@ -52,6 +52,213 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 13,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        },
+        {
+          "Id": "cCoder.Security:cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker",
+          "FullName": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker",
+          "Name": "ITokenValidationCacheBroker",
+          "Namespace": "cCoder.Security.Brokers.Caching",
+          "AssemblyName": "cCoder.Security",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker.Clear()",
+          "Name": "Clear",
+          "LineNumber": 42,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Clear()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Threading.CancellationTokenSource",
+              "MethodName": ".ctor",
+              "MethodId": "System.Threading.CancellationTokenSource..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Threading.CancellationTokenSource",
+              "MethodName": "Cancel",
+              "MethodId": "System.Threading.CancellationTokenSource.Cancel()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Threading.Interlocked",
+              "MethodName": "Exchange",
+              "MethodId": "System.Threading.Interlocked.Exchange(T,T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker.Get(System.String)",
+          "Name": "Get",
+          "LineNumber": 19,
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Models.Entities.Token",
+          "Implements": [
+            "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Get(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.CacheExtensions",
+              "MethodName": "Get",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.CacheExtensions.Get(Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Object)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker.Remove(System.String)",
+          "Name": "Remove",
+          "LineNumber": 39,
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Remove(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.IMemoryCache",
+              "MethodName": "Remove",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.IMemoryCache.Remove(System.Object)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker.Set(System.String,cCoder.Security.Models.Entities.Token)",
+          "Name": "Set",
+          "LineNumber": 22,
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "token",
+              "Type": "cCoder.Security.Models.Entities.Token"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Set(System.String,cCoder.Security.Models.Entities.Token)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.CacheExtensions",
+              "MethodName": "Set",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.CacheExtensions.Set(Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Object,TItem,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.MemoryCacheEntryExtensions",
+              "MethodName": "AddExpirationToken",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.MemoryCacheEntryExtensions.AddExpirationToken(Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,Microsoft.Extensions.Primitives.IChangeToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions",
+              "MethodName": ".ctor",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Primitives.CancellationChangeToken",
+              "MethodName": ".ctor",
+              "MethodId": "Microsoft.Extensions.Primitives.CancellationChangeToken..ctor(System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Brokers.Configuration.SecurityConfigurationBroker",
       "StandardElementType": "Broker",
       "LineNumber": 9,
@@ -11576,7 +11783,7 @@
     {
       "Name": "cCoder.Security.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 53,
+      "LineNumber": 54,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -11586,7 +11793,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E)",
           "Name": "AddSecurityHostedServices",
-          "LineNumber": 89,
+          "LineNumber": 90,
           "Inputs": [
             {
               "Name": "services",
@@ -11637,7 +11844,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityConfiguration)",
           "Name": "AddSecurityHostedServices",
-          "LineNumber": 98,
+          "LineNumber": 99,
           "Inputs": [
             {
               "Name": "services",
@@ -11681,7 +11888,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityConfiguration\u003E,Microsoft.OData.ModelBuilder.ODataConventionModelBuilder)",
           "Name": "AddSecurityWeb",
-          "LineNumber": 55,
+          "LineNumber": 56,
           "Inputs": [
             {
               "Name": "services",
@@ -11736,7 +11943,7 @@
         {
           "Id": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityConfiguration,Microsoft.OData.ModelBuilder.ODataConventionModelBuilder)",
           "Name": "AddSecurityWeb",
-          "LineNumber": 67,
+          "LineNumber": 68,
           "Inputs": [
             {
               "Name": "services",
@@ -18559,7 +18766,7 @@
     {
       "Name": "cCoder.Security.Services.Processings.TokenProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 18,
+      "LineNumber": 19,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -18580,7 +18787,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.AddTokenForUserIdAsync(System.String,cCoder.Security.Models.Entities.TokenUse)",
           "Name": "AddTokenForUserIdAsync",
-          "LineNumber": 52,
+          "LineNumber": 54,
           "Inputs": [
             {
               "Name": "userId",
@@ -18634,7 +18841,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.DeleteTokenAsync(System.String)",
           "Name": "DeleteTokenAsync",
-          "LineNumber": 62,
+          "LineNumber": 64,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -18646,6 +18853,13 @@
             "cCoder.Security.Services.Processings.Interfaces.ITokenProcessingService.DeleteTokenAsync(System.String)"
           ],
           "Calls": [
+            {
+              "TypeName": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker",
+              "MethodName": "Remove",
+              "MethodId": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Remove(System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
             {
               "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ITokenService",
               "MethodName": "DeleteTokenAsync",
@@ -18684,7 +18898,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.DeleteTokensForUserAsync(System.String,cCoder.Security.Models.Entities.TokenUse)",
           "Name": "DeleteTokensForUserAsync",
-          "LineNumber": 83,
+          "LineNumber": 86,
           "Inputs": [
             {
               "Name": "userId",
@@ -18713,6 +18927,13 @@
               "MethodId": "System.Linq.Queryable.Where(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker",
+              "MethodName": "Clear",
+              "MethodId": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Clear()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ITokenService",
@@ -18759,7 +18980,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.ExecuteCleanupAsync(System.Threading.CancellationToken)",
           "Name": "ExecuteCleanupAsync",
-          "LineNumber": 25,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -18829,7 +19050,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateConfirmationToken(System.String)",
           "Name": "GenerateConfirmationToken",
-          "LineNumber": 115,
+          "LineNumber": 120,
           "Inputs": [
             {
               "Name": "userId",
@@ -18871,7 +19092,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateForgottenPasswordToken(System.String)",
           "Name": "GenerateForgottenPasswordToken",
-          "LineNumber": 140,
+          "LineNumber": 145,
           "Inputs": [
             {
               "Name": "userId",
@@ -18913,7 +19134,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GenerateInvitationToken(System.String)",
           "Name": "GenerateInvitationToken",
-          "LineNumber": 127,
+          "LineNumber": 132,
           "Inputs": [
             {
               "Name": "userId",
@@ -18955,7 +19176,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetAllTokens(System.Boolean)",
           "Name": "GetAllTokens",
-          "LineNumber": 75,
+          "LineNumber": 78,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -19004,7 +19225,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetConfirmationToken(System.String)",
           "Name": "GetConfirmationToken",
-          "LineNumber": 162,
+          "LineNumber": 167,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -19045,7 +19266,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetForgottenPasswordToken(System.String)",
           "Name": "GetForgottenPasswordToken",
-          "LineNumber": 152,
+          "LineNumber": 157,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -19086,7 +19307,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetInvitationToken(System.String)",
           "Name": "GetInvitationToken",
-          "LineNumber": 172,
+          "LineNumber": 177,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -19127,7 +19348,7 @@
         {
           "Id": "cCoder.Security.Services.Processings.TokenProcessingService.GetTokenById(System.String)",
           "Name": "GetTokenById",
-          "LineNumber": 103,
+          "LineNumber": 108,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -19454,6 +19675,117 @@
           "LineNumber": 11,
           "Inputs": [],
           "ReturnType": "System.String",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Clear()",
+          "Name": "Clear",
+          "LineNumber": 17,
+          "Inputs": [],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Get(System.String)",
+          "Name": "Get",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "cCoder.Security.Models.Entities.Token",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Remove(System.String)",
+          "Name": "Remove",
+          "LineNumber": 15,
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Brokers.Caching.ITokenValidationCacheBroker.Set(System.String,cCoder.Security.Models.Entities.Token)",
+          "Name": "Set",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "tokenId",
+              "Type": "System.String"
+            },
+            {
+              "Name": "token",
+              "Type": "cCoder.Security.Models.Entities.Token"
+            }
+          ],
+          "ReturnType": "System.Void",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -25402,6 +25734,10 @@
       "ToType": "cCoder.Security.Models.Configurations.ISSOAuthInfo"
     },
     {
+      "FromType": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker",
+      "ToType": "Microsoft.Extensions.Caching.Memory.IMemoryCache"
+    },
+    {
       "FromType": "cCoder.Security.Brokers.Configuration.SecurityConfigurationBroker",
       "ToType": "Microsoft.Extensions.Configuration.IConfiguration"
     },
@@ -25952,6 +26288,10 @@
     {
       "FromType": "cCoder.Security.Services.Processings.TenantProcessingService",
       "ToType": "cCoder.Security.Services.Foundations.TenantService"
+    },
+    {
+      "FromType": "cCoder.Security.Services.Processings.TokenProcessingService",
+      "ToType": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker"
     },
     {
       "FromType": "cCoder.Security.Services.Processings.TokenProcessingService",
