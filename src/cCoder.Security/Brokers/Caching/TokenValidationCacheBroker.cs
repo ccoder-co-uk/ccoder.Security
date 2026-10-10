@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading;
 using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Models.Entities;
@@ -23,7 +24,9 @@ internal sealed class TokenValidationCacheBroker(
     {
         MemoryCacheEntryOptions options = new()
         {
-            AbsoluteExpiration = token.Expires
+            AbsoluteExpiration = token.Expires,
+            AbsoluteExpirationRelativeToNow =
+                TimeSpan.FromSeconds(seconds: 30)
         };
 
         options.AddExpirationToken(
