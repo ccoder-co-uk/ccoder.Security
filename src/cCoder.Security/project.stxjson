@@ -54,7 +54,7 @@
     {
       "Name": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 13,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -85,7 +85,7 @@
         {
           "Id": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker.Clear()",
           "Name": "Clear",
-          "LineNumber": 42,
+          "LineNumber": 45,
           "Inputs": [],
           "ReturnType": "System.Void",
           "Implements": [
@@ -129,7 +129,7 @@
         {
           "Id": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 19,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -164,7 +164,7 @@
         {
           "Id": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker.Remove(System.String)",
           "Name": "Remove",
-          "LineNumber": 39,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -199,7 +199,7 @@
         {
           "Id": "cCoder.Security.Brokers.Caching.TokenValidationCacheBroker.Set(System.String,cCoder.Security.Models.Entities.Token)",
           "Name": "Set",
-          "LineNumber": 22,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "tokenId",
@@ -240,6 +240,13 @@
               "TypeName": "Microsoft.Extensions.Primitives.CancellationChangeToken",
               "MethodName": ".ctor",
               "MethodId": "Microsoft.Extensions.Primitives.CancellationChangeToken..ctor(System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.TimeSpan",
+              "MethodName": "FromSeconds",
+              "MethodId": "System.TimeSpan.FromSeconds(System.Int64)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
