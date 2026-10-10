@@ -1183,9 +1183,372 @@
       ]
     },
     {
+      "Name": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache",
+      "StandardElementType": "Dependency",
+      "LineNumber": 14,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Microsoft.Extensions.Caching.Abstractions:Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+          "FullName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+          "Name": "IDistributedCache",
+          "Namespace": "Microsoft.Extensions.Caching.Distributed",
+          "AssemblyName": "Microsoft.Extensions.Caching.Abstractions",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache.Get(System.String)",
+          "Name": "Get",
+          "LineNumber": 22,
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Byte[]",
+          "Implements": [
+            "Microsoft.Extensions.Caching.Distributed.IDistributedCache.Get(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+              "MethodName": "Get",
+              "MethodId": "Microsoft.Extensions.Caching.Distributed.IDistributedCache.Get(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache.GetAsync(System.String,System.Threading.CancellationToken)",
+          "Name": "GetAsync",
+          "LineNumber": 35,
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "token",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CSystem.Byte[]\u003E",
+          "Implements": [
+            "Microsoft.Extensions.Caching.Distributed.IDistributedCache.GetAsync(System.String,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+              "MethodName": "GetAsync",
+              "MethodId": "Microsoft.Extensions.Caching.Distributed.IDistributedCache.GetAsync(System.String,System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache.Refresh(System.String)",
+          "Name": "Refresh",
+          "LineNumber": 53,
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "Microsoft.Extensions.Caching.Distributed.IDistributedCache.Refresh(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+              "MethodName": "Refresh",
+              "MethodId": "Microsoft.Extensions.Caching.Distributed.IDistributedCache.Refresh(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.IMemoryCache",
+              "MethodName": "TryGetValue",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.IMemoryCache.TryGetValue(System.Object,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache.RefreshAsync(System.String,System.Threading.CancellationToken)",
+          "Name": "RefreshAsync",
+          "LineNumber": 61,
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "token",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task",
+          "Implements": [
+            "Microsoft.Extensions.Caching.Distributed.IDistributedCache.RefreshAsync(System.String,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+              "MethodName": "RefreshAsync",
+              "MethodId": "Microsoft.Extensions.Caching.Distributed.IDistributedCache.RefreshAsync(System.String,System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.IMemoryCache",
+              "MethodName": "TryGetValue",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.IMemoryCache.TryGetValue(System.Object,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache.Remove(System.String)",
+          "Name": "Remove",
+          "LineNumber": 70,
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "Microsoft.Extensions.Caching.Distributed.IDistributedCache.Remove(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+              "MethodName": "Remove",
+              "MethodId": "Microsoft.Extensions.Caching.Distributed.IDistributedCache.Remove(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.IMemoryCache",
+              "MethodName": "Remove",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.IMemoryCache.Remove(System.Object)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache.RemoveAsync(System.String,System.Threading.CancellationToken)",
+          "Name": "RemoveAsync",
+          "LineNumber": 76,
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "token",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task",
+          "Implements": [
+            "Microsoft.Extensions.Caching.Distributed.IDistributedCache.RemoveAsync(System.String,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+              "MethodName": "RemoveAsync",
+              "MethodId": "Microsoft.Extensions.Caching.Distributed.IDistributedCache.RemoveAsync(System.String,System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Memory.IMemoryCache",
+              "MethodName": "Remove",
+              "MethodId": "Microsoft.Extensions.Caching.Memory.IMemoryCache.Remove(System.Object)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache.Set(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)",
+          "Name": "Set",
+          "LineNumber": 87,
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "options",
+              "Type": "Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "Microsoft.Extensions.Caching.Distributed.IDistributedCache.Set(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+              "MethodName": "Set",
+              "MethodId": "Microsoft.Extensions.Caching.Distributed.IDistributedCache.Set(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache.SetAsync(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Threading.CancellationToken)",
+          "Name": "SetAsync",
+          "LineNumber": 100,
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.String"
+            },
+            {
+              "Name": "value",
+              "Type": "System.Byte[]"
+            },
+            {
+              "Name": "options",
+              "Type": "Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions"
+            },
+            {
+              "Name": "token",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task",
+          "Implements": [
+            "Microsoft.Extensions.Caching.Distributed.IDistributedCache.SetAsync(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+              "MethodName": "SetAsync",
+              "MethodId": "Microsoft.Extensions.Caching.Distributed.IDistributedCache.SetAsync(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Security.Data.EF.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 15,
+      "LineNumber": 18,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -1195,7 +1558,7 @@
         {
           "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Security.Models.SecurityDataConfiguration\u003E)",
           "Name": "AddSecurityData",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "services",
@@ -1239,7 +1602,7 @@
         {
           "Id": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityDataConfiguration)",
           "Name": "AddSecurityData",
-          "LineNumber": 26,
+          "LineNumber": 29,
           "Inputs": [
             {
               "Name": "services",
@@ -3035,6 +3398,14 @@
     {
       "FromType": "cCoder.Security.Data.Dependencies.AesCrypto\u003CT\u003E",
       "ToType": "System.String"
+    },
+    {
+      "FromType": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache",
+      "ToType": "Microsoft.Extensions.Caching.Distributed.IDistributedCache"
+    },
+    {
+      "FromType": "cCoder.Security.Data.Dependencies.Caching.LocallyCachedDistributedCache",
+      "ToType": "Microsoft.Extensions.Caching.Memory.IMemoryCache"
     },
     {
       "FromType": "cCoder.Security.Data.EF.SecurityDbContext",
