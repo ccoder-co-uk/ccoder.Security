@@ -4,14 +4,13 @@
 
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Security.AcceptanceTests.Clients;
 
 public class ODataCollection<TCollectionType>
 {
-    [JsonProperty("@odata.context")]
+    [JsonPropertyName("@odata.context")]
     public string ODataContext { get; set; }
 
     public IEnumerable<TCollectionType> Value { get; set; }
