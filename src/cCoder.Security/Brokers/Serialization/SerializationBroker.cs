@@ -2,28 +2,22 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json;
 
 namespace cCoder.Security.Brokers.Serialization;
 
 internal class SerializationBroker : ISerializationBroker
 {
-    public static readonly JsonSerializerSettings ODataJsonSettings = new()
+    private static readonly JsonSerializerOptions jsonSerializerOptions = new()
     {
-        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-        TypeNameHandling = TypeNameHandling.None,
-        Formatting = Formatting.None,
-        DateFormatHandling = DateFormatHandling.IsoDateFormat,
-        NullValueHandling = NullValueHandling.Ignore,
-        DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-        ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = true },
-        MaxDepth = 4
+        PropertyNameCaseInsensitive = true
     };
 
     public T Deserialize<T>(string input) =>
-        JsonConvert.DeserializeObject<T>(value: input);
+        JsonSerializer.Deserialize<T>(
+            json: input,
+            options: jsonSerializerOptions);
 
     public string Serialize(object input) =>
-        System.Text.Json.JsonSerializer.Serialize(value: input);
+        JsonSerializer.Serialize(value: input);
 }

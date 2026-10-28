@@ -1176,7 +1176,7 @@
     {
       "Name": "cCoder.Security.Brokers.Serialization.SerializationBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1197,7 +1197,7 @@
         {
           "Id": "cCoder.Security.Brokers.Serialization.SerializationBroker.Deserialize(System.String)",
           "Name": "Deserialize",
-          "LineNumber": 24,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "input",
@@ -1210,9 +1210,9 @@
           ],
           "Calls": [
             {
-              "TypeName": "Newtonsoft.Json.JsonConvert",
-              "MethodName": "DeserializeObject",
-              "MethodId": "Newtonsoft.Json.JsonConvert.DeserializeObject(System.String)",
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Deserialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Text.Json.JsonSerializerOptions?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
@@ -1232,7 +1232,7 @@
         {
           "Id": "cCoder.Security.Brokers.Serialization.SerializationBroker.Serialize(System.Object)",
           "Name": "Serialize",
-          "LineNumber": 27,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "input",
@@ -4273,7 +4273,7 @@
           ],
           "ReturnType": "System.Boolean",
           "Implements": [
-            "Microsoft.AspNetCore.Http.ISession.TryGetValue(System.String,System.Byte[]?)"
+            "Microsoft.AspNetCore.Http.ISession.TryGetValue(System.String,System.Byte[])"
           ],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -19625,9 +19625,9 @@
           "Implements": [],
           "Calls": [
             {
-              "TypeName": "Microsoft.AspNetCore.Builder.UseExtensions",
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
               "MethodName": "Use",
-              "MethodId": "Microsoft.AspNetCore.Builder.UseExtensions.Use(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Func\u003CMicrosoft.AspNetCore.Http.HttpContext, Microsoft.AspNetCore.Http.RequestDelegate, System.Threading.Tasks.Task\u003E)",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.Use(System.Func\u003CMicrosoft.AspNetCore.Http.RequestDelegate, Microsoft.AspNetCore.Http.RequestDelegate\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },

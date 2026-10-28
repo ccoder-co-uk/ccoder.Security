@@ -9,30 +9,26 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using cCoder.Security.Models.Entities;
 using Security.AcceptanceTests.Tests.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Security.AcceptanceTests.Clients;
 
 public static class Extensions
 {
-    public static JsonSerializerSettings GetJsonSettings() =>
+    public static JsonSerializerOptions GetJsonSettings() =>
         new()
         {
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-            TypeNameHandling = TypeNameHandling.None,
-            Formatting = Formatting.None,
-            DateFormatHandling = DateFormatHandling.IsoDateFormat,
-            NullValueHandling = NullValueHandling.Ignore,
-            DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-            ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = true },
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            PropertyNameCaseInsensitive = true,
             MaxDepth = 4
         };
 
     public static string ToJson(this object o) =>
-        JsonConvert.SerializeObject(value: o, formatting: Formatting.None, settings: GetJsonSettings());
+        JsonSerializer.Serialize(value: o, options: GetJsonSettings());
 
     public static async Task<Token> Authenticate(this HttpClient client, string user, string pass)
     {
@@ -78,26 +74,26 @@ public static class Extensions
         HttpResponseMessage result = await client.GetAsync(requestUri: query);
         _ = result.EnsureSuccessStatusCode();
 
-        return JsonConvert.DeserializeObject<ODataCollection<SSOUser>>(
-            value: await result.Content.ReadAsStringAsync(),
-            settings: GetJsonSettings());
+        return JsonSerializer.Deserialize<ODataCollection<SSOUser>>(
+            json: await result.Content.ReadAsStringAsync(),
+            options: GetJsonSettings());
     }
 
     public static async Task<Token> ReadTokenAsync(
         this HttpContent content) =>
-        JsonConvert.DeserializeObject<Token>(
-            value: await content.ReadAsStringAsync(),
-            settings: GetJsonSettings());
+        JsonSerializer.Deserialize<Token>(
+            json: await content.ReadAsStringAsync(),
+            options: GetJsonSettings());
 
     public static async Task<SSOUser> ReadSSOUserAsync(
         this HttpContent content) =>
-        JsonConvert.DeserializeObject<SSOUser>(
-            value: await content.ReadAsStringAsync(),
-            settings: GetJsonSettings());
+        JsonSerializer.Deserialize<SSOUser>(
+            json: await content.ReadAsStringAsync(),
+            options: GetJsonSettings());
 
     public static async Task<RegistrationResult> ReadRegistrationResultAsync(
         this HttpContent content) =>
-        JsonConvert.DeserializeObject<RegistrationResult>(
-            value: await content.ReadAsStringAsync(),
-            settings: GetJsonSettings());
+        JsonSerializer.Deserialize<RegistrationResult>(
+            json: await content.ReadAsStringAsync(),
+            options: GetJsonSettings());
 }
