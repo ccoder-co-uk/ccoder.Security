@@ -5,6 +5,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Exposures.Controllers;
 using cCoder.Security.Exposures;
 using cCoder.Security.Models.Entities;
@@ -56,16 +57,20 @@ public sealed partial class ExposureSuccessCoverageTests
             .Returns(value: new[] { userRole }.AsQueryable());
 
         SSORoleController roleController = new(
-            roleOrchestrationService: roles.Object);
+            roleOrchestrationService: roles.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         SSOUserController userController = new(
-            ssoUserAggregationService: users.Object);
+            ssoUserAggregationService: users.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         TenantController tenantController = new(
-            tenantAggregationService: tenants.Object);
+            tenantAggregationService: tenants.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         SSOUserRoleController userRoleController = new(
-            userRoleOrchestrationService: userRoles.Object);
+            userRoleOrchestrationService: userRoles.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
 
