@@ -29,6 +29,10 @@ internal sealed partial class SSOAuthInfoAggregationService
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityAggregationServiceException(innerException: innerException);

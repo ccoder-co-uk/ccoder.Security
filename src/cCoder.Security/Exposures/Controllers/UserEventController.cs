@@ -13,9 +13,12 @@ using cCoder.Security.Services.Processings.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
+using cCoder.Security.Brokers.Logging;
+
 namespace cCoder.Security.Exposures.Controllers;
 
-public class UserEventController(IUserEventProcessingService userEventProcessingService)
+public class UserEventController(IUserEventProcessingService userEventProcessingService,
+    ILoggingBroker loggingBroker)
     : Controller
 {
     [HttpGet()]
@@ -26,16 +29,32 @@ public class UserEventController(IUserEventProcessingService userEventProcessing
         {
             return Ok(value: userEventProcessingService.GetAllUserEvents());
         }
-        catch (SecurityProcessingValidationException)
+        catch (SecurityProcessingValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The user event request is invalid.");
         }
-        catch (SecurityProcessingDependencyException)
+        catch (SecurityProcessingDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -58,16 +77,32 @@ public class UserEventController(IUserEventProcessingService userEventProcessing
                 ? NotFound()
                 : Ok(value: userEvent);
         }
-        catch (SecurityProcessingValidationException)
+        catch (SecurityProcessingValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The user event request is invalid.");
         }
-        catch (SecurityProcessingDependencyException)
+        catch (SecurityProcessingDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");

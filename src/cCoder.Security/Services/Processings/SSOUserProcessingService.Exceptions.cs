@@ -29,6 +29,10 @@ internal sealed partial class SSOUserProcessingService
         {
             throw new SecurityProcessingDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityProcessingValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityProcessingServiceException(innerException: innerException);
@@ -52,6 +56,10 @@ internal sealed partial class SSOUserProcessingService
         catch (SecurityDependencyException innerException)
         {
             throw new SecurityProcessingDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityProcessingValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {
@@ -77,6 +85,10 @@ internal sealed partial class SSOUserProcessingService
         {
             throw new SecurityProcessingDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityProcessingValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityProcessingServiceException(innerException: innerException);
@@ -100,6 +112,10 @@ internal sealed partial class SSOUserProcessingService
         catch (SecurityDependencyException innerException)
         {
             throw new SecurityProcessingDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityProcessingValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {

@@ -34,6 +34,10 @@ internal sealed partial class RegistrationAggregationService
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityAggregationServiceException(innerException: innerException);
@@ -62,6 +66,10 @@ internal sealed partial class RegistrationAggregationService
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityAggregationServiceException(innerException: innerException);
@@ -89,6 +97,10 @@ internal sealed partial class RegistrationAggregationService
         catch (SecurityProcessingDependencyException innerException)
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {

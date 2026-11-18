@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 using cCoder.CodeAnalysis.Exposures;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Exceptions;
@@ -17,7 +18,8 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Setup")]
 public sealed class SetupController(
-    IRegistrationAggregationService registrationAggregationService)
+    IRegistrationAggregationService registrationAggregationService,
+    ILoggingBroker loggingBroker)
     : Controller, ICompositionExposure
 {
     [HttpPost]
@@ -49,18 +51,28 @@ public sealed class SetupController(
 
             return Ok();
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The setup request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status503ServiceUnavailable,
                 value: "The security service is unavailable.");
         }
-        catch (SecurityAggregationServiceException)
+        catch (SecurityAggregationServiceException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");

@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.Controllers;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
@@ -51,7 +52,7 @@ public sealed partial class ControllerHttpComplianceTests
     [Theory]
     [InlineData("authentication", StatusCodes.Status401Unauthorized)]
     [InlineData("validation", StatusCodes.Status400BadRequest)]
-    [InlineData("security", StatusCodes.Status401Unauthorized)]
+    [InlineData("security", StatusCodes.Status403Forbidden)]
     [InlineData("dependency", StatusCodes.Status503ServiceUnavailable)]
     [InlineData("unexpected", StatusCodes.Status500InternalServerError)]
     public async Task PostChangePassword_WhenServiceFails_ShouldReturnSafeStatus(
@@ -68,10 +69,7 @@ public sealed partial class ControllerHttpComplianceTests
                 innerException: new SecurityException()),
             "validation" => new SecurityAggregationValidationException(
                 innerException: new ArgumentException()),
-            "security" => new SecurityAggregationServiceException(
-                innerException: new Exception(
-                    message: "wrapped",
-                    innerException: new SecurityException())),
+            "security" => new SecurityException(message: "access denied"),
             "dependency" => new SecurityAggregationDependencyException(
                 innerException: new InvalidOperationException()),
             _ => new InvalidOperationException()
@@ -91,6 +89,7 @@ public sealed partial class ControllerHttpComplianceTests
         int actualStatus = result switch
         {
             ChallengeResult => StatusCodes.Status401Unauthorized,
+            StatusCodeResult statusCodeResult => statusCodeResult.StatusCode,
             ObjectResult objectResult => objectResult.StatusCode!.Value,
             _ => throw new InvalidOperationException(
                 message: $"Unexpected result type {result.GetType().Name}.")
@@ -108,7 +107,8 @@ public sealed partial class ControllerHttpComplianceTests
         Mock<IAuthenticationManager> authenticationManager = new();
 
         AuthenticationController controller = new(
-            authenticationAggregationService: authenticationManager.Object);
+            authenticationAggregationService: authenticationManager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         controller.ControllerContext.HttpContext = new DefaultHttpContext
         {

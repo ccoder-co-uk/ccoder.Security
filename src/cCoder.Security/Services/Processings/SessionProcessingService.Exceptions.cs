@@ -28,6 +28,10 @@ internal sealed partial class SessionProcessingService
         {
             throw new SecurityProcessingDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityProcessingValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityProcessingServiceException(innerException: innerException);
@@ -51,6 +55,10 @@ internal sealed partial class SessionProcessingService
         catch (SecurityDependencyException innerException)
         {
             throw new SecurityProcessingDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityProcessingValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {

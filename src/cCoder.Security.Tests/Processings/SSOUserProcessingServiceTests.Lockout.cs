@@ -55,8 +55,8 @@ public partial class SSOUserProcessingServiceTests
             .Returns(value: currentTime);
 
         // When
-        SecurityProcessingServiceException exception =
-            await Assert.ThrowsAsync<SecurityProcessingServiceException>(
+        SecurityProcessingValidationException exception =
+            await Assert.ThrowsAsync<SecurityProcessingValidationException>(
                 testCode: async () =>
                     await ssoUserProcessingService.FindByUserAndPasswordAsync(
                         username: user.Id,

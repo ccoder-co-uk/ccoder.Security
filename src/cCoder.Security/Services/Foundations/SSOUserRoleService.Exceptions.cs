@@ -26,6 +26,10 @@ internal sealed partial class SSOUserRoleService
         {
             throw new SecurityDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityServiceException(innerException: innerException);
@@ -46,6 +50,10 @@ internal sealed partial class SSOUserRoleService
         {
             throw new SecurityDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityServiceException(innerException: innerException);
@@ -65,6 +73,10 @@ internal sealed partial class SSOUserRoleService
         catch (InvalidOperationException innerException)
         {
             throw new SecurityDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {

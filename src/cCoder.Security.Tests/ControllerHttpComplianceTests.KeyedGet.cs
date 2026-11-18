@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.Controllers;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Orchestrations.Interfaces;
@@ -31,7 +32,8 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: new[] { expectedSSOPrivilege }.AsQueryable());
 
         SSOPrivilegeController controller = new(
-            privilegeProcessingService: manager.Object);
+            privilegeProcessingService: manager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = controller.Get(key: expectedSSOPrivilege.Id);
@@ -56,7 +58,8 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: new[] { expectedSSORole }.AsQueryable());
 
         SSORoleController controller = new(
-            roleOrchestrationService: manager.Object);
+            roleOrchestrationService: manager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = controller.Get(key: expectedSSORole.Id);
@@ -81,7 +84,8 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: new[] { expectedSSOUser }.AsQueryable());
 
         SSOUserController controller = new(
-            ssoUserAggregationService: manager.Object);
+            ssoUserAggregationService: manager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = controller.Get(key: expectedSSOUser.Id);
@@ -106,7 +110,8 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: new[] { expectedTenantAnalysis }.AsQueryable());
 
         TenantAnalysisController controller = new(
-            tenantAnalysisProcessingService: manager.Object);
+            tenantAnalysisProcessingService: manager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = controller.Get(key: expectedTenantAnalysis.Id);
@@ -131,7 +136,8 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: new[] { expectedTenant }.AsQueryable());
 
         TenantController controller = new(
-            tenantAggregationService: manager.Object);
+            tenantAggregationService: manager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = controller.Get(key: expectedTenant.Id);
@@ -156,7 +162,8 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: new[] { expectedUserEvent }.AsQueryable());
 
         UserEventController controller = new(
-            userEventProcessingService: manager.Object);
+            userEventProcessingService: manager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = controller.Get(key: expectedUserEvent.Id);

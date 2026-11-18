@@ -20,7 +20,7 @@ public partial class AuthenticationAggregationServiceTests
 
         // When
         // Then
-        await Assert.ThrowsAsync<SecurityAggregationServiceException>(
+        await Assert.ThrowsAsync<SecurityAggregationAuthenticationException>(
             testCode: async () =>
                 await authenticationAggregationService.LoginAsync(
                     username: username,

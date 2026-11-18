@@ -48,7 +48,7 @@ internal sealed partial class AuthenticationAggregationService(
             return await LoginCoreAsync(
                 username: username,
                 password: password);
-        });
+        }, authenticationFailure: true);
 
     public ValueTask LogoutAsync() =>
         TryCatch(operation: async () =>
@@ -71,7 +71,7 @@ internal sealed partial class AuthenticationAggregationService(
                 username: username,
                 oldPassword: oldPassword,
                 newPassword: newPassword);
-        });
+        }, authenticationFailure: true);
 
     public ValueTask ChangeCurrentUserPasswordAsync(
         string oldPassword,
@@ -89,7 +89,7 @@ internal sealed partial class AuthenticationAggregationService(
                 username: currentUser.Id,
                 oldPassword: oldPassword,
                 newPassword: newPassword);
-        });
+        }, authenticationFailure: true);
 
     public ValueTask<Token> ForgotPasswordAsync(string email) =>
         TryCatch<Token>(operation: async () =>

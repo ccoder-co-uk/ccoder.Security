@@ -29,6 +29,10 @@ internal sealed partial class AuthenticationAggregationService
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityAggregationServiceException(innerException: innerException);
@@ -52,6 +56,74 @@ internal sealed partial class AuthenticationAggregationService
         catch (SecurityProcessingDependencyException innerException)
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
+        catch (Exception innerException)
+        {
+            throw new SecurityAggregationServiceException(innerException: innerException);
+        }
+    }
+
+    private static async ValueTask TryCatch(
+        Func<ValueTask> operation,
+        bool authenticationFailure)
+    {
+        try
+        {
+            await operation();
+        }
+        catch (ArgumentException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
+        catch (SecurityProcessingValidationException innerException)
+        {
+            throw new SecurityAggregationAuthenticationException(
+                innerException: innerException);
+        }
+        catch (SecurityProcessingDependencyException innerException)
+        {
+            throw new SecurityAggregationDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationAuthenticationException(
+                innerException: innerException);
+        }
+        catch (Exception innerException)
+        {
+            throw new SecurityAggregationServiceException(innerException: innerException);
+        }
+    }
+
+    private static async ValueTask<T> TryCatch<T>(
+        Func<ValueTask<T>> operation,
+        bool authenticationFailure)
+    {
+        try
+        {
+            return await operation();
+        }
+        catch (ArgumentException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
+        catch (SecurityProcessingValidationException innerException)
+        {
+            throw new SecurityAggregationAuthenticationException(
+                innerException: innerException);
+        }
+        catch (SecurityProcessingDependencyException innerException)
+        {
+            throw new SecurityAggregationDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationAuthenticationException(
+                innerException: innerException);
         }
         catch (Exception innerException)
         {
