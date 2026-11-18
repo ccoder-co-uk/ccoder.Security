@@ -34,6 +34,12 @@ public class CurrentUserController(
 
             return Challenge();
         }
+        catch (SecurityAggregationValidationException exception)
+        {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return BadRequest(error: "The current-user request is invalid.");
+        }
         catch (SecurityAggregationDependencyException exception)
         {
             loggingBroker.LogError(

@@ -52,6 +52,12 @@ public class ForgotPasswordController(
                 statusCode: StatusCodes.Status503ServiceUnavailable,
                 value: "The security service is unavailable.");
         }
+        catch (System.Security.SecurityException exception)
+        {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
         catch (Exception exception)
         {
             loggingBroker.LogError(

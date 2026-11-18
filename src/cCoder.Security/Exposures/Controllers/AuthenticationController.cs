@@ -85,6 +85,12 @@ public class AuthenticationController(
 
             return Ok();
         }
+        catch (SecurityAggregationAuthenticationException exception)
+        {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return Challenge();
+        }
         catch (SecurityAggregationValidationException exception)
         {
             loggingBroker.LogWarning(message: exception.Message);

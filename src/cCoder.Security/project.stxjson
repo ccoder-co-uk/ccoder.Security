@@ -4836,7 +4836,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostChangePassword(cCoder.Security.Models.DTOs.ChangePasswordRequest)",
           "Name": "PostChangePassword",
-          "LineNumber": 123,
+          "LineNumber": 129,
           "Inputs": [
             {
               "Name": "newChangePasswordRequest",
@@ -5229,6 +5229,13 @@
             },
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Challenge",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Challenge()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "Ok",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Ok()",
               "StandardElementType": "Dependency",
@@ -5308,6 +5315,16 @@
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Challenge",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": true
             },
@@ -5582,6 +5599,13 @@
           "Calls": [
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "BadRequest",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "Challenge",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Challenge()",
               "StandardElementType": "Dependency",
@@ -5664,6 +5688,16 @@
               "LogsException": false
             },
             {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
               "StatusCode": 401,
               "ResultMethod": "Challenge",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
@@ -5714,7 +5748,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.CurrentUserController.PutMe(cCoder.Security.Models.Entities.SSOUser)",
           "Name": "PutMe",
-          "LineNumber": 66,
+          "LineNumber": 72,
           "Inputs": [
             {
               "Name": "updatedSSOUser",
@@ -5962,6 +5996,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -6036,6 +6077,16 @@
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": true
             },
@@ -9237,6 +9288,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -9325,9 +9383,29 @@
               "LogsException": true
             },
             {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
               "StatusCode": 500,
               "ResultMethod": "StatusCode",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
+              "StatusCode": 500,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Exception",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,

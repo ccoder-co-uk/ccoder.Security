@@ -77,5 +77,21 @@ public sealed class SetupController(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
         }
+        catch (System.Security.SecurityException exception)
+        {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError,
+                value: "The security operation failed.");
+        }
     }
 }
