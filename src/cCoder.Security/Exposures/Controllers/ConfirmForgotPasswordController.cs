@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 using cCoder.CodeAnalysis.Exposures;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
@@ -17,7 +18,8 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class ConfirmForgotPasswordController(
-    IAuthenticationAggregationService authenticationAggregationService)
+    IAuthenticationAggregationService authenticationAggregationService,
+    ILoggingBroker loggingBroker)
         : Controller, ICompositionExposure
 {
     [HttpPost("ConfirmForgotPassword")]
@@ -39,29 +41,35 @@ public class ConfirmForgotPasswordController(
 
             return Ok();
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The password reset request is invalid.");
         }
-        catch (SecurityAggregationServiceException exception)
-            when (ContainsSecurityException(exception: exception))
+        catch (SecurityAggregationDependencyException exception)
         {
-            return BadRequest(error: "The password reset request is invalid.");
-        }
-        catch (SecurityAggregationDependencyException)
-        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
         }
     }
-
-    private static bool ContainsSecurityException(Exception exception) =>
-        exception is SecurityException
-        || exception.InnerException is not null
-            && ContainsSecurityException(exception: exception.InnerException);
 }

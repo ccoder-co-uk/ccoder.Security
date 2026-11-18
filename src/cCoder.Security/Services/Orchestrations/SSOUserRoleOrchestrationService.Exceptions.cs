@@ -29,6 +29,10 @@ internal sealed partial class SSOUserRoleOrchestrationService
         {
             throw new SecurityOrchestrationDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityOrchestrationValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityOrchestrationServiceException(innerException: innerException);
@@ -53,6 +57,10 @@ internal sealed partial class SSOUserRoleOrchestrationService
         {
             throw new SecurityOrchestrationDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityOrchestrationValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityOrchestrationServiceException(innerException: innerException);
@@ -76,6 +84,10 @@ internal sealed partial class SSOUserRoleOrchestrationService
         catch (SecurityProcessingDependencyException innerException)
         {
             throw new SecurityOrchestrationDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityOrchestrationValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {

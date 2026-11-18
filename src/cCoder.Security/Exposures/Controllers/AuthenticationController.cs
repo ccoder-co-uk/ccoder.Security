@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 using cCoder.CodeAnalysis.Exposures;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
@@ -17,7 +18,8 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class AuthenticationController(
-    IAuthenticationAggregationService authenticationAggregationService)
+    IAuthenticationAggregationService authenticationAggregationService,
+    ILoggingBroker loggingBroker)
         : Controller, ICompositionExposure
 {
     [HttpPost("Login")]
@@ -34,27 +36,40 @@ public class AuthenticationController(
                 username: newAuth.User,
                 password: newAuth.Pass));
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationAuthenticationException exception)
         {
-            return StatusCode(
-                statusCode: StatusCodes.Status401Unauthorized,
-                value: "The supplied credentials are invalid.");
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return Challenge();
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return BadRequest(error: "The login request is invalid.");
+        }
+        catch (SecurityAggregationDependencyException exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status503ServiceUnavailable,
                 value: "The security service is unavailable.");
         }
-        catch (SecurityAggregationServiceException exception)
-            when (ContainsSecurityException(exception: exception))
+        catch (System.Security.SecurityException exception)
         {
-            return StatusCode(
-                statusCode: StatusCodes.Status401Unauthorized,
-                value: "The supplied credentials are invalid.");
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
-        catch (Exception)
+        catch (Exception exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -70,18 +85,40 @@ public class AuthenticationController(
 
             return Ok();
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationAuthenticationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return Challenge();
+        }
+        catch (SecurityAggregationValidationException exception)
+        {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The logout request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status503ServiceUnavailable,
                 value: "The security service is unavailable.");
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -118,37 +155,44 @@ public class AuthenticationController(
 
             return Ok();
         }
-        catch (SecurityAggregationAuthenticationException)
+        catch (SecurityAggregationAuthenticationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return Challenge();
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The password change is invalid.");
         }
-        catch (SecurityAggregationServiceException exception)
-            when (ContainsSecurityException(exception: exception))
+        catch (SecurityAggregationDependencyException exception)
         {
-            return StatusCode(
-                statusCode: StatusCodes.Status401Unauthorized,
-                value: "The supplied credentials are invalid.");
-        }
-        catch (SecurityAggregationDependencyException)
-        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status503ServiceUnavailable,
                 value: "The security service is unavailable.");
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
         }
     }
 
-    private static bool ContainsSecurityException(Exception exception) =>
-        exception is SecurityException
-        || exception.InnerException is not null
-            && ContainsSecurityException(exception: exception.InnerException);
 }

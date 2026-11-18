@@ -34,6 +34,10 @@ internal sealed partial class SSOUserAggregationService
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityAggregationServiceException(innerException: innerException);
@@ -57,6 +61,10 @@ internal sealed partial class SSOUserAggregationService
         catch (SecurityProcessingDependencyException innerException)
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {
@@ -86,6 +94,10 @@ internal sealed partial class SSOUserAggregationService
         catch (SecurityProcessingDependencyException innerException)
         {
             throw new SecurityAggregationDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityAggregationValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {

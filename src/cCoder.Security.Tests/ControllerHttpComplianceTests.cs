@@ -5,6 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using cCoder.Security.Data.Models;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Exposures;
 using cCoder.Security.Exposures.Controllers;
 using cCoder.Security.Models.DTOs;
@@ -34,30 +35,22 @@ public sealed partial class ControllerHttpComplianceTests
                 username: It.IsAny<string>(),
                 password: It.IsAny<string>()))
             .Returns(value: ValueTask.FromException<Token>(
-                exception: new SecurityAggregationValidationException(
+                exception: new SecurityAggregationAuthenticationException(
                     innerException: new Exception(message: "sensitive"))));
 
         AuthenticationController controller =
             new(
-                authenticationAggregationService: authenticationManager.Object);
+                authenticationAggregationService: authenticationManager.Object,
+                loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = await controller.PostLogin(
             newAuth: new Auth { User = "user", Pass = "wrong" });
 
         // Then
-        ObjectResult response = result
+        result
             .Should()
-            .BeOfType<ObjectResult>()
-            .Subject;
-
-        response.StatusCode
-            .Should()
-            .Be(expected: StatusCodes.Status401Unauthorized);
-
-        response.Value.ToString()
-            .Should()
-            .NotContain(unexpected: "sensitive");
+            .BeOfType<ChallengeResult>();
     }
 
     [Fact]
@@ -74,7 +67,8 @@ public sealed partial class ControllerHttpComplianceTests
                     innerException: new Exception(message: "sensitive"))));
 
         SetupController controller = new(
-            registrationAggregationService: registrationAggregationService.Object);
+            registrationAggregationService: registrationAggregationService.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = await controller.PostSetup(
@@ -108,7 +102,9 @@ public sealed partial class ControllerHttpComplianceTests
             .ReturnsAsync(value: tenant);
 
         TenantController controller =
-            new(tenantAggregationService: tenantManager.Object);
+            new(
+                tenantAggregationService: tenantManager.Object,
+                loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = await controller.Post(newTenant: tenant);
@@ -129,13 +125,88 @@ public sealed partial class ControllerHttpComplianceTests
     }
 
     [Fact]
+    public async Task PostTenant_WhenUnexpectedFailureOccurs_ShouldLogException()
+    {
+        // Given
+        Tenant tenant = new();
+        Exception exception = new(message: "tenant persistence failed");
+        Mock<ITenantAdministrationManager> tenantManager = new();
+        Mock<ILoggingBroker> loggingBroker = new();
+
+        tenantManager
+            .Setup(expression: manager => manager.AddTenantAsync(item: tenant))
+            .Returns(value: ValueTask.FromException<Tenant>(exception: exception));
+
+        TenantController controller = new(
+            tenantAggregationService: tenantManager.Object,
+            loggingBroker: loggingBroker.Object);
+
+        // When
+        IActionResult result = await controller.Post(newTenant: tenant);
+
+        // Then
+        ObjectResult response = result
+            .Should()
+            .BeOfType<ObjectResult>()
+            .Subject;
+
+        response.StatusCode
+            .Should()
+            .Be(expected: StatusCodes.Status500InternalServerError);
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogError(
+                exception: exception,
+                message: "Controller request failed."),
+            times: Times.Once);
+    }
+
+    [Fact]
+    public async Task PostTenant_WhenSecurityFailureOccurs_ShouldWarnAndReturnForbidden()
+    {
+        // Given
+        Tenant tenant = new();
+        SecurityException exception = new(message: "access denied");
+        Mock<ITenantAdministrationManager> tenantManager = new();
+        Mock<ILoggingBroker> loggingBroker = new();
+
+        tenantManager
+            .Setup(expression: manager => manager.AddTenantAsync(item: tenant))
+            .Returns(value: ValueTask.FromException<Tenant>(exception: exception));
+
+        TenantController controller = new(
+            tenantAggregationService: tenantManager.Object,
+            loggingBroker: loggingBroker.Object);
+
+        // When
+        IActionResult result = await controller.Post(newTenant: tenant);
+
+        // Then
+        StatusCodeResult response = result
+            .Should()
+            .BeOfType<StatusCodeResult>()
+            .Subject;
+
+        response.StatusCode
+            .Should()
+            .Be(expected: StatusCodes.Status403Forbidden);
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogWarning(
+                message: exception.Message,
+                args: It.IsAny<object[]>()),
+            times: Times.Once);
+    }
+
+    [Fact]
     public async Task PostChangePasswordUsesAuthenticationServiceCurrentUser()
     {
         // Given
         Mock<IAuthenticationManager> authenticationManager = new();
 
         AuthenticationController controller = new(
-            authenticationAggregationService: authenticationManager.Object);
+            authenticationAggregationService: authenticationManager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         controller.ControllerContext.HttpContext = new DefaultHttpContext
         {
@@ -176,7 +247,8 @@ public sealed partial class ControllerHttpComplianceTests
         Mock<IAuthenticationManager> authenticationManager = new();
 
         AuthenticationController controller = new(
-            authenticationAggregationService: authenticationManager.Object);
+            authenticationAggregationService: authenticationManager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         controller.ControllerContext.HttpContext = new DefaultHttpContext();
 
@@ -210,7 +282,8 @@ public sealed partial class ControllerHttpComplianceTests
         Mock<IAuthenticationManager> authenticationManager = new();
 
         ForgotPasswordController controller = new(
-            authenticationAggregationService: authenticationManager.Object);
+            authenticationAggregationService: authenticationManager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         ForgotPasswordRequest request = new()
         {
@@ -240,7 +313,8 @@ public sealed partial class ControllerHttpComplianceTests
         Mock<IAuthenticationManager> authenticationManager = new();
 
         ConfirmForgotPasswordController controller = new(
-            authenticationAggregationService: authenticationManager.Object);
+            authenticationAggregationService: authenticationManager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         ConfirmForgotPasswordRequest request = new()
         {
@@ -282,11 +356,12 @@ public sealed partial class ControllerHttpComplianceTests
                 newPassword: "new-password",
                 confirmNewPassword: "new-password"))
             .Returns(value: ValueTask.FromException(
-                exception: new SecurityAggregationServiceException(
+                exception: new SecurityAggregationValidationException(
                     innerException: new SecurityException())));
 
         ConfirmForgotPasswordController controller = new(
-            authenticationAggregationService: authenticationManager.Object);
+            authenticationAggregationService: authenticationManager.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         ConfirmForgotPasswordRequest request = new()
         {
@@ -325,7 +400,8 @@ public sealed partial class ControllerHttpComplianceTests
             .ReturnsAsync(value: request);
 
         CurrentUserController controller = new(
-            ssoUserAggregationService: ssoUserAggregationService.Object);
+            ssoUserAggregationService: ssoUserAggregationService.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
         IActionResult result = await controller.PutMe(updatedSSOUser: request);

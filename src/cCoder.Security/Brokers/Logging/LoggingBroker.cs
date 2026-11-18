@@ -11,11 +11,15 @@ namespace cCoder.Security.Brokers.Logging;
 internal sealed class LoggingBroker(ILogger<LoggingBroker> logger)
     : ILoggingBroker
 {
-    public void LogException(Exception exception) =>
+    public void LogError(
+        Exception exception,
+        string message,
+        params object[] args) =>
         logger.LogError(
             exception: exception,
-            message: exception.Message);
+            message: message,
+            args: args);
 
-    public void LogWarning(string message) =>
-        logger.LogWarning(message: message);
+    public void LogWarning(string message, params object[] args) =>
+        logger.LogWarning(message: message, args: args);
 }

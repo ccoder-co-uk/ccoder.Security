@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 
 using cCoder.CodeAnalysis.Exposures;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
@@ -17,7 +18,9 @@ using Microsoft.AspNetCore.OData.Query;
 
 namespace cCoder.Security.Exposures.Controllers;
 
-public class TenantController(ITenantAggregationService tenantAggregationService)
+public class TenantController(
+    ITenantAggregationService tenantAggregationService,
+    ILoggingBroker loggingBroker)
     : Controller, ICompositionExposure
 {
     [HttpGet()]
@@ -28,16 +31,32 @@ public class TenantController(ITenantAggregationService tenantAggregationService
         {
             return Ok(value: tenantAggregationService.GetAllTenants());
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The tenant request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -60,16 +79,32 @@ public class TenantController(ITenantAggregationService tenantAggregationService
                 ? NotFound()
                 : Ok(value: tenant);
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The tenant request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -90,16 +125,32 @@ public class TenantController(ITenantAggregationService tenantAggregationService
                 statusCode: StatusCodes.Status201Created,
                 value: await tenantAggregationService.AddTenantAsync(item: newTenant));
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The tenant request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -123,16 +174,32 @@ public class TenantController(ITenantAggregationService tenantAggregationService
             return Ok(value: await tenantAggregationService.UpdateTenantAsync(
                 item: updatedTenant));
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The tenant request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -162,16 +229,32 @@ public class TenantController(ITenantAggregationService tenantAggregationService
 
             return NoContent();
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The tenant request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");

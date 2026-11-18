@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 using cCoder.CodeAnalysis.Exposures;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
@@ -17,7 +18,8 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class RegistrationController(
-    IRegistrationAggregationService registrationAggregationService)
+    IRegistrationAggregationService registrationAggregationService,
+    ILoggingBroker loggingBroker)
     : Controller, ICompositionExposure
 {
     [HttpPost("Register")]
@@ -42,16 +44,32 @@ public class RegistrationController(
                     registeredUser.Token
                 });
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The registration request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -68,16 +86,32 @@ public class RegistrationController(
 
             return Ok();
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The confirmation request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -106,16 +140,32 @@ public class RegistrationController(
                     invitedUser.Token
                 });
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The invitation request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -132,16 +182,32 @@ public class RegistrationController(
 
             return Ok(value: new { Token = invitationToken });
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The invitation request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -168,16 +234,32 @@ public class RegistrationController(
 
             return Ok();
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The invitation request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");

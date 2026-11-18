@@ -87,8 +87,8 @@ times: Times.Once);
         // When
         // Then
 
-        SecurityProcessingServiceException actualException =
-            await Assert.ThrowsAsync<SecurityProcessingServiceException>(
+        SecurityProcessingValidationException actualException =
+            await Assert.ThrowsAsync<SecurityProcessingValidationException>(
                 testCode: async () =>
                     await ssoUserProcessingService.FindByUserAndPasswordAsync(
                         username: expectedSSOUser.Id,

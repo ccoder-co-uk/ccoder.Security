@@ -987,18 +987,26 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogException(System.Exception)",
-          "Name": "LogException",
+          "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+          "Name": "LogError",
           "LineNumber": 14,
           "Inputs": [
             {
               "Name": "exception",
               "Type": "System.Exception"
+            },
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
             }
           ],
           "ReturnType": "System.Void",
           "Implements": [
-            "cCoder.Security.Brokers.Logging.ILoggingBroker.LogException(System.Exception)"
+            "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])"
           ],
           "Calls": [
             {
@@ -1022,18 +1030,22 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogWarning(System.String)",
+          "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogWarning(System.String,System.Object[])",
           "Name": "LogWarning",
-          "LineNumber": 19,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "message",
               "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
             }
           ],
           "ReturnType": "System.Void",
           "Implements": [
-            "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String)"
+            "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])"
           ],
           "Calls": [
             {
@@ -4416,6 +4428,7 @@
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.FormatException",
             "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -4427,9 +4440,11 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
@@ -4478,6 +4493,7 @@
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.FormatException",
             "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -4489,9 +4505,11 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
@@ -4554,10 +4572,12 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -4594,7 +4614,6 @@
           "PossibleExceptionTypes": [
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
-            "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -4708,6 +4727,7 @@
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.FormatException",
             "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -4719,9 +4739,11 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
@@ -4784,7 +4806,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 18,
+      "LineNumber": 19,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -4814,7 +4836,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostChangePassword(cCoder.Security.Models.DTOs.ChangePasswordRequest)",
           "Name": "PostChangePassword",
-          "LineNumber": 92,
+          "LineNumber": 129,
           "Inputs": [
             {
               "Name": "newChangePasswordRequest",
@@ -4855,6 +4877,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -4865,6 +4894,20 @@
               "MethodId": "System.String.Equals(System.String?,System.String?,System.StringComparison)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IAuthenticationAggregationService",
@@ -4880,6 +4923,7 @@
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.FormatException",
             "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -4891,6 +4935,7 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "ThrowsExceptionTypes": [],
@@ -4926,7 +4971,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 401,
@@ -4946,17 +4991,17 @@
               "IsNullPath": false,
               "HasBody": false,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
-              "StatusCode": 401,
+              "StatusCode": 403,
               "ResultMethod": "StatusCode",
-              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+              "ExceptionType": "System.Security.SecurityException",
               "IsExceptionPath": true,
               "IsNullPath": false,
-              "HasBody": true,
+              "HasBody": false,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -4966,7 +5011,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 503,
@@ -4976,7 +5021,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -4989,7 +5034,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostLogin(cCoder.Security.Models.DTOs.Auth)",
           "Name": "PostLogin",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "newAuth",
@@ -5008,8 +5053,29 @@
             },
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "BadRequest",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Challenge",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Challenge()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "Ok",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Ok(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -5019,6 +5085,20 @@
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IAuthenticationAggregationService",
@@ -5034,6 +5114,7 @@
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.FormatException",
             "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -5045,6 +5126,7 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "ThrowsExceptionTypes": [],
@@ -5073,24 +5155,34 @@
               "LogsException": false
             },
             {
-              "StatusCode": 401,
-              "ResultMethod": "StatusCode",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 401,
-              "ResultMethod": "StatusCode",
-              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+              "ResultMethod": "Challenge",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
-              "HasBody": true,
+              "HasBody": false,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -5100,7 +5192,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 503,
@@ -5110,7 +5202,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -5123,7 +5215,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostLogout()",
           "Name": "PostLogout",
-          "LineNumber": 65,
+          "LineNumber": 80,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CMicrosoft.AspNetCore.Mvc.IActionResult\u003E",
           "Implements": [],
@@ -5137,8 +5229,22 @@
             },
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Challenge",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Challenge()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "Ok",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Ok()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -5148,6 +5254,20 @@
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IAuthenticationAggregationService",
@@ -5196,7 +5316,27 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Challenge",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -5206,7 +5346,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 503,
@@ -5216,7 +5356,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -5231,7 +5371,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 18,
+      "LineNumber": 19,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -5261,7 +5401,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController.PostConfirmForgotPassword(cCoder.Security.Models.DTOs.ConfirmForgotPasswordRequest)",
           "Name": "PostConfirmForgotPassword",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "newConfirmForgotPasswordRequest",
@@ -5302,9 +5442,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IAuthenticationAggregationService",
@@ -5330,7 +5491,8 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "ThrowsExceptionTypes": [],
           "HttpMethods": [
@@ -5365,17 +5527,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
-              "StatusCode": 400,
-              "ResultMethod": "BadRequest",
-              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
               "IsExceptionPath": true,
               "IsNullPath": false,
-              "HasBody": true,
+              "HasBody": false,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -5385,7 +5547,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -5400,7 +5562,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.CurrentUserController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 17,
+      "LineNumber": 18,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -5430,11 +5592,18 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.CurrentUserController.GetMe()",
           "Name": "GetMe",
-          "LineNumber": 23,
+          "LineNumber": 25,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "BadRequest",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "Challenge",
@@ -5452,9 +5621,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ISSOUserAggregationService",
@@ -5498,6 +5688,16 @@
               "LogsException": false
             },
             {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
               "StatusCode": 401,
               "ResultMethod": "Challenge",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
@@ -5505,7 +5705,17 @@
               "IsNullPath": false,
               "HasBody": false,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -5515,7 +5725,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 503,
@@ -5525,7 +5735,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -5538,7 +5748,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.CurrentUserController.PutMe(cCoder.Security.Models.Entities.SSOUser)",
           "Name": "PutMe",
-          "LineNumber": 48,
+          "LineNumber": 72,
           "Inputs": [
             {
               "Name": "updatedSSOUser",
@@ -5579,9 +5789,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ISSOUserAggregationService",
@@ -5646,7 +5877,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 401,
@@ -5656,7 +5887,17 @@
               "IsNullPath": false,
               "HasBody": false,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -5666,7 +5907,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             },
             {
               "StatusCode": 503,
@@ -5676,7 +5917,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -5691,7 +5932,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 18,
+      "LineNumber": 19,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -5721,7 +5962,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.ForgotPasswordController.PostForgotPassword(cCoder.Security.Models.DTOs.ForgotPasswordRequest)",
           "Name": "PostForgotPassword",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "newForgotPasswordRequest",
@@ -5740,8 +5981,22 @@
             },
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "BadRequest",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "Ok",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Ok()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -5751,6 +6006,20 @@
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IAuthenticationAggregationService",
@@ -5763,7 +6032,6 @@
           "PossibleExceptionTypes": [
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
-            "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -5785,36 +6053,6 @@
             {
               "StatusCode": 200,
               "ResultMethod": "Ok",
-              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
-              "IsExceptionPath": true,
-              "IsNullPath": false,
-              "HasBody": false,
-              "ExposesExceptionDetails": false,
-              "LogsException": false
-            },
-            {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
-              "IsExceptionPath": true,
-              "IsNullPath": false,
-              "HasBody": false,
-              "ExposesExceptionDetails": false,
-              "LogsException": false
-            },
-            {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-              "IsExceptionPath": true,
-              "IsNullPath": false,
-              "HasBody": false,
-              "ExposesExceptionDetails": false,
-              "LogsException": false
-            },
-            {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -5833,6 +6071,26 @@
               "LogsException": false
             },
             {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
+            },
+            {
               "StatusCode": 500,
               "ResultMethod": "StatusCode",
               "ExceptionType": "System.Exception",
@@ -5840,7 +6098,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 503,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -5855,7 +6123,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.RegistrationController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 18,
+      "LineNumber": 19,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -5885,7 +6153,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostAcceptInvite(System.String,System.String,cCoder.Security.Models.DTOs.RegisterUser)",
           "Name": "PostAcceptInvite",
-          "LineNumber": 152,
+          "LineNumber": 218,
           "Inputs": [
             {
               "Name": "userId",
@@ -5934,9 +6202,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IRegistrationAggregationService",
@@ -5998,7 +6287,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -6008,7 +6307,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -6021,7 +6320,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostConfirmRegistration(System.String)",
           "Name": "PostConfirmRegistration",
-          "LineNumber": 62,
+          "LineNumber": 80,
           "Inputs": [
             {
               "Name": "confirmationToken",
@@ -6055,9 +6354,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IRegistrationAggregationService",
@@ -6083,7 +6403,8 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "ThrowsExceptionTypes": [],
           "HttpMethods": [
@@ -6108,7 +6429,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -6118,7 +6449,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -6131,7 +6462,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostInvite(cCoder.Security.Models.DTOs.RegisterUser)",
           "Name": "PostInvite",
-          "LineNumber": 88,
+          "LineNumber": 122,
           "Inputs": [
             {
               "Name": "newRegisterUser",
@@ -6165,9 +6496,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IRegistrationAggregationService",
@@ -6228,7 +6580,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -6238,7 +6600,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -6251,7 +6613,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostRegister(cCoder.Security.Models.DTOs.RegisterUser)",
           "Name": "PostRegister",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "newRegisterUser",
@@ -6285,9 +6647,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IRegistrationAggregationService",
@@ -6348,7 +6731,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -6358,7 +6751,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -6371,7 +6764,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostResendInvite(System.String)",
           "Name": "PostResendInvite",
-          "LineNumber": 126,
+          "LineNumber": 176,
           "Inputs": [
             {
               "Name": "userId",
@@ -6405,9 +6798,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.IRegistrationAggregationService",
@@ -6432,7 +6846,8 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "ThrowsExceptionTypes": [],
           "HttpMethods": [
@@ -6457,7 +6872,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -6467,7 +6892,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -6482,7 +6907,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 17,
+      "LineNumber": 19,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -6501,7 +6926,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController.Get(Microsoft.AspNetCore.OData.Query.ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSOPrivilege\u003E)",
           "Name": "Get",
-          "LineNumber": 22,
+          "LineNumber": 25,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -6535,9 +6960,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ISSOPrivilegeService",
@@ -6578,7 +7024,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -6588,7 +7044,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -6601,7 +7057,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 46,
+          "LineNumber": 65,
           "Inputs": [
             {
               "Name": "key",
@@ -6642,6 +7098,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -6659,6 +7122,20 @@
               "MethodId": "System.Linq.Queryable.Where(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Foundations.Interfaces.ISSOPrivilegeService",
@@ -6699,7 +7176,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -6719,7 +7206,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -6734,7 +7221,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.SSORoleController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 19,
+      "LineNumber": 21,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -6753,7 +7240,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Delete(System.Guid)",
           "Name": "Delete",
-          "LineNumber": 142,
+          "LineNumber": 209,
           "Inputs": [
             {
               "Name": "key",
@@ -6801,6 +7288,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -6811,6 +7305,20 @@
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Orchestrations.Interfaces.ISSORoleOrchestrationService",
@@ -6876,7 +7384,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -6896,7 +7414,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -6909,7 +7427,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Get(Microsoft.AspNetCore.OData.Query.ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSORole\u003E)",
           "Name": "Get",
-          "LineNumber": 24,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -6943,9 +7461,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Orchestrations.Interfaces.ISSORoleOrchestrationService",
@@ -6993,7 +7532,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -7003,7 +7552,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -7016,7 +7565,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 48,
+          "LineNumber": 67,
           "Inputs": [
             {
               "Name": "key",
@@ -7057,6 +7606,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -7074,6 +7630,20 @@
               "MethodId": "System.Linq.Queryable.Where(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Orchestrations.Interfaces.ISSORoleOrchestrationService",
@@ -7121,7 +7691,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -7141,7 +7721,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -7154,7 +7734,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Post(cCoder.Security.Models.Entities.SSORole)",
           "Name": "Post",
-          "LineNumber": 79,
+          "LineNumber": 114,
           "Inputs": [
             {
               "Name": "newSSORole",
@@ -7188,9 +7768,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Orchestrations.Interfaces.ISSORoleOrchestrationService",
@@ -7249,7 +7850,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -7259,7 +7870,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -7272,7 +7883,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Put(System.Guid,cCoder.Security.Models.Entities.SSORole)",
           "Name": "Put",
-          "LineNumber": 109,
+          "LineNumber": 160,
           "Inputs": [
             {
               "Name": "key",
@@ -7317,9 +7928,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Orchestrations.Interfaces.ISSORoleOrchestrationService",
@@ -7378,7 +8010,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -7388,7 +8030,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -7403,7 +8045,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.SSOUserController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 20,
+      "LineNumber": 21,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -7433,7 +8075,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Delete(System.String,System.String)",
           "Name": "Delete",
-          "LineNumber": 113,
+          "LineNumber": 163,
           "Inputs": [
             {
               "Name": "key",
@@ -7478,6 +8120,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -7488,6 +8137,20 @@
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ISSOUserAggregationService",
@@ -7544,7 +8207,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -7564,7 +8237,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -7577,7 +8250,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Get(Microsoft.AspNetCore.OData.Query.ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSOUser\u003E)",
           "Name": "Get",
-          "LineNumber": 25,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -7611,9 +8284,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ISSOUserAggregationService",
@@ -7662,7 +8356,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -7672,7 +8376,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -7685,7 +8389,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 49,
+          "LineNumber": 67,
           "Inputs": [
             {
               "Name": "key",
@@ -7726,6 +8430,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -7743,6 +8454,20 @@
               "MethodId": "System.Linq.Queryable.Where(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ISSOUserAggregationService",
@@ -7791,7 +8516,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -7811,7 +8546,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -7824,7 +8559,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Put(System.String,cCoder.Security.Models.Entities.SSOUser)",
           "Name": "Put",
-          "LineNumber": 81,
+          "LineNumber": 115,
           "Inputs": [
             {
               "Name": "key",
@@ -7869,9 +8604,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ISSOUserAggregationService",
@@ -7898,7 +8654,8 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "ThrowsExceptionTypes": [],
           "HttpMethods": [
@@ -7933,7 +8690,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -7943,7 +8710,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -7958,7 +8725,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 19,
+      "LineNumber": 21,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -7977,7 +8744,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserRoleController.Delete(System.String,System.Guid)",
           "Name": "Delete",
-          "LineNumber": 78,
+          "LineNumber": 113,
           "Inputs": [
             {
               "Name": "userId",
@@ -8029,6 +8796,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -8039,6 +8813,20 @@
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Orchestrations.Interfaces.ISSOUserRoleOrchestrationService",
@@ -8104,7 +8892,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -8124,7 +8922,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -8137,7 +8935,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserRoleController.Get(Microsoft.AspNetCore.OData.Query.ODataQueryOptions\u003CcCoder.Security.Models.Entities.SSOUserRole\u003E)",
           "Name": "Get",
-          "LineNumber": 24,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -8171,9 +8969,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Orchestrations.Interfaces.ISSOUserRoleOrchestrationService",
@@ -8221,7 +9040,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -8231,7 +9060,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -8244,7 +9073,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserRoleController.Post(cCoder.Security.Models.Entities.SSOUserRole)",
           "Name": "Post",
-          "LineNumber": 47,
+          "LineNumber": 66,
           "Inputs": [
             {
               "Name": "newSSOUserRole",
@@ -8278,9 +9107,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Orchestrations.Interfaces.ISSOUserRoleOrchestrationService",
@@ -8339,7 +9189,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -8349,7 +9209,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -8364,7 +9224,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.SetupController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 18,
+      "LineNumber": 19,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -8394,7 +9254,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SetupController.PostSetup(cCoder.Security.Data.Models.SetupDetails)",
           "Name": "PostSetup",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "newSetupDetails",
@@ -8428,9 +9288,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Models.DTOs.RegisterUser",
@@ -8499,7 +9380,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -8509,7 +9400,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 500,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Exception",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 503,
@@ -8519,7 +9420,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -8534,7 +9435,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 18,
+      "LineNumber": 20,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -8553,7 +9454,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantAnalysisController.Get()",
           "Name": "Get",
-          "LineNumber": 23,
+          "LineNumber": 26,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
@@ -8582,9 +9483,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService",
@@ -8628,7 +9550,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -8638,7 +9570,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -8651,7 +9583,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantAnalysisController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 47,
+          "LineNumber": 66,
           "Inputs": [
             {
               "Name": "key",
@@ -8692,6 +9624,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -8709,6 +9648,20 @@
               "MethodId": "System.Linq.Queryable.Where(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService",
@@ -8752,7 +9705,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -8772,7 +9735,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -8787,7 +9750,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.TenantController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 20,
+      "LineNumber": 21,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -8817,7 +9780,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Delete(System.String)",
           "Name": "Delete",
-          "LineNumber": 143,
+          "LineNumber": 210,
           "Inputs": [
             {
               "Name": "key",
@@ -8865,6 +9828,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -8875,6 +9845,20 @@
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ITenantAggregationService",
@@ -8940,7 +9924,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -8960,7 +9954,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -8973,7 +9967,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Get(Microsoft.AspNetCore.OData.Query.ODataQueryOptions\u003CcCoder.Security.Models.Entities.Tenant\u003E)",
           "Name": "Get",
-          "LineNumber": 25,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -9007,9 +10001,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ITenantAggregationService",
@@ -9057,7 +10072,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -9067,7 +10092,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -9080,7 +10105,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 49,
+          "LineNumber": 68,
           "Inputs": [
             {
               "Name": "key",
@@ -9121,6 +10146,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -9138,6 +10170,20 @@
               "MethodId": "System.Linq.Queryable.Where(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ITenantAggregationService",
@@ -9185,7 +10231,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -9205,7 +10261,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -9218,7 +10274,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Post(cCoder.Security.Models.Entities.Tenant)",
           "Name": "Post",
-          "LineNumber": 80,
+          "LineNumber": 115,
           "Inputs": [
             {
               "Name": "newTenant",
@@ -9252,9 +10308,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ITenantAggregationService",
@@ -9314,7 +10391,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -9324,7 +10411,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -9337,7 +10424,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Put(System.String,cCoder.Security.Models.Entities.Tenant)",
           "Name": "Put",
-          "LineNumber": 110,
+          "LineNumber": 161,
           "Inputs": [
             {
               "Name": "key",
@@ -9382,9 +10469,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Aggregations.Interfaces.ITenantAggregationService",
@@ -9443,7 +10551,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -9453,7 +10571,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -9468,7 +10586,7 @@
     {
       "Name": "cCoder.Security.Exposures.Controllers.UserEventController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 18,
+      "LineNumber": 20,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -9487,7 +10605,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.UserEventController.Get(Microsoft.AspNetCore.OData.Query.ODataQueryOptions\u003CcCoder.Security.Models.Entities.UserEvent\u003E)",
           "Name": "Get",
-          "LineNumber": 23,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "queryOptions",
@@ -9521,9 +10639,30 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Processings.Interfaces.IUserEventProcessingService",
@@ -9567,7 +10706,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -9577,7 +10726,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -9590,7 +10739,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.UserEventController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 47,
+          "LineNumber": 66,
           "Inputs": [
             {
               "Name": "key",
@@ -9631,6 +10780,13 @@
             {
               "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
               "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
               "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32,System.Object?)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
@@ -9648,6 +10804,20 @@
               "MethodId": "System.Linq.Queryable.Where(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogWarning",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Security.Services.Processings.Interfaces.IUserEventProcessingService",
@@ -9691,7 +10861,17 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
+            },
+            {
+              "StatusCode": 403,
+              "ResultMethod": "StatusCode",
+              "ExceptionType": "System.Security.SecurityException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 404,
@@ -9711,7 +10891,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -9930,10 +11110,12 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -10036,10 +11218,12 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -10615,10 +11799,12 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -12467,6 +13653,7 @@
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.FormatException",
             "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -12481,9 +13668,11 @@
             "System.ArgumentNullException",
             "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
@@ -12524,6 +13713,7 @@
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.FormatException",
             "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -12538,9 +13728,11 @@
             "System.ArgumentNullException",
             "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
@@ -12601,7 +13793,8 @@
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -12630,7 +13823,6 @@
           "PossibleExceptionTypes": [
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
-            "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -12643,7 +13835,6 @@
           ],
           "IncomingExceptionTypes": [
             "System.ArgumentNullException",
-            "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
           ],
@@ -12748,6 +13939,7 @@
             "System.ComponentModel.DataAnnotations.ValidationException",
             "System.FormatException",
             "System.Security.SecurityException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -12762,9 +13954,11 @@
             "System.ArgumentNullException",
             "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Security.Models.Exceptions.SecurityAggregationAuthenticationException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
@@ -12933,7 +14127,8 @@
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -13028,7 +14223,8 @@
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -13210,10 +14406,12 @@
           ],
           "IncomingExceptionTypes": [
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -13544,7 +14742,8 @@
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -14174,7 +15373,7 @@
             {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogWarning",
-              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String)",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -17528,7 +18727,8 @@
             "cCoder.Security.Models.Exceptions.SecurityServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
+            "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException",
+            "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -20460,21 +21660,40 @@
     {
       "Name": "cCoder.Security.Brokers.Logging.ILoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
-      "IsPublic": false,
+      "LineNumber": 10,
+      "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogException(System.Exception)",
-          "Name": "LogException",
-          "LineNumber": 11,
+          "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+          "Name": "LogError",
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "exception",
               "Type": "System.Exception"
+            },
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
             }
           ],
           "ReturnType": "System.Void",
@@ -20493,13 +21712,17 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String)",
+          "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
           "Name": "LogWarning",
           "LineNumber": 12,
           "Inputs": [
             {
               "Name": "message",
               "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
             }
           ],
           "ReturnType": "System.Void",
@@ -25854,7 +27077,15 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.AuthenticationController",
       "ToType": "cCoder.Security.Services.Aggregations.Interfaces.IAuthenticationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.ConfirmForgotPasswordController",
@@ -25862,7 +27093,15 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.CurrentUserController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.CurrentUserController",
       "ToType": "cCoder.Security.Services.Aggregations.SSOUserAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.ForgotPasswordController",
@@ -25870,7 +27109,15 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.RegistrationController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.RegistrationController",
       "ToType": "cCoder.Security.Services.Aggregations.Interfaces.IRegistrationAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController",
@@ -25878,7 +27125,15 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSORoleController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SSORoleController",
       "ToType": "cCoder.Security.Services.Orchestrations.Interfaces.ISSORoleOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SSOUserController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSOUserController",
@@ -25886,7 +27141,15 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SSOUserRoleController",
       "ToType": "cCoder.Security.Services.Orchestrations.Interfaces.ISSOUserRoleOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.SetupController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.SetupController",
@@ -25894,11 +27157,23 @@
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.TenantAnalysisController",
       "ToType": "cCoder.Security.Services.Processings.ITenantAnalysisProcessingService"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.TenantController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.TenantController",
       "ToType": "cCoder.Security.Services.Aggregations.Interfaces.ITenantAggregationService"
+    },
+    {
+      "FromType": "cCoder.Security.Exposures.Controllers.UserEventController",
+      "ToType": "cCoder.Security.Brokers.Logging.LoggingBroker"
     },
     {
       "FromType": "cCoder.Security.Exposures.Controllers.UserEventController",

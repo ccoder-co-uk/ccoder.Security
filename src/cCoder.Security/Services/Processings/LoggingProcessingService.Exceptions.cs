@@ -28,6 +28,10 @@ internal sealed partial class LoggingProcessingService
         {
             throw new SecurityProcessingDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityProcessingValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityProcessingServiceException(innerException: innerException);

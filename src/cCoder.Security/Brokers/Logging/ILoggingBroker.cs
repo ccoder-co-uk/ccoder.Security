@@ -3,11 +3,13 @@
 // ---------------------------------------------------------------
 
 using System;
+using cCoder.CodeAnalysis.Exposures;
 
 namespace cCoder.Security.Brokers.Logging;
 
-internal interface ILoggingBroker
+public interface ILoggingBroker : IUtilityBroker
 {
-    void LogException(Exception exception);
-    void LogWarning(string message);
+    void LogWarning(string message, params object[] args);
+
+    void LogError(Exception exception, string message, params object[] args);
 }

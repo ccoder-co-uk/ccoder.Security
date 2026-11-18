@@ -14,9 +14,12 @@ using cCoder.Security.Services.Orchestrations.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
+using cCoder.Security.Brokers.Logging;
+
 namespace cCoder.Security.Exposures.Controllers;
 
-public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrchestrationService)
+public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrchestrationService,
+    ILoggingBroker loggingBroker)
         : Controller
 {
     [HttpGet()]
@@ -27,16 +30,32 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
         {
             return Ok(value: userRoleOrchestrationService.GetAllSSOUserRoles());
         }
-        catch (SecurityOrchestrationValidationException)
+        catch (SecurityOrchestrationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The user role request is invalid.");
         }
-        catch (SecurityOrchestrationDependencyException)
+        catch (SecurityOrchestrationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -58,16 +77,32 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
                 value: await userRoleOrchestrationService.AddSSOUserRoleAsync(
                     userRole: newSSOUserRole));
         }
-        catch (SecurityOrchestrationValidationException)
+        catch (SecurityOrchestrationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The user role request is invalid.");
         }
-        catch (SecurityOrchestrationDependencyException)
+        catch (SecurityOrchestrationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -99,16 +134,32 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
 
             return NoContent();
         }
-        catch (SecurityOrchestrationValidationException)
+        catch (SecurityOrchestrationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The user role request is invalid.");
         }
-        catch (SecurityOrchestrationDependencyException)
+        catch (SecurityOrchestrationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return Problem(statusCode: StatusCodes.Status503ServiceUnavailable);
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");

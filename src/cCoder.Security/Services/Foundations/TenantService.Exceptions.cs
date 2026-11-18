@@ -26,6 +26,10 @@ internal sealed partial class TenantService
         {
             throw new SecurityDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityServiceException(innerException: innerException);
@@ -46,6 +50,10 @@ internal sealed partial class TenantService
         {
             throw new SecurityDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityServiceException(innerException: innerException);
@@ -65,6 +73,10 @@ internal sealed partial class TenantService
         catch (InvalidOperationException innerException)
         {
             throw new SecurityDependencyException(innerException: innerException);
+        }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityValidationException(innerException: innerException);
         }
         catch (Exception innerException)
         {

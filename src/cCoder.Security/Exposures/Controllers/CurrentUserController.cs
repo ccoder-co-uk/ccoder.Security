@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 using cCoder.CodeAnalysis.Exposures;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
@@ -16,7 +17,8 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class CurrentUserController(
-    ISSOUserAggregationService ssoUserAggregationService)
+    ISSOUserAggregationService ssoUserAggregationService,
+    ILoggingBroker loggingBroker)
         : Controller, ICompositionExposure
 {
     [HttpGet("Me")]
@@ -26,18 +28,40 @@ public class CurrentUserController(
         {
             return Ok(value: ssoUserAggregationService.GetCurrentUser());
         }
-        catch (SecurityAggregationAuthenticationException)
+        catch (SecurityAggregationAuthenticationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return Challenge();
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return BadRequest(error: "The current-user request is invalid.");
+        }
+        catch (SecurityAggregationDependencyException exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status503ServiceUnavailable,
                 value: "The security service is unavailable.");
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -57,22 +81,40 @@ public class CurrentUserController(
             return Ok(value: await ssoUserAggregationService
                 .UpdateCurrentSSOUserAsync(updatedSSOUser: updatedSSOUser));
         }
-        catch (SecurityAggregationAuthenticationException)
+        catch (SecurityAggregationAuthenticationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return Challenge();
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
             return BadRequest(error: "The profile update is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status503ServiceUnavailable,
                 value: "The security service is unavailable.");
         }
-        catch (Exception)
+        catch (System.Security.SecurityException exception)
         {
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception exception)
+        {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");

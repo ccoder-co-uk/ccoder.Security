@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 using cCoder.CodeAnalysis.Exposures;
+using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
@@ -17,7 +18,8 @@ namespace cCoder.Security.Exposures.Controllers;
 
 [Route("Api/Account")]
 public class ForgotPasswordController(
-    IAuthenticationAggregationService authenticationAggregationService)
+    IAuthenticationAggregationService authenticationAggregationService,
+    ILoggingBroker loggingBroker)
         : Controller, ICompositionExposure
 {
     [HttpPost("ForgotPassword")]
@@ -34,21 +36,34 @@ public class ForgotPasswordController(
             await authenticationAggregationService.ForgotPasswordAsync(
                 email: newForgotPasswordRequest.Email);
         }
-        catch (SecurityAggregationValidationException)
+        catch (SecurityAggregationValidationException exception)
         {
-            return Ok();
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return BadRequest(error: "The password reset request is invalid.");
         }
-        catch (SecurityAggregationDependencyException)
+        catch (SecurityAggregationDependencyException exception)
         {
-            return Ok();
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
+            return StatusCode(
+                statusCode: StatusCodes.Status503ServiceUnavailable,
+                value: "The security service is unavailable.");
         }
-        catch (SecurityAggregationServiceException exception)
-            when (ContainsSecurityException(exception: exception))
+        catch (System.Security.SecurityException exception)
         {
-            return Ok();
+            loggingBroker.LogWarning(message: exception.Message);
+
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
-        catch
+        catch (Exception exception)
         {
+            loggingBroker.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
             return StatusCode(
                 statusCode: StatusCodes.Status500InternalServerError,
                 value: "The security operation failed.");
@@ -56,9 +71,4 @@ public class ForgotPasswordController(
 
         return Ok();
     }
-
-    private static bool ContainsSecurityException(Exception exception) =>
-        exception is SecurityException
-        || exception.InnerException is not null
-            && ContainsSecurityException(exception: exception.InnerException);
 }

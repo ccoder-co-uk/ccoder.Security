@@ -16,6 +16,43 @@ namespace cCoder.Security.Tests.Aggregations;
 public partial class AuthenticationAggregationServiceTests
 {
     [Fact]
+    public async Task ShouldNotDiscloseUnknownForgotPasswordAccount()
+    {
+        // Given
+        string unknownEmail = "unknown.user@example.com";
+
+        ssoUserProcessingServiceMock
+            .Setup(expression: service => service.GetAllSSOUsers(ignoreFilters: true))
+            .Returns(value: Array.Empty<SSOUser>()
+                .AsQueryable());
+
+        // When
+        Token actualToken =
+            await authenticationAggregationService.ForgotPasswordAsync(
+                email: unknownEmail);
+
+        // Then
+        actualToken
+            .Should()
+            .BeNull();
+
+        loggingProcessingServiceMock.Verify(
+            expression: service => service.LogWarning(
+                message: $"Password reset account not found: {unknownEmail}"),
+            times: Times.Once);
+
+        tokenProcessingServiceMock.Verify(
+            expression: service => service.GenerateForgottenPasswordToken(
+                userId: It.IsAny<string>()),
+            times: Times.Never);
+
+        accountEventProcessingServiceMock.Verify(
+            expression: service => service.RaiseSecurityAccountEventRequestAsync(
+                accountEventRequest: It.IsAny<SecurityAccountEventRequest>()),
+            times: Times.Never);
+    }
+
+    [Fact]
     public async Task ShouldGenerateForgotPasswordTokenAndRaisePasswordResetRequestedEvent()
     {
         // Given

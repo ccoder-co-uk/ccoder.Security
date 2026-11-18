@@ -48,7 +48,7 @@ internal sealed partial class AuthenticationAggregationService(
             return await LoginCoreAsync(
                 username: username,
                 password: password);
-        });
+        }, authenticationFailure: true);
 
     public ValueTask LogoutAsync() =>
         TryCatch(operation: async () =>
@@ -71,7 +71,7 @@ internal sealed partial class AuthenticationAggregationService(
                 username: username,
                 oldPassword: oldPassword,
                 newPassword: newPassword);
-        });
+        }, authenticationFailure: true);
 
     public ValueTask ChangeCurrentUserPasswordAsync(
         string oldPassword,
@@ -89,7 +89,7 @@ internal sealed partial class AuthenticationAggregationService(
                 username: currentUser.Id,
                 oldPassword: oldPassword,
                 newPassword: newPassword);
-        });
+        }, authenticationFailure: true);
 
     public ValueTask<Token> ForgotPasswordAsync(string email) =>
         TryCatch<Token>(operation: async () =>
@@ -197,7 +197,12 @@ internal sealed partial class AuthenticationAggregationService(
             .FirstOrDefault(predicate: user => user.Email == email);
 
         if (user == null)
-        { throw new SecurityException("User not found"); }
+        {
+            loggingProcessingService.LogWarning(
+                message: $"Password reset account not found: {email}");
+
+            return null;
+        }
 
         Token token = await tokenProcessingService.GenerateForgottenPasswordToken(userId: user.Id);
 

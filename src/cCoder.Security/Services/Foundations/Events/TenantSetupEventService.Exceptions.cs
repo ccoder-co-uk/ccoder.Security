@@ -26,6 +26,10 @@ internal sealed partial class TenantSetupEventService
         {
             throw new SecurityDependencyException(innerException: innerException);
         }
+        catch (System.Security.SecurityException innerException)
+        {
+            throw new SecurityValidationException(innerException: innerException);
+        }
         catch (Exception innerException)
         {
             throw new SecurityServiceException(innerException: innerException);
