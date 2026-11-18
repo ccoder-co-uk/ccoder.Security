@@ -197,7 +197,12 @@ internal sealed partial class AuthenticationAggregationService(
             .FirstOrDefault(predicate: user => user.Email == email);
 
         if (user == null)
-        { throw new SecurityException("User not found"); }
+        {
+            loggingProcessingService.LogWarning(
+                message: $"Password reset account not found: {email}");
+
+            return null;
+        }
 
         Token token = await tokenProcessingService.GenerateForgottenPasswordToken(userId: user.Id);
 

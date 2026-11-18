@@ -4614,7 +4614,6 @@
           "PossibleExceptionTypes": [
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
-            "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -4626,12 +4625,10 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -5994,7 +5991,6 @@
           "PossibleExceptionTypes": [
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
-            "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -6006,8 +6002,7 @@
             "cCoder.Security.Models.Exceptions.SecurityValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "ThrowsExceptionTypes": [],
           "HttpMethods": [
@@ -13750,7 +13745,6 @@
           "PossibleExceptionTypes": [
             "Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException",
             "System.ArgumentNullException",
-            "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationDependencyException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
@@ -13763,13 +13757,11 @@
           ],
           "IncomingExceptionTypes": [
             "System.ArgumentNullException",
-            "System.Security.SecurityException",
             "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
             "cCoder.Security.Models.Exceptions.SecurityProcessingServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException",
-            "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException"
+            "cCoder.Security.Models.Exceptions.SecurityAggregationServiceException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
