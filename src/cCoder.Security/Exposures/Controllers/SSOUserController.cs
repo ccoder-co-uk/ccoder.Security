@@ -28,7 +28,23 @@ public class SSOUserController(ISSOUserAggregationService ssoUserAggregationServ
     {
         try
         {
-            return Ok(value: ssoUserAggregationService.GetAllSSOUsers());
+            IActionResult successResponse = Ok(value: ssoUserAggregationService.GetAllSSOUsers());
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -74,9 +90,28 @@ public class SSOUserController(ISSOUserAggregationService ssoUserAggregationServ
 
             SSOUser ssoUser = result.FirstOrDefault();
 
-            return ssoUser is null
-                ? NotFound()
-                : Ok(value: ssoUser);
+            if (ssoUser is null)
+            {
+                loggingBroker.LogWarning(message: "Controller resource was not found.");
+
+                return NotFound();
+            }
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return Ok(value: ssoUser);
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -120,12 +155,30 @@ public class SSOUserController(ISSOUserAggregationService ssoUserAggregationServ
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
-            return Ok(value: await ssoUserAggregationService.UpdateSSOUserAsync(
+            IActionResult successResponse = Ok(value: await ssoUserAggregationService.UpdateSSOUserAsync(
                 username: key,
                 updatedSSOUser: updatedSSOUser));
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -170,13 +223,31 @@ public class SSOUserController(ISSOUserAggregationService ssoUserAggregationServ
 
             if (originalUser is null)
             {
+                loggingBroker.LogWarning(message: "Controller resource was not found.");
+
                 return NotFound();
             }
 
             await ssoUserAggregationService.DeleteSSOUserAsync(
                 deletedSSOUser: originalUser);
 
-            return NoContent();
+            IActionResult successResponse = NoContent();
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {

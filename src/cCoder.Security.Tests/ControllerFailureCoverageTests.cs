@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security;
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Exposures.Controllers;
+using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using FluentAssertions;
@@ -25,6 +27,217 @@ namespace cCoder.Security.Tests;
 
 public sealed partial class ControllerFailureCoverageTests
 {
+    [Fact]
+    public async Task ChangePassword_WhenAnonymous_ShouldWarnExactlyOnce()
+    {
+        // Given
+        TestLoggingBroker loggingBroker = new();
+
+        AuthenticationController controller =
+            (AuthenticationController)CreateController(
+                controllerType: typeof(AuthenticationController),
+                exception: null,
+                loggingBroker: loggingBroker);
+
+        controller.ControllerContext.HttpContext.User = new ClaimsPrincipal(
+            identity: new ClaimsIdentity());
+
+        // When
+        IActionResult result = await controller.PostChangePassword(
+            newChangePasswordRequest: CreatePasswordRequest());
+
+        // Then
+        StatusCode(result: result)
+            .Should()
+            .Be(expected: StatusCodes.Status401Unauthorized);
+
+        AssertLogCounts(
+            loggingBroker: loggingBroker,
+            information: 0,
+            warning: 1,
+            error: 0);
+    }
+
+    [Fact]
+    public async Task ChangePassword_WhenConfirmationDiffers_ShouldWarnExactlyOnce()
+    {
+        // Given
+        TestLoggingBroker loggingBroker = new();
+
+        AuthenticationController controller =
+            (AuthenticationController)CreateController(
+                controllerType: typeof(AuthenticationController),
+                exception: null,
+                loggingBroker: loggingBroker);
+
+        ChangePasswordRequest request = CreatePasswordRequest();
+        request.ConfirmPassword = "different";
+
+        // When
+        IActionResult result = await controller.PostChangePassword(
+            newChangePasswordRequest: request);
+
+        // Then
+        StatusCode(result: result)
+            .Should()
+            .Be(expected: StatusCodes.Status400BadRequest);
+
+        AssertLogCounts(
+            loggingBroker: loggingBroker,
+            information: 0,
+            warning: 1,
+            error: 0);
+    }
+
+    [Fact]
+    public async Task EveryNativeInvalidModelBranch_ShouldWarnExactlyOnce()
+    {
+        // Given
+        MethodInfo[] actions = ControllerTypes()
+            .SelectMany(selector: controllerType => ActionMethods(
+                controllerType: controllerType))
+            .Where(predicate: action => action
+                .GetParameters()
+                .Any(predicate: parameter =>
+                    parameter.GetCustomAttribute<FromBodyAttribute>() is not null)
+                || (action.Name == "Delete"
+                    && (action.DeclaringType == typeof(SSORoleController)
+                        || action.DeclaringType == typeof(SSOUserRoleController)
+                        || action.DeclaringType == typeof(TenantController))))
+            .ToArray();
+
+        // When
+        foreach (MethodInfo action in actions)
+        {
+            TestLoggingBroker loggingBroker = new();
+
+            Controller controller = CreateController(
+                controllerType: action.DeclaringType,
+                exception: null,
+                loggingBroker: loggingBroker);
+
+            controller.ModelState.AddModelError(
+                key: "request",
+                errorMessage: "invalid");
+
+            IActionResult result = await ResolveResultAsync(
+                invocationResult: action.Invoke(
+                    obj: controller,
+                    parameters: CreateArguments(action: action)));
+
+            StatusCode(result: result)
+                .Should()
+                .Be(expected: StatusCodes.Status400BadRequest);
+
+            AssertLogCounts(
+                loggingBroker: loggingBroker,
+                information: 0,
+                warning: 1,
+                error: 0);
+        }
+
+        // Then
+        actions.Should()
+            .HaveCount(expected: 18);
+    }
+
+    [Fact]
+    public async Task EveryNativeMissingResourceBranch_ShouldWarnExactlyOnce()
+    {
+        // Given
+        MethodInfo[] actions = ControllerTypes()
+            .SelectMany(selector: controllerType => ActionMethods(
+                controllerType: controllerType))
+            .Where(predicate: action => IsMissingResourceAction(
+                action: action))
+            .ToArray();
+
+        // When
+        foreach (MethodInfo action in actions)
+        {
+            TestLoggingBroker loggingBroker = new();
+
+            Controller controller = CreateController(
+                controllerType: action.DeclaringType,
+                exception: null,
+                loggingBroker: loggingBroker,
+                emptyCollections: true);
+
+            IActionResult result = await ResolveResultAsync(
+                invocationResult: action.Invoke(
+                    obj: controller,
+                    parameters: CreateArguments(action: action)));
+
+            StatusCode(result: result)
+                .Should()
+                .Be(
+                    expected: StatusCodes.Status404NotFound,
+                    because: $"{action.DeclaringType.Name}.{action.Name}");
+
+            AssertLogCounts(
+                loggingBroker: loggingBroker,
+                information: 0,
+                warning: 1,
+                error: 0);
+        }
+
+        // Then
+        actions.Should()
+            .HaveCount(expected: 10);
+    }
+
+    [Fact]
+    public async Task EveryControllerAction_WhenSuccessful_ShouldLogInformationExactlyOnce()
+    {
+        // Given
+        IEnumerable<Type> controllerTypes = ControllerTypes();
+
+        // When
+        foreach (Type controllerType in controllerTypes)
+        {
+            foreach (MethodInfo action in ActionMethods(controllerType: controllerType))
+            {
+                TestLoggingBroker loggingBroker = new();
+
+                Controller controller = CreateController(
+                    controllerType: controllerType,
+                    exception: null,
+                    loggingBroker: loggingBroker);
+
+                object invocationResult = action.Invoke(
+                    obj: controller,
+                    parameters: CreateArguments(action: action));
+
+                IActionResult result = await ResolveResultAsync(
+                    invocationResult: invocationResult);
+
+                StatusCode(result: result)
+                    .Should()
+                    .BeInRange(
+                        minimumValue: StatusCodes.Status200OK,
+                        maximumValue: StatusCodes.Status300MultipleChoices - 1,
+                        because: $"{controllerType.Name}.{action.Name}");
+
+                loggingBroker.InformationCount
+                    .Should()
+                    .Be(expected: 1);
+
+                loggingBroker.WarningCount
+                    .Should()
+                    .Be(expected: 0);
+
+                loggingBroker.ErrorCount
+                    .Should()
+                    .Be(expected: 0);
+            }
+        }
+
+        // Then
+        controllerTypes
+            .Should()
+            .NotBeEmpty();
+    }
+
     [Fact]
     public async Task EveryControllerAction_ShouldClassifyAndLogFailures()
     {
@@ -76,6 +289,7 @@ public sealed partial class ControllerFailureCoverageTests
                 scenario: $"{controllerType.Name}.{action.Name} with "
                     + exceptionCase.Exception.GetType().Name);
 
+            exceptionCase.AssertSafeBody(result: result);
             exceptionCase.AssertLog(loggingBroker: loggingBroker);
         }
     }
@@ -113,6 +327,8 @@ public sealed partial class ControllerFailureCoverageTests
     private static IEnumerable<ExceptionCase> ExceptionCases(Type controllerType)
     {
         yield return ValidationCase(controllerType: controllerType);
+        yield return ArgumentCase();
+        yield return AuthenticationExceptionCase();
         yield return DependencyCase(controllerType: controllerType);
         yield return SecurityCase();
         yield return UnexpectedCase();
@@ -168,6 +384,21 @@ public sealed partial class ControllerFailureCoverageTests
                     MaximumStatus: 599,
                     Warning: false);
 
+    private static ExceptionCase ArgumentCase() =>
+        new(
+            Exception: new ArgumentException(message: "sensitive-argument-detail"),
+            MinimumStatus: StatusCodes.Status400BadRequest,
+            MaximumStatus: StatusCodes.Status400BadRequest,
+            Warning: true);
+
+    private static ExceptionCase AuthenticationExceptionCase() =>
+        new(
+            Exception: new AuthenticationException(
+                message: "sensitive-authentication-detail"),
+            MinimumStatus: StatusCodes.Status401Unauthorized,
+            MaximumStatus: StatusCodes.Status401Unauthorized,
+            Warning: true);
+
     private static ExceptionCase AuthenticationCase() =>
         new(
             Exception: new SecurityAggregationAuthenticationException(
@@ -185,7 +416,8 @@ public sealed partial class ControllerFailureCoverageTests
 
     private static ExceptionCase UnexpectedCase() =>
         new(
-            Exception: new InvalidOperationException(message: "failed"),
+            Exception: new InvalidOperationException(
+                message: "sensitive-unexpected-detail"),
             MinimumStatus: StatusCodes.Status500InternalServerError,
             MaximumStatus: 599,
             Warning: false);
@@ -202,7 +434,8 @@ public sealed partial class ControllerFailureCoverageTests
     private static Controller CreateController(
         Type controllerType,
         Exception exception,
-        TestLoggingBroker loggingBroker)
+        TestLoggingBroker loggingBroker,
+        bool emptyCollections = false)
     {
         ConstructorInfo constructor = controllerType
             .GetConstructors()
@@ -213,9 +446,13 @@ public sealed partial class ControllerFailureCoverageTests
             .Select(selector: parameter =>
                 parameter.ParameterType == typeof(ILoggingBroker)
                     ? loggingBroker
-                    : ThrowingDispatchProxy.Create(
-                        interfaceType: parameter.ParameterType,
-                        exception: exception))
+                    : exception is null
+                        ? SuccessfulDispatchProxy.Create(
+                            interfaceType: parameter.ParameterType,
+                            emptyCollections: emptyCollections)
+                        : ThrowingDispatchProxy.Create(
+                            interfaceType: parameter.ParameterType,
+                            exception: exception))
             .ToArray();
 
         Controller controller = (Controller)constructor.Invoke(
@@ -251,7 +488,7 @@ public sealed partial class ControllerFailureCoverageTests
 
         if (parameterType == typeof(Guid))
         {
-            return Guid.NewGuid();
+            return Guid.Empty;
         }
 
         if (parameterType == typeof(SetupDetails))
@@ -279,6 +516,53 @@ public sealed partial class ControllerFailureCoverageTests
         }
 
         return Activator.CreateInstance(type: parameterType);
+    }
+
+    private static ChangePasswordRequest CreatePasswordRequest() =>
+        new()
+        {
+            ConfirmPassword = "new-password",
+            NewPassword = "new-password",
+            OldPassword = "old-password"
+        };
+
+    private static bool IsMissingResourceAction(MethodInfo action)
+    {
+        Type controllerType = action.DeclaringType;
+
+        if (action.Name == "Delete")
+        {
+            return controllerType == typeof(SSORoleController)
+                || controllerType == typeof(SSOUserController)
+                || controllerType == typeof(SSOUserRoleController)
+                || controllerType == typeof(TenantController);
+        }
+
+        return action.Name == "Get"
+            && action.GetParameters().Length == 1
+            && action.GetParameters()[0].GetCustomAttribute<FromRouteAttribute>() is not null
+            && (controllerType == typeof(SSOPrivilegeController)
+                || controllerType == typeof(SSORoleController)
+                || controllerType == typeof(SSOUserController)
+                || controllerType == typeof(TenantAnalysisController)
+                || controllerType == typeof(TenantController)
+                || controllerType == typeof(UserEventController));
+    }
+
+    private static void AssertLogCounts(
+        TestLoggingBroker loggingBroker,
+        int information,
+        int warning,
+        int error)
+    {
+        loggingBroker.InformationCount.Should()
+            .Be(expected: information);
+
+        loggingBroker.WarningCount.Should()
+            .Be(expected: warning);
+
+        loggingBroker.ErrorCount.Should()
+            .Be(expected: error);
     }
 
     private static async Task<IActionResult> ResolveResultAsync(
@@ -345,14 +629,55 @@ public sealed partial class ControllerFailureCoverageTests
             {
                 loggingBroker.WarningCount
                     .Should()
-                    .BeGreaterThan(expected: 0);
+                    .Be(expected: 1);
+
+                loggingBroker.ErrorCount
+                    .Should()
+                    .Be(expected: 0);
             }
             else
             {
                 loggingBroker.ErrorCount
                     .Should()
-                    .BeGreaterThan(expected: 0);
+                    .Be(expected: 1);
+
+                loggingBroker.WarningCount
+                    .Should()
+                    .Be(expected: 0);
             }
+
+            loggingBroker.InformationCount
+                .Should()
+                .Be(expected: 0);
+        }
+
+        internal void AssertSafeBody(IActionResult result)
+        {
+            string expectedBody = Exception switch
+            {
+                ArgumentException => "The request is invalid.",
+                System.Security.Authentication.AuthenticationException =>
+                    "Authentication failed.",
+                InvalidOperationException => "The security operation failed.",
+                _ => null
+            };
+
+            if (expectedBody is null)
+            {
+                return;
+            }
+
+            ObjectResult response = result.Should()
+                .BeAssignableTo<ObjectResult>()
+                .Subject;
+
+            response.Value.Should()
+                .Be(expected: expectedBody);
+
+            response.Value
+                .ToString()
+                .Should()
+                .NotContain(unexpected: Exception.Message);
         }
     }
 
@@ -375,11 +700,147 @@ public sealed partial class ControllerFailureCoverageTests
             throw Exception;
     }
 
+    private class SuccessfulDispatchProxy : DispatchProxy
+    {
+        internal bool EmptyCollections { get; set; }
+
+        internal static object Create(Type interfaceType, bool emptyCollections)
+        {
+            SuccessfulDispatchProxy proxy =
+                (SuccessfulDispatchProxy)DispatchProxy.Create(
+                interfaceType: interfaceType,
+                proxyType: typeof(SuccessfulDispatchProxy));
+
+            proxy.EmptyCollections = emptyCollections;
+
+            return proxy;
+        }
+
+        protected override object Invoke(MethodInfo targetMethod, object[] args) =>
+            CreateValue(type: targetMethod.ReturnType);
+
+        private object CreateValue(Type type)
+        {
+            if (type == typeof(void))
+            {
+                return null;
+            }
+
+            if (type == typeof(string))
+            {
+                return "value";
+            }
+
+            if (type == typeof(Task))
+            {
+                return Task.CompletedTask;
+            }
+
+            if (type == typeof(ValueTask))
+            {
+                return ValueTask.CompletedTask;
+            }
+
+            if (type.IsGenericType)
+            {
+                Type genericType = type.GetGenericTypeDefinition();
+                Type valueType = type.GetGenericArguments()[0];
+
+                if (genericType == typeof(IQueryable<>))
+                {
+                    Array values = Array.CreateInstance(
+                        elementType: valueType,
+                        length: EmptyCollections ? 0 : 1);
+
+                    if (!EmptyCollections)
+                    {
+                        values.SetValue(
+                            value: CreateEntity(type: valueType),
+                            index: 0);
+                    }
+
+                    return typeof(Queryable)
+                        .GetMethods()
+                        .Single(predicate: method =>
+                            method.Name == nameof(Queryable.AsQueryable)
+                            && method.IsGenericMethod
+                            && method.GetParameters().Length == 1)
+                        .MakeGenericMethod(typeArguments: [valueType])
+                        .Invoke(obj: null, parameters: [values]);
+                }
+
+                object value = CreateValue(type: valueType);
+
+                if (genericType == typeof(Task<>))
+                {
+                    return typeof(Task)
+                        .GetMethod(name: nameof(Task.FromResult))
+                        .MakeGenericMethod(typeArguments: [valueType])
+                        .Invoke(obj: null, parameters: [value]);
+                }
+
+                if (genericType == typeof(ValueTask<>))
+                {
+                    return Activator.CreateInstance(type: type, args: [value]);
+                }
+            }
+
+            return CreateEntity(type: type);
+        }
+
+        private static object CreateEntity(Type type)
+        {
+            object value = type.IsValueType
+                ? Activator.CreateInstance(type: type)
+                : type.GetConstructor(types: Type.EmptyTypes)?.Invoke(parameters: null);
+
+            if (value is null)
+            {
+                return null;
+            }
+
+            PropertyInfo idProperty = value
+                .GetType()
+                .GetProperty(name: "Id");
+
+            SetProperty(
+                value: value,
+                name: "Id",
+                propertyValue: idProperty?.PropertyType == typeof(string)
+                    ? "value"
+                    : Guid.Empty);
+
+            SetProperty(value: value, name: "UserId", propertyValue: "value");
+            SetProperty(value: value, name: "RoleId", propertyValue: Guid.Empty);
+
+            return value;
+        }
+
+        private static void SetProperty(object value, string name, object propertyValue)
+        {
+            PropertyInfo property = value
+                .GetType()
+                .GetProperty(name: name);
+
+            if (property?.CanWrite == true
+                && propertyValue is not null
+                && property.PropertyType.IsInstanceOfType(o: propertyValue))
+            {
+                property.SetValue(obj: value, value: propertyValue);
+            }
+        }
+    }
+
     private sealed class TestLoggingBroker : ILoggingBroker
     {
         internal int WarningCount { get; private set; }
 
         internal int ErrorCount { get; private set; }
+
+        internal int InformationCount { get; private set; }
+
+        public void LogInformation(string message, params object[] args) =>
+            InformationCount++;
 
         public void LogWarning(string message, params object[] args) =>
             WarningCount++;

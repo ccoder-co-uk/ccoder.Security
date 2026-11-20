@@ -26,7 +26,23 @@ public class SSOPrivilegeController(ISSOPrivilegeService privilegeProcessingServ
     {
         try
         {
-            return Ok(value: privilegeProcessingService.GetAllSSOPrivileges());
+            IActionResult successResponse = Ok(value: privilegeProcessingService.GetAllSSOPrivileges());
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityProcessingValidationException exception)
         {
@@ -72,9 +88,28 @@ public class SSOPrivilegeController(ISSOPrivilegeService privilegeProcessingServ
 
             SSOPrivilege ssoPrivilege = result.FirstOrDefault();
 
-            return ssoPrivilege is null
-                ? NotFound()
-                : Ok(value: ssoPrivilege);
+            if (ssoPrivilege is null)
+            {
+                loggingBroker.LogWarning(message: "Controller resource was not found.");
+
+                return NotFound();
+            }
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return Ok(value: ssoPrivilege);
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityProcessingValidationException exception)
         {
