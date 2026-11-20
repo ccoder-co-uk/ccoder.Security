@@ -989,7 +989,7 @@
         {
           "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "exception",
@@ -1030,9 +1030,48 @@
           "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogInformation(System.String,System.Object[])",
+          "Name": "LogInformation",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogInformation",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Security.Brokers.Logging.LoggingBroker.LogWarning(System.String,System.Object[])",
           "Name": "LogWarning",
-          "LineNumber": 23,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "message",
@@ -4836,7 +4875,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostChangePassword(cCoder.Security.Models.DTOs.ChangePasswordRequest)",
           "Name": "PostChangePassword",
-          "LineNumber": 129,
+          "LineNumber": 163,
           "Inputs": [
             {
               "Name": "newChangePasswordRequest",
@@ -4889,6 +4928,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.String",
               "MethodName": "Equals",
               "MethodId": "System.String.Equals(System.String?,System.String?,System.StringComparison)",
@@ -4899,6 +4945,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -4944,20 +4997,20 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -4992,6 +5045,16 @@
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -5087,9 +5150,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -5135,8 +5212,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -5147,8 +5224,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -5173,6 +5250,16 @@
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -5215,7 +5302,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.AuthenticationController.PostLogout()",
           "Name": "PostLogout",
-          "LineNumber": 80,
+          "LineNumber": 98,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CMicrosoft.AspNetCore.Mvc.IActionResult\u003E",
           "Implements": [],
@@ -5256,9 +5343,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -5299,12 +5400,12 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
@@ -5327,6 +5428,16 @@
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -5454,9 +5565,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -5500,20 +5625,20 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -5528,6 +5653,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -5633,9 +5768,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -5678,10 +5827,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -5706,6 +5855,16 @@
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -5748,7 +5907,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.CurrentUserController.PutMe(cCoder.Security.Models.Entities.SSOUser)",
           "Name": "PutMe",
-          "LineNumber": 72,
+          "LineNumber": 88,
           "Inputs": [
             {
               "Name": "updatedSSOUser",
@@ -5801,9 +5960,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -5850,8 +6023,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -5862,8 +6035,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -5888,6 +6061,16 @@
               "HasBody": false,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -6008,9 +6191,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -6073,12 +6270,32 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -6153,7 +6370,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostAcceptInvite(System.String,System.String,cCoder.Security.Models.DTOs.RegisterUser)",
           "Name": "PostAcceptInvite",
-          "LineNumber": 218,
+          "LineNumber": 286,
           "Inputs": [
             {
               "Name": "userId",
@@ -6214,9 +6431,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -6260,20 +6491,20 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -6288,6 +6519,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -6320,7 +6561,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostConfirmRegistration(System.String)",
           "Name": "PostConfirmRegistration",
-          "LineNumber": 80,
+          "LineNumber": 98,
           "Inputs": [
             {
               "Name": "confirmationToken",
@@ -6366,9 +6607,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -6412,12 +6667,12 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
@@ -6430,6 +6685,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -6462,7 +6727,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostInvite(cCoder.Security.Models.DTOs.RegisterUser)",
           "Name": "PostInvite",
-          "LineNumber": 122,
+          "LineNumber": 156,
           "Inputs": [
             {
               "Name": "newRegisterUser",
@@ -6508,9 +6773,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -6553,8 +6832,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 201,
-              "ResultMethod": "StatusCode",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -6565,8 +6844,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -6581,6 +6860,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -6659,9 +6948,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -6704,8 +7007,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 201,
-              "ResultMethod": "StatusCode",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -6716,8 +7019,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -6732,6 +7035,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -6764,7 +7077,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.RegistrationController.PostResendInvite(System.String)",
           "Name": "PostResendInvite",
-          "LineNumber": 176,
+          "LineNumber": 228,
           "Inputs": [
             {
               "Name": "userId",
@@ -6810,9 +7123,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -6855,10 +7182,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -6873,6 +7200,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -6972,9 +7309,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -7007,10 +7358,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -7025,6 +7376,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -7057,7 +7418,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOPrivilegeController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 65,
+          "LineNumber": 81,
           "Inputs": [
             {
               "Name": "key",
@@ -7110,6 +7471,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
@@ -7127,6 +7495,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -7171,12 +7546,32 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -7240,7 +7635,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Delete(System.Guid)",
           "Name": "Delete",
-          "LineNumber": 209,
+          "LineNumber": 280,
           "Inputs": [
             {
               "Name": "key",
@@ -7300,6 +7695,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
@@ -7310,6 +7712,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -7357,20 +7766,20 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 204,
-              "ResultMethod": "NoContent",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -7385,6 +7794,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -7473,9 +7892,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -7515,10 +7948,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -7533,6 +7966,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -7565,7 +8008,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 67,
+          "LineNumber": 83,
           "Inputs": [
             {
               "Name": "key",
@@ -7618,6 +8061,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
@@ -7635,6 +8085,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -7686,12 +8143,32 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityOrchestrationValidationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -7734,7 +8211,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Post(cCoder.Security.Models.Entities.SSORole)",
           "Name": "Post",
-          "LineNumber": 114,
+          "LineNumber": 149,
           "Inputs": [
             {
               "Name": "newSSORole",
@@ -7780,9 +8257,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -7823,8 +8314,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 201,
-              "ResultMethod": "StatusCode",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -7835,8 +8326,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -7851,6 +8342,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -7883,7 +8384,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSORoleController.Put(System.Guid,cCoder.Security.Models.Entities.SSORole)",
           "Name": "Put",
-          "LineNumber": 160,
+          "LineNumber": 213,
           "Inputs": [
             {
               "Name": "key",
@@ -7940,9 +8441,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -7983,8 +8498,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -7995,8 +8510,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -8011,6 +8526,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -8075,7 +8600,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Delete(System.String,System.String)",
           "Name": "Delete",
-          "LineNumber": 163,
+          "LineNumber": 216,
           "Inputs": [
             {
               "Name": "key",
@@ -8132,6 +8657,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
@@ -8142,6 +8674,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -8190,12 +8729,12 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 204,
-              "ResultMethod": "NoContent",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
@@ -8208,6 +8747,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -8296,9 +8845,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -8339,10 +8902,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -8357,6 +8920,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -8389,7 +8962,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 67,
+          "LineNumber": 83,
           "Inputs": [
             {
               "Name": "key",
@@ -8442,6 +9015,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
@@ -8459,6 +9039,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -8511,12 +9098,32 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -8559,7 +9166,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserController.Put(System.String,cCoder.Security.Models.Entities.SSOUser)",
           "Name": "Put",
-          "LineNumber": 115,
+          "LineNumber": 150,
           "Inputs": [
             {
               "Name": "key",
@@ -8616,9 +9223,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -8663,8 +9284,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -8675,8 +9296,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -8691,6 +9312,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -8744,7 +9375,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserRoleController.Delete(System.String,System.Guid)",
           "Name": "Delete",
-          "LineNumber": 113,
+          "LineNumber": 147,
           "Inputs": [
             {
               "Name": "userId",
@@ -8808,6 +9439,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
@@ -8818,6 +9456,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -8865,20 +9510,20 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 204,
-              "ResultMethod": "NoContent",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -8893,6 +9538,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -8981,9 +9636,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -9023,10 +9692,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -9041,6 +9710,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -9073,7 +9752,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.SSOUserRoleController.Post(cCoder.Security.Models.Entities.SSOUserRole)",
           "Name": "Post",
-          "LineNumber": 66,
+          "LineNumber": 82,
           "Inputs": [
             {
               "Name": "newSSOUserRole",
@@ -9119,9 +9798,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -9162,8 +9855,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 201,
-              "ResultMethod": "StatusCode",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -9174,8 +9867,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -9190,6 +9883,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -9300,9 +10003,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -9353,20 +10070,20 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -9381,6 +10098,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -9495,9 +10222,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -9533,10 +10274,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -9551,6 +10292,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -9583,7 +10334,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantAnalysisController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 66,
+          "LineNumber": 82,
           "Inputs": [
             {
               "Name": "key",
@@ -9636,6 +10387,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
@@ -9653,6 +10411,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -9700,12 +10465,32 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -9780,7 +10565,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Delete(System.String)",
           "Name": "Delete",
-          "LineNumber": 210,
+          "LineNumber": 281,
           "Inputs": [
             {
               "Name": "key",
@@ -9840,6 +10625,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E,System.Linq.Expressions.Expression\u003CSystem.Func\u003CTSource, System.Boolean\u003E\u003E)",
@@ -9850,6 +10642,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -9897,20 +10696,20 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 204,
-              "ResultMethod": "NoContent",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
-              "HasBody": false,
+              "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": false
             },
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -9925,6 +10724,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -10013,9 +10822,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -10055,10 +10878,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -10073,6 +10896,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -10105,7 +10938,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Get(System.String)",
           "Name": "Get",
-          "LineNumber": 68,
+          "LineNumber": 84,
           "Inputs": [
             {
               "Name": "key",
@@ -10158,6 +10991,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
@@ -10175,6 +11015,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -10226,12 +11073,32 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityAggregationValidationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -10274,7 +11141,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Post(cCoder.Security.Models.Entities.Tenant)",
           "Name": "Post",
-          "LineNumber": 115,
+          "LineNumber": 150,
           "Inputs": [
             {
               "Name": "newTenant",
@@ -10320,9 +11187,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -10364,8 +11245,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 201,
-              "ResultMethod": "StatusCode",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -10376,8 +11257,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -10392,6 +11273,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -10424,7 +11315,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.TenantController.Put(System.String,cCoder.Security.Models.Entities.Tenant)",
           "Name": "Put",
-          "LineNumber": 161,
+          "LineNumber": 214,
           "Inputs": [
             {
               "Name": "key",
@@ -10481,9 +11372,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -10524,8 +11429,8 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "",
               "IsExceptionPath": false,
               "IsNullPath": false,
@@ -10536,8 +11441,8 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -10552,6 +11457,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -10651,9 +11566,23 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -10689,10 +11618,10 @@
           ],
           "HttpResponses": [
             {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
@@ -10707,6 +11636,16 @@
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -10739,7 +11678,7 @@
         {
           "Id": "cCoder.Security.Exposures.Controllers.UserEventController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 66,
+          "LineNumber": 82,
           "Inputs": [
             {
               "Name": "key",
@@ -10792,6 +11731,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Unauthorized",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Unauthorized(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Linq.Queryable",
               "MethodName": "FirstOrDefault",
               "MethodId": "System.Linq.Queryable.FirstOrDefault(System.Linq.IQueryable\u003CTSource\u003E)",
@@ -10809,6 +11755,13 @@
               "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
               "MethodName": "LogError",
               "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -10856,12 +11809,32 @@
             {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
+              "ExceptionType": "System.ArgumentException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
+            },
+            {
+              "StatusCode": 400,
+              "ResultMethod": "BadRequest",
               "ExceptionType": "cCoder.Security.Models.Exceptions.SecurityProcessingValidationException",
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
               "LogsException": true
+            },
+            {
+              "StatusCode": 401,
+              "ResultMethod": "Unauthorized",
+              "ExceptionType": "System.Security.Authentication.AuthenticationException",
+              "IsExceptionPath": true,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 403,
@@ -21681,7 +22654,7 @@
         {
           "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "exception",
@@ -21712,9 +22685,38 @@
           "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
+          "Name": "LogInformation",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogWarning(System.String,System.Object[])",
           "Name": "LogWarning",
-          "LineNumber": 12,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "message",

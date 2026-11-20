@@ -28,7 +28,23 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
     {
         try
         {
-            return Ok(value: userRoleOrchestrationService.GetAllSSOUserRoles());
+            IActionResult successResponse = Ok(value: userRoleOrchestrationService.GetAllSSOUserRoles());
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityOrchestrationValidationException exception)
         {
@@ -69,13 +85,31 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
-            return StatusCode(
+            IActionResult successResponse = StatusCode(
                 statusCode: StatusCodes.Status201Created,
                 value: await userRoleOrchestrationService.AddSSOUserRoleAsync(
                     userRole: newSSOUserRole));
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityOrchestrationValidationException exception)
         {
@@ -116,6 +150,8 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
@@ -126,13 +162,31 @@ public class SSOUserRoleController(ISSOUserRoleOrchestrationService userRoleOrch
 
             if (userRole is null)
             {
+                loggingBroker.LogWarning(message: "Controller resource was not found.");
+
                 return NotFound();
             }
 
             await userRoleOrchestrationService.DeleteSSOUserRoleAsync(
                 userRole: userRole);
 
-            return NoContent();
+            IActionResult successResponse = NoContent();
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityOrchestrationValidationException exception)
         {

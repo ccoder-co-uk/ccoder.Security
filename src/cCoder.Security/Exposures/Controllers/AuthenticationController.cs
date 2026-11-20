@@ -29,18 +29,36 @@ public class AuthenticationController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
-            return Ok(value: await authenticationAggregationService.LoginAsync(
+            IActionResult successResponse = Ok(value: await authenticationAggregationService.LoginAsync(
                 username: newAuth.User,
                 password: newAuth.Pass));
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
         }
         catch (SecurityAggregationAuthenticationException exception)
         {
             loggingBroker.LogWarning(message: exception.Message);
 
             return Challenge();
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -83,13 +101,29 @@ public class AuthenticationController(
         {
             await authenticationAggregationService.LogoutAsync();
 
-            return Ok();
+            IActionResult successResponse = Ok();
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
         }
         catch (SecurityAggregationAuthenticationException exception)
         {
             loggingBroker.LogWarning(message: exception.Message);
 
             return Challenge();
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -133,11 +167,15 @@ public class AuthenticationController(
         {
             if (User.Identity?.IsAuthenticated != true)
             {
+                loggingBroker.LogWarning(message: "Controller authentication failed.");
+
                 return Challenge();
             }
 
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
@@ -146,6 +184,8 @@ public class AuthenticationController(
                 b: newChangePasswordRequest.ConfirmPassword,
                 comparisonType: StringComparison.Ordinal))
             {
+                loggingBroker.LogWarning(message: "Controller request was rejected.");
+
                 return BadRequest(error: "The password confirmation does not match.");
             }
 
@@ -153,13 +193,29 @@ public class AuthenticationController(
                 oldPassword: newChangePasswordRequest.OldPassword,
                 newPassword: newChangePasswordRequest.NewPassword);
 
-            return Ok();
+            IActionResult successResponse = Ok();
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
         }
         catch (SecurityAggregationAuthenticationException exception)
         {
             loggingBroker.LogWarning(message: exception.Message);
 
             return Challenge();
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {

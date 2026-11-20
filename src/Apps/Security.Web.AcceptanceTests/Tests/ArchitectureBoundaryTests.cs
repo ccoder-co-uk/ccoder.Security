@@ -4,6 +4,8 @@
 
 using System.Linq;
 using System;
+using System.Reflection;
+using cCoder.Security.Brokers.Logging;
 using FluentAssertions;
 using Security.Web.Controllers;
 using Xunit;
@@ -23,11 +25,15 @@ public sealed partial class ArchitectureBoundaryTests
         Type controllerType = controller;
 
         // When
-        Type dependency = controllerType
+        ParameterInfo[] dependencies = controllerType
             .GetConstructors()
             .Single()
             .GetParameters()
-            .Single()
+            .ToArray();
+
+        Type dependency = dependencies
+            .Single(predicate: parameter =>
+                parameter.ParameterType.FullName == expectedServiceContract)
             .ParameterType;
 
         // Then
@@ -38,5 +44,12 @@ public sealed partial class ArchitectureBoundaryTests
         dependency.IsPublic
             .Should()
             .BeTrue();
+
+        dependencies
+            .Where(predicate: parameter => parameter.ParameterType != dependency)
+            .Should()
+            .ContainSingle()
+            .Which.ParameterType.Should()
+            .Be(expected: typeof(ILoggingBroker));
     }
 }

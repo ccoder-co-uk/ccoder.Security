@@ -62,7 +62,7 @@
     {
       "Name": "Security.Web.Controllers.CurrentUserController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 13,
+      "LineNumber": 14,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -81,7 +81,7 @@
         {
           "Id": "Security.Web.Controllers.CurrentUserController.Get()",
           "Name": "Get",
-          "LineNumber": 19,
+          "LineNumber": 21,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
@@ -106,6 +106,20 @@
               "MethodId": "Security.Web.Services.Foundations.ICurrentUserService.GetCurrentUserId()",
               "StandardElementType": "FoundationService",
               "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             }
           ],
           "PossibleExceptionTypes": [
@@ -139,7 +153,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -154,7 +168,7 @@
     {
       "Name": "Security.Web.Controllers.HomeController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 13,
+      "LineNumber": 14,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -173,7 +187,7 @@
         {
           "Id": "Security.Web.Controllers.HomeController.Get()",
           "Name": "Get",
-          "LineNumber": 17,
+          "LineNumber": 21,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
@@ -198,6 +212,20 @@
               "MethodId": "Security.Web.Services.Foundations.IHomeService.GetIndexPath()",
               "StandardElementType": "FoundationService",
               "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Brokers.Logging.ILoggingBroker",
+              "MethodName": "LogInformation",
+              "MethodId": "cCoder.Security.Brokers.Logging.ILoggingBroker.LogInformation(System.String,System.Object[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             }
           ],
           "PossibleExceptionTypes": [
@@ -221,7 +249,7 @@
               "IsNullPath": false,
               "HasBody": true,
               "ExposesExceptionDetails": false,
-              "LogsException": false
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -1109,8 +1137,16 @@
       "ToType": "Security.Web.Services.Foundations.CurrentUserService"
     },
     {
+      "FromType": "Security.Web.Controllers.CurrentUserController",
+      "ToType": "cCoder.Security.Brokers.Logging.ILoggingBroker"
+    },
+    {
       "FromType": "Security.Web.Controllers.HomeController",
       "ToType": "Security.Web.Services.Foundations.HomeService"
+    },
+    {
+      "FromType": "Security.Web.Controllers.HomeController",
+      "ToType": "cCoder.Security.Brokers.Logging.ILoggingBroker"
     },
     {
       "FromType": "Security.Web.Exposures.CurrentUserManager",
