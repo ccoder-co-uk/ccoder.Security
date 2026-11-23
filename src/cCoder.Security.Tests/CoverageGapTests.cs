@@ -17,6 +17,7 @@ using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
+using cCoder.Security.Brokers.Events;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -60,11 +61,19 @@ public sealed partial class CoverageGapTests
         Mock<ISSOUserRoleProcessingService> userRoles = new(MockBehavior.Strict);
         Mock<IAuthorizationProcessingService> authorization = new(MockBehavior.Strict);
         Mock<ITenantAnalysisProcessingService> analyses = new(MockBehavior.Strict);
+        Mock<ITenantDeletedEventBroker> tenantDeletedEvents = new(MockBehavior.Strict);
 
         authorization
             .Setup(expression: service =>
                 service.EnsureUserIsPortalAdminWithPrivilege(
                     privilege: "tenant_delete"));
+
+        authorization
+            .Setup(expression: service => service.GetAuthorizationContext())
+            .Returns(value: new AuthorizationContext
+            {
+                CurrentUser = new SSOUser { Id = "admin" }
+            });
 
         roles
             .Setup(expression: service => service.GetAllSSORoles())
@@ -96,13 +105,19 @@ public sealed partial class CoverageGapTests
             .Setup(expression: service => service.DeleteTenantAsync(item: tenant))
             .Returns(value: ValueTask.CompletedTask);
 
+        tenantDeletedEvents
+            .Setup(expression: broker => broker.RaiseTenantDeletedEventAsync(
+                message: It.IsAny<cCoder.Eventing.Models.EventMessage<cCoder.Security.Models.Events.SecurityAccountEvent>>()))
+            .Returns(value: ValueTask.CompletedTask);
+
         TenantAggregationService service = new(
             tenantProcessingService: tenants.Object,
             userProcessingService: users.Object,
             roleProcessingService: roles.Object,
             userRoleProcessingService: userRoles.Object,
             authorizationProcessingService: authorization.Object,
-            tenantAnalysisProcessingService: analyses.Object);
+            tenantAnalysisProcessingService: analyses.Object,
+            tenantDeletedEventBroker: tenantDeletedEvents.Object);
 
         // When
 
@@ -126,6 +141,13 @@ public sealed partial class CoverageGapTests
         analyses.Verify(
             expression: dependency =>
                 dependency.DeleteTenantAnalysisAsync(item: analysis),
+            times: Times.Once);
+
+        tenantDeletedEvents.Verify(
+            expression: broker => broker.RaiseTenantDeletedEventAsync(
+                message: It.Is<cCoder.Eventing.Models.EventMessage<cCoder.Security.Models.Events.SecurityAccountEvent>>(
+                    match: message => message.Data.Tenant.Id == tenant.Id
+                        && message.Data.Kind == cCoder.Security.Models.Events.SecurityAccountEventKind.TenantDeleted)),
             times: Times.Once);
     }
 
