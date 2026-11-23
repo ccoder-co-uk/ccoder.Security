@@ -216,6 +216,7 @@ public static class IServiceCollectionExtensions
 
         services.AddTransient<IAccountEventBroker, AccountEventBroker>();
         services.AddTransient<ITenantSetupEventBroker, TenantSetupEventBroker>();
+        services.AddTransient<ITenantDeletedEventBroker, TenantDeletedEventBroker>();
     }
 
     private static void AddFoundations(this IServiceCollection services)

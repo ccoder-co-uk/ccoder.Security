@@ -7,6 +7,8 @@ using cCoder.Security.Services.Aggregations;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
+using cCoder.Security.Brokers.Events;
+using System.Threading.Tasks;
 using Moq;
 
 namespace cCoder.Security.Tests.Aggregations;
@@ -19,6 +21,7 @@ public partial class TenantAggregationServiceTests
     private readonly Mock<ISSOUserRoleProcessingService> userRoleProcessingServiceMock;
     private readonly Mock<IAuthorizationProcessingService> authorizationProcessingServiceMock;
     private readonly Mock<ITenantAnalysisProcessingService> tenantAnalysisProcessingServiceMock;
+    private readonly Mock<ITenantDeletedEventBroker> tenantDeletedEventBrokerMock;
     private readonly ITenantAggregationService tenantAggregationService;
 
     public TenantAggregationServiceTests()
@@ -38,6 +41,14 @@ public partial class TenantAggregationServiceTests
         tenantAnalysisProcessingServiceMock =
             new Mock<ITenantAnalysisProcessingService>(MockBehavior.Strict);
 
+        tenantDeletedEventBrokerMock =
+            new Mock<ITenantDeletedEventBroker>(MockBehavior.Strict);
+
+        tenantDeletedEventBrokerMock
+            .Setup(expression: broker => broker.RaiseTenantDeletedEventAsync(
+                message: It.IsAny<cCoder.Eventing.Models.EventMessage<cCoder.Security.Models.Events.SecurityAccountEvent>>()))
+            .Returns(value: ValueTask.CompletedTask);
+
         tenantAggregationService = new TenantAggregationService(
             tenantProcessingService: tenantProcessingServiceMock.Object,
             userProcessingService: userProcessingServiceMock.Object,
@@ -46,6 +57,8 @@ public partial class TenantAggregationServiceTests
             authorizationProcessingService:
                 authorizationProcessingServiceMock.Object,
             tenantAnalysisProcessingService:
-                tenantAnalysisProcessingServiceMock.Object);
+                tenantAnalysisProcessingServiceMock.Object,
+            tenantDeletedEventBroker:
+                tenantDeletedEventBrokerMock.Object);
     }
 }

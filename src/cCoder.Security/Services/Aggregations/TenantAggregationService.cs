@@ -6,7 +6,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using cCoder.Eventing.Models;
+using cCoder.Security.Brokers.Events;
 using cCoder.Security.Models.Entities;
+using cCoder.Security.Models.Events;
 using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
@@ -19,7 +22,8 @@ internal sealed partial class TenantAggregationService(
     ISSORoleProcessingService roleProcessingService,
     ISSOUserRoleProcessingService userRoleProcessingService,
     IAuthorizationProcessingService authorizationProcessingService,
-    ITenantAnalysisProcessingService tenantAnalysisProcessingService)
+    ITenantAnalysisProcessingService tenantAnalysisProcessingService,
+    ITenantDeletedEventBroker tenantDeletedEventBroker)
         : ITenantAggregationService
 {
     public IQueryable<Tenant> GetAllTenants() =>
@@ -154,6 +158,28 @@ internal sealed partial class TenantAggregationService(
         }
 
         await tenantProcessingService.DeleteTenantAsync(item: deletedTenant);
+
+        string actorUserId = authorizationProcessingService
+            .GetAuthorizationContext()
+            .CurrentUser?.Id;
+
+        await tenantDeletedEventBroker.RaiseTenantDeletedEventAsync(
+            message: new EventMessage<SecurityAccountEvent>
+            {
+                AuthInfo = new EventAuthInfo
+                {
+                    SSOUserId = actorUserId ?? "Guest"
+                },
+                Data = new SecurityAccountEvent
+                {
+                    ActorUserId = actorUserId,
+                    Kind = SecurityAccountEventKind.TenantDeleted,
+                    Tenant = new Tenant
+                    {
+                        Id = deletedTenant.Id
+                    }
+                }
+            });
     }
 
     private async ValueTask<Tenant> UpdateTenantCoreAsync(Tenant updatedTenant)
