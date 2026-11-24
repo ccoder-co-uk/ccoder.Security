@@ -65,7 +65,7 @@ public sealed partial class ExposureSuccessCoverageTests
             loggingBroker: Mock.Of<ILoggingBroker>());
 
         TenantController tenantController = new(
-            tenantAggregationService: tenants.Object,
+            tenantAdministrationManager: tenants.Object,
             loggingBroker: Mock.Of<ILoggingBroker>());
 
         SSOUserRoleController userRoleController = new(
