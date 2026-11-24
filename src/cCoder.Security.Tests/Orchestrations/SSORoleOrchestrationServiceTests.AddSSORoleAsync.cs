@@ -46,7 +46,7 @@ times: Times.Never);
     }
 
     [Fact]
-    public async Task ShouldRequirePortalAdminCheckAfterBootstrapRoleExists()
+    public async Task ShouldRequireTenantAdminPrivilegeForTenantRoleCreation()
     {
         // Given
         SSORole inputRole = new()
@@ -61,8 +61,9 @@ times: Times.Never);
 
         authorizationProcessingServiceMock
             .Setup(expression: service =>
-                service.EnsureUserIsPortalAdminWithPrivilege(
-                    privilege: "tenant_admin"));
+                service.EnsureUserHasPrivilege(
+                    privilege: "tenant_admin",
+                    tenantId: inputRole.TenantId));
 
         roleProcessingServiceMock
             .Setup(expression: x => x.AddSSORoleAsync(item:inputRole))
@@ -73,7 +74,9 @@ times: Times.Never);
 
         // Then
         authorizationProcessingServiceMock.Verify(
-expression: service => service.EnsureUserIsPortalAdminWithPrivilege(privilege: "tenant_admin"),
+            expression: service => service.EnsureUserHasPrivilege(
+                privilege: "tenant_admin",
+                tenantId: inputRole.TenantId),
 times: Times.Once);
     }
 }
