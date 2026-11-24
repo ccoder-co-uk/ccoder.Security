@@ -29,7 +29,23 @@ public class TenantController(
     {
         try
         {
-            return Ok(value: tenantAggregationService.GetAllTenants());
+            IActionResult successResponse = Ok(value: tenantAggregationService.GetAllTenants());
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -75,9 +91,28 @@ public class TenantController(
 
             Tenant tenant = result.FirstOrDefault();
 
-            return tenant is null
-                ? NotFound()
-                : Ok(value: tenant);
+            if (tenant is null)
+            {
+                loggingBroker.LogWarning(message: "Controller resource was not found.");
+
+                return NotFound();
+            }
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return Ok(value: tenant);
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -118,12 +153,30 @@ public class TenantController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
-            return StatusCode(
+            IActionResult successResponse = StatusCode(
                 statusCode: StatusCodes.Status201Created,
                 value: await tenantAggregationService.AddTenantAsync(item: newTenant));
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -166,13 +219,31 @@ public class TenantController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
             updatedTenant.Id = key;
 
-            return Ok(value: await tenantAggregationService.UpdateTenantAsync(
+            IActionResult successResponse = Ok(value: await tenantAggregationService.UpdateTenantAsync(
                 item: updatedTenant));
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -213,6 +284,8 @@ public class TenantController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
@@ -222,12 +295,30 @@ public class TenantController(
 
             if (tenant is null)
             {
+                loggingBroker.LogWarning(message: "Controller resource was not found.");
+
                 return NotFound();
             }
 
             await tenantAggregationService.DeleteTenantAsync(item: tenant);
 
-            return NoContent();
+            IActionResult successResponse = NoContent();
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {

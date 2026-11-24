@@ -27,7 +27,23 @@ public class TenantAnalysisController(ITenantAnalysisProcessingService tenantAna
     {
         try
         {
-            return Ok(value: tenantAnalysisProcessingService.GetAllTenantAnalyses());
+            IActionResult successResponse = Ok(value: tenantAnalysisProcessingService.GetAllTenantAnalyses());
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityProcessingValidationException exception)
         {
@@ -73,9 +89,28 @@ public class TenantAnalysisController(ITenantAnalysisProcessingService tenantAna
 
             TenantAnalysis tenantAnalysis = result.FirstOrDefault();
 
-            return tenantAnalysis is null
-                ? NotFound()
-                : Ok(value: tenantAnalysis);
+            if (tenantAnalysis is null)
+            {
+                loggingBroker.LogWarning(message: "Controller resource was not found.");
+
+                return NotFound();
+            }
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return Ok(value: tenantAnalysis);
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityProcessingValidationException exception)
         {

@@ -27,7 +27,23 @@ public class UserEventController(IUserEventProcessingService userEventProcessing
     {
         try
         {
-            return Ok(value: userEventProcessingService.GetAllUserEvents());
+            IActionResult successResponse = Ok(value: userEventProcessingService.GetAllUserEvents());
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityProcessingValidationException exception)
         {
@@ -73,9 +89,28 @@ public class UserEventController(IUserEventProcessingService userEventProcessing
 
             UserEvent userEvent = result.FirstOrDefault();
 
-            return userEvent is null
-                ? NotFound()
-                : Ok(value: userEvent);
+            if (userEvent is null)
+            {
+                loggingBroker.LogWarning(message: "Controller resource was not found.");
+
+                return NotFound();
+            }
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return Ok(value: userEvent);
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityProcessingValidationException exception)
         {

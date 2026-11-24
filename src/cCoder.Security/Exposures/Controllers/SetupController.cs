@@ -30,6 +30,8 @@ public sealed class SetupController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
@@ -49,7 +51,23 @@ public sealed class SetupController(
             await registrationAggregationService.SetupRegisterUserAsync(
                 newRegisterUser: newRegisterUser);
 
-            return Ok();
+            IActionResult successResponse = Ok();
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {

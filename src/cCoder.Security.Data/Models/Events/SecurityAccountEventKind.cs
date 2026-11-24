@@ -14,5 +14,6 @@ public enum SecurityAccountEventKind
     TokenIssued,
     LoginSucceeded,
     LogoutSucceeded,
-    AuthenticationFailed
+    AuthenticationFailed,
+    TenantDeleted
 }

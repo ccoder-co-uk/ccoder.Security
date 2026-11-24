@@ -29,6 +29,8 @@ public class RegistrationController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
@@ -36,13 +38,29 @@ public class RegistrationController(
                 await registrationAggregationService.RegisterUserAsync(
                     registerForm: newRegisterUser);
 
-            return StatusCode(
+            IActionResult successResponse = StatusCode(
                 statusCode: StatusCodes.Status201Created,
                 value: new
                 {
                     registeredUser.User,
                     registeredUser.Token
                 });
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -84,7 +102,23 @@ public class RegistrationController(
             await registrationAggregationService.ConfirmRegistration(
                 tokenId: confirmationToken);
 
-            return Ok();
+            IActionResult successResponse = Ok();
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -125,6 +159,8 @@ public class RegistrationController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
@@ -132,13 +168,29 @@ public class RegistrationController(
                 await registrationAggregationService.InviteRegisterUserAsync(
                     registerForm: newRegisterUser);
 
-            return StatusCode(
+            IActionResult successResponse = StatusCode(
                 statusCode: StatusCodes.Status201Created,
                 value: new
                 {
                     invitedUser.User,
                     invitedUser.Token
                 });
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -180,7 +232,23 @@ public class RegistrationController(
             string invitationToken = await registrationAggregationService
                 .RegenerateUserInviteToken(userId: userId);
 
-            return Ok(value: new { Token = invitationToken });
+            IActionResult successResponse = Ok(value: new { Token = invitationToken });
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {
@@ -224,6 +292,8 @@ public class RegistrationController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(message: "Controller request model was invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
@@ -232,7 +302,23 @@ public class RegistrationController(
                 userId: userId,
                 tokenId: inviteToken);
 
-            return Ok();
+            IActionResult successResponse = Ok();
+
+            loggingBroker.LogInformation(message: "Controller request succeeded.");
+
+            return successResponse;
+        }
+        catch (ArgumentException)
+        {
+            loggingBroker.LogWarning(message: "Controller request was rejected.");
+
+            return BadRequest(error: "The request is invalid.");
+        }
+        catch (System.Security.Authentication.AuthenticationException)
+        {
+            loggingBroker.LogWarning(message: "Controller authentication failed.");
+
+            return Unauthorized(value: "Authentication failed.");
         }
         catch (SecurityAggregationValidationException exception)
         {

@@ -30,6 +30,8 @@ public static class SecurityAccountEventKindExtensions
                 "security_authentication_logout_succeeded",
             SecurityAccountEventKind.AuthenticationFailed =>
                 "security_authentication_failed",
+            SecurityAccountEventKind.TenantDeleted =>
+                "tenant_deleted",
             _ => throw new ArgumentOutOfRangeException(
                 paramName: nameof(securityAccountEventKind))
         };
