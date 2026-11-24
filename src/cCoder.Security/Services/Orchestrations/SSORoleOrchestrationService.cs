@@ -33,8 +33,9 @@ internal sealed partial class SSORoleOrchestrationService(
                 .Any())
             {
                 authorizationProcessingService
-                    .EnsureUserIsPortalAdminWithPrivilege(
-                        privilege: "tenant_admin");
+                    .EnsureUserHasPrivilege(
+                        privilege: "tenant_admin",
+                        tenantId: newSSORole.TenantId);
             }
 
             return await roleProcessingService.AddSSORoleAsync(
