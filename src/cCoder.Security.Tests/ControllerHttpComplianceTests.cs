@@ -103,7 +103,7 @@ public sealed partial class ControllerHttpComplianceTests
 
         TenantController controller =
             new(
-                tenantAggregationService: tenantManager.Object,
+                tenantAdministrationManager: tenantManager.Object,
                 loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
@@ -138,7 +138,7 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: ValueTask.FromException<Tenant>(exception: exception));
 
         TenantController controller = new(
-            tenantAggregationService: tenantManager.Object,
+            tenantAdministrationManager: tenantManager.Object,
             loggingBroker: loggingBroker.Object);
 
         // When
@@ -175,7 +175,7 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: ValueTask.FromException<Tenant>(exception: exception));
 
         TenantController controller = new(
-            tenantAggregationService: tenantManager.Object,
+            tenantAdministrationManager: tenantManager.Object,
             loggingBroker: loggingBroker.Object);
 
         // When

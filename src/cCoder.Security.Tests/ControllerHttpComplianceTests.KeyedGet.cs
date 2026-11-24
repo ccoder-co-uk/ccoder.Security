@@ -136,7 +136,7 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: new[] { expectedTenant }.AsQueryable());
 
         TenantController controller = new(
-            tenantAggregationService: manager.Object,
+            tenantAdministrationManager: manager.Object,
             loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
