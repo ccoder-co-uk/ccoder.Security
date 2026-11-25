@@ -48,8 +48,9 @@ internal sealed partial class SSORoleOrchestrationService(
             ValidateSSORoleOnUpdate(updatedSSORole: updatedSSORole);
 
             authorizationProcessingService
-                .EnsureUserIsPortalAdminWithPrivilege(
-                    privilege: "tenant_admin");
+                .EnsureUserHasPrivilege(
+                    privilege: "tenant_admin",
+                    tenantId: updatedSSORole.TenantId);
 
             return await roleProcessingService.UpdateSSORoleAsync(
                 item: updatedSSORole);
@@ -61,8 +62,9 @@ internal sealed partial class SSORoleOrchestrationService(
             ValidateSSORoleOnDelete(deletedSSORole: deletedSSORole);
 
             authorizationProcessingService
-                .EnsureUserIsPortalAdminWithPrivilege(
-                    privilege: "tenant_admin");
+                .EnsureUserHasPrivilege(
+                    privilege: "tenant_admin",
+                    tenantId: deletedSSORole.TenantId);
 
             await roleProcessingService.DeleteSSORoleAsync(
                 item: deletedSSORole);
