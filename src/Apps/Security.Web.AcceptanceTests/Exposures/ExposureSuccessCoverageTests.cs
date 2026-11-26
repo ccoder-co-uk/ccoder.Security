@@ -37,7 +37,7 @@ public sealed partial class ExposureSuccessCoverageTests
 
         Mock<ISSORoleManager> roles = new();
         Mock<ISSOUserAggregationService> users = new();
-        Mock<ITenantAdministrationManager> tenants = new();
+        Mock<ITenantOrchestrationService> tenants = new();
         Mock<ISSOUserRoleManager> userRoles = new();
 
         roles
@@ -65,7 +65,7 @@ public sealed partial class ExposureSuccessCoverageTests
             loggingBroker: Mock.Of<ILoggingBroker>());
 
         TenantController tenantController = new(
-            tenantAdministrationManager: tenants.Object,
+            tenantOrchestrationService: tenants.Object,
             loggingBroker: Mock.Of<ILoggingBroker>());
 
         SSOUserRoleController userRoleController = new(

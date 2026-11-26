@@ -3,28 +3,32 @@
 // ---------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using cCoder.Eventing.Models;
 using cCoder.Security.Brokers.Events;
+using cCoder.Security.Exposures;
+using cCoder.Security.Events;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Events;
-using cCoder.Security.Services.Aggregations.Interfaces;
+using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
 
-namespace cCoder.Security.Services.Aggregations;
+namespace cCoder.Security.Services.Orchestrations;
 
-internal sealed partial class TenantAggregationService(
+internal sealed partial class TenantOrchestrationService(
     ITenantProcessingService tenantProcessingService,
     ISSOUserProcessingService userProcessingService,
     ISSORoleProcessingService roleProcessingService,
     ISSOUserRoleProcessingService userRoleProcessingService,
     IAuthorizationProcessingService authorizationProcessingService,
-    ITenantAnalysisProcessingService tenantAnalysisProcessingService,
-    ITenantDeletedEventBroker tenantDeletedEventBroker)
-        : ITenantAggregationService
+    ITenantDeletingCleanupHandler tenantDeletingCleanupHandler,
+    ITenantDeletedEventBroker tenantDeletedEventBroker,
+    IEnumerable<ITenantDeletingHandler> tenantDeletingHandlers = null)
+        : ITenantOrchestrationService
 {
     public IQueryable<Tenant> GetAllTenants() =>
         TryCatch(operation: () =>
@@ -122,40 +126,12 @@ internal sealed partial class TenantAggregationService(
             .EnsureUserIsPortalAdminWithPrivilege(
                 privilege: "tenant_delete");
 
-        SSORole[] tenantRoles = roleProcessingService
-            .GetAllSSORoles()
-            .Where(predicate: role => role.TenantId == deletedTenant.Id)
-            .ToArray();
-
-        SSOUserRole[] userRoles = userRoleProcessingService
-            .GetAllSSOUserRoles()
-            .Where(predicate: userRole => tenantRoles
-                .Select(selector: tenantRole => tenantRole.Id)
-                .Contains(value: userRole.RoleId))
-            .ToArray();
-
-        TenantAnalysis[] tenantAnalysis = tenantAnalysisProcessingService
-            .GetAllTenantAnalyses()
-            .Where(predicate: analysis =>
-                analysis.TenantId == deletedTenant.Id)
-            .ToArray();
-
-        foreach (TenantAnalysis analysis in tenantAnalysis)
+        foreach (ITenantDeletingHandler handler in tenantDeletingHandlers ?? [])
         {
-            await tenantAnalysisProcessingService.DeleteTenantAnalysisAsync(
-                item: analysis);
+            await handler.HandleAsync(tenantId: deletedTenant.Id);
         }
 
-        foreach (SSOUserRole userRole in userRoles)
-        {
-            await userRoleProcessingService.DeleteSSOUserRoleAsync(
-                item: userRole);
-        }
-
-        foreach (SSORole role in tenantRoles)
-        {
-            await roleProcessingService.DeleteSSORoleAsync(item: role);
-        }
+        await tenantDeletingCleanupHandler.HandleAsync(tenantId: deletedTenant.Id);
 
         await tenantProcessingService.DeleteTenantAsync(item: deletedTenant);
 

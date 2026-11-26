@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using cCoder.CodeAnalysis.Exposures;
 using cCoder.Security.Brokers.Logging;
 using cCoder.Security.Exposures;
+using cCoder.Security.Services.Aggregations.Interfaces;
+using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,7 @@ using Microsoft.AspNetCore.OData.Query;
 namespace cCoder.Security.Exposures.Controllers;
 
 public class TenantController(
-    ITenantAdministrationManager tenantAdministrationManager,
+    ITenantOrchestrationService tenantOrchestrationService,
     ILoggingBroker loggingBroker)
     : Controller, ICompositionExposure
 {
@@ -29,7 +31,7 @@ public class TenantController(
     {
         try
         {
-            IActionResult successResponse = Ok(value: tenantAdministrationManager.GetAllTenants());
+            IActionResult successResponse = Ok(value: tenantOrchestrationService.GetAllTenants());
 
             loggingBroker.LogInformation(message: "Controller request succeeded.");
 
@@ -85,7 +87,7 @@ public class TenantController(
     {
         try
         {
-            IQueryable<Tenant> result = tenantAdministrationManager
+            IQueryable<Tenant> result = tenantOrchestrationService
                 .GetAllTenants()
                 .Where(predicate: tenant => tenant.Id == key);
 
@@ -160,7 +162,7 @@ public class TenantController(
 
             IActionResult successResponse = StatusCode(
                 statusCode: StatusCodes.Status201Created,
-                value: await tenantAdministrationManager.AddTenantAsync(item: newTenant));
+                value: await tenantOrchestrationService.AddTenantAsync(item: newTenant));
 
             loggingBroker.LogInformation(message: "Controller request succeeded.");
 
@@ -226,7 +228,7 @@ public class TenantController(
 
             updatedTenant.Id = key;
 
-            IActionResult successResponse = Ok(value: await tenantAdministrationManager.UpdateTenantAsync(
+            IActionResult successResponse = Ok(value: await tenantOrchestrationService.UpdateTenantAsync(
                 item: updatedTenant));
 
             loggingBroker.LogInformation(message: "Controller request succeeded.");
@@ -289,7 +291,7 @@ public class TenantController(
                 return BadRequest(modelState: ModelState);
             }
 
-            Tenant tenant = tenantAdministrationManager
+            Tenant tenant = tenantOrchestrationService
                 .GetAllTenants()
                 .FirstOrDefault(predicate: tenant => tenant.Id == key);
 
@@ -300,13 +302,26 @@ public class TenantController(
                 return NotFound();
             }
 
-            await tenantAdministrationManager.DeleteTenantAsync(item: tenant);
+            await tenantOrchestrationService.DeleteTenantAsync(item: tenant);
 
             IActionResult successResponse = NoContent();
 
             loggingBroker.LogInformation(message: "Controller request succeeded.");
 
             return successResponse;
+        }
+        catch (TenantDeletionRejectedException exception)
+        {
+            string reason = exception.Reason switch
+            {
+                TenantDeletionRejection.LinkedApplications => "Cannot delete a tenant with Apps",
+                TenantDeletionRejection.LinkedBucketTree => "Cannot delete a tenant with a bucket tree.",
+                _ => "The tenant still owns dependent resources."
+            };
+
+            loggingBroker.LogWarning(message: reason);
+
+            return BadRequest(error: reason);
         }
         catch (ArgumentException)
         {

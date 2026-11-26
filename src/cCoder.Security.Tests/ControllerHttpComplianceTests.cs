@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using cCoder.Security.Data.Models;
 using cCoder.Security.Brokers.Logging;
@@ -12,6 +13,7 @@ using cCoder.Security.Models.DTOs;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Aggregations.Interfaces;
+using cCoder.Security.Services.Orchestrations.Interfaces;
 using FluentAssertions;
 using System.Security;
 using System.Security.Claims;
@@ -90,12 +92,48 @@ public sealed partial class ControllerHttpComplianceTests
             .NotContain(unexpected: "sensitive");
     }
 
+    [Theory]
+    [InlineData(TenantDeletionRejection.LinkedApplications, "Cannot delete a tenant with Apps")]
+    [InlineData(TenantDeletionRejection.LinkedBucketTree, "Cannot delete a tenant with a bucket tree.")]
+    public async Task DeleteTenant_WhenVetoed_ReturnsSafeReason(
+        TenantDeletionRejection reason,
+        string expectedMessage)
+    {
+        // Given
+        Tenant tenant = new() { Id = "tenant-1" };
+        Mock<ITenantOrchestrationService> service = new(MockBehavior.Strict);
+        Mock<ILoggingBroker> loggingBroker = new();
+
+        service.Setup(expression: service => service.GetAllTenants())
+            .Returns(value: new[] { tenant }.AsQueryable());
+
+        service.Setup(expression: service => service.DeleteTenantAsync(item: tenant))
+            .Returns(value: ValueTask.FromException(exception: new TenantDeletionRejectedException(reason: reason)));
+
+        TenantController controller = new(
+            tenantOrchestrationService: service.Object,
+            loggingBroker: loggingBroker.Object);
+
+        // When
+        IActionResult result = await controller.Delete(key: tenant.Id);
+
+        // Then
+        BadRequestObjectResult response = Assert.IsType<BadRequestObjectResult>(@object: result);
+        Assert.Equal(expected: expectedMessage, actual: response.Value);
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogWarning(
+                message: expectedMessage,
+                args: It.IsAny<object[]>()),
+            times: Times.Once);
+    }
+
     [Fact]
     public async Task PostTenant_WhenSuccessful_ShouldReturnCreated()
     {
         // Given
         Tenant tenant = new();
-        Mock<ITenantAdministrationManager> tenantManager = new();
+        Mock<ITenantOrchestrationService> tenantManager = new();
 
         tenantManager
             .Setup(expression: manager => manager.AddTenantAsync(item: tenant))
@@ -103,7 +141,7 @@ public sealed partial class ControllerHttpComplianceTests
 
         TenantController controller =
             new(
-                tenantAdministrationManager: tenantManager.Object,
+                tenantOrchestrationService: tenantManager.Object,
                 loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
@@ -130,7 +168,7 @@ public sealed partial class ControllerHttpComplianceTests
         // Given
         Tenant tenant = new();
         Exception exception = new(message: "tenant persistence failed");
-        Mock<ITenantAdministrationManager> tenantManager = new();
+        Mock<ITenantOrchestrationService> tenantManager = new();
         Mock<ILoggingBroker> loggingBroker = new();
 
         tenantManager
@@ -138,7 +176,7 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: ValueTask.FromException<Tenant>(exception: exception));
 
         TenantController controller = new(
-            tenantAdministrationManager: tenantManager.Object,
+            tenantOrchestrationService: tenantManager.Object,
             loggingBroker: loggingBroker.Object);
 
         // When
@@ -167,7 +205,7 @@ public sealed partial class ControllerHttpComplianceTests
         // Given
         Tenant tenant = new();
         SecurityException exception = new(message: "access denied");
-        Mock<ITenantAdministrationManager> tenantManager = new();
+        Mock<ITenantOrchestrationService> tenantManager = new();
         Mock<ILoggingBroker> loggingBroker = new();
 
         tenantManager
@@ -175,7 +213,7 @@ public sealed partial class ControllerHttpComplianceTests
             .Returns(value: ValueTask.FromException<Tenant>(exception: exception));
 
         TenantController controller = new(
-            tenantAdministrationManager: tenantManager.Object,
+            tenantOrchestrationService: tenantManager.Object,
             loggingBroker: loggingBroker.Object);
 
         // When

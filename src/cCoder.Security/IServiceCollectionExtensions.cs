@@ -259,7 +259,10 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IAuthenticationAggregationService, AuthenticationAggregationService>();
         services.AddTransient<IAuthenticationManager, AuthenticationManager>();
         services.AddTransient<ISecurityCurrentUserManager, SecurityCurrentUserManager>();
-        services.AddTransient<ITenantAggregationService, TenantAggregationService>();
+        services.AddTransient<ITenantOrchestrationService, TenantOrchestrationService>();
+        services.AddTransient<ITenantAggregationService>(
+            implementationFactory: provider => provider.GetRequiredService<ITenantOrchestrationService>());
+        services.AddTransient<cCoder.Security.Events.ITenantDeletingCleanupHandler, cCoder.Security.Events.TenantDeletingCleanupHandler>();
         services.AddTransient<ITenantAdministrationManager, TenantAdministrationManager>();
         services.AddTransient<ISSOUserAggregationService, SSOUserAggregationService>();
         services.AddTransient<ISSOUserManager, SSOUserManager>();

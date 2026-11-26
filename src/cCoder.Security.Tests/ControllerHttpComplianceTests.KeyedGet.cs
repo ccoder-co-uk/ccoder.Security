@@ -130,13 +130,13 @@ public sealed partial class ControllerHttpComplianceTests
     {
         // Given
         Tenant expectedTenant = new() { Id = "tenant" };
-        Mock<ITenantAdministrationManager> manager = new();
+        Mock<ITenantOrchestrationService> manager = new();
 
         manager.Setup(expression: instance => instance.GetAllTenants())
             .Returns(value: new[] { expectedTenant }.AsQueryable());
 
         TenantController controller = new(
-            tenantAdministrationManager: manager.Object,
+            tenantOrchestrationService: manager.Object,
             loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When

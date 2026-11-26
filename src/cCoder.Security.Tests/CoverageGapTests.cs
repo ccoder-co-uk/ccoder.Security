@@ -13,6 +13,7 @@ using cCoder.Security.Brokers.Caching;
 using cCoder.Security.Models;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Services.Aggregations;
+using cCoder.Security.Services.Orchestrations;
 using cCoder.Security.Brokers.Encryption.Interfaces;
 using cCoder.Security.Services.Foundations.Interfaces;
 using cCoder.Security.Services.Processings;
@@ -62,11 +63,25 @@ public sealed partial class CoverageGapTests
         Mock<IAuthorizationProcessingService> authorization = new(MockBehavior.Strict);
         Mock<ITenantAnalysisProcessingService> analyses = new(MockBehavior.Strict);
         Mock<ITenantDeletedEventBroker> tenantDeletedEvents = new(MockBehavior.Strict);
+        Mock<cCoder.Security.Exposures.ITenantDeletingHandler> coreGuard = new(MockBehavior.Strict);
+        Mock<cCoder.Security.Exposures.ITenantDeletingHandler> b2bGuard = new(MockBehavior.Strict);
+        MockSequence deletionOrder = new();
 
         authorization
+            .InSequence(sequence: deletionOrder)
             .Setup(expression: service =>
                 service.EnsureUserIsPortalAdminWithPrivilege(
                     privilege: "tenant_delete"));
+
+        coreGuard
+            .InSequence(sequence: deletionOrder)
+            .Setup(expression: handler => handler.HandleAsync(tenant.Id))
+            .Returns(value: ValueTask.CompletedTask);
+
+        b2bGuard
+            .InSequence(sequence: deletionOrder)
+            .Setup(expression: handler => handler.HandleAsync(tenant.Id))
+            .Returns(value: ValueTask.CompletedTask);
 
         authorization
             .Setup(expression: service => service.GetAuthorizationContext())
@@ -88,36 +103,45 @@ public sealed partial class CoverageGapTests
             .Returns(value: new[] { analysis }.AsQueryable());
 
         analyses
+            .InSequence(sequence: deletionOrder)
             .Setup(expression: service =>
                 service.DeleteTenantAnalysisAsync(item: analysis))
             .Returns(value: ValueTask.CompletedTask);
 
         userRoles
+            .InSequence(sequence: deletionOrder)
             .Setup(expression: service =>
                 service.DeleteSSOUserRoleAsync(item: userRole))
             .Returns(value: ValueTask.CompletedTask);
 
         roles
+            .InSequence(sequence: deletionOrder)
             .Setup(expression: service => service.DeleteSSORoleAsync(item: role))
             .Returns(value: ValueTask.CompletedTask);
 
         tenants
+            .InSequence(sequence: deletionOrder)
             .Setup(expression: service => service.DeleteTenantAsync(item: tenant))
             .Returns(value: ValueTask.CompletedTask);
 
         tenantDeletedEvents
+            .InSequence(sequence: deletionOrder)
             .Setup(expression: broker => broker.RaiseTenantDeletedEventAsync(
                 message: It.IsAny<cCoder.Eventing.Models.EventMessage<cCoder.Security.Models.Events.SecurityAccountEvent>>()))
             .Returns(value: ValueTask.CompletedTask);
 
-        TenantAggregationService service = new(
+        TenantOrchestrationService service = new(
             tenantProcessingService: tenants.Object,
             userProcessingService: users.Object,
             roleProcessingService: roles.Object,
             userRoleProcessingService: userRoles.Object,
             authorizationProcessingService: authorization.Object,
-            tenantAnalysisProcessingService: analyses.Object,
-            tenantDeletedEventBroker: tenantDeletedEvents.Object);
+            tenantDeletingCleanupHandler: new cCoder.Security.Events.TenantDeletingCleanupHandler(
+                roleProcessingService: roles.Object,
+                userRoleProcessingService: userRoles.Object,
+                tenantAnalysisProcessingService: analyses.Object),
+            tenantDeletedEventBroker: tenantDeletedEvents.Object,
+            tenantDeletingHandlers: [coreGuard.Object, b2bGuard.Object]);
 
         // When
 
