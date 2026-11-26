@@ -481,6 +481,21 @@ public partial class ControllerCoverageTests
         return constructor.Invoke(parameters: arguments);
     }
 
+    [Fact]
+    public void GeneratedEnumerableCanBeEnumeratedToCompletion()
+    {
+        // Given
+        Type enumerableType = typeof(IEnumerable<string>);
+
+        // When
+        IEnumerable<string> values = (IEnumerable<string>)CreateValue(type: enumerableType);
+        using IEnumerator<string> enumerator = values.GetEnumerator();
+
+        // Then
+        bool hasItem = enumerator.MoveNext();
+        Assert.False(condition: hasItem);
+    }
+
     private static object CreateValue(Type type)
     {
         if (type == typeof(CancellationToken))
@@ -549,6 +564,13 @@ public partial class ControllerCoverageTests
         {
             Array enumValues = Enum.GetValues(enumType: type);
             return enumValues.GetValue(index: enumValues.Length > 1 ? 1 : 0);
+        }
+
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+        {
+            return Array.CreateInstance(
+                elementType: type.GenericTypeArguments[0],
+                length: 0);
         }
 
         if (type.IsInterface)

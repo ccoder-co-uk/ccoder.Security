@@ -6,9 +6,9 @@ using System;
 using System.Linq;
 using cCoder.Security.Models.Entities;
 
-namespace cCoder.Security.Services.Aggregations;
+namespace cCoder.Security.Services.Orchestrations;
 
-internal sealed partial class TenantAggregationService
+internal sealed partial class TenantOrchestrationService
 {
     private static void Validate(params object[] inputs)
     {

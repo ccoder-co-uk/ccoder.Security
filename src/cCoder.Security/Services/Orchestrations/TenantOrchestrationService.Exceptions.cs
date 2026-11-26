@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 using cCoder.Security.Models.Exceptions;
 
-namespace cCoder.Security.Services.Aggregations;
+namespace cCoder.Security.Services.Orchestrations;
 
-internal sealed partial class TenantAggregationService
+internal sealed partial class TenantOrchestrationService
 {
     private static T TryCatch<T>(Func<T> operation)
     {
@@ -44,6 +44,10 @@ internal sealed partial class TenantAggregationService
         try
         {
             await operation();
+        }
+        catch (TenantDeletionRejectedException)
+        {
+            throw;
         }
         catch (ArgumentException innerException)
         {
