@@ -10,7 +10,6 @@ using System.ComponentModel.DataAnnotations;
 using cCoder.Eventing.Models;
 using cCoder.Security.Brokers.Events;
 using cCoder.Security.Exposures;
-using cCoder.Security.Events;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Events;
 using cCoder.Security.Services.Orchestrations.Interfaces;
@@ -25,7 +24,6 @@ internal sealed partial class TenantOrchestrationService(
     ISSORoleProcessingService roleProcessingService,
     ISSOUserRoleProcessingService userRoleProcessingService,
     IAuthorizationProcessingService authorizationProcessingService,
-    ITenantDeletingCleanupHandler tenantDeletingCleanupHandler,
     ITenantDeletedEventBroker tenantDeletedEventBroker,
     IEnumerable<ITenantDeletingHandler> tenantDeletingHandlers = null)
         : ITenantOrchestrationService
@@ -130,8 +128,6 @@ internal sealed partial class TenantOrchestrationService(
         {
             await handler.HandleAsync(tenantId: deletedTenant.Id);
         }
-
-        await tenantDeletingCleanupHandler.HandleAsync(tenantId: deletedTenant.Id);
 
         await tenantProcessingService.DeleteTenantAsync(item: deletedTenant);
 
