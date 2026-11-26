@@ -15,6 +15,7 @@ public sealed class TenantDeletionRejectedException(TenantDeletionRejection reas
 
 public enum TenantDeletionRejection
 {
+    DependentResource,
     LinkedApplications,
     LinkedBucketTree
 }

@@ -59,9 +59,13 @@ public sealed partial class CoverageGapTests
         Mock<ISSOUserRoleProcessingService> userRoles = new(MockBehavior.Strict);
         Mock<IAuthorizationProcessingService> authorization = new(MockBehavior.Strict);
         Mock<ITenantDeletedEventBroker> tenantDeletedEvents = new(MockBehavior.Strict);
-        Mock<cCoder.Security.Exposures.ITenantDeletingHandler> coreGuard = new(MockBehavior.Strict);
-        Mock<cCoder.Security.Exposures.ITenantDeletingHandler> b2bGuard = new(MockBehavior.Strict);
+        Mock<cCoder.Eventing.ILocalEventHandler<string>> coreGuard = new(MockBehavior.Strict);
+        Mock<cCoder.Eventing.ILocalEventHandler<string>> b2bGuard = new(MockBehavior.Strict);
+        Mock<cCoder.Eventing.Brokers.ILocalEventBroker> localEvents = new(MockBehavior.Strict);
         MockSequence deletionOrder = new();
+
+        localEvents.Setup(expression: broker => broker.GetHandlers<string>(name: "tenant_delete"))
+            .Returns(value: [coreGuard.Object, b2bGuard.Object]);
 
         authorization
             .InSequence(sequence: deletionOrder)
@@ -104,7 +108,7 @@ public sealed partial class CoverageGapTests
             userRoleProcessingService: userRoles.Object,
             authorizationProcessingService: authorization.Object,
             tenantDeletedEventBroker: tenantDeletedEvents.Object,
-            tenantDeletingHandlers: [coreGuard.Object, b2bGuard.Object]);
+            localEventBroker: localEvents.Object);
 
         // When
 

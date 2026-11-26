@@ -9,7 +9,9 @@ using cCoder.Security.Services.Aggregations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
 using cCoder.Security.Brokers.Events;
-using cCoder.Security.Exposures;
+using cCoder.Eventing;
+using cCoder.Eventing.Brokers;
+using cCoder.Eventing.Models.Exceptions;
 using cCoder.Security.Models.Exceptions;
 using System;
 using System.Threading.Tasks;
@@ -25,7 +27,7 @@ public partial class TenantAggregationServiceTests
     private readonly Mock<ISSOUserRoleProcessingService> userRoleProcessingServiceMock;
     private readonly Mock<IAuthorizationProcessingService> authorizationProcessingServiceMock;
     private readonly Mock<ITenantDeletedEventBroker> tenantDeletedEventBrokerMock;
-    private readonly Mock<ITenantDeletingHandler> tenantDeletingHandlerMock;
+    private readonly Mock<ILocalEventHandler<string>> tenantDeletingHandlerMock;
     private readonly ITenantAggregationService tenantAggregationService;
 
     public TenantAggregationServiceTests()
@@ -44,7 +46,11 @@ public partial class TenantAggregationServiceTests
 
         tenantDeletedEventBrokerMock =
             new Mock<ITenantDeletedEventBroker>(MockBehavior.Strict);
-        tenantDeletingHandlerMock = new Mock<ITenantDeletingHandler>(MockBehavior.Strict);
+        tenantDeletingHandlerMock = new Mock<ILocalEventHandler<string>>(MockBehavior.Strict);
+        Mock<ILocalEventBroker> localEvents = new(MockBehavior.Strict);
+
+        localEvents.Setup(expression: broker => broker.GetHandlers<string>(name: "tenant_delete"))
+            .Returns(value: [tenantDeletingHandlerMock.Object]);
 
         tenantDeletedEventBrokerMock
             .Setup(expression: broker => broker.RaiseTenantDeletedEventAsync(
@@ -60,7 +66,7 @@ public partial class TenantAggregationServiceTests
                 authorizationProcessingServiceMock.Object,
             tenantDeletedEventBroker:
                 tenantDeletedEventBrokerMock.Object,
-            tenantDeletingHandlers: [tenantDeletingHandlerMock.Object]);
+            localEventBroker: localEvents.Object);
     }
 
     [Xunit.Fact]
@@ -71,8 +77,8 @@ public partial class TenantAggregationServiceTests
         authorizationProcessingServiceMock.InSequence(sequence)
             .Setup(service => service.EnsureUserIsPortalAdminWithPrivilege("tenant_delete"));
         tenantDeletingHandlerMock.InSequence(sequence)
-            .Setup(handler => handler.HandleAsync(tenant.Id))
-            .ThrowsAsync(new TenantDeletionRejectedException(reason: TenantDeletionRejection.LinkedBucketTree));
+            .Setup(handler => handler.HandleAsync(data: tenant.Id))
+            .Returns(value: ValueTask.FromException(exception: new LocalEventRejectedException(code: "linked_bucket_tree")));
 
         await Xunit.Assert.ThrowsAsync<TenantDeletionRejectedException>(
             async () => await tenantAggregationService.DeleteTenantAsync(tenant));

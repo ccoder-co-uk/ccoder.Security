@@ -3,15 +3,17 @@
 // ---------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using cCoder.Eventing;
+using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using cCoder.Security.Brokers.Events;
-using cCoder.Security.Exposures;
 using cCoder.Security.Models.Entities;
 using cCoder.Security.Models.Events;
+using cCoder.Security.Models.Exceptions;
 using cCoder.Security.Services.Orchestrations.Interfaces;
 using cCoder.Security.Services.Processings;
 using cCoder.Security.Services.Processings.Interfaces;
@@ -25,7 +27,7 @@ internal sealed partial class TenantOrchestrationService(
     ISSOUserRoleProcessingService userRoleProcessingService,
     IAuthorizationProcessingService authorizationProcessingService,
     ITenantDeletedEventBroker tenantDeletedEventBroker,
-    IEnumerable<ITenantDeletingHandler> tenantDeletingHandlers = null)
+    ILocalEventBroker localEventBroker)
         : ITenantOrchestrationService
 {
     public IQueryable<Tenant> GetAllTenants() =>
@@ -124,9 +126,20 @@ internal sealed partial class TenantOrchestrationService(
             .EnsureUserIsPortalAdminWithPrivilege(
                 privilege: "tenant_delete");
 
-        foreach (ITenantDeletingHandler handler in tenantDeletingHandlers ?? [])
+        try
         {
-            await handler.HandleAsync(tenantId: deletedTenant.Id);
+            await localEventBroker.DispatchAsync(name: "tenant_delete", data: deletedTenant.Id);
+        }
+        catch (LocalEventRejectedException rejection)
+        {
+            TenantDeletionRejection reason = rejection.Code switch
+            {
+                "linked_apps" => TenantDeletionRejection.LinkedApplications,
+                "linked_bucket_tree" => TenantDeletionRejection.LinkedBucketTree,
+                _ => TenantDeletionRejection.DependentResource
+            };
+
+            throw new TenantDeletionRejectedException(reason: reason);
         }
 
         await tenantProcessingService.DeleteTenantAsync(item: deletedTenant);
